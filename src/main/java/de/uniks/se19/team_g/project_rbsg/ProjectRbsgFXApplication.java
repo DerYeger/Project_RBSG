@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -41,6 +42,7 @@ public class ProjectRbsgFXApplication extends Application {
         this.context = new SpringApplicationBuilder()
                 .sources(ProjectRbsgApplication.class)
                 .initializers(contextInitializer)
+                .web(WebApplicationType.NONE)
                 .run(getParameters().getRaw().toArray(new String[0]));
     }
 
