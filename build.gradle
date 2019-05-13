@@ -38,15 +38,3 @@ javafx {
 	version = '11.0.2'
 	modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
-
-
-//creates a fat jar for multiplatform deployment
-jar {
-	manifest {
-		attributes 'Main-Class': 'de.uniks.se19.team_g.project_rbsg.ProjectRbsgApplication'
-	}
-	from {
-		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-	}
-}
-
