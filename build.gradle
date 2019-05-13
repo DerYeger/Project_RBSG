@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.4.RELEASE'
-	id 'java'
+	id 'application'
+	id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -8,6 +9,7 @@ apply plugin: 'io.spring.dependency-management'
 group = 'de.uniks.se19.team_g'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+mainClassName = 'de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication'
 
 configurations {
 	compileOnly {
@@ -24,4 +26,17 @@ dependencies {
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//javafx 11 components for multiplatform deployment
+	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:win'
+	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:linux'
+	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:mac'
+
+	testCompile group: 'org.testfx', name: 'testfx-core', version: '4.0.15-alpha'
+	testCompile group: 'org.testfx', name: 'testfx-junit', version: '4.0.15-alpha'
+}
+
+javafx {
+	version = '11.0.2'
+	modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
