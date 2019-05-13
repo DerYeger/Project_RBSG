@@ -13,10 +13,13 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
+/**
+ * @author Jan Müller
+ */
 public class ProjectRbsgFXApplication extends Application {
 
-    private static final int WIDTH = 1336;
-    private static final int HEIGHT = 768;
+    public static final int WIDTH = 1336;
+    public static final int HEIGHT = 768;
 
     private ConfigurableApplicationContext context;
 
@@ -24,6 +27,9 @@ public class ProjectRbsgFXApplication extends Application {
         launch(args);
     }
 
+    /**
+     * Initializes the Spring context with passed arguments
+     */
     @Override
     public void init() {
         ApplicationContextInitializer<GenericApplicationContext> contextInitializer = applicationContext -> {
@@ -46,8 +52,8 @@ public class ProjectRbsgFXApplication extends Application {
 
         Scene scene = new Scene(pane);
 
-        primaryStage.setWidth(1336);
-        primaryStage.setHeight(768);
+        primaryStage.setWidth(WIDTH);
+        primaryStage.setHeight(HEIGHT);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
 
