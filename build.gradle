@@ -29,9 +29,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	//javafx 11 components for multiplatform deployment
-	runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:win"
-	runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:linux"
-	runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:mac"
+	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:win'
+	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:linux'
+	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:mac'
+
+	testCompile group: 'org.testfx', name: 'testfx-core', version: '4.0.15-alpha'
+	testCompile group: 'org.testfx', name: 'testfx-junit', version: '4.0.15-alpha'
 }
 
 javafx {
