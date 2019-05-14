@@ -12,6 +12,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +38,7 @@ public class ProjectRbsgFXApplication extends Application {
      */
     @Override
     public void init() {
-        ApplicationContextInitializer<GenericApplicationContext> contextInitializer = applicationContext -> {
+        ApplicationContextInitializer<AnnotationConfigApplicationContext> contextInitializer = applicationContext -> {
             applicationContext.registerBean(Parameters.class, this::getParameters);
             applicationContext.registerBean(HostServices.class, this::getHostServices);
         };
