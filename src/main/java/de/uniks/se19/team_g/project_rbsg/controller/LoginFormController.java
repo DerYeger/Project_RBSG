@@ -49,13 +49,14 @@ public class LoginFormController {
         if (user != null){
            RegistrationManager registrationManager = new RegistrationManager();
            HashMap<String, Object> answer = registrationManager.onRegistration(user);
+           String messageFromServer = (String) answer.get("message");
            if (answer.get("status").equals("success")){
                //loginManager.onLogin();
            } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")){
                Alert alert = new Alert(Alert.AlertType.ERROR);
                alert.setTitle("Fehler");
                alert.setHeaderText("Fehler bei der Registrierung");
-               alert.setContentText("Dieser Benutzer ist bereits registriert");
+               alert.setContentText(messageFromServer);
                alert.showAndWait();
            }
        }
