@@ -13,10 +13,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Jan Müller
  */
+@Component
 public class ProjectRbsgFXApplication extends Application {
 
     public static final int WIDTH = 1336;
@@ -34,7 +38,6 @@ public class ProjectRbsgFXApplication extends Application {
     @Override
     public void init() {
         ApplicationContextInitializer<GenericApplicationContext> contextInitializer = applicationContext -> {
-            applicationContext.registerBean(Application.class, () -> ProjectRbsgFXApplication.this);
             applicationContext.registerBean(Parameters.class, this::getParameters);
             applicationContext.registerBean(HostServices.class, this::getHostServices);
         };
@@ -48,7 +51,7 @@ public class ProjectRbsgFXApplication extends Application {
 
 
     @Override
-    public void start(final Stage primaryStage) {
+    public void start(@NotNull final Stage primaryStage) {
         Pane pane = new Pane();
         pane.setBackground(new Background(SplashImageBuilder.getSplashImage()));
 
