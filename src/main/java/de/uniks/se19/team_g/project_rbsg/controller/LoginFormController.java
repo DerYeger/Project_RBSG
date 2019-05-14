@@ -58,8 +58,6 @@ public class LoginFormController {
                alert.setContentText("Dieser Benutzer ist bereits registriert");
                alert.showAndWait();
            }
-
-
        }
     }
 
