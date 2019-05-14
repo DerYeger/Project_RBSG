@@ -8,9 +8,9 @@ import java.io.IOException;
 
 public class LoginFormBuilder {
 
-    private static Node loginForm;
+    private Node loginForm;
 
-    public static Node getLoginForm() throws IOException {
+    public Node getLoginForm() throws IOException {
         if (loginForm == null) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(LoginFormBuilder.class.getResource("login-form.fxml"));
