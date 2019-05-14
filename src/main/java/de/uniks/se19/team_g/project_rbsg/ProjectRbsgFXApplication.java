@@ -53,7 +53,7 @@ public class ProjectRbsgFXApplication extends Application {
 
 
     @Override
-    public void start(final Stage primaryStage) throws IOException {
+    public void start(@NotNull final Stage primaryStage) throws IOException {
         final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), new LoginFormBuilder()).getLoginScene();
 
         primaryStage.setWidth(WIDTH);
