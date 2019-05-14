@@ -20,8 +20,7 @@ public class RegistrationManagerTest {
         RegistrationManager registrationManager = new RegistrationManager(
                 new RestTemplate() {
                     @Override
-                    public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType,
-                                               Object... uriVariables) throws RestClientException {
+                    public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
                         Assert.assertTrue(request instanceof User);
                         Assert.assertEquals(url, "https://rbsg.uniks.de/api/user");
 
@@ -31,8 +30,8 @@ public class RegistrationManagerTest {
                     }
                 }
         );
-        boolean registrationAnswer = registrationManager.onRegistration(testUser);
-        Assert.assertTrue(registrationAnswer);
+        HashMap<String, Object> registrationAnswer = registrationManager.onRegistration(testUser);
+        Assert.assertNotNull(registrationAnswer);
 
     }
 }

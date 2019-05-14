@@ -3,3 +3,17 @@
   "message": "User created",
   "data": {}
 }
+
+{
+  "status": "failure",
+  "message": "Name already taken",
+  "data": {}
+}
+
+{
+  "status": "failure",
+  "message": "Missing name",
+  "data": {}
+}
+
+

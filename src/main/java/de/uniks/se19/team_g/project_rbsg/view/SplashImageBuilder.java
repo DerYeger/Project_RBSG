@@ -9,10 +9,10 @@ import javafx.scene.layout.*;
  */
 public class SplashImageBuilder {
 
-    private static BackgroundImage backgroundImage;
+    private BackgroundImage backgroundImage;
 
 
-    public static BackgroundImage getSplashImage() {
+    public BackgroundImage getSplashImage() {
         if (backgroundImage == null) {
             final String url = SplashImageBuilder.class.getResource("splash.jpg").toString();
 
