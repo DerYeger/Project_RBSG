@@ -20,7 +20,6 @@ public class LoginMangerTest {
         Assert.assertEquals(json.getObject().getString("status"), "success");
         Assert.assertNotNull(user.getUserKey());
 
-
     }
 
 }
