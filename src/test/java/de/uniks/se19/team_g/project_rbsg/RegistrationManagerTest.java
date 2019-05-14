@@ -1,26 +1,20 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.Model.User;
+import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 public class RegistrationManagerTest {
 
     @Test
     public void onRegistrationTest(){
         User testUser = new User("Keanu", "geheim");
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File("json/testPerson.json"), testUser);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        RegistrationManager registrationManager = new RegistrationManager(new TestClient());
-        registrationManager.onRegistration(testUser);
-
+        RegistrationManager registrationManager = new RegistrationManager();
+        boolean registrationAnswer = registrationManager.onRegistration(testUser);
+        Assert.assertTrue(registrationAnswer);
 
     }
 }
