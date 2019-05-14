@@ -18,6 +18,8 @@ public class LoginFormBuilder {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(LoginFormBuilder.class.getResource("login-form.fxml"));
             LoginFormController loginFormController = fxmlLoader.getController();
+            loginFormController.init();
+
             loginForm = fxmlLoader.load();
         }
         return loginForm;
