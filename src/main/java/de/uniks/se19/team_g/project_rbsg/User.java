@@ -1,5 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+/**
+ * @author Keanu Stückrad
+ */
 public class User {
 
     private String name;
@@ -8,7 +11,7 @@ public class User {
 
     private String userKey;
 
-    public User(String name, String password){
+    public User(final String name, final String password){
         this.name = name;
         this.password = password;
     }
@@ -25,7 +28,7 @@ public class User {
         return name;
     }
 
-    public void setUserKey(String userKey) {
+    public void setUserKey(final String userKey) {
         this.userKey = userKey;
     }
 }
