@@ -15,6 +15,6 @@ public class LoginSceneBuilderTests extends ApplicationTest {
         final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder).getLoginScene();
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
-        Assert.assertNotNull(scene.getRoot().getChildrenUnmodifiable().contains(loginFormBuilder.getLoginForm()));
+        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(loginFormBuilder.getLoginForm()));
     }
 }
