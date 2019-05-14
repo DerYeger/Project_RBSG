@@ -1,0 +1,4 @@
+logging:
+  level:
+    root: INFO
+    de.uniks.se19.team_g.project_rbsg: DEBUG

@@ -7,11 +7,9 @@ import org.testfx.framework.junit.ApplicationTest;
 
 public class SplashImageBuilderTest extends ApplicationTest {
 
-    private BackgroundImage backgroundImage;
-
     @Test
     public void testGetSplashImage() {
-        backgroundImage = SplashImageBuilder.getSplashImage();
+        final BackgroundImage backgroundImage = new SplashImageBuilder().getSplashImage();
         Assert.assertNotNull(backgroundImage);
         Assert.assertNotNull(backgroundImage.getImage());
         Assert.assertTrue(backgroundImage.getImage().getProgress() == 1 && !backgroundImage.getImage().isError());
