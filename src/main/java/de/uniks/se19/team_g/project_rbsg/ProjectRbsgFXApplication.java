@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -12,6 +14,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+
+import java.io.IOException;
 
 /**
  * @author Jan Müller
@@ -46,11 +50,8 @@ public class ProjectRbsgFXApplication extends Application {
 
 
     @Override
-    public void start(final Stage primaryStage) {
-        Pane pane = new Pane();
-        pane.setBackground(new Background(SplashImageBuilder.getSplashImage()));
-
-        Scene scene = new Scene(pane);
+    public void start(final Stage primaryStage) throws IOException {
+        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), new LoginFormBuilder()).getLoginScene();
 
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
