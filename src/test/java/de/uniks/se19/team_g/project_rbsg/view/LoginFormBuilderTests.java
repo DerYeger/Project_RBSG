@@ -10,7 +10,7 @@ import java.io.IOException;
 public class LoginFormBuilderTests extends ApplicationTest {
 
     @Test
-    public void test() throws IOException {
+    public void testGetLoginForm() throws IOException {
         final Node loginForm = new LoginFormBuilder().getLoginForm();
         Assert.assertNotNull(loginForm);
     }
