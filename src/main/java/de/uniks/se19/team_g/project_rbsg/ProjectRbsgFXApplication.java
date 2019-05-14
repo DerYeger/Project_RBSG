@@ -53,7 +53,7 @@ public class ProjectRbsgFXApplication extends Application {
     @Override
     public void start(@NotNull final Stage primaryStage) {
         Pane pane = new Pane();
-        pane.setBackground(new Background(SplashImageBuilder.getSplashImage()));
+        pane.setBackground(new Background(new SplashImageBuilder().getSplashImage()));
 
         Scene scene = new Scene(pane);
 
