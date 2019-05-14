@@ -6,6 +6,9 @@ import javafx.scene.Node;
 
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ */
 public class LoginFormBuilder {
 
     private Node loginForm;

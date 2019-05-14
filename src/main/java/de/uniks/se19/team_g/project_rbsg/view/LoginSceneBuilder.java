@@ -8,6 +8,12 @@ import javafx.scene.layout.StackPane;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ * Returns a Scene using a StackPane as the root node.
+ * The StackPane uses the background provided by the passed SplashImageBuilder.
+ * Its only child is the Node provided by the LoginFormBuilder.
+ */
 public class LoginSceneBuilder {
 
     private Scene loginScene;
