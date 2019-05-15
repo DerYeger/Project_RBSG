@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import javafx.event.ActionEvent;
@@ -40,16 +41,18 @@ public class LoginFormController {
 
     private void loginAction(@NotNull final ActionEvent event){
         try {
-            if (nameField.getText() != null && passwordField.getText() != null) {
+            if (nameField.getText() != null && passwordField != null) {
                 User user = LoginManager.onLogin(new User(nameField.getText(), passwordField.getText()));
                 if (user != null) {
                     onLogin(user);
                 }
             }
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            LoginManager.noConnectionAlert();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LoginManager.noConnectionAlert();
+        } catch (UnirestException e) {
+            LoginManager.noConnectionAlert();
         }
     }
 
@@ -58,7 +61,7 @@ public class LoginFormController {
     }
 
     public void onLogin(@NonNull User user) {
-        // Szenenwechsel zur Lobby fehlt
+        // change scene here...
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Platzhalter");
         alert.setHeaderText("Login erfolgreich");
