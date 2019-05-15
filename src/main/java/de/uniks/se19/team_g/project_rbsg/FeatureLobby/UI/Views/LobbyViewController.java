@@ -29,6 +29,10 @@ public class LobbyViewController implements Initializable
 
     private ListView<Player> lobbyPlayerListView;
 
+    public ILobbyViewModel getViewModel() {
+        return viewModel;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {

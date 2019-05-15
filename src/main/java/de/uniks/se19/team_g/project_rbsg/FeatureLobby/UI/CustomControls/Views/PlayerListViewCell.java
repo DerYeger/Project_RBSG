@@ -24,7 +24,7 @@ public class PlayerListViewCell extends ListCell<Player>
     private ImageView playerListCellImageView;
 
     @FXML
-    private GridPane playerListCellgridPane;
+    private GridPane playerListCellGridPane;
 
     private FXMLLoader fxmlLoader;
 
@@ -44,8 +44,6 @@ public class PlayerListViewCell extends ListCell<Player>
             {
                 fxmlLoader = new FXMLLoader(getClass().getResource("PlayerListCell.fxml"));
                 fxmlLoader.setController(this);
-
-
                 try
                 {
                     fxmlLoader.load();
@@ -56,12 +54,29 @@ public class PlayerListViewCell extends ListCell<Player>
                 }
             }
 
+//            playerListCellGridPane = (GridPane) fxmlLoader.getRoot();
+//            playerListCellLabel = (Label) playerListCellGridPane.lookup("#playerListCellLabel");
+//            playerListCellImageView = (ImageView) playerListCellGridPane.lookup("#playerListCellImageView");
+
+
+            if(playerListCellLabel == null) {
+                System.out.println("PlayerListCellLabel is null");
+            }
+
+            if(playerListCellImageView == null) {
+                System.out.println("PlayerListCellImageView is null");
+            }
+
+            if(playerListCellGridPane == null) {
+                System.out.println("PlayerListCellGridPane is null");
+            }
             playerListCellLabel.setText(player.getName());
             Image image = new Image(String.valueOf(getClass().getResource("Images/" + player.getImagePath())));
+
             playerListCellImageView.setImage(image);
 
             setText(null);
-            setGraphic(playerListCellgridPane);
+            setGraphic(playerListCellGridPane);
         }
     }
 }
