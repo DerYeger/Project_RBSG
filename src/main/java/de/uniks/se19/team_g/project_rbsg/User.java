@@ -6,9 +6,7 @@ package de.uniks.se19.team_g.project_rbsg;
 public class User {
 
     private String name;
-
     private String password;
-
     private String userKey;
 
     public User(final String name, final String password){
