@@ -45,4 +45,5 @@ public class RegistrationManagerTest {
         }
         Assert.assertEquals("success", string.get());
     }
+
 }

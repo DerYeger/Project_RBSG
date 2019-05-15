@@ -28,18 +28,7 @@ public class RegistrationManager {
         this.restTemplate = restTemplate;
     }
 
-    public HashMap<String, Object> onRegistration(@NonNull User user){
-
-        try {
-            return CompletableFuture.supplyAsync(() -> {
-                HashMap<String, Object> serverAnswer = restTemplate.postForObject(uri, user, HashMap.class);
-                return serverAnswer;
-            }).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public CompletableFuture onRegistration(@NonNull User user){
+        return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, user, HashMap.class));
     }
 }

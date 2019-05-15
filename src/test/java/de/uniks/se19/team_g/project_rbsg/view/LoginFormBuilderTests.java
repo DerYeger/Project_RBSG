@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.view;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class LoginFormBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetLoginForm() throws IOException {
-        final Node loginForm = new LoginFormBuilder(fxmlLoader).getLoginForm();
+        final Node loginForm = new LoginFormBuilder(new FXMLLoader()).getLoginForm();
         Assert.assertNotNull(loginForm);
     }
 }

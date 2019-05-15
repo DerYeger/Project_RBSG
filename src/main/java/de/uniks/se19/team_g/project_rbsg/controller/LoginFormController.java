@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.controller;
 
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 public class LoginFormController {
@@ -53,17 +56,24 @@ public class LoginFormController {
             user = new User(nameField.getText(), passwordField.getText());
         }
         if (user != null){
-            HashMap<String, Object> answer = registrationManager.onRegistration(user);
-           String messageFromServer = (String) answer.get("message");
-           if (answer.get("status").equals("success")){
-               //loginManager.onLogin();
-           } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")){
-               Alert alert = new Alert(Alert.AlertType.ERROR);
-               alert.setTitle("Fehler");
-               alert.setHeaderText("Fehler bei der Registrierung");
-               alert.setContentText(messageFromServer);
-               alert.showAndWait();
-           }
+            CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
+
+            answerPromise.thenAccept(
+              map -> Platform.runLater(() -> onRegistrationReturned(map))
+            );
+        }
+    }
+
+    private void onRegistrationReturned(HashMap<String, Object> answer) {
+        String messageFromServer = (String) answer.get("status");
+        if (answer.get("status").equals("success")){
+           //loginManager.onLogin();
+        } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler");
+            alert.setHeaderText("Fehler bei der Registrierung");
+            alert.setContentText(messageFromServer);
+            alert.showAndWait();
        }
     }
 
