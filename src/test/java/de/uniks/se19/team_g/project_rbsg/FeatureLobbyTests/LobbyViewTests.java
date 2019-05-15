@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.LobbyViewModel;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Views.LobbyViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,11 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import static org.junit.Assert.*;
+
+/**
+ * @author Georg Siebert
+ */
 
 public class LobbyViewTests extends ApplicationTest
 {
@@ -26,10 +27,6 @@ public class LobbyViewTests extends ApplicationTest
         stage.setScene(new Scene(mainNode));
         stage.show();
         stage.toFront();
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test

@@ -5,6 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * @author Georg Siebert
+ */
+
 public class LobbyViewModelTest
 {
     private LobbyViewModel lobbyViewModel;

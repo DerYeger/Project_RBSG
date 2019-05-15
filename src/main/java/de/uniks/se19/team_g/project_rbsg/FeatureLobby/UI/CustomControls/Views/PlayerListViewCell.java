@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.CustomControls.Views;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -54,22 +54,6 @@ public class PlayerListViewCell extends ListCell<Player>
                 }
             }
 
-//            playerListCellGridPane = (GridPane) fxmlLoader.getRoot();
-//            playerListCellLabel = (Label) playerListCellGridPane.lookup("#playerListCellLabel");
-//            playerListCellImageView = (ImageView) playerListCellGridPane.lookup("#playerListCellImageView");
-
-
-            if(playerListCellLabel == null) {
-                System.out.println("PlayerListCellLabel is null");
-            }
-
-            if(playerListCellImageView == null) {
-                System.out.println("PlayerListCellImageView is null");
-            }
-
-            if(playerListCellGridPane == null) {
-                System.out.println("PlayerListCellGridPane is null");
-            }
             playerListCellLabel.setText(player.getName());
             Image image = new Image(String.valueOf(getClass().getResource("Images/" + player.getImagePath())));
 
