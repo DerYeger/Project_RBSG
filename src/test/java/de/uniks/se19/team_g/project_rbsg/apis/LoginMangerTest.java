@@ -17,9 +17,10 @@ public class LoginMangerTest {
     public void loginTest() throws ExecutionException, InterruptedException, JSONException {
 
         User user = new User("MasterChief", "john-117");
-        JsonNode json = LoginManager.onLogin(user);
-        Assert.assertEquals(json.getObject().getString("status"), "success");
-        Assert.assertNotNull(user.getUserKey());
+        User userClone = LoginManager.onLogin(user);
+        Assert.assertNotNull(userClone.getUserKey());
+        Assert.assertEquals(user.getName(), userClone.getName());
+        Assert.assertNull(userClone.getPassword());
 
     }
 
