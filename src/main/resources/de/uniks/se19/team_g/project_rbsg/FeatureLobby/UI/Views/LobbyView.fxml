@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ListView?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Controller.LobbyViewController">
+   <HBox>
+      <VBox>
+         <HBox>
+            <Label fx:id="lobbyTitle" text="Label"/>
+         </HBox>
+      </VBox>
+      <VBox>
+         <ListView fx:id="lobbyUserListView">
+
+         </ListView>
+      </VBox>
+   </HBox>
+</AnchorPane>
