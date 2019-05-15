@@ -16,6 +16,12 @@ public class User {
         this.password = password;
     }
 
+    // Constructor for UserClone
+    public User(@NonNull final User user, @NonNull final String userKey){
+        this.name = user.getName();
+        this.userKey = userKey;
+    }
+
     public String getUserKey() {
         return userKey;
     }
@@ -28,7 +34,4 @@ public class User {
         return name;
     }
 
-    public void setUserKey(final String userKey) {
-        this.userKey = userKey;
-    }
 }
