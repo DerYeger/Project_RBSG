@@ -1,6 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg;
+package de.uniks.se19.team_g.project_rbsg.apis;
 
 import com.mashape.unirest.http.JsonNode;
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;

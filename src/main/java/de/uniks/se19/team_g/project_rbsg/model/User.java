@@ -1,4 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg;
+package de.uniks.se19.team_g.project_rbsg.model;
+
+import org.springframework.lang.NonNull;
 
 /**
  * @author Keanu Stückrad
@@ -9,7 +11,7 @@ public class User {
     private String password;
     private String userKey;
 
-    public User(final String name, final String password){
+    public User(@NonNull final String name, @NonNull final String password){
         this.name = name;
         this.password = password;
     }
