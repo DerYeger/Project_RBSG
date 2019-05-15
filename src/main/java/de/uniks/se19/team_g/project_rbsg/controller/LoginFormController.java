@@ -28,6 +28,12 @@ public class LoginFormController {
     @FXML
     private Button registerButton;
 
+    private final RegistrationManager registrationManager;
+
+    public LoginFormController(RegistrationManager registrationManager) {
+        this.registrationManager = registrationManager;
+    }
+
     public void init() {
         addEventListeners();
     }
@@ -47,8 +53,7 @@ public class LoginFormController {
             user = new User(nameField.getText(), passwordField.getText());
         }
         if (user != null){
-           RegistrationManager registrationManager = new RegistrationManager();
-           HashMap<String, Object> answer = registrationManager.onRegistration(user);
+            HashMap<String, Object> answer = registrationManager.onRegistration(user);
            String messageFromServer = (String) answer.get("message");
            if (answer.get("status").equals("success")){
                //loginManager.onLogin();

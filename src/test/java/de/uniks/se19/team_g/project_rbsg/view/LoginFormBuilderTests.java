@@ -11,7 +11,7 @@ public class LoginFormBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetLoginForm() throws IOException {
-        final Node loginForm = new LoginFormBuilder().getLoginForm();
+        final Node loginForm = new LoginFormBuilder(fxmlLoader).getLoginForm();
         Assert.assertNotNull(loginForm);
     }
 }

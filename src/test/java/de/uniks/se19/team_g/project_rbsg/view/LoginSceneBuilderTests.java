@@ -11,7 +11,7 @@ public class LoginSceneBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetLoginScene() throws IOException {
-        final LoginFormBuilder loginFormBuilder = new LoginFormBuilder();
+        final LoginFormBuilder loginFormBuilder = new LoginFormBuilder(fxmlLoader);
         final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder).getLoginScene();
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());

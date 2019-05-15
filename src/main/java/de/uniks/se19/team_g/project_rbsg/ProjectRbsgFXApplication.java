@@ -7,20 +7,15 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
-
 import java.io.IOException;
 
 /**
@@ -58,7 +53,10 @@ public class ProjectRbsgFXApplication extends Application {
 
     @Override
     public void start(@NotNull final Stage primaryStage) throws IOException {
-        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), new LoginFormBuilder()).getLoginScene();
+        final Scene scene = new LoginSceneBuilder(
+                new SplashImageBuilder(),
+                context.getBean(LoginFormBuilder.class)
+        ).getLoginScene();
 
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
