@@ -9,12 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Controller
 public class LoginFormController {
@@ -56,23 +56,31 @@ public class LoginFormController {
             user = new User(nameField.getText(), passwordField.getText());
         }
         if (user != null){
-            CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
-
+            final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
             answerPromise.thenAccept(
               map -> Platform.runLater(() -> onRegistrationReturned(map))
             );
         }
     }
 
-    private void onRegistrationReturned(HashMap<String, Object> answer) {
-        String messageFromServer = (String) answer.get("status");
-        if (answer.get("status").equals("success")){
-           //loginManager.onLogin();
-        } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")){
+    private void onRegistrationReturned(@Nullable HashMap<String, Object> answer) {
+        final String messageFromServer;
+        if (answer != null) {
+            messageFromServer = (String) answer.get("status");
+            if (answer.get("status").equals("success")){
+                //loginManager.onLogin();
+            } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Fehler bei der Registrierung");
+                alert.setContentText(messageFromServer);
+                alert.showAndWait();
+            }
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fehler");
             alert.setHeaderText("Fehler bei der Registrierung");
-            alert.setContentText(messageFromServer);
+            alert.setContentText("Server fuer die Registrierung antwortet nicht");
             alert.showAndWait();
        }
     }
