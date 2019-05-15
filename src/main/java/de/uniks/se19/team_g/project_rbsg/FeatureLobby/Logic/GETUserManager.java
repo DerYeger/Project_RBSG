@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
@@ -68,13 +67,22 @@ public class GETUserManager implements IGETUserManager
     {
         try
         {
-            JsonNode jsonNode = objectMapper.readTree(responseBodyContent);
-            String status = jsonNode.get("status").asText();
+            final JsonNode jsonNode = objectMapper.readTree(responseBodyContent);
+            final String status = jsonNode.get("status").asText();
             if (status.equals("success"))
             {
-                return objectMapper.readValue(jsonNode.get("data").asText(), new TypeReference<ArrayList<String>>()
+                final JsonNode arrNode = jsonNode.get("data");
+                ArrayList<String> playerNames = null;
+                if (arrNode.isArray())
                 {
-                });
+                    playerNames = new ArrayList<String>();
+                    for (final JsonNode nameNode : arrNode)
+                    {
+                        playerNames.add(nameNode.asText());
+                    }
+                }
+
+                return playerNames;
             }
         }
         catch (IOException e)

@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels;
 
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IGETUserManager;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.GETUserManager;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.ILobbyViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,8 +18,9 @@ import javax.validation.constraints.NotNull;
 public class LobbyViewModel implements ILobbyViewModel
 {
 
-    private @NotNull StringProperty lobbyTitle;
-    private @NotNull ObservableList<Player> playerObservableList;
+    private StringProperty lobbyTitle;
+    private ObservableList<Player> playerObservableList;
+    private IGETUserManager getUserManager;
 
     @Override
     public StringProperty getLobbyTitle()
@@ -35,6 +38,7 @@ public class LobbyViewModel implements ILobbyViewModel
     {
         lobbyTitle = new SimpleStringProperty("Advanced WASP Wars");
         playerObservableList = FXCollections.observableArrayList();
+        //Todo: GETUserManager "erzeugen"
     }
 
 }
