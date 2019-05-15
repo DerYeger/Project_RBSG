@@ -33,7 +33,7 @@ public class LobbyViewController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         lobbyTitle.textProperty().bindBidirectional(viewModel.getLobbyTitle());
-        lobbyPlayerListView.setItems(viewModel.getUserObservableCollection());
+        lobbyPlayerListView.setItems(viewModel.getPlayerObservableCollection());
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
     }
 }

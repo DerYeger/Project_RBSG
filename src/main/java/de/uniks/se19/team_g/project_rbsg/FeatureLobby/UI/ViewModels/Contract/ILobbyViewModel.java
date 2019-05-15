@@ -12,5 +12,5 @@ public interface ILobbyViewModel
 {
     StringProperty getLobbyTitle();
 
-    ObservableList<Player> getUserObservableCollection();
+    ObservableList<Player> getPlayerObservableCollection();
 }

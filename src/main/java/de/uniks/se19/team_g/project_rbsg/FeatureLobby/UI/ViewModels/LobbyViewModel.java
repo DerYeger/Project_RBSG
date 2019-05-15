@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.DataClasses.User;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.ILobbyViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,7 +17,7 @@ public class LobbyViewModel implements ILobbyViewModel
 {
 
     private @NotNull StringProperty lobbyTitle;
-    private @NotNull ObservableList<User> userObservableList;
+    private @NotNull ObservableList<Player> playerObservableList;
 
     @Override
     public StringProperty getLobbyTitle()
@@ -26,15 +26,15 @@ public class LobbyViewModel implements ILobbyViewModel
     }
 
     @Override
-    public ObservableList<User> getUserObservableCollection()
+    public ObservableList<Player> getPlayerObservableCollection()
     {
-        return userObservableList;
+        return playerObservableList;
     }
 
     public LobbyViewModel()
     {
         lobbyTitle = new SimpleStringProperty("Advanced WASP Wars");
-        userObservableList = FXCollections.observableArrayList();
+        playerObservableList = FXCollections.observableArrayList();
     }
 
 }
