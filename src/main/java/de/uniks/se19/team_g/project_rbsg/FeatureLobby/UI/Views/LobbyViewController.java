@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Controller;
+package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Views;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.CustomControls.Controller.UserListViewCell;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.DataClasses.User;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.CustomControls.Views.PlayerListViewCell;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.ILobbyViewModel;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.LobbyViewModel;
 import javafx.fxml.FXML;
@@ -27,13 +27,13 @@ public class LobbyViewController implements Initializable
 
     @FXML
 
-    private ListView<User> lobbyUserListView;
+    private ListView<Player> lobbyPlayerListView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         lobbyTitle.textProperty().bindBidirectional(viewModel.getLobbyTitle());
-        lobbyUserListView.setItems(viewModel.getUserObservableCollection());
-        lobbyUserListView.setCellFactory(studentListView -> new UserListViewCell());
+        lobbyPlayerListView.setItems(viewModel.getUserObservableCollection());
+        lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
     }
 }
