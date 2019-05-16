@@ -18,8 +18,8 @@ public class LobbyViewBuilder
             fxmlLoader.setLocation(getClass().getResource("LobbyView.fxml"));
             lobbyView = fxmlLoader.load();
 
-            final LobbyViewController lobbyViewController = fxmlLoader.getController();
-            lobbyViewController.init();
+//            final LobbyViewController lobbyViewController = fxmlLoader.getController();
+//            lobbyViewController.init();
         }
         return lobbyView;
     }

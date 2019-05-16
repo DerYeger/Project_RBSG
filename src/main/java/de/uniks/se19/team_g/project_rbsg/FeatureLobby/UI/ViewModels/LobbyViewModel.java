@@ -17,7 +17,6 @@ public class LobbyViewModel implements ILobbyViewModel
 
     private StringProperty lobbyTitle;
     private ObservableList<Player> playerObservableList;
-    private IGETUserManager getUserManager;
 
     @Override
     public StringProperty getLobbyTitle()

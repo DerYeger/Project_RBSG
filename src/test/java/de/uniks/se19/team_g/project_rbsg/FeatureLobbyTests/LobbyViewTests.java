@@ -26,7 +26,7 @@ public class LobbyViewTests extends ApplicationTest
     public void start (Stage stage) throws Exception {
         fxmlLoader = new FXMLLoader(LobbyViewController.class.getResource("LobbyView.fxml"));
         Parent mainNode = fxmlLoader.load();
-        stage.setScene(new Scene(mainNode));
+        stage.setScene(new Scene(mainNode, 600, 400));
         stage.show();
         stage.toFront();
     }
@@ -45,14 +45,14 @@ public class LobbyViewTests extends ApplicationTest
         assertNotNull(lobbyViewController);
         lobbyViewController.getViewModel().getPlayerObservableCollection().addAll(new Player("Tobias"), new Player("Juri"), new Player("Omar"), new Player("Jan"), new Player("Keanu"), new Player("Christoph"), new Player("Georg"));
 
-//        try
-//        {
-//            Thread.sleep(5000);
-//        }
-//        catch (InterruptedException e)
-//        {
-//            e.printStackTrace();
-//        }
+        try
+        {
+            Thread.sleep(5000);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Test
