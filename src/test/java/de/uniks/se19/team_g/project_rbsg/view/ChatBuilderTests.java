@@ -33,9 +33,5 @@ public class ChatBuilderTests extends ApplicationTest {
         Assert.assertNotNull(lookup(ChatController.GENERAL_CHANNEL_NAME).query());
         Assert.assertNotNull(lookup(".text-area").query());
         Assert.assertNotNull(lookup(".text-field").query());
-
-        Assert.assertTrue(lookup(ChatController.GENERAL_CHANNEL_NAME).query().isVisible());
-        Assert.assertTrue(lookup(".text-area").query().isVisible());
-        Assert.assertTrue(lookup(".text-field").query().isVisible());
     }
 }
