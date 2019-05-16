@@ -26,6 +26,9 @@ public class ChatTabContentController {
         this.chatController = chatController;
         this.channel = channel;
 
+        //do not remove
+        chatController.subscribeChatTabContentController(this, channel);
+
         addEventHandler();
     }
 

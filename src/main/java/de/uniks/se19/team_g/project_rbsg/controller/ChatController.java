@@ -11,7 +11,7 @@ import org.springframework.lang.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class ChatController {
 
     private List<ChatCommandHandler> chatCommandHandlers;
 
-    private HashSet<String> activeChannels;
+    private HashMap<String, ChatTabContentController> activeChannels;
 
     private ChatTabBuilder chatTabBuilder;
 
@@ -36,7 +36,7 @@ public class ChatController {
         chatTabBuilder = new ChatTabBuilder(chatTabContentBuilder, this);
 
         chatCommandHandlers = new ArrayList<>();
-        activeChannels = new HashSet<>();
+        activeChannels = new HashMap();
 
         chatCommandHandlers.add(new WhisperCommandHandler(this));
 
@@ -52,11 +52,10 @@ public class ChatController {
     }
 
     private boolean addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
-        if (!activeChannels.contains(channel)) {
+        if (!activeChannels.containsKey(channel)) {
             final Tab tab = chatTabBuilder.buildChatTab(channel);
             chatPane.getTabs().add(tab);
             tab.setClosable(isClosable);
-            activeChannels.add(channel);
             chatPane.getSelectionModel().select(tab);
             return true;
         }
@@ -110,9 +109,21 @@ public class ChatController {
         callback.displayMessage("You", content);
     }
 
+    //private channels will provide channel == from
+    public void passMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
+        if (!activeChannels.containsKey(channel)) {
+            addPrivateTab(channel);
+        }
+        final ChatTabContentController chatTabContentController = activeChannels.get(channel);
+        chatTabContentController.displayMessage(from, content);
+    }
+
     //remove closed tabs
-    public void removeTab(@NonNull final String channel) {
-        //TODO implement method
+    public void removeChannelEntry(@NonNull final String channel) {
         activeChannels.remove(channel);
+    }
+
+    public void subscribeChatTabContentController(@NonNull final ChatTabContentController chatTabContentController, @NonNull final String channel) {
+        activeChannels.put(channel, chatTabContentController);
     }
 }
