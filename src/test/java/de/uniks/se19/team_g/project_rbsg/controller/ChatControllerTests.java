@@ -4,21 +4,19 @@ import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Jan Müller
+ */
 public class ChatControllerTests extends ApplicationTest {
 
     private ChatController chatController;

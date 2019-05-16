@@ -8,6 +8,9 @@ import org.springframework.lang.NonNull;
 
 import java.util.HashSet;
 
+/**
+ * @author Jan Müller
+ */
 public class WhisperCommandHandlerTests {
 
     @Test
