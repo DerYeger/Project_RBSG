@@ -2,14 +2,11 @@ package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels;
 
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IGETUserManager;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.GETUserManager;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.ILobbyViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @author Georg Siebert
@@ -38,7 +35,7 @@ public class LobbyViewModel implements ILobbyViewModel
     {
         lobbyTitle = new SimpleStringProperty("Advanced WASP Wars");
         playerObservableList = FXCollections.observableArrayList();
-        //Todo: GETUserManager "erzeugen"
+        //Todo: GetUsersRESTManager "erzeugen"
     }
 
 }

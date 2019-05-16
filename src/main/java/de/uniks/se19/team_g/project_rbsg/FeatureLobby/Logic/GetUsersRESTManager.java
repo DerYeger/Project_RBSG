@@ -17,7 +17,7 @@ import java.util.Collection;
  * @author Georg Siebert
  */
 
-public class GETUserManager implements IGETUserManager
+public class GetUsersRESTManager implements IGETUserManager
 {
     private static final String baseURL = "https://rbsg.uniks.de/api";
 
@@ -33,7 +33,7 @@ public class GETUserManager implements IGETUserManager
 
     private ObjectMapper objectMapper;
 
-    public GETUserManager(@NotNull User user)
+    public GetUsersRESTManager(@NotNull User user)
     {
         this.user = user;
 
