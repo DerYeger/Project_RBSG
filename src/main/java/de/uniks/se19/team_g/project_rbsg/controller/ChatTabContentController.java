@@ -26,6 +26,8 @@ public class ChatTabContentController {
         this.chatController = chatController;
         this.channel = channel;
 
+        messageArea.setEditable(false);
+
         //do not remove
         chatController.subscribeChatTabContentController(this, channel);
 

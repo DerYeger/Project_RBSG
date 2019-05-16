@@ -6,7 +6,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.controller.ChatTabContentController">
    <children>
-      <TextArea fx:id="messageArea" disable="true" />
+      <TextArea fx:id="messageArea" focusTraversable="false" />
       <TextField fx:id="inputField" />
    </children>
 </VBox>
