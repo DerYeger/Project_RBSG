@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.util;
+package de.uniks.se19.team_g.project_rbsg.handler;
 
 import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.controller.ChatTabContentController;

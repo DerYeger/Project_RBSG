@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
-import de.uniks.se19.team_g.project_rbsg.util.ChatCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.util.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.handler.ChatCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.view.ChatTabContentBuilder;
 import javafx.scene.control.Tab;
