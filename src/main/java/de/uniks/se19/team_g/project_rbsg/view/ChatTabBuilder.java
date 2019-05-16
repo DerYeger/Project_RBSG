@@ -8,6 +8,9 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ */
 public class ChatTabBuilder {
 
     private ChatTabContentBuilder chatTabContentBuilder;
@@ -18,12 +21,12 @@ public class ChatTabBuilder {
         this.chatController = chatController;
     }
 
-    public Tab buildChatTab(@NonNull final String chatPartner) throws IOException {
-        final Node chatTabContent = chatTabContentBuilder.buildChatTabContent(chatPartner);
+    public Tab buildChatTab(@NonNull final String channel) throws IOException {
+        final Node chatTabContent = chatTabContentBuilder.buildChatTabContent(channel);
 
-        final Tab newTab = new Tab(chatPartner, chatTabContent);
+        final Tab newTab = new Tab(channel, chatTabContent);
 
-        new ChatTabController().init(newTab, chatController);
+        new ChatTabController().init(chatController, newTab, channel);
 
         return newTab;
     }
