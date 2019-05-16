@@ -4,8 +4,6 @@ import de.uniks.se19.team_g.project_rbsg.apis.GameManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
