@@ -5,13 +5,53 @@ import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.WebSocketConfigurator;
 import org.junit.Test;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
-public class TestWebSocketClient
+import static org.junit.Assert.*;
+
+public class TestWebSocketClientAndRESTClient
 {
+    private final String bodyLogin = "{ \"name\" : \"hello1\", \"password\" : \"hello1\" }";
+    private final String bodyCreateGame = "{ \"name\" : \"gameofHello\", \"neededPlayer\" : 4 }";
+
     @Test
-    public void TestWebSocket() throws InterruptedException
+    public void TestRESTClient() {
+        RESTClient restClient = new RESTClient();
+        String userKey = "nothing";
+        String loginResponse = restClient.post("/user/login", null, null, bodyLogin);
+        System.out.println(loginResponse);
+        try
+        {
+            userKey = new ObjectMapper().readTree(loginResponse).get("data").get("userKey").asText();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        LinkedMultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+        header.add("userKey", userKey);
+        String gameId = "nothing";
+        String createGameResponse = restClient.post("/game", header, null, bodyCreateGame);
+        System.out.println(createGameResponse);
+        try
+        {
+            gameId = new ObjectMapper().readTree(createGameResponse).get("data").get("gameId").asText();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println(gameId);
+
+        System.out.println(restClient.delete("/game/"+gameId, header, null));
+    }
+
+    @Test
+    public void TestWebSocketClient() throws InterruptedException
     {
         RESTClient restClient = new RESTClient();
         String userKey = "nothing";
@@ -35,7 +75,8 @@ public class TestWebSocketClient
         webSocketClient.stop();
     }
 
-    public void handle(String message) {
+    private void handle(String message) {
         System.out.println(message);
+        assertEquals("{\"action\":\"userJoined\",\"data\":{\"name\":\"hello2\"}}", message);
     }
 }
