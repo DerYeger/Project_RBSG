@@ -7,12 +7,9 @@ import de.uniks.se19.team_g.project_rbsg.view.ChatTabContentBuilder;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author Jan Müller
@@ -24,7 +21,7 @@ public class ChatController {
     public static final String INTERNAL_GENERAL_CHANNEL_NAME = "-._general_.-";
     public static final String GENERAL_CHANNEL_NAME = "General";
 
-    private List<ChatCommandHandler> chatCommandHandlers;
+    private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
     private HashMap<String, ChatTabContentController> activeChannels;
 
@@ -38,31 +35,33 @@ public class ChatController {
         final ChatTabContentBuilder chatTabContentBuilder = new ChatTabContentBuilder(this);
         chatTabBuilder = new ChatTabBuilder(chatTabContentBuilder, this);
 
-        chatCommandHandlers = new ArrayList<>();
+        chatCommandHandlers = new HashMap<>();
         activeChannels = new HashMap<>();
 
-        chatCommandHandlers.add(new WhisperCommandHandler(this));
+        addChatCommandHandlers();
 
         addGeneralTab();
     }
 
+    private void addChatCommandHandlers() {
+        chatCommandHandlers.put(WhisperCommandHandler.COMMAND, new WhisperCommandHandler(this));
+    }
+
     private void addGeneralTab() throws IOException {
-        addTab(INTERNAL_GENERAL_CHANNEL_NAME, false);
+        addTab(GENERAL_CHANNEL_NAME, false);
     }
 
-    public boolean addPrivateTab(@NonNull final String channel) throws IOException {
-        return addTab(channel, true);
+    public void addPrivateTab(@NonNull final String channel) throws IOException {
+        addTab(channel, true);
     }
 
-    private boolean addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
+    private void addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
         if (!activeChannels.containsKey(channel)) {
             final Tab tab = chatTabBuilder.buildChatTab(channel);
             chatPane.getTabs().add(tab);
             tab.setClosable(isClosable);
             chatPane.getSelectionModel().select(tab);
-            return true;
         }
-        return false;
     }
 
     //use this as an extensionpoint for chat commands
@@ -84,24 +83,13 @@ public class ChatController {
         final int indexOfFirstOption = content.indexOf(' ') == -1 ? content.length() : content.indexOf(' ');
 
         final String command = content.substring(0, indexOfFirstOption);
-        final String[] options = getCommandOptionsAsArray(content.substring(indexOfFirstOption));
+        final String options = content.substring(indexOfFirstOption);
 
-        for (final ChatCommandHandler handler : chatCommandHandlers) {
-            if (handler.handleCommand(callback, command, options)) {
-                return true;
-            }
+        if (chatCommandHandlers.containsKey(command)) {
+            chatCommandHandlers.get(command).handleCommand(callback, options);
+            return true;
         }
         return false;
-    }
-
-    @Nullable
-    private String[] getCommandOptionsAsArray(@Nullable final String options) {
-        if (options == null || options.isBlank()) {
-            return null;
-        }
-
-
-        return options.trim().split("\\s+");
     }
 
     //send the message to the server
