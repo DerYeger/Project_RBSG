@@ -22,9 +22,6 @@ public class LoginManager {
 
     public static final String BASE_REST_URL = "https://rbsg.uniks.de/api";
 
-    private static String status;
-    private static JsonNode jsonNode;
-
     public static User onLogin(@NonNull final User user) throws ExecutionException, InterruptedException, UnirestException {
         // get a JsonNode as response from server
         JsonObject body = Json.createObjectBuilder()
@@ -35,25 +32,25 @@ public class LoginManager {
         Future<HttpResponse<JsonNode>> future = request.asJsonAsync();
         HttpResponse<JsonNode> response = future.get();
 
-        jsonNode = response.getBody();
-        status = jsonNode.getObject().getString("status");
+        JsonNode jsonNode = response.getBody();
+        String status = jsonNode.getObject().getString("status");
         if (!status.equals("failure")) {
             // save userKey and return User Clone
             JSONObject data = jsonNode.getObject().getJSONObject("data");
             String userKey = data.getString("userKey");
             return new User(user, userKey);
         } else {
-            invalidCredentialsAlert();
+            invalidCredentialsAlert(status, jsonNode.getObject().getString("message"));
         }
         return null;
     }
 
-    public static void invalidCredentialsAlert() {
+    public static void invalidCredentialsAlert(@NonNull final String status, @NonNull final String message) {
         // alert failure when typing invalid credentials
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(status);
         alert.setHeaderText("Login failed");
-        alert.setContentText(jsonNode.getObject().getString("message"));
+        alert.setContentText(message);
         alert.showAndWait();
     }
 
