@@ -5,6 +5,11 @@ import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IWSCallback
 
 import java.util.ArrayList;
 
+
+/**
+ * @author Georg Siebert
+ */
+
 public class SystemMessageManager implements IWSCallback
 {
     private ArrayList<ISystemMessageHandler> systemMessageHandlers = new ArrayList<>();

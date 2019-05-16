@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Georg Siebert
+ */
+
 public class WebSocketConfigurator extends ClientEndpointConfig.Configurator
 {
 
