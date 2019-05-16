@@ -13,9 +13,7 @@
          </HBox>
       </VBox>
       <VBox>
-         <ListView fx:id="lobbyPlayerListView">
-
-         </ListView>
+         <ListView fx:id="lobbyPlayerListView"/>
       </VBox>
    </HBox>
 </AnchorPane>

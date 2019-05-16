@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Views.LobbyViewController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -41,14 +42,15 @@ public class LobbyViewTests extends ApplicationTest
     public void addPlayerToList() {
         LobbyViewController lobbyViewController = fxmlLoader.getController();
         assertNotNull(lobbyViewController);
-        lobbyViewController.getViewModel().getPlayerObservableCollection().addAll(new Player("Georg"), new Player("Juri"), new Player("Omar"));
-        try
-        {
-            Thread.sleep(5000);
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+        lobbyViewController.getViewModel().getPlayerObservableCollection().addAll(new Player("Tobias"), new Player("Juri"), new Player("Omar"), new Player("Jan"), new Player("Keanu"), new Player("Christoph"), new Player("Georg"));
+
+//        try
+//        {
+//            Thread.sleep(5000);
+//        }
+//        catch (InterruptedException e)
+//        {
+//            e.printStackTrace();
+//        }
     }
 }
