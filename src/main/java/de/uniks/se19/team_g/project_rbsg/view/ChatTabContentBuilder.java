@@ -8,6 +8,9 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ */
 public class ChatTabContentBuilder {
 
     private ChatController chatController;
