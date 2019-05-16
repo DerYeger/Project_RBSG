@@ -24,7 +24,7 @@ public class ChatTabBuilder {
     public Tab buildChatTab(@NonNull final String channel) throws IOException {
         final Node chatTabContent = chatTabContentBuilder.buildChatTabContent(channel);
 
-        final Tab newTab = new Tab(channel, chatTabContent);
+        final Tab newTab = new Tab(channel.equals(ChatController.INTERNAL_GENERAL_CHANNEL_NAME) ? ChatController.GENERAL_CHANNEL_NAME : channel, chatTabContent);
 
         new ChatTabController().init(chatController, newTab, channel);
 

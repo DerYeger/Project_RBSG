@@ -21,6 +21,9 @@ public class ChatController {
 
     public static final String SYSTEM = "System";
 
+    public static final String INTERNAL_GENERAL_CHANNEL_NAME = "-._general_.-";
+    public static final String GENERAL_CHANNEL_NAME = "General";
+
     private List<ChatCommandHandler> chatCommandHandlers;
 
     private HashMap<String, ChatTabContentController> activeChannels;
@@ -36,7 +39,7 @@ public class ChatController {
         chatTabBuilder = new ChatTabBuilder(chatTabContentBuilder, this);
 
         chatCommandHandlers = new ArrayList<>();
-        activeChannels = new HashMap();
+        activeChannels = new HashMap<>();
 
         chatCommandHandlers.add(new WhisperCommandHandler(this));
 
@@ -44,7 +47,7 @@ public class ChatController {
     }
 
     private void addGeneralTab() throws IOException {
-        addTab("General", false);
+        addTab(INTERNAL_GENERAL_CHANNEL_NAME, false);
     }
 
     public boolean addPrivateTab(@NonNull final String channel) throws IOException {
