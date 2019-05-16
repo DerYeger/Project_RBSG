@@ -44,7 +44,7 @@ public class WebSocketClient
     }
 
     @OnOpen
-    public void onOpen(Session session) throws IOException{
+    public void onOpen(final Session session) throws IOException{
         this.session = session;
         System.out.println("WS connected to" + this.session.getRequestURI());
 
@@ -52,8 +52,11 @@ public class WebSocketClient
     }
 
     @OnMessage
-    public void onMessage(String message, Session session) throws IOException {
-        wsCallback.handle(message);
+    public void onMessage(final String message, final Session session) throws IOException {
+        if(wsCallback != null) {
+            wsCallback.handle(message);
+        }
+        System.out.println("No Callback available");
     }
 
     public void sendMessage(final Object message) {
@@ -70,11 +73,26 @@ public class WebSocketClient
     }
 
     @OnClose
-    public void onClose(Session session, CloseReason reason) throws IOException {
+    public void onClose(final Session session,final CloseReason reason) throws IOException {
         this.session = null;
         System.out.println("WS" + session.getRequestURI() + " closed, " + reason.getReasonPhrase());
 
         this.noopTimer.cancel();
+    }
+
+    public void stop() {
+        if(this.session != null && this.session.isOpen()) {
+            try
+            {
+                this.session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE , "Tschau"));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            
+            noopTimer.cancel();
+        }
     }
 
         private TimerTask timerTask = new TimerTask()
