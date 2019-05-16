@@ -2,6 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.model;
 
 import org.springframework.lang.NonNull;
 
+/**
+ * @author Juri Lozowoj
+ */
+
 public class User {
 
     private String name;

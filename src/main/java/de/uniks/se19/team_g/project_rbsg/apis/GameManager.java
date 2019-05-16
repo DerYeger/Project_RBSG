@@ -4,11 +4,16 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @author Juri Lozowoj
+ */
+@Component
 public class GameManager {
 
     final String uri = "https://rbsg.uniks.de/api/game";
