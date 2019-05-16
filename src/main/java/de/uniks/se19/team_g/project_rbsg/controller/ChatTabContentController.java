@@ -32,25 +32,23 @@ public class ChatTabContentController {
     private void addEventHandler() {
         inputField.setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                handleMessageEvent();
+                try {
+                    handleMessageEvent();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void displayMessage(@NonNull final String from, @NonNull final String content) {
+    public void displayMessage(@NonNull final String from, @NonNull final String content) {
         Platform.runLater(() -> messageArea.appendText(from + ": " + content + '\n'));
     }
 
-    //use this method as an extensionpoint for chat commands
-    private void handleMessageEvent() {
-        if (textIsPresent()) {
-            chatController.sendMessage(channel, inputField.getText());
-            displayMessage("You", inputField.getText());
+    private void handleMessageEvent() throws Exception {
+        if (!inputField.getText().isBlank()) {
+            chatController.handleInput(this, channel, inputField.getText());
             inputField.clear();
         }
-    }
-
-    private boolean textIsPresent() {
-        return !inputField.getText().isBlank() && !inputField.getText().isEmpty();
     }
 }
