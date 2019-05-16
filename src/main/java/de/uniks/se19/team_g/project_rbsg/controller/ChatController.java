@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class ChatController {
 
-    private static final String SYSTEM = "System";
+    public static final String SYSTEM = "System";
 
     private List<ChatCommandHandler> chatCommandHandlers;
 
@@ -47,24 +47,26 @@ public class ChatController {
         addTab("General", false);
     }
 
-    public void addPrivateTab(@NonNull final String channel) throws IOException {
-        addTab(channel, true);
+    public boolean addPrivateTab(@NonNull final String channel) throws IOException {
+        return addTab(channel, true);
     }
 
-    private void addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
+    private boolean addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
         if (!activeChannels.contains(channel)) {
             final Tab tab = chatTabBuilder.buildChatTab(channel);
             chatPane.getTabs().add(tab);
             tab.setClosable(isClosable);
             activeChannels.add(channel);
             chatPane.getSelectionModel().select(tab);
+            return true;
         }
+        return false;
     }
 
     //use this as an extensionpoint for chat commands
     public void handleInput(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) throws Exception {
         if (content.substring(0, 1).equals("/")) { //chat command detected
-            if (content.length() < 2 || !handleCommand(content.substring(1))) { //command could not be handled
+            if (content.length() < 2 || !handleCommand(callback, content.substring(1))) { //command could not be handled
                 callback.displayMessage(SYSTEM, "Unknown or incorrect chat command");
             }
         } else { //send message
@@ -72,7 +74,7 @@ public class ChatController {
         }
     }
 
-    private boolean handleCommand(@NonNull final String content) throws Exception {
+    private boolean handleCommand(@NonNull final ChatTabContentController callback, @NonNull final String content) throws Exception {
         if (content.isBlank()) {
             return false;
         }
@@ -83,7 +85,7 @@ public class ChatController {
         final String[] options = getCommandOptionsAsArray(content.substring(indexOfFirstOption));
 
         for (final ChatCommandHandler handler : chatCommandHandlers) {
-            if (handler.handleCommand(command, options)) {
+            if (handler.handleCommand(callback, command, options)) {
                 return true;
             }
         }
