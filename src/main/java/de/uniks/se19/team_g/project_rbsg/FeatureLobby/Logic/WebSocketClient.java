@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IWSCallback;
 
 import javax.validation.constraints.NotNull;
 import javax.websocket.*;
@@ -22,12 +23,14 @@ public class WebSocketClient
     private final static int TIMER_DELAY = 0;
     private final static String NOOP = "noop";
 
+    private IWSCallback wsCallback;
     private Session session;
     private Timer noopTimer;
 
-    public WebSocketClient(final @NotNull String endpoint)
+    public WebSocketClient(final @NotNull String endpoint, final @NotNull IWSCallback wsCallback)
     {
         this.noopTimer = new Timer();
+        this.wsCallback = wsCallback;
 
         try
         {
@@ -50,8 +53,7 @@ public class WebSocketClient
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
-
-
+        wsCallback.handle(message);
     }
 
     public void sendMessage(final Object message) {
