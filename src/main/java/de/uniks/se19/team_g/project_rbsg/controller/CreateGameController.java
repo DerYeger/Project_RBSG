@@ -1,10 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
 import de.uniks.se19.team_g.project_rbsg.apis.GameManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
@@ -24,10 +26,10 @@ public class CreateGameController {
     private ToggleButton fourPlayers;
 
     @FXML
-    private Button createGame;
+    private Button create;
 
     @FXML
-    private Button cancelGame;
+    private Button cancelG;
 
     private final GameManager gameManager;
 
@@ -36,7 +38,11 @@ public class CreateGameController {
     }
 
     public void initialize(){
-        createGame.setOnAction();
+        create.setOnAction(this::createGame);
+    }
+
+    public void createGame(@NonNull final ActionEvent event){
+
     }
 
 
