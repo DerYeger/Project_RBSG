@@ -21,7 +21,6 @@ public class WhisperCommandHandler implements ChatCommandHandler {
     //TODO check if user exists?
     @Override
     public boolean handleCommand(@NonNull final String command, @Nullable final String[] options) throws Exception {
-        System.out.println("options " + options);
         if (command.equals(COMMAND)) { //matching command
             if (options != null && options.length > 0) { //matching options
                 chatController.addPrivateTab(options[0]);
