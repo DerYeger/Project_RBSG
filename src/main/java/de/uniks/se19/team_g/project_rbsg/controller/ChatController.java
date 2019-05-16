@@ -69,7 +69,7 @@ public class ChatController {
     public void handleInput(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) throws Exception {
         if (content.substring(0, 1).equals("/")) { //chat command detected
             if (content.length() < 2 || !handleCommand(callback, content.substring(1))) { //command could not be handled
-                callback.displayMessage(SYSTEM, "Unknown or incorrect chat command");
+                callback.displayMessage(SYSTEM, "Unknown chat command");
             }
         } else { //send message
             sendMessage(callback, channel, content);
@@ -113,7 +113,7 @@ public class ChatController {
     }
 
     //private channels will provide channel == from
-    public void passMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
+    public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
         if (!activeChannels.containsKey(channel)) {
             addPrivateTab(channel);
         }

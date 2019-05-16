@@ -37,11 +37,7 @@ public class ChatTabContentController {
     private void addEventHandler() {
         inputField.setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                try {
-                    handleMessageEvent();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                handleInput();
             }
         });
     }
@@ -50,10 +46,15 @@ public class ChatTabContentController {
         Platform.runLater(() -> messageArea.appendText(from + ": " + content + '\n'));
     }
 
-    private void handleMessageEvent() throws Exception {
+    private void handleInput() {
         if (!inputField.getText().isBlank()) {
-            chatController.handleInput(this, channel, inputField.getText());
-            inputField.clear();
+            try {
+                chatController.handleInput(this, channel, inputField.getText());
+            } catch (final Exception e) {
+                displayMessage(ChatController.SYSTEM, "An error occurred processing your message");
+                e.printStackTrace();
+            }
+            Platform.runLater(() ->  inputField.clear());
         }
     }
 }
