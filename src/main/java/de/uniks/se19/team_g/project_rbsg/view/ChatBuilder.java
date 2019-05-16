@@ -6,6 +6,9 @@ import javafx.scene.control.TabPane;
 
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ */
 public class ChatBuilder {
 
     private TabPane chat;
