@@ -19,6 +19,7 @@ public class ChatTabContentBuilder {
         this.chatController = chatController;
     }
 
+    @NonNull
     public Node buildChatTabContent(@NonNull final String chatPartner) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(LoginFormBuilder.class.getResource("chat-tab-content.fxml"));

@@ -21,6 +21,7 @@ public class ChatTabBuilder {
         this.chatController = chatController;
     }
 
+    @NonNull
     public Tab buildChatTab(@NonNull final String channel) throws IOException {
         final Node chatTabContent = chatTabContentBuilder.buildChatTabContent(channel);
 

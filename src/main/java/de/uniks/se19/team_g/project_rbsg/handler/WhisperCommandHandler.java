@@ -27,9 +27,9 @@ public class WhisperCommandHandler implements ChatCommandHandler {
     public boolean handleCommand(@NonNull final ChatTabContentController callback, @NonNull final String command, @Nullable final String[] options) throws Exception {
         if (command.equals(COMMAND)) { //matching command
             if (options == null || options.length < 1) { //option pattern error
-                callback.displayMessage(chatController.SYSTEM, OPTION_ERROR_MESSAGE);
+                callback.displayMessage(ChatController.SYSTEM, OPTION_ERROR_MESSAGE);
             } else if (!chatController.addPrivateTab(options[0])) { //channel error
-                callback.displayMessage(chatController.SYSTEM, CHANNEL_ERROR_MESSAGE);
+                callback.displayMessage(ChatController.SYSTEM, CHANNEL_ERROR_MESSAGE);
             }
             return true;
         }
