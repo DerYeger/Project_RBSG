@@ -1,8 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
 
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.User;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.ISystemMessageHandler;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IWSCallback;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 
@@ -12,10 +14,15 @@ import java.util.ArrayList;
 
 public class SystemMessageManager implements IWSCallback
 {
+    private static final String endpoint = "/system";
+
     private ArrayList<ISystemMessageHandler> systemMessageHandlers = new ArrayList<>();
 
-    public SystemMessageManager() {
-
+    public SystemMessageManager(final @NotNull User user) {
+        if(user != null) {
+            WebSocketConfigurator.userKey = user.getUserKey();
+            WebSocketClient webSocketClient = new WebSocketClient(endpoint, this);
+        }
     }
 
     @Override
@@ -23,7 +30,9 @@ public class SystemMessageManager implements IWSCallback
     {
         for (ISystemMessageHandler systemMessageHandler : systemMessageHandlers)
         {
-            systemMessageHandler.handleSystemMessage(message);
+            if(systemMessageHandler.handleSystemMessage(message)) {
+                break;
+            }
         }
     }
 }
