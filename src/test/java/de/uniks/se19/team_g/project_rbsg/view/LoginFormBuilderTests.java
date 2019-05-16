@@ -15,7 +15,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, RegistrationManager.class, LoginFormController.class, LoginFormBuilder.class})
+@ContextConfiguration(classes = {JavaConfig.class, LoginFormBuilder.class, LoginFormController.class, RegistrationManager.class, SplashImageBuilder.class, LoginSceneBuilder.class})
 public class LoginFormBuilderTests extends ApplicationTest {
 
     @Test
