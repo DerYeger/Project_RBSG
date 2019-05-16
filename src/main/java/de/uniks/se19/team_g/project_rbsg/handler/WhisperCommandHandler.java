@@ -12,9 +12,9 @@ public class WhisperCommandHandler implements ChatCommandHandler {
 
     private static final String COMMAND = "w";
 
-    private static final String OPTION_ERROR_MESSAGE = "Incorrect option pattern. Use /w userName";
+    public static final String OPTION_ERROR_MESSAGE = "Incorrect option pattern. Use /w userName";
 
-    private static final String CHANNEL_ERROR_MESSAGE = "You already joined that channel";
+    public static final String CHANNEL_ERROR_MESSAGE = "You already joined that channel";
 
     private ChatController chatController;
 
@@ -28,7 +28,7 @@ public class WhisperCommandHandler implements ChatCommandHandler {
         if (command.equals(COMMAND)) { //matching command
             if (options == null || options.length < 1) { //option pattern error
                 callback.displayMessage(chatController.SYSTEM, OPTION_ERROR_MESSAGE);
-            } else if (!chatController.addPrivateTab(options[0])) { //option error
+            } else if (!chatController.addPrivateTab(options[0])) { //channel error
                 callback.displayMessage(chatController.SYSTEM, CHANNEL_ERROR_MESSAGE);
             }
             return true;
