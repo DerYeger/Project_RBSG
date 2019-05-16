@@ -29,7 +29,7 @@ public class PlayerListViewCell extends ListCell<Player>
     private FXMLLoader fxmlLoader;
 
     @Override
-    protected void updateItem(Player player, boolean empty)
+    protected void updateItem(final Player player,final boolean empty)
     {
         super.updateItem(player, empty);
 

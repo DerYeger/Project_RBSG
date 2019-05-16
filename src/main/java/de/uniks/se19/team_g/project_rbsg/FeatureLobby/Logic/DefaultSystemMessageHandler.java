@@ -5,7 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.ISystemMess
 public class DefaultSystemMessageHandler implements ISystemMessageHandler
 {
     @Override
-    public boolean handleSystemMessage(String message)
+    public boolean handleSystemMessage(final String message)
     {
         System.out.println(message);
         return false;

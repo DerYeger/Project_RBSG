@@ -11,11 +11,10 @@ import java.util.Map;
 
 public class WebSocketConfigurator extends ClientEndpointConfig.Configurator
 {
-
     public static String userKey = "";
 
     @Override
-    public void beforeRequest(Map<String, List<String>> headers) {
+    public void beforeRequest(final Map<String, List<String>> headers) {
         super.beforeRequest(headers);
         ArrayList<String> key = new ArrayList<>();
         key.add(userKey);

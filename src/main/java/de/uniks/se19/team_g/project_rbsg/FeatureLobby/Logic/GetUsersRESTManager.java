@@ -17,6 +17,8 @@ import java.util.Collection;
  * @author Georg Siebert
  */
 
+//TODO: Auslagern der REST Anfrage in eingene Klasse + eigene Klasse für Deserializierung der Response (Handler?)
+
 public class GetUsersRESTManager implements IGETUserManager
 {
     private static final String baseURL = "https://rbsg.uniks.de/api";
@@ -26,8 +28,6 @@ public class GetUsersRESTManager implements IGETUserManager
     private RestTemplate restTemplate;
 
     private HttpHeaders headers;
-
-    private HttpStatus httpStatus;
 
     private User user;
 
@@ -51,7 +51,7 @@ public class GetUsersRESTManager implements IGETUserManager
         System.out.println(requestEntity.toString());
         ResponseEntity<String> responseEntity = restTemplate
                 .exchange(baseURL + specificURL, HttpMethod.GET, requestEntity, String.class);
-        httpStatus = responseEntity.getStatusCode();
+        HttpStatus httpStatus = responseEntity.getStatusCode();
         if (httpStatus.is2xxSuccessful())
         {
             ArrayList<String> playerNames = deserializeResponse(responseEntity.getBody());

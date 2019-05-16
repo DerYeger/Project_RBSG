@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
  */
 
 
-public class LobbyViewController implements Initializable
+public class LobbyViewController
 {
 
     private static final ILobbyViewModel viewModel = new LobbyViewModel();
@@ -33,8 +33,7 @@ public class LobbyViewController implements Initializable
         return viewModel;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
+    public void init()
     {
         lobbyTitle.textProperty().bindBidirectional(viewModel.getLobbyTitle());
         lobbyPlayerListView.setItems(viewModel.getPlayerObservableCollection());
