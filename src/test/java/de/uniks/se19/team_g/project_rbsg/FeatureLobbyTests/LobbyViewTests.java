@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
 
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Views.LobbyViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -52,5 +53,19 @@ public class LobbyViewTests extends ApplicationTest
 //        {
 //            e.printStackTrace();
 //        }
+    }
+
+    @Test
+    public void TestBuilder() {
+        LobbyViewBuilder lobbyViewBuilder = new LobbyViewBuilder();
+        try
+        {
+            Node node = lobbyViewBuilder.buildLobbyScene();
+            assertNotNull(node);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
