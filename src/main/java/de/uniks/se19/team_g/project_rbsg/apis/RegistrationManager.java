@@ -18,14 +18,14 @@ public class RegistrationManager {
 
     final String uri = "https://rbsg.uniks.de/api/user";
 
-    private RestTemplate restTemplate;
+    final private RestTemplate restTemplate;
 
     public RegistrationManager(){
         this.restTemplate = new RestTemplate();
     }
 
     public RegistrationManager(@Nullable RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+        this.restTemplate = (restTemplate == null) ? new RestTemplate() : restTemplate;
     }
 
     public CompletableFuture onRegistration(@NonNull User user){
