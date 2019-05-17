@@ -10,5 +10,5 @@ import org.springframework.lang.Nullable;
 @FunctionalInterface
 public interface ChatCommandHandler {
 
-    boolean handleCommand(@NonNull final ChatTabContentController callback, @NonNull final String command, @Nullable final String[] options) throws Exception;
+    void handleCommand(@NonNull final ChatTabContentController callback, @Nullable final String options) throws Exception;
 }
