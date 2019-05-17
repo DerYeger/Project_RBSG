@@ -12,15 +12,15 @@ Packagenames and other stuff, where hyphens are not allowed in snake_case :(
 
 Parameters should be declared as final.
 
-Object parameters must have @Nullable or @NotNull annotations
+Object parameters must have @Nullable or @NonNull annotations
 
-Object return types must have @Nullable or @NotNull.
+Object return types must have @Nullable or @NonNull.
 
 Required Dependencies must come before Parameters must come before optional dependencies.
 
 ~~~~
 public String giveExampleForCoolShit(
-    @NotNull final ClassType requiredDependency,
+    @NonNull final ClassType requiredDependency,
     final int someParameter,
     @Nullable final OtherClassType optionalDependency
 ) {
