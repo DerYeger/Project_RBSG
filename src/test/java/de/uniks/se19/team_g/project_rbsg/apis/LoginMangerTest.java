@@ -1,7 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.apis;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,7 +14,6 @@ import org.springframework.lang.NonNull;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author Keanu Stückrad
@@ -79,12 +76,6 @@ public class LoginMangerTest extends ApplicationTest {
 
         final Button loginButton = lookup("#login-button").queryButton();
         Assert.assertNotNull(loginButton);
-
-        clickOn(nameInput);
-        write("WrongName");
-
-        clickOn(passwordInput);
-        write("thisIsNotARightPassword");
 
         clickOn(loginButton);
     }
