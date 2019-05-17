@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.controller;
 
 import de.uniks.se19.team_g.project_rbsg.handler.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.view.ChatTabContentBuilder;
 import javafx.scene.control.Tab;
@@ -22,11 +23,19 @@ public class ChatController {
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
+    private HashMap<String, Tab> chatTabs;
+
     private HashMap<String, ChatTabContentController> activeChannels;
 
     private ChatTabBuilder chatTabBuilder;
 
     private TabPane chatPane;
+
+    private User user;
+
+    public void ChatController(@NonNull final User user) {
+        this.user = user;
+    }
 
     public void init(@NonNull final TabPane chatPane) throws IOException {
         this.chatPane = chatPane;
@@ -35,6 +44,7 @@ public class ChatController {
         chatTabBuilder = new ChatTabBuilder(chatTabContentBuilder, this);
 
         chatCommandHandlers = new HashMap<>();
+        chatTabs = new HashMap<>();
         activeChannels = new HashMap<>();
 
         addChatCommandHandlers();
@@ -60,6 +70,7 @@ public class ChatController {
             chatPane.getTabs().add(tab);
             tab.setClosable(isClosable);
             chatPane.getSelectionModel().select(tab);
+            chatTabs.put(channel, tab);
         }
     }
 
@@ -96,6 +107,7 @@ public class ChatController {
         //TODO implement sending message to the server
 
         receiveMessage(channel, "You", content);
+        chatPane.getSelectionModel().select(chatTabs.get(channel));
     }
 
     //private channels will provide channel == from

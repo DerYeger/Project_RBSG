@@ -29,6 +29,11 @@ public class WhisperCommandHandlerTests {
             }
 
             @Override
+            public void sendMessage(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
+                receiveMessage(channel, "You", content);
+            }
+
+            @Override
             public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
                 if (!activeChannels.contains(channel)) {
                     addPrivateTab(channel);
