@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.User;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.ISystemMessageHandler;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWSCallback;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Georg Siebert
  */
 
-public class SystemMessageManager implements IWSCallback
+public class SystemMessageManager implements IWebSocketCallback
 {
     private static final String endpoint = "/system";
 
