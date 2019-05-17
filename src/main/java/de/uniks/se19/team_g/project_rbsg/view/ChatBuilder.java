@@ -15,7 +15,7 @@ public class ChatBuilder {
     private TabPane chat;
     private ChatController chatController;
 
-    public ChatBuilder(@NonNull ChatController chatController) {
+    public ChatBuilder(@NonNull final ChatController chatController) {
         this.chatController = chatController;
     }
 
