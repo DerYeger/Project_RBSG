@@ -30,6 +30,12 @@ public class LoginFormController {
     @FXML
     private Button registerButton;
 
+    private LoginManager loginManager;
+
+    public LoginFormController(LoginManager loginManager){
+        this.loginManager = loginManager;
+    }
+
     public void init() {
         addEventListeners();
     }
@@ -42,7 +48,7 @@ public class LoginFormController {
     private void loginAction(@NotNull final ActionEvent event){
         try {
             if (nameField.getText() != null && passwordField != null) {
-                User user = LoginManager.onLogin(new User(nameField.getText(), passwordField.getText()));
+                User user = loginManager.onLogin(new User(nameField.getText(), passwordField.getText()));
                 if (user != null) {
                     onLogin(user);
                 }
