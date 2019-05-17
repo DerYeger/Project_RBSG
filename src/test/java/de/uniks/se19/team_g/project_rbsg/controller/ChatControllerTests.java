@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -19,11 +20,10 @@ import java.io.IOException;
  */
 public class ChatControllerTests extends ApplicationTest {
 
-    private ChatController chatController;
-
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
-        chatController = new ChatController();
+        final User user = new User("UserName", "1234");
+        final ChatController chatController = new ChatController(user);
         final ChatBuilder chatBuilder = new ChatBuilder(chatController);
         final Node chat = chatBuilder.getChat();
         Assert.assertNotNull(chat);

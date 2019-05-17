@@ -1,7 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.handler;
 
 import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatTabContentController;
+import de.uniks.se19.team_g.project_rbsg.controller.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
@@ -20,7 +21,9 @@ public class WhisperCommandHandlerTests {
 
         final HashSet<String> activeChannels = new HashSet<>();
 
-        final ChatController chatController = new ChatController() {
+        final User user = new User("UserName", "1234");
+
+        final ChatController chatController = new ChatController(user) {
             @Override
             public void addPrivateTab(@NonNull final String channel) throws IOException {
                 if (!activeChannels.contains(channel)) {
@@ -29,7 +32,7 @@ public class WhisperCommandHandlerTests {
             }
 
             @Override
-            public void sendMessage(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
+            public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
                 receiveMessage(channel, "You", content);
             }
 
@@ -42,7 +45,7 @@ public class WhisperCommandHandlerTests {
             }
         };
 
-        final ChatTabContentController callback = new ChatTabContentController() {
+        final ChatChannelController callback = new ChatChannelController() {
             @Override
             public void displayMessage(@NonNull final String from, @NonNull final String content) {
                 messageReceived[0] = true;
@@ -66,7 +69,9 @@ public class WhisperCommandHandlerTests {
 
         final HashSet<String> activeChannels = new HashSet<>();
 
-        final ChatController chatController = new ChatController() {
+        final User user = new User("UserName", "1234");
+
+        final ChatController chatController = new ChatController(user) {
             @Override
             public void addPrivateTab(@NonNull final String channel) {
                 if (!activeChannels.contains(channel)) {
@@ -80,7 +85,7 @@ public class WhisperCommandHandlerTests {
             }
         };
 
-        final ChatTabContentController callback = new ChatTabContentController() {
+        final ChatChannelController callback = new ChatChannelController() {
             @Override
             public void displayMessage(@NonNull final String from, @NonNull final String content) {
                 Assert.assertEquals(WhisperCommandHandler.OPTION_ERROR_MESSAGE, content);

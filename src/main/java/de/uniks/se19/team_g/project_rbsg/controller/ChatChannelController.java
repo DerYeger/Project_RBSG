@@ -10,7 +10,7 @@ import org.springframework.lang.NonNull;
 /**
  * @author Jan Müller
  */
-public class ChatTabContentController {
+public class ChatChannelController {
 
     @FXML
     private TextArea messageArea;
@@ -29,7 +29,7 @@ public class ChatTabContentController {
         messageArea.setEditable(false);
 
         //do not remove
-        chatController.subscribeChatTabContentController(this, channel);
+        chatController.registerChatChannelController(this, channel);
 
         addEventHandler();
     }

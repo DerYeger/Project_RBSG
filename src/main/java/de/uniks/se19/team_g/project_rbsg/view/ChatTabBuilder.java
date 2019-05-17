@@ -13,17 +13,17 @@ import java.io.IOException;
  */
 public class ChatTabBuilder {
 
-    private ChatTabContentBuilder chatTabContentBuilder;
+    private ChatChannelBuilder chatChannelBuilder;
     private ChatController chatController;
 
-    public ChatTabBuilder(@NonNull final ChatTabContentBuilder chatTabContentBuilder, @NonNull final ChatController chatController) {
-        this.chatTabContentBuilder = chatTabContentBuilder;
+    public ChatTabBuilder(@NonNull final ChatChannelBuilder chatChannelBuilder, @NonNull final ChatController chatController) {
+        this.chatChannelBuilder = chatChannelBuilder;
         this.chatController = chatController;
     }
 
     @NonNull
     public Tab buildChatTab(@NonNull final String channel) throws IOException {
-        final Node chatTabContent = chatTabContentBuilder.buildChatTabContent(channel);
+        final Node chatTabContent = chatChannelBuilder.buildChatChannel(channel);
 
         final Tab newTab = new Tab(channel, chatTabContent);
 

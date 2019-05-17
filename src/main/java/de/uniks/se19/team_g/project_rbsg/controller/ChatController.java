@@ -4,7 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.handler.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.ChatTabBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.ChatTabContentBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.ChatChannelBuilder;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.springframework.lang.NonNull;
@@ -23,9 +23,9 @@ public class ChatController {
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
-    private HashMap<String, Tab> chatTabs;
+    private HashMap<String, Tab> openChatTabs;
 
-    private HashMap<String, ChatTabContentController> activeChannels;
+    private HashMap<String, ChatChannelController> openChatChannels;
 
     private ChatTabBuilder chatTabBuilder;
 
@@ -33,25 +33,26 @@ public class ChatController {
 
     private User user;
 
-    public void ChatController(@NonNull final User user) {
+    public ChatController(@NonNull final User user) {
         this.user = user;
     }
 
     public void init(@NonNull final TabPane chatPane) throws IOException {
         this.chatPane = chatPane;
 
-        final ChatTabContentBuilder chatTabContentBuilder = new ChatTabContentBuilder(this);
-        chatTabBuilder = new ChatTabBuilder(chatTabContentBuilder, this);
+        final ChatChannelBuilder chatChannelBuilder = new ChatChannelBuilder(this);
+        chatTabBuilder = new ChatTabBuilder(chatChannelBuilder, this);
 
         chatCommandHandlers = new HashMap<>();
-        chatTabs = new HashMap<>();
-        activeChannels = new HashMap<>();
+        openChatTabs = new HashMap<>();
+        openChatChannels = new HashMap<>();
 
         addChatCommandHandlers();
 
         addGeneralTab();
     }
 
+    //register additional chat command handlers in this method
     private void addChatCommandHandlers() {
         chatCommandHandlers.put(WhisperCommandHandler.COMMAND, new WhisperCommandHandler(this));
     }
@@ -65,17 +66,16 @@ public class ChatController {
     }
 
     private void addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
-        if (!activeChannels.containsKey(channel)) {
+        if (!openChatChannels.containsKey(channel)) {
             final Tab tab = chatTabBuilder.buildChatTab(channel);
             chatPane.getTabs().add(tab);
             tab.setClosable(isClosable);
             chatPane.getSelectionModel().select(tab);
-            chatTabs.put(channel, tab);
+            openChatTabs.put(channel, tab);
         }
     }
 
-    //use this as an extensionpoint for chat commands
-    public void handleInput(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) throws Exception {
+    public void handleInput(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws Exception {
         if (content.substring(0, 1).equals("/")) { //chat command detected
             if (content.length() < 2 || !handleCommand(callback, content.substring(1))) { //command could not be handled
                 callback.displayMessage(SYSTEM, "Unknown chat command");
@@ -85,7 +85,7 @@ public class ChatController {
         }
     }
 
-    private boolean handleCommand(@NonNull final ChatTabContentController callback, @NonNull final String content) throws Exception {
+    private boolean handleCommand(@NonNull final ChatChannelController callback, @NonNull final String content) throws Exception {
         if (content.isBlank()) {
             return false;
         }
@@ -103,28 +103,29 @@ public class ChatController {
     }
 
     //send the message to the server
-    public void sendMessage(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
+    public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
         //TODO implement sending message to the server
 
         receiveMessage(channel, "You", content);
-        chatPane.getSelectionModel().select(chatTabs.get(channel));
+        chatPane.getSelectionModel().select(openChatTabs.get(channel));
     }
 
     //private channels will provide channel == from
     public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
-        if (!activeChannels.containsKey(channel)) {
+        if (!openChatChannels.containsKey(channel)) {
             addPrivateTab(channel);
         }
-        final ChatTabContentController chatTabContentController = activeChannels.get(channel);
-        chatTabContentController.displayMessage(from, content);
+        final ChatChannelController chatChannelController = openChatChannels.get(channel);
+        chatChannelController.displayMessage(from, content);
     }
 
     //remove closed tabs
     public void removeChannelEntry(@NonNull final String channel) {
-        activeChannels.remove(channel);
+        openChatTabs.remove(channel);
+        openChatChannels.remove(channel);
     }
 
-    public void subscribeChatTabContentController(@NonNull final ChatTabContentController chatTabContentController, @NonNull final String channel) {
-        activeChannels.put(channel, chatTabContentController);
+    public void registerChatChannelController(@NonNull final ChatChannelController chatChannelController, @NonNull final String channel) {
+        openChatChannels.put(channel, chatChannelController);
     }
 }

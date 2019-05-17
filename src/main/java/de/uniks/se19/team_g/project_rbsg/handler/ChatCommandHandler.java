@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.handler;
 
-import de.uniks.se19.team_g.project_rbsg.controller.ChatTabContentController;
+import de.uniks.se19.team_g.project_rbsg.controller.ChatChannelController;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -10,5 +10,5 @@ import org.springframework.lang.Nullable;
 @FunctionalInterface
 public interface ChatCommandHandler {
 
-    void handleCommand(@NonNull final ChatTabContentController callback, @Nullable final String options) throws Exception;
+    void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) throws Exception;
 }
