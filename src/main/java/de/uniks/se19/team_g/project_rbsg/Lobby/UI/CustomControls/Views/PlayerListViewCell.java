@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.CustomControls.Views;
+package de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

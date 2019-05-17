@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.LobbyViewModel;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.LobbyViewModel;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -1,8 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.User;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.GetUsersRESTManager;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.User;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.GetUsersRESTManager;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.Views;
+package de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.CustomControls.Views.PlayerListViewCell;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.ILobbyViewModel;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.LobbyViewModel;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.Contract.ILobbyViewModel;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.LobbyViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

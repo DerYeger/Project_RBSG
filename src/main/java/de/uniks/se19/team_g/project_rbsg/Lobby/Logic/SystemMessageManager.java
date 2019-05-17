@@ -1,8 +1,8 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
+package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.User;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.ISystemMessageHandler;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IWSCallback;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.User;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.ISystemMessageHandler;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWSCallback;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses;
+package de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses;
 
 /**
  * @author Georg Siebert

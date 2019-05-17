@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
+package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;

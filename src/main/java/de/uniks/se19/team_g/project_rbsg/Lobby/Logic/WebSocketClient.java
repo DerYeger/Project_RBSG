@@ -1,8 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
+package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IWSCallback;
-import javafx.application.Platform;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWSCallback;
 
 import javax.validation.constraints.NotNull;
 import javax.websocket.*;

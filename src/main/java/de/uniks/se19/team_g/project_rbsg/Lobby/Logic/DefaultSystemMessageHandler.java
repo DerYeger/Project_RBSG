@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
+package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.ISystemMessageHandler;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.ISystemMessageHandler;
 
 public class DefaultSystemMessageHandler implements ISystemMessageHandler
 {

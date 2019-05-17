@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
+package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import javax.websocket.ClientEndpointConfig;
 import java.util.ArrayList;

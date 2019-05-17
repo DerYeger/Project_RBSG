@@ -1,10 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic;
+package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.User;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IGETUserManager;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.User;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IGETUserManager;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 

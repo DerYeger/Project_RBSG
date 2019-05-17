@@ -1,8 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels;
+package de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels;
 
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.Logic.Contract.IGETUserManager;
-import de.uniks.se19.team_g.project_rbsg.FeatureLobby.UI.ViewModels.Contract.ILobbyViewModel;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.Contract.ILobbyViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
