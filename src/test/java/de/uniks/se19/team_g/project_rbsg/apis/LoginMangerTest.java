@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.lang.NonNull;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -22,9 +24,12 @@ public class LoginMangerTest extends ApplicationTest {
 
     private LoginManager loginManager;
 
+    @Autowired
+    private ApplicationContext context;
+
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
-        final LoginFormBuilder loginFormBuilder = new LoginFormBuilder();
+        final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
         final Node login = loginFormBuilder.getLoginForm();
         Assert.assertNotNull(login);
 
@@ -54,6 +59,8 @@ public class LoginMangerTest extends ApplicationTest {
 
     @Test
     public void loginTestFailureInvalidCredentialsAlert() throws JSONException {
+
+        LoginManager loginManager = new LoginManager()
 
         final TextInputControl nameInput = lookup("#name-field").queryTextInputControl();
         Assert.assertNotNull(nameInput);
