@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 /**
  * @author Jan Müller
  */
+
 public class SplashImageBuilder {
 
     private BackgroundImage backgroundImage;
