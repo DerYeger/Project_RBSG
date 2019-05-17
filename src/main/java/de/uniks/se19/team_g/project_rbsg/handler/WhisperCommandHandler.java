@@ -12,11 +12,11 @@ public class WhisperCommandHandler implements ChatCommandHandler {
 
     public static final String COMMAND = "w";
 
-    public static final String OPTION_ERROR_MESSAGE = "Incorrect option pattern. /w \"username\" message";
+    public static final String OPTION_ERROR_MESSAGE = "/w <\"username\"> <message> - Send a private message to username";
 
     private static final String pattern = "\"(.+\\s?)+\"\\s.+";
 
-    private ChatController chatController;
+    private final ChatController chatController;
 
     public WhisperCommandHandler(@NonNull final ChatController chatController) {
         this.chatController = chatController;

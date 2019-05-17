@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import de.uniks.se19.team_g.project_rbsg.handler.LeaveCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
 import javafx.scene.Node;
@@ -12,8 +14,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Jan Müller
@@ -52,15 +57,29 @@ public class ChatControllerTests extends ApplicationTest {
         Assert.assertEquals("", generalInput.getText());
         Assert.assertEquals("You: " + text + '\n', generalMessageArea.getText());
 
-        final String command = "/w \"Second Tab\" Hello there!";
+        final String whisperCommand = "/" + WhisperCommandHandler.COMMAND + " \"Second Tab\" Hello there!";
 
         clickOn(generalInput);
-        write(command);
+        write(whisperCommand);
 
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 
         final Node newTab = lookup("@Second Tab").query();
         Assert.assertNotNull(newTab);
+
+        final TextInputControl secondTabInput = lookup(".text-field").queryTextInputControl();
+        Assert.assertNotNull(secondTabInput);
+
+        final String leaveCommand = "/" + LeaveCommandHandler.COMMAND;
+
+        clickOn(secondTabInput);
+        write(leaveCommand);
+
+        press(KeyCode.ENTER);
+        release(KeyCode.ENTER);
+
+        final Optional<Node> nullTab = lookup("@Second Tab").tryQuery();
+        Assert.assertFalse(nullTab.isPresent());
     }
 }

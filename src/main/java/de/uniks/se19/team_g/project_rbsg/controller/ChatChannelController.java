@@ -57,4 +57,8 @@ public class ChatChannelController {
             Platform.runLater(() ->  inputField.clear());
         }
     }
+
+    public String getChannel() {
+        return channel;
+    }
 }

@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
 import de.uniks.se19.team_g.project_rbsg.handler.ChatCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.handler.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.ChatTabBuilder;
@@ -31,7 +32,7 @@ public class ChatController {
 
     private TabPane chatPane;
 
-    private User user;
+    private final User user;
 
     public ChatController(@NonNull final User user) {
         this.user = user;
@@ -55,6 +56,7 @@ public class ChatController {
     //register additional chat command handlers in this method
     private void addChatCommandHandlers() {
         chatCommandHandlers.put(WhisperCommandHandler.COMMAND, new WhisperCommandHandler(this));
+        chatCommandHandlers.put(LeaveCommandHandler.COMMAND, new LeaveCommandHandler(this));
     }
 
     private void addGeneralTab() throws IOException {
@@ -73,6 +75,17 @@ public class ChatController {
             chatPane.getSelectionModel().select(tab);
             openChatTabs.put(channel, tab);
         }
+    }
+
+    public boolean removeTab(@NonNull final String channel) {
+        if (channel.equals(GENERAL_CHANNEL_NAME)) {
+            return false;
+        } else if (openChatTabs.containsKey(channel)) {
+            chatPane.getTabs().remove(openChatTabs.get(channel));
+            removeChannelEntry(channel);
+            return true;
+        }
+        return false;
     }
 
     public void handleInput(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws Exception {
