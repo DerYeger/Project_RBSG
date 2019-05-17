@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import javafx.application.Platform;
@@ -10,11 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.lang.Nullable;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 public class LoginFormController {
@@ -46,8 +49,19 @@ public class LoginFormController {
         registerButton.setOnAction(this::registerAction);
     }
 
-    private void loginAction(@NotNull final ActionEvent event) {
-
+    private void loginAction(@NotNull final ActionEvent event){
+        try {
+            if (nameField.getText() != null && passwordField.getText() != null) {
+                User user = LoginManager.onLogin(new User(nameField.getText(), passwordField.getText()));
+                if (user != null) {
+                    onLogin(user);
+                }
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void registerAction(@NotNull final ActionEvent event) {
@@ -85,8 +99,13 @@ public class LoginFormController {
        }
     }
 
-    public void onLogin() {
-
+    public void onLogin(@NonNull User user) {
+        // Szenenwechsel zur Lobby fehlt
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Platzhalter");
+        alert.setHeaderText("Login erfolgreich");
+        alert.setContentText("Szenenwechsel zur Lobby muss noch implementiert werden");
+        alert.showAndWait();
     }
 
     public void onRegistration() {

@@ -20,11 +20,7 @@ public class RegistrationManager {
 
     private RestTemplate restTemplate;
 
-    public RegistrationManager(){
-        this.restTemplate = new RestTemplate();
-    }
-
-    public RegistrationManager(@Nullable RestTemplate restTemplate) {
+    public RegistrationManager(@NonNull RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
