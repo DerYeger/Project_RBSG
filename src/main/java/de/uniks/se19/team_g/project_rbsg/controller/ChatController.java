@@ -18,7 +18,6 @@ public class ChatController {
 
     public static final String SYSTEM = "System";
 
-    public static final String INTERNAL_GENERAL_CHANNEL_NAME = "-._general_.-";
     public static final String GENERAL_CHANNEL_NAME = "General";
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
@@ -93,11 +92,10 @@ public class ChatController {
     }
 
     //send the message to the server
-    public void sendMessage(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) {
+    public void sendMessage(@NonNull final ChatTabContentController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
         //TODO implement sending message to the server
 
-        //maybe replace You with user.getName() once I have access to the model
-        callback.displayMessage("You", content);
+        receiveMessage(channel, "You", content);
     }
 
     //private channels will provide channel == from

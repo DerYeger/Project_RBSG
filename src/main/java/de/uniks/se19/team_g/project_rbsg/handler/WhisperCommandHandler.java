@@ -32,7 +32,7 @@ public class WhisperCommandHandler implements ChatCommandHandler {
 
         final String[] optionsArray = parseOptions(options.trim());
 
-        chatController.receiveMessage(optionsArray[0], "You", optionsArray[1]);
+        chatController.sendMessage(callback, optionsArray[0], optionsArray[1]);
     }
 
     @NonNull
