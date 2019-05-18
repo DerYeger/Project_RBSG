@@ -31,7 +31,7 @@ import java.io.IOException;
  * @author Keanu Stückrad
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, LoginFormBuilder.class, LoginFormController.class})
+@ContextConfiguration(classes = {JavaConfig.class, LoginFormBuilder.class, LoginFormController.class, RegistrationManager.class, LoginManager.class})
 public class LoginMangerTest extends ApplicationTest {
 
     // private LoginManager loginManager;
