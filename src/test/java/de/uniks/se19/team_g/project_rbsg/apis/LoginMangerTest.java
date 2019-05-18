@@ -4,8 +4,6 @@ import de.uniks.se19.team_g.project_rbsg.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
 
-import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +18,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -49,8 +46,8 @@ public class LoginMangerTest extends ApplicationTest {
         stage.show();
     }
 
-    @Test
-    public void test() {
+    /*@Test
+    public void loginTestSuccess() {
 
         //loginManager = setLoginManager("success", "", (JsonObject) Json.createObjectBuilder().add("userKey", "ohYesYoureSuchAGodDamnKey"));
 
@@ -68,10 +65,11 @@ public class LoginMangerTest extends ApplicationTest {
         write("john-117");
 
         clickOn(loginButton);
-    }
 
-    /*@Test
-    public void loginTestFailureInvalidCredentialsAlert() throws JSONException {
+    }*/
+
+    @Test
+    public void loginTestFailureInvalidCredentialsAlert() {
 
         //loginManager = setLoginManager("failure", "Invalid credentials", (JsonObject) Json.createObjectBuilder());
 
@@ -91,8 +89,8 @@ public class LoginMangerTest extends ApplicationTest {
         clickOn(loginButton);
     }
 
-    @Test
-    public void loginTestFailureNoConnection() throws JSONException {
+    /*@Test
+    public void loginTestFailureNoConnection() {
 
         // loginManager = setLoginManager("failure", "No server connection", Json.createObjectBuilder().build());
 
