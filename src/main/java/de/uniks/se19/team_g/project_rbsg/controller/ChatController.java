@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.handler.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.handler.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
@@ -32,10 +34,19 @@ public class ChatController {
 
     private TabPane chatPane;
 
+    @NonNull
     private final User user;
 
-    public ChatController(@NonNull final User user) {
+    @NonNull
+    private final WebSocketClient webSocketClient;
+
+    @NonNull
+    private final ChatWebSocketCallback chatWebSocketCallback;
+
+    public ChatController(@NonNull final User user, @NonNull final WebSocketClient webSocketClient, @NonNull final ChatWebSocketCallback chatWebSocketCallback) {
         this.user = user;
+        this.webSocketClient = webSocketClient;
+        this.chatWebSocketCallback = chatWebSocketCallback;
     }
 
     public void init(@NonNull final TabPane chatPane) throws IOException {
@@ -51,6 +62,12 @@ public class ChatController {
         addChatCommandHandlers();
 
         addGeneralTab();
+
+        registerAtChatWebSocketCallback();
+    }
+
+    private void registerAtChatWebSocketCallback() {
+        chatWebSocketCallback.registerChatController(this);
     }
 
     //register additional chat command handlers in this method
@@ -118,7 +135,7 @@ public class ChatController {
     //send the message to the server
     public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
         //TODO implement sending message to the server
-
+        webSocketClient.sendMessage(content);
         receiveMessage(channel, "You", content);
         chatPane.getSelectionModel().select(openChatTabs.get(channel));
     }
