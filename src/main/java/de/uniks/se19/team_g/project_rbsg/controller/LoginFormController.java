@@ -107,8 +107,4 @@ public class LoginFormController {
         alert.setContentText("Szenenwechsel zur Lobby muss noch implementiert werden");
         alert.showAndWait();
     }
-
-    public void onRegistration() {
-
-    }
 }
