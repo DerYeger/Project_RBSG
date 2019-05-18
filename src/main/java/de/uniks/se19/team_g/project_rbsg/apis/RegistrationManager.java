@@ -1,14 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.apis;
 
 import de.uniks.se19.team_g.project_rbsg.model.User;
+
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author Juri Lozowoj
@@ -16,15 +15,15 @@ import java.util.concurrent.ExecutionException;
 @Component
 public class RegistrationManager {
 
-    final String uri = "https://rbsg.uniks.de/api/user";
+    final String BASE_REST_URL = "https://rbsg.uniks.de/api/user";
 
     private RestTemplate restTemplate;
 
-    public RegistrationManager(@NonNull RestTemplate restTemplate) {
+    public RegistrationManager(@NonNull final RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public CompletableFuture onRegistration(@NonNull User user){
-        return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, user, HashMap.class));
+    public CompletableFuture onRegistration(@NonNull final User user){
+        return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(BASE_REST_URL + "/user", user, HashMap.class));
     }
 }
