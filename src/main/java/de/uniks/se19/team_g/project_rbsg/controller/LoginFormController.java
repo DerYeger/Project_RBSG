@@ -72,17 +72,17 @@ public class LoginFormController {
         if (user != null){
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
             answerPromise.thenAccept(
-              map -> Platform.runLater(() -> onRegistrationReturned(map))
+              map -> Platform.runLater(() -> onRegistrationReturned(map, event))
             );
         }
     }
 
-    private void onRegistrationReturned(@Nullable HashMap<String, Object> answer) {
+    private void onRegistrationReturned(@Nullable HashMap<String, Object> answer, ActionEvent event) {
         final String messageFromServer;
         if (answer != null) {
             messageFromServer = (String) answer.get("status");
             if (answer.get("status").equals("success")){
-                //loginManager.onLogin();
+                this.loginAction(event);
             } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Fehler");
