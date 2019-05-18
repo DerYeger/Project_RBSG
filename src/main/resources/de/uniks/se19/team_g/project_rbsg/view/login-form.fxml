@@ -32,7 +32,7 @@
       <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
          <children>
             <Button id="login-button" fx:id="loginButton" mnemonicParsing="false" text="Login" />
-            <Button fx:id="registerButton" mnemonicParsing="false" text="+" />
+            <Button id="registration-button" fx:id="registerButton" mnemonicParsing="false" text="+" />
          </children>
       </HBox>
    </children>

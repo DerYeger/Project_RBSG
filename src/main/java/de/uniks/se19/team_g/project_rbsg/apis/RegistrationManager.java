@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class RegistrationManager {
 
-    final String BASE_REST_URL = "https://rbsg.uniks.de/api/user";
+    final String BASE_REST_URL = "https://rbsg.uniks.de/api";
 
     private RestTemplate restTemplate;
 

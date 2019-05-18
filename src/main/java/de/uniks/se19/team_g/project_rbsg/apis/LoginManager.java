@@ -26,5 +26,4 @@ public class LoginManager {
     public CompletableFuture onLogin(@NonNull final User user){
         return java.util.concurrent.CompletableFuture.supplyAsync(() -> restTemplate.postForObject(BASE_REST_URL + "/user/login", user, HashMap.class));
     }
-
 }
