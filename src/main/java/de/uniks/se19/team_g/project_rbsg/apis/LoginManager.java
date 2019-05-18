@@ -24,10 +24,10 @@ public class LoginManager {
 
     public static final String BASE_REST_URL = "https://rbsg.uniks.de/api";
 
-    private Unirest unirest;
+    public BaseRequest baseRequest;
 
-    public LoginManager(Unirest unirest){
-        this.unirest = unirest;
+    public LoginManager(BaseRequest baseRequest){
+        this.baseRequest = baseRequest;
     }
 
     public User onLogin(@NonNull final User user) throws ExecutionException, InterruptedException, UnirestException {
@@ -36,8 +36,8 @@ public class LoginManager {
                 .add("name", user.getName())
                 .add("password", user.getPassword())
                 .build();
-        BaseRequest request = this.unirest.post(BASE_REST_URL + "/user/login").body(body.toString());
-        Future<HttpResponse<JsonNode>> future = request.asJsonAsync();
+        baseRequest = Unirest.post(BASE_REST_URL + "/user/login").body(body.toString());
+        Future<HttpResponse<JsonNode>> future = baseRequest.asJsonAsync();
         HttpResponse<JsonNode> response = future.get();
 
         JsonNode jsonNode = response.getBody();
