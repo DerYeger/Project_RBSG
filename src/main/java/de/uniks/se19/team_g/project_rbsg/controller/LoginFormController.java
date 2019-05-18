@@ -80,7 +80,7 @@ public class LoginFormController {
     private void onRegistrationReturned(@Nullable HashMap<String, Object> answer, ActionEvent event) {
         final String messageFromServer;
         if (answer != null) {
-            messageFromServer = (String) answer.get("status");
+            messageFromServer = (String) answer.get("message");
             if (answer.get("status").equals("success")){
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")) {
