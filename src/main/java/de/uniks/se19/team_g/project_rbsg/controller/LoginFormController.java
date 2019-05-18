@@ -84,18 +84,10 @@ public class LoginFormController {
             if (answer.get("status").equals("success")){
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Fehler bei der Registrierung");
-                alert.setContentText(messageFromServer);
-                alert.showAndWait();
+                handleRequestErrors((answer.get("status"), "Fehler bei der Registrierung", messageFromServer);
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fehler");
-            alert.setHeaderText("Fehler bei der Registrierung");
-            alert.setContentText("Server fuer die Registrierung antwortet nicht");
-            alert.showAndWait();
+            handleRequestErrors("Fehler", "Fehler bei der Registrierung", "Server fuer die Registrierung antwortet nicht");
        }
     }
 
@@ -105,6 +97,14 @@ public class LoginFormController {
         alert.setTitle("Platzhalter");
         alert.setHeaderText("Login erfolgreich");
         alert.setContentText("Szenenwechsel zur Lobby muss noch implementiert werden");
+        alert.showAndWait();
+    }
+
+    public void handleRequestErrors(String title, String headerText, String errorMessage){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(errorMessage);
         alert.showAndWait();
     }
 }
