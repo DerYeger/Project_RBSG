@@ -74,7 +74,7 @@ public class LoginFormControllerTest extends ApplicationTest {
 
     }
 
-    @Test
+    /*@Test
     public void loginTestFailureInvalidCredentialsAlert() {
 
         //loginManager = setLoginManager("failure", "Invalid credentials", (JsonObject) Json.createObjectBuilder());
@@ -104,7 +104,7 @@ public class LoginFormControllerTest extends ApplicationTest {
         Assert.assertNotNull(loginButton);
 
         clickOn(loginButton);
-    }
+    }*/
 
 }
 
