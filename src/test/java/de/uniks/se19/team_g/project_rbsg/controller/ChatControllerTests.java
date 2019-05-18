@@ -52,7 +52,7 @@ public class ChatControllerTests extends ApplicationTest {
         Assert.assertEquals("", generalInput.getText());
         Assert.assertEquals("You: " + text + '\n', generalMessageArea.getText());
 
-        final String command = "/w SecondTab";
+        final String command = "/w \"Second Tab\" Hello there!";
 
         clickOn(generalInput);
         write(command);
@@ -60,7 +60,7 @@ public class ChatControllerTests extends ApplicationTest {
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 
-        final Node newTab = lookup("SecondTab").query();
+        final Node newTab = lookup("@Second Tab").query();
         Assert.assertNotNull(newTab);
     }
 }
