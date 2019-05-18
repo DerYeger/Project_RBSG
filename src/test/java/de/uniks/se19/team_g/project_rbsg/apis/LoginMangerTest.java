@@ -1,7 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.apis;
 
+import de.uniks.se19.team_g.project_rbsg.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
 
+import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,10 +16,13 @@ import javafx.stage.Stage;
 import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
@@ -23,7 +30,8 @@ import java.io.IOException;
 /**
  * @author Keanu Stückrad
  */
-@Component
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {JavaConfig.class, LoginFormBuilder.class, LoginFormController.class})
 public class LoginMangerTest extends ApplicationTest {
 
     // private LoginManager loginManager;
@@ -33,17 +41,16 @@ public class LoginMangerTest extends ApplicationTest {
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
-        final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
-        final Node login = loginFormBuilder.getLoginForm();
-        Assert.assertNotNull(login);
+        final Node loginForm = context.getBean(LoginFormBuilder.class).getLoginForm();
+        Assert.assertNotNull(loginForm);
 
-        final Scene scene = new Scene((Parent) login);
+        final Scene scene = new Scene((Parent) loginForm);
         stage.setScene(scene);
         stage.show();
     }
 
     @Test
-    public void loginTest() throws JSONException {
+    public void test() {
 
         //loginManager = setLoginManager("success", "", (JsonObject) Json.createObjectBuilder().add("userKey", "ohYesYoureSuchAGodDamnKey"));
 
