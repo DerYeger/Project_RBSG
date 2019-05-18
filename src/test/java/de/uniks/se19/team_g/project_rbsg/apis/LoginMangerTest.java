@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import org.json.JSONException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,17 @@ public class LoginMangerTest extends ApplicationTest {
     @Autowired
     private ApplicationContext context;
 
+    private static Scene scene;
+
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
         final Node loginForm = context.getBean(LoginFormBuilder.class).getLoginForm();
         Assert.assertNotNull(loginForm);
 
-        final Scene scene = new Scene((Parent) loginForm);
+        if (scene == null) {
+            scene = new Scene((Parent) loginForm);
+        }
+
         stage.setScene(scene);
         stage.show();
     }
@@ -70,7 +76,7 @@ public class LoginMangerTest extends ApplicationTest {
         clickOn(loginButton);
     }
 
-    /*@Test
+    @Test
     public void loginTestFailureInvalidCredentialsAlert() throws JSONException {
 
         //loginManager = setLoginManager("failure", "Invalid credentials", (JsonObject) Json.createObjectBuilder());
@@ -100,6 +106,6 @@ public class LoginMangerTest extends ApplicationTest {
         Assert.assertNotNull(loginButton);
 
         clickOn(loginButton);
-    }*/
+    }
 
 }
