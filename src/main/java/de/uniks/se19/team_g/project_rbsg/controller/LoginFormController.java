@@ -13,7 +13,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;

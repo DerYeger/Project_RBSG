@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.request.BaseRequest;
-import com.mashape.unirest.request.HttpRequest;
 import javafx.fxml.FXMLLoader;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -35,13 +33,8 @@ public class JavaConfig implements ApplicationContextAware {
     }
 
     @Bean
-    public BaseRequest baseRequest(){
-        return new BaseRequest() {
-            @Override
-            public HttpRequest getHttpRequest() {
-                return super.getHttpRequest();
-            }
-        };
+    public Unirest unirest(){
+        return new Unirest();
     }
 
     @Override

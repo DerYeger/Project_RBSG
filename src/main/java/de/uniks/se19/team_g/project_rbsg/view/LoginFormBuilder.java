@@ -4,7 +4,6 @@ import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class LoginFormBuilder {
     private FXMLLoader fxmlLoader;
 
     @Autowired
-    public LoginFormBuilder(@NonNull final FXMLLoader fxmlLoader) {
+    public LoginFormBuilder(FXMLLoader fxmlLoader) {
         this.fxmlLoader = fxmlLoader;
     }
 
