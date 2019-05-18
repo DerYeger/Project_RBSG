@@ -84,7 +84,7 @@ public class LoginFormController {
             if (answer.get("status").equals("success")){
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")) {
-                handleRequestErrors((answer.get("status"), "Fehler bei der Registrierung", messageFromServer);
+                handleRequestErrors(((String)answer.get("status")), "Fehler bei der Registrierung", messageFromServer);
             }
         } else {
             handleRequestErrors("Fehler", "Fehler bei der Registrierung", "Server fuer die Registrierung antwortet nicht");
