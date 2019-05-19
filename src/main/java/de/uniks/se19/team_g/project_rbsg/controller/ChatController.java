@@ -145,7 +145,7 @@ public class ChatController {
 
     public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
         try {
-            final ObjectNode node = getMessageAsJsonString(channel, content);
+            final ObjectNode node = getMessageAsNode(channel, content);
             webSocketClient.sendMessage(node);
 
             if (!channel.equals(GENERAL_CHANNEL_NAME)) {
@@ -160,7 +160,7 @@ public class ChatController {
     }
 
     @NonNull
-    private ObjectNode getMessageAsJsonString(@NonNull final String channel, @NonNull final String content) throws JsonProcessingException {
+    private ObjectNode getMessageAsNode(@NonNull final String channel, @NonNull final String content) throws JsonProcessingException {
         final ObjectMapper objectMapper = new ObjectMapper();
         final ObjectNode node = objectMapper.createObjectNode();
 
