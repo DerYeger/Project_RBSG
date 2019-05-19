@@ -26,6 +26,14 @@ public class User {
         return userKey;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public void setUserKey(@NonNull final String userKey){
+        this.userKey = userKey;
+    }
+
     public String getPassword() {
         return password;
     }

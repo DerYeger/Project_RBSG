@@ -37,8 +37,8 @@ public class LoginFormController {
 
     private final RegistrationManager registrationManager;
 
-    public LoginFormController(@Nullable RegistrationManager registrationManager) {
-        this.registrationManager = (registrationManager == null) ? new RegistrationManager(): registrationManager;
+    public LoginFormController(@NonNull RegistrationManager registrationManager) {
+        this.registrationManager = registrationManager;
     }
 
     public void init() {
