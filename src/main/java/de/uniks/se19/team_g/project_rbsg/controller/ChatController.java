@@ -1,5 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.handler.ChatCommandHandler;
@@ -8,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.view.ChatChannelBuilder;
+import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.springframework.lang.NonNull;
@@ -23,6 +28,10 @@ public class ChatController {
     public static final String SYSTEM = "System";
 
     public static final String GENERAL_CHANNEL_NAME = "General";
+
+    public static final String SERVER_PUBLIC_CHANNEL_NAME = "all";
+
+    public static final String SERVER_PRIVATE_CHANNEL_NAME = "private";
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
@@ -87,10 +96,12 @@ public class ChatController {
     private void addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
         if (!openChatChannels.containsKey(channel)) {
             final Tab tab = chatTabBuilder.buildChatTab(channel);
-            chatPane.getTabs().add(tab);
-            tab.setClosable(isClosable);
-            chatPane.getSelectionModel().select(tab);
-            openChatTabs.put(channel, tab);
+            Platform.runLater(() -> {
+                chatPane.getTabs().add(tab);
+                tab.setClosable(isClosable);
+                chatPane.getSelectionModel().select(tab);
+                openChatTabs.put(channel, tab);
+            });
         }
     }
 
@@ -132,15 +143,34 @@ public class ChatController {
         return false;
     }
 
-    //send the message to the server
     public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
-        //TODO implement sending message to the server
-        webSocketClient.sendMessage(content);
-        receiveMessage(channel, "You", content);
-        chatPane.getSelectionModel().select(openChatTabs.get(channel));
+        try {
+            final String jsonString = getMessageAsJsonString(channel, content);
+            webSocketClient.sendMessage(jsonString);
+            Platform.runLater(() -> chatPane.getSelectionModel().select(openChatTabs.get(channel)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to send message");
+        }
     }
 
-    //private channels will provide channel == from
+    @NonNull
+    private String getMessageAsJsonString(@NonNull final String channel, @NonNull final String content) throws JsonProcessingException {
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final ObjectNode rootNode = objectMapper.createObjectNode();
+
+        if (channel.equals(GENERAL_CHANNEL_NAME)) { //public message
+            rootNode.put("channel", SERVER_PUBLIC_CHANNEL_NAME);
+        } else { //private message
+            rootNode.put("channel", SERVER_PRIVATE_CHANNEL_NAME);
+            rootNode.put("to", channel.substring(1));
+        }
+
+        rootNode.put("message", content);
+
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+    }
+
     public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
         if (!openChatChannels.containsKey(channel)) {
             addPrivateTab(channel);
@@ -149,7 +179,6 @@ public class ChatController {
         chatChannelController.displayMessage(from, content);
     }
 
-    //remove closed tabs
     public void removeChannelEntry(@NonNull final String channel) {
         openChatTabs.remove(channel);
         openChatChannels.remove(channel);
