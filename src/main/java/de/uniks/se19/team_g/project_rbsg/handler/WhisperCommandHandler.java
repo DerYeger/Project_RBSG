@@ -33,7 +33,7 @@ public class WhisperCommandHandler implements ChatCommandHandler {
         }
 
         final String[] optionsArray = parseOptions(options.trim());
-        
+
         if (optionsArray[0].substring(1).equals(chatController.getUserName())) {
             callback.displayMessage(ChatController.SYSTEM, USER_ERROR_MESSAGE);
             return;
