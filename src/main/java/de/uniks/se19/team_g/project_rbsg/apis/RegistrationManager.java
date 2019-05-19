@@ -20,12 +20,8 @@ public class RegistrationManager {
 
     final private RestTemplate restTemplate;
 
-    public RegistrationManager(){
-        this.restTemplate = new RestTemplate();
-    }
-
-    public RegistrationManager(@Nullable RestTemplate restTemplate) {
-        this.restTemplate = (restTemplate == null) ? new RestTemplate() : restTemplate;
+    public RegistrationManager(@NonNull RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     public CompletableFuture onRegistration(@NonNull User user){

@@ -3,33 +3,30 @@ package de.uniks.se19.team_g.project_rbsg.model;
 import org.springframework.lang.NonNull;
 
 /**
- * @author Juri Lozowoj
+ * @author Keanu Stückrad
  */
-
 public class User {
 
     private String name;
     private String password;
     private String userKey;
 
-    public User(@NonNull String name, @NonNull String password){
+    public User(@NonNull final String name, @NonNull final String password){
         this.name = name;
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getPassword() {
-        return password;
+    // Constructor for UserClone
+    public User(@NonNull final User user, @NonNull final String userKey){
+        this.name = user.getName();
+        this.userKey = userKey;
     }
 
     public String getUserKey() {
         return userKey;
     }
 
-    public void setUserKey(String userKey) {
-        this.userKey = userKey;
+    public String getPassword() {
+        return password;
     }
 }

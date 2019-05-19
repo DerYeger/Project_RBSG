@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -18,9 +20,12 @@ import java.io.IOException;
 @ContextConfiguration(classes = {JavaConfig.class, RegistrationManager.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class})
 public class LoginSceneBuilderTests extends ApplicationTest {
 
+    @Autowired
+    private ApplicationContext context;
+
     @Test
     public void testGetLoginScene() throws IOException {
-        final LoginFormBuilder loginFormBuilder = new LoginFormBuilder(new FXMLLoader());
+        final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
         final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder).getLoginScene();
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
