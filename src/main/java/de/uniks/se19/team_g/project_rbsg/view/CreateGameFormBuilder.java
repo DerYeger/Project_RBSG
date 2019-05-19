@@ -29,7 +29,7 @@ public class CreateGameFormBuilder {
             fxmlLoader.setLocation(CreateGameFormBuilder.class.getResource("create-game-popup.fxml"));
             createGameForm = fxmlLoader.load();
             final CreateGameController createGameController = fxmlLoader.getController();
-            createGameController.initialize();
+            createGameController.init();
         }
         return createGameForm;
     }

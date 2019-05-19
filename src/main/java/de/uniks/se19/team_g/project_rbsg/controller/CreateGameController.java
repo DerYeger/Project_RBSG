@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
 import de.uniks.se19.team_g.project_rbsg.apis.GameCreator;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,28 +36,31 @@ public class CreateGameController {
     private Button cancel;
 
     private final GameCreator gameCreator;
+    private GameBuilder gameBuilder;
     private User user;
-    private String newGameName;
+    private int numberOfPlayers;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
-    private int numberOfPlayers;
 
 
     public CreateGameController(@Nullable GameCreator gameCreator){
         this.gameCreator = ((gameCreator == null) ? new GameCreator(null) : gameCreator);
+        this.gameBuilder = new GameBuilder();
     }
 
-    public void initialize(){
+    public void init(){
         twoPlayers.setOnAction(this::setNumberOfPlayersToTwo);
         fourPlayers.setOnAction(this::setNumberOfPlayersToFour);
         cancel.setOnAction(this::closeCreateGameWindow);
-        cancel.setOnAction(this::closeCreateGameWindow);
-        //gameName.setOnKeyReleased(this::setGameName);
+        create.setOnAction(this::createGame);
     }
 
-    public void createGame(@NonNull final ActionEvent event, @NonNull User user){
-        //gameCreator.sendGameRequest(user, this.numberOfPlayers);
+    public void createGame(@NonNull final ActionEvent event){
+        if(this.gameName.getText() != null  && this.numberOfPlayers != 0){
+            Game newGame = this.gameBuilder.getGame(gameName.getText(), this.numberOfPlayers);
+            this.gameCreator.sendGameRequest(this.user, newGame);
+        }
     }
 
     public void setNumberOfPlayersToTwo(@NonNull final ActionEvent event){
@@ -64,12 +69,6 @@ public class CreateGameController {
 
     public void setNumberOfPlayersToFour(@NonNull final ActionEvent event){
         this.numberOfPlayers = NUMBER_OF_PLAYERS_FOUR;
-    }
-
-    public void setGameName(@NonNull final ActionEvent event){
-        if(gameName != null){
-            this.newGameName = gameName.getText();
-        }
     }
 
     public void closeCreateGameWindow(@NonNull final ActionEvent event){
