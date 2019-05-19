@@ -1,14 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.apis;
 
+import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import javafx.scene.control.Alert;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author Juri Lozowoj
@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 @Component
 public class RegistrationManager {
 
-    final String uri = "https://rbsg.uniks.de/api/user";
+    final private String uri = "https://rbsg.uniks.de/api/user";
 
     final private RestTemplate restTemplate;
 
@@ -24,7 +24,21 @@ public class RegistrationManager {
         this.restTemplate = restTemplate;
     }
 
-    public CompletableFuture onRegistration(@NonNull User user){
-        return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, user, HashMap.class));
+    public CompletableFuture onRegistration(@NonNull User user) {
+        try {
+            return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, user, HashMap.class));
+        } catch (RestClientResponseException e){
+            handleRequestErrors("Fehler", "Fehler bei der Registrierung", "Server fuer die Registrierung antwortet nicht");
+
+        }
+        return null;
+    }
+
+    public void handleRequestErrors(String title, String headerText, String errorMessage){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
     }
 }
