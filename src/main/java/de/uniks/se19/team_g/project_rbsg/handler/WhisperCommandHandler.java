@@ -10,11 +10,11 @@ import org.springframework.lang.Nullable;
  */
 public class WhisperCommandHandler implements ChatCommandHandler {
 
-    private static final String COMMAND = "w";
+    public static final String COMMAND = "w";
 
-    public static final String OPTION_ERROR_MESSAGE = "Incorrect option pattern. Use /w userName";
+    public static final String OPTION_ERROR_MESSAGE = "Incorrect option pattern. /w \"username\" message";
 
-    public static final String CHANNEL_ERROR_MESSAGE = "You already joined that channel";
+    private static final String pattern = "\"(.+\\s?)+\"\\s.+";
 
     private ChatController chatController;
 
@@ -24,15 +24,28 @@ public class WhisperCommandHandler implements ChatCommandHandler {
 
     //TODO check if user exists?
     @Override
-    public boolean handleCommand(@NonNull final ChatTabContentController callback, @NonNull final String command, @Nullable final String[] options) throws Exception {
-        if (command.equals(COMMAND)) { //matching command
-            if (options == null || options.length < 1) { //option pattern error
-                callback.displayMessage(ChatController.SYSTEM, OPTION_ERROR_MESSAGE);
-            } else if (!chatController.addPrivateTab(options[0])) { //channel error
-                callback.displayMessage(ChatController.SYSTEM, CHANNEL_ERROR_MESSAGE);
-            }
-            return true;
+    public void handleCommand(@NonNull final ChatTabContentController callback, @Nullable final String options) throws Exception {
+        if (options == null || options.isBlank() || !options.trim().matches(pattern)) {
+            callback.displayMessage(ChatController.SYSTEM, OPTION_ERROR_MESSAGE);
+            return;
         }
-        return false;
+
+        final String[] optionsArray = parseOptions(options.trim());
+
+        chatController.sendMessage(callback, optionsArray[0], optionsArray[1]);
+    }
+
+    @NonNull
+    private String[] parseOptions(@NonNull final String options) {
+        final String[] optionsArray = new String[2];
+
+        final int nameStartIndex = options.indexOf('"');
+
+        final int nameEndIndex = options.indexOf('"', nameStartIndex + 1);
+
+        optionsArray[0] = '@' + options.substring(nameStartIndex + 1, nameEndIndex);
+        optionsArray[1] = options.substring(nameEndIndex + 2);
+
+        return optionsArray;
     }
 }

@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
 
+import java.io.IOException;
 import java.util.HashSet;
 
 /**
@@ -15,64 +16,43 @@ public class WhisperCommandHandlerTests {
 
     @Test
     public void testCorrectCommand() throws Exception {
+        boolean[] messageReceived = {false};
+
         final HashSet<String> activeChannels = new HashSet<>();
 
         final ChatController chatController = new ChatController() {
             @Override
-            public boolean addPrivateTab(@NonNull final String channel) {
+            public void addPrivateTab(@NonNull final String channel) throws IOException {
                 if (!activeChannels.contains(channel)) {
                     activeChannels.add(channel);
-                    return true;
                 }
-                return false;
+            }
+
+            @Override
+            public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
+                if (!activeChannels.contains(channel)) {
+                    addPrivateTab(channel);
+                }
+                messageReceived[0] = true;
             }
         };
 
         final ChatTabContentController callback = new ChatTabContentController() {
             @Override
             public void displayMessage(@NonNull final String from, @NonNull final String content) {
-                Assert.fail();
+                messageReceived[0] = true;
             }
         };
 
         final ChatCommandHandler handler = new WhisperCommandHandler(chatController);
 
-        String[] options = {"channelName", "ignoredCommand"};
+        final String options = "\"channel name\" message";
 
-        Assert.assertTrue(handler.handleCommand(callback, "w", options));
+        handler.handleCommand(callback, options);
         Assert.assertEquals(1, activeChannels.size());
-        Assert.assertTrue(activeChannels.contains("channelName"));
-    }
+        Assert.assertTrue(activeChannels.contains("@channel name"));
 
-
-    @Test
-    public void testWrongCommand() throws Exception {
-        final HashSet<String> activeChannels = new HashSet<>();
-
-        final ChatController chatController = new ChatController() {
-            @Override
-            public boolean addPrivateTab(@NonNull final String channel) {
-                if (!activeChannels.contains(channel)) {
-                    activeChannels.add(channel);
-                    return true;
-                }
-                return false;
-            }
-        };
-
-        final ChatTabContentController callback = new ChatTabContentController() {
-            @Override
-            public void displayMessage(@NonNull final String from, @NonNull final String content) {
-                Assert.fail();
-            }
-        };
-
-        final ChatCommandHandler handler = new WhisperCommandHandler(chatController);
-
-        String[] options = {"channelName", "ignoredCommand"};
-
-        Assert.assertFalse(handler.handleCommand(callback, "why", options));
-        Assert.assertTrue(activeChannels.isEmpty());
+        Assert.assertTrue(messageReceived[0]);
     }
 
     @Test
@@ -83,12 +63,15 @@ public class WhisperCommandHandlerTests {
 
         final ChatController chatController = new ChatController() {
             @Override
-            public boolean addPrivateTab(@NonNull final String channel) {
+            public void addPrivateTab(@NonNull final String channel) {
                 if (!activeChannels.contains(channel)) {
                     activeChannels.add(channel);
-                    return true;
                 }
-                return false;
+            }
+
+            @Override
+            public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
+                Assert.fail();
             }
         };
 
@@ -102,68 +85,27 @@ public class WhisperCommandHandlerTests {
 
         final ChatCommandHandler handler = new WhisperCommandHandler(chatController);
 
-        final String[] firstTestOptions = {};
-        final String[] secondTestOptions = null;
+        final String firstTestOptions = "\"channel name\"";
+        final String secondTestOptions = "\"\" message";
+        final String thirdTestOptions = "";
+        final String fourthTestOptions = null;
+        final String fifthTestOptions = "\"channel name\"message";
 
-        Assert.assertTrue(handler.handleCommand(callback, "w", firstTestOptions));
+        handler.handleCommand(callback, firstTestOptions);
         Assert.assertTrue(activeChannels.isEmpty());
 
-        Assert.assertTrue(handler.handleCommand(callback, "w", secondTestOptions));
+        handler.handleCommand(callback, secondTestOptions);
         Assert.assertTrue(activeChannels.isEmpty());
 
-        Assert.assertEquals(2, optionErrorCount[0]);
-    }
+        handler.handleCommand(callback, thirdTestOptions);
+        Assert.assertTrue(activeChannels.isEmpty());
 
-    @Test
-    public void testDifferentChannels() throws Exception {
-        int[] channelErrorCount = {0};
+        handler.handleCommand(callback, fourthTestOptions);
+        Assert.assertTrue(activeChannels.isEmpty());
 
-        final HashSet<String> activeChannels = new HashSet<>();
+        handler.handleCommand(callback, fifthTestOptions);
+        Assert.assertTrue(activeChannels.isEmpty());
 
-        final ChatController chatController = new ChatController() {
-            @Override
-            public boolean addPrivateTab(@NonNull final String channel) {
-                if (!activeChannels.contains(channel)) {
-                    activeChannels.add(channel);
-                    return true;
-                }
-                return false;
-            }
-        };
-
-        final ChatTabContentController callback = new ChatTabContentController() {
-            @Override
-            public void displayMessage(@NonNull final String from, @NonNull final String content) {
-                Assert.assertEquals(WhisperCommandHandler.CHANNEL_ERROR_MESSAGE, content);
-                channelErrorCount[0]++;
-            }
-        };
-
-        final ChatCommandHandler handler = new WhisperCommandHandler(chatController);
-
-        final String[] firstTestOptions = {"firstChannel"};
-        final String[] secondTestOptions = {"secondChannel"};
-        final String[] thirdTestOptions = {"firstChannel"};
-        final String[] fourthTestOptions = {"secondChannel"};
-
-        Assert.assertTrue(handler.handleCommand(callback, "w", firstTestOptions));
-        Assert.assertEquals(1, activeChannels.size());
-        Assert.assertEquals(0, channelErrorCount[0]);
-
-        Assert.assertTrue(handler.handleCommand(callback, "w", secondTestOptions));
-        Assert.assertEquals(2, activeChannels.size());
-        Assert.assertEquals(0, channelErrorCount[0]);
-
-        Assert.assertTrue(handler.handleCommand(callback, "w", thirdTestOptions));
-        Assert.assertEquals(2, activeChannels.size());
-        Assert.assertEquals(1, channelErrorCount[0]);
-
-        Assert.assertTrue(activeChannels.contains("secondChannel"));
-        activeChannels.remove("secondChannel");
-        Assert.assertEquals(1, activeChannels.size());
-
-        Assert.assertTrue(handler.handleCommand(callback, "w", fourthTestOptions));
-        Assert.assertEquals(2, activeChannels.size());
-        Assert.assertEquals(1, channelErrorCount[0]);
+        Assert.assertEquals(5, optionErrorCount[0]);
     }
 }
