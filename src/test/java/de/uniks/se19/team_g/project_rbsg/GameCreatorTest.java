@@ -15,7 +15,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
-
+/**
+ * @author Juri Lozowoj
+ */
 public class GameCreatorTest {
 
     @Test

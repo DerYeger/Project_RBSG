@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.model;
-
 /**
- * @author Keanu Stückrad
+ * @author Juri Lozowoj
  */
 public class GameBuilder {
 
