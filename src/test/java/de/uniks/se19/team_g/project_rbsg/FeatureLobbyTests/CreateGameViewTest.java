@@ -1,4 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
 
-public class CreateGameViewTest {
+import org.testfx.framework.junit.ApplicationTest;
+
+/**
+ * @author Juri Lozowoj
+ */
+public class CreateGameViewTest extends ApplicationTest {
+
+
+
 }
