@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ */
 public class ChatTestFXApplication extends Application {
 
     private static String userName;
