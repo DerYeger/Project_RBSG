@@ -145,8 +145,8 @@ public class ChatController {
 
     public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
         try {
-            final String jsonString = getMessageAsJsonString(channel, content);
-            webSocketClient.sendMessage(jsonString);
+            final ObjectNode node = getMessageAsJsonString(channel, content);
+            webSocketClient.sendMessage(node);
 
             if (!channel.equals(GENERAL_CHANNEL_NAME)) {
                 receiveMessage(channel, user.getName(), content);
@@ -160,20 +160,20 @@ public class ChatController {
     }
 
     @NonNull
-    private String getMessageAsJsonString(@NonNull final String channel, @NonNull final String content) throws JsonProcessingException {
+    private ObjectNode getMessageAsJsonString(@NonNull final String channel, @NonNull final String content) throws JsonProcessingException {
         final ObjectMapper objectMapper = new ObjectMapper();
-        final ObjectNode rootNode = objectMapper.createObjectNode();
+        final ObjectNode node = objectMapper.createObjectNode();
 
         if (channel.equals(GENERAL_CHANNEL_NAME)) { //public message
-            rootNode.put("channel", SERVER_PUBLIC_CHANNEL_NAME);
+            node.put("channel", SERVER_PUBLIC_CHANNEL_NAME);
         } else { //private message
-            rootNode.put("channel", SERVER_PRIVATE_CHANNEL_NAME);
-            rootNode.put("to", channel.substring(1));
+            node.put("channel", SERVER_PRIVATE_CHANNEL_NAME);
+            node.put("to", channel.substring(1));
         }
 
-        rootNode.put("message", content);
+        node.put("message", content);
 
-        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+        return node;
     }
 
     public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
