@@ -1,12 +1,13 @@
-package de.uniks.se19.team_g.project_rbsg.handler;
+package de.uniks.se19.team_g.project_rbsg.chat.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
 import org.junit.Test;

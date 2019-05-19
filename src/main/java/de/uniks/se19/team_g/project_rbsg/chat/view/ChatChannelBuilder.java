@@ -1,7 +1,8 @@
-package de.uniks.se19.team_g.project_rbsg.view;
+package de.uniks.se19.team_g.project_rbsg.chat.view;
 
-import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.lang.NonNull;
@@ -22,7 +23,7 @@ public class ChatChannelBuilder {
     @NonNull
     public Node buildChatChannel(@NonNull final String channel) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(LoginFormBuilder.class.getResource("chat-channel.fxml"));
+        fxmlLoader.setLocation(ChatChannelBuilder.class.getResource("chat-channel.fxml"));
 
         final Node chatTabContent = fxmlLoader.load();
 

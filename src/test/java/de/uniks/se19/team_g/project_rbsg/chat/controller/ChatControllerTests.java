@@ -1,16 +1,14 @@
-package de.uniks.se19.team_g.project_rbsg.controller;
+package de.uniks.se19.team_g.project_rbsg.chat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatTestApplication;
-import de.uniks.se19.team_g.project_rbsg.handler.LeaveCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.handler.LeaveCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;

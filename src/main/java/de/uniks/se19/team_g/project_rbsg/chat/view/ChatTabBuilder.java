@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.view;
+package de.uniks.se19.team_g.project_rbsg.chat.view;
 
-import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatTabController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatTabController;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import org.springframework.lang.NonNull;

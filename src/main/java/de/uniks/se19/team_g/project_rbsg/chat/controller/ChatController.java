@@ -1,17 +1,15 @@
-package de.uniks.se19.team_g.project_rbsg.controller;
+package de.uniks.se19.team_g.project_rbsg.chat.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.handler.ChatCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.handler.LeaveCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.handler.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.handler.ChatCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.handler.LeaveCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.view.ChatTabBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.ChatChannelBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -165,7 +163,7 @@ public class ChatController {
     }
 
     @NonNull
-    private ObjectNode getMessageAsNode(@NonNull final String channel, @NonNull final String content) throws JsonProcessingException {
+    private ObjectNode getMessageAsNode(@NonNull final String channel, @NonNull final String content) {
         final ObjectMapper objectMapper = new ObjectMapper();
         final ObjectNode node = objectMapper.createObjectNode();
 
