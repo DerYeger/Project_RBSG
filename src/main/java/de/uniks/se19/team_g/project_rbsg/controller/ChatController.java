@@ -147,6 +147,11 @@ public class ChatController {
         try {
             final String jsonString = getMessageAsJsonString(channel, content);
             webSocketClient.sendMessage(jsonString);
+
+            if (!channel.equals(GENERAL_CHANNEL_NAME)) {
+                receiveMessage(channel, user.getName(), content);
+            }
+
             Platform.runLater(() -> chatPane.getSelectionModel().select(openChatTabs.get(channel)));
         } catch (IOException e) {
             e.printStackTrace();
