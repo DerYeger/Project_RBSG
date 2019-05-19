@@ -75,6 +75,11 @@ public class ChatController {
         registerAtChatWebSocketCallback();
     }
 
+    @NonNull
+    public String getUserName() {
+        return user.getName();
+    }
+
     private void registerAtChatWebSocketCallback() {
         chatWebSocketCallback.registerChatController(this);
     }

@@ -14,6 +14,8 @@ public class WhisperCommandHandler implements ChatCommandHandler {
 
     public static final String OPTION_ERROR_MESSAGE = "/w <\"username\"> <message> - Send a private message to username";
 
+    public static final String USER_ERROR_MESSAGE = "You can not chat with yourself!";
+
     private static final String pattern = "\"(.+\\s?)+\"\\s.+";
 
     private final ChatController chatController;
@@ -31,6 +33,11 @@ public class WhisperCommandHandler implements ChatCommandHandler {
         }
 
         final String[] optionsArray = parseOptions(options.trim());
+        
+        if (optionsArray[0].substring(1).equals(chatController.getUserName())) {
+            callback.displayMessage(ChatController.SYSTEM, USER_ERROR_MESSAGE);
+            return;
+        }
 
         chatController.sendMessage(callback, optionsArray[0], optionsArray[1]);
     }
