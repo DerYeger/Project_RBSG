@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.apis;
 
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import javafx.scene.control.Alert;
 import org.springframework.http.HttpEntity;
@@ -16,25 +17,25 @@ import java.util.concurrent.CompletableFuture;
  * @author Juri Lozowoj
  */
 @Component
-public class GameManager {
+public class GameCreator {
 
     final String uri = "https://rbsg.uniks.de/api/game";
 
     private RestTemplate restTemplate;
 
-    public GameManager(@Nullable RestTemplate restTemplate){
+    public GameCreator(@Nullable RestTemplate restTemplate){
         this.restTemplate = (restTemplate == null) ? new RestTemplate() : restTemplate;
     }
 
-    public CompletableFuture sendGameRequest(@Nullable User user, @Nullable int numberOfPlayers){
+    public CompletableFuture sendGameRequest(@Nullable User user, @Nullable Game game){
         HttpHeaders header = new HttpHeaders();
 
         HashMap<String, Object> requestBody = new HashMap<>();
-        requestBody.put("neededPlayer", numberOfPlayers);
+        requestBody.put("neededPlayer", game.getNumberOfPlayers());
 
         if (user != null) {
             header.set("userKey", user.getUserKey());
-            requestBody.put("name", user.getName());
+            requestBody.put("name", game.getName());
         }
 
         HttpEntity<?> request = new HttpEntity<Object>(requestBody, header);
