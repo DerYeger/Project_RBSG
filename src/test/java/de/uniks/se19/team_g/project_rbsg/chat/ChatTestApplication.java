@@ -4,7 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Jan Müller
- * Use thjis class for manual chat testing
+ * Use this class for manual chat testing
  */
 @SpringBootApplication
 public class ChatTestApplication {
