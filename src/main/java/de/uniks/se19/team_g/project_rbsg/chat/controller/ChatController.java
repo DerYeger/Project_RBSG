@@ -125,7 +125,7 @@ public class ChatController {
                 callback.displayMessage(SYSTEM, "Unknown chat command");
             }
         } else { //send message
-            sendMessage(callback, channel, content);
+            sendMessage(callback, channel, content.trim());
         }
     }
 
