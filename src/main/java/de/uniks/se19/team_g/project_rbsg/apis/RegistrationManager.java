@@ -25,13 +25,7 @@ public class RegistrationManager {
     }
 
     public CompletableFuture onRegistration(@NonNull User user) {
-        try {
-            return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, user, HashMap.class));
-        } catch (RestClientResponseException e){
-            handleRequestErrors("Fehler", "Fehler bei der Registrierung", "Server fuer die Registrierung antwortet nicht");
-
-        }
-        return null;
+        return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, user, HashMap.class));
     }
 
     public void handleRequestErrors(String title, String headerText, String errorMessage){
