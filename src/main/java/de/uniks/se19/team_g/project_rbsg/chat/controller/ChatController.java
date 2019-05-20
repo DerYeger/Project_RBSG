@@ -184,7 +184,7 @@ public class ChatController {
             addPrivateTab(channel);
         }
         final ChatChannelController chatChannelController = openChatChannels.get(channel);
-        chatChannelController.displayMessage(from, content);
+        chatChannelController.displayMessage(from, content.trim());
     }
 
     public void removeChannelEntry(@NonNull final String channel) {
