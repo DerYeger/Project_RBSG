@@ -4,8 +4,10 @@ import de.uniks.se19.team_g.project_rbsg.apis.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -13,6 +15,9 @@ import javafx.stage.Stage;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Juri Lozowoj
@@ -36,6 +41,7 @@ public class CreateGameController {
     private Button cancel;
 
     private final GameCreator gameCreator;
+    private Game game;
     private GameBuilder gameBuilder;
     private User user;
     private int numberOfPlayers;
@@ -58,8 +64,26 @@ public class CreateGameController {
 
     public void createGame(@NonNull final ActionEvent event){
         if(this.gameName.getText() != null  && this.numberOfPlayers != 0){
-            Game newGame = this.gameBuilder.getGame(gameName.getText(), this.numberOfPlayers);
-            this.gameCreator.sendGameRequest(this.user, newGame);
+            this.game = this.gameBuilder.getGame(gameName.getText(), this.numberOfPlayers);
+            final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.user, newGame);
+            gameRequestAnswerPromise.thenAccept(
+                    map -> Platform.runLater(() -> onGameRequestReturned(map))
+            );
+        }
+    }
+
+    private void onGameRequestReturned(@Nullable HashMap<String, Object> answer) {
+        final String gameId;
+        if (answer != null){
+            if(answer.get("status").equals("succes")){
+                HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
+                gameId = (String) data.get("gameId");
+                this.game.setGameId(gameId);
+                //Do some autologin to this game
+            } else if (answer.get("status").equals("failure")){
+                handleGameRequestErrors((String)answer.get("status"), );
+
+            }
         }
     }
 
@@ -74,6 +98,14 @@ public class CreateGameController {
     public void closeCreateGameWindow(@NonNull final ActionEvent event){
         Stage stage = (Stage) cancel.getScene().getWindow();
         stage.close();
+    }
+
+    public void handleGameRequestErrors(String title, String headerText, String errorMessage){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
     }
 
 

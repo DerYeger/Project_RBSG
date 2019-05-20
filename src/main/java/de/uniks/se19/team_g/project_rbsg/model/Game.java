@@ -9,6 +9,7 @@ public class Game {
 
     private String name;
     private int numberOfPlayers;
+    private String gameId;
 
     public Game(@NonNull String name, @NonNull int numberOfPlayers){
         this.name = name;
@@ -29,6 +30,14 @@ public class Game {
 
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
 }

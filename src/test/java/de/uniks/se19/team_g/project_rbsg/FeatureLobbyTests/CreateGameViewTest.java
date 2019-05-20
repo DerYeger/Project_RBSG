@@ -69,8 +69,4 @@ public class CreateGameViewTest extends ApplicationTest {
         sleep(500);
         Assert.assertTrue(fourPlayerButton.isSelected());
     }
-
-
-
-
 }

@@ -12,6 +12,4 @@ public class GameBuilder {
         }
         return this.game;
     }
-
-
 }
