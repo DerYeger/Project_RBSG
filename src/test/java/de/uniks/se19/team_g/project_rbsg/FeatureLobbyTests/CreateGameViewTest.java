@@ -7,9 +7,12 @@ import de.uniks.se19.team_g.project_rbsg.view.CreateGameFormBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import org.apache.tomcat.jni.Time;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +49,7 @@ public class CreateGameViewTest extends ApplicationTest {
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final String testGameName = "Noodles";
+        sleep(300);
         clickOn(gameNameInput);
         eraseText(20);
         clickOn(gameNameInput);
@@ -56,6 +60,14 @@ public class CreateGameViewTest extends ApplicationTest {
 
         Assert.assertEquals(testGameName, gameNameInput.getText());
 
+        final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
+        final ToggleButton fourPlayerButton = lookup("#fourPlayers").query();
+        clickOn(twoPlayerButton);
+        sleep(500);
+        Assert.assertTrue(twoPlayerButton.isSelected());
+        clickOn(fourPlayerButton);
+        sleep(500);
+        Assert.assertTrue(fourPlayerButton.isSelected());
     }
 
 
