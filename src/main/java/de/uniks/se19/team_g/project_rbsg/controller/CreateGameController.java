@@ -69,9 +69,11 @@ public class CreateGameController {
             gameRequestAnswerPromise
                     .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
                     .exceptionally(exception -> {
-                        handleGameRequestErrors("Fehler", "Fehler beim Erstellen des Spiels", exception.getMessage());
+                        handleGameRequestErrors("Fehler", "Fehler: Keine Verbindung zum Server moeglich", exception.getMessage());
                         return null;
                     });
+        } else if((this.gameName.getText() == null)  || (this.numberOfPlayers == 0)){
+            handleGameRequestErrors("Fehler", "Fehler: Fehler bei Eingabeinformation", "Fehler: Fehler bei Eingabeinformation");
         }
     }
 

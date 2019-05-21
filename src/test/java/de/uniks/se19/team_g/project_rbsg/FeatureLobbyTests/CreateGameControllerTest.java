@@ -14,7 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
@@ -59,17 +62,20 @@ public class CreateGameControllerTest extends ApplicationTest {
                 };
             }
         }
+    private Scene scene;
 
     @Override
     public void start(@NonNull Stage stage) throws IOException{
         final Node gameForm = createGameFormBuilder.getCreateGameForm();
-        final Scene scene = new Scene((Parent) gameForm);
+        this.scene = new Scene((Parent) gameForm);
         stage.setScene(scene);
         stage.show();
     }
 
+
+
     @Test
-    public void test(){
+    public void testRejectedFutureHandling(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final String testGameName = "SuperGame";
@@ -90,8 +96,53 @@ public class CreateGameControllerTest extends ApplicationTest {
 
         clickOn(createGameButton);
         sleep(1000);
-        final Node alert = lookup("Fehler beim Erstellen des Spiels").query();
+        final Node alert = lookup("Fehler: Keine Verbindung zum Server moeglich").query();
         Assert.assertNotNull(alert);
     }
 
+    @Test
+    public void testFormCorrectInputGameName(){
+        final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
+        Assert.assertNotNull(gameNameInput);
+        final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
+        Assert.assertNotNull(twoPlayerButton);
+        final Button createGameButton = lookup("#create").queryButton();
+        sleep(3000);
+        clickOn(gameNameInput);
+        sleep(1000);
+        eraseText(20);
+        clickOn(gameNameInput);
+        eraseText(20);
+        press(KeyCode.ENTER);
+        release(KeyCode.ENTER);
+
+        clickOn(twoPlayerButton);
+
+        clickOn(createGameButton);
+        sleep(1000);
+        final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
+        Assert.assertNotNull(alert);
+    }
+
+    @Test
+    public void testFormCorrectInputNumberOfPlayers(){
+        final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
+        Assert.assertNotNull(gameNameInput);
+        final Button createGameButton = lookup("#create").queryButton();
+        final String testGameName = "SuperGame";
+        sleep(3000);
+        clickOn(gameNameInput);
+        sleep(1000);
+        eraseText(20);
+        clickOn(gameNameInput);
+        eraseText(20);
+        write(testGameName);
+        press(KeyCode.ENTER);
+        release(KeyCode.ENTER);
+
+        clickOn(createGameButton);
+        sleep(1000);
+        final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
+        Assert.assertNotNull(alert);
+    }
 }
