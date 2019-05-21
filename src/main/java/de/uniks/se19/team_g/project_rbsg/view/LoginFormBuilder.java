@@ -24,7 +24,6 @@ public class LoginFormBuilder {
         this.fxmlLoader = fxmlLoader;
     }
 
-
     public Node getLoginForm() throws IOException {
         if (loginForm == null) {
             fxmlLoader.setLocation(LoginFormBuilder.class.getResource("login-form.fxml"));
@@ -33,5 +32,6 @@ public class LoginFormBuilder {
             loginFormController.init();
         }
         return loginForm;
-     }
+    }
+
 }

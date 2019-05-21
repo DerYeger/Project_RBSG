@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class LoginManager {
 
-    final String BASE_REST_URL = "https://rbsg.uniks.de/api";
+    final String baseRestUrl = "https://rbsg.uniks.de/api";
 
     private RestTemplate restTemplate;
 
@@ -24,6 +24,6 @@ public class LoginManager {
     }
 
     public CompletableFuture onLogin(@NonNull final User user){
-        return java.util.concurrent.CompletableFuture.supplyAsync(() -> restTemplate.postForObject(BASE_REST_URL + "/user/login", user, HashMap.class));
+        return java.util.concurrent.CompletableFuture.supplyAsync(() -> restTemplate.postForObject(baseRestUrl + "/user/login", user, HashMap.class));
     }
 }
