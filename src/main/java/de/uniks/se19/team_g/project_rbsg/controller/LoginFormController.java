@@ -83,31 +83,26 @@ public class LoginFormController {
         }
         if (user != null){
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
-            answerPromise.thenAccept(
-              map -> Platform.runLater(() -> onRegistrationReturned(map))
-            );
+            answerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
+                    .exceptionally(exception ->  {
+                            handleRequestErrors("Fehler", "Fehler bei der Registrierung", exception.getMessage());
+                            return null;
+                        });
         }
     }
 
-    private void onRegistrationReturned(@Nullable HashMap<String, Object> answer) {
+    private void onRegistrationReturned(@Nullable HashMap<String, Object> answer, ActionEvent event) {
         final String messageFromServer;
         if (answer != null) {
-            messageFromServer = (String) answer.get("status");
+            messageFromServer = (String) answer.get("message");
             if (answer.get("status").equals("success")){
-                //loginManager.onLogin();
+                this.loginAction(event);
             } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Fehler bei der Registrierung");
-                alert.setContentText(messageFromServer);
-                alert.showAndWait();
+                handleRequestErrors(((String)answer.get("status")), "Fehler bei der Registrierung", messageFromServer);
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fehler");
-            alert.setHeaderText("Fehler bei der Registrierung");
-            alert.setContentText("Server fuer die Registrierung antwortet nicht");
-            alert.showAndWait();
+            handleRequestErrors("Fehler", "Fehler bei der Registrierung", "Server fuer die Registrierung antwortet nicht");
        }
     }
 
@@ -115,7 +110,11 @@ public class LoginFormController {
         sceneManager.setLobbyScene();
     }
 
-    public void onRegistration() {
-
+    public void handleRequestErrors(String title, String headerText, String errorMessage){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
     }
 }
