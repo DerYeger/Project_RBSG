@@ -49,7 +49,7 @@ public class CreateGameViewTest extends ApplicationTest {
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final String testGameName = "Noodles";
-        sleep(300);
+        sleep(3000);
         clickOn(gameNameInput);
         eraseText(20);
         clickOn(gameNameInput);
