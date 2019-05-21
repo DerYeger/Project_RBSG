@@ -42,11 +42,12 @@ public class LoginFormController {
 
     private final RegistrationManager registrationManager;
 
-    @Autowired
-    private ApplicationContext context;
+    private final SceneManager sceneManager;
 
-    public LoginFormController(RegistrationManager registrationManager) {
+    @Autowired
+    public LoginFormController(@NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
         this.registrationManager = registrationManager;
+        this.sceneManager = sceneManager;
     }
 
     public void init() {
@@ -111,8 +112,7 @@ public class LoginFormController {
     }
 
     public void onLogin(@NonNull User user) {
-        context.getBean(SceneManager.class)
-                .setLobbyScene();
+        sceneManager.setLobbyScene();
     }
 
     public void onRegistration() {
