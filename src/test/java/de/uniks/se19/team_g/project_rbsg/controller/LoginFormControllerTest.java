@@ -2,14 +2,17 @@ package de.uniks.se19.team_g.project_rbsg.controller;
 
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
 
+import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.Stage;
 
@@ -17,42 +20,65 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestClientResponseException;
+import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Keanu Stückrad
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, LoginFormBuilder.class, LoginFormController.class, RegistrationManager.class, LoginManager.class})
+@RunWith(SpringJUnit4ClassRunner .class)
+@ContextConfiguration(classes = {JavaConfig.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, LoginFormControllerTest.ContextConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTest extends ApplicationTest {
 
-    // private LoginManager loginManager;
-
     @Autowired
-    private ApplicationContext context;
+    private LoginFormBuilder loginFormBuilder;
+
+    @TestConfiguration
+    static class ContextConfiguration {
+        @Bean
+        public RegistrationManager registrationManager() {
+            return new RegistrationManager(new RestTemplate()) {
+                @Override
+                public CompletableFuture onRegistration(User user) {
+                    return CompletableFuture.failedFuture(
+                            new RestClientResponseException(
+                                    "Invalid Credentials",
+                                    HttpStatus.UNAUTHORIZED.value(),
+                                    "Unauthorized",
+                                    null, null, null
+                            )
+                    );
+                }
+            };
+        }
+    }
+
+
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
-        final Node loginForm = context.getBean(LoginFormBuilder.class).getLoginForm();
-        Assert.assertNotNull(loginForm);
-
-        Scene scene = new Scene((Parent) loginForm);
+        Node testLoginForm = loginFormBuilder.getLoginForm();
+        Assert.assertNotNull(testLoginForm);
+        final Scene scene = new Scene((Parent) testLoginForm);
         stage.setScene(scene);
         stage.show();
     }
 
     @Test
     public void loginTestSuccess() {
-
-        //loginManager = setLoginManager("success", "", (JsonObject) Json.createObjectBuilder().add("userKey", "ohYesYoureSuchAGodDamnKey"));
 
         final TextInputControl nameInput = lookup("#name-field").queryTextInputControl();
         Assert.assertNotNull(nameInput);
@@ -63,18 +89,21 @@ public class LoginFormControllerTest extends ApplicationTest {
 
         clickOn(nameInput);
         write("MasterChief");
+        Assert.assertEquals("MasterChief", nameInput.getText());
 
         clickOn(passwordInput);
         write("john-117");
+        Assert.assertEquals("john-117", passwordInput.getText());
 
         clickOn(loginButton);
-
+        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
+        Assert.assertEquals(popDialogs.size(), 1);
+        Node alert = lookup("Login erfolgreich").query();
+        Assert.assertNotNull(alert);
     }
 
-    @Test
+    /*@Test
     public void loginTestFailureInvalidCredentialsAlert() {
-
-        //loginManager = setLoginManager("failure", "Invalid credentials", (JsonObject) Json.createObjectBuilder());
 
         final TextInputControl nameInput = lookup("#name-field").queryTextInputControl();
         Assert.assertNotNull(nameInput);
@@ -85,17 +114,17 @@ public class LoginFormControllerTest extends ApplicationTest {
 
         clickOn(nameInput);
         write("WrongName");
+        Assert.assertEquals("WrongName", nameInput.getText());
 
         clickOn(passwordInput);
         write("falsePassword");
+        Assert.assertEquals("falsePassword", passwordInput.getText());
 
         clickOn(loginButton);
     }
 
     @Test
     public void loginTestFailureNoConnection() {
-
-        // loginManager = setLoginManager("failure", "No server connection", Json.createObjectBuilder().build());
 
         final Button loginButton = lookup("#login-button").queryButton();
         Assert.assertNotNull(loginButton);
@@ -115,9 +144,11 @@ public class LoginFormControllerTest extends ApplicationTest {
 
         clickOn(nameInput);
         write("MasterChief"); // Server has to be simulated
+        Assert.assertEquals("MasterChief", nameInput.getText());
 
         clickOn(passwordInput);
         write("john-117"); // so that we dont always get new users
+        Assert.assertEquals("john-117", passwordInput.getText());
 
         clickOn(registrationButton);
 
@@ -135,9 +166,11 @@ public class LoginFormControllerTest extends ApplicationTest {
 
         clickOn(nameInput);
         write("MasterChief");
+        Assert.assertEquals("MasterChief", nameInput.getText());
 
         clickOn(passwordInput);
         write("john-117");
+        Assert.assertEquals("john-117", passwordInput.getText());
 
         clickOn(registrationButton);
     }
@@ -149,7 +182,7 @@ public class LoginFormControllerTest extends ApplicationTest {
         Assert.assertNotNull(registrationButton);
 
         clickOn(registrationButton);
-    }
+    }*/
 
 
 }
