@@ -54,7 +54,9 @@ public class ProjectRbsgFXApplication extends Application {
         primaryStage.setHeight(HEIGHT);
         primaryStage.setResizable(false);
 
-        context.getBean(SceneManager.class).init(primaryStage).setLoginScene();
+        context.getBean(SceneManager.class)
+                .init(primaryStage)
+                .setLoginScene();
 
         primaryStage.show();
     }

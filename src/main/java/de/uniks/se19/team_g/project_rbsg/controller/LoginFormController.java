@@ -111,7 +111,8 @@ public class LoginFormController {
     }
 
     public void onLogin(@NonNull User user) {
-        context.getBean(SceneManager.class).setLobbyScene();
+        context.getBean(SceneManager.class)
+                .setLobbyScene();
     }
 
     public void onRegistration() {
