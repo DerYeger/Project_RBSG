@@ -63,7 +63,7 @@ public class CreateGameController {
     }
 
     public void createGame(@NonNull final ActionEvent event){
-        if(this.gameName.getText() != null  && this.numberOfPlayers != 0){
+        if(this.gameName.getText() != null && (!this.gameName.getText().equals("")) && this.numberOfPlayers != 0){
             this.game = this.gameBuilder.getGame(gameName.getText(), this.numberOfPlayers);
             final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.user, this.game);
             gameRequestAnswerPromise
@@ -72,7 +72,7 @@ public class CreateGameController {
                         handleGameRequestErrors("Fehler", "Fehler: Keine Verbindung zum Server moeglich", exception.getMessage());
                         return null;
                     });
-        } else if((this.gameName.getText() == null)  || (this.numberOfPlayers == 0)){
+        } else if((this.gameName.getText() == null)  || (this.numberOfPlayers == 0) || this.gameName.getText().equals("")){
             handleGameRequestErrors("Fehler", "Fehler: Fehler bei Eingabeinformation", "Fehler: Fehler bei Eingabeinformation");
         }
     }
