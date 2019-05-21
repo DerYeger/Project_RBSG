@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, GameCreator.class, GameBuilder.class, CreateGameControllerTest.ContextConfiguration.class})
+@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, GameBuilder.class, CreateGameControllerTest.ContextConfiguration.class})
 public class CreateGameControllerTest extends ApplicationTest {
 
         @Autowired
@@ -60,6 +60,14 @@ public class CreateGameControllerTest extends ApplicationTest {
             }
         }
 
+    @Override
+    public void start(@NonNull Stage stage) throws IOException{
+        final Node gameForm = createGameFormBuilder.getCreateGameForm();
+        final Scene scene = new Scene((Parent) gameForm);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @Test
     public void test(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
@@ -84,16 +92,6 @@ public class CreateGameControllerTest extends ApplicationTest {
         sleep(1000);
         final Node alert = lookup("Fehler beim Erstellen des Spiels").query();
         Assert.assertNotNull(alert);
-
-
     }
-
-        @Override
-        public void start(@NonNull Stage stage) throws IOException{
-            final Node gameForm = createGameFormBuilder.getCreateGameForm();
-            final Scene scene = new Scene((Parent) gameForm);
-            stage.setScene(scene);
-            stage.show();
-        }
 
 }

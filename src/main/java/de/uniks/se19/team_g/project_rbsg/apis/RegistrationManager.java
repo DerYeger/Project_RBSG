@@ -28,11 +28,4 @@ public class RegistrationManager {
         return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, user, HashMap.class));
     }
 
-    public void handleRequestErrors(String title, String headerText, String errorMessage){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(errorMessage);
-        alert.showAndWait();
-    }
 }
