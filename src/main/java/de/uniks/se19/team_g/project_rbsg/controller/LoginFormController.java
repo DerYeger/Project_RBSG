@@ -4,6 +4,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -37,8 +42,12 @@ public class LoginFormController {
 
     private final RegistrationManager registrationManager;
 
-    public LoginFormController(RegistrationManager registrationManager) {
+    private final SceneManager sceneManager;
+
+    @Autowired
+    public LoginFormController(@NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
         this.registrationManager = registrationManager;
+        this.sceneManager = sceneManager;
     }
 
     public void init() {
@@ -74,44 +83,38 @@ public class LoginFormController {
         }
         if (user != null){
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
-            answerPromise.thenAccept(
-              map -> Platform.runLater(() -> onRegistrationReturned(map))
-            );
+            answerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
+                    .exceptionally(exception ->  {
+                            handleRequestErrors("Fehler", "Fehler bei der Registrierung", exception.getMessage());
+                            return null;
+                        });
         }
     }
 
-    private void onRegistrationReturned(@Nullable HashMap<String, Object> answer) {
+    private void onRegistrationReturned(@Nullable HashMap<String, Object> answer, ActionEvent event) {
         final String messageFromServer;
         if (answer != null) {
-            messageFromServer = (String) answer.get("status");
+            messageFromServer = (String) answer.get("message");
             if (answer.get("status").equals("success")){
-                //loginManager.onLogin();
+                this.loginAction(event);
             } else if(answer.get("status").equals("failure") && answer.get("message").equals("Name already taken")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Fehler bei der Registrierung");
-                alert.setContentText(messageFromServer);
-                alert.showAndWait();
+                handleRequestErrors(((String)answer.get("status")), "Fehler bei der Registrierung", messageFromServer);
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fehler");
-            alert.setHeaderText("Fehler bei der Registrierung");
-            alert.setContentText("Server fuer die Registrierung antwortet nicht");
-            alert.showAndWait();
+            handleRequestErrors("Fehler", "Fehler bei der Registrierung", "Server fuer die Registrierung antwortet nicht");
        }
     }
 
     public void onLogin(@NonNull User user) {
-        // change scene here...
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Platzhalter");
-        alert.setHeaderText("Login erfolgreich");
-        alert.setContentText("Szenenwechsel zur Lobby muss noch implementiert werden");
-        alert.showAndWait();
+        sceneManager.setLobbyScene();
     }
 
-    public void onRegistration() {
-
+    public void handleRequestErrors(String title, String headerText, String errorMessage){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
     }
 }
