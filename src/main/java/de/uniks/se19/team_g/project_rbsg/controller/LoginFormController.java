@@ -72,16 +72,17 @@ public class LoginFormController {
     public void onLoginReturned(@Nullable final HashMap<String, Object> answer) {
         if (answer != null) {
             final String status = (String) answer.get("status");
-            final String message = (String) answer.get("message");
-            final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
-            final String userKey = (String) data.get("userKey");
             if (status.equals("success")){
+                final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
+                final String userKey = "";
+                if(data != null){
+                    userKey.concat((String) data.get("userKey"));
+                }
                 newScene(new User(user, userKey));
             } else if(status.equals("failure")) {
+                final String message = (String) answer.get("message");
                 alert(status,  message, "Login");
             }
-        } else {
-            alert("failure", "No server connection", "Login");
         }
     }
 
@@ -101,16 +102,14 @@ public class LoginFormController {
     private void onRegistrationReturned(@Nullable final HashMap<String, Object> answer) {
         if (answer != null) {
             final String status = (String) answer.get("status");
-            final String message = (String) answer.get("message");
             if (answer.get("status").equals("success")){
                 // do login
                 loginAction(new ActionEvent());
             } else if(answer.get("status").equals("failure")) {
+                final String message = (String) answer.get("message");
                 alert(status, message, "Registration");
             }
-        } else {
-            alert("failure", "No server connection", "Registration");
-       }
+        }
     }
 
     public void newScene(@NonNull final User user) {
