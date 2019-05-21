@@ -74,9 +74,12 @@ public class LoginFormController {
         }
         if (user != null){
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
-            answerPromise.thenAccept(
-              map -> Platform.runLater(() -> onRegistrationReturned(map, event))
-            );
+            answerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
+                    .exceptionally(exception ->  {
+                            handleRequestErrors("Fehler", "Fehler bei der Registrierung", exception.getMessage());
+                            return null;
+                        });
         }
     }
 
