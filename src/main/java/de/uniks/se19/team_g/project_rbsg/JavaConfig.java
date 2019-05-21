@@ -32,11 +32,6 @@ public class JavaConfig implements ApplicationContextAware {
         return new RestTemplate();
     }
 
-    @Bean
-    public Unirest unirest(){
-        return new Unirest();
-    }
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;

@@ -111,7 +111,7 @@ public class LoginFormController {
         // change scene here...
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Platzhalter");
-        alert.setHeaderText("Login erfolgreich, userKey: " + user.getUserKey());
+        alert.setHeaderText("Login erfolgreich");
         alert.setContentText("Szenenwechsel zur Lobby muss noch implementiert werden");
         alert.showAndWait();
     }
