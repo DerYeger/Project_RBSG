@@ -1,12 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -53,12 +51,16 @@ import java.util.concurrent.CompletableFuture;
         LoginFormBuilder.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginControllerTest.ContextConfiguration.class
+        LoginControllerTest.ContextConfiguration.class,
+        LobbySceneBuilder.class,
+        LobbyViewBuilder.class
 })
 public class LoginControllerTest extends ApplicationTest {
 
     @Autowired
     private LoginFormBuilder loginFormBuilder;
+
+    private static boolean switchedToLobby = false;
 
     @TestConfiguration
     static class ContextConfiguration {
@@ -79,7 +81,19 @@ public class LoginControllerTest extends ApplicationTest {
                 }
             };
         }
+
+        @Bean
+        public SceneManager sceneManager() {
+            return new SceneManager() {
+                @Override
+                public void setLoginScene() {
+                    switchedToLobby = true;
+                }
+            };
+        }
     }
+
+
 
 
     public void start(@NonNull Stage stage) throws IOException {
@@ -116,6 +130,9 @@ public class LoginControllerTest extends ApplicationTest {
         Assert.assertEquals(popDialgos.size(), 1);
         Node alert = lookup("Fehler bei der Registrierung").query();
         Assert.assertNotNull(alert);
+
+
+        Assert.assertFalse(switchedToLobby);
     }
 }
 
