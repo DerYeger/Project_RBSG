@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.controller;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -38,6 +41,9 @@ public class LoginFormController {
     @FXML
     private Button registerButton;
 
+    @Autowired
+    ConfigurableApplicationContext context;
+
     private  User user;
     private final LoginManager loginManager;
     private final RegistrationManager registrationManager;
@@ -63,7 +69,7 @@ public class LoginFormController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        alert("failure", exception.getMessage(), "Login");
+                        handleRequestErrors("failure", exception.getMessage(), "Login");
                         return null;
                     });
         }
@@ -77,11 +83,11 @@ public class LoginFormController {
                 final String userKey = "";
                 if(data != null){
                     userKey.concat((String) data.get("userKey"));
+                    newScene(new User(user, userKey));
                 }
-                newScene(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
-                alert(status,  message, "Login");
+                handleRequestErrors(status,  message, "Login");
             }
         }
     }
@@ -91,37 +97,31 @@ public class LoginFormController {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
             answerPromise
-                    .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map)))
+                    .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        alert("failure", exception.getMessage(), "Registration");
+                        handleRequestErrors("failure", exception.getMessage(), "Registration");
                         return null;
                     });
         }
     }
 
-    private void onRegistrationReturned(@Nullable final HashMap<String, Object> answer) {
+    private void onRegistrationReturned(@Nullable final HashMap<String, Object> answer, ActionEvent event) {
         if (answer != null) {
             final String status = (String) answer.get("status");
             if (answer.get("status").equals("success")){
-                // do login
-                loginAction(new ActionEvent());
+                this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
-                alert(status, message, "Registration");
+                handleRequestErrors(status, message, "Registration");
             }
         }
     }
 
     public void newScene(@NonNull final User user) {
-        // change scene here...
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Platzhalter");
-        alert.setHeaderText("Login erfolgreich");
-        alert.setContentText("Szenenwechsel zur Lobby muss noch implementiert werden");
-        alert.showAndWait();
+        context.getBean(SceneManager.class).setLobbyScene();
     }
 
-    public static void alert(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {
+    public static void handleRequestErrors(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(status);
         alert.setHeaderText(typeOfFail + " failed");

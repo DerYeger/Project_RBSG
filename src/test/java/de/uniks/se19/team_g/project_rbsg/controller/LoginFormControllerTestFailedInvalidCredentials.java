@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
 
 import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;

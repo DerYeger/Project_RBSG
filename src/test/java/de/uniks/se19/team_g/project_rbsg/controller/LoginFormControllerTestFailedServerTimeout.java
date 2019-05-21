@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
 
 import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -37,6 +38,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @author Keanu Stückrad
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JavaConfig.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, LoginFormControllerTestFailedServerTimeout.ContextConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -79,9 +81,8 @@ public class LoginFormControllerTestFailedServerTimeout extends ApplicationTest 
                 }
             };
         }
+
     }
-
-
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
