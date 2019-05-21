@@ -39,12 +39,7 @@ public class GameCreator {
         }
 
         HttpEntity<?> request = new HttpEntity<Object>(requestBody, header);
-        try {
-            return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, request, HashMap.class));
-        }catch (RestClientResponseException e){
-            handleGameRequestErrors("Fehler", "Fehler bei der Spielerstellung", "Keine Antwort vom Server");
-        }
-        return null;
+        return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(uri, request, HashMap.class));
     }
 
     public void handleGameRequestErrors(String title, String headerText, String errorMessage){

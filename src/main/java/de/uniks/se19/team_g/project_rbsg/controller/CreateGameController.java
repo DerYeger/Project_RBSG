@@ -65,10 +65,13 @@ public class CreateGameController {
     public void createGame(@NonNull final ActionEvent event){
         if(this.gameName.getText() != null  && this.numberOfPlayers != 0){
             this.game = this.gameBuilder.getGame(gameName.getText(), this.numberOfPlayers);
-            final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.user, newGame);
-            gameRequestAnswerPromise.thenAccept(
-                    map -> Platform.runLater(() -> onGameRequestReturned(map))
-            );
+            final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.user, this.game);
+            gameRequestAnswerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
+                    .exceptionally(exception -> {
+                        handleGameRequestErrors("Fehler", "Fehler beim Erstellen des Spiels", exception.getMessage());
+                        return null;
+                    });
         }
     }
 
@@ -81,7 +84,7 @@ public class CreateGameController {
                 this.game.setGameId(gameId);
                 //Do some autologin to this game
             } else if (answer.get("status").equals("failure")){
-                handleGameRequestErrors((String)answer.get("status"), );
+                handleGameRequestErrors((String)answer.get("status"), "Fehler beim Erstellen des Spiels", (String)answer.get("message"));
 
             }
         }
