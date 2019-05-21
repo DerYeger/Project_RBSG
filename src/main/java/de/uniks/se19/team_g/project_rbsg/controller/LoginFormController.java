@@ -60,9 +60,12 @@ public class LoginFormController {
         if (nameField.getText() != null && passwordField != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = loginManager.onLogin(user);
-            answerPromise.thenAccept(
-                    map -> Platform.runLater(() -> onLoginReturned(map))
-            );
+            answerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
+                    .exceptionally(exception ->  {
+                        alert("failure", exception.getMessage(), "Login");
+                        return null;
+                    });
         }
     }
 
@@ -75,10 +78,10 @@ public class LoginFormController {
             if (status.equals("success")){
                 newScene(new User(user, userKey));
             } else if(status.equals("failure")) {
-                invalidCredentialsAlert(status,  message, "Login");
+                alert(status,  message, "Login");
             }
         } else {
-            noConnectionAlert();
+            alert("failure", "No server connection", "Login");
         }
     }
 
@@ -86,9 +89,12 @@ public class LoginFormController {
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
-            answerPromise.thenAccept(
-              map -> Platform.runLater(() -> onRegistrationReturned(map))
-            );
+            answerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map)))
+                    .exceptionally(exception ->  {
+                        alert("failure", exception.getMessage(), "Registration");
+                        return null;
+                    });
         }
     }
 
@@ -100,10 +106,10 @@ public class LoginFormController {
                 // do login
                 loginAction(new ActionEvent());
             } else if(answer.get("status").equals("failure")) {
-                invalidCredentialsAlert(status, message, "Registration");
+                alert(status, message, "Registration");
             }
         } else {
-            noConnectionAlert();
+            alert("failure", "No server connection", "Registration");
        }
     }
 
@@ -116,17 +122,7 @@ public class LoginFormController {
         alert.showAndWait();
     }
 
-    public static void noConnectionAlert() {
-        // alert failure when there is no server connection
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("failure");
-        alert.setHeaderText("Login failed");
-        alert.setContentText("No server connection");
-        alert.showAndWait();
-    }
-
-    public static void invalidCredentialsAlert(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {
-        // alert failure when typing invalid credentials
+    public static void alert(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(status);
         alert.setHeaderText(typeOfFail + " failed");

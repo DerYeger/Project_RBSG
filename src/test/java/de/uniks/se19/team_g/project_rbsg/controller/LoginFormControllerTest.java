@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.controller;
 
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
@@ -49,10 +50,10 @@ public class LoginFormControllerTest extends ApplicationTest {
     @TestConfiguration
     static class ContextConfiguration {
         @Bean
-        public RegistrationManager registrationManager() {
-            return new RegistrationManager(new RestTemplate()) {
+        public LoginManager registrationManager() {
+            return new LoginManager(new RestTemplate()) {
                 @Override
-                public CompletableFuture onRegistration(User user) {
+                public CompletableFuture onLogin(User user) {
                     return CompletableFuture.failedFuture(
                             new RestClientResponseException(
                                     "Invalid Credentials",
@@ -77,7 +78,7 @@ public class LoginFormControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    @Test
+    /*@Test
     public void loginTestSuccess() {
 
         final TextInputControl nameInput = lookup("#name-field").queryTextInputControl();
@@ -100,9 +101,9 @@ public class LoginFormControllerTest extends ApplicationTest {
         Assert.assertEquals(popDialogs.size(), 1);
         Node alert = lookup("Login erfolgreich").query();
         Assert.assertNotNull(alert);
-    }
+    }*/
 
-    /*@Test
+    @Test
     public void loginTestFailureInvalidCredentialsAlert() {
 
         final TextInputControl nameInput = lookup("#name-field").queryTextInputControl();
@@ -121,9 +122,13 @@ public class LoginFormControllerTest extends ApplicationTest {
         Assert.assertEquals("falsePassword", passwordInput.getText());
 
         clickOn(loginButton);
+        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
+        Assert.assertEquals(popDialogs.size(), 1);
+        Node alert = lookup("Login failed").query();
+        Assert.assertNotNull(alert);
     }
 
-    @Test
+    /*@Test
     public void loginTestFailureNoConnection() {
 
         final Button loginButton = lookup("#login-button").queryButton();
@@ -186,4 +191,7 @@ public class LoginFormControllerTest extends ApplicationTest {
 
 
 }
+
+
+
 
