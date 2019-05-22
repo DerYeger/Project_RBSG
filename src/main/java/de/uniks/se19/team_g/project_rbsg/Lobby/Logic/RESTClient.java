@@ -3,11 +3,13 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Component
 public class RESTClient
 {
     private static final String baseURL = "https://rbsg.uniks.de/api";
@@ -15,9 +17,9 @@ public class RESTClient
     private HttpHeaders httpHeaders;
     private String uri;
 
-    public RESTClient()
+    public RESTClient(RestTemplate restTemplate)
     {
-        restTemplate = new RestTemplate();
+        this.restTemplate = restTemplate;
         restTemplate.setUriTemplateHandler( new DefaultUriBuilderFactory(baseURL));
     }
 

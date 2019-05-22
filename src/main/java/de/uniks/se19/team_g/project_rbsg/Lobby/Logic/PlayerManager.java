@@ -6,12 +6,14 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IPlayerManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Component
 public class PlayerManager implements IPlayerManager
 {
     private static final String endpoint = "/game";
@@ -19,14 +21,17 @@ public class PlayerManager implements IPlayerManager
     private final RESTClient restClient;
     private User user;
 
-    public PlayerManager(final @NonNull User user) {
-        restClient = new RESTClient();
-        this.user = user;
+    public PlayerManager(RESTClient restClient, ObjectMapper objectMapper) {
+        this.restClient = restClient;
+        this.user = null;
     }
 
     @Override
     public Collection<Player> getPlayers()
     {
+        if(user == null) {
+            return new ArrayList<>();
+        }
         LinkedMultiValueMap<String, String> headers  = new LinkedMultiValueMap<>();
         headers.add("userKey", user.getUserKey());
         String response = restClient.get(endpoint, headers, null);
