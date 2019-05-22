@@ -5,6 +5,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class RESTClient
@@ -14,21 +15,26 @@ public class RESTClient
     private HttpHeaders httpHeaders;
     private String uri;
 
-    public RESTClient() {
+    public RESTClient()
+    {
         restTemplate = new RestTemplate();
+        restTemplate.setUriTemplateHandler( new DefaultUriBuilderFactory(baseURL));
     }
 
-    public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param) {
+    public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param)
+    {
         return getString(endpoint, headers, param, HttpMethod.GET);
     }
 
-    public String post(final @NonNull String endpoint ,final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param, final @NonNull String body)  {
+    public String post(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param, final @NonNull String body)
+    {
         prepareHeaderAndUri(endpoint, headers, param);
 
         HttpEntity<String> httpEntity = new HttpEntity<>(body, httpHeaders);
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
         HttpStatus httpStatus = responseEntity.getStatusCode();
-        if(httpStatus.is2xxSuccessful()) {
+        if (httpStatus.is2xxSuccessful())
+        {
             return responseEntity.getBody();
         }
 
@@ -36,7 +42,8 @@ public class RESTClient
     }
 
     //TODO: Delete
-    public String delete(final @NonNull String endpoint ,final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param)  {
+    public String delete(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param)
+    {
         return getString(endpoint, headers, param, HttpMethod.DELETE);
     }
 
@@ -47,7 +54,8 @@ public class RESTClient
         HttpEntity<String> httpEntity = new HttpEntity<>("", httpHeaders);
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, delete, httpEntity, String.class);
         HttpStatus httpStatus = responseEntity.getStatusCode();
-        if(httpStatus.is2xxSuccessful()) {
+        if (httpStatus.is2xxSuccessful())
+        {
             return responseEntity.getBody();
         }
 
@@ -57,15 +65,17 @@ public class RESTClient
     private void prepareHeaderAndUri(@NonNull String endpoint, @Nullable MultiValueMap<String, String> headers, @Nullable MultiValueMap<String, String> param)
     {
         httpHeaders = new HttpHeaders();
-        if(headers != null) {
+        if (headers != null)
+        {
             httpHeaders.addAll(headers);
         }
 
-        if(param != null) {
-            uri = UriComponentsBuilder.fromHttpUrl(baseURL + endpoint).queryParams(param).toUriString();
-
+        if (param != null)
+        {
+            uri = UriComponentsBuilder.fromHttpUrl(endpoint).queryParams(param).toUriString();
         }
-        else {
+        else
+        {
             uri = baseURL + endpoint;
         }
 
