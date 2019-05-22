@@ -32,5 +32,6 @@ public class LoginFormBuilder {
             loginFormController.init();
         }
         return loginForm;
-     }
+    }
+
 }
