@@ -31,35 +31,35 @@ public class ChatTestFXApplication extends Application {
 
     @Override
     public void start(@NotNull final Stage primaryStage) throws IOException {
-        final RESTClient restClient = new RESTClient();
-        String userKey = "nothing";
-        final String loginResponse = restClient.post("/user/login", null, null, "{ \"name\" : \"" + userName + "\", \"password\" : \"" + userName + "\" }");
-        System.out.println(userName);
-        try
-        {
-            userKey = new ObjectMapper().readTree(loginResponse).get("data").get("userKey").asText();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        WebSocketConfigurator.userKey = userKey;
-        final User user = new User(userName, userName);
-
-        final ChatWebSocketCallback webSocketCallback = new ChatWebSocketCallback();
-        final WebSocketClient webSocketClient = new WebSocketClient("/chat?user=" + userName, webSocketCallback);
-        final ChatController chatController = new ChatController(user, webSocketClient, webSocketCallback);
-
-        final ChatBuilder chatBuilder = new ChatBuilder(chatController);
-        final Node chat = chatBuilder.getChat();
-
-        final Scene scene = new Scene((Parent) chat);
-
-        primaryStage.setWidth(400);
-        primaryStage.setHeight(200);
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-
-        primaryStage.show();
+//        final RESTClient restClient = new RESTClient();
+//        String userKey = "nothing";
+//        final String loginResponse = restClient.post("/user/login", null, null, "{ \"name\" : \"" + userName + "\", \"password\" : \"" + userName + "\" }");
+//        System.out.println(userName);
+//        try
+//        {
+//            userKey = new ObjectMapper().readTree(loginResponse).get("data").get("userKey").asText();
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//        WebSocketConfigurator.userKey = userKey;
+//        final User user = new User(userName, userName);
+//
+//        final ChatWebSocketCallback webSocketCallback = new ChatWebSocketCallback();
+//        final WebSocketClient webSocketClient = new WebSocketClient("/chat?user=" + userName, webSocketCallback);
+//        final ChatController chatController = new ChatController(user, webSocketClient, webSocketCallback);
+//
+//        final ChatBuilder chatBuilder = new ChatBuilder(chatController);
+//        final Node chat = chatBuilder.getChat();
+//
+//        final Scene scene = new Scene((Parent) chat);
+//
+//        primaryStage.setWidth(400);
+//        primaryStage.setHeight(200);
+//        primaryStage.setResizable(false);
+//        primaryStage.setScene(scene);
+//
+//        primaryStage.show();
     }
 }

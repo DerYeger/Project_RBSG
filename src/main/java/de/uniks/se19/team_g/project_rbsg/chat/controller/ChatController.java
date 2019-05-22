@@ -1,20 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.chat.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +31,8 @@ public class ChatController {
     public static final String SERVER_PUBLIC_CHANNEL_NAME = "all";
 
     public static final String SERVER_PRIVATE_CHANNEL_NAME = "private";
+
+    public static final String SERVER_ENDPOINT = "/chat?user=";
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
@@ -74,16 +73,17 @@ public class ChatController {
 
         addGeneralTab();
 
-        registerAtChatWebSocketCallback();
+        startClient();
+    }
+
+    private void startClient() {
+        chatWebSocketCallback.registerChatController(this);
+        webSocketClient.start(SERVER_ENDPOINT + userProvider.getUser().getName(), chatWebSocketCallback);
     }
 
     @NonNull
     public String getUserName() {
         return userProvider.getUser().getName();
-    }
-
-    private void registerAtChatWebSocketCallback() {
-        chatWebSocketCallback.registerChatController(this);
     }
 
     //register additional chat command handlers in this method

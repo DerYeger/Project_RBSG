@@ -39,12 +39,14 @@ public class User {
         return name;
     }
 
-    public void setName(@NonNull final String name) {
+    public User setName(@NonNull final String name) {
         this.name = name;
+        return this;
     }
 
-    public void setUserKey(@NonNull final String userKey) {
+    public User setUserKey(@NonNull final String userKey) {
         this.userKey = userKey;
+        return this;
     }
 
 }
