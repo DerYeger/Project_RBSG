@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 /**
  * @author Jan Müller
  */
+@Component
 public class ChatWebSocketCallback implements IWebSocketCallback {
 
     private ChatController chatController;

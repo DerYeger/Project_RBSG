@@ -10,10 +10,13 @@ import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,6 +24,7 @@ import java.util.HashMap;
 /**
  * @author Jan Müller
  */
+@Component
 public class ChatController {
 
     public static final String SYSTEM = "System";
@@ -42,7 +46,7 @@ public class ChatController {
     private TabPane chatPane;
 
     @NonNull
-    private final User user;
+    private final UserProvider userProvider;
 
     @NonNull
     private final WebSocketClient webSocketClient;
@@ -50,8 +54,8 @@ public class ChatController {
     @NonNull
     private final ChatWebSocketCallback chatWebSocketCallback;
 
-    public ChatController(@NonNull final User user, @NonNull final WebSocketClient webSocketClient, @NonNull final ChatWebSocketCallback chatWebSocketCallback) {
-        this.user = user;
+    public ChatController(@NonNull final UserProvider userProvider, @NonNull final WebSocketClient webSocketClient, @NonNull final ChatWebSocketCallback chatWebSocketCallback) {
+        this.userProvider = userProvider;
         this.webSocketClient = webSocketClient;
         this.chatWebSocketCallback = chatWebSocketCallback;
     }
@@ -75,7 +79,7 @@ public class ChatController {
 
     @NonNull
     public String getUserName() {
-        return user.getName();
+        return userProvider.getUser().getName();
     }
 
     private void registerAtChatWebSocketCallback() {
@@ -152,7 +156,7 @@ public class ChatController {
             webSocketClient.sendMessage(node);
 
             if (!channel.equals(GENERAL_CHANNEL_NAME)) {
-                receiveMessage(channel, user.getName(), content);
+                receiveMessage(channel, userProvider.getUser().getName(), content);
             }
 
             Platform.runLater(() -> chatPane.getSelectionModel().select(openChatTabs.get(channel)));
