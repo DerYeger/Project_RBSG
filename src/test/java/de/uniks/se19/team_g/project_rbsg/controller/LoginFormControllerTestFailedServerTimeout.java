@@ -1,14 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.*;
 
-import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,12 +38,14 @@ import java.util.concurrent.CompletableFuture;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, LoginFormControllerTestFailedServerTimeout.ContextConfiguration.class})
+@ContextConfiguration(classes = {JavaConfig.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, LoginFormControllerTestFailedServerTimeout.ContextConfiguration.class, LobbySceneBuilder.class, LobbyViewBuilder.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestFailedServerTimeout extends ApplicationTest {
 
     @Autowired
     private LoginFormBuilder loginFormBuilder;
+
+    private static boolean switchedToLobby = false;
 
     @TestConfiguration
     static class ContextConfiguration {
@@ -81,7 +81,15 @@ public class LoginFormControllerTestFailedServerTimeout extends ApplicationTest 
                 }
             };
         }
-
+        @Bean
+        public SceneManager sceneManager() {
+            return new SceneManager() {
+                @Override
+                public void setLobbyScene() {
+                    switchedToLobby = true;
+                }
+            };
+        }
     }
 
     @Override
@@ -104,6 +112,7 @@ public class LoginFormControllerTestFailedServerTimeout extends ApplicationTest 
         Assert.assertEquals(popDialogs.size(), 1);
         Node alert = lookup("Login failed").query();
         Assert.assertNotNull(alert);
+        Assert.assertFalse(switchedToLobby);
     }
 
     @Test
@@ -117,6 +126,7 @@ public class LoginFormControllerTestFailedServerTimeout extends ApplicationTest 
         Assert.assertEquals(popDialogs.size(), 1);
         Node alert = lookup("Registration failed").query();
         Assert.assertNotNull(alert);
+        Assert.assertFalse(switchedToLobby);
     }
 
 }

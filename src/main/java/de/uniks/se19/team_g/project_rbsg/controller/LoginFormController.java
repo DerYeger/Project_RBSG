@@ -41,14 +41,14 @@ public class LoginFormController {
     @FXML
     private Button registerButton;
 
-    @Autowired
-    ConfigurableApplicationContext context;
-
     private  User user;
     private final LoginManager loginManager;
     private final RegistrationManager registrationManager;
+    private final SceneManager sceneManager;
 
-    public LoginFormController(@NonNull final LoginManager loginManager, @NonNull final RegistrationManager registrationManager) {
+    @Autowired
+    public LoginFormController(@NonNull final LoginManager loginManager, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
         this.loginManager = loginManager;
         this.registrationManager = registrationManager;
     }
@@ -83,8 +83,8 @@ public class LoginFormController {
                 final String userKey = "";
                 if(data != null){
                     userKey.concat((String) data.get("userKey"));
-                    newScene(new User(user, userKey));
                 }
+                newScene(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
                 handleRequestErrors(status,  message, "Login");
@@ -118,7 +118,7 @@ public class LoginFormController {
     }
 
     public void newScene(@NonNull final User user) {
-        context.getBean(SceneManager.class).setLobbyScene();
+        sceneManager.setLobbyScene();
     }
 
     public static void handleRequestErrors(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {

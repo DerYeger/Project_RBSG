@@ -2,14 +2,12 @@ package de.uniks.se19.team_g.project_rbsg.controller;
 
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.*;
 
-import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -42,15 +39,14 @@ import java.util.Map;
  */
 
 @RunWith(SpringJUnit4ClassRunner .class)
-@ContextConfiguration(classes = {JavaConfig.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, LoginFormControllerTestSuccess.ContextConfiguration.class})
+@ContextConfiguration(classes = {JavaConfig.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, LoginFormControllerTestSuccess.ContextConfiguration.class, LobbySceneBuilder.class, LobbyViewBuilder.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestSuccess extends ApplicationTest {
 
     @Autowired
     private LoginFormBuilder loginFormBuilder;
 
-    @Autowired
-    private ApplicationContext context;
+    private static boolean switchedToLobby = false;
 
     @TestConfiguration
     static class ContextConfiguration {
@@ -84,6 +80,15 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
                 }
             });
         }
+        @Bean
+        public SceneManager sceneManager() {
+            return new SceneManager() {
+                @Override
+                public void setLobbyScene() {
+                    switchedToLobby = true;
+                }
+            };
+        }
     }
 
     @Override
@@ -113,7 +118,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         Assert.assertEquals("john-117", passwordInput.getText());
 
         clickOn(loginButton);
-        // test to new scene missing
+        Assert.assertTrue(switchedToLobby);
     }
 
     @Test
@@ -134,7 +139,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         Assert.assertEquals("john-117", passwordInput.getText());
 
         clickOn(registrationButton);
-        // test to new scene missing
+        Assert.assertTrue(switchedToLobby);
     }
 
 }
