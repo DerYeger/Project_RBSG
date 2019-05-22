@@ -199,4 +199,8 @@ public class ChatController {
     public void registerChatChannelController(@NonNull final ChatChannelController chatChannelController, @NonNull final String channel) {
         openChatChannels.put(channel, chatChannelController);
     }
+
+    public void terminate() {
+        webSocketClient.stop();
+    }
 }
