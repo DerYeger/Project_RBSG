@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
+package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
@@ -39,7 +39,7 @@ public class LobbyViewTests extends ApplicationTest
         assertNotNull(playerListView);
     }
 
-    @Test
+    /*@Test
     public void addPlayerToList() {
         LobbyViewController lobbyViewController = fxmlLoader.getController();
         assertNotNull(lobbyViewController);
@@ -53,8 +53,9 @@ public class LobbyViewTests extends ApplicationTest
         {
             e.printStackTrace();
         }
-    }
+    }*/
 
+/*
     @Test
     public void TestBuilder() {
         LobbyViewBuilder lobbyViewBuilder = new LobbyViewBuilder();
@@ -68,4 +69,5 @@ public class LobbyViewTests extends ApplicationTest
             e.printStackTrace();
         }
     }
+*/
 }
