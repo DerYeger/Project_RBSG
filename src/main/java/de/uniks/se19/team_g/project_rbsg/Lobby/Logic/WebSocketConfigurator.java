@@ -19,7 +19,5 @@ public class WebSocketConfigurator extends ClientEndpointConfig.Configurator
         ArrayList<String> key = new ArrayList<>();
         key.add(userKey);
         headers.put("userKey", key);
-
     }
-
 }
