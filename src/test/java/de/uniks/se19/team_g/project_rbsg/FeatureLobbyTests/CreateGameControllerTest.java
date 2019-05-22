@@ -25,6 +25,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientResponseException;
@@ -37,6 +38,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, GameBuilder.class, CreateGameControllerTest.ContextConfiguration.class})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest {
 
         @Autowired
@@ -101,7 +103,7 @@ public class CreateGameControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testFormCorrectInputGameName(){
+    public void testFormInputGameName(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
@@ -125,7 +127,7 @@ public class CreateGameControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testFormCorrectInputNumberOfPlayers(){
+    public void testFormInputNumberOfPlayers(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final Button createGameButton = lookup("#create").queryButton();
