@@ -1,12 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.view.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.view.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -53,12 +50,13 @@ public class ProjectRbsgFXApplication extends Application {
 
     @Override
     public void start(@NotNull final Stage primaryStage) throws IOException {
-        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), new LoginFormBuilder()).getLoginScene();
-
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
         primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
+
+        context.getBean(SceneManager.class)
+                .init(primaryStage)
+                .setLoginScene();
 
         primaryStage.show();
     }

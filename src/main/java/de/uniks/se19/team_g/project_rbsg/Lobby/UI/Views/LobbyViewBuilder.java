@@ -3,11 +3,12 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Georg Siebert
  */
-
+@Component
 public class LobbyViewBuilder
 {
     private Node lobbyView;
