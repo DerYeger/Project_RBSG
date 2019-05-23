@@ -17,6 +17,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**
@@ -77,9 +80,9 @@ public class ChatController {
         startClient();
     }
 
-    private void startClient() {
+    private void startClient() throws UnsupportedEncodingException {
         chatWebSocketCallback.registerChatController(this);
-        webSocketClient.start(SERVER_ENDPOINT + userProvider.getUser().getName(), chatWebSocketCallback);
+        webSocketClient.start(SERVER_ENDPOINT + URLEncoder.encode(userProvider.getUser().getName(), StandardCharsets.UTF_8.name()), chatWebSocketCallback);
     }
 
     @NonNull
