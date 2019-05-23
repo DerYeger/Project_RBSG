@@ -23,9 +23,25 @@ public class RESTClient
         restTemplate.setUriTemplateHandler( new DefaultUriBuilderFactory(baseURL));
     }
 
+    public String get(final @NonNull String endpoint) {
+        return get(endpoint, null, null);
+    }
+
+    public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers) {
+        return get(endpoint, headers, null);
+    }
+
     public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param)
     {
         return getString(endpoint, headers, param, HttpMethod.GET);
+    }
+
+    public String post(final @NonNull String endpoint, final @NonNull String body) {
+        return post(endpoint, null, null, body);
+    }
+
+    public String post(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @NonNull String body) {
+        return post(endpoint, null, null, body);
     }
 
     public String post(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param, final @NonNull String body)
