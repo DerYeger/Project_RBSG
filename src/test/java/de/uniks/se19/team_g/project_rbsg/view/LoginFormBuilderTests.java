@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.view;
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import javafx.scene.Node;
@@ -17,7 +18,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, LoginFormBuilder.class, LoginFormController.class, RegistrationManager.class, SplashImageBuilder.class, LoginSceneBuilder.class, SceneManager.class, LobbySceneBuilder.class, LobbyViewBuilder.class})
+@ContextConfiguration(classes = {JavaConfig.class, LoginFormBuilder.class, LoginFormController.class, RegistrationManager.class, SplashImageBuilder.class, LoginSceneBuilder.class, SceneManager.class, LobbySceneBuilder.class, LobbyViewBuilder.class, LoginManager.class, RegistrationManager.class})
 public class LoginFormBuilderTests extends ApplicationTest {
 
     @Autowired
