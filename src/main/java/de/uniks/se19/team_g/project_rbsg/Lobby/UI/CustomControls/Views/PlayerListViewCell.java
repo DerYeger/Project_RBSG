@@ -29,8 +29,9 @@ public class PlayerListViewCell extends ListCell<Player>
     @FXML
     private GridPane playerListCellGridPane;
 
-    @Autowired
     private FXMLLoader fxmlLoader;
+
+    private boolean alreadyCreated = false;
 
     @Override
     protected void updateItem(final Player player, final boolean empty)
@@ -39,8 +40,8 @@ public class PlayerListViewCell extends ListCell<Player>
 
         if (empty || player == null)
         {
-            setText(null);
-            setGraphic(null);
+            this.setText(null);
+            this.setGraphic(null);
         }
         else
         {
@@ -49,15 +50,18 @@ public class PlayerListViewCell extends ListCell<Player>
                 fxmlLoader = new FXMLLoader();
             }
 
-            fxmlLoader.setLocation(getClass().getResource("PlayerListCell.fxml"));
-            fxmlLoader.setController(this);
-            try
-            {
-                fxmlLoader.load();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
+            if(!alreadyCreated) {
+                fxmlLoader.setLocation(getClass().getResource("PlayerListCell.fxml"));
+                fxmlLoader.setController(this);
+                try
+                {
+                    fxmlLoader.load();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                alreadyCreated = true;
             }
 
             playerListCellLabel.setText(player.getName());
@@ -65,8 +69,9 @@ public class PlayerListViewCell extends ListCell<Player>
 
             playerListCellImageView.setImage(image);
 
-            setText(null);
-            setGraphic(playerListCellGridPane);
+            this.setText(null);
+            this.setGraphic(playerListCellGridPane);
+            this.setId("playerCell"+player.getName());
         }
     }
 }
