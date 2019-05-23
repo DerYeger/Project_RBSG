@@ -1,9 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views;
 
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Lobby;
+import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.GameManager;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
-import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.Contract.ILobbyViewModel;
-import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.LobbyViewModel;
 import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
 import javafx.fxml.FXML;
@@ -11,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,36 @@ import java.util.ResourceBundle;
 public class LobbyViewController implements Initializable
 {
 
-    private final ILobbyViewModel viewModel;
+    private final Lobby lobby;
+    private final PlayerManager playerManager;
+    private final GameManager gameManager;
+
+    private ChatBuilder chatBuilder;
+    private ChatController chatController;
+
+    @FXML
+    private Label lobbyTitle;
+    @FXML
+    private ListView<Player> lobbyPlayerListView;
+    @FXML
+    private VBox gameListContainer;
+    @FXML
+    private VBox chatContainer;
+
+    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager)
+    {
+        this.lobby = new Lobby();
+
+        this.playerManager = playerManager;
+        this.gameManager = gameManager;
+
+        this.lobby.setSystemMessageManager(systemMessageManager);
+
+        lobby.getPlayers().addAll(playerManager.getPlayers());
+        lobby.getGames().addAll(gameManager.getGames());
+
+
+    }
 
     @Autowired
     public void setChatBuilder(ChatBuilder chatBuilder)
@@ -37,42 +67,22 @@ public class LobbyViewController implements Initializable
         this.chatBuilder = chatBuilder;
     }
 
-    private ChatBuilder chatBuilder;
-    private ChatController chatController;
-
-    @FXML
-    private Label lobbyTitle;
-
-    @FXML
-    private ListView<Player> lobbyPlayerListView;
-
-    @FXML
-    private VBox gameListContainer;
-
-    @FXML
-    private VBox chatContainer;
-
-//    public ILobbyViewModel getViewModel() {
-//        return viewModel;
-//    }
-
-    public LobbyViewController(ILobbyViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        lobbyTitle.textProperty().bindBidirectional(viewModel.getLobbyTitle());
-        lobbyPlayerListView.setItems(viewModel.getPlayerObservableCollection());
+        lobbyPlayerListView.setItems(lobby.getPlayers());
+        lobbyTitle.textProperty().setValue("Advanced WASP War");
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
+
+        lobby.getSystemMessageManager().startSocket();
 
         withChatSupport();
     }
 
     private void withChatSupport()
     {
-        if(chatBuilder != null) {
+        if (chatBuilder != null)
+        {
             Node chatNode = null;
             try
             {
