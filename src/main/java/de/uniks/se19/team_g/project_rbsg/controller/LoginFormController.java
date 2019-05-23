@@ -1,9 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -44,8 +46,11 @@ public class LoginFormController {
 
     private final SceneManager sceneManager;
 
+    private final UserProvider userProvider;
+
     @Autowired
-    public LoginFormController(@NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
+    public LoginFormController(@NonNull final UserProvider userProvider, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
+        this.userProvider = userProvider;
         this.registrationManager = registrationManager;
         this.sceneManager = sceneManager;
     }
@@ -107,6 +112,10 @@ public class LoginFormController {
     }
 
     public void onLogin(@NonNull User user) {
+        userProvider.getUser()
+                .setName(user.getName())
+                .setUserKey(user.getUserKey());
+        WebSocketConfigurator.userKey = userProvider.getUser().getUserKey();
         sceneManager.setLobbyScene();
     }
 

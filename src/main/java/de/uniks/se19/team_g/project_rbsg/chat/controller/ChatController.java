@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.chat.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
