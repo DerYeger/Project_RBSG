@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
@@ -15,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -52,7 +50,7 @@ public class LoginFormController {
     private final UserProvider userProvider;
 
     @Autowired
-    public LoginFormController(@NonNull final UserProvider userProvider, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
+    public LoginFormController(@NonNull final UserProvider userProvider, @NonNull final LoginManager loginManager, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
         this.userProvider = userProvider;
         this.loginManager = loginManager;
         this.registrationManager = registrationManager;
@@ -90,7 +88,7 @@ public class LoginFormController {
                 if(data != null){
                     userKey.concat((String) data.get("userKey"));
                 }
-                newScene(new User(user, userKey));
+                onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
                 handleRequestErrors(status,  message, "Login");
