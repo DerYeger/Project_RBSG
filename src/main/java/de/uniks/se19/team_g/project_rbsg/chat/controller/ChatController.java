@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.chat.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
@@ -82,12 +81,12 @@ public class ChatController {
 
     private void startClient() throws UnsupportedEncodingException {
         chatWebSocketCallback.registerChatController(this);
-        webSocketClient.start(SERVER_ENDPOINT + URLEncoder.encode(userProvider.getUser().getName(), StandardCharsets.UTF_8.name()), chatWebSocketCallback);
+        webSocketClient.start(SERVER_ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), chatWebSocketCallback);
     }
 
     @NonNull
     public String getUserName() {
-        return userProvider.getUser().getName();
+        return userProvider.get().getName();
     }
 
     //register additional chat command handlers in this method
@@ -160,7 +159,7 @@ public class ChatController {
             webSocketClient.sendMessage(node);
 
             if (!channel.equals(GENERAL_CHANNEL_NAME)) {
-                receiveMessage(channel, userProvider.getUser().getName(), content);
+                receiveMessage(channel, userProvider.get().getName(), content);
             }
 
             Platform.runLater(() -> chatPane.getSelectionModel().select(openChatTabs.get(channel)));

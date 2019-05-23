@@ -102,7 +102,7 @@ public class ChatControllerTests extends ApplicationTest {
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
-        userProvider.getUser()
+        userProvider.get()
                 .setName("chattest1");
 
         final ChatBuilder chatBuilder = new ChatBuilder(chatController);

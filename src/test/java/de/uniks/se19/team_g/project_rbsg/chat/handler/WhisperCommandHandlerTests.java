@@ -91,7 +91,7 @@ public class WhisperCommandHandlerTests {
 
     @Test
     public void testWrongOptions() throws Exception {
-        userProvider.getUser()
+        userProvider.get()
                 .setName("MyUserName");
 
         final ChatChannelController callback = new ChatChannelController() {

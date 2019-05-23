@@ -84,9 +84,10 @@ public class LoginFormController {
             final String status = (String) answer.get("status");
             if (status.equals("success")){
                 final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
-                final String userKey = "";
+                String userKey = "";
                 if(data != null){
-                    userKey.concat((String) data.get("userKey"));
+                    userKey = ((String) data.get("userKey"));
+                    System.out.println("added user key" + userKey);
                 }
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
@@ -122,10 +123,8 @@ public class LoginFormController {
     }
 
     public void onLogin(@NonNull User user) {
-        userProvider.getUser()
-                .setName(user.getName())
-                .setUserKey(user.getUserKey());
-        WebSocketConfigurator.userKey = userProvider.getUser().getUserKey();
+        userProvider.set(user);
+        WebSocketConfigurator.userKey = userProvider.get().getUserKey();
         sceneManager.setLobbyScene();
     }
 
