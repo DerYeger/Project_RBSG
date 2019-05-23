@@ -31,6 +31,9 @@ public class SystemMessageManager implements IWebSocketCallback
     }
 
     public void startSocket() {
+        if (WebSocketConfigurator.userKey.equals("")) {
+            return;
+        }
         webSocketClient.start();
     }
 
