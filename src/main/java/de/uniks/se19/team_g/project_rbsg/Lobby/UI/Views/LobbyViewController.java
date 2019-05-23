@@ -1,10 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views;
 
+import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Lobby;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.GameManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
 import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
@@ -44,6 +46,8 @@ public class LobbyViewController
     @FXML
     private VBox gameListContainer;
     @FXML
+    private ListView<Game> lobbyGamesListView;
+    @FXML
     private VBox chatContainer;
 
     public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager)
@@ -65,8 +69,12 @@ public class LobbyViewController
     public void init()
     {
         lobbyPlayerListView.setItems(lobby.getPlayers());
+        lobbyGamesListView.setItems(lobby.getGames());
+
         lobbyTitle.textProperty().setValue("Advanced WASP War");
+
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
+        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell());
 
         lobby.getSystemMessageManager().startSocket();
 

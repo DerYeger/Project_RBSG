@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:id="gridPane">
+  <columnConstraints>
+    <ColumnConstraints minWidth="10.0" />
+    <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+      <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+      <ColumnConstraints minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+  </rowConstraints>
+   <children>
+      <ImageView fx:id="gameImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.vgrow="SOMETIMES" />
+      <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.vgrow="SOMETIMES" />
+      <ImageView fx:id="playersImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.vgrow="SOMETIMES" />
+      <Label fx:id="playersLabel" text="Label" GridPane.columnIndex="4" GridPane.vgrow="SOMETIMES" />
+      <ImageView fx:id="joinImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.vgrow="SOMETIMES" />
+   </children>
+</GridPane>

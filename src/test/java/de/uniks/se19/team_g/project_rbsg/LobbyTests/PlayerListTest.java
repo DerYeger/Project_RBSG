@@ -118,6 +118,8 @@ public class LobbyViewTests extends ApplicationTest
 
         assertEquals("Hello", cellHello.getItem().getName());
         assertEquals("MOBAHero42", cellMobaHero.getItem().getName());
+
+        rightClickOn("#playerCellHello");
     }
 
 }

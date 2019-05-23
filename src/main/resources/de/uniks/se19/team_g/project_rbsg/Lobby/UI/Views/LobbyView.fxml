@@ -42,7 +42,11 @@
                               <Label fx:id="lobbyTitle" text="Label" />
                            </children>
                         </HBox>
-                        <VBox fx:id="gameListContainer" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+                        <VBox fx:id="gameListContainer" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                            <children>
+                                <ListView fx:id="lobbyGamesListView"/>
+                            </children>
+                        </VBox>
                         <VBox fx:id="chatContainer" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
