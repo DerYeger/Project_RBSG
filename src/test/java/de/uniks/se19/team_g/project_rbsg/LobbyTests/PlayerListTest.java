@@ -6,17 +6,12 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.*;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController;
-import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import de.uniks.se19.team_g.project_rbsg.view.*;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Cell;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.junit.Test;
@@ -44,11 +39,11 @@ import static org.junit.Assert.*;
         JavaConfig.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        LobbyViewTests.ContextConfiguration.class,
+        PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
         ChatController.class
 })
-public class LobbyViewTests extends ApplicationTest
+public class PlayerListTest extends ApplicationTest
 {
 
     @Autowired
