@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 /**
  * @author Georg Siebert
  */
@@ -18,13 +20,20 @@ public class LobbyViewBuilder
         this.fxmlLoader = fxmlLoader;
     }
 
-    public @NonNull Node buildLobbyScene() throws Exception{
+    public @NonNull Node buildLobbyScene() {
         if(lobbyView == null) {
             fxmlLoader.setLocation(getClass().getResource("LobbyView.fxml"));
-            lobbyView = fxmlLoader.load();
+            try
+            {
+                lobbyView = fxmlLoader.load();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
 
-//            final LobbyViewController lobbyViewController = fxmlLoader.getController();
-//            lobbyViewController.init();
+            final LobbyViewController lobbyViewController = fxmlLoader.getController();
+            lobbyViewController.init();
         }
         return lobbyView;
     }

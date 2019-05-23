@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 
 @Component
-public class LobbyViewController implements Initializable
+public class LobbyViewController
 {
 
     private final Lobby lobby;
@@ -54,11 +54,6 @@ public class LobbyViewController implements Initializable
         this.gameManager = gameManager;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
-
-        lobby.getPlayers().addAll(playerManager.getPlayers());
-        lobby.getGames().addAll(gameManager.getGames());
-
-
     }
 
     @Autowired
@@ -67,14 +62,16 @@ public class LobbyViewController implements Initializable
         this.chatBuilder = chatBuilder;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
+    public void init()
     {
         lobbyPlayerListView.setItems(lobby.getPlayers());
         lobbyTitle.textProperty().setValue("Advanced WASP War");
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
 
         lobby.getSystemMessageManager().startSocket();
+
+        lobby.getPlayers().addAll(playerManager.getPlayers());
+        lobby.getGames().addAll(gameManager.getGames());
 
         withChatSupport();
     }
