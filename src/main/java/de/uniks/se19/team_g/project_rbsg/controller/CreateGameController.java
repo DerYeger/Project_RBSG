@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
@@ -40,7 +41,8 @@ public class CreateGameController {
     @FXML
     private Button cancel;
 
-    private final GameCreator gameCreator;
+    private GameCreator gameCreator;
+    private GameController gameController;
     private Game game;
     private GameBuilder gameBuilder;
     private User user;
@@ -50,8 +52,9 @@ public class CreateGameController {
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
 
 
-    public CreateGameController(@Nullable GameCreator gameCreator){
+    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable GameController gameController){
         this.gameCreator = ((gameCreator == null) ? new GameCreator(null) : gameCreator);
+        this.gameController = ((gameController == null) ? new GameController(null) : gameController);
         this.gameBuilder = new GameBuilder();
     }
 
@@ -84,7 +87,7 @@ public class CreateGameController {
                 HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
                 this.game.setGameId(gameId);
-                //Do some autologin to this game
+                this.gameController.joinGame(user, game);
             } else if (answer.get("status").equals("failure")){
                 handleGameRequestErrors((String)answer.get("status"), "Fehler beim Erstellen des Spiels", (String)answer.get("message"));
 

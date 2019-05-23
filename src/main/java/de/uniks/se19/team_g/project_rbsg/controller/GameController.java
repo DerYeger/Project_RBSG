@@ -11,13 +11,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 @Component
 public class GameController {
 
-    final String uri = "https://rbsg.uniks.de/api/game/:id";
+    final String uri = "https://rbsg.uniks.de/api/game/";
 
     private RestTemplate restTemplate;
 
@@ -27,18 +26,17 @@ public class GameController {
 
     public CompletableFuture joinGame(@NonNull User user, @NonNull Game game){
         HttpHeaders header = new HttpHeaders();
-        HashMap<String, Object> requestBody = new HashMap<>();
         header.set("userKey", user.getUserKey());
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(uri)
-                .queryParam("id", game.getGameId());
+                .queryParam(game.getGameId());
 
-        HttpEntity<?> request = new HttpEntity<Object>(requestBody, header);
+        HttpEntity<?> request = new HttpEntity<Object>("", header);
 
         return CompletableFuture.supplyAsync(() -> this.restTemplate.exchange(
-                uriBuilder.toUriString(),
+                uriBuilder.toUriString().replace("?", ""),
                 HttpMethod.GET,
                 request,
-                HashMap.class));
+                String.class));
     }
 }
