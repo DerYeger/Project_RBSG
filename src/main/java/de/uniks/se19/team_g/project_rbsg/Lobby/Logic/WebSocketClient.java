@@ -2,7 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.websocket.*;
@@ -18,7 +17,6 @@ import java.util.TimerTask;
 
 //TODO: WebSocketFactory
 
-@Component
 @ClientEndpoint(configurator = WebSocketConfigurator.class)
 public class WebSocketClient
 {
@@ -30,6 +28,7 @@ public class WebSocketClient
     private IWebSocketCallback wsCallback;
     private Session session;
     private Timer noopTimer;
+    private String endpoint;
 
     private TimerTask timerTask = new TimerTask()
     {
@@ -52,13 +51,15 @@ public class WebSocketClient
         }
     };
 
-    public WebSocketClient(Timer noopTimer)
+    public WebSocketClient(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback)
     {
-        this.noopTimer = noopTimer;
+        this.noopTimer = new Timer();
+        this.endpoint = endpoint;
+        this.wsCallback = wsCallback;
     }
 
-    public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) {
-        this.wsCallback = wsCallback;
+    public void start()
+    {
         try
         {
             URI uri = new URI(BASE_URL + endpoint);
@@ -85,14 +86,10 @@ public class WebSocketClient
     {
         if (wsCallback != null)
         {
-//            Platform.runLater(
-//                    () -> {
-                        wsCallback.handle(message);
-//                    }
-//            );
-
+            wsCallback.handle(message);
         }
-        else {
+        else
+        {
             System.out.println("No Callback available");
         }
     }
