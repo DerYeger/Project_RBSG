@@ -45,6 +45,22 @@ public class LobbyBuilderTest extends ApplicationTest
 
     private Node lobbyView;
 
+    @TestConfiguration
+    static class ContextConfiguration
+    {
+        @Bean
+        public LobbyViewController lobbyViewController() {
+            return new LobbyViewController(new PlayerManager(new RESTClient(new RestTemplate())),
+                                           new GameManager(new RESTClient(new RestTemplate())),
+                                           new SystemMessageManager(new WebSocketFactory())) {
+                @Override
+                public void init() {
+
+                }
+            };
+        }
+    }
+
     @Override
     public void start(@NonNull final Stage stage) {
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
@@ -67,19 +83,4 @@ public class LobbyBuilderTest extends ApplicationTest
 
     }
 
-    @TestConfiguration
-    static class ContextConfiguration
-    {
-        @Bean
-        public LobbyViewController lobbyViewController() {
-            return new LobbyViewController(new PlayerManager(new RESTClient(new RestTemplate())),
-                                           new GameManager(new RESTClient(new RestTemplate())),
-                                           new SystemMessageManager(new WebSocketFactory())) {
-                @Override
-                public void init() {
-
-                }
-            };
-        }
-    }
 }
