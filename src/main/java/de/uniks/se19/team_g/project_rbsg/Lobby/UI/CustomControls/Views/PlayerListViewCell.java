@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views;
 
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -8,6 +8,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -15,6 +17,7 @@ import java.io.IOException;
  * @author Georg Siebert
  */
 
+@Component
 public class PlayerListViewCell extends ListCell<Player>
 {
     @FXML
@@ -26,10 +29,11 @@ public class PlayerListViewCell extends ListCell<Player>
     @FXML
     private GridPane playerListCellGridPane;
 
+    @Autowired
     private FXMLLoader fxmlLoader;
 
     @Override
-    protected void updateItem(final Player player,final boolean empty)
+    protected void updateItem(final Player player, final boolean empty)
     {
         super.updateItem(player, empty);
 
@@ -40,18 +44,20 @@ public class PlayerListViewCell extends ListCell<Player>
         }
         else
         {
-            if(fxmlLoader == null)
+            if (fxmlLoader == null)
             {
-                fxmlLoader = new FXMLLoader(getClass().getResource("PlayerListCell.fxml"));
-                fxmlLoader.setController(this);
-                try
-                {
-                    fxmlLoader.load();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+                fxmlLoader = new FXMLLoader();
+            }
+
+            fxmlLoader.setLocation(getClass().getResource("PlayerListCell.fxml"));
+            fxmlLoader.setController(this);
+            try
+            {
+                fxmlLoader.load();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
 
             playerListCellLabel.setText(player.getName());
