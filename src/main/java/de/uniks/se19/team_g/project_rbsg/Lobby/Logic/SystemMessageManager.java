@@ -23,6 +23,13 @@ public class SystemMessageManager implements IWebSocketCallback
     private ArrayList<ISystemMessageHandler> systemMessageHandlers;
     private WebSocketClient webSocketClient;
 
+    public void setWebSocketClient(WebSocketClient client) {
+        this.webSocketClient = client;
+    }
+    public WebSocketClient getWebSocketClient() {
+        return this.webSocketClient;
+    }
+
     public SystemMessageManager(WebSocketFactory webSocketFactory) {
         systemMessageHandlers = new ArrayList<>();
         systemMessageHandlers.add(new DefaultSystemMessageHandler());
