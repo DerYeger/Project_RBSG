@@ -31,6 +31,8 @@ public class ChatController {
 
     public static final String GENERAL_CHANNEL_NAME = "General";
 
+    public static final String CURRENT_CHANNEL = "CURRENT";
+
     public static final String SERVER_PUBLIC_CHANNEL_NAME = "all";
 
     public static final String SERVER_PRIVATE_CHANNEL_NAME = "private";
@@ -42,6 +44,8 @@ public class ChatController {
     private HashMap<String, Tab> openChatTabs;
 
     private HashMap<String, ChatChannelController> openChatChannels;
+
+    private HashMap<Tab, ChatChannelController> tabMapping;
 
     private ChatTabBuilder chatTabBuilder;
 
@@ -192,6 +196,10 @@ public class ChatController {
         }
         final ChatChannelController chatChannelController = openChatChannels.get(channel);
         chatChannelController.displayMessage(from, content.trim());
+    }
+
+    public void receiveError(@NonNull final String message) {
+
     }
 
     public void removeChannelEntry(@NonNull final String channel) {

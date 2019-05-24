@@ -30,21 +30,27 @@ public class ChatWebSocketCallback implements IWebSocketCallback {
 
                 //temporary workaround
                 if (!json.has("channel") || !json.has("from") || !json.has("message")) {
-                    return;
+                    handleErrorMessage(json);
+                } else {
+                    final String channel = json.get("channel").asText();
+                    final String from = json.get("from").asText();
+                    final String content = json.get("message").asText();
+
+                    final String internalChannel = channel.equals(ChatController.SERVER_PUBLIC_CHANNEL_NAME) ? ChatController.GENERAL_CHANNEL_NAME : '@' + from;
+
+                    chatController.receiveMessage(internalChannel, from, content);
                 }
-                
-                final String channel = json.get("channel").asText();
-                final String from = json.get("from").asText();
-                final String content = json.get("message").asText();
-
-                final String internalChannel = channel.equals(ChatController.SERVER_PUBLIC_CHANNEL_NAME) ? ChatController.GENERAL_CHANNEL_NAME : '@' + from;
-
-                chatController.receiveMessage(internalChannel, from, content);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("Chat controller not registered");
+        }
+    }
+
+    private void handleErrorMessage(@NonNull final ObjectNode json) {
+        if (json.has("msg")) {
+            chatController.receiveError(json.get("message").asText());
         }
     }
 }
