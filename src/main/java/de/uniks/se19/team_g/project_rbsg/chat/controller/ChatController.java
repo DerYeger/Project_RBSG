@@ -40,9 +40,9 @@ public class ChatController {
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
-    private HashMap<String, Tab> openChatTabs;
+    private HashMap<String, Tab> chatTabs;
 
-    private HashMap<String, ChatChannelController> openChatChannels;
+    private HashMap<String, ChatChannelController> chatChannelControllers;
 
     private ChatTabBuilder chatTabBuilder;
 
@@ -70,8 +70,8 @@ public class ChatController {
         chatTabBuilder = new ChatTabBuilder(chatChannelBuilder, this);
 
         chatCommandHandlers = new HashMap<>();
-        openChatTabs = new HashMap<>();
-        openChatChannels = new HashMap<>();
+        chatTabs = new HashMap<>();
+        chatChannelControllers = new HashMap<>();
 
         addChatCommandHandlers();
 
@@ -107,12 +107,12 @@ public class ChatController {
     }
 
     private void addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
-        if (!openChatChannels.containsKey(channel)) {
+        if (!chatChannelControllers.containsKey(channel)) {
             final Tab tab = chatTabBuilder.buildChatTab(channel);
             Platform.runLater(() -> {
                 chatPane.getTabs().add(tab);
                 tab.setClosable(isClosable);
-                openChatTabs.put(channel, tab);
+                chatTabs.put(channel, tab);
             });
         }
     }
@@ -120,8 +120,8 @@ public class ChatController {
     public boolean removeTab(@NonNull final String channel) {
         if (channel.equals(GENERAL_CHANNEL_NAME)) {
             return false;
-        } else if (openChatTabs.containsKey(channel)) {
-            chatPane.getTabs().remove(openChatTabs.get(channel));
+        } else if (chatTabs.containsKey(channel)) {
+            chatPane.getTabs().remove(chatTabs.get(channel));
             removeChannelEntry(channel);
             return true;
         }
@@ -164,7 +164,7 @@ public class ChatController {
             receiveMessage(channel, userProvider.get().getName(), content);
         }
 
-        Platform.runLater(() -> chatPane.getSelectionModel().select(openChatTabs.get(channel)));
+        Platform.runLater(() -> chatPane.getSelectionModel().select(chatTabs.get(channel)));
     }
 
     @NonNull
@@ -186,10 +186,10 @@ public class ChatController {
 
     public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) {
         try {
-            if (!openChatChannels.containsKey(channel)) {
+            if (!chatChannelControllers.containsKey(channel)) {
                 addPrivateTab(channel);
             }
-            final ChatChannelController chatChannelController = openChatChannels.get(channel);
+            final ChatChannelController chatChannelController = chatChannelControllers.get(channel);
             chatChannelController.displayMessage(from, content.trim());
         } catch (IOException e) {
             e.printStackTrace();
@@ -202,12 +202,12 @@ public class ChatController {
     }
 
     public void removeChannelEntry(@NonNull final String channel) {
-        openChatTabs.remove(channel);
-        openChatChannels.remove(channel);
+        chatTabs.remove(channel);
+        chatChannelControllers.remove(channel);
     }
 
     public void registerChatChannelController(@NonNull final ChatChannelController chatChannelController, @NonNull final String channel) {
-        openChatChannels.put(channel, chatChannelController);
+        chatChannelControllers.put(channel, chatChannelController);
     }
 
     public void terminate() {
