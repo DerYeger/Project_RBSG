@@ -112,7 +112,6 @@ public class ChatController {
             Platform.runLater(() -> {
                 chatPane.getTabs().add(tab);
                 tab.setClosable(isClosable);
-                chatPane.getSelectionModel().select(tab);
                 openChatTabs.put(channel, tab);
             });
         }
@@ -134,7 +133,7 @@ public class ChatController {
             if (content.length() < 2 || !handleCommand(callback, content.substring(1))) { //command could not be handled
                 callback.displayMessage(SYSTEM, "Unknown chat command");
             }
-        } else { //send message
+        } else {
             sendMessage(callback, channel, content.trim());
         }
     }
@@ -156,20 +155,16 @@ public class ChatController {
         return false;
     }
 
-    public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws IOException {
-        try {
-            final ObjectNode node = getMessageAsNode(channel, content);
-            webSocketClient.sendMessage(node);
+    public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) {
+        final ObjectNode node = getMessageAsNode(channel, content);
+        webSocketClient.sendMessage(node);
 
-            if (!channel.equals(GENERAL_CHANNEL_NAME)) {
-                receiveMessage(channel, userProvider.get().getName(), content);
-            }
-
-            Platform.runLater(() -> chatPane.getSelectionModel().select(openChatTabs.get(channel)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Unable to send message");
+        if (channel.charAt(0) == '@') { //private message
+            //TODO: Check if user is reachable first (via user list in lobby and game participants in game) later on
+            receiveMessage(channel, userProvider.get().getName(), content);
         }
+
+        Platform.runLater(() -> chatPane.getSelectionModel().select(openChatTabs.get(channel)));
     }
 
     @NonNull
@@ -189,15 +184,19 @@ public class ChatController {
         return node;
     }
 
-    public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
-        if (!openChatChannels.containsKey(channel)) {
-            addPrivateTab(channel);
+    public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) {
+        try {
+            if (!openChatChannels.containsKey(channel)) {
+                addPrivateTab(channel);
+            }
+            final ChatChannelController chatChannelController = openChatChannels.get(channel);
+            chatChannelController.displayMessage(from, content.trim());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        final ChatChannelController chatChannelController = openChatChannels.get(channel);
-        chatChannelController.displayMessage(from, content.trim());
     }
 
-    public void receiveError(@NonNull final String message) {
+    public void receiveErrorMessage(@NonNull final String message) {
         System.out.println(message);
     }
 
