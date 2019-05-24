@@ -26,8 +26,6 @@ public class ChatWebSocketCallback implements IWebSocketCallback {
             try {
                 final ObjectNode json = new ObjectMapper().readValue(serverMessage, ObjectNode.class);
 
-                System.out.println(serverMessage.toLowerCase());
-
                 //temporary workaround
                 if (!json.has("channel") || !json.has("from") || !json.has("message")) {
                     handleErrorMessage(json);

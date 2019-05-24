@@ -199,7 +199,7 @@ public class ChatController {
     }
 
     public void receiveError(@NonNull final String message) {
-
+        System.out.println(message);
     }
 
     public void removeChannelEntry(@NonNull final String channel) {
