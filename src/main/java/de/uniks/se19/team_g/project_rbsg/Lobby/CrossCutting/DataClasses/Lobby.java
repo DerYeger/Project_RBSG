@@ -136,6 +136,7 @@ public class Lobby
                 return game;
             }
         }
+        return null;
     }
 
     public ObservableList<Player> getPlayers()
