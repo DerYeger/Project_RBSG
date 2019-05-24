@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
+import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.springframework.lang.NonNull;
@@ -31,8 +32,6 @@ public class ChatController {
 
     public static final String GENERAL_CHANNEL_NAME = "General";
 
-    public static final String CURRENT_CHANNEL = "CURRENT";
-
     public static final String SERVER_PUBLIC_CHANNEL_NAME = "all";
 
     public static final String SERVER_PRIVATE_CHANNEL_NAME = "private";
@@ -44,8 +43,6 @@ public class ChatController {
     private HashMap<String, Tab> openChatTabs;
 
     private HashMap<String, ChatChannelController> openChatChannels;
-
-    private HashMap<Tab, ChatChannelController> tabMapping;
 
     private ChatTabBuilder chatTabBuilder;
 
@@ -81,6 +78,8 @@ public class ChatController {
         addGeneralTab();
 
         startClient();
+
+        chatPane.setSide(Side.BOTTOM);
     }
 
     private void startClient() throws UnsupportedEncodingException {
