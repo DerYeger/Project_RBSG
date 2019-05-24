@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultSystemMessageHandler implements ISystemMessageHandler
 {
-    private final Logger logger = LoggerFactory.getLogger(Logger.class);
+    private final Logger logger = LoggerFactory.getLogger(DefaultSystemMessageHandler.class);
 
     @Override
     public void handleSystemMessage(final @NonNull String message)
