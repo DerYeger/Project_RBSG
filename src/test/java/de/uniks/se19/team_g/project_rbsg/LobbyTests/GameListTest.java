@@ -22,54 +22,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-/**
- * @author Georg Siebert
- */
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        PlayerListTest.ContextConfiguration.class,
+        GameListTest.ContextConfiguration.class,
         ChatBuilder.class,
         ChatController.class
 })
-public class PlayerListTest extends ApplicationTest
-{
 
+public class GameListTest extends ApplicationTest
+{
     @Autowired
-    ApplicationContext context;
+    private ApplicationContext context;
+
 
     @Override
-    public void start(final Stage stage) {
+    public void start(Stage stage) {
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene());
+
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(), 1280, 720);
 
         stage.setScene(scene);
         stage.show();
         stage.toFront();
     }
 
+    @Override
+    public void stop() throws Exception {
+        FxToolkit.hideStage();
+    }
+
     @TestConfiguration
-    static class ContextConfiguration {
+    public static class ContextConfiguration {
         @Bean
         public GameManager gameManager() {
             return new GameManager(new RESTClient(new RestTemplate())) {
                 @Override
                 public Collection<Game> getGames() {
-                    return new ArrayList<Game>();
+                    ArrayList<Game> games = new ArrayList<>();
+                    games.add(new Game("1", "GameOfHello", 4, 2 ));
+                    games.add(new Game("2", "DefenceOfTheAncient", 10, 7));
+                    return games;
                 }
             };
         }
@@ -79,10 +86,7 @@ public class PlayerListTest extends ApplicationTest
             return new PlayerManager(new RESTClient(new RestTemplate())) {
                 @Override
                 public Collection<Player> getPlayers() {
-                    ArrayList<Player> players = new ArrayList<>();
-                    players.add(new Player("Hello"));
-                    players.add(new Player("MOBAHero42"));
-                    return players;
+                    return new ArrayList<Player>();
                 }
             };
         }
@@ -97,53 +101,60 @@ public class PlayerListTest extends ApplicationTest
         }
     }
 
+
     @Test
     public void addItemsAndRemove() {
-        ListView<Player> playersListView = lookup("#lobbyPlayerListView").queryListView();
-        assertNotNull(playersListView);
+        ListView<Game> gamesListView = lookup("#lobbyGamesListView").queryListView();
+        assertNotNull(gamesListView);
 
-        ObservableList<Player> players = playersListView.getItems();
-        assertNotNull(players);
-        assertEquals(2, players.size());
+        ObservableList<Game> games = gamesListView.getItems();
+        assertNotNull(games);
+        assertEquals(2, games.size());
 
-        ListCell<Player> cellHello = lookup("#playerCellHello").query();
-        ListCell<Player> cellMobaHero = lookup("#playerCellMOBAHero42").query();
+        ListCell<Game> gameOfHello = lookup("#gameCellGameOfHello").query();
+        ListCell<Game> gameOfDota = lookup("#gameCellDefenceOfTheAncient").query();
 
-//        Player hello = cellHello.getItem().;
+        assertNotNull(gameOfHello);
+        assertNotNull(gameOfDota);
 
+        Game goH = gameOfHello.getItem();
+        assertEquals("GameOfHello", goH.getName());
+        assertEquals("1", goH.getId());
+        assertEquals(4, goH.getNeededPlayer());
+        assertEquals(2, goH.getJoinedPlayer());
 
-        assertNotNull(cellHello);
-        assertNotNull(cellMobaHero);
+        Game dota = gameOfDota.getItem();
+        assertEquals("DefenceOfTheAncient", dota.getName());
+        assertEquals("2", dota.getId());
+        assertEquals(10, dota.getNeededPlayer());
+        assertEquals(7, dota.getJoinedPlayer());
 
-        clickOn("#playerCellHello");
-        clickOn("#playerCellMOBAHero42");
-
-        assertEquals("Hello", cellHello.getItem().getName());
-        assertEquals("MOBAHero42", cellMobaHero.getItem().getName());
-
-        rightClickOn("#playerCellHello");
-        rightClickOn("#playerCellMOBAHero42");
+        clickOn("#gameCellJoinGameOfHello");
+        clickOn("#gameCellJoinDefenceOfTheAncient");
 
         Lobby lobby = context.getBean(LobbyViewController.class).getLobby();
 
-        lobby.addPlayer(new Player("Carlie"));
+        lobby.addGame(new Game("3", "StarWars", 2, 2));
         sleep(500);
 
-        assertEquals(3, players.size());
+        assertEquals(3, games.size());
 
-        ListCell<Player> cellCarlie = lookup("#playerCellCarlie").query();
-        assertNotNull(cellCarlie);
+        ListCell<Game> gameStarWars = lookup("#gameCellStarWars").query();
+        assertNotNull(gameStarWars);
 
-        assertEquals("Carlie", cellCarlie.getItem().getName());
+        Game starWars = gameStarWars.getItem();
+        assertEquals("StarWars", starWars.getName());
+        assertEquals("3", starWars.getId());
+        assertEquals(2, starWars.getNeededPlayer());
+        assertEquals(2, starWars.getJoinedPlayer());
 
-        rightClickOn("#playerCellCarlie");
+        clickOn("#gameCellJoinStarWars");
 
-//        lobby.removePlayer(hello);
 
-        Platform.runLater(() -> lobby.getPlayers().remove(0));
+        lobby.removeGame(dota);
         sleep(500);
 
-        assertEquals(2, players.size());
+        assertEquals(2, games.size());
     }
 
 }
