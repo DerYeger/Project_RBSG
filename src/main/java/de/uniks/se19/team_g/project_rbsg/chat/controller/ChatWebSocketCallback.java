@@ -48,7 +48,7 @@ public class ChatWebSocketCallback implements IWebSocketCallback {
 
     private void handleErrorMessage(@NonNull final ObjectNode json) {
         if (json.has("msg")) {
-            chatController.receiveError(json.get("message").asText());
+            chatController.receiveError(json.get("msg").asText());
         }
     }
 }
