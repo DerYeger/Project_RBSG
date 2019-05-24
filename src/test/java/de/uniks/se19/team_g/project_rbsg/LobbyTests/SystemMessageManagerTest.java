@@ -23,6 +23,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Georg Siebert
+ */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,

@@ -34,6 +34,10 @@ import java.util.Collection;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Georg Siebert
+ */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
@@ -43,7 +47,6 @@ import static org.junit.Assert.*;
         ChatBuilder.class,
         ChatController.class
 })
-
 public class GameListTest extends ApplicationTest
 {
     @Autowired

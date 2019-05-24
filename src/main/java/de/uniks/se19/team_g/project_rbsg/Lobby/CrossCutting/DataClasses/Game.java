@@ -1,5 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses;
 
+/**
+ * @author Georg Siebert
+ */
 public class Game
 {
     private String id;

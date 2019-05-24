@@ -13,6 +13,10 @@ import java.util.Timer;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Georg Siebert
+ */
+
 public class WebSocketClientAndRESTClientTest
 {
     private final String bodyLogin = "{ \"name\" : \"hello1\", \"password\" : \"hello1\" }";

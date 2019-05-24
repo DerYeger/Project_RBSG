@@ -7,7 +7,10 @@ import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
 
 import java.util.Collection;
-import java.util.HashMap;
+
+/**
+ * @author Georg Siebert
+ */
 
 public class Lobby
 {

@@ -17,6 +17,9 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * @author Georg Siebert
+ */
 public class PlayerManagerTest
 {
     private static final String messageSuccess = "{\n" +

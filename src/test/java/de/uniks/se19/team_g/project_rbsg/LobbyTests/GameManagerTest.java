@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Georg Siebert
+ */
 public class GameManagerTest
 {
     public static final String messageSuccess = "{\n" +
