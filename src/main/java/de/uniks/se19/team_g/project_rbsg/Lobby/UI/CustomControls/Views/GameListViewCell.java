@@ -62,7 +62,7 @@ public class GameListViewCell extends ListCell<Game>
             Image gameImage = new Image(String.valueOf(getClass().getResource("Images/baseline_videogame_asset_black_48dp.png")));
             gameImageView.setImage(gameImage);
 
-            Image playersImage = new Image(String.valueOf(getClass().getResource("Image/baseline_group_black_48dp.png")));
+            Image playersImage = new Image(String.valueOf(getClass().getResource("Images/baseline_group_black_48dp.png")));
             playersImageView.setImage(playersImage);
 
 
@@ -81,7 +81,7 @@ public class GameListViewCell extends ListCell<Game>
     }
 
     private void mouseLeftClickOnJoin(final @NonNull MouseEvent event) {
-        if(event.getButton() == MouseButton.SECONDARY) {
+        if(event.getButton() == MouseButton.PRIMARY) {
             System.out.println("LeftClick on " + this.getId());
         }
     }
