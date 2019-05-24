@@ -3,14 +3,15 @@ package de.uniks.se19.team_g.project_rbsg.view;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Jan Müller
  */
+@Component
 public class SplashImageBuilder {
 
     private BackgroundImage backgroundImage;
-
 
     public BackgroundImage getSplashImage() {
         if (backgroundImage == null) {
