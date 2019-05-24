@@ -11,7 +11,6 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerLis
 import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -20,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * @author Georg Siebert
@@ -60,6 +57,11 @@ public class LobbyViewController
         this.lobby.setSystemMessageManager(systemMessageManager);
     }
 
+    public Lobby getLobby()
+    {
+        return this.lobby;
+    }
+
     @Autowired
     public void setChatBuilder(ChatBuilder chatBuilder)
     {
@@ -78,8 +80,8 @@ public class LobbyViewController
 
         lobby.getSystemMessageManager().startSocket();
 
-        lobby.getPlayers().addAll(playerManager.getPlayers());
-        lobby.getGames().addAll(gameManager.getGames());
+        lobby.addAllPlayer(playerManager.getPlayers());
+        lobby.addAllGames(gameManager.getGames());
 
         withChatSupport();
     }
