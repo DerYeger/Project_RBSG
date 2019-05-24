@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 public class Lobby
 {
@@ -128,6 +129,14 @@ public class Lobby
         }
     }
 
+    public Game getGameOverId(final @NonNull String id) {
+        for (Game game : games)
+        {
+            if(game.getId().equals(id)) {
+                return game;
+            }
+        }
+    }
 
     public ObservableList<Player> getPlayers()
     {
