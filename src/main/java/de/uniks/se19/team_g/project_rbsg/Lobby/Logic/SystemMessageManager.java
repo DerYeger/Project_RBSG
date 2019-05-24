@@ -31,7 +31,7 @@ public class SystemMessageManager implements IWebSocketCallback
     }
 
     public void startSocket() {
-        if (WebSocketConfigurator.userKey.equals("")) {
+        if (WebSocketConfigurator.userKey.equals("") || webSocketClient == null) {
             return;
         }
         webSocketClient.start();
@@ -46,9 +46,7 @@ public class SystemMessageManager implements IWebSocketCallback
     {
         for (ISystemMessageHandler systemMessageHandler : systemMessageHandlers)
         {
-            if(systemMessageHandler.handleSystemMessage(message)) {
-                break;
-            }
+           systemMessageHandler.handleSystemMessage(message);
         }
     }
 }
