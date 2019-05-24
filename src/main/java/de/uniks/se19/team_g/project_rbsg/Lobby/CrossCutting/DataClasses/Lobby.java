@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.springframework.lang.NonNull;
 
 import java.util.Collection;
 
@@ -34,110 +35,94 @@ public class Lobby
         return games;
     }
 
-    public void setGames(ObservableList<Game> games)
+//    public void setGames(final @NonNull ObservableList<Game> games)
+//    {
+//        this.games = games;
+//    }
+
+    public void addGame(final @NonNull Game game)
     {
-        this.games = games;
+        Platform.runLater(() -> games.add(game));
     }
 
-    public void addGame(Game game)
-    {
-        if (game != null)
-        {
-            Platform.runLater(() -> games.add(game));
-        }
-    }
-
-    public Lobby withGame(Game game)
+    public Lobby withGame(final @NonNull Game game)
     {
         addGame(game);
         return this;
     }
 
-    public void addGames(Game... gameList)
+    public void addGames(final @NonNull Game... gameList)
     {
-        if (gameList != null)
+        for (Game game : gameList)
         {
-            for (Game game : gameList)
-            {
-                if (game != null)
-                {
-                    Platform.runLater(() -> games.add(game));
-                }
-            }
-        }
-    }
-
-    public Lobby withGames(Game... gameList)
-    {
-        addGames(gameList);
-        return this;
-    }
-
-    public void addAllGames(Collection<Game> gamesList)
-    {
-        if(games != null) {
-            for (Game game: gamesList)
+            if (game != null)
             {
                 Platform.runLater(() -> games.add(game));
             }
         }
     }
 
-    public void removeGame(Game game)
+    public Lobby withGames(final @NonNull Game... gameList)
     {
-        if (game != null && games.contains(game))
+        addGames(gameList);
+        return this;
+    }
+
+    public void addAllGames(final @NonNull Collection<Game> gamesList)
+    {
+        for (Game game: gamesList)
+        {
+            Platform.runLater(() -> games.add(game));
+        }
+    }
+
+    public void removeGame(final @NonNull Game game)
+    {
+        if (games.contains(game))
         {
             Platform.runLater(() ->games.remove(game));
         }
     }
 
-    public void addPlayer(Player player)
+    public void addPlayer(final @NonNull Player player)
     {
-        if (player != null)
-        {
-            Platform.runLater(() -> players.add(player));
-        }
+        Platform.runLater(() -> players.add(player));
     }
 
-    public Lobby withPlayer(Player player)
+    public Lobby withPlayer(final @NonNull Player player)
     {
         addPlayer(player);
         return this;
     }
 
-    public void addPlayers(Player... playerList)
+    public void addPlayers(final @NonNull Player... playerList)
     {
-        if (playerList != null)
+        for (Player player : playerList)
         {
-            for (Player player : playerList)
-            {
-                if (player != null)
-                {
-                    Platform.runLater(() -> players.add(player));
-                }
-            }
-        }
-    }
-
-    public Lobby withPlayers(Player... playerList)
-    {
-        addPlayers(playerList);
-        return this;
-    }
-
-    public void addAllPlayer(Collection<Player> playerList)
-    {
-        if(playerList != null) {
-            for (Player player: playerList)
+            if (player != null)
             {
                 Platform.runLater(() -> players.add(player));
             }
         }
     }
 
-    public void removePlayer(Player player)
+    public Lobby withPlayers(final @NonNull Player... playerList)
     {
-        if (player != null && players.contains(player))
+        addPlayers(playerList);
+        return this;
+    }
+
+    public void addAllPlayer(final @NonNull Collection<Player> playerList)
+    {
+        for (Player player: playerList)
+        {
+            Platform.runLater(() -> players.add(player));
+        }
+    }
+
+    public void removePlayer(final @NonNull Player player)
+    {
+        if (players.contains(player))
         {
             Platform.runLater(() -> players.remove(player));
         }
@@ -149,9 +134,9 @@ public class Lobby
         return players;
     }
 
-    public void setPlayers(ObservableList<Player> players)
-    {
-        this.players = players;
-    }
+//    public void setPlayers(final @NonNull ObservableList<Player> players)
+//    {
+//        this.players = players;
+//    }
 
 }
