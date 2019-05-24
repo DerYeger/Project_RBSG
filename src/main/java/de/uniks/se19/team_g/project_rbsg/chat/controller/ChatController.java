@@ -197,7 +197,8 @@ public class ChatController {
     }
 
     public void receiveErrorMessage(@NonNull final String message) {
-        System.out.println(message);
+        final String currentChannel = chatPane.getSelectionModel().getSelectedItem().getText();
+        receiveMessage(currentChannel, SYSTEM, message);
     }
 
     public void removeChannelEntry(@NonNull final String channel) {
