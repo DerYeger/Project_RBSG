@@ -34,9 +34,9 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, GameBuilder.class, CreateJoinGameManagerTest.ContextConfiguration.class})
+@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, GameBuilder.class, CreateGameControllerTest.ContextConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CreateJoinGameManagerTest extends ApplicationTest {
+public class CreateGameControllerTest extends ApplicationTest {
 
         @Autowired
         private CreateGameFormBuilder createGameFormBuilder;
@@ -77,24 +77,13 @@ public class CreateJoinGameManagerTest extends ApplicationTest {
     public void testRejectedFutureHandling(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
-        final String testGameName = "SuperGame";
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
-        sleep(3000);
-        clickOn(gameNameInput);
-        sleep(1000);
-        eraseText(20);
-        clickOn(gameNameInput);
-        eraseText(20);
-        write(testGameName);
-        press(KeyCode.ENTER);
-        release(KeyCode.ENTER);
-
         clickOn(twoPlayerButton);
 
         clickOn(createGameButton);
-        sleep(1000);
+        sleep(500);
         final Node alert = lookup("Fehler: Keine Verbindung zum Server moeglich").query();
         Assert.assertNotNull(alert);
     }
@@ -106,9 +95,8 @@ public class CreateJoinGameManagerTest extends ApplicationTest {
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
-        sleep(3000);
+        sleep(500);
         clickOn(gameNameInput);
-        sleep(1000);
         eraseText(20);
         clickOn(gameNameInput);
         eraseText(20);
@@ -118,7 +106,7 @@ public class CreateJoinGameManagerTest extends ApplicationTest {
         clickOn(twoPlayerButton);
 
         clickOn(createGameButton);
-        sleep(1000);
+        sleep(500);
         final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
         Assert.assertNotNull(alert);
     }
@@ -128,19 +116,9 @@ public class CreateJoinGameManagerTest extends ApplicationTest {
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final Button createGameButton = lookup("#create").queryButton();
-        final String testGameName = "SuperGame";
-        sleep(3000);
-        clickOn(gameNameInput);
-        sleep(1000);
-        eraseText(20);
-        clickOn(gameNameInput);
-        eraseText(20);
-        write(testGameName);
-        press(KeyCode.ENTER);
-        release(KeyCode.ENTER);
 
         clickOn(createGameButton);
-        sleep(1000);
+        sleep(500);
         final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
         Assert.assertNotNull(alert);
     }
