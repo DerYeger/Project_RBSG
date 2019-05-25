@@ -1,6 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.controller;
+package de.uniks.se19.team_g.project_rbsg.apis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.uniks.se19.team_g.project_rbsg.apis.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -17,11 +18,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
 
-public class GameControllerTest {
+public class JoinGameManagerTest {
 
     @Test
     public void joinGameTest() {
-        GameController gameController = new GameController(
+        JoinGameManager joinGameManager = new JoinGameManager(
                 new RestTemplate() {
                     @Override
                     public <T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) throws RestClientException {
@@ -38,7 +39,7 @@ public class GameControllerTest {
         final Game testGame = new GameBuilder().getGame("SuperGame", 4);
         testGame.setGameId("5ce6e24550487200013b9d19");
 
-        CompletableFuture<ResponseEntity<String>> joinedGame = gameController.joinGame(testUser, testGame);
+        CompletableFuture<ResponseEntity<String>> joinedGame = joinGameManager.joinGame(testUser, testGame);
         AtomicReference<String> status = new AtomicReference<>();
         try {
             joinedGame.thenAccept(

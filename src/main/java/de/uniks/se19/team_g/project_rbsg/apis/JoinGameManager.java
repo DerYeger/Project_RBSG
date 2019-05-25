@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.controller;
+package de.uniks.se19.team_g.project_rbsg.apis;
 
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -14,13 +14,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.concurrent.CompletableFuture;
 
 @Component
-public class GameController {
+public class JoinGameManager {
 
     final String uri = "https://rbsg.uniks.de/api/game/";
 
     private RestTemplate restTemplate;
 
-    public GameController(@Nullable RestTemplate restTemplate){
+    public JoinGameManager(@Nullable RestTemplate restTemplate){
         this.restTemplate = ((restTemplate == null) ? new RestTemplate() : restTemplate);
     }
 

@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import de.uniks.se19.team_g.project_rbsg.apis.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.apis.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
@@ -15,7 +16,6 @@ import javafx.stage.Stage;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
@@ -42,7 +42,7 @@ public class CreateGameController {
     private Button cancel;
 
     private GameCreator gameCreator;
-    private GameController gameController;
+    private JoinGameManager joinGameManager;
     private Game game;
     private GameBuilder gameBuilder;
     private User user;
@@ -52,9 +52,9 @@ public class CreateGameController {
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
 
 
-    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable GameController gameController){
+    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager){
         this.gameCreator = ((gameCreator == null) ? new GameCreator(null) : gameCreator);
-        this.gameController = ((gameController == null) ? new GameController(null) : gameController);
+        this.joinGameManager = ((joinGameManager == null) ? new JoinGameManager(null) : joinGameManager);
         this.gameBuilder = new GameBuilder();
     }
 
@@ -87,7 +87,7 @@ public class CreateGameController {
                 HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
                 this.game.setGameId(gameId);
-                this.gameController.joinGame(user, game);
+                this.joinGameManager.joinGame(user, game);
             } else if (answer.get("status").equals("failure")){
                 handleGameRequestErrors((String)answer.get("status"), "Fehler beim Erstellen des Spiels", (String)answer.get("message"));
 
