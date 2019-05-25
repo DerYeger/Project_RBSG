@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.Ingame;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,8 +17,7 @@ public class IngameViewBuilder {
         this.fxmlLoader = fxmlLoader;
     }
 
-    public @NonNull
-    Node buildIngameScene() throws Exception{
+    public Node buildIngameScene() throws Exception{
         if(ingameView == null) {
             fxmlLoader.setLocation(getClass().getResource("ingame-view.fxml"));
             ingameView = fxmlLoader.load();
