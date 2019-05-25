@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.Ingame;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.stereotype.Controller;
@@ -10,10 +9,7 @@ import org.springframework.stereotype.Controller;
 public class IngameViewController {
 
     @FXML
-    StackPane stackPane;
-
-    @FXML
-    AnchorPane anchorPane;
+    StackPane playgroundPane;
 
     @FXML
     Pane player1Pane;
@@ -26,9 +22,6 @@ public class IngameViewController {
 
     @FXML
     Pane player4Pane;
-
-    @FXML
-    Pane playgroundPane;
 
     @FXML
     Pane statusPane;
