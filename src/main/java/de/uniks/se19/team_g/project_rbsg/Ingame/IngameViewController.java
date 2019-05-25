@@ -1,9 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.Ingame;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.stereotype.Controller;
+
+import java.awt.*;
 
 @Controller
 public class IngameViewController {
@@ -35,8 +39,14 @@ public class IngameViewController {
     @FXML
     Pane leaveGamePane;
 
-    public void init() {
+    private StatusBar statusBar;
+    private LeaveGame leaveGame;
 
+    public void init() {
+        statusBar = new StatusBar();
+        statusPane.getChildren().add(statusBar.buildStatusBar());
+        leaveGame = new LeaveGame();
+        leaveGamePane.getChildren().add(leaveGame.buildleaveGame());
     }
 
 }
