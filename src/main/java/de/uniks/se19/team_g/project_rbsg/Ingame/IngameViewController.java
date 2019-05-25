@@ -1,0 +1,49 @@
+package de.uniks.se19.team_g.project_rbsg.Ingame;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class IngameViewController {
+
+    @FXML
+    StackPane stackPane;
+
+    @FXML
+    AnchorPane anchorPane;
+
+    @FXML
+    Pane player1Pane;
+
+    @FXML
+    Pane player2Pane;
+
+    @FXML
+    Pane player3Pane;
+
+    @FXML
+    Pane player4Pane;
+
+    @FXML
+    Pane playgroundPane;
+
+    @FXML
+    Pane statusPane;
+
+    @FXML
+    Pane bottomLinePane;
+
+    @FXML
+    Pane chatLogPane;
+
+    @FXML
+    Pane leaveGamePane;
+
+    public void init() {
+
+    }
+
+}
