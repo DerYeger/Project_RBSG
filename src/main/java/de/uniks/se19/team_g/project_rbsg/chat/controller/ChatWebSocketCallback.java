@@ -26,7 +26,6 @@ public class ChatWebSocketCallback implements IWebSocketCallback {
             try {
                 final ObjectNode json = new ObjectMapper().readValue(serverMessage, ObjectNode.class);
 
-                //temporary workaround
                 if (!json.has("channel") || !json.has("from") || !json.has("message")) {
                     handleErrorMessage(json);
                 } else {
@@ -49,6 +48,8 @@ public class ChatWebSocketCallback implements IWebSocketCallback {
     private void handleErrorMessage(@NonNull final ObjectNode json) {
         if (json.has("msg")) {
             chatController.receiveErrorMessage(json.get("msg").asText());
+        } else {
+            System.out.println("Server response has unknown format: "  + json.toString());
         }
     }
 }
