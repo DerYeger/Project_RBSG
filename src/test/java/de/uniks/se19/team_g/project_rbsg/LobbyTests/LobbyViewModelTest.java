@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
+package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.LobbyViewModel;
 import org.junit.Before;
@@ -13,10 +13,10 @@ public class LobbyViewModelTest
 {
     private LobbyViewModel lobbyViewModel;
 
-    @Before
+    /*@Before
     public void initialise() {
         lobbyViewModel = new LobbyViewModel();
-    }
+    }*/
 
     @Test
     public void testInitilizing() {

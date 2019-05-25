@@ -4,6 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.io.IOException;
  * The StackPane uses the background provided by the passed SplashImageBuilder.
  * Its only child is the Node provided by the LoginFormBuilder.
  */
+@Component
 public class LoginSceneBuilder {
 
     private Scene loginScene;
@@ -21,6 +24,7 @@ public class LoginSceneBuilder {
     private SplashImageBuilder splashImageBuilder;
     private LoginFormBuilder loginFormBuilder;
 
+    @Autowired
     public LoginSceneBuilder(@NotNull final SplashImageBuilder splashImageBuilder, @NotNull final LoginFormBuilder loginFormBuilder) {
         this.splashImageBuilder = splashImageBuilder;
         this.loginFormBuilder = loginFormBuilder;

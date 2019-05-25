@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
+package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
@@ -16,7 +16,7 @@ public class TestWebSocketClientAndRESTClient
     private final String bodyLogin = "{ \"name\" : \"hello1\", \"password\" : \"hello1\" }";
     private final String bodyCreateGame = "{ \"name\" : \"gameofHello\", \"neededPlayer\" : 4 }";
 
-    @Test
+    /*@Test
     public void TestRESTClient() {
         RESTClient restClient = new RESTClient();
         String userKey = "nothing";
@@ -47,9 +47,9 @@ public class TestWebSocketClientAndRESTClient
         System.out.println(gameId);
 
         System.out.println(restClient.delete("/game/"+gameId, header, null));
-    }
+    }*/
 
-    @Test
+/*    @Test
     public void TestWebSocketClient() throws InterruptedException
     {
         RESTClient restClient = new RESTClient();
@@ -72,7 +72,7 @@ public class TestWebSocketClientAndRESTClient
         restClient.post("/user/login", null, null, "{ \"name\" : \"hello2\", \"password\" : \"hello2\" }");
 
         webSocketClient.stop();
-    }
+    }*/
 
     private void handle(String message) {
         System.out.println(message);
