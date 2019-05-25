@@ -26,8 +26,6 @@ public class ChatChannelController {
         this.chatController = chatController;
         this.channel = channel;
 
-        messageArea.setEditable(false);
-
         //do not remove
         chatController.registerChatChannelController(this, channel);
 
