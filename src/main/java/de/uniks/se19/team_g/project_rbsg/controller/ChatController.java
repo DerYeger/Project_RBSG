@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.view.ChatTabContentBuilder;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 /**
  * @author Jan Müller
  */
+
+@Component
 public class ChatController {
 
     public static final String SYSTEM = "System";

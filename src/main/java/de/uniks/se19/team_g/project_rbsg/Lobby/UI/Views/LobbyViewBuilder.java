@@ -12,10 +12,14 @@ import org.springframework.stereotype.Component;
 public class LobbyViewBuilder
 {
     private Node lobbyView;
+    private FXMLLoader fxmlLoader;
+
+    public LobbyViewBuilder(FXMLLoader fxmlLoader) {
+        this.fxmlLoader = fxmlLoader;
+    }
 
     public @NonNull Node buildLobbyScene() throws Exception{
         if(lobbyView == null) {
-            FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("LobbyView.fxml"));
             lobbyView = fxmlLoader.load();
 

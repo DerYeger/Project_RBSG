@@ -1,21 +1,27 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.ViewModels.Contract.ILobbyViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Georg Siebert
  */
 
+@Component
 public class LobbyViewModel implements ILobbyViewModel
 {
 
-    private StringProperty lobbyTitle;
-    private ObservableList<Player> playerObservableList;
+    private final StringProperty lobbyTitle;
+    private final ObservableList<Player> playerObservableList;
+    private final SystemMessageManager systemMessageManager;
+    private final PlayerManager playerManager;
 
     @Override
     public StringProperty getLobbyTitle()
@@ -29,11 +35,15 @@ public class LobbyViewModel implements ILobbyViewModel
         return playerObservableList;
     }
 
-    public LobbyViewModel()
+    public LobbyViewModel(SystemMessageManager systemMessageManager, PlayerManager playerManager)
     {
         lobbyTitle = new SimpleStringProperty("Advanced WASP Wars");
         playerObservableList = FXCollections.observableArrayList();
-        //Todo: GetUsersRESTManager "erzeugen"
+
+        this.systemMessageManager = systemMessageManager;
+        this.playerManager = playerManager;
+
+        playerObservableList.addAll(playerManager.getPlayers());
     }
 
 }

@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.websocket.*;
@@ -15,6 +16,9 @@ import java.util.TimerTask;
  * @author Georg Siebert
  */
 
+//TODO: WebSocketFactory
+
+@Component
 @ClientEndpoint(configurator = WebSocketConfigurator.class)
 public class WebSocketClient
 {
@@ -48,11 +52,13 @@ public class WebSocketClient
         }
     };
 
-    public WebSocketClient(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback)
+    public WebSocketClient(Timer noopTimer)
     {
-        this.noopTimer = new Timer();
-        this.wsCallback = wsCallback;
+        this.noopTimer = noopTimer;
+    }
 
+    public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) {
+        this.wsCallback = wsCallback;
         try
         {
             URI uri = new URI(BASE_URL + endpoint);
