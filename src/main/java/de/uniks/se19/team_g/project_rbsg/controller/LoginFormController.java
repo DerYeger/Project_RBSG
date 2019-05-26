@@ -87,7 +87,6 @@ public class LoginFormController {
                 String userKey = "";
                 if(data != null){
                     userKey = ((String) data.get("userKey"));
-                    System.out.println("added user key" + userKey);
                 }
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
