@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.Ingame;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -43,6 +41,9 @@ public class IngameViewController {
     private StatusBar statusBar;
     private LeaveGame leaveGame;
     private PlayerCard playerCard;
+    private PlayerCard playerCard2;
+    private PlayerCard playerCard3;
+    private PlayerCard playerCard4;
     private Node leaveGameNode;
 
     public void init() {
@@ -56,7 +57,14 @@ public class IngameViewController {
                 {}//back to lobby, close WS
         );
         playerCard = new PlayerCard();
-        player1Pane.getChildren().add(playerCard.buildPlayerCard(new Player("MasterChief")));
+        playerCard2 = new PlayerCard();
+        playerCard3 = new PlayerCard();
+        playerCard4 = new PlayerCard();
+        player1Pane.getChildren().add(playerCard.buildPlayerCard());
+        player2Pane.getChildren().add(playerCard2.buildPlayerCard());
+        player3Pane.getChildren().add(playerCard3.buildPlayerCard());
+        player4Pane.getChildren().add(playerCard4.buildPlayerCard());
+        playerCard.setPlayer(new Player("Master Chief"));
     }
 
 }
