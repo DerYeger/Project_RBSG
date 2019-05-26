@@ -20,7 +20,7 @@ public class LeaveGame {
     private FXMLLoader fxmlLoader;
     private Node leaveGameView;
 
-    public Node buildleaveGame(){
+    public Node buildLeaveGame(){
         if(fxmlLoader == null) {
             fxmlLoader = new FXMLLoader(getClass().getResource("leaveGame.fxml"));
             fxmlLoader.setController(this);

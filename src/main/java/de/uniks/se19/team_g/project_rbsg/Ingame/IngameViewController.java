@@ -1,13 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.Ingame;
 
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.stereotype.Controller;
-
-import java.awt.*;
 
 @Controller
 public class IngameViewController {
@@ -41,12 +42,21 @@ public class IngameViewController {
 
     private StatusBar statusBar;
     private LeaveGame leaveGame;
+    private PlayerCard playerCard;
+    private Node leaveGameNode;
 
     public void init() {
         statusBar = new StatusBar();
         statusPane.getChildren().add(statusBar.buildStatusBar());
         leaveGame = new LeaveGame();
-        leaveGamePane.getChildren().add(leaveGame.buildleaveGame());
+        leaveGameNode = leaveGame.buildLeaveGame();
+        leaveGamePane.getChildren().add(leaveGameNode);
+        Button leaveGameButton = (Button) leaveGameNode;
+        leaveGameButton.setOnAction(event ->
+                {}//back to lobby, close WS
+        );
+        playerCard = new PlayerCard();
+        player1Pane.getChildren().add(playerCard.buildPlayerCard(new Player("MasterChief")));
     }
 
 }
