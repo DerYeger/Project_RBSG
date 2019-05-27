@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<GridPane alignment="CENTER_LEFT" maxHeight="50" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50"
-          xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:id="gridPane">
+
+<GridPane fx:id="gridPane" alignment="CENTER_LEFT" maxHeight="50" prefHeight="50" styleClass="gameCell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints minWidth="40" prefWidth="40" maxWidth="40"/>
-        <ColumnConstraints hgrow="ALWAYS" minWidth="100"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="40" prefWidth="40" maxWidth="50"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="50" prefWidth="50" maxWidth="50"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="40" prefWidth="40" maxWidth="50"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="40.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="50.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="40.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints
-                prefHeight="40"/>
+        <RowConstraints prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
     </rowConstraints>
     <children>
-        <ImageView fx:id="gameImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
-                   GridPane.vgrow="SOMETIMES"/>
-        <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.vgrow="SOMETIMES"/>
-        <ImageView fx:id="playersImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
-                   GridPane.columnIndex="2" GridPane.vgrow="SOMETIMES"/>
-        <Label fx:id="playersLabel" text="Label" GridPane.columnIndex="3" GridPane.vgrow="SOMETIMES"/>
-        <ImageView fx:id="joinImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
-                   GridPane.columnIndex="4" GridPane.vgrow="SOMETIMES"/>
+        <ImageView fx:id="gameImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin></ImageView>
+        <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <ImageView fx:id="playersImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.vgrow="SOMETIMES" />
+        <Label fx:id="playersLabel" styleClass="gameListPlayerLabel" text="Label" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <ImageView fx:id="joinImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.vgrow="SOMETIMES" />
     </children>
 </GridPane>

@@ -15,6 +15,11 @@ public class LobbyViewBuilder
 {
     private Node lobbyView;
     private FXMLLoader fxmlLoader;
+    private LobbyViewController lobbyViewController;
+
+    public LobbyViewController getLobbyViewController() {
+        return lobbyViewController;
+    }
 
     public LobbyViewBuilder(FXMLLoader fxmlLoader) {
         this.fxmlLoader = fxmlLoader;
@@ -32,7 +37,7 @@ public class LobbyViewBuilder
                 e.printStackTrace();
             }
 
-            final LobbyViewController lobbyViewController = fxmlLoader.getController();
+            lobbyViewController = fxmlLoader.getController();
             lobbyViewController.init();
         }
         return lobbyView;

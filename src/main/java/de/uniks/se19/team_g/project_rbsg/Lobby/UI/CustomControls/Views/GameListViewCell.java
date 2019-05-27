@@ -63,14 +63,14 @@ public class GameListViewCell extends ListCell<Game>
 
             playersLabel.setText(String.format("%s/%s", game.getJoinedPlayer(), game.getNeededPlayer()));
 
-            Image gameImage = new Image(String.valueOf(getClass().getResource("Images/baseline_videogame_asset_black_48dp.png")));
+            Image gameImage = new Image(String.valueOf(getClass().getResource("Images/baseline_videogame_asset_white_48dp.png")));
             gameImageView.setImage(gameImage);
 
-            Image playersImage = new Image(String.valueOf(getClass().getResource("Images/baseline_group_black_48dp.png")));
+            Image playersImage = new Image(String.valueOf(getClass().getResource("Images/baseline_group_white_48dp.png")));
             playersImageView.setImage(playersImage);
 
 
-            Image joinImage = new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_black_48dp.png")));
+            Image joinImage = new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_white_48dp.png")));
             joinImageView.setImage(joinImage);
 
             this.setText(null);

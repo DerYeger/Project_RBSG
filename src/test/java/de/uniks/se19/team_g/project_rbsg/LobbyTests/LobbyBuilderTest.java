@@ -52,7 +52,7 @@ public class LobbyBuilderTest extends ApplicationTest
         public LobbyViewController lobbyViewController() {
             return new LobbyViewController(new PlayerManager(new RESTClient(new RestTemplate())),
                                            new GameManager(new RESTClient(new RestTemplate())),
-                                           new SystemMessageManager(new WebSocketFactory())) {
+                                           new SystemMessageManager(new WebSocketFactory()), new ChatController()) {
                 @Override
                 public void init() {
 
