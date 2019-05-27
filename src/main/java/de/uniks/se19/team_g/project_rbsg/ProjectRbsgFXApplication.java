@@ -4,12 +4,16 @@ import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -58,6 +62,8 @@ public class ProjectRbsgFXApplication extends Application {
                 .init(primaryStage)
                 .setLoginScene();
 
+        primaryStage.setOnCloseRequest(event -> showCloseDialog(event, primaryStage.getTitle()));
+
         primaryStage.show();
     }
 
@@ -65,5 +71,19 @@ public class ProjectRbsgFXApplication extends Application {
     public void stop() {
         this.context.close();
         Platform.exit();
+    }
+
+    //TODO add stylesheet
+    private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(alertTitle);
+        alert.setHeaderText("Wollen Sie die Anwendung wirklich schließen?");
+        alert.showAndWait();
+
+        if (alert.getResult().equals(ButtonType.OK)) {
+            stop();
+        } else {
+            event.consume();
+        }
     }
 }
