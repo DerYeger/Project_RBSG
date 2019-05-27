@@ -1,10 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 
@@ -17,6 +19,7 @@ public class Lobby
     private SystemMessageManager systemMessageManager;
     private ObservableList<Game> games;
     private ObservableList<Player> players;
+    private ChatController chatController;
 
     public Lobby()
     {
@@ -24,6 +27,13 @@ public class Lobby
         players = FXCollections.observableArrayList();
     }
 
+    public ChatController getChatController() {
+        return chatController;
+    }
+
+    public void setChatController(ChatController chatController) {
+        this.chatController = chatController;
+    }
     public SystemMessageManager getSystemMessageManager()
     {
         return systemMessageManager;
@@ -43,6 +53,14 @@ public class Lobby
 //    {
 //        this.games = games;
 //    }
+
+    public void clearGames() {
+        Platform.runLater(() -> games.clear());
+    }
+
+    public void clearPlayers() {
+        Platform.runLater(() -> players.clear());
+    }
 
     public void addGame(final @NonNull Game game)
     {
@@ -132,11 +150,20 @@ public class Lobby
         }
     }
 
-    public Game getGameOverId(final @NonNull String id) {
+    public final @Nullable Game getGameOverId(final @NonNull String id) {
         for (Game game : games)
         {
             if(game.getId().equals(id)) {
                 return game;
+            }
+        }
+        return null;
+    }
+
+    public final @Nullable Player getPlayerByName(final @NonNull String name) {
+        for(Player player : players) {
+            if(player.getName().equals(name)) {
+                return player;
             }
         }
         return null;

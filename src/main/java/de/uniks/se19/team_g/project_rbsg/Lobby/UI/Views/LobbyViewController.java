@@ -47,7 +47,7 @@ public class LobbyViewController
     @FXML
     private VBox chatContainer;
 
-    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager)
+    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
     {
         this.lobby = new Lobby();
 
@@ -55,6 +55,7 @@ public class LobbyViewController
         this.gameManager = gameManager;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
+        this.lobby.setChatController(chatController);
     }
 
     public Lobby getLobby()
