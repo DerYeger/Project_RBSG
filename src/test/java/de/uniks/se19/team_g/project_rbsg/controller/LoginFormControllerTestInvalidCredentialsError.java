@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.*;
 
 import javafx.scene.Node;
@@ -41,7 +42,16 @@ import java.util.Set;
  */
 
 @RunWith(SpringJUnit4ClassRunner .class)
-@ContextConfiguration(classes = {JavaConfig.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class, LobbySceneBuilder.class, LobbyViewBuilder.class})
+@ContextConfiguration(classes = {
+        JavaConfig.class,
+        LoginFormController.class,
+        LoginFormBuilder.class,
+        SplashImageBuilder.class,
+        LoginSceneBuilder.class,
+        LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
+        LobbySceneBuilder.class,
+        LobbyViewBuilder.class,
+        UserProvider.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestInvalidCredentialsError extends ApplicationTest {
 
