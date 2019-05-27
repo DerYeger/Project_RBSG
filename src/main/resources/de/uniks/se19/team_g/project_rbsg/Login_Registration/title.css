@@ -5,12 +5,9 @@
 
 @font-face {
     font-family: 'ConnectionSerif';
-    src:url("Fonts/ConnectionSerif.eot?") format("eot"),
-        url("Fonts/ConnectionSerif.woff") format("woff"),
+    src:url("Fonts/ConnectionSerif.woff") format("woff"),
         url("Fonts/ConnectionSerif.ttf") format("truetype"),
         url("Fonts/ConnectionSerif.svg#ConnectionSerif") format("svg");
-    font-weight:normal;
-    font-style:normal;
 }
 
 .title {
