@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane>
+         <children>
+            <Label alignment="CENTER" styleClass="title" stylesheets="@title.css" text="RBSG" />
+         </children>
+      </StackPane>
+      <StackPane>
+         <children>
+            <Label alignment="CENTER" styleClass="subtitle" stylesheets="@title.css" text="Advanced Wars" />
+         </children>
+      </StackPane>
+   </children>
+</VBox>
