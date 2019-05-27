@@ -74,7 +74,7 @@ public class WhisperCommandHandlerTests {
                 }
 
                 @Override
-                public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) throws IOException {
+                public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) {
                     Assert.fail();
                 }
             };
