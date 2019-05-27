@@ -56,6 +56,10 @@ public class ChatChannelController {
         }
     }
 
+    public void disableInput() {
+        inputField.setDisable(true);
+    }
+
     public String getChannel() {
         return channel;
     }

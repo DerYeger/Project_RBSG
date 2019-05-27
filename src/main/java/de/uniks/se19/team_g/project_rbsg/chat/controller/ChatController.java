@@ -192,9 +192,17 @@ public class ChatController {
             e.printStackTrace();
         }
     }
-
+    
     public void receiveErrorMessage(@NonNull final String message) {
-        receiveMessage(GENERAL_CHANNEL_NAME, SYSTEM, message);
+        if (message.contains("User") && message.contains(" is not online")) {
+            final int nameBeginIndex = message.indexOf("User") + 5;
+            final int nameEndIndex = message.lastIndexOf(" is not online");
+            final String channel = '@' + message.substring(nameBeginIndex, nameEndIndex);
+            receiveMessage(channel, SYSTEM, message);
+            chatChannelControllers.get(channel).disableInput();
+        } else {
+            receiveMessage(GENERAL_CHANNEL_NAME, SYSTEM, message);
+        }
     }
 
     public void removeChannelEntry(@NonNull final String channel) {
