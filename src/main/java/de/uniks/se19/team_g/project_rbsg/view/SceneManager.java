@@ -23,6 +23,8 @@ public class SceneManager {
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+        stage.setTitle(applicationName);
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         return this;
     }
 
@@ -34,8 +36,6 @@ public class SceneManager {
         try {
             final Scene loginScene = loginSceneBuilder.getLoginScene();
             stage.setScene(loginScene);
-            stage.setTitle(applicationName);
-            stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         } catch (IOException e) {
             System.out.println("Unable to set login scene");
             e.printStackTrace();
@@ -50,8 +50,6 @@ public class SceneManager {
         try {
             final Scene lobbyScene = lobbySceneBuilder.getLobbyScene();
             stage.setScene(lobbyScene);
-            stage.setTitle(applicationName);
-            stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         } catch (Exception e) {
             System.out.println("Unable to set login scene");
             e.printStackTrace();
