@@ -27,6 +27,8 @@ public class TitleFormBuilder {
         if (titleForm == null) {
             fxmlLoader.setLocation(TitleFormBuilder.class.getResource("title-form.fxml"));
             titleForm = fxmlLoader.load();
+            final TitleFormController titleFormController = fxmlLoader.getController();
+            titleFormController.init();
         }
         return titleForm;
     }

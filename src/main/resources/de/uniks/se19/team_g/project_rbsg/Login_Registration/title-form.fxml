@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.Login_Registration.TitleFormController">
    <children>
       <StackPane>
          <children>
@@ -13,7 +13,7 @@
       </StackPane>
       <StackPane>
          <children>
-            <Label alignment="CENTER" styleClass="subtitle" stylesheets="@title.css" text="Advanced Wars" />
+            <Label fx:id="subtitle" alignment="CENTER" styleClass="subtitle" stylesheets="@title.css" text="Advanced Wars" />
          </children>
       </StackPane>
    </children>
