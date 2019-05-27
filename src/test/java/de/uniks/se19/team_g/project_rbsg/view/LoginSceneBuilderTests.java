@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.view;
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.Login_Registration.TitleFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.Login_Registration.TitleFormController;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
@@ -18,7 +20,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, RegistrationManager.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, SceneManager.class, LobbySceneBuilder.class, LobbyViewBuilder.class, LoginManager.class, RegistrationManager.class})
+@ContextConfiguration(classes = {JavaConfig.class, RegistrationManager.class, LoginFormController.class, LoginFormBuilder.class, SplashImageBuilder.class, LoginSceneBuilder.class, SceneManager.class, LobbySceneBuilder.class, LobbyViewBuilder.class, LoginManager.class, RegistrationManager.class, TitleFormBuilder.class, TitleFormController.class})
 public class LoginSceneBuilderTests extends ApplicationTest {
 
     @Autowired
@@ -27,9 +29,11 @@ public class LoginSceneBuilderTests extends ApplicationTest {
     @Test
     public void testGetLoginScene() throws IOException {
         final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
-        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder).getLoginScene();
+        final TitleFormBuilder titleFormBuilder = context.getBean(TitleFormBuilder.class);
+        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder, titleFormBuilder).getLoginScene();
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
         Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(loginFormBuilder.getLoginForm()));
+        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(titleFormBuilder.getTitleForm()));
     }
 }

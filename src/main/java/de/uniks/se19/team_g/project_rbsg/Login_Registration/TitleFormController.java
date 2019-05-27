@@ -6,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.stereotype.Controller;
 
+/**
+ * @author Keanu Stückrad
+ */
+
 @Controller
 public class TitleFormController {
 
