@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * @author Georg Siebert
+ */
+
 @Component
 public class GameManager
 {

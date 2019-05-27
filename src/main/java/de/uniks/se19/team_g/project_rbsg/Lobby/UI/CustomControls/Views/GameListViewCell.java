@@ -14,6 +14,10 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
+/**
+ * @author Georg Siebert
+ */
+
 public class GameListViewCell extends ListCell<Game>
 {
     @FXML
