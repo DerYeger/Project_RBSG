@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.view;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -10,6 +11,8 @@ import java.io.IOException;
 
 @Component
 public class SceneManager {
+
+    private String applicationName = "RBSG - Advanced Wars TM";
     private Stage stage;
 
     @Autowired
@@ -31,6 +34,8 @@ public class SceneManager {
         try {
             final Scene loginScene = loginSceneBuilder.getLoginScene();
             stage.setScene(loginScene);
+            stage.setTitle(applicationName);
+            stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         } catch (IOException e) {
             System.out.println("Unable to set login scene");
             e.printStackTrace();
@@ -45,6 +50,8 @@ public class SceneManager {
         try {
             final Scene lobbyScene = lobbySceneBuilder.getLobbyScene();
             stage.setScene(lobbyScene);
+            stage.setTitle(applicationName);
+            stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         } catch (Exception e) {
             System.out.println("Unable to set login scene");
             e.printStackTrace();
