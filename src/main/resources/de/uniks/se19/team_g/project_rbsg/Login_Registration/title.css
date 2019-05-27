@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'Retronoid';
-    src: url('retronoid.otf') format("opentype");
+    src: url('Fonts/retronoid.otf') format("opentype");
 }
 
 @font-face {
     font-family: 'ConnectionSerif';
-    src:url("ConnectionSerif.eot?") format("eot"),
-        url("ConnectionSerif.woff") format("woff"),
-        url("ConnectionSerif.ttf") format("truetype"),
-        url("ConnectionSerif.svg#ConnectionSerif") format("svg");
+    src:url("Fonts/ConnectionSerif.eot?") format("eot"),
+        url("Fonts/ConnectionSerif.woff") format("woff"),
+        url("Fonts/ConnectionSerif.ttf") format("truetype"),
+        url("Fonts/ConnectionSerif.svg#ConnectionSerif") format("svg");
     font-weight:normal;
     font-style:normal;
 }
