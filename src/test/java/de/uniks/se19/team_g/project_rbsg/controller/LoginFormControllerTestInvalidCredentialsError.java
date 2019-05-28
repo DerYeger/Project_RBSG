@@ -8,15 +8,14 @@ import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.*;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +34,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Keanu Stückrad
@@ -121,6 +119,10 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         final Button loginButton = lookup("#login-button").queryButton();
         Assert.assertNotNull(loginButton);
 
+        final HBox errorBox = lookup("#errorMessageBox").query();
+        final Label errorMessage = lookup("#errorMessage").query();
+        Assert.assertFalse(errorBox.isVisible());
+
         clickOn(nameInput);
         write("WrongName");
         Assert.assertEquals("WrongName", nameInput.getText());
@@ -130,10 +132,9 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertEquals("falsePassword", passwordInput.getText());
 
         clickOn(loginButton);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
-        Node alert = lookup("Login failed").query();
-        Assert.assertNotNull(alert);
+
+        Assert.assertTrue(errorBox.isVisible());
+        Assert.assertEquals("Status: Failure\nInvalid Credentials", errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 
@@ -146,6 +147,10 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         final Button registrationButton = lookup("#registration-button").queryButton();
         Assert.assertNotNull(registrationButton);
 
+        final HBox errorBox = lookup("#errorMessageBox").query();
+        final Label errorMessage = lookup("#errorMessage").query();
+        Assert.assertFalse(errorBox.isVisible());
+
         clickOn(nameInput);
         write("MasterChief");
         Assert.assertEquals("MasterChief", nameInput.getText());
@@ -155,10 +160,8 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertEquals("john-117", passwordInput.getText());
 
         clickOn(registrationButton);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
-        Node alert = lookup("Registration failed").query();
-        Assert.assertNotNull(alert);
+        Assert.assertTrue(errorBox.isVisible());
+        Assert.assertEquals("Status: Failure\nName already taken", errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 

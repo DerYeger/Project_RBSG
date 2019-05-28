@@ -7,14 +7,13 @@ import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.*;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +30,6 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -117,11 +115,15 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         final Button loginButton = lookup("#login-button").queryButton();
         Assert.assertNotNull(loginButton);
 
+        final HBox errorBox = lookup("#errorMessageBox").query();
+        final Label errorMessage = lookup("#errorMessage").query();
+        Assert.assertFalse(errorBox.isVisible());
+
+        final String serverMessage = "org.springframework.web.client.RestClientResponseException: ";
+
         clickOn(loginButton);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
-        Node alert = lookup("Login failed").query();
-        Assert.assertNotNull(alert);
+        Assert.assertTrue(errorBox.isVisible());
+        Assert.assertEquals("Status: Failure\n" + serverMessage + "Service Unavailable", errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 
@@ -131,11 +133,15 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         final Button registrationButton = lookup("#registration-button").queryButton();
         Assert.assertNotNull(registrationButton);
 
+        final HBox errorBox = lookup("#errorMessageBox").query();
+        final Label errorMessage = lookup("#errorMessage").query();
+        Assert.assertFalse(errorBox.isVisible());
+
+        final String serverMessage = "org.springframework.web.client.RestClientResponseException: ";
+
         clickOn(registrationButton);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
-        Node alert = lookup("Registration failed").query();
-        Assert.assertNotNull(alert);
+        Assert.assertTrue(errorBox.isVisible());
+        Assert.assertEquals("Status: Failure\n" + serverMessage + "Service Unavailable", errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 
