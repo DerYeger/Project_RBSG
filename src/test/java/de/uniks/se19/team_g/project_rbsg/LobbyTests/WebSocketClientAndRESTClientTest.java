@@ -76,7 +76,21 @@ public class WebSocketClientAndRESTClientTest
 
         Thread.sleep(500);
 
-        restClient.post("/user/login", null, null, "{ \"name\" : \"hello2\", \"password\" : \"hello2\" }");
+        String post = restClient.post("/user/login", null, null, "{ \"name\" : \"hello2\", \"password\" : \"hello2\" }");
+        String userKey2 = "";
+
+        try
+        {
+            userKey2 = new ObjectMapper().readTree(post).get("data").get("userKey").asText();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        LinkedMultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+        header.add("userKey", userKey2);
+        restClient.get("/user/logout", header);
 
         webSocketClient.stop();
     }
