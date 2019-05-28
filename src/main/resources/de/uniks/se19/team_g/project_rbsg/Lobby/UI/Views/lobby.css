@@ -1,6 +1,6 @@
 .label {
     -fx-font-size: 16px;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
 }
 
 
@@ -69,12 +69,16 @@
 /*LIST VIEW STYLE*/
 .list-view {
     -fx-border-color: #FFFFFF;
-    -fx-border-width: 1;
-    -fx-background-color: #000000;
+    -fx-border-width: 0;
+    -fx-border-radius: 4;
+    -fx-background-color: #121212;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .list-cell {
-    -fx-background-color: #000000;
+    -fx-background-color: #121212;
+    -fx-background-radius: 4;
     /*-fx-border-color: #FFFFFF;*/
     -fx-border-width: 0;
 }
@@ -86,7 +90,7 @@
 /*}*/
 
 .list-cell:hover {
-    -fx-background-color: #121212;
+    -fx-background-color: #000000;
 
 }
 /*LIST VIEW STYLE*/

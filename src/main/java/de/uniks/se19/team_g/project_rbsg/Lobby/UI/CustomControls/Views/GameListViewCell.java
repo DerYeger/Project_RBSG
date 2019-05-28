@@ -1,8 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
@@ -10,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 import java.io.IOException;
@@ -32,9 +38,14 @@ public class GameListViewCell extends ListCell<Game>
     public Label playersLabel;
     @FXML
     public ImageView joinImageView;
+    @FXML
+    public Button joinButton;
 
     private FXMLLoader fxmlLoader;
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private Game game;
 
     @Override
     protected void updateItem(final Game game, final boolean empty) {
@@ -70,23 +81,50 @@ public class GameListViewCell extends ListCell<Game>
             playersImageView.setImage(playersImage);
 
 
-            Image joinImage = new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_white_48dp.png")));
-            joinImageView.setImage(joinImage);
+//            Image joinImage = new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_white_48dp.png")));
+//            joinImageView.setImage(joinImage);
 
             this.setText(null);
             this.setGraphic(gridPane);
             this.setId("gameCell" + game.getName());
 
-            joinImageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this::mouseLeftClickOnJoin);
+            joinButton.setText(null);
+            ImageView joinImageViewNonHover = new ImageView();
+            ImageView joinImageViewHover = new ImageView();
+
+            joinImageViewHover.setFitHeight(40);
+            joinImageViewHover.setFitWidth(40);
+
+            joinImageViewNonHover.setFitHeight(40);
+            joinImageViewNonHover.setFitWidth(40);
+
+            joinImageViewHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_black_48dp.png"))));
+            joinImageViewNonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_white_48dp.png"))));
+
+            joinButton.graphicProperty().bind(Bindings.when(joinButton.hoverProperty())
+                                                      .then(joinImageViewHover)
+                                                      .otherwise(joinImageViewNonHover));
+
+            joinButton.setOnAction(this::joinButtonClicked);
+
+//            joinImageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this::mouseLeftClickOnJoin);
 
             // For testing
             joinImageView.setId("gameCellJoin" +  game.getName());
+//            joinButton.setId("joinGameButton"+ game.getName());
+
+            this.game = game;
         }
     }
 
-    private void mouseLeftClickOnJoin(final @NonNull MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
-            System.out.println("LeftClick on " + this.getId());
-        }
+    private void joinButtonClicked(ActionEvent event)
+    {
+        logger.debug("You want to join " + game.getName());
     }
+
+//    private void mouseLeftClickOnJoin(final @NonNull MouseEvent event) {
+//        if(event.getButton() == MouseButton.PRIMARY) {
+//            System.out.println("LeftClick on " + this.getId());
+//        }
+//    }
 }
