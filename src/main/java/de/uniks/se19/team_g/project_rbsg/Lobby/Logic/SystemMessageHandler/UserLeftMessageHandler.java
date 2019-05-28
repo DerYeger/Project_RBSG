@@ -12,59 +12,53 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-/**
- * @author Georg Siebert
- */
-
 @Component
-public class UserJoinedMessageHandler implements ISystemMessageHandler
+public class UserLeftMessageHandler implements ISystemMessageHandler
 {
-    private Logger logger = LoggerFactory.getLogger(UserJoinedMessageHandler.class);
 
+    private final ObjectMapper objectMapper;
     private Lobby lobby;
-    private ObjectMapper objectMapper;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public UserJoinedMessageHandler()
-    {
-        objectMapper = new ObjectMapper();
-    }
-
-    public void setLobby(final @NonNull Lobby lobby)
+    public void setLobby(Lobby lobby)
     {
         this.lobby = lobby;
+    }
+
+    public UserLeftMessageHandler() {
+        objectMapper = new ObjectMapper();
     }
 
     @Override
     public void handleSystemMessage(final @NonNull String message)
     {
-        JsonNode messageNode = null;
-
+        JsonNode jsonNode = null;
         try
         {
-            messageNode = objectMapper.readTree(message);
+            jsonNode = objectMapper.readTree(message);
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
 
-        if (messageNode == null)
-        {
-            return;
-        }
-        if (!messageNode.get("action").asText().equals("userJoined"))
-        {
+        if(jsonNode == null) {
             return;
         }
 
-        String name = messageNode.get("data").get("name").asText();
-        if (lobby != null)
-        {
-            lobby.addPlayer(new Player(name));
+        if(!jsonNode.get("action").asText().equals("userLeft")) {
+            return;
         }
-        else
-        {
-            logger.warn("Lobby is null");
+
+        String name  = jsonNode.get("data").get("name").asText();
+        if(lobby != null) {
+            Player player = lobby.getPlayerByName(name);
+            lobby.removePlayer(player);
         }
+        else {
+            logger.debug("Lobby object was null");
+        }
+
     }
+
 }

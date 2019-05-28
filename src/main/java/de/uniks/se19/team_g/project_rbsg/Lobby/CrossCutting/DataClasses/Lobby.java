@@ -150,6 +150,20 @@ public class Lobby
         }
     }
 
+
+    public void removePlayerByName(final @NonNull String name) {
+        int counter = 0;
+        for(Player player : players) {
+            if(player.getName().equals(name)) {
+                int finalCounter = counter;
+                Platform.runLater(()-> players.remove(finalCounter));
+            }
+            else {
+                counter++;
+            }
+        }
+    }
+
     public final @Nullable Game getGameOverId(final @NonNull String id) {
         for (Game game : games)
         {
