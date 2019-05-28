@@ -17,10 +17,10 @@
 
 .title {
     -fx-font-family: 'Retronoid';
-    -fx-font-size: 200px;
+    -fx-font-size: 160px;
 }
 
 .subtitle {
     -fx-font-family: 'Black';
-    -fx-font-size: 120px;
+    -fx-font-size: 100px;
 }

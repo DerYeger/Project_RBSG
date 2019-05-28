@@ -18,6 +18,7 @@ public class TitleFormController {
 
     public void init() {
         Bounce bounce = new Bounce(subtitle);
+        bounce.setSpeed(1.5);
         bounce.setCycleCount(Animation.INDEFINITE);
         bounce.play();
     }
