@@ -6,8 +6,13 @@
 @font-face {
     font-family: 'ConnectionSerif';
     src:url("Fonts/ConnectionSerif.woff") format("woff"),
-        url("Fonts/ConnectionSerif.ttf") format("truetype"),
-        url("Fonts/ConnectionSerif.svg#ConnectionSerif") format("svg");
+    url("Fonts/ConnectionSerif.ttf") format("truetype"),
+    url("Fonts/ConnectionSerif.svg#ConnectionSerif") format("svg");
+}
+
+@font-face {
+    font-family: 'Black';
+    src:url("Fonts/black.ttf") format("truetype");
 }
 
 .title {
@@ -16,6 +21,6 @@
 }
 
 .subtitle {
-    -fx-font-family: 'ConnectionSerif';
+    -fx-font-family: 'Black';
     -fx-font-size: 120px;
 }
