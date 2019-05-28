@@ -89,6 +89,9 @@ public class LobbyViewController
 
     public void init()
     {
+        lobbyGamesListView.setFixedCellSize(50);
+        lobbyPlayerListView.setFixedCellSize(50);
+
         lobbyPlayerListView.setItems(lobby.getPlayers());
         lobbyGamesListView.setItems(lobby.getGames());
 

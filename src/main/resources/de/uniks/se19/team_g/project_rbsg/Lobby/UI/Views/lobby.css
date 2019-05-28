@@ -58,7 +58,7 @@
 
 .body {
     -fx-padding: 10;
-    -fx-background-color: #121212;
+    -fx-background-color: #000000;
 }
 
 .gameTitle {
@@ -69,7 +69,7 @@
 /*LIST VIEW STYLE*/
 .list-view {
     -fx-border-color: #FFFFFF;
-    -fx-border-width: 0;
+    -fx-border-width: 1;
     -fx-border-radius: 4;
     -fx-background-color: #121212;
     -fx-background-radius: 4;
@@ -78,16 +78,17 @@
 
 .list-cell {
     -fx-background-color: #121212;
-    -fx-background-radius: 4;
+    /*-fx-background-radius: 4;*/
     /*-fx-border-color: #FFFFFF;*/
     -fx-border-width: 0;
 }
 
-/*.list-cell:even {*/
-/*    -fx-background-color: #000000;*/
-/*    !*-fx-border-color: #FFFFFF;*!*/
-/*    -fx-border-width: 0;*/
-/*}*/
+.list-cell:even .label{
+    -fx-text-fill: red;
+    /*-fx-background-color: #3700B3;*/
+    /*!*-fx-border-color: #FFFFFF;*!*/
+    /*-fx-border-width: 0;*/
+}
 
 .list-cell:hover {
     -fx-background-color: #000000;
