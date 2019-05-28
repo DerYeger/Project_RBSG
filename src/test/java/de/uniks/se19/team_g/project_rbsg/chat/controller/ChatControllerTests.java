@@ -176,6 +176,8 @@ public class ChatControllerTests extends ApplicationTest {
         final Node chattest3ChatTab = lookup("@chattest3").query();
         Assert.assertNotNull(chattest3ChatTab);
 
+        clickOn(chattest3ChatTab);
+
         chatWebSocketCallback.handle("{\"msg\":\"User chattest3 is not online\"}");
 
         final Node ct3Input = lookup(".text-field")
@@ -188,5 +190,7 @@ public class ChatControllerTests extends ApplicationTest {
         Assert.assertNotNull(ct3Input);
 
         Assert.assertEquals("inputField", ct3Input.getId());
+
+        Assert.assertNotNull(lookup("System: User chattest3 is not online"));
     }
 }
