@@ -9,13 +9,11 @@ import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
@@ -42,11 +40,16 @@ public class LoginFormController {
     @FXML
     private Button registerButton;
 
+    @FXML
+    private HBox errorMessageBox;
+
+    @FXML
+    private Label errorMessage;
+
     private  User user;
     private final LoginManager loginManager;
     private final RegistrationManager registrationManager;
     private final SceneManager sceneManager;
-
     private final UserProvider userProvider;
 
     @Autowired
@@ -59,6 +62,7 @@ public class LoginFormController {
 
     public void init() {
         addEventListeners();
+        errorMessageBox.setVisible(false);
     }
 
     private void addEventListeners() {
@@ -73,7 +77,8 @@ public class LoginFormController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        handleRequestErrors("failure", exception.getMessage(), "Login");
+                        this.errorMessageBox.setVisible(true);
+                        this.errorMessage.setText("Status: Failure\n" +  exception.getMessage());
                         return null;
                     });
         }
@@ -91,7 +96,8 @@ public class LoginFormController {
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
-                handleRequestErrors(status,  message, "Login");
+                this.errorMessageBox.setVisible(true);
+                this.errorMessage.setText("Status: Failure\n" +  message);
             }
         }
     }
@@ -103,9 +109,13 @@ public class LoginFormController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        handleRequestErrors("failure", exception.getMessage(), "Registration");
+                        this.errorMessageBox.setVisible(true);
+                        this.errorMessage.setText("Status: Failure\n" +  exception.getMessage());
                         return null;
                     });
+        } else {
+            this.errorMessageBox.setVisible(true);
+            this.errorMessage.setText("Bitte Name und Passwort eingeben");
         }
     }
 
@@ -116,7 +126,8 @@ public class LoginFormController {
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
-                handleRequestErrors(status, message, "Registration");
+                this.errorMessageBox.setVisible(true);
+                this.errorMessage.setText("Status: Failure\n" +  message);
             }
         }
     }
@@ -125,14 +136,6 @@ public class LoginFormController {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
         sceneManager.setLobbyScene();
-    }
-
-    public static void handleRequestErrors(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(status);
-        alert.setHeaderText(typeOfFail + " failed");
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
 }
