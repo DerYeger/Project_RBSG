@@ -112,7 +112,7 @@ public class CreateGameControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testFormInputNumberOfPlayers(){
+    public void testNoNumberOfPlayersSelected(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final Button createGameButton = lookup("#create").queryButton();
