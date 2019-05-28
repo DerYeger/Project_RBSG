@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.FeatureLobbyTests;
+package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.apis.GameCreator;
