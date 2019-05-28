@@ -71,7 +71,7 @@ public class ProjectRbsgFXApplication extends Application {
     @Override
     public void stop() {
         System.out.println("Stopping application");
-        context.getBean(ChatController.class).terminate(); //temporary fix
+//        context.getBean(ChatController.class).terminate(); //temporary fix
         this.context.close();
         Platform.exit();
     }
@@ -84,7 +84,7 @@ public class ProjectRbsgFXApplication extends Application {
         alert.showAndWait();
 
         if (alert.getResult().equals(ButtonType.OK)) {
-            stop();
+            //do nothing
         } else {
             event.consume();
         }
