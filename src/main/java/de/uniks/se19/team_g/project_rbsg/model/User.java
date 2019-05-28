@@ -4,12 +4,17 @@ import org.springframework.lang.NonNull;
 
 /**
  * @author Keanu Stückrad
+ * @author Jan Müller
  */
 public class User {
 
     private String name;
     private String password;
     private String userKey;
+
+    public User() {
+        //required for user provider
+    }
 
     public User(@NonNull final String name, @NonNull final String password){
         this.name = name;
@@ -32,6 +37,16 @@ public class User {
 
     public void setUserKey(@NonNull final String userKey){
         this.userKey = userKey;
+    }
+
+    public User setName(@NonNull final String name) {
+        this.name = name;
+        return this;
+    }
+
+    public User setUserKey(@NonNull final String userKey) {
+        this.userKey = userKey;
+        return this;
     }
 
     public String getPassword() {

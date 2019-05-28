@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.controller;
+package de.uniks.se19.team_g.project_rbsg.chat.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,7 +10,7 @@ import org.springframework.lang.NonNull;
 /**
  * @author Jan Müller
  */
-public class ChatTabContentController {
+public class ChatChannelController {
 
     @FXML
     private TextArea messageArea;
@@ -26,10 +26,8 @@ public class ChatTabContentController {
         this.chatController = chatController;
         this.channel = channel;
 
-        messageArea.setEditable(false);
-
         //do not remove
-        chatController.subscribeChatTabContentController(this, channel);
+        chatController.registerChatChannelController(this, channel);
 
         addEventHandler();
     }
@@ -56,5 +54,13 @@ public class ChatTabContentController {
             }
             Platform.runLater(() ->  inputField.clear());
         }
+    }
+
+    public void disableInput() {
+        inputField.setDisable(true);
+    }
+
+    public String getChannel() {
+        return channel;
     }
 }
