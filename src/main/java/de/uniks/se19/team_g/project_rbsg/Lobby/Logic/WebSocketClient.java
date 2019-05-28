@@ -21,7 +21,7 @@ import java.util.TimerTask;
 public class WebSocketClient
 {
     private final static String BASE_URL = "wss://rbsg.uniks.de/ws";
-    private final static int TIMER_PERIOD = 120000;
+    private final static int TIMER_PERIOD = 40000;
     private final static int TIMER_DELAY = 0;
     private final static String NOOP = "noop";
 

@@ -1,6 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.view;
+package de.uniks.se19.team_g.project_rbsg.chat.view;
 
-import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import org.springframework.lang.NonNull;
@@ -30,6 +31,7 @@ public class ChatBuilder {
     public Node getChat() throws IOException {
         if (chat == null) {
             chat = new TabPane();
+            chat.setSide(Side.BOTTOM);
             chatController.init(chat);
         }
         return chat;

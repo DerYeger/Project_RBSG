@@ -8,8 +8,9 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
+
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
