@@ -83,7 +83,6 @@ public class CreateGameControllerTest extends ApplicationTest {
         clickOn(twoPlayerButton);
 
         clickOn(createGameButton);
-        sleep(500);
         final Node alert = lookup("Fehler: Keine Verbindung zum Server moeglich").query();
         Assert.assertNotNull(alert);
     }
@@ -95,7 +94,6 @@ public class CreateGameControllerTest extends ApplicationTest {
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
-        sleep(500);
         clickOn(gameNameInput);
         eraseText(20);
         clickOn(gameNameInput);
@@ -106,7 +104,6 @@ public class CreateGameControllerTest extends ApplicationTest {
         clickOn(twoPlayerButton);
 
         clickOn(createGameButton);
-        sleep(500);
         final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
         Assert.assertNotNull(alert);
     }
@@ -118,7 +115,6 @@ public class CreateGameControllerTest extends ApplicationTest {
         final Button createGameButton = lookup("#create").queryButton();
 
         clickOn(createGameButton);
-        sleep(500);
         final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
         Assert.assertNotNull(alert);
     }
