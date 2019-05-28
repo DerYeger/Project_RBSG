@@ -77,8 +77,8 @@ public class LoginFormController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        this.errorMessageBox.setVisible(true);
-                        this.errorMessage.setText("Status: Failure\n" +  exception.getMessage());
+                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                        Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  exception.getMessage()));
                         return null;
                     });
         }
@@ -96,8 +96,9 @@ public class LoginFormController {
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
-                this.errorMessageBox.setVisible(true);
-                this.errorMessage.setText("Status: Failure\n" +  message);
+                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  message));
+                System.out.println("message: " + message);
             }
         }
     }
@@ -109,13 +110,10 @@ public class LoginFormController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        this.errorMessageBox.setVisible(true);
-                        this.errorMessage.setText("Status: Failure\n" +  exception.getMessage());
+                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                        Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  exception.getMessage()));
                         return null;
                     });
-        } else {
-            this.errorMessageBox.setVisible(true);
-            this.errorMessage.setText("Bitte Name und Passwort eingeben");
         }
     }
 
@@ -126,8 +124,9 @@ public class LoginFormController {
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
-                this.errorMessageBox.setVisible(true);
-                this.errorMessage.setText("Status: Failure\n" +  message);
+                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  message));
+                System.out.println("message: " + message);
             }
         }
     }
