@@ -6,8 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketFactory;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import javax.websocket.Session;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Georg Siebert
@@ -43,14 +41,13 @@ public class SystemMessageManagerTest
     @TestConfiguration
     public static class ContextConfiguration {
         @Bean
-        public WebSocketFactory webSocketFactory() {
-            return new WebSocketFactory() {
-                @Override
-                public WebSocketClient getSocket(String endpoint, IWebSocketCallback webSocketCallback) {
-                    return new WebSocketClient(endpoint, webSocketCallback) {
+        public WebSocketClient webSocketClient() {
+            return new WebSocketClient() {
+                private IWebSocketCallback callback;
                         @Override
-                        public void start()
+                        public void start(String endpoint, IWebSocketCallback webSocketCallback)
                         {
+                            this.callback = webSocketCallback;
                             try
                             {
                                 onMessage("", null);
@@ -63,13 +60,11 @@ public class SystemMessageManagerTest
 
                         @Override
                         public void onMessage(final String message, final Session session) throws IOException {
-                            webSocketCallback.handle("Hallo du da im Radio!");
+                            callback.handle("Hallo du da im Radio!");
                         }
                     };
                 }
-            };
         }
-    }
 
     @Test
     public void messageArrived() throws IOException

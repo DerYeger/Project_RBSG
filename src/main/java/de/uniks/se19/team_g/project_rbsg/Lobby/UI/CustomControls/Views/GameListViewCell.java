@@ -36,8 +36,8 @@ public class GameListViewCell extends ListCell<Game>
     public ImageView playersImageView;
     @FXML
     public Label playersLabel;
-    @FXML
-    public ImageView joinImageView;
+//    @FXML
+//    public ImageView joinImageView;
     @FXML
     public Button joinButton;
 
@@ -110,8 +110,8 @@ public class GameListViewCell extends ListCell<Game>
 //            joinImageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this::mouseLeftClickOnJoin);
 
             // For testing
-            joinImageView.setId("gameCellJoin" +  game.getName());
-//            joinButton.setId("joinGameButton"+ game.getName());
+//            joinImageView.setId("gameCellJoin" +  game.getName());
+            joinButton.setId("joinGameButton"+ game.getName());
 
             this.game = game;
         }

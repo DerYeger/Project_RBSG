@@ -53,7 +53,7 @@ public class ChatControllerTests extends ApplicationTest {
 
         @Bean
         public WebSocketClient webSocketClient() {
-            return new WebSocketClient(null) {
+            return new WebSocketClient() {
 
                 private IWebSocketCallback callback;
 

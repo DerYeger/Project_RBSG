@@ -4,11 +4,14 @@ import de.uniks.se19.team_g.project_rbsg.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.*;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +24,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -35,7 +40,6 @@ import static org.junit.Assert.assertNotNull;
         LobbyViewBuilder.class,
         LobbyBuilderTest.ContextConfiguration.class,
         ChatBuilder.class,
-        ChatController.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -52,10 +56,19 @@ public class LobbyBuilderTest extends ApplicationTest
         public LobbyViewController lobbyViewController() {
             return new LobbyViewController(new PlayerManager(new RESTClient(new RestTemplate())),
                                            new GameManager(new RESTClient(new RestTemplate())),
-                                           new SystemMessageManager(new WebSocketFactory()), new ChatController()) {
+                                           new SystemMessageManager(new WebSocketClient()),chatController()) {
                 @Override
                 public void init() {
 
+                }
+            };
+        }
+
+        @Bean
+        public ChatController chatController() {
+            return new ChatController(new UserProvider(), new WebSocketClient() ,new ChatWebSocketCallback()) {
+                public void init(@NonNull final TabPane chatPane) throws IOException
+                {
                 }
             };
         }
@@ -78,7 +91,7 @@ public class LobbyBuilderTest extends ApplicationTest
         assertNotNull(lobbyView);
         assertNotNull(lookup("#lobbyTitle").query());
         assertNotNull(lookup("#chatContainer").query());
-        assertNotNull(lookup("#gameListContainer").query());
+        assertNotNull(lookup("#lobbyGamesListView").query());
         assertNotNull(lookup("#lobbyPlayerListView").query());
 
     }

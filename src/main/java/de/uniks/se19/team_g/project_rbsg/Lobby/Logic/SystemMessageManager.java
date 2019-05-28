@@ -3,11 +3,9 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.ISystemMessageHandler;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageHandler.DefaultSystemMessageHandler;
-import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 
@@ -26,22 +24,23 @@ public class SystemMessageManager implements IWebSocketCallback
     public void setWebSocketClient(WebSocketClient client) {
         this.webSocketClient = client;
     }
+
     public WebSocketClient getWebSocketClient() {
         return this.webSocketClient;
     }
 
-    public SystemMessageManager(WebSocketFactory webSocketFactory) {
+    public SystemMessageManager(WebSocketClient webSocketClient) {
         systemMessageHandlers = new ArrayList<>();
         systemMessageHandlers.add(new DefaultSystemMessageHandler());
 
-        this.webSocketClient = webSocketFactory.getSocket("/system", this);
+        this.webSocketClient = webSocketClient;
     }
 
     public void startSocket() {
         if (WebSocketConfigurator.userKey.equals("") || webSocketClient == null) {
             return;
         }
-        webSocketClient.start();
+        webSocketClient.start("/system", this);
     }
 
     public void addMessageHandler(final @NonNull ISystemMessageHandler messageHandler) {

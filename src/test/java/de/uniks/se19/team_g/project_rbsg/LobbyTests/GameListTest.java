@@ -7,14 +7,18 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.*;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController;
-import de.uniks.se19.team_g.project_rbsg.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.view.ChatBuilder;
-import javafx.application.Platform;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,15 +26,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -45,7 +52,6 @@ import static org.junit.Assert.*;
         LobbyViewController.class,
         GameListTest.ContextConfiguration.class,
         ChatBuilder.class,
-        ChatController.class
 })
 public class GameListTest extends ApplicationTest
 {
@@ -96,10 +102,21 @@ public class GameListTest extends ApplicationTest
 
         @Bean
         public SystemMessageManager systemMessageManager() {
-            return new SystemMessageManager(new WebSocketFactory()) {
+            return new SystemMessageManager(new WebSocketClient()) {
                 @Override
                 public void startSocket() {
                 }
+            };
+        }
+
+        @Bean
+        public ChatController chatController() {
+            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback()) {
+                @Override
+                public void init(@NonNull final TabPane chatPane)
+                {
+                }
+
             };
         }
     }
@@ -132,8 +149,8 @@ public class GameListTest extends ApplicationTest
         assertEquals(10, dota.getNeededPlayer());
         assertEquals(7, dota.getJoinedPlayer());
 
-        clickOn("#gameCellJoinGameOfHello");
-        clickOn("#gameCellJoinDefenceOfTheAncient");
+        clickOn("#joinGameButtonGameOfHello");
+        clickOn("#joinGameButtonDefenceOfTheAncient");
 
         Lobby lobby = context.getBean(LobbyViewController.class).getLobby();
 
@@ -151,7 +168,7 @@ public class GameListTest extends ApplicationTest
         assertEquals(2, starWars.getNeededPlayer());
         assertEquals(2, starWars.getJoinedPlayer());
 
-        clickOn("#gameCellJoinStarWars");
+        clickOn("#joinGameButtonStarWars");
 
 
         lobby.removeGame(dota);

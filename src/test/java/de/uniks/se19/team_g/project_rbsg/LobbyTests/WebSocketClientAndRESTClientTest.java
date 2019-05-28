@@ -22,7 +22,7 @@ public class WebSocketClientAndRESTClientTest
     private final String bodyLogin = "{ \"name\" : \"hello1\", \"password\" : \"hello1\" }";
     private final String bodyCreateGame = "{ \"name\" : \"gameofHello\", \"neededPlayer\" : 4 }";
 
-    /*@Test
+    @Test
     public void TestRESTClient() {
         RESTClient restClient = new RESTClient(new RestTemplate());
         String userKey = "nothing";
@@ -53,9 +53,9 @@ public class WebSocketClientAndRESTClientTest
         System.out.println(gameId);
 
         System.out.println(restClient.delete("/game/"+gameId, header, null));
-    }*/
+    }
 
-/*    @Test
+    @Test
     public void TestWebSocketClient() throws InterruptedException
     {
         RESTClient restClient = new RESTClient(new RestTemplate());
@@ -71,8 +71,8 @@ public class WebSocketClientAndRESTClientTest
         }
 
         WebSocketConfigurator.userKey = userKey;
-        WebSocketClient webSocketClient = new WebSocketClient("/system", this::handle);
-        webSocketClient.start();
+        WebSocketClient webSocketClient = new WebSocketClient();
+        webSocketClient.start("/system", this::handle);
 
         Thread.sleep(500);
 
@@ -93,7 +93,7 @@ public class WebSocketClientAndRESTClientTest
         restClient.get("/user/logout", header);
 
         webSocketClient.stop();
-    }*/
+    }
 
     private void handle(String message) {
         System.out.println(message);

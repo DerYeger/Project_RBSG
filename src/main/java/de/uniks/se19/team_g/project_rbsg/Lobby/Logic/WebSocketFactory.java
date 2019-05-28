@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
  * @author Georg Siebert
  */
 
-@Component
-public class WebSocketFactory
-{
-    public WebSocketClient getSocket(String endpoint, IWebSocketCallback webSocketCallback) {
-        return new WebSocketClient(endpoint, webSocketCallback);
-    }
-}
+//@Component
+//public class WebSocketFactory
+//{
+//    public WebSocketClient createSocket(String endpoint, IWebSocketCallback webSocketCallback) {
+//        return new WebSocketClient(endpoint, webSocketCallback);
+//    }
+//}

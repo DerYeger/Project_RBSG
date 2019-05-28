@@ -56,7 +56,8 @@ public class ChatController {
     @NonNull
     private final ChatWebSocketCallback chatWebSocketCallback;
 
-    public ChatController(@NonNull final UserProvider userProvider, @NonNull final WebSocketClient webSocketClient, @NonNull final ChatWebSocketCallback chatWebSocketCallback) {
+    public ChatController(@NonNull final UserProvider userProvider, @NonNull final WebSocketClient webSocketClient, @NonNull final ChatWebSocketCallback chatWebSocketCallback)
+    {
         this.userProvider = userProvider;
         this.webSocketClient = webSocketClient;
         this.chatWebSocketCallback = chatWebSocketCallback;
@@ -79,7 +80,8 @@ public class ChatController {
         startClient();
     }
 
-    private void startClient() throws UnsupportedEncodingException {
+    private void startClient() throws UnsupportedEncodingException
+    {
         chatWebSocketCallback.registerChatController(this);
         webSocketClient.start(SERVER_ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), chatWebSocketCallback);
     }
