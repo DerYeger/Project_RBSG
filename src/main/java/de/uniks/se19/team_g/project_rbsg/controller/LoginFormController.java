@@ -1,8 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -12,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -46,11 +47,14 @@ public class LoginFormController {
     private final RegistrationManager registrationManager;
     private final SceneManager sceneManager;
 
+    private final UserProvider userProvider;
+
     @Autowired
-    public LoginFormController(@NonNull final LoginManager loginManager, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
+    public LoginFormController(@NonNull final UserProvider userProvider, @NonNull final LoginManager loginManager, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
+        this.userProvider = userProvider;
         this.loginManager = loginManager;
         this.registrationManager = registrationManager;
+        this.sceneManager = sceneManager;
     }
 
     public void init() {
@@ -80,11 +84,11 @@ public class LoginFormController {
             final String status = (String) answer.get("status");
             if (status.equals("success")){
                 final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
-                final String userKey = "";
+                String userKey = "";
                 if(data != null){
-                    userKey.concat((String) data.get("userKey"));
+                    userKey = ((String) data.get("userKey"));
                 }
-                newScene(new User(user, userKey));
+                onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
                 handleRequestErrors(status,  message, "Login");
@@ -117,7 +121,9 @@ public class LoginFormController {
         }
     }
 
-    public void newScene(@NonNull final User user) {
+    public void onLogin(@NonNull User user) {
+        userProvider.set(user);
+        WebSocketConfigurator.userKey = userProvider.get().getUserKey();
         sceneManager.setLobbyScene();
     }
 
