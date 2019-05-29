@@ -46,7 +46,7 @@ public class PlayerJoinedAndLeftGameMessageHandler implements ISystemMessageHand
         {
             return;
         }
-        if (!messageNode.get("action").asText().equals("playerJoinedGame") || !messageNode.get("action").asText().equals("playerLeftGame"))
+        if (!messageNode.get("action").asText().equals("playerJoinedGame") && !messageNode.get("action").asText().equals("playerLeftGame"))
         {
             return;
         }
