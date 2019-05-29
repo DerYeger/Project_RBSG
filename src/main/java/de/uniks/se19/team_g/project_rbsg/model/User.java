@@ -31,22 +31,21 @@ public class User {
         return userKey;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public void setUserKey(@NonNull final String userKey){
+        this.userKey = userKey;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public User setName(@NonNull final String name) {
         this.name = name;
         return this;
     }
-
-    public User setUserKey(@NonNull final String userKey) {
-        this.userKey = userKey;
-        return this;
-    }
-
 }
