@@ -9,7 +9,6 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
-
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
@@ -133,6 +132,8 @@ public class LobbyViewController implements RootController, Terminable
 //        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
 
         withChatSupport();
+
+        setAsRootController();
     }
 
     private void configureSystemMessageManager()
@@ -200,12 +201,12 @@ public class LobbyViewController implements RootController, Terminable
 
     public void terminate()
     {
-        lobby.getSystemMessageManager().stopSocket();
         chatController.terminate();
+        lobby.getSystemMessageManager().stopSocket();
+        logger.debug("Terminated " + this);
     }
 
-    public void registerAtSceneManager()
-    {
+    public void setAsRootController() {
         sceneManager.setRootController(this);
     }
 }

@@ -4,24 +4,29 @@ import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ */
 @Component
-public class SceneManager {
+public class SceneManager implements ApplicationContextAware {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private ApplicationContext context;
 
     private Stage stage;
 
     private RootController rootController;
-
-    @Autowired
-    private LoginSceneBuilder loginSceneBuilder;
-
-    @Autowired
-    private LobbySceneBuilder lobbySceneBuilder;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
@@ -30,41 +35,47 @@ public class SceneManager {
 
     public void setLoginScene() {
         if (stage == null) {
-            System.out.println("Not yet initialised");
+            logger.debug("Stage not initialised");
             return;
         }
-        terminateCurrentRootController();
+        terminateRootController();
         try {
-            final Scene loginScene = loginSceneBuilder.getLoginScene();
+            final Scene loginScene = context.getBean(LoginSceneBuilder.class).getLoginScene();
             stage.setScene(loginScene);
         } catch (IOException e) {
-            System.out.println("Unable to set login scene");
+            logger.error("Unable to set login scene");
             e.printStackTrace();
         }
     }
 
     public void setLobbyScene() {
         if (stage == null) {
-            System.out.println("Not yet initialised");
+            logger.debug("Stage not initialised");
             return;
         }
-        terminateCurrentRootController();
+        terminateRootController();
         try {
-            final Scene lobbyScene = lobbySceneBuilder.getLobbyScene();
+            final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
             stage.setScene(lobbyScene);
         } catch (Exception e) {
-            System.out.println("Unable to set login scene");
+            logger.error("Unable to set login scene");
             e.printStackTrace();
         }
     }
 
-    public void terminateCurrentRootController() {
+    public void terminateRootController() {
         if (rootController != null && rootController instanceof Terminable) {
             ((Terminable) rootController).terminate();
+            rootController = null;
         }
     }
 
     public void setRootController(@NonNull final RootController rootController) {
         this.rootController = rootController;
+    }
+
+    @Override
+    public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
     }
 }

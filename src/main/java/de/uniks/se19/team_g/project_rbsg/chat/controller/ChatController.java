@@ -13,6 +13,8 @@ import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +39,8 @@ public class ChatController implements Terminable {
     public static final String SERVER_PRIVATE_CHANNEL_NAME = "private";
 
     public static final String SERVER_ENDPOINT = "/chat?user=";
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
@@ -219,5 +223,6 @@ public class ChatController implements Terminable {
 
     public void terminate() {
         webSocketClient.stop();
+        logger.debug("Terminated " + this);
     }
 }
