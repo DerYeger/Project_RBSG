@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.handler.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -25,7 +26,7 @@ import java.util.HashMap;
  * @author Jan Müller
  */
 @Component
-public class ChatController {
+public class ChatController implements Terminable {
 
     public static final String SYSTEM = "System";
 
