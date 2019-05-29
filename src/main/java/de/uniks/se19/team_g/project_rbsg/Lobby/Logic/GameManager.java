@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 
@@ -20,27 +22,22 @@ public class GameManager
 {
 
     private final RESTClient restClient;
-    private User user;
+    private final UserProvider userProvider;
 
-    public void setUser(User user)
-    {
-        this.user = user;
-    }
-
-    public GameManager(final RESTClient restClient)
+    public GameManager(@NonNull final RESTClient restClient,@NonNull final UserProvider userProvider)
     {
         this.restClient = restClient;
-        this.user = null;
+        this.userProvider = userProvider;
     }
 
     public Collection<Game> getGames()
     {
-        if (user == null)
+        if (userProvider.get() == null || userProvider.get().getUserKey() == null || userProvider.get().getUserKey().equals(""))
         {
             return new ArrayList<>();
         }
         LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("userKey", user.getUserKey());
+        headers.add("userKey", userProvider.get().getUserKey());
         String response = restClient.get("/game", headers);
 
 

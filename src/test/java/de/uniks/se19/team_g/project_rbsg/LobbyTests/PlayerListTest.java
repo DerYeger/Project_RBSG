@@ -73,7 +73,7 @@ public class PlayerListTest extends ApplicationTest
     static class ContextConfiguration {
         @Bean
         public GameManager gameManager() {
-            return new GameManager(new RESTClient(new RestTemplate())) {
+            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
                 @Override
                 public Collection<Game> getGames() {
                     return new ArrayList<Game>();
@@ -83,7 +83,7 @@ public class PlayerListTest extends ApplicationTest
 
         @Bean
         public PlayerManager playerManager() {
-            return new PlayerManager(new RESTClient(new RestTemplate())) {
+            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider()) {
                 @Override
                 public Collection<Player> getPlayers() {
                     ArrayList<Player> players = new ArrayList<>();

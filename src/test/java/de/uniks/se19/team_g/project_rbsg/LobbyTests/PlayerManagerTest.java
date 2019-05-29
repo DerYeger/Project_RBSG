@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
@@ -67,10 +68,14 @@ public class PlayerManagerTest
             {
                 return messageSuccess;
             }
+        }, new UserProvider() {
+            @Override
+            public User get() {
+                return user;
+            }
         });
 
 
-        playerManager.setUser(user);
         ArrayList<Player> players = new ArrayList<>(playerManager.getPlayers());
 
         assertNotNull(players);
@@ -93,9 +98,13 @@ public class PlayerManagerTest
             {
                 return messageFailure;
             }
+        }, new UserProvider() {
+            @Override
+            public User get() {
+                return user;
+            }
         });
 
-        playerManager.setUser(user);
         ArrayList<Player> players = new ArrayList<>(playerManager.getPlayers());
         assertNotNull(players);
         assertEquals(1, players.size());
@@ -112,9 +121,13 @@ public class PlayerManagerTest
             {
                 return messageSucessNoPlayers;
             }
+        }, new UserProvider() {
+            @Override
+            public User get() {
+                return user;
+            }
         });
 
-        playerManager.setUser(user);
         ArrayList<Player> players = new ArrayList<>(playerManager.getPlayers());
         assertNotNull(players);
         assertEquals(1, players.size());
@@ -124,7 +137,12 @@ public class PlayerManagerTest
     @Test
     public void UserIsNull()
     {
-        PlayerManager playerManager = new PlayerManager(new RESTClient(new RestTemplate()));
+        PlayerManager playerManager = new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider() {
+            @Override
+            public User get() {
+                return null;
+            }
+        });
         Collection<Player> players = playerManager.getPlayers();
         assertNotNull(players);
         assertEquals(0, players.size());

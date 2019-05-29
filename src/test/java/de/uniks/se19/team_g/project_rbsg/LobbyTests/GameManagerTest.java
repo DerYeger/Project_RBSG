@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.GameManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
@@ -65,9 +66,13 @@ public class GameManagerTest
             public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers) {
                 return messageSuccess;
             }
+        }, new UserProvider() {
+            @Override
+            public User get() {
+                return user;
+            }
         });
 
-        gameManager.setUser(user);
         ArrayList<Game> games = new ArrayList<>(gameManager.getGames());
         assertNotNull(games);
         assertEquals(3, games.size());
@@ -86,9 +91,13 @@ public class GameManagerTest
             public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers) {
                 return messageFailure;
             }
+        }, new UserProvider() {
+            @Override
+            public User get() {
+                return user;
+            }
         });
 
-        gameManager.setUser(user);
         ArrayList<Game> games = new ArrayList<>(gameManager.getGames());
         assertNotNull(games);
         assertEquals(0, games.size());
@@ -96,7 +105,12 @@ public class GameManagerTest
 
     @Test
     public void UserIsNull() {
-        GameManager gameManager = new GameManager(new RESTClient(new RestTemplate()));
+        GameManager gameManager = new GameManager(new RESTClient(new RestTemplate()), new UserProvider() {
+            @Override
+            public User get() {
+                return null;
+            }
+        });
 
         ArrayList<Game> games = new ArrayList<>(gameManager.getGames());
         assertNotNull(games);

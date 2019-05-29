@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -49,33 +50,9 @@ public class LobbyBuilderTest extends ApplicationTest
 
     private Node lobbyView;
 
-    @TestConfiguration
-    static class ContextConfiguration
-    {
-        @Bean
-        public LobbyViewController lobbyViewController() {
-            return new LobbyViewController(new PlayerManager(new RESTClient(new RestTemplate())),
-                                           new GameManager(new RESTClient(new RestTemplate())),
-                                           new SystemMessageManager(new WebSocketClient()),chatController()) {
-                @Override
-                public void init() {
-
-                }
-            };
-        }
-
-        @Bean
-        public ChatController chatController() {
-            return new ChatController(new UserProvider(), new WebSocketClient() ,new ChatWebSocketCallback()) {
-                public void init(@NonNull final TabPane chatPane) throws IOException
-                {
-                }
-            };
-        }
-    }
-
     @Override
-    public void start(@NonNull final Stage stage) {
+    public void start(@NonNull final Stage stage)
+    {
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
         lobbyView = lobbyViewBuilder.buildLobbyScene();
 
@@ -94,6 +71,49 @@ public class LobbyBuilderTest extends ApplicationTest
         assertNotNull(lookup("#lobbyGamesListView").query());
         assertNotNull(lookup("#lobbyPlayerListView").query());
 
+    }
+
+    @TestConfiguration
+    static class ContextConfiguration
+    {
+        @Bean
+        public LobbyViewController lobbyViewController()
+        {
+            return new LobbyViewController(new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
+                                           new GameManager(new RESTClient(new RestTemplate()), userProvider()),
+                                           new SystemMessageManager(new WebSocketClient()), chatController())
+            {
+                @Override
+                public void init()
+                {
+
+                }
+            };
+        }
+
+        @Bean
+        public UserProvider userProvider()
+        {
+            return new UserProvider()
+                    {
+                        @Override
+                        public User get()
+                        {
+                            return null;
+                        }
+                    };
+        }
+
+        @Bean
+        public ChatController chatController()
+        {
+            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
+            {
+                public void init(@NonNull final TabPane chatPane) throws IOException
+                {
+                }
+            };
+        }
     }
 
 }
