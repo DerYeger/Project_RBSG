@@ -12,6 +12,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * @author Georg Siebert
+ */
+
 public class UserLeftMessageHandler implements ISystemMessageHandler
 {
 

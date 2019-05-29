@@ -12,6 +12,10 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
+/**
+ * @author Georg Siebert
+ */
+
 public class GameCreatedMessageHandler implements ISystemMessageHandler
 {
     private Logger logger = LoggerFactory.getLogger(UserJoinedMessageHandler.class);
