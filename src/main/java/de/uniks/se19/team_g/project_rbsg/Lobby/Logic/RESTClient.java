@@ -69,12 +69,12 @@ public class RESTClient
         return getString(endpoint, headers, param, HttpMethod.DELETE);
     }
 
-    private String getString(@NonNull String endpoint, @Nullable MultiValueMap<String, String> headers, @Nullable MultiValueMap<String, String> param, HttpMethod delete)
+    private String getString(@NonNull String endpoint, @Nullable MultiValueMap<String, String> headers, @Nullable MultiValueMap<String, String> param, HttpMethod httpMethod)
     {
         prepareHeaderAndUri(endpoint, headers, param);
 
         HttpEntity<String> httpEntity = new HttpEntity<>("", httpHeaders);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, delete, httpEntity, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, httpMethod, httpEntity, String.class);
         HttpStatus httpStatus = responseEntity.getStatusCode();
         if (httpStatus.is2xxSuccessful())
         {
