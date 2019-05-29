@@ -55,18 +55,6 @@ public class JavaConfig implements ApplicationContextAware
         return clientHttpRequestFactory;
     }
 
-    @Bean
-    public Timer timer()
-    {
-        return new Timer();
-    }
-
-    @Bean
-    public ObjectMapper objectMapper()
-    {
-        return new ObjectMapper();
-    }
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
     {

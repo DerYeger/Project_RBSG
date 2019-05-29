@@ -1,54 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController">
+<StackPane styleClass="body" stylesheets="@lobby.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController">
    <children>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <VBox alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.rowSpan="3">
+       <GridPane fx:id="mainGridPane" maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="mainGridPane" StackPane.alignment="TOP_LEFT">
+           <columnConstraints>
+               <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="70.0" />
+               <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" percentWidth="30.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints percentHeight="15.0" valignment="TOP" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="55.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="30.0" vgrow="ALWAYS" />
+           </rowConstraints>
+          <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <ListView fx:id="lobbyPlayerListView" />
+                  <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="iconButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       <Label fx:id="lobbyTitle" styleClass="gameTitle" text="Advanced WASP Wars" />
                </children>
-            </VBox>
-            <VBox maxWidth="1.7976931348623157E308" prefWidth="300.0" GridPane.columnSpan="2" GridPane.rowSpan="3">
+            </GridPane>
+               <ListView fx:id="lobbyPlayerListView" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+                 <ListView fx:id="lobbyGamesListView" GridPane.rowIndex="1" />
+                <VBox fx:id="chatContainer" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+               <VBox alignment="TOP_CENTER" styleClass="optionsContainer" GridPane.columnIndex="1">
                <children>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <HBox styleClass="optionsHboxContainer" VBox.vgrow="SOMETIMES">
                      <children>
-                        <HBox fx:id="headerHBox" prefWidth="200.0">
-                           <children>
-                              <Label fx:id="lobbyTitle" text="Label" />
-                           </children>
-                        </HBox>
-                        <VBox fx:id="gameListContainer" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
-                        <VBox fx:id="chatContainer" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" />
+                        <Button mnemonicParsing="false" text="Button">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" styleClass="buttonLeft" text="Button">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></Button>
                      </children>
-                  </GridPane>
+                  </HBox>
+                  <HBox styleClass="optionsHboxContainer" VBox.vgrow="SOMETIMES">
+                     <children>
+                        <Button mnemonicParsing="false" text="Button">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" text="Button" />
+                     </children>
+                  </HBox>
                </children>
-            </VBox>
-         </children>
-      </GridPane>
+               </VBox>
+          </children>
+       </GridPane>
    </children>
-</AnchorPane>
+</StackPane>
