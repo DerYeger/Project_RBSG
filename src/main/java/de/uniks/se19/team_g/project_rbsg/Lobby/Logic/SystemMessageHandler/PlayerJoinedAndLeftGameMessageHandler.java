@@ -12,6 +12,10 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
+/**
+ * @author Georg Siebert
+ */
+
 public class PlayerJoinedAndLeftGameMessageHandler implements ISystemMessageHandler
 {
     private final Lobby lobby;
@@ -53,7 +57,12 @@ public class PlayerJoinedAndLeftGameMessageHandler implements ISystemMessageHand
         if (lobby != null)
         {
             Game game = lobby.getGameOverId(id);
-            Platform.runLater(() -> game.setJoinedPlayer(joinedPlayer));
+            if(game != null) {
+                Platform.runLater(() -> game.setJoinedPlayer(joinedPlayer));
+            }
+            else {
+                logger.debug("Didn't found game with id: " + id);
+            }
         }
         else
         {
