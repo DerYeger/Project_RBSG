@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -27,10 +29,10 @@ public class WebSocketClient
     private final static int TIMER_DELAY = 0;
     private final static String NOOP = "noop";
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private IWebSocketCallback wsCallback;
     private Session session;
     private Timer noopTimer;
-    private String endpoint;
 
     private TimerTask timerTask = new TimerTask()
     {
@@ -42,12 +44,12 @@ public class WebSocketClient
                 try
                 {
                     session.getBasicRemote().sendText(NOOP);
-                    System.out.println("Send NOOP");
+                    logger.debug("Send NOOP");
                 }
                 catch (IOException e)
                 {
                     e.printStackTrace();
-                    System.err.println("Can not send NOOP");
+                    logger.warn("Can not send NOOP");
                 }
             }
         }
@@ -60,7 +62,6 @@ public class WebSocketClient
 
     public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback)
     {
-        this.endpoint = endpoint;
         this.wsCallback = wsCallback;
         try
         {
@@ -78,8 +79,7 @@ public class WebSocketClient
     public void onOpen(final Session session) throws IOException
     {
         this.session = session;
-        System.out.println("WS connected to " + this.session.getRequestURI());
-
+        logger.debug("WS connected to " + session.getRequestURI());
         this.noopTimer.schedule(timerTask, TIMER_DELAY, TIMER_PERIOD);
     }
 
@@ -92,7 +92,7 @@ public class WebSocketClient
         }
         else
         {
-            System.out.println("No Callback available");
+            logger.warn("No Callback available");
         }
     }
 
@@ -115,7 +115,7 @@ public class WebSocketClient
     public void onClose(final Session session, final CloseReason reason) throws IOException
     {
         this.session = null;
-        System.out.println("WS" + session.getRequestURI() + " closed, " + reason.getReasonPhrase());
+        logger.debug("WS" + session.getRequestURI() + " closed, " + reason.getReasonPhrase());
 
         this.noopTimer.cancel();
     }
