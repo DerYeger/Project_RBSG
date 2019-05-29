@@ -12,20 +12,16 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
 public class UserLeftMessageHandler implements ISystemMessageHandler
 {
 
     private final ObjectMapper objectMapper;
-    private Lobby lobby;
+    private final Lobby lobby;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public void setLobby(Lobby lobby)
-    {
-        this.lobby = lobby;
-    }
 
-    public UserLeftMessageHandler() {
+    public UserLeftMessageHandler(final @NonNull Lobby lobby) {
+        this.lobby = lobby;
         objectMapper = new ObjectMapper();
     }
 

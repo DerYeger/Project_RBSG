@@ -2,35 +2,33 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Lobby;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.ISystemMessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-/**
- * @author Georg Siebert
- */
-
-public class UserJoinedMessageHandler implements ISystemMessageHandler
+public class GameCreatedMessageHandler implements ISystemMessageHandler
 {
     private Logger logger = LoggerFactory.getLogger(UserJoinedMessageHandler.class);
 
     private final Lobby lobby;
     private ObjectMapper objectMapper;
 
-    public UserJoinedMessageHandler(Lobby lobby)
+    public GameCreatedMessageHandler(final @NonNull Lobby lobby)
     {
         this.lobby = lobby;
         objectMapper = new ObjectMapper();
     }
 
+
+
     @Override
-    public void handleSystemMessage(final @NonNull String message)
+    public void handleSystemMessage(String message)
     {
         JsonNode messageNode = null;
 
@@ -47,15 +45,18 @@ public class UserJoinedMessageHandler implements ISystemMessageHandler
         {
             return;
         }
-        if (!messageNode.get("action").asText().equals("userJoined"))
+        if (!messageNode.get("action").asText().equals("gameCreated"))
         {
             return;
         }
 
+        String id = messageNode.get("data").get("id").asText();
         String name = messageNode.get("data").get("name").asText();
+        int neededPlayer = messageNode.get("data").get("neededPlayer").asInt();
+
         if (lobby != null)
         {
-            lobby.addPlayer(new Player(name));
+            lobby.addGame(new Game(id, name, neededPlayer, 0));
         }
         else
         {
