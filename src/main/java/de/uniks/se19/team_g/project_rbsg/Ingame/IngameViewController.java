@@ -69,8 +69,10 @@ public class IngameViewController {
         leaveGameNode = leaveGame.buildLeaveGame();
         leaveGamePane.getChildren().add(leaveGameNode);
         Button leaveGameButton = (Button) leaveGameNode;
-        leaveGameButton.setOnAction(event ->
-                {sceneManager.setLobbyScene();}//back to lobby, close WS
+        leaveGameButton.setOnAction(event -> {
+                sceneManager.setLobbyScene();
+                gameProvider.clear();
+            }//back to lobby, close WS
         );
         playerCard = new PlayerCard();
         playerCard2 = new PlayerCard();

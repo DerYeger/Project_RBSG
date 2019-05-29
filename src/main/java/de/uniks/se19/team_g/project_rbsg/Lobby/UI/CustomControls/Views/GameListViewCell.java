@@ -131,8 +131,10 @@ public class GameListViewCell extends ListCell<Game>
 
     private void joinButtonClicked(ActionEvent event)
     {
-        gameProvider.set(game);
-        sceneManager.setIngameScene();
+        if(game != null) {
+            gameProvider.set(game);
+            sceneManager.setIngameScene();
+        }
     }
 
 }
