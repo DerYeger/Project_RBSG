@@ -15,7 +15,7 @@ public class RegistrationManager {
 
     final private String uri = "https://rbsg.uniks.de/api/user";
 
-    private RestTemplate restTemplate;
+    final private RestTemplate restTemplate;
 
     public RegistrationManager(@NonNull final RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
