@@ -55,4 +55,9 @@ public class SystemMessageManager implements IWebSocketCallback
            systemMessageHandler.handleSystemMessage(message);
         }
     }
+
+    public void stopSocket()
+    {
+        webSocketClient.stop();
+    }
 }
