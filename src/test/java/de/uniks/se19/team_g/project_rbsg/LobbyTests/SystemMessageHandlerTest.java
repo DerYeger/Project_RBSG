@@ -18,32 +18,22 @@ import static org.junit.Assert.*;
  * @author Georg Siebert
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {
-        JavaConfig.class,
-        DefaultSystemMessageHandler.class,
-        UserJoinedMessageHandler.class
-})
 public class SystemMessageHandlerTest extends ApplicationTest
 {
     private final String userJoinedMessage = "{\"action\":\"userJoined\",\"data\":{\"name\":\"hello2\"}}";
 
-    @Autowired
-    private ApplicationContext context;
-
     @Test
     public void testDefaultSystemMessageHandler() {
-        DefaultSystemMessageHandler defaultHandler = context.getBean(DefaultSystemMessageHandler.class);
+
+        DefaultSystemMessageHandler defaultHandler = new DefaultSystemMessageHandler();
 
         defaultHandler.handleSystemMessage("Hallo");
     }
 
     @Test
     public void testUserJoinedMessageHandler() {
-        UserJoinedMessageHandler userJoinedMessageHandler = context.getBean(UserJoinedMessageHandler.class);
-
         Lobby lobby = new Lobby();
-        userJoinedMessageHandler.setLobby(lobby);
+        UserJoinedMessageHandler userJoinedMessageHandler = new UserJoinedMessageHandler(lobby);
 
         assertNotNull(lobby.getPlayers());
 
