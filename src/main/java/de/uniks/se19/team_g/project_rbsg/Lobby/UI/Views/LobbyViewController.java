@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Lobby;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.GameManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
@@ -90,6 +91,8 @@ public class LobbyViewController
 
     public void init()
     {
+        //Gives the cells of the ListViews a fixed height
+        //Needed for cells which are empty to fit them to the height of filled cells
         lobbyGamesListView.setFixedCellSize(50);
         lobbyPlayerListView.setFixedCellSize(50);
 
@@ -101,31 +104,17 @@ public class LobbyViewController
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
         lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell());
 
-        lobby.getSystemMessageManager().startSocket();
+        configureSystemMessageManager();
 
         lobby.addAllPlayer(playerManager.getPlayers());
         lobby.addAllGames(gameManager.getGames());
 
-        ImageView createGameNonHover = new ImageView();
 
-
-
-        ImageView createGameHover = new ImageView();
 
 //        createGameNonHover.getStyleClass().add("iconView");
 //        createGameHover.getStyleClass().add("iconView");
-        createGameHover.fitHeightProperty().setValue(iconSize);
-        createGameHover.fitWidthProperty().setValue(iconSize);
 
-        createGameNonHover.fitHeightProperty().setValue(iconSize);
-        createGameNonHover.fitWidthProperty().setValue(iconSize);
-
-        createGameNonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_white_48dp.png"))));
-        createGameHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_black_48dp.png"))));
-
-        createGameButton.graphicProperty().bind(Bindings.when(createGameButton.hoverProperty())
-                                                        .then(createGameHover)
-                                                        .otherwise(createGameNonHover));
+        setCreateGameIcons();
 
         //For UI Desgin
 //        lobby.addPlayer(new Player("Hallo1"));
@@ -138,6 +127,45 @@ public class LobbyViewController
 //        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
 
         withChatSupport();
+    }
+
+    private void configureSystemMessageManager()
+    {
+        UserLeftMessageHandler userLeftMessageHandler = new UserLeftMessageHandler(this.lobby);
+
+        UserJoinedMessageHandler userJoinedMessageHandler = new UserJoinedMessageHandler(this.lobby);
+
+        GameCreatedMessageHandler gameCreatedMessageHandler = new GameCreatedMessageHandler(this.lobby);
+
+        GameDeletedMessageHandler gameDeletedMessageHandler = new GameDeletedMessageHandler(this.lobby);
+
+        PlayerJoinedAndLeftGameMessageHandler playerJoinedAndLeftGameMessageHandler = new PlayerJoinedAndLeftGameMessageHandler(this.lobby);
+
+        lobby.getSystemMessageManager().addMessageHandler(userJoinedMessageHandler);
+        lobby.getSystemMessageManager().addMessageHandler(userLeftMessageHandler);
+        lobby.getSystemMessageManager().addMessageHandler(gameCreatedMessageHandler);
+        lobby.getSystemMessageManager().addMessageHandler(gameDeletedMessageHandler);
+        lobby.getSystemMessageManager().addMessageHandler(playerJoinedAndLeftGameMessageHandler);
+        lobby.getSystemMessageManager().startSocket();
+    }
+
+    private void setCreateGameIcons()
+    {
+        ImageView createGameNonHover = new ImageView();
+        ImageView createGameHover = new ImageView();
+
+        createGameHover.fitHeightProperty().setValue(iconSize);
+        createGameHover.fitWidthProperty().setValue(iconSize);
+
+        createGameNonHover.fitHeightProperty().setValue(iconSize);
+        createGameNonHover.fitWidthProperty().setValue(iconSize);
+
+        createGameNonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_white_48dp.png"))));
+        createGameHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_black_48dp.png"))));
+
+        createGameButton.graphicProperty().bind(Bindings.when(createGameButton.hoverProperty())
+                                                        .then(createGameHover)
+                                                        .otherwise(createGameNonHover));
     }
 
     private void withChatSupport()
@@ -162,5 +190,10 @@ public class LobbyViewController
     {
         //TODO: Create a game
         logger.debug("Creat Game button Clicked");
+    }
+
+    public void terminate()
+    {
+        lobby.getSystemMessageManager().stopSocket();
     }
 }
