@@ -2,10 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IPlayerManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import org.springframework.lang.NonNull;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 
@@ -13,28 +13,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * @author Georg Siebert
+ */
+
 @Component
 public class PlayerManager implements IPlayerManager
 {
-    private static final String endpoint = "/game";
+    private static final String endpoint = "/user";
 
     private final RESTClient restClient;
-    private User user;
+    private final UserProvider userProvider;
 
-    public PlayerManager(RESTClient restClient, ObjectMapper objectMapper) {
+
+
+    public PlayerManager(RESTClient restClient, UserProvider userProvider) {
         this.restClient = restClient;
-        this.user = null;
+        this.userProvider = userProvider;
     }
 
     @Override
     public Collection<Player> getPlayers()
     {
-        if(user == null) {
+        if(userProvider.get() == null || userProvider.get().getUserKey() == null || userProvider.get().getUserKey() == "") {
             return new ArrayList<>();
         }
         LinkedMultiValueMap<String, String> headers  = new LinkedMultiValueMap<>();
-        headers.add("userKey", user.getUserKey());
-        String response = restClient.get(endpoint, headers, null);
+        headers.add("userKey", userProvider.get().getUserKey());
+        String response = restClient.get(endpoint, headers);
         return deserialize(response);
     }
 
@@ -60,9 +66,11 @@ public class PlayerManager implements IPlayerManager
                     players.add(new Player(playerNode.asText()));
                 }
             }
-            return players;
+            if(!players.isEmpty()) {
+                return players;
+            }
         }
-        players.add(new Player(user.getName()));
+        players.add(new Player(userProvider.get().getName()));
         return players;
     }
 }

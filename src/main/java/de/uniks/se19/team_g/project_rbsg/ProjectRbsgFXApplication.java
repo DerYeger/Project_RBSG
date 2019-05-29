@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -55,13 +57,17 @@ public class ProjectRbsgFXApplication extends Application {
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
-                .setIngameScene();
+                .setLoginScene();
 
         primaryStage.show();
     }
 
     @Override
     public void stop() {
+        System.out.println("Stopping application");
+        //temporary fix
+        context.getBean(ChatController.class).terminate();
+        context.getBean(LobbyViewController.class).terminate();
         this.context.close();
         Platform.exit();
     }
