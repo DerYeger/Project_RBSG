@@ -12,6 +12,9 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerLis
 
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,13 +40,14 @@ import java.io.IOException;
 
 
 @Component
-public class LobbyViewController
+public class LobbyViewController implements RootController, Terminable
 {
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final SceneManager sceneManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -67,8 +71,10 @@ public class LobbyViewController
     @FXML
     private VBox chatContainer;
 
-    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
+    public LobbyViewController(SceneManager sceneManager, PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
     {
+        this.sceneManager = sceneManager;
+
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
@@ -195,5 +201,11 @@ public class LobbyViewController
     public void terminate()
     {
         lobby.getSystemMessageManager().stopSocket();
+        chatController.terminate();
+    }
+
+    public void registerAtSceneManager()
+    {
+        sceneManager.setRootController(this);
     }
 }
