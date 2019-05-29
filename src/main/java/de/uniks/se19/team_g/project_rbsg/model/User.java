@@ -39,6 +39,13 @@ public class User {
         this.userKey = userKey;
     }
 
+<<<<<<< HEAD
+=======
+    public String getPassword() {
+        return password;
+    }
+
+>>>>>>> createGame
     public User setName(@NonNull final String name) {
         this.name = name;
         return this;
@@ -49,7 +56,10 @@ public class User {
         return this;
     }
 
+<<<<<<< HEAD
     public String getPassword() {
         return password;
     }
+=======
+>>>>>>> createGame
 }
