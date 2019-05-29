@@ -23,7 +23,7 @@ public class UserJoinedMessageHandler implements ISystemMessageHandler
     private final Lobby lobby;
     private ObjectMapper objectMapper;
 
-    public UserJoinedMessageHandler(Lobby lobby)
+    public UserJoinedMessageHandler(final @NonNull Lobby lobby)
     {
         this.lobby = lobby;
         objectMapper = new ObjectMapper();
@@ -53,6 +53,7 @@ public class UserJoinedMessageHandler implements ISystemMessageHandler
         }
 
         String name = messageNode.get("data").get("name").asText();
+
         if (lobby != null)
         {
             lobby.addPlayer(new Player(name));
