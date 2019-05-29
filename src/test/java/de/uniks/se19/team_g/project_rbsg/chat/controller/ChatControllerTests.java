@@ -111,9 +111,7 @@ public class ChatControllerTests extends ApplicationTest {
 
         webSocketClient.start("unimportant", chatWebSocketCallback);
 
-        final Scene scene = new Scene((Parent) chat);
-        stage.setWidth(400);
-        stage.setHeight(600);
+        final Scene scene = new Scene((Parent) chat, 400, 300);
         stage.setScene(scene);
         stage.show();
     }
