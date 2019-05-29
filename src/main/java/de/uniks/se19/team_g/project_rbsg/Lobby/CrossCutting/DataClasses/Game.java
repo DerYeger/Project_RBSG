@@ -57,4 +57,8 @@ public class Game
     {
         return joinedPlayer;
     }
+
+    public void setJoinedPlayer(int joinedPlayer) {
+        this.joinedPlayer = joinedPlayer;
+    }
 }
