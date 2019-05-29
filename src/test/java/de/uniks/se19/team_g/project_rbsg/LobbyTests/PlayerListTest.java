@@ -13,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.view.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
@@ -52,6 +53,7 @@ import static org.junit.Assert.assertNotNull;
         LobbyViewController.class,
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
+        SceneManager.class
 })
 public class PlayerListTest extends ApplicationTest
 {

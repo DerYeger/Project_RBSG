@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,6 +42,7 @@ import static org.junit.Assert.assertNotNull;
         LobbyViewBuilder.class,
         LobbyBuilderTest.ContextConfiguration.class,
         ChatBuilder.class,
+        SceneManager.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -76,10 +78,12 @@ public class LobbyBuilderTest extends ApplicationTest
     @TestConfiguration
     static class ContextConfiguration
     {
+
         @Bean
         public LobbyViewController lobbyViewController()
         {
-            return new LobbyViewController(new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
+            return new LobbyViewController(new SceneManager(),
+                                           new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
                                            new GameManager(new RESTClient(new RestTemplate()), userProvider()),
                                            new SystemMessageManager(new WebSocketClient()), chatController())
             {
