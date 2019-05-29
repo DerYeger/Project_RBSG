@@ -9,6 +9,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ * @author Georg Siebert
+ */
+
 @Component
 public class RESTClient
 {
@@ -23,9 +27,25 @@ public class RESTClient
         restTemplate.setUriTemplateHandler( new DefaultUriBuilderFactory(baseURL));
     }
 
+    public String get(final @NonNull String endpoint) {
+        return get(endpoint, null, null);
+    }
+
+    public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers) {
+        return get(endpoint, headers, null);
+    }
+
     public String get(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param)
     {
         return getString(endpoint, headers, param, HttpMethod.GET);
+    }
+
+    public String post(final @NonNull String endpoint, final @NonNull String body) {
+        return post(endpoint, null, null, body);
+    }
+
+    public String post(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @NonNull String body) {
+        return post(endpoint, null, null, body);
     }
 
     public String post(final @NonNull String endpoint, final @Nullable MultiValueMap<String, String> headers, final @Nullable MultiValueMap<String, String> param, final @NonNull String body)
@@ -49,12 +69,12 @@ public class RESTClient
         return getString(endpoint, headers, param, HttpMethod.DELETE);
     }
 
-    private String getString(@NonNull String endpoint, @Nullable MultiValueMap<String, String> headers, @Nullable MultiValueMap<String, String> param, HttpMethod delete)
+    private String getString(@NonNull String endpoint, @Nullable MultiValueMap<String, String> headers, @Nullable MultiValueMap<String, String> param, HttpMethod httpMethod)
     {
         prepareHeaderAndUri(endpoint, headers, param);
 
         HttpEntity<String> httpEntity = new HttpEntity<>("", httpHeaders);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, delete, httpEntity, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, httpMethod, httpEntity, String.class);
         HttpStatus httpStatus = responseEntity.getStatusCode();
         if (httpStatus.is2xxSuccessful())
         {

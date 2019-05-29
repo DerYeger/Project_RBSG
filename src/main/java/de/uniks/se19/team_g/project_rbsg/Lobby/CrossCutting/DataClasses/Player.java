@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.DataClasses;
+package de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses;
 
 import javax.validation.constraints.NotNull;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 public class Player
 {
-    private static final String defaultImagePath = "baseline_account_circle_black_48dp.png";
+    private static final String defaultImagePath = "baseline_account_box_white_48dp.png";
     private String name;
     private String imagePath;
 

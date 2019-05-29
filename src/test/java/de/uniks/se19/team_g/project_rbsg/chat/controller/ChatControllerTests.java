@@ -53,7 +53,7 @@ public class ChatControllerTests extends ApplicationTest {
 
         @Bean
         public WebSocketClient webSocketClient() {
-            return new WebSocketClient(null) {
+            return new WebSocketClient() {
 
                 private IWebSocketCallback callback;
 
@@ -111,9 +111,7 @@ public class ChatControllerTests extends ApplicationTest {
 
         webSocketClient.start("unimportant", chatWebSocketCallback);
 
-        final Scene scene = new Scene((Parent) chat);
-        stage.setWidth(400);
-        stage.setHeight(600);
+        final Scene scene = new Scene((Parent) chat, 400, 300);
         stage.setScene(scene);
         stage.show();
     }
@@ -175,5 +173,22 @@ public class ChatControllerTests extends ApplicationTest {
 
         final Node chattest3ChatTab = lookup("@chattest3").query();
         Assert.assertNotNull(chattest3ChatTab);
+
+        clickOn(chattest3ChatTab);
+
+        chatWebSocketCallback.handle("{\"msg\":\"User chattest3 is not online\"}");
+
+        final Node ct3Input = lookup(".text-field")
+                .queryAll()
+                .stream()
+                .filter(Node::isDisabled)
+                .findAny()
+                .orElse(null);
+
+        Assert.assertNotNull(ct3Input);
+
+        Assert.assertEquals("inputField", ct3Input.getId());
+
+        Assert.assertNotNull(lookup("System: User chattest3 is not online"));
     }
 }

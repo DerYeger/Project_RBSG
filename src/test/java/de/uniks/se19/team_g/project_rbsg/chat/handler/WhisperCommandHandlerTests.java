@@ -47,7 +47,7 @@ public class WhisperCommandHandlerTests {
 
         @Bean
         public WebSocketClient webSocketClient() {
-            return new WebSocketClient(null) {
+            return new WebSocketClient() {
                 @Override
                 public void start(final @NonNull String endpoint, final @NonNull IWebSocketCallback callback) {
                     //do nothing

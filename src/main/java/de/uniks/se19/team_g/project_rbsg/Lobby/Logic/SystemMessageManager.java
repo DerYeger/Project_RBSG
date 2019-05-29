@@ -3,10 +3,9 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.ISystemMessageHandler;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageHandler.DefaultSystemMessageHandler;
-import de.uniks.se19.team_g.project_rbsg.model.User;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 
@@ -22,12 +21,30 @@ public class SystemMessageManager implements IWebSocketCallback
     private ArrayList<ISystemMessageHandler> systemMessageHandlers;
     private WebSocketClient webSocketClient;
 
-    public SystemMessageManager(final DefaultSystemMessageHandler defaultSystemMessageHandler, WebSocketClient webSocketClient) {
+    public void setWebSocketClient(WebSocketClient client) {
+        this.webSocketClient = client;
+    }
+
+    public WebSocketClient getWebSocketClient() {
+        return this.webSocketClient;
+    }
+
+    public SystemMessageManager(WebSocketClient webSocketClient) {
         systemMessageHandlers = new ArrayList<>();
-        systemMessageHandlers.add(defaultSystemMessageHandler);
+        systemMessageHandlers.add(new DefaultSystemMessageHandler());
 
         this.webSocketClient = webSocketClient;
-        webSocketClient.start(endpoint, this);
+    }
+
+    public void startSocket() {
+        if (WebSocketConfigurator.userKey.equals("") || webSocketClient == null) {
+            return;
+        }
+        webSocketClient.start("/system", this);
+    }
+
+    public void addMessageHandler(final @NonNull ISystemMessageHandler messageHandler) {
+        systemMessageHandlers.add(messageHandler);
     }
 
     @Override
@@ -35,9 +52,12 @@ public class SystemMessageManager implements IWebSocketCallback
     {
         for (ISystemMessageHandler systemMessageHandler : systemMessageHandlers)
         {
-            if(systemMessageHandler.handleSystemMessage(message)) {
-                break;
-            }
+           systemMessageHandler.handleSystemMessage(message);
         }
+    }
+
+    public void stopSocket()
+    {
+        webSocketClient.stop();
     }
 }
