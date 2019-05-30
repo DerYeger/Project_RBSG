@@ -59,7 +59,7 @@ public class GameDeletedMessageHandler implements ISystemMessageHandler
         }
         else
         {
-            logger.warn("lobby is null");
+            logger.warn("Lobby is null");
         }
     }
 }

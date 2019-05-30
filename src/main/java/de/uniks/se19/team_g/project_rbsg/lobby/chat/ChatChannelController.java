@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.chat;
 
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;

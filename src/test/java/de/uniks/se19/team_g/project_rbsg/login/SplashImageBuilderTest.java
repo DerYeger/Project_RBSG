@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import javafx.scene.layout.BackgroundImage;
 import org.junit.Assert;
 import org.junit.Test;

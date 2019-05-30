@@ -3,8 +3,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -24,7 +24,7 @@ public class GameManager
     private final RESTClient restClient;
     private final UserProvider userProvider;
 
-    public GameManager(@NonNull final RESTClient restClient,@NonNull final UserProvider userProvider)
+    public GameManager(@NonNull final RESTClient restClient, @NonNull final UserProvider userProvider)
     {
         this.restClient = restClient;
         this.userProvider = userProvider;
