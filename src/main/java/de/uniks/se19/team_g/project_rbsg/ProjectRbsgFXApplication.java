@@ -81,7 +81,7 @@ public class ProjectRbsgFXApplication extends Application {
     private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(alertTitle);
-        alert.setHeaderText("Wollen Sie die Anwendung wirklich schließen?");
+        alert.setHeaderText("Are you sure you want to exit?");
         alert.showAndWait();
 
         if (alert.getResult().equals(ButtonType.OK)) {
