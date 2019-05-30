@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.game;
+package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

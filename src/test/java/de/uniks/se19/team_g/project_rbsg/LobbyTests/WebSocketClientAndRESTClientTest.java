@@ -1,15 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import org.junit.Test;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Timer;
 
 import static org.junit.Assert.*;
 

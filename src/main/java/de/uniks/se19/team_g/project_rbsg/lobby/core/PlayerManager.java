@@ -1,11 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.lobby;
+package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.Logic.Contract.IPlayerManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 

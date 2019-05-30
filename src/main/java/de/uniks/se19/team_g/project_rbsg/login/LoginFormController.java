@@ -1,11 +1,11 @@
-package de.uniks.se19.team_g.project_rbsg.controller;
+package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.Logic.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.Logic;
+package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;

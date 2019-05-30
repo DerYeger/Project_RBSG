@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.lobby;
+package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.ui.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;

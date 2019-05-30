@@ -1,6 +1,5 @@
-package de.uniks.se19.team_g.project_rbsg.view;
+package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.controller.LoginFormController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.beans.factory.annotation.Autowired;

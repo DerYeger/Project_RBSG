@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.CrossCutting.DataClasses;
+package de.uniks.se19.team_g.project_rbsg.lobby.model;
 
 import javax.validation.constraints.NotNull;
 

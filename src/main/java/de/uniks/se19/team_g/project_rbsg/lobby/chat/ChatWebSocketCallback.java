@@ -1,8 +1,8 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.ui;
+package de.uniks.se19.team_g.project_rbsg.lobby.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.lobby.Logic.Contract.IWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 

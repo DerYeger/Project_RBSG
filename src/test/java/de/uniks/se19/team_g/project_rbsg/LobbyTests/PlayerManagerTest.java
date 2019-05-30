@@ -1,8 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import org.junit.Before;

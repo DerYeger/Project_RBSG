@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.view;
+package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import javafx.scene.image.Image;

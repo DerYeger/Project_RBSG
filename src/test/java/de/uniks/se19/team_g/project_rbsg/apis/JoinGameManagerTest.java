@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.apis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.apis.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;

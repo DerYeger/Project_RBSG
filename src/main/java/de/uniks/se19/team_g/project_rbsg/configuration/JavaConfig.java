@@ -1,10 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg;
+package de.uniks.se19.team_g.project_rbsg.configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXMLLoader;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
@@ -15,8 +11,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Timer;
 
 /**
  * @author Juri Lozowoj

@@ -1,17 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Lobby;
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.DefaultSystemMessageHandler;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
 import static org.junit.Assert.*;

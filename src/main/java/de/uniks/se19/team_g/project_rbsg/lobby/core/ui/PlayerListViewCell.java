@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.ui;
+package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import javafx.fxml.FXML;

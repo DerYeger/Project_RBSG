@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.handler;
+package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.controller.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

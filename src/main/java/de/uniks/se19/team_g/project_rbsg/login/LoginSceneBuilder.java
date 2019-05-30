@@ -1,7 +1,5 @@
-package de.uniks.se19.team_g.project_rbsg.view;
+package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;

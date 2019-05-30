@@ -1,13 +1,18 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
 
-import de.uniks.se19.team_g.project_rbsg.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.apis.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.apis.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.LoginFormController;
+import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.view.*;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;

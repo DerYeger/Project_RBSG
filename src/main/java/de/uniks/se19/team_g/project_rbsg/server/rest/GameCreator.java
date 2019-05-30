@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.apis;
+package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -7,7 +7,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;

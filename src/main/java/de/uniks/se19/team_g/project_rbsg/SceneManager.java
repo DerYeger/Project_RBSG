@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.view;
+package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.LobbySceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

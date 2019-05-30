@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.ui;
+package de.uniks.se19.team_g.project_rbsg.lobby.chat;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;

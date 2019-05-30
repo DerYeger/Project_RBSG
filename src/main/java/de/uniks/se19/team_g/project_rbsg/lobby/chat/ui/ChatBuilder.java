@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.view;
+package de.uniks.se19.team_g.project_rbsg.lobby.chat.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;

@@ -1,11 +1,13 @@
-package de.uniks.se19.team_g.project_rbsg.chat.handler;
+package de.uniks.se19.team_g.project_rbsg.lobby.chat.handler;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.lobby.Logic.Contract.IWebSocketCallback;
-import de.uniks.se19.team_g.project_rbsg.lobby.Logic.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.ChatCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import org.junit.Assert;
 import org.junit.Test;

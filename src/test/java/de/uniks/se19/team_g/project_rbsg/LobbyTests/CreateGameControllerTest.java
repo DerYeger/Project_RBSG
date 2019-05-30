@@ -1,12 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.apis.GameCreator;
-import de.uniks.se19.team_g.project_rbsg.controller.CreateGameController;
+import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.view.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

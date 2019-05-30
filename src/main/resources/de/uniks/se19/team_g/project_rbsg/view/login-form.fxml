@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_RIGHT" maxWidth="334.0" spacing="25.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.controller.LoginFormController">
+<VBox alignment="CENTER_RIGHT" maxWidth="334.0" spacing="25.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
    <children>
       <HBox alignment="CENTER_RIGHT" spacing="10.0" VBox.vgrow="NEVER">
          <children>

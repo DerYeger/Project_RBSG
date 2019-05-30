@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.CrossCutting.DataClasses;
+package de.uniks.se19.team_g.project_rbsg.lobby.model;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.Logic.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

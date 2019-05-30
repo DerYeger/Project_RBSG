@@ -1,10 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.Logic.SystemMessageHandler;
+package de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.lobby.CrossCutting.DataClasses.Lobby;
-import de.uniks.se19.team_g.project_rbsg.lobby.CrossCutting.DataClasses.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.Logic.Contract.ISystemMessageHandler;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.ISystemMessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;

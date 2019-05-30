@@ -1,11 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.ISystemMessageHandler;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.Contract.IWebSocketCallback;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.ISystemMessageHandler;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
