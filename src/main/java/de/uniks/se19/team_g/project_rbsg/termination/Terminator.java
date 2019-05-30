@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.termination;
 
-import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
