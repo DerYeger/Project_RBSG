@@ -50,7 +50,6 @@ public class Terminator {
 
     public Terminator terminateRegistered() {
         registeredTerminables.forEach(Terminable::terminate);
-        logger.debug("All registered terminables terminated");
         return this;
     }
 
