@@ -12,7 +12,7 @@ import org.springframework.util.LinkedMultiValueMap;
  * @author Jan Müller
  */
 @Component
-public class LogoutManager {
+public class LogoutManager implements ILogoutManager {
 
     private static final String ENDPOINT = "/user/logout";
 

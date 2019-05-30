@@ -72,7 +72,14 @@ public class SceneManager implements ApplicationContextAware {
         }
     }
 
+    public RootController getRootController() {
+        return rootController;
+    }
+
     public void setRootController(@NonNull final RootController rootController) {
+        if (this.rootController != null) {
+            terminateRootController();
+        }
         this.rootController = rootController;
     }
 

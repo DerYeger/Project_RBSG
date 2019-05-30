@@ -1,7 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.ILogoutManager;
+import javafx.collections.ObservableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,18 @@ public class Terminator {
     @NonNull
     private final SceneManager sceneManager;
     @NonNull
-    private final LogoutManager logoutManager;
+    private final ILogoutManager logoutManager;
 
     private HashSet<Terminable> registeredTerminables = new HashSet<>();
 
     @Autowired
-    public Terminator(@NonNull final SceneManager sceneManager, @NonNull final LogoutManager logoutManager) {
+    public Terminator(@NonNull final SceneManager sceneManager, @NonNull final ILogoutManager logoutManager) {
         this.sceneManager = sceneManager;
         this.logoutManager = logoutManager;
+    }
+
+    public HashSet<Terminable> getRegisteredTerminables() {
+        return registeredTerminables;
     }
 
     public Terminator register(@NonNull final Terminable terminable) {
@@ -50,6 +55,7 @@ public class Terminator {
 
     public Terminator terminateRegistered() {
         registeredTerminables.forEach(Terminable::terminate);
+        registeredTerminables.clear();
         return this;
     }
 
