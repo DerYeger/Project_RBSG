@@ -11,8 +11,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Assert;
@@ -71,17 +71,14 @@ public class CreateGameControllerTest extends ApplicationTest {
         stage.show();
     }
 
-
-
     @Test
     public void testRejectedFutureHandling(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
-        final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
-        Assert.assertNotNull(twoPlayerButton);
+        final RadioButton fourPlayerButton = lookup("#fourPlayers").query();
+        Assert.assertNotNull(fourPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
-        clickOn(twoPlayerButton);
-
+        clickOn(fourPlayerButton);
         clickOn(createGameButton);
         final Node alert = lookup("Fehler: Keine Verbindung zum Server moeglich").query();
         Assert.assertNotNull(alert);
@@ -91,9 +88,10 @@ public class CreateGameControllerTest extends ApplicationTest {
     public void testFormInputGameName(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
-        final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
+        final RadioButton twoPlayerButton = lookup("#twoPlayers").query();
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
+
         clickOn(gameNameInput);
         eraseText(20);
         clickOn(gameNameInput);

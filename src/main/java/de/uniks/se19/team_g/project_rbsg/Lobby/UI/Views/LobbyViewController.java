@@ -9,10 +9,11 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
-
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.view.CreateGameFormBuilder;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,10 +24,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -45,8 +48,14 @@ public class LobbyViewController
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @FXML
+    public StackPane lobbyView;
+
     private ChatBuilder chatBuilder;
     private ChatController chatController;
+    private CreateGameFormBuilder createGameFormBuilder;
+
+    private SimpleBooleanProperty createGameVisibility;
 
     private static final int iconSize = 30;
 
@@ -67,12 +76,17 @@ public class LobbyViewController
     @FXML
     private VBox chatContainer;
 
-    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
+    @Autowired
+    ApplicationContext context;
+
+    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController, CreateGameFormBuilder createGameFormBuilder)
     {
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
         this.gameManager = gameManager;
+
+        this.createGameFormBuilder = createGameFormBuilder;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
@@ -188,8 +202,17 @@ public class LobbyViewController
 
     public void createGameButtonClicked(ActionEvent event)
     {
-        //TODO: Create a game
-        logger.debug("Creat Game button Clicked");
+        Node gameForm = null;
+        try {
+            gameForm = this.createGameFormBuilder.getCreateGameForm();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (gameForm != null){
+            lobbyView.getChildren().add(gameForm);
+        }
+
     }
 
     public void terminate()
