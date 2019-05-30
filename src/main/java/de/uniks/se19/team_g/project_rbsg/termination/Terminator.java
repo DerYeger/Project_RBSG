@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.ILogoutManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,8 @@ public class Terminator {
         this.logoutManager = logoutManager;
     }
 
-    public HashSet<Terminable> getRegisteredTerminables() {
-        return registeredTerminables;
+    public ObservableSet<Terminable> getRegisteredTerminables() {
+        return FXCollections.observableSet(registeredTerminables);
     }
 
     public Terminator register(@NonNull final Terminable terminable) {
