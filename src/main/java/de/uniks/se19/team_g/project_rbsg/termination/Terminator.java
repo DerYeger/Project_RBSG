@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +20,42 @@ public class Terminator {
 
     @NonNull
     private final SceneManager sceneManager;
+    @NonNull
+    private final LogoutManager logoutManager;
 
     private HashSet<Terminable> registeredTerminables = new HashSet<>();
 
     @Autowired
-    public Terminator(@NonNull final SceneManager sceneManager) {
+    public Terminator(@NonNull final SceneManager sceneManager, @NonNull final LogoutManager logoutManager) {
         this.sceneManager = sceneManager;
-        logger.debug("Initialised with SceneManager " + sceneManager);
+        this.logoutManager = logoutManager;
     }
 
-    public void register(@NonNull final Terminable terminable) {
+    public Terminator register(@NonNull final Terminable terminable) {
         registeredTerminables.add(terminable);
         logger.debug("Terminable " + terminable + " registered");
+        return this;
     }
 
-    public void unregister(@NonNull final Terminable terminable) {
+    public Terminator unregister(@NonNull final Terminable terminable) {
         registeredTerminables.remove(terminable);
         logger.debug("Terminable " + terminable + " unregistered");
+        return this;
     }
 
-    public void terminateAll() {
+    public Terminator terminateRootController() {
+        sceneManager.terminateRootController();
+        return this;
+    }
+
+    public Terminator terminateRegistered() {
         registeredTerminables.forEach(Terminable::terminate);
         logger.debug("All registered terminables terminated");
+        return this;
     }
 
-    public void terminateRootController() {
-        sceneManager.terminateRootController();
+    public Terminator logoutUser() {
+        logoutManager.logout();
+        return this;
     }
 }

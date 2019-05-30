@@ -1,7 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -71,8 +69,10 @@ public class ProjectRbsgFXApplication extends Application {
 
     @Override
     public void stop() {
-        context.getBean(Terminator.class).terminateRootController();
-        context.getBean(Terminator.class).terminateAll();
+        final Terminator terminator = context.getBean(Terminator.class);
+        terminator.terminateRootController()
+                .terminateRegistered()
+                .logoutUser();
         this.context.close();
         Platform.exit();
     }
