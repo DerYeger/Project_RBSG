@@ -10,6 +10,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author Jan Müller
+ */
 public class LogoutManagerTests {
 
     @Test
