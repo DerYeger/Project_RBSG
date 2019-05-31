@@ -1,0 +1,68 @@
+* {
+    -fx-focus-color: transparent; /*temporary until general css is ready*/
+    -fx-faint-focus-color: transparent; /*temporary until general css is ready*/
+}
+
+.tab-pane {
+    -fx-tab-min-width: 100px;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #121212;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #212121;
+
+    -fx-focus-traversable: false;
+
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #424242;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+
+    -fx-text-fill: #fff; /*temporary until general css is ready*/
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #fff; /*temporary until general css is ready*/
+}
+
+.text-field {
+    -fx-text-fill: #fff; /*temporary until general css is ready*/
+}
+
+.text-area {
+    -fx-text-fill: #fff; /*temporary until general css is ready*/
+}
+
+.messageArea,
+.messageArea * {
+    -fx-text-fill: #fff; /*temporary until general css is ready*/
+
+    -fx-background-color: #212121;
+
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #424242;
+}
+
+.inputField {
+    -fx-text-fill: #fff; /*temporary until general css is ready*/
+
+    -fx-background-color: #424242;
+}
+
+.chatChannelContainer {
+    -fx-background-color: #121212;
+}
