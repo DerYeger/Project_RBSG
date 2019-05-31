@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -36,12 +35,10 @@ public class JoinGameManager {
 
         HttpEntity<?> request = new HttpEntity<Object>("", header);
 
-        return CompletableFuture.supplyAsync(() -> {
-            return this.restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    request,
-                    String.class);
-        });
+        return CompletableFuture.supplyAsync(() -> this.restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                request,
+                String.class));
     }
 }
