@@ -10,10 +10,7 @@ import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -31,10 +28,10 @@ public class CreateGameController {
     private TextField gameName;
 
     @FXML
-    public RadioButton twoPlayers;
+    public ToggleButton twoPlayers;
 
     @FXML
-    public RadioButton fourPlayers;
+    public ToggleButton fourPlayers;
 
     @FXML
     private Button create;
@@ -46,12 +43,13 @@ public class CreateGameController {
     private JoinGameManager joinGameManager;
     private Game game;
     private GameBuilder gameBuilder;
-    private int numberOfPlayers = 2;
     private Node root;
     private UserProvider userProvider;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
+
+    private int numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
 
     public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager, @NonNull UserProvider userProvider){
         this.gameCreator = ((gameCreator == null) ? new GameCreator(null) : gameCreator);

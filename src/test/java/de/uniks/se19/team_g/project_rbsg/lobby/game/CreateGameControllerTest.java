@@ -1,17 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Assert;
@@ -74,9 +74,12 @@ public class CreateGameControllerTest extends ApplicationTest {
     public void testRejectedFutureHandling(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
-        final RadioButton fourPlayerButton = lookup("#fourPlayers").query();
+        final ToggleButton fourPlayerButton = lookup("#fourPlayers").query();
         Assert.assertNotNull(fourPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
+        final String newGameName = "Noodles";
+        clickOn(gameNameInput);
+        write(newGameName);
         clickOn(fourPlayerButton);
         clickOn(createGameButton);
         final Node alert = lookup("Fehler: Keine Verbindung zum Server moeglich").query();
@@ -87,7 +90,7 @@ public class CreateGameControllerTest extends ApplicationTest {
     public void testFormInputGameName(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
-        final RadioButton twoPlayerButton = lookup("#twoPlayers").query();
+        final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
 

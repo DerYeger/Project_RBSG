@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -55,6 +54,7 @@ public class JoinGameManagerTest {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
         Assert.assertEquals("success", status.get());
     }
 }
