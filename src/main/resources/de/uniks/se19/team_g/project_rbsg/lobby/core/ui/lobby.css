@@ -9,11 +9,11 @@
     -fx-pref-height: 40px;
     -fx-pref-width: 100px;
 
-    -fx-background-color: #121212;
-    -fx-border-color: #bb86fc;
+    -fx-background-color: #8858c8;
+    /*-fx-border-color: #8858c8;*/
 
     -fx-border-radius: 0;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
     -fx-background-radius: 0;
 
     -fx-font-size: 16px;
@@ -35,8 +35,9 @@
     -fx-padding: 0;
 }
 
-.iconButton .iconView {
-
+.iconWithText {
+    -fx-pref-width: 175px;
+    -fx-text-fill: #FFFFFF;
 }
 
 /*BUTTON STYLES*/
@@ -47,7 +48,7 @@
 }
 
 .optionsHboxContainer .button {
-    -fx-margin: 0 5 0 0;
+    -fx-margin: 0 0 0 5px;
 }
 
 .mainGridPane {
@@ -69,23 +70,18 @@
 /*LIST VIEW STYLE*/
 .list-view {
     -fx-border-color: #FFFFFF;
-    -fx-border-width: 1;
-    -fx-border-radius: 4;
+    -fx-border-width: 2;
     -fx-background-color: #121212;
-    -fx-background-radius: 4;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .list-cell {
     -fx-background-color: #121212;
-    /*-fx-background-radius: 4;*/
-    /*-fx-border-color: #FFFFFF;*/
     -fx-border-width: 0;
 }
 
-.list-cell:even .label{
-    -fx-text-fill: red;
-    /*-fx-background-color: #3700B3;*/
+.list-cell:even {
+    /*-fx-text-fill: red;*/
+    -fx-background-color: #383838;
     /*!*-fx-border-color: #FFFFFF;*!*/
     /*-fx-border-width: 0;*/
 }
