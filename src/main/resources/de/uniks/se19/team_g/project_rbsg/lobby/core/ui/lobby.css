@@ -28,6 +28,12 @@
     /*-fx-opacity: 0.8;*/
 }
 
+.button:disabled {
+    -fx-background-color: grey;
+    -fx-text-fill: lightgrey;
+    -fx-opacity: 1;
+}
+
 .iconButton {
     -fx-pref-width: 40px;
     -fx-pref-width: 40px;

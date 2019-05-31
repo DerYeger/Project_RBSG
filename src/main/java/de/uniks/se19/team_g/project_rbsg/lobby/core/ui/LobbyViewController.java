@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
 import io.rincl.*;
 import javafx.beans.binding.*;
+import javafx.beans.property.*;
 import javafx.event.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -39,7 +40,6 @@ public class LobbyViewController implements Rincled
     private ChatBuilder chatBuilder;
     private ChatController chatController;
     private boolean musicRunning = true;
-
     private static final int iconSize = 30;
 
     public StackPane mainStackPane;
@@ -65,7 +65,6 @@ public class LobbyViewController implements Rincled
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
-
     }
 
     public Lobby getLobby()
@@ -99,7 +98,8 @@ public class LobbyViewController implements Rincled
         lobby.addAllPlayer(playerManager.getPlayers());
         lobby.addAllGames(gameManager.getGames());
 
-
+        deButton.disableProperty().setValue(true);
+        enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
         setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
         setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
@@ -225,6 +225,7 @@ public class LobbyViewController implements Rincled
         if(Locale.getDefault().equals(Locale.GERMAN) || Locale.getDefault().equals(Locale.GERMANY)) {
             return;
         }
+        deButton.disableProperty().setValue(true);
         Rincl.setLocale(Locale.GERMAN);
         updateLabels();
     }
@@ -234,6 +235,7 @@ public class LobbyViewController implements Rincled
         if(Locale.getDefault().equals(Locale.ENGLISH) || Locale.getDefault().equals(Locale.US)) {
             return;
         }
+        deButton.disableProperty().setValue(false);
         Rincl.setLocale(Locale.ENGLISH);
         updateLabels();
     }
