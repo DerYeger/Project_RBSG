@@ -4,12 +4,16 @@
 }
 
 .tab-pane {
+    -fx-padding: 0;
     -fx-tab-min-width: 100px;
 }
 
 .tab-pane * {
     -fx-border-radius: 0;
     -fx-border-width: 0;
+}
+.tab-pane .tab-header-area {
+    -fx-padding: 0;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
@@ -18,6 +22,8 @@
 
 .tab {
     -fx-background-color: #212121;
+
+    -fx-background-insets: 0 0 0 1;
 
     -fx-focus-traversable: false;
 }
@@ -38,6 +44,7 @@
     -fx-text-fill: #fff; /*temporary until general css is ready*/
 
     -fx-background-color: #212121;
+    -fx-background-radius: 5 5 0 0;
 }
 
 .scroll-bar .thumb {
@@ -47,7 +54,10 @@
 .inputField {
     -fx-text-fill: #fff; /*temporary until general css is ready*/
 
+    -fx-background-insets: 1 0 1 0;
+
     -fx-background-color: #424242;
+    -fx-background-radius: 0 0 5 0;
 }
 
 .chatChannelContainer {
