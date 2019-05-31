@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="playgroundPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController">
+   <children>
+      <Pane fx:id="statusPane" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" style="-fx-border-color: black;" StackPane.alignment="TOP_CENTER">
+         <StackPane.margin>
+            <Insets top="30.0" />
+         </StackPane.margin>
+      </Pane>
+      <AnchorPane>
+         <children>
+            <Pane fx:id="player1Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0" />
+            <Pane fx:id="player2Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" style="-fx-border-color: black;" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="30.0" />
+            <Pane fx:id="player3Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
+            <Pane fx:id="player4Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" style="-fx-border-color: black;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
+            <Pane fx:id="bottomLinePane" maxHeight="20.0" maxWidth="-Infinity" minHeight="20.0" minWidth="900.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Pane fx:id="chatLogPane" maxHeight="80.0" maxWidth="-Infinity" minHeight="80.0" minWidth="760.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="140.0" />
+            <Pane fx:id="leaveGamePane" maxHeight="40.0" maxWidth="140.0" minHeight="40.0" minWidth="140.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.apis.GameCreator;
+import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,8 +22,7 @@ public class GameCreatorTest {
     @Test
     public void sendGameRequestTest(){
         final User testUser = new User("Juri", "geheim");
-        final GameBuilder gameBuilder = new GameBuilder();
-        final Game testGame = gameBuilder.getGame("make war, not love", 4);
+        final Game testGame = new Game("make war, not love", 4);
         testUser.setUserKey("905e064c-2ec2-49b3-930f-06fd0e49626b");
 
         final GameCreator gameCreator = new GameCreator(
