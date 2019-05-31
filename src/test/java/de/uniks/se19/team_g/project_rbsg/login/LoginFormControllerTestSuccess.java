@@ -41,15 +41,19 @@ import java.util.Map;
  */
 
 @RunWith(SpringJUnit4ClassRunner .class)
-@ContextConfiguration(classes = {JavaConfig.class,
-        LoginFormController.class,
+@ContextConfiguration(classes = {
+        JavaConfig.class,
         LoginFormBuilder.class,
+        LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginFormControllerTestSuccess.ContextConfiguration.class,
         LobbySceneBuilder.class,
         LobbyViewBuilder.class,
-        UserProvider.class})
+        UserProvider.class,
+        TitleFormBuilder.class,
+        TitleFormController.class,
+        LoginFormControllerTestSuccess.ContextConfiguration.class
+})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestSuccess extends ApplicationTest {
 
