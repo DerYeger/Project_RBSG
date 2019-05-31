@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.GameManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.model.User;

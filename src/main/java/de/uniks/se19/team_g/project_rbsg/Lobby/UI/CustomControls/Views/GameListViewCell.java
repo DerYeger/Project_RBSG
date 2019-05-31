@@ -1,9 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views;
 
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.apis.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,12 +50,16 @@ public class GameListViewCell extends ListCell<Game>
     private Game game;
 
     private final GameProvider gameProvider;
+    private final UserProvider userProvider;
     private final SceneManager sceneManager;
+    private final JoinGameManager joinGameManager;
 
     @Autowired
-    public GameListViewCell(@NonNull final GameProvider gameProvider, @NonNull final SceneManager sceneManager){
+    public GameListViewCell(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager){
         this.gameProvider = gameProvider;
+        this.userProvider = userProvider;
         this.sceneManager = sceneManager;
+        this.joinGameManager = joinGameManager;
     }
 
     @Override
@@ -133,6 +136,7 @@ public class GameListViewCell extends ListCell<Game>
     {
         if(game != null) {
             gameProvider.set(game);
+            joinGameManager.joinGame(userProvider.get(), game);
             sceneManager.setIngameScene();
         }
     }

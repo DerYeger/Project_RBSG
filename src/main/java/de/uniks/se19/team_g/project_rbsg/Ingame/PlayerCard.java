@@ -36,7 +36,7 @@ public class PlayerCard {
             }
         }
         playerListCellLabel.setText("<missing>");
-        Image image = new Image(String.valueOf(getClass().getResource("Images/question-mark.png")));
+        Image image = new Image(String.valueOf(getClass().getResource("Images/baseline_help_black_48dp.png")));
         playerListCellImageView.setImage(image);
         return playerCardView;
     }

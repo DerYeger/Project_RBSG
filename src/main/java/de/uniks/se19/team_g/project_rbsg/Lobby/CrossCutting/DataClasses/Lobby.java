@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,9 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.controller;
 
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.apis.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.apis.GameCreator;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -44,18 +45,19 @@ public class CreateGameController {
     private GameCreator gameCreator;
     private JoinGameManager joinGameManager;
     private Game game;
-    private GameBuilder gameBuilder;
     private User user;
     private int numberOfPlayers;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
 
+    private final GameProvider gameProvider;
 
-    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager){
-        this.gameCreator = ((gameCreator == null) ? new GameCreator(null) : gameCreator);
-        this.joinGameManager = ((joinGameManager == null) ? new JoinGameManager(null) : joinGameManager);
-        this.gameBuilder = new GameBuilder();
+    @Autowired
+    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager, @Nullable GameProvider gameProvider){
+        this.gameCreator = gameCreator;
+        this.joinGameManager = joinGameManager;
+        this.gameProvider = gameProvider;
     }
 
     public void init(){
@@ -67,7 +69,7 @@ public class CreateGameController {
 
     public void createGame(@NonNull final ActionEvent event){
         if(this.gameName.getText() != null && (!this.gameName.getText().equals("")) && this.numberOfPlayers != 0){
-            this.game = this.gameBuilder.getGame(gameName.getText(), this.numberOfPlayers);
+            this.game = new Game(gameName.getText(), this.numberOfPlayers);
             final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.user, this.game);
             gameRequestAnswerPromise
                     .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
@@ -86,8 +88,9 @@ public class CreateGameController {
             if(answer.get("status").equals("succes")){
                 HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
-                this.game.setGameId(gameId);
+                this.game.setId(gameId);
                 this.joinGameManager.joinGame(user, game);
+                gameProvider.set(game);
             } else if (answer.get("status").equals("failure")){
                 handleGameRequestErrors((String)answer.get("status"), "Fehler beim Erstellen des Spiels", (String)answer.get("message"));
 

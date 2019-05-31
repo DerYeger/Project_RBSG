@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views;
 
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Lobby;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.GameManager;
@@ -10,9 +10,11 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.Lobby.UI.CustomControls.Views.PlayerListViewCell;
 
+import de.uniks.se19.team_g.project_rbsg.apis.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -71,9 +73,11 @@ public class LobbyViewController
     private VBox chatContainer;
 
     private final GameProvider gameProvider;
+    private final UserProvider userProvider;
     private final SceneManager sceneManager;
+    private final JoinGameManager joinGameManager;
 
-    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final SceneManager sceneManager, PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
+    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
     {
         this.lobby = new Lobby();
 
@@ -84,7 +88,9 @@ public class LobbyViewController
         this.lobby.setChatController(chatController);
 
         this.gameProvider = gameProvider;
+        this.userProvider = userProvider;
         this.sceneManager = sceneManager;
+        this.joinGameManager = joinGameManager;
     }
 
     public Lobby getLobby()
@@ -111,7 +117,7 @@ public class LobbyViewController
         lobbyTitle.textProperty().setValue("Advanced WASP War");
 
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
-        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, sceneManager));
+        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
 

@@ -2,8 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.Lobby.Logic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
-import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;

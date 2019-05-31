@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.Ingame;
 
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
+import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
@@ -70,6 +71,7 @@ public class IngameViewController {
         leaveGamePane.getChildren().add(leaveGameNode);
         Button leaveGameButton = (Button) leaveGameNode;
         leaveGameButton.setOnAction(event -> {
+                // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
                 sceneManager.setLobbyScene();
                 gameProvider.clear();
             }//back to lobby, close WS

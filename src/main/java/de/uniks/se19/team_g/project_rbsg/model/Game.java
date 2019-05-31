@@ -3,41 +3,80 @@ package de.uniks.se19.team_g.project_rbsg.model;
 import org.springframework.lang.NonNull;
 
 /**
- * @author Keanu Stückrad
+ * @author Georg Siebert
  */
-public class Game {
 
+public class Game
+{
+    private String id;
     private String name;
-    private int numberOfPlayers;
-    private String gameId;
+    private String imagePath;
 
-    public Game(@NonNull String name, @NonNull int numberOfPlayers){
+    private int neededPlayer;
+    private int joinedPlayer;
+
+    public Game(String id, String name, String imagePath, int neededPlayer, int joinedPlayer)
+    {
+        this.id = id;
         this.name = name;
-        this.numberOfPlayers = numberOfPlayers;
+        this.imagePath = imagePath;
+        this.neededPlayer = neededPlayer;
+        this.joinedPlayer = joinedPlayer;
     }
 
-    public String getName() {
+    public Game(String id, String name, int neededPlayer, int joinedPlayer)
+    {
+        this.id = id;
+        this.name = name;
+        this.neededPlayer = neededPlayer;
+        this.joinedPlayer = joinedPlayer;
+
+        //TODO: SetDefaultImagePath
+        this.imagePath = "";
+    }
+
+    public Game(@NonNull String name, @NonNull int neededPlayer){
+        this.name = name;
+        this.neededPlayer = neededPlayer;
+        this.joinedPlayer = 0;
+
+        //TODO: SetDefaultImagePath
+        this.imagePath = "";
+    }
+
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id) {
+        if(id.equals(null)){
+            this.id = id;
+        }
+    }
+
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getImagePath()
+    {
+        return imagePath;
     }
 
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
+    public int getNeededPlayer()
+    {
+        return neededPlayer;
     }
 
-    public void setNumberOfPlayers(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;
+    public int getJoinedPlayer()
+    {
+        return joinedPlayer;
     }
 
-    public String getGameId() {
-        return gameId;
+    public void setJoinedPlayer(int joinedPlayer) {
+        this.joinedPlayer = joinedPlayer;
     }
-
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
-
 }

@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.LobbyTests;
 
 import de.uniks.se19.team_g.project_rbsg.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Game;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Lobby;
 import de.uniks.se19.team_g.project_rbsg.Lobby.CrossCutting.DataClasses.Player;
 import de.uniks.se19.team_g.project_rbsg.Lobby.Logic.*;
@@ -10,8 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.Lobby.UI.Views.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.controller.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.chat.view.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.chat.view.ChatChannelBuilder;
-import de.uniks.se19.team_g.project_rbsg.chat.view.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -36,7 +34,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
