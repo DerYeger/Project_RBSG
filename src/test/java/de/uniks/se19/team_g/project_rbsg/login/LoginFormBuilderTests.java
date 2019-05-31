@@ -32,7 +32,10 @@ import java.io.IOException;
         LobbyViewBuilder.class,
         LoginManager.class,
         RegistrationManager.class,
-        UserProvider.class})
+        UserProvider.class,
+        TitleFormBuilder.class,
+        TitleFormController.class
+})
 public class LoginFormBuilderTests extends ApplicationTest {
 
     @Autowired

@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import javafx.scene.Node;
@@ -31,6 +32,7 @@ import java.io.IOException;
         LobbyViewBuilder.class,
         LoginManager.class,
         RegistrationManager.class,
+        UserProvider.class,
         TitleFormBuilder.class,
         TitleFormController.class
 })
