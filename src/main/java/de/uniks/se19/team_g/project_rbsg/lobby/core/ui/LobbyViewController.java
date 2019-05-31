@@ -1,35 +1,26 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.PlayerListViewCell;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
+import io.rincl.*;
+import javafx.beans.binding.*;
+import javafx.beans.property.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
-import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author Georg Siebert
@@ -37,7 +28,7 @@ import java.io.IOException;
 
 
 @Component
-public class LobbyViewController
+public class LobbyViewController implements Rincled
 {
 
     private final Lobby lobby;
@@ -50,22 +41,19 @@ public class LobbyViewController
 
     private static final int iconSize = 30;
 
-    @FXML
+    public StackPane mainStackPane;
+    public Button soundButton;
+    public Button logoutButton;
+    public Button enButton;
+    public Button deButton;
     public Button createGameButton;
-    @FXML
     public GridPane mainGridPane;
-    @FXML
-    private HBox headerHBox;
-    @FXML
-    private Label lobbyTitle;
-    @FXML
-    private ListView<Player> lobbyPlayerListView;
-    @FXML
-    private VBox gameListContainer;
-    @FXML
-    private ListView<Game> lobbyGamesListView;
-    @FXML
-    private VBox chatContainer;
+    public HBox headerHBox;
+    public Label lobbyTitle;
+    public ListView<Player> lobbyPlayerListView;
+    public VBox gameListContainer;
+    public ListView<Game> lobbyGamesListView;
+    public VBox chatContainer;
 
     public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
     {
@@ -76,6 +64,8 @@ public class LobbyViewController
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
+
+
     }
 
     public Lobby getLobby()
@@ -111,22 +101,22 @@ public class LobbyViewController
 
 
 
-//        createGameNonHover.getStyleClass().add("iconView");
-//        createGameHover.getStyleClass().add("iconView");
 
         setCreateGameIcons();
 
         //For ui Desgin
-//        lobby.addPlayer(new Player("Hallo1"));
-//        lobby.addPlayer(new Player("Hallo2"));
-//        lobby.addPlayer(new Player("Hallo3"));
-//        lobby.addPlayer(new Player("Hallo4"));
-//        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
+        lobby.addPlayer(new Player("Hallo1"));
+        lobby.addPlayer(new Player("Hallo2"));
+        lobby.addPlayer(new Player("Hallo3"));
+        lobby.addPlayer(new Player("Hallo4"));
+        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
+        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
+        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
+        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
 
         withChatSupport();
+
+        updateLabels();
     }
 
     private void configureSystemMessageManager()
@@ -151,6 +141,8 @@ public class LobbyViewController
 
     private void setCreateGameIcons()
     {
+        Rincl.setLocale(Locale.ENGLISH);
+        logger.debug(getResources().getString("createGameButton"));
         ImageView createGameNonHover = new ImageView();
         ImageView createGameHover = new ImageView();
 
@@ -195,5 +187,35 @@ public class LobbyViewController
     public void terminate()
     {
         lobby.getSystemMessageManager().stopSocket();
+    }
+
+    private void updateLabels()
+    {
+        createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
+        enButton.textProperty().setValue(getResources().getString("enButton"));
+        deButton.textProperty().setValue(getResources().getString("deButton"));
+        lobbyTitle.textProperty().setValue(getResources().getString("title"));
+    }
+
+    public void changeLangToDE(ActionEvent event)
+    {
+        Rincl.setLocale(Locale.GERMAN);
+        logger.debug("Changed language to " + Locale.GERMAN.toString());
+        updateLabels();
+    }
+
+    public void changeLangToEN(ActionEvent event)
+    {
+        logger.debug("Changed language to " + Locale.GERMAN.toString());
+        Rincl.setLocale(Locale.ENGLISH);
+        updateLabels();
+    }
+
+    public void toggleSound(ActionEvent event)
+    {
+    }
+
+    public void loggoutUser(ActionEvent event)
+    {
     }
 }
