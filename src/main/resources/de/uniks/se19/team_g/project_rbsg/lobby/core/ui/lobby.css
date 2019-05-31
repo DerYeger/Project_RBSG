@@ -19,11 +19,12 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .button:hover {
     -fx-background-color: #bb86fc;
-    -fx-text-fill: #000000;
+    /*-fx-text-fill: #000000;*/
     /*-fx-opacity: 0.8;*/
 }
 
@@ -44,12 +45,9 @@
 
 
 .optionsHboxContainer {
-    -fx-alignment: CENTER_RIGHT;
+    -fx-alignment: TOP_RIGHT;
 }
 
-.optionsHboxContainer .button {
-    -fx-margin: 0 0 0 5px;
-}
 
 .mainGridPane {
 
@@ -57,38 +55,38 @@
     -fx-vgap: 10px;
 }
 
-.body {
-    -fx-padding: 10;
-    -fx-background-color: #000000;
-}
-
 .gameTitle {
     -fx-font-size: 26px;
     -fx-font-weight: bold;
 }
 
+.body {
+    -fx-padding: 10px;
+}
+
 /*LIST VIEW STYLE*/
 .list-view {
     -fx-border-color: #FFFFFF;
-    -fx-border-width: 2;
-    -fx-background-color: #121212;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-opacity: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
 }
 
 .list-cell {
     -fx-background-color: #121212;
     -fx-border-width: 0;
+    -fx-opacity: 0.8;
 }
 
-.list-cell:even {
-    /*-fx-text-fill: red;*/
-    -fx-background-color: #383838;
-    /*!*-fx-border-color: #FFFFFF;*!*/
-    /*-fx-border-width: 0;*/
+.list-cell:empty:hover{
+    -fx-background-color: #121212;
+    -fx-opacity: 0.8;
 }
 
 .list-cell:hover {
     -fx-background-color: #000000;
-
+    -fx-opacity: 1;
 }
 /*LIST VIEW STYLE*/
 

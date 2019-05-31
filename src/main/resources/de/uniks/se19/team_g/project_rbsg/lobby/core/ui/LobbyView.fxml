@@ -55,7 +55,7 @@
                               <Insets left="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="logoutButton" onAction="#loggoutUser" mnemonicParsing="false" styleClass="iconButton">
+                        <Button fx:id="logoutButton" onAction="#logoutUser" mnemonicParsing="false" styleClass="iconButton">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>

@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -9,7 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
 import io.rincl.*;
 import javafx.beans.binding.*;
-import javafx.beans.property.*;
 import javafx.event.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -38,6 +38,7 @@ public class LobbyViewController implements Rincled
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
+    private boolean musicRunning = true;
 
     private static final int iconSize = 30;
 
@@ -64,7 +65,6 @@ public class LobbyViewController implements Rincled
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
-
 
     }
 
@@ -101,8 +101,11 @@ public class LobbyViewController implements Rincled
 
 
 
+        setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
+        setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
 
-        setCreateGameIcons();
+        updateMusicButtonIcons();
+
 
         //For ui Desgin
         lobby.addPlayer(new Player("Hallo1"));
@@ -116,7 +119,48 @@ public class LobbyViewController implements Rincled
 
         withChatSupport();
 
+        setBackgroundImage();
+
         updateLabels();
+    }
+
+    private void updateMusicButtonIcons()
+    {
+        if(musicRunning) {
+            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
+        } else {
+            setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
+        }
+    }
+
+    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
+        ImageView hover = new ImageView();
+        ImageView nonHover = new ImageView();
+
+        nonHover.fitWidthProperty().setValue(iconSize);
+        nonHover.fitHeightProperty().setValue(iconSize);
+
+        hover.fitWidthProperty().setValue(iconSize);
+        hover.fitHeightProperty().setValue(iconSize);
+
+        hover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + hoverIconName))));
+        nonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + nonHoverIconName))));
+
+        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
+                                                    .then(hover)
+                                                    .otherwise(nonHover));
+    }
+
+    private void setBackgroundImage()
+    {
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("splash_darker_verschwommen.jpg")),
+                                          ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
+
+        mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,
+                                                                   BackgroundRepeat.NO_REPEAT,
+                                                                   BackgroundRepeat.NO_REPEAT,
+                                                                   BackgroundPosition.CENTER,
+                                                                   BackgroundSize.DEFAULT)));
     }
 
     private void configureSystemMessageManager()
@@ -137,27 +181,6 @@ public class LobbyViewController implements Rincled
         lobby.getSystemMessageManager().addMessageHandler(gameDeletedMessageHandler);
         lobby.getSystemMessageManager().addMessageHandler(playerJoinedAndLeftGameMessageHandler);
         lobby.getSystemMessageManager().startSocket();
-    }
-
-    private void setCreateGameIcons()
-    {
-        Rincl.setLocale(Locale.ENGLISH);
-        logger.debug(getResources().getString("createGameButton"));
-        ImageView createGameNonHover = new ImageView();
-        ImageView createGameHover = new ImageView();
-
-        createGameHover.fitHeightProperty().setValue(iconSize);
-        createGameHover.fitWidthProperty().setValue(iconSize);
-
-        createGameNonHover.fitHeightProperty().setValue(iconSize);
-        createGameNonHover.fitWidthProperty().setValue(iconSize);
-
-        createGameNonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_white_48dp.png"))));
-        createGameHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_black_48dp.png"))));
-
-        createGameButton.graphicProperty().bind(Bindings.when(createGameButton.hoverProperty())
-                                                        .then(createGameHover)
-                                                        .otherwise(createGameNonHover));
     }
 
     private void withChatSupport()
@@ -199,23 +222,31 @@ public class LobbyViewController implements Rincled
 
     public void changeLangToDE(ActionEvent event)
     {
+        if(Locale.getDefault().equals(Locale.GERMAN) || Locale.getDefault().equals(Locale.GERMANY)) {
+            return;
+        }
         Rincl.setLocale(Locale.GERMAN);
-        logger.debug("Changed language to " + Locale.GERMAN.toString());
         updateLabels();
     }
 
     public void changeLangToEN(ActionEvent event)
     {
-        logger.debug("Changed language to " + Locale.GERMAN.toString());
+        if(Locale.getDefault().equals(Locale.ENGLISH) || Locale.getDefault().equals(Locale.US)) {
+            return;
+        }
         Rincl.setLocale(Locale.ENGLISH);
         updateLabels();
     }
 
     public void toggleSound(ActionEvent event)
     {
+        logger.debug("Pressed the toggleSound button");
+        musicRunning = !musicRunning;
+        updateMusicButtonIcons();
     }
 
-    public void loggoutUser(ActionEvent event)
+    public void logoutUser(ActionEvent event)
     {
+        logger.debug("Pressed the logout button");
     }
 }
