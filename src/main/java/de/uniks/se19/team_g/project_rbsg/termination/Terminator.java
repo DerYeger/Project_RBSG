@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.termination;
 
+import com.sun.javafx.collections.UnmodifiableListSet;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.ILogoutManager;
 import javafx.collections.FXCollections;
@@ -34,7 +35,7 @@ public class Terminator {
     }
 
     public ObservableSet<Terminable> getRegisteredTerminables() {
-        return FXCollections.observableSet(registeredTerminables);
+        return FXCollections.unmodifiableObservableSet(FXCollections.observableSet(registeredTerminables));
     }
 
     public Terminator register(@NonNull final Terminable terminable) {

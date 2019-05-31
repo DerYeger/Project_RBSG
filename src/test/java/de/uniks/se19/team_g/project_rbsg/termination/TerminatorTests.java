@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.ILogoutManager;
+import javafx.collections.ObservableSet;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
@@ -100,28 +101,30 @@ public class TerminatorTests {
         final TestTerminable firstTerminable = new TestTerminable(terminator);
         final TestTerminable secondTerminable = new TestTerminable(terminator);
 
-        Assert.assertTrue(terminator.getRegisteredTerminables().isEmpty());
+        final ObservableSet<Terminable> registeredTerminables = terminator.getRegisteredTerminables();
+
+        Assert.assertTrue(registeredTerminables.isEmpty());
         Assert.assertFalse(firstTerminable.hasBeenTerminated);
         Assert.assertFalse(secondTerminable.hasBeenTerminated);
 
         firstTerminable.register();
 
-        Assert.assertTrue(terminator.getRegisteredTerminables().contains(firstTerminable));
-        Assert.assertFalse(terminator.getRegisteredTerminables().contains(secondTerminable));
+        Assert.assertTrue(registeredTerminables.contains(firstTerminable));
+        Assert.assertFalse(registeredTerminables.contains(secondTerminable));
 
         secondTerminable.register();
 
-        Assert.assertTrue(terminator.getRegisteredTerminables().contains(firstTerminable));
-        Assert.assertTrue(terminator.getRegisteredTerminables().contains(secondTerminable));
+        Assert.assertTrue(registeredTerminables.contains(firstTerminable));
+        Assert.assertTrue(registeredTerminables.contains(secondTerminable));
 
         firstTerminable.unregister();
 
-        Assert.assertFalse(terminator.getRegisteredTerminables().contains(firstTerminable));
-        Assert.assertTrue(terminator.getRegisteredTerminables().contains(secondTerminable));
+        Assert.assertFalse(registeredTerminables.contains(firstTerminable));
+        Assert.assertTrue(registeredTerminables.contains(secondTerminable));
 
         terminator.terminateRegistered();
 
-        Assert.assertTrue(terminator.getRegisteredTerminables().isEmpty());
+        Assert.assertTrue(registeredTerminables.isEmpty());
 
         Assert.assertFalse(firstTerminable.hasBeenTerminated);
         Assert.assertTrue(secondTerminable.hasBeenTerminated);
