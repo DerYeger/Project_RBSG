@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Retronoid';
+    src: url('Fonts/retronoid.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Endless-Boss-Battle';
+    src:url("Fonts/endless-boss-battle.ttf") format("truetype");
+}
+
+.title {
+    -fx-font-family: 'Retronoid';
+    -fx-font-size: 160px;
+}
+
+.subtitle {
+    -fx-font-family: 'Endless-Boss-Battle';
+    -fx-font-size: 100px;
+}
