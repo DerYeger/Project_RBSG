@@ -42,14 +42,18 @@ import java.util.concurrent.CompletableFuture;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
-        LoginFormController.class,
         LoginFormBuilder.class,
+        LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginFormControllerTestHttpError.ContextConfiguration.class,
+        SceneManager.class,
         LobbySceneBuilder.class,
         LobbyViewBuilder.class,
-        UserProvider.class})
+        UserProvider.class,
+        TitleFormBuilder.class,
+        TitleFormController.class,
+        LoginFormControllerTestHttpError.ContextConfiguration.class
+})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestHttpError extends ApplicationTest {
 

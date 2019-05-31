@@ -45,14 +45,18 @@ import java.util.Set;
 @RunWith(SpringJUnit4ClassRunner .class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
-        LoginFormController.class,
         LoginFormBuilder.class,
+        LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
+        SceneManager.class,
         LobbySceneBuilder.class,
         LobbyViewBuilder.class,
-        UserProvider.class})
+        UserProvider.class,
+        TitleFormBuilder.class,
+        TitleFormController.class,
+        LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class
+})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestInvalidCredentialsError extends ApplicationTest {
 
