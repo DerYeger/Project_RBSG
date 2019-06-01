@@ -4,8 +4,13 @@
 }
 
 .tab-pane {
+    -fx-background-color: #121212;
+
+    -fx-border-color: #fff;
+    -fx-border-radius: 2;
+
     -fx-padding: 0;
-    -fx-tab-min-width: 100px;
+    -fx-tab-min-width: 100;
 }
 
 .tab-pane * {
@@ -17,12 +22,11 @@
 }
 
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-opacity: 0;
+    -fx-background-color: transparent;
 }
 
 .tab {
     -fx-background-color: #212121;
-    -fx-background-insets: 0 0 0 1;
     -fx-background-radius: 0;
 
     -fx-focus-traversable: false;
@@ -39,7 +43,7 @@
 .tab-label {
     -fx-text-fill: #fff; /*temporary until general css is ready*/
 
-    -fx-alignment: CENTER;
+    -fx-alignment: center;
     -fx-font-weight: bold;
 }
 
@@ -59,10 +63,14 @@
     -fx-text-fill: #fff; /*temporary until general css is ready*/
 
     -fx-background-color: #424242;
-    -fx-background-insets: 1 0 1 0;
     -fx-background-radius: 0;
+
+    -fx-padding: 5;
 }
 
 .chatChannelContainer {
-    -fx-background-color: transparent;
+    -fx-background-color: #121212;
+
+    -fx-padding: 0 0 1 0;
+    -fx-spacing: 1;
 }
