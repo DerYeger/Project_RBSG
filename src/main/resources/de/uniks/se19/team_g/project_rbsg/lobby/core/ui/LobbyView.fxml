@@ -20,7 +20,7 @@
            </rowConstraints>
           <children>
                  <Label fx:id="lobbyTitle" alignment="CENTER" styleClass="gameTitle" text="Advanced WASP Wars" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-               <ListView fx:id="lobbyPlayerListView" styleClass="playerListView" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+               <ListView fx:id="lobbyPlayerListView" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
                 <VBox fx:id="chatContainer" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
                <VBox alignment="TOP_CENTER" styleClass="optionsContainer" GridPane.columnIndex="1">
                <children>
@@ -31,15 +31,23 @@
                               <Insets left="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="enButton" mnemonicParsing="false" onAction="#changeLangToEN" styleClass="iconButton">
+                        <Button fx:id="enButton" mnemonicParsing="false" onAction="#changeLangToEN">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <styleClass>
+                              <String fx:value="iconButton" />
+                              <String fx:value="languageButton" />
+                           </styleClass>
                         </Button>
-                        <Button fx:id="deButton" mnemonicParsing="false" onAction="#changeLangToDE" styleClass="iconButton">
+                        <Button fx:id="deButton" mnemonicParsing="false" onAction="#changeLangToDE">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <styleClass>
+                              <String fx:value="iconButton" />
+                              <String fx:value="languageButton" />
+                           </styleClass>
                         </Button>
                         <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutUser" styleClass="iconButton">
                            <HBox.margin>

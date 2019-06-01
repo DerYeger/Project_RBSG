@@ -1,14 +1,31 @@
+/*COLOR DEFINITIONS*/
 * {
     -background-color:   #121212;
     -buttonNonHover-color: #8858c8;
     -buttonHover-color: #bb86fc;
+    /*-buttonSelected-color: #03DAC5;*/
+    -primaryThree-color: #868cfc;
     -backgroundTransparent-color: rgba(18,18,18,0.8);
+    -textLightBackground-color: #000000;
+    -textDarkBackground-color: #FFFFFF;
 }
+/*COLOR DEFINITIONS*/
 
+/* LABEL STYLE*/
 .label {
     -fx-font-size: 16px;
     -fx-text-fill: #FFFFFF;
 }
+
+.gameTitle {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-opacity: 1;
+    -fx-background-color: -backgroundTransparent-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+}
+/*LABEL STYLE*/
 
 
 /*BUTTON STYLES*/
@@ -24,14 +41,13 @@
 
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #FFFFFF;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-text-fill: -textDarkBackground-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
 }
 
 .button:hover {
     -fx-background-color: -buttonHover-color;
-    /*-fx-text-fill: #000000;*/
-    /*-fx-opacity: 0.8;*/
+    -fx-text-fill: -textLightBackground-color;
 }
 
 .button:disabled {
@@ -50,49 +66,49 @@
 
 .iconWithText {
     -fx-pref-width: 175px;
-    -fx-text-fill: #FFFFFF;
 }
 
+.languageButton:disabled {
+    -fx-background-color: -primaryThree-color;
+    -fx-text-fill: -textDarkBackground-color;
+    -fx-opacity: 1;
+}
 /*BUTTON STYLES*/
 
-
+/*OPTION BUTTONS CONTIANER*/
 .optionsHboxContainer {
     -fx-alignment: CENTER_RIGHT;
 }
+/*OPTION BUTTONS CONTIANER*/
 
-
+/*MAIN GRID STYLE*/
 .mainGridPane {
 
     -fx-hgap: 10px;
     -fx-vgap: 10px;
 }
+/*MAIN GRID STYLE*/
 
-.gameTitle {
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-    -fx-padding: 5px;
-    -fx-opacity: 1;
-    -fx-background-color: -backgroundTransparent-color;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
-}
 
 /*GAME LIST BOX STLYE*/
 .gameListHbox {
-    -fx-background-color: -backgroundTransparent-color;
-    -fx-padding: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
+    -fx-background-color: transparent;
 }
 /*GAME LIST BOX STLYE*/
 
 
 /*LIST VIEW STYLE*/
 .list-view {
+    -fx-background-color: -backgroundTransparent-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
     -fx-border-color: #FFFFFF;
     -fx-border-width: 0;
-    -fx-background-color: transparent;
-    /*-fx-opacity: 0.9;*/
-    /*-fx-background-color: rgba(18,18,18, 0.8);*/
-    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);*/
+}
+
+.list-view:focused {
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
 }
 
 /*LIST CELL STYLE*/
@@ -103,8 +119,7 @@
 }
 
 .list-cell:empty:hover{
-    -fx-background-color: -backgroundTransparent-color;
-    /*-fx-opacity: 0.9;*/
+    -fx-background-color: transparent;
 }
 
 .list-cell:hover {
@@ -119,7 +134,7 @@
     -fx-background-color: transparent;
 }
 
-/*DECREMENT BUTTONS STYLE*/
+/*DECREMENT AND INCREMENT BUTTON STYLE*/
 .list-view .scroll-bar .increment-button,
 .list-view .scroll-bar.decrement-button{
     -fx-background-color: transparent;
@@ -166,13 +181,6 @@
 /*LISTVIEW SCROLLBAR STYLE*/
 
 /*LIST VIEW STYLE*/
-
-/*PLAYER LIST VIEW STYLE*/
-.playerListView {
-    -fx-background-color: -backgroundTransparent-color;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
-}
-/*PLAYER LIST VIEW STYLE*/
 
 /*GAME CELL STYLE*/
 .gameCell {
