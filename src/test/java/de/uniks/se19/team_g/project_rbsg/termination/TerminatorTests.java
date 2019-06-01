@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import org.junit.Assert;
@@ -111,8 +112,6 @@ public class TerminatorTests {
         final TestTerminable secondTerminable = new TestTerminable(terminator);
 
         final ObservableSet<Terminable> registeredTerminables = terminator.getRegisteredTerminables();
-
-        registeredTerminables.addListener((SetChangeListener<? super Terminable>) change -> System.out.println("changed!"));
 
         Assert.assertTrue(registeredTerminables.isEmpty());
         Assert.assertFalse(firstTerminable.hasBeenTerminated);

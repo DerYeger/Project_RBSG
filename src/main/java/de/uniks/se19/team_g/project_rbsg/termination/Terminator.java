@@ -17,10 +17,10 @@ public class Terminator {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private HashSet<Terminable> registeredTerminables = new HashSet<>();
+    private ObservableSet<Terminable> registeredTerminables = FXCollections.observableSet(new HashSet<>());
 
     public ObservableSet<Terminable> getRegisteredTerminables() {
-        return FXCollections.unmodifiableObservableSet(FXCollections.observableSet(registeredTerminables));
+        return FXCollections.unmodifiableObservableSet(registeredTerminables);
     }
 
     public Terminator register(@NonNull final Terminable terminable) {
