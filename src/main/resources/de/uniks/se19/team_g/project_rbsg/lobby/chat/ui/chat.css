@@ -32,6 +32,10 @@
     -fx-background-color: #424242;
 }
 
+.tab .tab-close-button {
+    -fx-background-color: red;
+}
+
 .tab-label {
     -fx-text-fill: #fff; /*temporary until general css is ready*/
 
