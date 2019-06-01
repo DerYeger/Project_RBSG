@@ -108,18 +108,27 @@ public class LobbyViewController implements Rincled
 
 
         //For ui Desgin
-        lobby.addPlayer(new Player("Hallo1"));
-        lobby.addPlayer(new Player("Hallo2"));
-        lobby.addPlayer(new Player("Hallo3"));
-        lobby.addPlayer(new Player("Hallo4"));
-        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo5", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo6", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
+//        lobby.addPlayer(new Player("Hallo1"));
+//        lobby.addPlayer(new Player("Hallo2"));
+//        lobby.addPlayer(new Player("Hallo3"));
+//        lobby.addPlayer(new Player("Hallo4"));
+//        lobby.addPlayer(new Player("Hallo5"));
+//        lobby.addPlayer(new Player("Hallo6"));
+//        lobby.addPlayer(new Player("Hallo7"));
+//        lobby.addPlayer(new Player("Hallo8"));
+//        lobby.addPlayer(new Player("Hallo9"));
+//        lobby.addPlayer(new Player("Hallo10"));
+//        lobby.addPlayer(new Player("Hallo11"));
+//        lobby.addPlayer(new Player("Hallo12"));
+//
+//        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo5", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo6", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
 
         withChatSupport();
 
