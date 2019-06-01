@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.server.rest;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
@@ -24,7 +25,7 @@ public class LogoutManagerTests {
                 return "{\"status\":\"success\"}";
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient);
+        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -34,7 +35,7 @@ public class LogoutManagerTests {
 
         WebSocketConfigurator.userKey = user.getUserKey();
 
-        logoutManager.logout();
+        logoutManager.terminate();
 
         Assert.assertNotEquals(user, userProvider.get());
 
@@ -50,7 +51,7 @@ public class LogoutManagerTests {
                 return "{\"status\":\"failure\"}"; //specific status doesn't matter, as long as it isn't "success"
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient);
+        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -76,7 +77,7 @@ public class LogoutManagerTests {
                 return "{ }"; //not containing field "status"
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient);
+        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -102,7 +103,7 @@ public class LogoutManagerTests {
                 return "some gibberish";
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient);
+        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -123,7 +124,7 @@ public class LogoutManagerTests {
     public void testNoUserLoggedInLogout() {
         final UserProvider userProvider = new UserProvider();
         final RESTClient restClient = new RESTClient(new RestTemplate());
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient);
+        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
 
         final User emptyUser = userProvider.get();
 

@@ -13,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -45,7 +46,8 @@ import static org.junit.Assert.assertNotNull;
         LobbyViewBuilder.class,
         LobbyBuilderTest.ContextConfiguration.class,
         ChatBuilder.class,
-        SceneManager.class
+        SceneManager.class,
+        Terminator.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -85,7 +87,7 @@ public class LobbyBuilderTest extends ApplicationTest
         @Bean
         public LobbyViewController lobbyViewController()
         {
-            return new LobbyViewController(new SceneManager(),
+            return new LobbyViewController(new SceneManager(new Terminator()),
                                            new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
                                            new GameManager(new RESTClient(new RestTemplate()), userProvider()),
                                            new SystemMessageManager(new WebSocketClient()), chatController())

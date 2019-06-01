@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware {
+public class SceneManager implements ApplicationContextAware, Terminable {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -30,8 +31,13 @@ public class SceneManager implements ApplicationContextAware {
 
     private RootController rootController;
 
+    public SceneManager(@NonNull final Terminator terminator) {
+        terminator.register(this);
+    }
+
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+
         return this;
     }
 
@@ -86,5 +92,10 @@ public class SceneManager implements ApplicationContextAware {
     @Override
     public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
+    }
+
+    @Override
+    public void terminate() {
+        terminateRootController();
     }
 }

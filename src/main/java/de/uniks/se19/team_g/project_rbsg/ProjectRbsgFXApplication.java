@@ -69,10 +69,8 @@ public class ProjectRbsgFXApplication extends Application {
 
     @Override
     public void stop() {
-        final Terminator terminator = context.getBean(Terminator.class);
-        terminator.terminateRootController()
-                .terminateRegistered()
-                .logoutUser();
+        context.getBean(Terminator.class)
+                .terminate();
         this.context.close();
         Platform.exit();
     }

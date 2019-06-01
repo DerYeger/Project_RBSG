@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class LogoutManager implements ILogoutManager {
+public class LogoutManager implements ILogoutManager, Terminable {
 
     private static final String ENDPOINT = "/user/logout";
 
@@ -28,9 +30,10 @@ public class LogoutManager implements ILogoutManager {
     private final RESTClient restClient;
 
     @Autowired
-    public LogoutManager(@NonNull final UserProvider userProvider, @NonNull final RESTClient restClient) {
+    public LogoutManager(@NonNull final UserProvider userProvider, @NonNull final RESTClient restClient, @NonNull final Terminator terminator) {
         this.userProvider = userProvider;
         this.restClient = restClient;
+        terminator.register(this);
     }
 
     public void logout() {
@@ -64,5 +67,10 @@ public class LogoutManager implements ILogoutManager {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void terminate() {
+        logout();
     }
 }

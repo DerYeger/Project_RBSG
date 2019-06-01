@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,7 +33,9 @@ import java.io.IOException;
         LobbyViewBuilder.class,
         LoginManager.class,
         RegistrationManager.class,
-        UserProvider.class})
+        UserProvider.class,
+        Terminator.class
+})
 public class LoginFormBuilderTests extends ApplicationTest {
 
     @Autowired

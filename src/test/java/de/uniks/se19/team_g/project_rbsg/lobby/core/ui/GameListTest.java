@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -50,7 +51,8 @@ import static org.junit.Assert.*;
         LobbyViewController.class,
         GameListTest.ContextConfiguration.class,
         ChatBuilder.class,
-        SceneManager.class
+        SceneManager.class,
+        Terminator.class
 })
 public class GameListTest extends ApplicationTest
 {

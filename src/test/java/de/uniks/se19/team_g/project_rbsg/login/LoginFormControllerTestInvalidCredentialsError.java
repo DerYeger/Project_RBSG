@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -95,7 +96,7 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         }
         @Bean
         public SceneManager sceneManager() {
-            return new SceneManager() {
+            return new SceneManager(new Terminator()) {
                 @Override
                 public void setLobbyScene() {
                     switchedToLobby = true;

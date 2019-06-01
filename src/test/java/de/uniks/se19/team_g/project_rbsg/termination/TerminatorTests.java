@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.termination;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.ILogoutManager;
 import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
@@ -54,21 +55,29 @@ public class TerminatorTests {
         }
     }
 
-    static class TestLogoutManager implements ILogoutManager {
+    static class TestLogoutManager implements ILogoutManager, Terminable {
         public int logoutCallCount = 0;
+
+        public TestLogoutManager(@NonNull final Terminator terminator) {
+            terminator.register(this);
+        }
 
         @Override
         public void logout() {
             logoutCallCount++;
-            System.out.println("logged out");
+        }
+
+        @Override
+        public void terminate() {
+            logout();
         }
     }
 
 
     @Test
     public void testTerminateRootController() {
-        final SceneManager sceneManager = new SceneManager();
-        final Terminator terminator = new Terminator(sceneManager, new TestLogoutManager());
+        final Terminator terminator = new Terminator();
+        final SceneManager sceneManager = new SceneManager(terminator);
         final TestTerminableRootController firstTerminableRootController = new TestTerminableRootController(sceneManager);
         final TestTerminableRootController secondTerminableRootController = new TestTerminableRootController(sceneManager);
 
@@ -87,7 +96,7 @@ public class TerminatorTests {
         Assert.assertTrue(firstTerminableRootController.hasBeenTerminated);
         Assert.assertFalse(secondTerminableRootController.hasBeenTerminated);
 
-        terminator.terminateRootController();
+        terminator.terminate();
 
         Assert.assertNull(sceneManager.getRootController());
         Assert.assertTrue(secondTerminableRootController.hasBeenTerminated);
@@ -96,12 +105,14 @@ public class TerminatorTests {
 
     @Test
     public void testRegisterTerminable() {
-        final Terminator terminator = new Terminator(new SceneManager(), new TestLogoutManager());
+        final Terminator terminator = new Terminator();
 
         final TestTerminable firstTerminable = new TestTerminable(terminator);
         final TestTerminable secondTerminable = new TestTerminable(terminator);
 
         final ObservableSet<Terminable> registeredTerminables = terminator.getRegisteredTerminables();
+
+        registeredTerminables.addListener((SetChangeListener<? super Terminable>) change -> System.out.println("changed!"));
 
         Assert.assertTrue(registeredTerminables.isEmpty());
         Assert.assertFalse(firstTerminable.hasBeenTerminated);
@@ -122,7 +133,7 @@ public class TerminatorTests {
         Assert.assertFalse(registeredTerminables.contains(firstTerminable));
         Assert.assertTrue(registeredTerminables.contains(secondTerminable));
 
-        terminator.terminateRegistered();
+        terminator.terminate();
 
         Assert.assertTrue(registeredTerminables.isEmpty());
 
@@ -132,12 +143,12 @@ public class TerminatorTests {
 
     @Test
     public void testLogoutCall() {
-        final TestLogoutManager testLogoutManager = new TestLogoutManager();
-        final Terminator terminator = new Terminator(new SceneManager(), testLogoutManager);
+        final Terminator terminator = new Terminator();
+        final TestLogoutManager testLogoutManager = new TestLogoutManager(terminator);
 
         Assert.assertEquals(0, testLogoutManager.logoutCallCount);
 
-        terminator.logoutUser();
+        terminator.terminate();
 
         Assert.assertEquals(1, testLogoutManager.logoutCallCount);
     }
