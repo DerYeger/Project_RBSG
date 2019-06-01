@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat;
+package de.uniks.se19.team_g.project_rbsg.lobby.chat.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
