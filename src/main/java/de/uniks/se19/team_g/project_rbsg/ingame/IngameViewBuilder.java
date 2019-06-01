@@ -10,14 +10,10 @@ public class IngameViewBuilder {
 
     private Node ingameView;
 
+    @Autowired
     private FXMLLoader fxmlLoader;
 
-    @Autowired
-    public IngameViewBuilder(FXMLLoader fxmlLoader) {
-        this.fxmlLoader = fxmlLoader;
-    }
-
-    public Node buildIngameScene() throws Exception{
+    public Node buildIngameView() throws Exception{
         if(ingameView == null) {
             fxmlLoader.setLocation(getClass().getResource("ingame-view.fxml"));
             ingameView = fxmlLoader.load();

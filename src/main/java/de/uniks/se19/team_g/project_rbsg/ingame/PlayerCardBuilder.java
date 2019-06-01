@@ -8,10 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-public class PlayerCard {
+public class PlayerCardBuilder {
 
     @FXML
     private Label playerListCellLabel;
@@ -27,7 +28,7 @@ public class PlayerCard {
 
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/Lobby/UI/CustomControls/Views/PlayerListCell.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/PlayerListCell.fxml"));
             fxmlLoader.setController(this);
             try {
                 playerCardView = fxmlLoader.load();
@@ -46,7 +47,7 @@ public class PlayerCard {
             buildPlayerCard();
         }
         playerListCellLabel.setText(player.getName());
-        Image image = new Image(String.valueOf(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/Lobby/UI/CustomControls/Views/Images/" + player.getImagePath())));
+        Image image = new Image(String.valueOf(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/" + player.getImagePath())));
         playerListCellImageView.setImage(image);
         return playerCardView;
     }

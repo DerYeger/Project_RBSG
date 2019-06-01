@@ -18,7 +18,7 @@ public class IngameSceneBuilder {
     @NonNull
     public Scene getIngameScene() throws Exception {
         if (ingameScene == null) {
-            Node ingameNode = ingameViewBuilder.buildIngameScene();
+            Node ingameNode = ingameViewBuilder.buildIngameView();
             final AnchorPane parent = new AnchorPane(ingameNode);
             AnchorPane.setBottomAnchor(ingameNode, 0.0);
             AnchorPane.setLeftAnchor(ingameNode, 0.0);

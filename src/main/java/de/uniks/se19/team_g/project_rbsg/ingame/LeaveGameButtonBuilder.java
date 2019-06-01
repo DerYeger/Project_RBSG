@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
-public class LeaveGame {
+public class LeaveGameButtonBuilder {
 
     @FXML
     private Label leaveGameLabel;
@@ -18,14 +18,14 @@ public class LeaveGame {
     private ImageView leaveGameImage;
 
     private FXMLLoader fxmlLoader;
-    private Node leaveGameView;
+    private Node leaveGameButtonView;
 
     public Node buildLeaveGame(){
         if(fxmlLoader == null) {
             fxmlLoader = new FXMLLoader(getClass().getResource("leaveGame.fxml"));
             fxmlLoader.setController(this);
             try {
-                leaveGameView = fxmlLoader.load();
+                leaveGameButtonView = fxmlLoader.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -33,7 +33,7 @@ public class LeaveGame {
         leaveGameLabel.setText("Leave game");
         Image image = new Image(String.valueOf(getClass().getResource("Images/baseline_highlight_off_black_48dp.png")));
         leaveGameImage.setImage(image);
-        return leaveGameView;
+        return leaveGameButtonView;
     }
 
 }

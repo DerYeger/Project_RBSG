@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -18,38 +19,29 @@ public class IngameViewController {
 
     @FXML
     StackPane playgroundPane;
-
     @FXML
     Pane player1Pane;
-
     @FXML
     Pane player2Pane;
-
     @FXML
     Pane player3Pane;
-
     @FXML
     Pane player4Pane;
-
     @FXML
     Pane statusPane;
-
     @FXML
     Pane bottomLinePane;
-
     @FXML
     Pane chatLogPane;
-
     @FXML
     Pane leaveGamePane;
 
-    private StatusBar statusBar;
-    private LeaveGame leaveGame;
-    private PlayerCard playerCard;
-    private PlayerCard playerCard2;
-    private PlayerCard playerCard3;
-    private PlayerCard playerCard4;
-    private Node leaveGameNode;
+    private StatusBarBuilder statusBar;
+    private LeaveGameButtonBuilder leaveGameButton;
+    private PlayerCardBuilder playerCard;
+    private PlayerCardBuilder playerCard2;
+    private PlayerCardBuilder playerCard3;
+    private PlayerCardBuilder playerCard4;
 
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
@@ -63,27 +55,43 @@ public class IngameViewController {
     }
 
     public void init() {
-        statusBar = new StatusBar();
+        initBuilders();
+        setNodes();
+        initLeaveGameButton();
+    }
+
+    private void initBuilders() {
+        statusBar = new StatusBarBuilder(gameProvider.get().getNeededPlayer() - 1);
+        leaveGameButton = new LeaveGameButtonBuilder();
+        playerCard = new PlayerCardBuilder();
+        playerCard2 = new PlayerCardBuilder();
+        if(gameProvider.get().getNeededPlayer() == 4) {
+            playerCard3 = new PlayerCardBuilder();
+            playerCard4 = new PlayerCardBuilder();
+        }
+    }
+
+    private void setNodes() {
         statusPane.getChildren().add(statusBar.buildStatusBar());
-        leaveGame = new LeaveGame();
-        leaveGameNode = leaveGame.buildLeaveGame();
+        player1Pane.getChildren().add(playerCard.setPlayer(new Player(userProvider.get().getName())));
+        player2Pane.getChildren().add(playerCard2.buildPlayerCard());
+        if(gameProvider.get().getNeededPlayer() == 4) {
+            player3Pane.getChildren().add(playerCard3.buildPlayerCard());
+            player4Pane.getChildren().add(playerCard4.buildPlayerCard());
+        }
+    }
+
+    private void initLeaveGameButton() {
+        Node leaveGameNode = leaveGameButton.buildLeaveGame();
         leaveGamePane.getChildren().add(leaveGameNode);
         Button leaveGameButton = (Button) leaveGameNode;
-        leaveGameButton.setOnAction(event -> {
-                // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-                sceneManager.setLobbyScene();
-                gameProvider.clear();
-            }//back to lobby, close WS
-        );
-        playerCard = new PlayerCard();
-        playerCard2 = new PlayerCard();
-        playerCard3 = new PlayerCard();
-        playerCard4 = new PlayerCard();
-        player1Pane.getChildren().add(playerCard.buildPlayerCard());
-        player2Pane.getChildren().add(playerCard2.buildPlayerCard());
-        player3Pane.getChildren().add(playerCard3.buildPlayerCard());
-        player4Pane.getChildren().add(playerCard4.buildPlayerCard());
-        playerCard.setPlayer(new Player(userProvider.get().getName()));
+        leaveGameButton.setOnAction(this::leaveGameAction);
+    }
+
+    private void leaveGameAction(ActionEvent actionEvent) { //back to lobby, close WS
+        // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
+        sceneManager.setLobbyScene();
+        gameProvider.clear();
     }
 
 }
