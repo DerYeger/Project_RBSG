@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
+/**
+ * @author  Keanu Stückrad
+ */
 public class LeaveGameButtonBuilder {
 
     @FXML

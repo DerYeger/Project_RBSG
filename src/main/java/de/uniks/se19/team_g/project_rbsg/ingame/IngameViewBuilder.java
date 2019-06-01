@@ -5,6 +5,9 @@ import javafx.scene.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author  Keanu Stückrad
+ */
 @Component
 public class IngameViewBuilder {
 

@@ -23,6 +23,7 @@ import java.io.IOException;
 
 /**
  * @author Georg Siebert
+ * @edited Keanu Stückrad
  */
 
 public class GameListViewCell extends ListCell<Game>

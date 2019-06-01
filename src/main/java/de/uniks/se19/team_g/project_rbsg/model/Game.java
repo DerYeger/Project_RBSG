@@ -4,6 +4,7 @@ import org.springframework.lang.NonNull;
 
 /**
  * @author Georg Siebert
+ * @edited Keanu Stückrad
  */
 
 public class Game
