@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.ILogoutManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import org.junit.Assert;
@@ -55,7 +55,7 @@ public class TerminatorTests {
         }
     }
 
-    static class TestLogoutManager implements ILogoutManager, Terminable {
+    static class TestLogoutManager implements LogoutManager, Terminable {
         public int logoutCallCount = 0;
 
         public TestLogoutManager(@NonNull final Terminator terminator) {

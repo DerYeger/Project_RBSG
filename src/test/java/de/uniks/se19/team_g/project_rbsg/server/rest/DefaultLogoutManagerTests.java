@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author Jan Müller
  */
-public class LogoutManagerTests {
+public class DefaultLogoutManagerTests {
 
     @Test
     public void testSuccessfulLogout() {
@@ -25,7 +25,7 @@ public class LogoutManagerTests {
                 return "{\"status\":\"success\"}";
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -51,7 +51,7 @@ public class LogoutManagerTests {
                 return "{\"status\":\"failure\"}"; //specific status doesn't matter, as long as it isn't "success"
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -77,7 +77,7 @@ public class LogoutManagerTests {
                 return "{ }"; //not containing field "status"
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -103,7 +103,7 @@ public class LogoutManagerTests {
                 return "some gibberish";
             }
         };
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
 
         final User user = new User();
 
@@ -124,7 +124,7 @@ public class LogoutManagerTests {
     public void testNoUserLoggedInLogout() {
         final UserProvider userProvider = new UserProvider();
         final RESTClient restClient = new RESTClient(new RestTemplate());
-        final LogoutManager logoutManager = new LogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
 
         final User emptyUser = userProvider.get();
 
