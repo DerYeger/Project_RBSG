@@ -19,6 +19,10 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
 
+/**
+ * @author  Keanu Stückrad
+ */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
