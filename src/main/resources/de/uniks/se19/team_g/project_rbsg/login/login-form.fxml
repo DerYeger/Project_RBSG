@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_RIGHT" maxWidth="334.0" spacing="25.0" styleClass="loginForm" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
+<VBox alignment="CENTER_RIGHT" spacing="25.0" styleClass="loginForm" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
    <children>
-      <HBox fx:id="errorMessageBox" alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="216.0" styleClass="errorBox">
+      <HBox fx:id="errorMessageBox" alignment="CENTER_RIGHT" styleClass="errorBox">
          <children>
-            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="52.0" prefWidth="341.0" text="Label" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="52.0" prefWidth="341.0" styleClass="errorLabel" text="Label" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
@@ -40,7 +40,10 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
          <children>
-            <Button id="login-button" fx:id="loginButton" mnemonicParsing="false" text="Login" />
+            <Button id="login-button" fx:id="loginButton" mnemonicParsing="false" text="Login">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Button>
             <Button id="registration-button" fx:id="registerButton" mnemonicParsing="false" text="+" />
          </children>
       </HBox>

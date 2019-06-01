@@ -37,7 +37,7 @@ public class SceneManager {
         }
         try {
             final Scene loginScene = loginSceneBuilder.getLoginScene();
-            loginScene.getStylesheets().add("css/login-form.css");
+            loginScene.getStylesheets().add(getClass().getResource("login-form.css").toExternalForm());
             stage.setScene(loginScene);
         } catch (IOException e) {
             System.out.println("Unable to set login scene");

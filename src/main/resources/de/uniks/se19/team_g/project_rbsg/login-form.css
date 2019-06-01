@@ -1,0 +1,36 @@
+.loginForm{
+    -fx-background-color: #121212;
+    -fx-pref-width: 400;
+    -fx-pref-height: 350;
+    -fx-max-height: 250;
+    -fx-max-width: 400;
+}
+
+.label{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.errorLabel{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: #FD5F00;
+}
+
+.text-field{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-pref-width: 250;
+    -fx-text-fill: white;
+    -fx-background-color: #404040;;
+}
+
+.button{
+    -fx-background-color: #404040;
+    -fx-text-fill: white;
+}
+
+
+
