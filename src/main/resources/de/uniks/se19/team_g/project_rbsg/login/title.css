@@ -4,8 +4,8 @@
 }
 
 @font-face {
-    font-family: 'Endless-Boss-Battle';
-    src:url("Fonts/endless-boss-battle.ttf") format("truetype");
+    font-family: 'Speedeasy';
+    src: url("Fonts/speedeasy.otf") format("opentype");
 }
 
 .title {
@@ -14,6 +14,6 @@
 }
 
 .subtitle {
-    -fx-font-family: 'Endless-Boss-Battle';
-    -fx-font-size: 100px;
+    -fx-font-family: 'Speedeasy';
+    -fx-font-size: 80px;
 }
