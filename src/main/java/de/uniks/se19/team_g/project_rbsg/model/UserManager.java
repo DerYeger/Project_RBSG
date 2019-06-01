@@ -8,6 +8,9 @@ import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Jan Müller
+ */
 @Component
 public class UserManager implements Terminable {
 
@@ -35,7 +38,6 @@ public class UserManager implements Terminable {
 
         terminator.register(this);
     }
-
 
     @NonNull
     public UserProvider getUserProvider() {
