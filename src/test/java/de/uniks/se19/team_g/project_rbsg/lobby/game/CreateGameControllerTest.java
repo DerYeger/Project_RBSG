@@ -2,7 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
@@ -33,7 +32,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, GameBuilder.class, UserProvider.class, CreateGameControllerTest.ContextConfiguration.class})
+@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, UserProvider.class, CreateGameControllerTest.ContextConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest {
 

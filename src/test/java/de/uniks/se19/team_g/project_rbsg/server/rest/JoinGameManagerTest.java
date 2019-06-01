@@ -2,7 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,7 +34,7 @@ public class JoinGameManagerTest {
         );
         final User testUser = new User("Juri", "geheim");
         testUser.setUserKey("a1292282-0418-4b00-bd4a-97982bee7faf");
-        final Game testGame = new GameBuilder().getGame("SuperGame", 4);
+        final Game testGame = new Game("SuperGame", 4);
         testGame.setGameId("5ce6e24550487200013b9d19");
 
         CompletableFuture<ResponseEntity<String>> joinedGame = joinGameManager.joinGame(testUser, testGame);

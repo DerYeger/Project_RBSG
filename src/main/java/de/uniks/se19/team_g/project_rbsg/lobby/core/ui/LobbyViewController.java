@@ -1,17 +1,16 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -53,7 +52,7 @@ public class LobbyViewController
     private ChatController chatController;
     private CreateGameFormBuilder createGameFormBuilder;
 
-    private SimpleBooleanProperty createGameVisibility;
+    private Node gameForm;
 
     private static final int iconSize = 30;
 
@@ -200,15 +199,18 @@ public class LobbyViewController
 
     public void createGameButtonClicked(ActionEvent event)
     {
-        Node gameForm = null;
-        try {
-            gameForm = this.createGameFormBuilder.getCreateGameForm();
+        if (this.gameForm == null) {
+            try {
+                this.gameForm = this.createGameFormBuilder.getCreateGameForm();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        if (gameForm != null){
+        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
             lobbyView.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+            this.gameForm.setVisible(true);
         }
 
     }
