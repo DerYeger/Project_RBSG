@@ -9,8 +9,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_RIGHT" maxWidth="334.0" spacing="25.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
+<VBox alignment="CENTER_RIGHT" maxWidth="334.0" spacing="25.0" styleClass="loginForm" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
    <children>
+      <HBox fx:id="errorMessageBox" alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="216.0" styleClass="errorBox">
+         <children>
+            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="52.0" prefWidth="341.0" text="Label" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_RIGHT" spacing="10.0" VBox.vgrow="NEVER">
          <children>
             <Label alignment="CENTER" text="Name">
@@ -26,7 +35,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <PasswordField id="password-field" fx:id="passwordField" alignment="CENTER" prefWidth="250.0" />
+            <PasswordField id="password-field" fx:id="passwordField" alignment="CENTER" prefWidth="250.0" style="-fx-pref-width: 250;" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">

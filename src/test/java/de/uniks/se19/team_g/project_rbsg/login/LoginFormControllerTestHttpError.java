@@ -122,6 +122,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
         Assert.assertEquals(popDialogs.size(), 1);
         Node alert = lookup("Login failed").query();
+        sleep(1000);
         Assert.assertNotNull(alert);
         Assert.assertFalse(switchedToLobby);
     }
@@ -133,9 +134,12 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         Assert.assertNotNull(registrationButton);
 
         clickOn(registrationButton);
+        sleep(1000);
         Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
+        sleep(1000);
+        Assert.assertEquals(1, popDialogs.size());
         Node alert = lookup("Registration failed").query();
+        sleep(2000);
         Assert.assertNotNull(alert);
         Assert.assertFalse(switchedToLobby);
     }
