@@ -2,9 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
-import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableSet;
-import javafx.collections.SetChangeListener;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.NonNull;
@@ -15,12 +13,12 @@ import org.springframework.lang.NonNull;
 public class TerminatorTests {
 
     static class TestTerminableRootController implements RootController, Terminable {
-        public boolean hasBeenTerminated = false;
+        boolean hasBeenTerminated = false;
 
         @NonNull
         private final SceneManager sceneManager;
 
-        public TestTerminableRootController(@NonNull final SceneManager sceneManager) {
+        TestTerminableRootController(@NonNull final SceneManager sceneManager) {
             this.sceneManager = sceneManager;
         }
         @Override
@@ -36,17 +34,17 @@ public class TerminatorTests {
 
     static class TestTerminable implements Terminable {
         private Terminator terminator;
-        public boolean hasBeenTerminated = false;
+        boolean hasBeenTerminated = false;
 
-        public TestTerminable(@NonNull final Terminator terminator) {
+        TestTerminable(@NonNull final Terminator terminator) {
             this.terminator = terminator;
         }
 
-        public void register() {
+        void register() {
             terminator.register(this);
         }
 
-        public void unregister() {
+        void unregister() {
             terminator.unregister(this);
         }
 
@@ -57,9 +55,9 @@ public class TerminatorTests {
     }
 
     static class TestLogoutManager implements LogoutManager, Terminable {
-        public int logoutCallCount = 0;
+        int logoutCallCount = 0;
 
-        public TestLogoutManager(@NonNull final Terminator terminator) {
+        TestLogoutManager(@NonNull final Terminator terminator) {
             terminator.register(this);
         }
 
