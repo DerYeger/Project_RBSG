@@ -25,7 +25,7 @@ public class DefaultLogoutManagerTests {
                 return "{\"status\":\"success\"}";
             }
         };
-        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(restClient);
 
         final User user = new User();
 
@@ -35,7 +35,7 @@ public class DefaultLogoutManagerTests {
 
         WebSocketConfigurator.userKey = user.getUserKey();
 
-        logoutManager.terminate();
+        logoutManager.logout(userProvider);
 
         Assert.assertNotEquals(user, userProvider.get());
 
@@ -51,7 +51,7 @@ public class DefaultLogoutManagerTests {
                 return "{\"status\":\"failure\"}"; //specific status doesn't matter, as long as it isn't "success"
             }
         };
-        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(restClient);
 
         final User user = new User();
 
@@ -61,7 +61,7 @@ public class DefaultLogoutManagerTests {
 
         WebSocketConfigurator.userKey = user.getUserKey();
 
-        logoutManager.logout();
+        logoutManager.logout(userProvider);
 
         Assert.assertEquals(user, userProvider.get());
 
@@ -77,7 +77,7 @@ public class DefaultLogoutManagerTests {
                 return "{ }"; //not containing field "status"
             }
         };
-        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(restClient);
 
         final User user = new User();
 
@@ -87,7 +87,7 @@ public class DefaultLogoutManagerTests {
 
         WebSocketConfigurator.userKey = user.getUserKey();
 
-        logoutManager.logout();
+        logoutManager.logout(userProvider);
 
         Assert.assertEquals(user, userProvider.get());
 
@@ -103,7 +103,7 @@ public class DefaultLogoutManagerTests {
                 return "some gibberish";
             }
         };
-        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(restClient);
 
         final User user = new User();
 
@@ -113,7 +113,7 @@ public class DefaultLogoutManagerTests {
 
         WebSocketConfigurator.userKey = user.getUserKey();
 
-        logoutManager.logout();
+        logoutManager.logout(userProvider);
 
         Assert.assertEquals(user, userProvider.get());
 
@@ -124,13 +124,13 @@ public class DefaultLogoutManagerTests {
     public void testNoUserLoggedInLogout() {
         final UserProvider userProvider = new UserProvider();
         final RESTClient restClient = new RESTClient(new RestTemplate());
-        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(userProvider, restClient, new Terminator());
+        final DefaultLogoutManager logoutManager = new DefaultLogoutManager(restClient);
 
         final User emptyUser = userProvider.get();
 
         WebSocketConfigurator.userKey = null;
 
-        logoutManager.logout();
+        logoutManager.logout(userProvider);
 
         Assert.assertEquals(emptyUser, userProvider.get());
     }

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +17,20 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class DefaultLogoutManager implements LogoutManager, Terminable {
+public class DefaultLogoutManager implements LogoutManager {
 
     private static final String ENDPOINT = "/user/logout";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final UserProvider userProvider;
-
     private final RESTClient restClient;
 
     @Autowired
-    public DefaultLogoutManager(@NonNull final UserProvider userProvider, @NonNull final RESTClient restClient, @NonNull final Terminator terminator) {
-        this.userProvider = userProvider;
+    public DefaultLogoutManager(@NonNull final RESTClient restClient) {
         this.restClient = restClient;
-        terminator.register(this);
     }
 
-    public void logout() {
+    public void logout(@NonNull final UserProvider userProvider) {
         if (userProvider.get().getUserKey() != null) {
             final LinkedMultiValueMap<String, String> headers  = new LinkedMultiValueMap<>();
             headers.add("userKey", userProvider.get().getUserKey());
@@ -67,10 +61,5 @@ public class DefaultLogoutManager implements LogoutManager, Terminable {
             e.printStackTrace();
         }
         return false;
-    }
-
-    @Override
-    public void terminate() {
-        logout();
     }
 }

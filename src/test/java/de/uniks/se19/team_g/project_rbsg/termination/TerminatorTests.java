@@ -1,6 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.termination;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserManager;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import javafx.collections.ObservableSet;
 import org.junit.Assert;
@@ -54,21 +57,12 @@ public class TerminatorTests {
         }
     }
 
-    static class TestLogoutManager implements LogoutManager, Terminable {
+    static class TestLogoutManager implements LogoutManager {
         int logoutCallCount = 0;
 
-        TestLogoutManager(@NonNull final Terminator terminator) {
-            terminator.register(this);
-        }
-
         @Override
-        public void logout() {
+        public void logout(@NonNull final UserProvider userProvider) {
             logoutCallCount++;
-        }
-
-        @Override
-        public void terminate() {
-            logout();
         }
     }
 
@@ -136,17 +130,5 @@ public class TerminatorTests {
 
         Assert.assertFalse(firstTerminable.hasBeenTerminated);
         Assert.assertTrue(secondTerminable.hasBeenTerminated);
-    }
-
-    @Test
-    public void testLogoutCall() {
-        final Terminator terminator = new Terminator();
-        final TestLogoutManager testLogoutManager = new TestLogoutManager(terminator);
-
-        Assert.assertEquals(0, testLogoutManager.logoutCallCount);
-
-        terminator.terminate();
-
-        Assert.assertEquals(1, testLogoutManager.logoutCallCount);
     }
 }
