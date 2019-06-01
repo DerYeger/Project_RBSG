@@ -116,6 +116,10 @@ public class LobbyViewController implements Rincled
         lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
         lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
         lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
+        lobby.addGame(new Game("an id", "GameOfHallo5", 4, 2));
+        lobby.addGame(new Game("an id", "GameOfHallo6", 4, 2));
+        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
+        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
 
         withChatSupport();
 
