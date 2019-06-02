@@ -1,0 +1,23 @@
+.label{
+    -fx-background-color: #121212;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-alignment: left;
+}
+
+
+.button{
+    -fx-background-color: #404040;
+    -fx-text-fill: white;
+}
+
+.text-field{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-pref-width: 250;
+    -fx-max-width: 250;
+    -fx-text-fill: white;
+    -fx-background-color: #404040;;
+    -fx-alignment: center;
+}
