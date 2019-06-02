@@ -11,13 +11,14 @@ import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -49,7 +50,8 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Georg Siebert
@@ -75,7 +77,8 @@ import static org.junit.Assert.*;
         RegistrationManager.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        JoinGameManager.class
+        JoinGameManager.class,
+        CreateGameFormBuilder.class
 })
 public class GameListTest extends ApplicationTest
 {

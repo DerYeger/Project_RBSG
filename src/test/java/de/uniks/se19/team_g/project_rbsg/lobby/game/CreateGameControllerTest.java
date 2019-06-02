@@ -1,9 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,7 +32,13 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, CreateGameControllerTest.ContextConfiguration.class})
+@ContextConfiguration(classes ={
+        JavaConfig.class,
+        CreateGameController.class,
+        CreateGameFormBuilder.class,
+        UserProvider.class,
+        CreateGameControllerTest.ContextConfiguration.class
+})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest {
 
@@ -68,17 +75,17 @@ public class CreateGameControllerTest extends ApplicationTest {
         stage.show();
     }
 
-
-
     @Test
     public void testRejectedFutureHandling(){
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
-        final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
-        Assert.assertNotNull(twoPlayerButton);
+        final ToggleButton fourPlayerButton = lookup("#fourPlayers").query();
+        Assert.assertNotNull(fourPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
-        clickOn(twoPlayerButton);
-
+        final String newGameName = "Noodles";
+        clickOn(gameNameInput);
+        write(newGameName);
+        clickOn(fourPlayerButton);
         clickOn(createGameButton);
         final Node alert = lookup("Fehler: Keine Verbindung zum Server moeglich").query();
         Assert.assertNotNull(alert);
@@ -91,10 +98,13 @@ public class CreateGameControllerTest extends ApplicationTest {
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
+
         clickOn(gameNameInput);
+        for (int i = 0; i < 20; ++i){
+            press(KeyCode.RIGHT);
+        }
         eraseText(20);
-        clickOn(gameNameInput);
-        eraseText(20);
+
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 
@@ -105,14 +115,4 @@ public class CreateGameControllerTest extends ApplicationTest {
         Assert.assertNotNull(alert);
     }
 
-    @Test
-    public void testNoNumberOfPlayersSelected(){
-        final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
-        Assert.assertNotNull(gameNameInput);
-        final Button createGameButton = lookup("#create").queryButton();
-
-        clickOn(createGameButton);
-        final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
-        Assert.assertNotNull(alert);
-    }
 }
