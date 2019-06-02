@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.ISystemMessageHandler;
 import javafx.application.Platform;

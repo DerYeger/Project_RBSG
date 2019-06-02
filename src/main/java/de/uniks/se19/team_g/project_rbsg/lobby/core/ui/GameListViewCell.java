@@ -1,6 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,11 +17,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import java.io.IOException;
 
 /**
  * @author Georg Siebert
+ * @edited Keanu Stückrad
  */
 
 public class GameListViewCell extends ListCell<Game>
@@ -42,6 +48,19 @@ public class GameListViewCell extends ListCell<Game>
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Game game;
+
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final SceneManager sceneManager;
+    private final JoinGameManager joinGameManager;
+
+    @Autowired
+    public GameListViewCell(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager){
+        this.gameProvider = gameProvider;
+        this.userProvider = userProvider;
+        this.sceneManager = sceneManager;
+        this.joinGameManager = joinGameManager;
+    }
 
     @Override
     protected void updateItem(final Game game, final boolean empty) {
@@ -115,12 +134,11 @@ public class GameListViewCell extends ListCell<Game>
 
     private void joinButtonClicked(ActionEvent event)
     {
-        logger.debug("You want to join " + game.getName());
+        if(game != null) {
+            gameProvider.set(game);
+            joinGameManager.joinGame(userProvider.get(), game);
+            sceneManager.setIngameScene();
+        }
     }
 
-//    private void mouseLeftClickOnJoin(final @NonNull MouseEvent event) {
-//        if(event.getButton() == MouseButton.PRIMARY) {
-//            System.out.println("LeftClick on " + this.getId());
-//        }
-//    }
 }
