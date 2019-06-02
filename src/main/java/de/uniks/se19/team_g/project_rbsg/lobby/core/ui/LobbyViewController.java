@@ -11,9 +11,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.beans.binding.Bindings;
@@ -80,11 +77,10 @@ public class LobbyViewController implements RootController, Terminable
     @FXML
     private VBox chatContainer;
 
-    public LobbyViewController(SceneManager sceneManager, PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
     @Autowired
     ApplicationContext context;
 
-    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController, CreateGameFormBuilder createGameFormBuilder)
+    public LobbyViewController(SceneManager sceneManager, PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController, CreateGameFormBuilder createGameFormBuilder)
     {
         this.sceneManager = sceneManager;
 
