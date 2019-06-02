@@ -1,14 +1,15 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.PlayerListViewCell;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
@@ -26,10 +27,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -49,8 +52,14 @@ public class LobbyViewController implements RootController, Terminable
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final SceneManager sceneManager;
 
+    @FXML
+    public StackPane lobbyView;
+
     private ChatBuilder chatBuilder;
     private ChatController chatController;
+    private CreateGameFormBuilder createGameFormBuilder;
+
+    private Node gameForm;
 
     private static final int iconSize = 30;
 
@@ -72,6 +81,10 @@ public class LobbyViewController implements RootController, Terminable
     private VBox chatContainer;
 
     public LobbyViewController(SceneManager sceneManager, PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
+    @Autowired
+    ApplicationContext context;
+
+    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController, CreateGameFormBuilder createGameFormBuilder)
     {
         this.sceneManager = sceneManager;
 
@@ -79,6 +92,8 @@ public class LobbyViewController implements RootController, Terminable
 
         this.playerManager = playerManager;
         this.gameManager = gameManager;
+
+        this.createGameFormBuilder = createGameFormBuilder;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
@@ -196,8 +211,20 @@ public class LobbyViewController implements RootController, Terminable
 
     public void createGameButtonClicked(ActionEvent event)
     {
-        //TODO: Create a game
-        logger.debug("Creat Game button Clicked");
+        if (this.gameForm == null) {
+            try {
+                this.gameForm = this.createGameFormBuilder.getCreateGameForm();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
+            lobbyView.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+            this.gameForm.setVisible(true);
+        }
+
     }
 
     public void terminate()

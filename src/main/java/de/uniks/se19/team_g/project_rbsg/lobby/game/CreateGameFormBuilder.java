@@ -29,7 +29,9 @@ public class CreateGameFormBuilder {
             createGameForm = fxmlLoader.load();
             final CreateGameController createGameController = fxmlLoader.getController();
             createGameController.init();
+            createGameController.setRootNode(createGameForm);
         }
+        createGameForm.setVisible(true);
         return createGameForm;
     }
 }

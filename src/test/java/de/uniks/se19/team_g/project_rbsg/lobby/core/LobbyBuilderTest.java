@@ -7,13 +7,14 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -90,7 +91,7 @@ public class LobbyBuilderTest extends ApplicationTest
             return new LobbyViewController(new SceneManager(new Terminator()),
                                            new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
                                            new GameManager(new RESTClient(new RestTemplate()), userProvider()),
-                                           new SystemMessageManager(new WebSocketClient()), chatController())
+                                           new SystemMessageManager(new WebSocketClient()), chatController(), new CreateGameFormBuilder(new FXMLLoader()))
             {
                 @Override
                 public void init()
