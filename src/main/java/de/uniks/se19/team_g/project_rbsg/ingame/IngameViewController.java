@@ -34,8 +34,8 @@ public class IngameViewController {
     Pane statusPane;
     @FXML
     Pane bottomLinePane;
-    @FXML
-    Pane chatLogPane;
+    //@FXML
+    //Pane chatLogPane;
     @FXML
     Pane leaveGamePane;
 
