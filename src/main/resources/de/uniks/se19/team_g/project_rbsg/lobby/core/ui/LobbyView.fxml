@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane styleClass="body" stylesheets="@lobby.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
+<StackPane styleClass="body" stylesheets="@lobby.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController" fx:id ="lobbyView">
    <children>
        <GridPane fx:id="mainGridPane" maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="mainGridPane" StackPane.alignment="TOP_LEFT">
            <columnConstraints>

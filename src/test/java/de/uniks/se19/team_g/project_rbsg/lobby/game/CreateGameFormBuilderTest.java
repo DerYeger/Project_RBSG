@@ -1,9 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +16,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, CreateGameFormBuilder.class, CreateGameController.class, GameCreator.class})
+@ContextConfiguration(classes = {JavaConfig.class, CreateGameFormBuilder.class, CreateGameController.class, GameCreator.class, UserProvider.class})
 public class CreateGameFormBuilderTest extends ApplicationTest {
 
     @Autowired
