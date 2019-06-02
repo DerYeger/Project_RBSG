@@ -6,6 +6,7 @@
     /*-buttonSelected-color: #03DAC5;*/
     -primaryThree-color: #868cfc;
     -backgroundTransparent-color: rgba(18,18,18,0.8);
+    -backgroundMoreTransparent-color: rgba(18,18,18,0.6);
     -textLightBackground-color: #000000;
     -textDarkBackground-color: #FFFFFF;
 }
@@ -18,12 +19,14 @@
 }
 
 .gameTitle {
-    -fx-font-size: 26px;
+    -fx-font-family: Retronoid;
+    -fx-font-size: 35px;
     -fx-font-weight: bold;
     -fx-padding: 5px;
-    -fx-opacity: 1;
-    -fx-background-color: -backgroundTransparent-color;
+    -fx-background-color: -backgroundMoreTransparent-color;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+    /*-fx-background-color: transparent;*/
+    /*-fx-text-fill: black;*/
 }
 /*LABEL STYLE*/
 
@@ -58,7 +61,7 @@
 
 .iconButton {
     -fx-pref-width: 40px;
-    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
     -fx-max-width: 40px;
     -fx-max-height: 40px;
     -fx-padding: 0;
@@ -70,7 +73,7 @@
 
 .languageButton:disabled {
     -fx-background-color: -primaryThree-color;
-    -fx-text-fill: -textDarkBackground-color;
+    -fx-text-fill: -textLightBackground-color;
     -fx-opacity: 1;
 }
 /*BUTTON STYLES*/

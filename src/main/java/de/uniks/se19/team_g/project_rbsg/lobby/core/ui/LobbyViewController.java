@@ -16,6 +16,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -135,6 +136,8 @@ public class LobbyViewController implements Rincled
         setBackgroundImage();
 
         updateLabels();
+
+        Font.loadFont(String.valueOf(getClass().getResource("Font/Retronoid.ttf")), 10);
     }
 
     private void updateMusicButtonIcons()
