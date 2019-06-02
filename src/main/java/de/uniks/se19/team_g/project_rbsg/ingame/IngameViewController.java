@@ -7,7 +7,9 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,9 +94,17 @@ public class IngameViewController {
     }
 
     private void leaveGameAction(ActionEvent actionEvent) { //back to lobby, close WS
-        // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-        sceneManager.setLobbyScene();
-        gameProvider.clear();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Leave Game");
+        alert.setHeaderText("Are you sure you want to exit?");
+        alert.showAndWait();
+        if (alert.getResult().equals(ButtonType.OK)) {
+            // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
+            sceneManager.setLobbyScene();
+            gameProvider.clear();
+        } else {
+            actionEvent.consume();
+        }
     }
 
 }
