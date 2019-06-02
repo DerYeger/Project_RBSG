@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.ChuckNorrisCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.LeaveCommandHandler;
@@ -95,6 +96,7 @@ public class ChatController {
     private void addChatCommandHandlers() {
         chatCommandHandlers.put(WhisperCommandHandler.COMMAND, new WhisperCommandHandler(this));
         chatCommandHandlers.put(LeaveCommandHandler.COMMAND, new LeaveCommandHandler(this));
+        chatCommandHandlers.put(ChuckNorrisCommandHandler.COMMAND, new ChuckNorrisCommandHandler(this));
     }
 
     private void addGeneralTab() throws IOException {
