@@ -4,7 +4,8 @@
 }
 
 .tab-pane {
-    -fx-background-color: #121212;
+    -fx-background-color: -backgroundTransparent-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
 
     -fx-border-color: #fff;
     -fx-border-radius: 2;
@@ -16,6 +17,7 @@
 .tab-pane * {
     -fx-border-radius: 0;
     -fx-border-width: 0;
+    -fx-padding: 0;
 }
 .tab-pane .tab-header-area {
     -fx-padding: 0;
@@ -30,6 +32,8 @@
     -fx-background-radius: 0;
 
     -fx-focus-traversable: false;
+
+    -fx-padding: 4;
 }
 
 .tab:selected {
@@ -51,8 +55,9 @@
 .messageArea * {
     -fx-text-fill: #fff; /*temporary until general css is ready*/
 
-    -fx-background-color: #212121;
+    -fx-background-color: transparent;
     -fx-background-radius: 0;
+    -fx-padding: 2;
 }
 
 .scroll-bar .thumb {
@@ -62,15 +67,16 @@
 .inputField {
     -fx-text-fill: #fff; /*temporary until general css is ready*/
 
-    -fx-background-color: #424242;
+    -fx-background-color: rgba(255, 255, 255, 0.09);
     -fx-background-radius: 0;
 
-    -fx-padding: 5;
+    -fx-padding: 6;
+}
+
+.inputField:disabled {
+    -fx-background-color: rgba(255, 100, 100, 0.8);
 }
 
 .chatChannelContainer {
-    -fx-background-color: #121212;
-
-    -fx-padding: 0 0 1 0;
-    -fx-spacing: 1;
+    -fx-background-color: transparent;
 }
