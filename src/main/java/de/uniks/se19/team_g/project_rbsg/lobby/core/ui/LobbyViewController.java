@@ -108,7 +108,7 @@ public class LobbyViewController implements Rincled
         updateMusicButtonIcons();
 
 
-        //For ui Desgin
+        //For UI/UX Design
 //        lobby.addPlayer(new Player("Hallo1"));
 //        lobby.addPlayer(new Player("Hallo2"));
 //        lobby.addPlayer(new Player("Hallo3"));
@@ -137,7 +137,9 @@ public class LobbyViewController implements Rincled
 
         updateLabels();
 
-        Font.loadFont(String.valueOf(getClass().getResource("Font/Retronoid.ttf")), 10);
+        Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 10);
     }
 
     private void updateMusicButtonIcons()
