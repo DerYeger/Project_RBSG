@@ -4,10 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +31,12 @@ public class IngameViewController {
     Pane statusPane;
     @FXML
     Pane bottomLinePane;
+    /*
     @FXML
     Pane chatLogPane;
-    @FXML
-    Pane leaveGamePane;
+    */
 
     private StatusBarBuilder statusBar;
-    private LeaveGameButtonBuilder leaveGameButton;
     private PlayerCardBuilder playerCard;
     private PlayerCardBuilder playerCard2;
     private PlayerCardBuilder playerCard3;
@@ -60,12 +56,10 @@ public class IngameViewController {
     public void init() {
         initBuilders();
         setNodes();
-        initLeaveGameButton();
     }
 
     private void initBuilders() {
         statusBar = new StatusBarBuilder(gameProvider.get().getNeededPlayer() - 1);
-        leaveGameButton = new LeaveGameButtonBuilder();
         playerCard = new PlayerCardBuilder();
         playerCard2 = new PlayerCardBuilder();
         if(gameProvider.get().getNeededPlayer() == 4) {
@@ -82,19 +76,6 @@ public class IngameViewController {
             player3Pane.getChildren().add(playerCard3.buildPlayerCard());
             player4Pane.getChildren().add(playerCard4.buildPlayerCard());
         }
-    }
-
-    private void initLeaveGameButton() {
-        Node leaveGameNode = leaveGameButton.buildLeaveGame();
-        leaveGamePane.getChildren().add(leaveGameNode);
-        Button leaveGameButton = (Button) leaveGameNode;
-        leaveGameButton.setOnAction(this::leaveGameAction);
-    }
-
-    private void leaveGameAction(ActionEvent actionEvent) { //back to lobby, close WS
-        // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-        sceneManager.setLobbyScene();
-        gameProvider.clear();
     }
 
 }
