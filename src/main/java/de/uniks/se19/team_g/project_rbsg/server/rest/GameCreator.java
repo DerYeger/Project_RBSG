@@ -30,7 +30,7 @@ public class GameCreator {
         HttpHeaders header = new HttpHeaders();
 
         HashMap<String, Object> requestBody = new HashMap<>();
-        requestBody.put("neededPlayer", game.getNumberOfPlayers());
+        requestBody.put("neededPlayer", game.getNeededPlayer());
 
         if (user != null) {
             header.set("userKey", user.getUserKey());

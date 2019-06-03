@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
@@ -35,6 +36,9 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminator.register(this);
     }
 
+    @Autowired
+    private IngameSceneBuilder ingameSceneBuilder;
+
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
 
@@ -66,7 +70,24 @@ public class SceneManager implements ApplicationContextAware, Terminable {
             final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
             stage.setScene(lobbyScene);
         } catch (Exception e) {
-            logger.error("Unable to set login scene");
+            System.out.println("Unable to set lobby scene");
+            e.printStackTrace();
+        }
+    }
+
+    public void setIngameScene() {
+        if (stage == null) {
+            System.out.println("Not yet initialised");
+            return;
+        }
+        try {
+            final Scene ingameScene = ingameSceneBuilder.getIngameScene();
+            stage.setMinHeight(670);
+            stage.setMinWidth(900);
+            stage.setResizable(true);
+            stage.setScene(ingameScene);
+        } catch (Exception e) {
+            System.out.println("Unable to set ingame scene");
             e.printStackTrace();
         }
     }

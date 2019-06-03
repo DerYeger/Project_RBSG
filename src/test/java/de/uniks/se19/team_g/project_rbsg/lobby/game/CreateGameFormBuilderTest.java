@@ -16,7 +16,13 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JavaConfig.class, CreateGameFormBuilder.class, CreateGameController.class, GameCreator.class, UserProvider.class})
+@ContextConfiguration(classes = {
+        JavaConfig.class,
+        CreateGameFormBuilder.class,
+        CreateGameController.class,
+        GameCreator.class,
+        UserProvider.class
+})
 public class CreateGameFormBuilderTest extends ApplicationTest {
 
     @Autowired

@@ -56,7 +56,6 @@ public class ProjectRbsgFXApplication extends Application {
     public void start(@NotNull final Stage primaryStage) throws IOException {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
-        primaryStage.setResizable(false);
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)

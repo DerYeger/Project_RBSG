@@ -2,18 +2,30 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.LoginFormController;
+import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.application.Platform;
@@ -52,10 +64,24 @@ import static org.junit.Assert.assertNotNull;
         JavaConfig.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
+        LobbySceneBuilder.class,
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
         SceneManager.class,
         Terminator.class,
+        GameProvider.class,
+        UserProvider.class,
+        SceneManager.class,
+        IngameSceneBuilder.class,
+        IngameViewBuilder.class,
+        IngameViewController.class,
+        LoginFormController.class,
+        LoginFormBuilder.class,
+        LoginManager.class,
+        RegistrationManager.class,
+        SplashImageBuilder.class,
+        LoginSceneBuilder.class,
+        JoinGameManager.class,
         CreateGameFormBuilder.class
 })
 public class PlayerListTest extends ApplicationTest

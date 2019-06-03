@@ -2,12 +2,12 @@ package de.uniks.se19.team_g.project_rbsg.lobby.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.ChatCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.WhisperCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatChannelBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatTabBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
