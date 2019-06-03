@@ -52,6 +52,9 @@ public class LobbyViewController implements RootController, Terminable
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final SceneManager sceneManager;
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final JoinGameManager joinGameManager;
 
     @FXML
     public StackPane lobbyView;
@@ -81,17 +84,17 @@ public class LobbyViewController implements RootController, Terminable
     @FXML
     private VBox chatContainer;
 
-    private final GameProvider gameProvider;
-    private final UserProvider userProvider;
-    private final SceneManager sceneManager;
-    private final JoinGameManager joinGameManager;
-
-    public LobbyViewController(SceneManager sceneManager, PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController, CreateGameFormBuilder createGameFormBuilder)
     @Autowired
-    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
+    public LobbyViewController(@NonNull final GameProvider gameProvider,
+                               @NonNull final UserProvider userProvider,
+                               @NonNull final SceneManager sceneManager,
+                               @NonNull final JoinGameManager joinGameManager,
+                               @NonNull final PlayerManager playerManager,
+                               @NonNull final GameManager gameManager,
+                               @NonNull final SystemMessageManager systemMessageManager,
+                               @NonNull final ChatController chatController,
+                               @NonNull final CreateGameFormBuilder createGameFormBuilder)
     {
-        this.sceneManager = sceneManager;
-
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
