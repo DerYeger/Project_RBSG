@@ -3,6 +3,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import javafx.application.Platform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.RestTemplate;
@@ -11,6 +13,8 @@ import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 public class ChuckNorrisCommandHandler implements ChatCommandHandler {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     final String uri = "https://api.chucknorris.io/jokes/random";
 
@@ -36,6 +40,7 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
                 .thenAccept(joke -> Platform.runLater(() -> jokeReturned((String)joke.get("value"), callback)))
                 .exceptionally(exception ->  {
                     callback.displayMessage(ChatController.SYSTEM, exception.getMessage());
+                    logger.debug(exception.getMessage());
                     return null;
                 });
 
