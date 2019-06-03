@@ -2,7 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
 
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -24,11 +23,12 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
 
     private final ChatController chatController;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate;
 
 
-    public ChuckNorrisCommandHandler(@NonNull final ChatController chatController) {
+    public ChuckNorrisCommandHandler(@NonNull final ChatController chatController, @NonNull RestTemplate restTemplate) {
         this.chatController = chatController;
+        this.restTemplate = restTemplate;
     }
 
 
@@ -37,7 +37,7 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
 
         final CompletableFuture<HashMap<String, Object>> answer = getChuckNorrisJoke();
         answer
-                .thenAccept(joke -> Platform.runLater(() -> jokeReturned((String)joke.get("value"), callback)))
+                .thenAccept(joke -> jokeReturned((String)joke.get("value"), callback))
                 .exceptionally(exception ->  {
                     callback.displayMessage(ChatController.SYSTEM, exception.getMessage());
                     logger.debug(exception.getMessage());
@@ -51,6 +51,6 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
     }
 
     private void jokeReturned(String joke, @NonNull final ChatChannelController callback) {
-        chatController.sendMessage(callback, ChatController.GENERAL_CHANNEL_NAME, joke);
+        chatController.sendMessage(callback, callback.getChannel(), joke);
     }
 }

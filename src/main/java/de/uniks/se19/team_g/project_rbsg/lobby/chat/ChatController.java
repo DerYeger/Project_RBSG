@@ -15,6 +15,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -96,7 +97,7 @@ public class ChatController {
     private void addChatCommandHandlers() {
         chatCommandHandlers.put(WhisperCommandHandler.COMMAND, new WhisperCommandHandler(this));
         chatCommandHandlers.put(LeaveCommandHandler.COMMAND, new LeaveCommandHandler(this));
-        chatCommandHandlers.put(ChuckNorrisCommandHandler.COMMAND, new ChuckNorrisCommandHandler(this));
+        chatCommandHandlers.put(ChuckNorrisCommandHandler.COMMAND, new ChuckNorrisCommandHandler(this, new RestTemplate()));
     }
 
     private void addGeneralTab() throws IOException {
