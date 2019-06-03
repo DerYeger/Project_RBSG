@@ -3,8 +3,12 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -55,7 +59,12 @@ import java.util.Set;
         UserProvider.class,
         TitleFormBuilder.class,
         TitleFormController.class,
-        LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class
+        LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
+        IngameSceneBuilder.class,
+        IngameViewBuilder.class,
+        IngameViewController.class,
+        GameProvider.class,
+        UserProvider.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestInvalidCredentialsError extends ApplicationTest {

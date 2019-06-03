@@ -1,17 +1,19 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.PlayerListViewCell;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,10 +25,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -45,8 +49,14 @@ public class LobbyViewController
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @FXML
+    public StackPane lobbyView;
+
     private ChatBuilder chatBuilder;
     private ChatController chatController;
+    private CreateGameFormBuilder createGameFormBuilder;
+
+    private Node gameForm;
 
     private static final int iconSize = 30;
 
@@ -67,15 +77,28 @@ public class LobbyViewController
     @FXML
     private VBox chatContainer;
 
-    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final SceneManager sceneManager;
+    private final JoinGameManager joinGameManager;
+
+    @Autowired
+    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
     {
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
         this.gameManager = gameManager;
 
+        this.createGameFormBuilder = createGameFormBuilder;
+
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
+
+        this.gameProvider = gameProvider;
+        this.userProvider = userProvider;
+        this.sceneManager = sceneManager;
+        this.joinGameManager = joinGameManager;
     }
 
     public Lobby getLobby()
@@ -102,7 +125,7 @@ public class LobbyViewController
         lobbyTitle.textProperty().setValue("Advanced WASP War");
 
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
-        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell());
+        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
 
@@ -188,8 +211,20 @@ public class LobbyViewController
 
     public void createGameButtonClicked(ActionEvent event)
     {
-        //TODO: Create a game
-        logger.debug("Creat Game button Clicked");
+        if (this.gameForm == null) {
+            try {
+                this.gameForm = this.createGameFormBuilder.getCreateGameForm();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
+            lobbyView.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+            this.gameForm.setVisible(true);
+        }
+
     }
 
     public void terminate()
