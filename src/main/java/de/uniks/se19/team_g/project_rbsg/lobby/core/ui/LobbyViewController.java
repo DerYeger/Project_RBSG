@@ -125,14 +125,14 @@ public class LobbyViewController implements Rincled
         setCreateGameIcons();
 
         //For ui Desgin
-        lobby.addPlayer(new Player("Hallo1"));
-        lobby.addPlayer(new Player("Hallo2"));
-        lobby.addPlayer(new Player("Hallo3"));
-        lobby.addPlayer(new Player("Hallo4"));
-        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
-        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
+//        lobby.addPlayer(new Player("Hallo1"));
+//        lobby.addPlayer(new Player("Hallo2"));
+//        lobby.addPlayer(new Player("Hallo3"));
+//        lobby.addPlayer(new Player("Hallo4"));
+//        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
 
         withChatSupport();
 
