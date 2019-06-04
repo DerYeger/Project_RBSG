@@ -1,9 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -44,17 +46,21 @@ public class CreateGameController {
     private GameCreator gameCreator;
     private JoinGameManager joinGameManager;
     private Game game;
+
+    private int numberOfPlayers;
     private Node root;
     private UserProvider userProvider;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
 
-    private int numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
+    private final GameProvider gameProvider;
 
-    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager, @NonNull UserProvider userProvider){
-        this.gameCreator = ((gameCreator == null) ? new GameCreator(null) : gameCreator);
-        this.joinGameManager = ((joinGameManager == null) ? new JoinGameManager(null) : joinGameManager);
+    @Autowired
+    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager, @Nullable GameProvider gameProvider, @NonNull UserProvider userProvider){
+        this.gameCreator = gameCreator;
+        this.joinGameManager = joinGameManager;
+        this.gameProvider = gameProvider;
         this.userProvider = userProvider;
     }
 
@@ -96,8 +102,9 @@ public class CreateGameController {
             if(answer.get("status").equals("succes")){
                 HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
-                this.game.setGameId(gameId);
-                //this.joinGameManager.joinGame(userProvider.get(), game);
+                this.game.setId(gameId);
+                this.joinGameManager.joinGame(userProvider.get(), game);
+                gameProvider.set(game);
             } else if (answer.get("status").equals("failure")){
                 handleGameRequestErrors((String)answer.get("status"), "Fehler beim Erstellen des Spiels", (String)answer.get("message"));
 

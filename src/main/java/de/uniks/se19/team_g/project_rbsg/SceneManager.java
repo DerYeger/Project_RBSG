@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import javafx.scene.Scene;
@@ -23,6 +24,9 @@ public class SceneManager {
     @Autowired
     private LobbySceneBuilder lobbySceneBuilder;
 
+    @Autowired
+    private IngameSceneBuilder ingameSceneBuilder;
+
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setTitle(applicationName);
@@ -38,6 +42,7 @@ public class SceneManager {
         try {
             final Scene loginScene = loginSceneBuilder.getLoginScene();
             loginScene.getStylesheets().add(getClass().getResource("login-form.css").toExternalForm());
+            stage.setResizable(false);
             stage.setScene(loginScene);
         } catch (IOException e) {
             System.out.println("Unable to set login scene");
@@ -52,9 +57,27 @@ public class SceneManager {
         }
         try {
             final Scene lobbyScene = lobbySceneBuilder.getLobbyScene();
+            stage.setResizable(false);
             stage.setScene(lobbyScene);
         } catch (Exception e) {
-            System.out.println("Unable to set login scene");
+            System.out.println("Unable to set lobby scene");
+            e.printStackTrace();
+        }
+    }
+
+    public void setIngameScene() {
+        if (stage == null) {
+            System.out.println("Not yet initialised");
+            return;
+        }
+        try {
+            final Scene ingameScene = ingameSceneBuilder.getIngameScene();
+            stage.setMinHeight(670);
+            stage.setMinWidth(900);
+            stage.setResizable(true);
+            stage.setScene(ingameScene);
+        } catch (Exception e) {
+            System.out.println("Unable to set ingame scene");
             e.printStackTrace();
         }
     }
