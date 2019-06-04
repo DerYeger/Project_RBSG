@@ -3,7 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +12,10 @@ import java.io.IOException;
 
 /**
  * @author Jan Müller
- * Returns a Scene using a StackPane as the root node.
- * The StackPane uses the background provided by the passed SplashImageBuilder.
- * Its only child is the Node provided by the LoginFormBuilder.
+ * @edited Keanu Stückrad
+ * Returns a Scene using a VBox as the root node.
+ * The VBox uses the background provided by the passed SplashImageBuilder.
+ * Its children are the Nodes provided by the LoginFormBuilder and TitleFormBuilder.
  */
 @Component
 public class LoginSceneBuilder {
@@ -23,21 +24,22 @@ public class LoginSceneBuilder {
 
     private SplashImageBuilder splashImageBuilder;
     private LoginFormBuilder loginFormBuilder;
+    private TitleFormBuilder titleFormBuilder;
 
     @Autowired
-    public LoginSceneBuilder(@NotNull final SplashImageBuilder splashImageBuilder, @NotNull final LoginFormBuilder loginFormBuilder) {
+    public LoginSceneBuilder(@NotNull final SplashImageBuilder splashImageBuilder, @NotNull final LoginFormBuilder loginFormBuilder,  @NotNull final TitleFormBuilder titleFormBuilder) {
         this.splashImageBuilder = splashImageBuilder;
         this.loginFormBuilder = loginFormBuilder;
+        this.titleFormBuilder = titleFormBuilder;
     }
 
     public Scene getLoginScene() throws IOException {
         if (loginScene == null) {
-            final StackPane pane = new StackPane();
-            pane.setBackground(new Background(splashImageBuilder.getSplashImage()));
-            pane.setAlignment(Pos.CENTER);
-            pane.getChildren().add(loginFormBuilder.getLoginForm());
-
-            loginScene = new Scene(pane);
+            final VBox vBox = new VBox();
+            vBox.setAlignment(Pos.CENTER);
+            vBox.getChildren().addAll(titleFormBuilder.getTitleForm(), loginFormBuilder.getLoginForm());
+            vBox.setBackground(new Background(splashImageBuilder.getSplashImage()));
+            loginScene = new Scene(vBox);
         }
         return loginScene;
     }

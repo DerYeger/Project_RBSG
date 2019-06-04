@@ -1,10 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.system;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.DefaultSystemMessageHandler;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 

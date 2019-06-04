@@ -19,22 +19,24 @@ public class JoinGameManager {
     final String uri = "https://rbsg.uniks.de/api/game/";
 
     private RestTemplate restTemplate;
+    private final HttpHeaders header = new HttpHeaders();
 
     public JoinGameManager(@Nullable RestTemplate restTemplate){
         this.restTemplate = ((restTemplate == null) ? new RestTemplate() : restTemplate);
     }
 
     public CompletableFuture joinGame(@NonNull User user, @NonNull Game game){
-        HttpHeaders header = new HttpHeaders();
+
         header.set("userKey", user.getUserKey());
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(uri)
-                .queryParam(game.getGameId());
+                .queryParam(game.getId());
+        final String url = uriBuilder.toUriString().replace("?", "");
 
         HttpEntity<?> request = new HttpEntity<Object>("", header);
 
         return CompletableFuture.supplyAsync(() -> this.restTemplate.exchange(
-                uriBuilder.toUriString().replace("?", ""),
+                url,
                 HttpMethod.GET,
                 request,
                 String.class));

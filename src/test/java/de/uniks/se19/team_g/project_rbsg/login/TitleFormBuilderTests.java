@@ -7,11 +7,11 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +22,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
+
+/**
+ * @author  Keanu Stückrad
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -45,19 +49,15 @@ import java.io.IOException;
         GameProvider.class,
         UserProvider.class
 })
-public class LoginSceneBuilderTests extends ApplicationTest {
+public class TitleFormBuilderTests extends ApplicationTest {
 
     @Autowired
     private ApplicationContext context;
 
     @Test
-    public void testGetLoginScene() throws IOException {
-        final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
-        final TitleFormBuilder titleFormBuilder = context.getBean(TitleFormBuilder.class);
-        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder, titleFormBuilder).getLoginScene();
-        Assert.assertNotNull(scene);
-        Assert.assertNotNull(scene.getRoot());
-        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(loginFormBuilder.getLoginForm()));
-        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(titleFormBuilder.getTitleForm()));
+    public void testGetTitleForm() throws IOException {
+        final Node titleForm = context.getBean(TitleFormBuilder.class).getTitleForm();
+        Assert.assertNotNull(titleForm);
     }
 }
+
