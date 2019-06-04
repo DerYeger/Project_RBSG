@@ -45,15 +45,18 @@ import java.util.Map;
  */
 
 @RunWith(SpringJUnit4ClassRunner .class)
-@ContextConfiguration(classes = {JavaConfig.class,
-        LoginFormController.class,
+@ContextConfiguration(classes = {
+        JavaConfig.class,
         LoginFormBuilder.class,
+        LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginFormControllerTestSuccess.ContextConfiguration.class,
         LobbySceneBuilder.class,
         LobbyViewBuilder.class,
         UserProvider.class,
+        TitleFormBuilder.class,
+        TitleFormController.class,
+        LoginFormControllerTestSuccess.ContextConfiguration.class,
         IngameSceneBuilder.class,
         IngameViewBuilder.class,
         IngameViewController.class,
