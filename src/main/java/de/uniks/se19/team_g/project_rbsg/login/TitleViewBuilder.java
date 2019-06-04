@@ -14,7 +14,7 @@ import java.io.IOException;
 @Component
 public class TitleViewBuilder {
 
-    private Node titleForm;
+    private Node titleView;
 
     private FXMLLoader fxmlLoader;
 
@@ -24,13 +24,13 @@ public class TitleViewBuilder {
     }
 
     public Node getTitleForm() throws IOException {
-        if (titleForm == null) {
+        if (titleView == null) {
             fxmlLoader.setLocation(TitleViewBuilder.class.getResource("title-form.fxml"));
-            titleForm = fxmlLoader.load();
+            titleView = fxmlLoader.load();
             final TitleViewController titleFormController = fxmlLoader.getController();
             titleFormController.init();
         }
-        return titleForm;
+        return titleView;
     }
 
 }

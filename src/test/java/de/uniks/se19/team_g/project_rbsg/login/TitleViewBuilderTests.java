@@ -30,8 +30,8 @@ public class TitleViewBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetTitleForm() throws IOException {
-        final Node titleForm = context.getBean(TitleViewBuilder.class).getTitleForm();
-        Assert.assertNotNull(titleForm);
+        final Node titleView = context.getBean(TitleViewBuilder.class).getTitleForm();
+        Assert.assertNotNull(titleView);
     }
 }
 
