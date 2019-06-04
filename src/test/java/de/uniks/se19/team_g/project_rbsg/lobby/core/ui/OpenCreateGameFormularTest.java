@@ -13,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.scene.*;
@@ -58,9 +59,10 @@ import static org.junit.Assert.*;
         LoginSceneBuilder.class,
         JoinGameManager.class,
         CreateGameFormBuilder.class,
-        TitleFormBuilder.class,
-        TitleFormController.class,
-        CreateGameController.class
+        CreateGameController.class,
+        TitleViewBuilder.class,
+        TitleViewController.class,
+        Terminator.class
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {
