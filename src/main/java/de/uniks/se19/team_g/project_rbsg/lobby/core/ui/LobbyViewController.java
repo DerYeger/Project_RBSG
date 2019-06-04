@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -7,16 +8,19 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import io.rincl.*;
 import javafx.beans.binding.*;
-import javafx.beans.property.*;
 import javafx.event.*;
+import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 
 import java.io.*;
@@ -36,12 +40,17 @@ public class LobbyViewController implements Rincled
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @FXML
+    public StackPane lobbyView;
+
     private ChatBuilder chatBuilder;
     private ChatController chatController;
+    private CreateGameFormBuilder createGameFormBuilder;
+
+    private Node gameForm;
 
     private static final int iconSize = 30;
 
-    public StackPane mainStackPane;
     public Button soundButton;
     public Button logoutButton;
     public Button enButton;
@@ -55,17 +64,28 @@ public class LobbyViewController implements Rincled
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
 
-    public LobbyViewController(PlayerManager playerManager, GameManager gameManager, SystemMessageManager systemMessageManager, ChatController chatController)
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final SceneManager sceneManager;
+    private final JoinGameManager joinGameManager;
+
+    @Autowired
+    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
     {
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
         this.gameManager = gameManager;
 
+        this.createGameFormBuilder = createGameFormBuilder;
+
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
 
-
+        this.gameProvider = gameProvider;
+        this.userProvider = userProvider;
+        this.sceneManager = sceneManager;
+        this.joinGameManager = joinGameManager;
     }
 
     public Lobby getLobby()
@@ -92,7 +112,7 @@ public class LobbyViewController implements Rincled
         lobbyTitle.textProperty().setValue("Advanced WASP War");
 
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
-        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell());
+        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
 
@@ -180,8 +200,20 @@ public class LobbyViewController implements Rincled
 
     public void createGameButtonClicked(ActionEvent event)
     {
-        //TODO: Create a game
-        logger.debug("Creat Game button Clicked");
+        if (this.gameForm == null) {
+            try {
+                this.gameForm = this.createGameFormBuilder.getCreateGameForm();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
+            lobbyView.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+            this.gameForm.setVisible(true);
+        }
+
     }
 
     public void terminate()

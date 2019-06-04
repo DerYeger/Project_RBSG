@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;

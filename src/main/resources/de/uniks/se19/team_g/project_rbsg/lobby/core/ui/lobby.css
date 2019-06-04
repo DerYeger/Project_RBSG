@@ -109,3 +109,8 @@
     -fx-hgap: 10;
 }
 /*PLAYER CELL STYLE*/
+
+.createGamePopUp {
+    -fx-background-color: white;
+    -fx-opacity: 1;
+}

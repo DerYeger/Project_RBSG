@@ -2,8 +2,12 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 
@@ -42,14 +46,23 @@ import java.util.concurrent.CompletableFuture;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
-        LoginFormController.class,
         LoginFormBuilder.class,
+        LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginFormControllerTestHttpError.ContextConfiguration.class,
+        SceneManager.class,
         LobbySceneBuilder.class,
         LobbyViewBuilder.class,
-        UserProvider.class})
+        UserProvider.class,
+        TitleFormBuilder.class,
+        TitleFormController.class,
+        LoginFormControllerTestHttpError.ContextConfiguration.class,
+        IngameSceneBuilder.class,
+        IngameViewBuilder.class,
+        IngameViewController.class,
+        GameProvider.class,
+        UserProvider.class
+})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestHttpError extends ApplicationTest {
 
