@@ -1,6 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg;
 
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
@@ -43,6 +47,9 @@ public class ProjectRbsgFXApplication extends Application {
             applicationContext.registerBean(Parameters.class, this::getParameters);
             applicationContext.registerBean(HostServices.class, this::getHostServices);
         };
+
+        //Initialisiert den Resource Loader für Rincl (I18N)
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
 
         this.context = new SpringApplicationBuilder()
                 .sources(ProjectRbsgApplication.class)

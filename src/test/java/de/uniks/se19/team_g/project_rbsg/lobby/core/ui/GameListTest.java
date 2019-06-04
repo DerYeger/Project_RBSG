@@ -1,10 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
@@ -50,6 +54,31 @@ import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.server.rest.*;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
+import javafx.collections.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.stage.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.test.context.*;
+import org.springframework.context.*;
+import org.springframework.context.annotation.*;
+import org.springframework.lang.*;
+import org.springframework.test.context.*;
+import org.springframework.test.context.junit4.*;
+import org.springframework.web.client.*;
+import org.testfx.api.*;
+import org.testfx.framework.junit.*;
+
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Georg Siebert
@@ -87,9 +116,10 @@ public class GameListTest extends ApplicationTest
     @Autowired
     private ApplicationContext context;
 
-
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage)
+    {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
         final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(), 1280, 720);
@@ -100,59 +130,15 @@ public class GameListTest extends ApplicationTest
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() throws Exception
+    {
         FxToolkit.hideStage();
     }
 
-    @TestConfiguration
-    public static class ContextConfiguration {
-        @Bean
-        public GameManager gameManager() {
-            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
-                @Override
-                public Collection<Game> getGames() {
-                    ArrayList<Game> games = new ArrayList<>();
-                    games.add(new Game("1", "GameOfHello", 4, 2 ));
-                    games.add(new Game("2", "DefenceOfTheAncient", 10, 7));
-                    return games;
-                }
-            };
-        }
-
-        @Bean
-        public PlayerManager playerManager() {
-            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider()) {
-                @Override
-                public Collection<Player> getPlayers() {
-                    return new ArrayList<Player>();
-                }
-            };
-        }
-
-        @Bean
-        public SystemMessageManager systemMessageManager() {
-            return new SystemMessageManager(new WebSocketClient()) {
-                @Override
-                public void startSocket() {
-                }
-            };
-        }
-
-        @Bean
-        public ChatController chatController() {
-            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback()) {
-                @Override
-                public void init(@NonNull final TabPane chatPane)
-                {
-                }
-
-            };
-        }
-    }
-
-
     @Test
-    public void addItemsAndRemove() {
+    public void addItemsAndRemove()
+    {
+
         ListView<Game> gamesListView = lookup("#lobbyGamesListView").queryListView();
         assertNotNull(gamesListView);
 
@@ -204,6 +190,64 @@ public class GameListTest extends ApplicationTest
         sleep(500);
 
         assertEquals(2, games.size());
+    }
+
+    @TestConfiguration
+    public static class ContextConfiguration
+    {
+        @Bean
+        public GameManager gameManager()
+        {
+            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider())
+            {
+                @Override
+                public Collection<Game> getGames()
+                {
+                    ArrayList<Game> games = new ArrayList<>();
+                    games.add(new Game("1", "GameOfHello", 4, 2));
+                    games.add(new Game("2", "DefenceOfTheAncient", 10, 7));
+                    return games;
+                }
+            };
+        }
+
+        @Bean
+        public PlayerManager playerManager()
+        {
+            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider())
+            {
+                @Override
+                public Collection<Player> getPlayers()
+                {
+                    return new ArrayList<Player>();
+                }
+            };
+        }
+
+        @Bean
+        public SystemMessageManager systemMessageManager()
+        {
+            return new SystemMessageManager(new WebSocketClient())
+            {
+                @Override
+                public void startSocket()
+                {
+                }
+            };
+        }
+
+        @Bean
+        public ChatController chatController()
+        {
+            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
+            {
+                @Override
+                public void init(@NonNull final TabPane chatPane)
+                {
+                }
+
+            };
+        }
     }
 
 }

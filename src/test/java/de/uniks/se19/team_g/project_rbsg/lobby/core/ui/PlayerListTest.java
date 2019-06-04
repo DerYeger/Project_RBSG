@@ -25,6 +25,8 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
@@ -33,7 +35,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -91,6 +93,7 @@ public class PlayerListTest extends ApplicationTest
 
     @Override
     public void start(final Stage stage) {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
         final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene());
 
