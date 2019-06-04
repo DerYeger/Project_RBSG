@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * @edited Keanu Stückrad
  */
 @Controller
-public class LoginFormController {
+public class LoginFormController implements RootController {
 
     @FXML
     private TextField nameField;
@@ -59,6 +60,7 @@ public class LoginFormController {
 
     public void init() {
         addEventListeners();
+        setAsRootController();
     }
 
     private void addEventListeners() {
@@ -135,4 +137,8 @@ public class LoginFormController {
         alert.showAndWait();
     }
 
+    @Override
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
+    }
 }

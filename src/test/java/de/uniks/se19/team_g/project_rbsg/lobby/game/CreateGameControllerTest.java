@@ -1,10 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,9 +16,13 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.test.annotation.DirtiesContext;
@@ -33,7 +37,6 @@ import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes ={
-        JavaConfig.class,
         CreateGameController.class,
         CreateGameFormBuilder.class,
         UserProvider.class,
@@ -46,7 +49,18 @@ public class CreateGameControllerTest extends ApplicationTest {
         private CreateGameFormBuilder createGameFormBuilder;
 
         @TestConfiguration
-        static class ContextConfiguration {
+        static class ContextConfiguration implements ApplicationContextAware {
+
+            private ApplicationContext context;
+
+            @Bean
+            @Scope("prototype")
+            public FXMLLoader fxmlLoader()
+            {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setControllerFactory(this.context::getBean);
+                return fxmlLoader;
+            }
 
             @Bean
             public GameCreator gameCreator() {
@@ -63,6 +77,11 @@ public class CreateGameControllerTest extends ApplicationTest {
                         );
                     }
                 };
+            }
+
+            @Override
+            public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+                this.context = applicationContext;
             }
         }
     private Scene scene;

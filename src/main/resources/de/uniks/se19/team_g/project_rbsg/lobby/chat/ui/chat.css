@@ -4,7 +4,7 @@
 }
 
 .tab-pane {
-    -fx-background-color: -backgroundTransparent-color;
+    -fx-background-color: rgba(18,18,18,0.8);
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
 
     -fx-border-color: #fff;

@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.system;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
@@ -25,7 +24,6 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
         SystemMessageManagerTest.ContextConfiguration.class,
         SystemMessageManager.class
 })
