@@ -19,7 +19,7 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
 
     public static final String COMMAND = "chuckMe";
 
-    public static final String OPTION_ERROR_MESSAGE = "/chuckMe - Gets you a fine Chuck Norris joke";
+    public static final String ERROR_MESSAGE = "Error - Chuck Norris is to funny for you";
 
     private final ChatController chatController;
 
@@ -39,7 +39,7 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
         answer
                 .thenAccept(joke -> jokeReturned((String)joke.get("value"), callback))
                 .exceptionally(exception ->  {
-                    callback.displayMessage(ChatController.SYSTEM, exception.getMessage());
+                    callback.displayMessage(ChatController.SYSTEM, ERROR_MESSAGE);
                     logger.debug(exception.getMessage());
                     return null;
                 });
