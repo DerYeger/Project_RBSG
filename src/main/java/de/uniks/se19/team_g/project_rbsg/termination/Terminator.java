@@ -12,7 +12,6 @@ import java.util.HashSet;
 /**
  * @author Jan Müller
  */
-@Component
 public class Terminator {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());

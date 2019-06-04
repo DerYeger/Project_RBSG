@@ -5,7 +5,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -32,13 +31,6 @@ public class SceneManager implements ApplicationContextAware, Terminable {
     private Stage stage;
 
     private RootController rootController;
-
-    public SceneManager(@NonNull final Terminator terminator) {
-        terminator.register(this);
-    }
-
-    @Autowired
-    private IngameSceneBuilder ingameSceneBuilder;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
@@ -82,7 +74,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
             return;
         }
         try {
-            final Scene ingameScene = ingameSceneBuilder.getIngameScene();
+            final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
             stage.setMinHeight(670);
             stage.setMinWidth(900);
             stage.setResizable(true);
