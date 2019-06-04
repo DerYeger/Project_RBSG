@@ -10,16 +10,14 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +34,6 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -132,11 +129,9 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         Assert.assertNotNull(loginButton);
 
         clickOn(loginButton);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
-        Node alert = lookup("Login failed").query();
-        sleep(1000);
-        Assert.assertNotNull(alert);
+        final Label errorMessage = lookup("#errorMessage").query();
+        final String expectedErrorMessage = "org.springframework.web.client.RestClientResponseException: Service Unavailable";
+        Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 
@@ -147,13 +142,9 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         Assert.assertNotNull(registrationButton);
 
         clickOn(registrationButton);
-        sleep(1000);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        sleep(1000);
-        Assert.assertEquals(1, popDialogs.size());
-        Node alert = lookup("Registration failed").query();
-        sleep(2000);
-        Assert.assertNotNull(alert);
+        final Label errorMessage = lookup("#errorMessage").query();
+        final String expectedErrorMessage = "org.springframework.web.client.RestClientResponseException: Service Unavailable";
+        Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 

@@ -82,7 +82,7 @@ public class LoginFormController {
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
                         Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                        Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  exception.getMessage()));
+                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
         }
@@ -101,7 +101,7 @@ public class LoginFormController {
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
                 Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  message));
+                Platform.runLater(() -> this.errorMessage.setText(message));
                 System.out.println("message: " + message);
             }
         }
@@ -115,7 +115,7 @@ public class LoginFormController {
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
                         Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                        Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  exception.getMessage()));
+                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
         }
@@ -129,7 +129,7 @@ public class LoginFormController {
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
                 Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                Platform.runLater(() -> this.errorMessage.setText("Status: Failure\n" +  message));
+                Platform.runLater(() -> this.errorMessage.setText(message));
                 System.out.println("message: " + message);
             }
         }

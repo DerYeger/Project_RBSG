@@ -27,21 +27,26 @@
    <children>
       <HBox fx:id="errorMessageBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3">
          <children>
-            <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" styleClass="errorLabel" text="Label" />
+            <Label id="errorMessage" fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" styleClass="errorLabel" text="Label" />
          </children>
       </HBox>
-      <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <TextField id="name-field" fx:id="nameField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="30.0" />
          </GridPane.margin>
       </TextField>
+      <PasswordField id="password-field" fx:id="passwordField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="30.0" />
+         </GridPane.margin>
+      </PasswordField>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
          <children>
-            <Button fx:id="loginButton" mnemonicParsing="false" text="Login">
+            <Button id="login-button" fx:id="loginButton" mnemonicParsing="false" text="Login">
                <GridPane.margin>
                   <Insets bottom="30.0" />
                </GridPane.margin></Button>
-            <Button fx:id="registerButton" mnemonicParsing="false" text="+">
+            <Button id="registration-button" fx:id="registerButton" mnemonicParsing="false" text="+">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -51,11 +56,6 @@
             <Insets bottom="30.0" right="30.0" />
          </GridPane.margin>
       </HBox>
-      <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets right="30.0" />
-         </GridPane.margin>
-      </PasswordField>
       <ImageView fitHeight="62.0" fitWidth="60.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <image>
             <Image url="@account.png" />
