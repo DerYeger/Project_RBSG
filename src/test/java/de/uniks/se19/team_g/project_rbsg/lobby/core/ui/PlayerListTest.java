@@ -24,6 +24,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.application.Platform;
@@ -65,6 +66,8 @@ import static org.junit.Assert.assertNotNull;
         LobbySceneBuilder.class,
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
+        SceneManager.class,
+        Terminator.class,
         GameProvider.class,
         UserProvider.class,
         SceneManager.class,

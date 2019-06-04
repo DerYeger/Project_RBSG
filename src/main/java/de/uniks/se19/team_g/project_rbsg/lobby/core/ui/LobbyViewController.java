@@ -1,29 +1,42 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.server.rest.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import io.rincl.*;
-import javafx.beans.binding.*;
-import javafx.event.*;
-import javafx.fxml.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.stereotype.*;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -32,13 +45,17 @@ import java.util.*;
 
 
 @Component
-public class LobbyViewController implements Rincled
+public class LobbyViewController implements RootController, Terminable, Rincled
 {
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final SceneManager sceneManager;
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final JoinGameManager joinGameManager;
 
     @FXML
     public StackPane lobbyView;
@@ -64,13 +81,16 @@ public class LobbyViewController implements Rincled
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
 
-    private final GameProvider gameProvider;
-    private final UserProvider userProvider;
-    private final SceneManager sceneManager;
-    private final JoinGameManager joinGameManager;
-
     @Autowired
-    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
+    public LobbyViewController(@NonNull final GameProvider gameProvider,
+                               @NonNull final UserProvider userProvider,
+                               @NonNull final SceneManager sceneManager,
+                               @NonNull final JoinGameManager joinGameManager,
+                               @NonNull final PlayerManager playerManager,
+                               @NonNull final GameManager gameManager,
+                               @NonNull final SystemMessageManager systemMessageManager,
+                               @NonNull final ChatController chatController,
+                               @NonNull final CreateGameFormBuilder createGameFormBuilder)
     {
         this.lobby = new Lobby();
 
@@ -137,6 +157,8 @@ public class LobbyViewController implements Rincled
         withChatSupport();
 
         updateLabels();
+
+        setAsRootController();
     }
 
     private void configureSystemMessageManager()
@@ -218,7 +240,13 @@ public class LobbyViewController implements Rincled
 
     public void terminate()
     {
+        chatController.terminate();
         lobby.getSystemMessageManager().stopSocket();
+        logger.debug("Terminated " + this);
+    }
+
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
     }
 
     private void updateLabels()

@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,6 +43,7 @@ import org.testfx.framework.junit.ApplicationTest;
         IngameViewController.class,
         UserProvider.class,
         IngameViewTests.ContextConfiguration.class,
+        Terminator.class,
         TitleViewBuilder.class,
         TitleViewController.class
 })

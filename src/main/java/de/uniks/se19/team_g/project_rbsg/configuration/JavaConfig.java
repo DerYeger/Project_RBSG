@@ -1,5 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.model.UserManager;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.fxml.FXMLLoader;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -7,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -21,6 +25,13 @@ public class JavaConfig implements ApplicationContextAware
 {
 
     private ApplicationContext context;
+
+    @Bean
+    public Terminator terminator() {
+        return new Terminator()
+                .register(context.getBean(SceneManager.class))
+                .register(context.getBean(UserManager.class));
+    }
 
     @Bean
     @Scope("prototype")

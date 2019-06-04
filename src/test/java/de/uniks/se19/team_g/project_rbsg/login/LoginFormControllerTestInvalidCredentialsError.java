@@ -13,7 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,9 +25,13 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
@@ -48,7 +52,7 @@ import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner .class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
+        LoginFormController.class,
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
@@ -75,7 +79,18 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
     private static boolean switchedToLobby = false;
 
     @TestConfiguration
-    static class ContextConfiguration {
+    static class ContextConfiguration  implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
         @Bean
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate() {
@@ -114,6 +129,11 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
                     switchedToLobby = true;
                 }
             };
+        }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
         }
     }
 
