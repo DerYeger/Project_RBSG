@@ -5,10 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormController;
-import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
@@ -78,7 +75,9 @@ import static org.junit.Assert.assertNotNull;
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
         JoinGameManager.class,
-        CreateGameFormBuilder.class
+        CreateGameFormBuilder.class,
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class GameListTest extends ApplicationTest
 {

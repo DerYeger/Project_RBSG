@@ -4,10 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormController;
-import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -44,7 +41,9 @@ import org.testfx.framework.junit.ApplicationTest;
         IngameViewBuilder.class,
         IngameViewController.class,
         UserProvider.class,
-        IngameViewTests.ContextConfiguration.class
+        IngameViewTests.ContextConfiguration.class,
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class IngameViewTests extends ApplicationTest {
 
