@@ -37,6 +37,8 @@ import java.io.IOException;
         LoginManager.class,
         RegistrationManager.class,
         UserProvider.class,
+        TitleViewBuilder.class,
+        TitleViewController.class,
         IngameSceneBuilder.class,
         IngameViewBuilder.class,
         IngameViewController.class,
