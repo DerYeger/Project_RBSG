@@ -30,7 +30,7 @@ public class JoinGameManager {
         header.set("userKey", user.getUserKey());
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(uri)
-                .queryParam(game.getGameId());
+                .queryParam(game.getId());
         final String url = uriBuilder.toUriString().replace("?", "");
 
         HttpEntity<?> request = new HttpEntity<Object>("", header);

@@ -34,9 +34,7 @@ public class JoinGameManagerTest {
         );
         final User testUser = new User("Juri", "geheim");
         testUser.setUserKey("a1292282-0418-4b00-bd4a-97982bee7faf");
-        final Game testGame = new Game("SuperGame", 4);
-        testGame.setGameId("5ce6e24550487200013b9d19");
-
+        final Game testGame = new Game("5ce6e24550487200013b9d19", "SuperGame", 4, 1);
         CompletableFuture<ResponseEntity<String>> joinedGame = joinGameManager.joinGame(testUser, testGame);
         AtomicReference<String> status = new AtomicReference<>();
         try {

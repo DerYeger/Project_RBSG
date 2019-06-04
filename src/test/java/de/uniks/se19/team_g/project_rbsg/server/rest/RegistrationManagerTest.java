@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.lang.Nullable;

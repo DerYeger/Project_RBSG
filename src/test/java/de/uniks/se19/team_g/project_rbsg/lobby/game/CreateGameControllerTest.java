@@ -32,7 +32,13 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes ={JavaConfig.class, CreateGameController.class, CreateGameFormBuilder.class, UserProvider.class, CreateGameControllerTest.ContextConfiguration.class})
+@ContextConfiguration(classes ={
+        JavaConfig.class,
+        CreateGameController.class,
+        CreateGameFormBuilder.class,
+        UserProvider.class,
+        CreateGameControllerTest.ContextConfiguration.class
+})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest {
 
