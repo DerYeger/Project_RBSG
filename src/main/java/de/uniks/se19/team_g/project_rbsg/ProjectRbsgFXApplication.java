@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.application.Application;
