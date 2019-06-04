@@ -27,7 +27,6 @@ public class JavaConfig implements ApplicationContextAware
     private ApplicationContext context;
 
     @Bean
-    @Lazy
     public Terminator terminator() {
         return new Terminator()
                 .register(context.getBean(SceneManager.class))

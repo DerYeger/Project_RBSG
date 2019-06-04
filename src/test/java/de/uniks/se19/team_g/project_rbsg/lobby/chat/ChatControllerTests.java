@@ -2,7 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.lobby.chat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.LeaveCommandHandler;
@@ -38,7 +37,6 @@ import java.util.concurrent.TimeUnit;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
         ChatControllerTests.ContextConfiguration.class,
         ChatController.class,
         UserProvider.class,
