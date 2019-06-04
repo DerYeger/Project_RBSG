@@ -13,15 +13,10 @@ public class LobbySceneBuilder {
     @Autowired
     private LobbyViewBuilder lobbyViewBuilder;
 
-    private Scene lobbyScene;
-
     @NonNull
     public Scene getLobbyScene() throws Exception {
-        if (lobbyScene == null) {
-            final VBox parent = new VBox(lobbyViewBuilder.buildLobbyScene());
-            lobbyScene = new Scene(parent);
-        }
-        return lobbyScene;
+        final VBox parent = new VBox(lobbyViewBuilder.buildLobbyScene());
+        return new Scene(parent);
     }
 
 

@@ -17,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -129,7 +130,10 @@ public class LobbyViewController
 
         configureSystemMessageManager();
 
+        lobby.clearPlayers();
         lobby.addAllPlayer(playerManager.getPlayers());
+
+        lobby.clearGames();
         lobby.addAllGames(gameManager.getGames());
 
 
@@ -207,6 +211,8 @@ public class LobbyViewController
             chatContainer.getChildren().add(chatNode);
             chatController = chatBuilder.getChatController();
         }
+
+
     }
 
     public void createGameButtonClicked(ActionEvent event)

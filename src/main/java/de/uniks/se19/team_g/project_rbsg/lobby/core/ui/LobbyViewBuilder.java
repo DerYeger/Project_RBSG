@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.lang.NonNull;
@@ -13,33 +14,39 @@ import java.io.IOException;
 @Component
 public class LobbyViewBuilder
 {
-    private Node lobbyView;
-    private FXMLLoader fxmlLoader;
     private LobbyViewController lobbyViewController;
+    private FXMLLoaderFactory loaderFactory;
 
     public LobbyViewController getLobbyViewController() {
         return lobbyViewController;
     }
 
-    public LobbyViewBuilder(FXMLLoader fxmlLoader) {
-        this.fxmlLoader = fxmlLoader;
+    public LobbyViewBuilder(FXMLLoaderFactory loaderFactory) {
+        this.loaderFactory = loaderFactory;
+    }
+
+    private FXMLLoader getLoader() {
+        FXMLLoader loader = loaderFactory.createLoader();
+        loader.setLocation(getClass().getResource("LobbyView.fxml"));
+
+        return loader;
     }
 
     public @NonNull Node buildLobbyScene() {
-        if(lobbyView == null) {
-            fxmlLoader.setLocation(getClass().getResource("LobbyView.fxml"));
-            try
+        FXMLLoader fxmlLoader = getLoader();
+        Node lobbyView;
+        try
             {
                 lobbyView = fxmlLoader.load();
             }
             catch (IOException e)
             {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
             lobbyViewController = fxmlLoader.getController();
             lobbyViewController.init();
-        }
+
         return lobbyView;
     }
 }
