@@ -12,22 +12,22 @@ import java.io.IOException;
  */
 
 @Component
-public class TitleFormBuilder {
+public class TitleViewBuilder {
 
     private Node titleForm;
 
     private FXMLLoader fxmlLoader;
 
     @Autowired
-    public TitleFormBuilder(FXMLLoader fxmlLoader) {
+    public TitleViewBuilder(FXMLLoader fxmlLoader) {
         this.fxmlLoader = fxmlLoader;
     }
 
     public Node getTitleForm() throws IOException {
         if (titleForm == null) {
-            fxmlLoader.setLocation(TitleFormBuilder.class.getResource("title-form.fxml"));
+            fxmlLoader.setLocation(TitleViewBuilder.class.getResource("title-form.fxml"));
             titleForm = fxmlLoader.load();
-            final TitleFormController titleFormController = fxmlLoader.getController();
+            final TitleViewController titleFormController = fxmlLoader.getController();
             titleFormController.init();
         }
         return titleForm;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
  */
 
 @Controller
-public class TitleFormController {
+public class TitleViewController {
 
     @FXML
     Label subtitle;

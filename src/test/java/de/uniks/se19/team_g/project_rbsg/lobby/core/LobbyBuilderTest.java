@@ -72,8 +72,8 @@ import static org.junit.Assert.assertNotNull;
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
         RESTClient.class,
-        TitleFormBuilder.class,
-        TitleFormController.class
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
