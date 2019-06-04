@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import io.rincl.*;
 import javafx.beans.binding.*;
+import javafx.beans.property.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -24,6 +25,7 @@ import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 
 import java.io.*;
+import java.sql.*;
 import java.util.*;
 
 /**
@@ -34,14 +36,18 @@ import java.util.*;
 @Component
 public class LobbyViewController implements Rincled
 {
+    private static final int iconSize = 30;
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @FXML
-    public StackPane lobbyView;
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final SceneManager sceneManager;
+    private final JoinGameManager joinGameManager;
+
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -49,8 +55,10 @@ public class LobbyViewController implements Rincled
 
     private Node gameForm;
 
-    private static final int iconSize = 30;
+    private SimpleObjectProperty<Locale> currentLocale;
 
+
+    public StackPane mainStackPane;
     public Button soundButton;
     public Button logoutButton;
     public Button enButton;
@@ -64,10 +72,6 @@ public class LobbyViewController implements Rincled
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
 
-    private final GameProvider gameProvider;
-    private final UserProvider userProvider;
-    private final SceneManager sceneManager;
-    private final JoinGameManager joinGameManager;
 
     @Autowired
     public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
@@ -86,6 +90,7 @@ public class LobbyViewController implements Rincled
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.joinGameManager = joinGameManager;
+        this.currentLocale = new SimpleObjectProperty<>();
     }
 
     public Lobby getLobby()
@@ -136,7 +141,7 @@ public class LobbyViewController implements Rincled
 
         withChatSupport();
 
-        updateLabels();
+        updateLabels(null);
     }
 
     private void configureSystemMessageManager()
@@ -200,6 +205,9 @@ public class LobbyViewController implements Rincled
 
     public void createGameButtonClicked(ActionEvent event)
     {
+        if(mainStackPane == null) {
+            return;
+        }
         if (this.gameForm == null) {
             try {
                 this.gameForm = this.createGameFormBuilder.getCreateGameForm();
@@ -208,9 +216,9 @@ public class LobbyViewController implements Rincled
                 e.printStackTrace();
             }
         }
-        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
-            lobbyView.getChildren().add(gameForm);
-        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+        if ((this.gameForm != null) && (!mainStackPane.getChildren().contains(this.gameForm))) {
+            mainStackPane.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (mainStackPane.getChildren().contains(this.gameForm))){
             this.gameForm.setVisible(true);
         }
 
@@ -221,8 +229,15 @@ public class LobbyViewController implements Rincled
         lobby.getSystemMessageManager().stopSocket();
     }
 
-    private void updateLabels()
+    private void updateLabels(Locale locale)
     {
+        if(Locale.getDefault().equals(locale))
+        {
+            return;
+        }
+        if(locale != null) {
+            Rincl.setLocale(locale);
+        }
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));
@@ -231,16 +246,12 @@ public class LobbyViewController implements Rincled
 
     public void changeLangToDE(ActionEvent event)
     {
-        Rincl.setLocale(Locale.GERMAN);
-        logger.debug("Changed language to " + Locale.GERMAN.toString());
-        updateLabels();
+        updateLabels(Locale.GERMAN);
     }
 
     public void changeLangToEN(ActionEvent event)
     {
-        logger.debug("Changed language to " + Locale.GERMAN.toString());
-        Rincl.setLocale(Locale.ENGLISH);
-        updateLabels();
+        updateLabels(Locale.ENGLISH);
     }
 
     public void toggleSound(ActionEvent event)
