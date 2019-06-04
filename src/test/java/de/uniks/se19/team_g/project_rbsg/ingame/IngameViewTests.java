@@ -42,8 +42,8 @@ import org.testfx.framework.junit.ApplicationTest;
         IngameViewController.class,
         UserProvider.class,
         IngameViewTests.ContextConfiguration.class,
-        TitleFormBuilder.class,
-        TitleFormController.class
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class IngameViewTests extends ApplicationTest {
 

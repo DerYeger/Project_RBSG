@@ -37,8 +37,8 @@ import java.io.IOException;
         LoginManager.class,
         RegistrationManager.class,
         UserProvider.class,
-        TitleFormBuilder.class,
-        TitleFormController.class,
+        TitleViewBuilder.class,
+        TitleViewController.class,
         IngameSceneBuilder.class,
         IngameViewBuilder.class,
         IngameViewController.class,
@@ -53,7 +53,7 @@ public class LoginSceneBuilderTests extends ApplicationTest {
     @Test
     public void testGetLoginScene() throws IOException {
         final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
-        final TitleFormBuilder titleFormBuilder = context.getBean(TitleFormBuilder.class);
+        final TitleViewBuilder titleFormBuilder = context.getBean(TitleViewBuilder.class);
         final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder, titleFormBuilder).getLoginScene();
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());

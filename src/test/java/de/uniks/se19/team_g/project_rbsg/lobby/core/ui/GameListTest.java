@@ -76,8 +76,8 @@ import static org.junit.Assert.assertNotNull;
         LoginSceneBuilder.class,
         JoinGameManager.class,
         CreateGameFormBuilder.class,
-        TitleFormBuilder.class,
-        TitleFormController.class
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class GameListTest extends ApplicationTest
 {
