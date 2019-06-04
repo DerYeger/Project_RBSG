@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
@@ -26,7 +25,6 @@ import java.util.HashSet;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
         WhisperCommandHandlerTests.ContextConfiguration.class,
         UserProvider.class,
         ChatWebSocketCallback.class

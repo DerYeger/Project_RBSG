@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
@@ -8,12 +9,14 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import io.rincl.*;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +37,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.*;
 
 /**
  * @author Georg Siebert
@@ -41,13 +45,17 @@ import java.io.IOException;
 
 
 @Component
-public class LobbyViewController
+public class LobbyViewController implements RootController, Terminable, Rincled
 {
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final SceneManager sceneManager;
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final JoinGameManager joinGameManager;
 
     @FXML
     public StackPane lobbyView;
@@ -60,30 +68,29 @@ public class LobbyViewController
 
     private static final int iconSize = 30;
 
-    @FXML
+    public Button soundButton;
+    public Button logoutButton;
+    public Button enButton;
+    public Button deButton;
     public Button createGameButton;
-    @FXML
     public GridPane mainGridPane;
-    @FXML
-    private HBox headerHBox;
-    @FXML
-    private Label lobbyTitle;
-    @FXML
-    private ListView<Player> lobbyPlayerListView;
-    @FXML
-    private VBox gameListContainer;
-    @FXML
-    private ListView<Game> lobbyGamesListView;
-    @FXML
-    private VBox chatContainer;
-
-    private final GameProvider gameProvider;
-    private final UserProvider userProvider;
-    private final SceneManager sceneManager;
-    private final JoinGameManager joinGameManager;
+    public HBox headerHBox;
+    public Label lobbyTitle;
+    public ListView<Player> lobbyPlayerListView;
+    public VBox gameListContainer;
+    public ListView<Game> lobbyGamesListView;
+    public VBox chatContainer;
 
     @Autowired
-    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
+    public LobbyViewController(@NonNull final GameProvider gameProvider,
+                               @NonNull final UserProvider userProvider,
+                               @NonNull final SceneManager sceneManager,
+                               @NonNull final JoinGameManager joinGameManager,
+                               @NonNull final PlayerManager playerManager,
+                               @NonNull final GameManager gameManager,
+                               @NonNull final SystemMessageManager systemMessageManager,
+                               @NonNull final ChatController chatController,
+                               @NonNull final CreateGameFormBuilder createGameFormBuilder)
     {
         this.lobby = new Lobby();
 
@@ -134,8 +141,6 @@ public class LobbyViewController
 
 
 
-//        createGameNonHover.getStyleClass().add("iconView");
-//        createGameHover.getStyleClass().add("iconView");
 
         setCreateGameIcons();
 
@@ -150,6 +155,10 @@ public class LobbyViewController
 //        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
 
         withChatSupport();
+
+        updateLabels();
+
+        setAsRootController();
     }
 
     private void configureSystemMessageManager()
@@ -174,6 +183,8 @@ public class LobbyViewController
 
     private void setCreateGameIcons()
     {
+        Rincl.setLocale(Locale.ENGLISH);
+        logger.debug(getResources().getString("createGameButton"));
         ImageView createGameNonHover = new ImageView();
         ImageView createGameHover = new ImageView();
 
@@ -229,6 +240,42 @@ public class LobbyViewController
 
     public void terminate()
     {
+        chatController.terminate();
         lobby.getSystemMessageManager().stopSocket();
+        logger.debug("Terminated " + this);
+    }
+
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
+    }
+
+    private void updateLabels()
+    {
+        createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
+        enButton.textProperty().setValue(getResources().getString("enButton"));
+        deButton.textProperty().setValue(getResources().getString("deButton"));
+        lobbyTitle.textProperty().setValue(getResources().getString("title"));
+    }
+
+    public void changeLangToDE(ActionEvent event)
+    {
+        Rincl.setLocale(Locale.GERMAN);
+        logger.debug("Changed language to " + Locale.GERMAN.toString());
+        updateLabels();
+    }
+
+    public void changeLangToEN(ActionEvent event)
+    {
+        logger.debug("Changed language to " + Locale.GERMAN.toString());
+        Rincl.setLocale(Locale.ENGLISH);
+        updateLabels();
+    }
+
+    public void toggleSound(ActionEvent event)
+    {
+    }
+
+    public void loggoutUser(ActionEvent event)
+    {
     }
 }

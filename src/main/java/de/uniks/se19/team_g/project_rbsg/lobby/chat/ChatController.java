@@ -10,9 +10,12 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +30,7 @@ import java.util.HashMap;
  * @author Jan Müller
  */
 @Component
-public class ChatController {
+public class ChatController implements Terminable {
 
     public static final String SYSTEM = "System";
 
@@ -38,6 +41,8 @@ public class ChatController {
     public static final String SERVER_PRIVATE_CHANNEL_NAME = "private";
 
     public static final String SERVER_ENDPOINT = "/chat?user=";
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
@@ -221,5 +226,6 @@ public class ChatController {
 
     public void terminate() {
         webSocketClient.stop();
+        logger.debug("Terminated " + this);
     }
 }

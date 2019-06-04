@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
@@ -30,7 +29,6 @@ import java.util.Map;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
         ChatController.class,
         UserProvider.class,
         ChatWebSocketCallback.class,
