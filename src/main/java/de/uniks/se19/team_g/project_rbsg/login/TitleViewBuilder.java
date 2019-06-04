@@ -25,7 +25,7 @@ public class TitleViewBuilder {
 
     public Node getTitleForm() throws IOException {
         if (titleView == null) {
-            fxmlLoader.setLocation(TitleViewBuilder.class.getResource("title-form.fxml"));
+            fxmlLoader.setLocation(TitleViewBuilder.class.getResource("title-view.fxml"));
             titleView = fxmlLoader.load();
             final TitleViewController titleFormController = fxmlLoader.getController();
             titleFormController.init();
