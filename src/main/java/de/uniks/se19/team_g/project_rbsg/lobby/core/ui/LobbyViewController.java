@@ -134,7 +134,6 @@ public class LobbyViewController implements Rincled
         withChatSupport();
 
         setBackgroundImage();
-
         updateLabels();
 
         Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
