@@ -18,7 +18,6 @@ import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.stage.*;
 import org.junit.*;
 import org.junit.runner.*;
@@ -30,9 +29,9 @@ import org.springframework.lang.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
-import org.testfx.api.*;
 import org.testfx.framework.junit.*;
 
+import java.io.*;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -43,7 +42,7 @@ import static org.junit.Assert.*;
         LobbyViewBuilder.class,
         LobbyViewController.class,
         LobbySceneBuilder.class,
-        OpenCreateGameFormularTest.ContextConfiguration.class,
+        TranslationButtonsTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
         UserProvider.class,
@@ -64,69 +63,13 @@ import static org.junit.Assert.*;
         TitleViewController.class,
         Terminator.class
 })
-public class OpenCreateGameFormularTest extends ApplicationTest
+public class TranslationButtonsTest extends ApplicationTest
 {
-
     @Autowired
     ApplicationContext context;
 
-    @TestConfiguration
-    public static class ContextConfiguration
-    {
-        @Bean
-        public GameManager gameManager()
-        {
-            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider())
-            {
-                @Override
-                public Collection<Game> getGames()
-                {
-                   return new ArrayList<>();
-                }
-            };
-        }
-
-        @Bean
-        public PlayerManager playerManager()
-        {
-            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider())
-            {
-                @Override
-                public Collection<Player> getPlayers()
-                {
-                    return new ArrayList<Player>();
-                }
-            };
-        }
-
-        @Bean
-        public SystemMessageManager systemMessageManager()
-        {
-            return new SystemMessageManager(new WebSocketClient())
-            {
-                @Override
-                public void startSocket()
-                {
-                }
-            };
-        }
-
-        @Bean
-        public ChatController chatController()
-        {
-            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
-            {
-                @Override
-                public void init(@NonNull final TabPane chatPane)
-                {
-                }
-
-            };
-        }
-    }
-
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
@@ -137,19 +80,65 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         stage.toFront();
     }
 
+    @TestConfiguration
+    static class ContextConfiguration {
+        @Bean
+        public GameManager gameManager() {
+            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
+                @Override
+                public Collection<Game> getGames() {
+                    return new ArrayList<Game>();
+                }
+            };
+        }
 
-    @Override
-    public void stop() throws Exception
-    {
-        FxToolkit.hideStage();
+        @Bean
+        public PlayerManager playerManager() {
+            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider()) {
+                @Override
+                public Collection<Player> getPlayers() {
+                    return new ArrayList<>();
+                }
+            };
+        }
+
+        @Bean
+        public SystemMessageManager systemMessageManager() {
+            return new SystemMessageManager(new WebSocketClient()) {
+                @Override
+                public void startSocket() {
+                }
+            };
+        }
+
+        @Bean
+        public ChatController chatController() {
+            return  new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback()) {
+                @Override
+                public void init(@NonNull final TabPane chatPane) throws IOException
+                {
+                }
+            };
+        }
     }
 
     @Test
-    public void openCreateGame() {
-        clickOn("#createGameButton");
-        StackPane stackPane = lookup("#mainStackPane").query();
+    public void TranslationsTest() {
+        Button enButton = lookup("#enButton").query();
+        Button deButton = lookup("#deButton").query();
+        Button createGameButton = lookup("#createGameButton").query();
 
-        assertEquals(2, stackPane.getChildren().size());
+        assertEquals("EN", enButton.getText());
+        assertEquals("DE", deButton.getText());
+        assertEquals("Create game", createGameButton.getText());
+
+        clickOn("#deButton");
+
+        assertEquals("Spiel erstellen", createGameButton.getText());
+
+        clickOn("#enButton");
+
+        assertEquals("Create game", createGameButton.getText());
     }
 
 }
