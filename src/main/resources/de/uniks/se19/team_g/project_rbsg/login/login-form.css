@@ -1,4 +1,3 @@
-@import "stylesheet.css";
 
 .loginForm{
     -fx-pref-width: 400;
@@ -8,7 +7,7 @@
     -fx-background-color: rgba(18,18,18, 0.6);
 }
 
-.label{
+.loginForm > .label{
     -fx-font-size: 12;
     -fx-font-weight: bold;
     -fx-text-fill: white;
@@ -21,7 +20,7 @@
     -fx-text-fill: #CF6679;
 }
 
-.text-field{
+.loginForm > .text-field{
     -fx-font-size: 12;
     -fx-font-weight: bold;
     -fx-text-fill: white;
@@ -29,14 +28,22 @@
     -fx-alignment: center;
 }
 
-.button{
+.loginForm > .password-field{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #404040;
+    -fx-alignment: center;
+}
+
+.loginForm .button{
     -fx-background-color: #8858c8;
     -fx-text-fill: white;
     -fx-pref-height: 40;
     -fx-pref-width: 100;
 }
 
-.button:hover{
+.loginForm .button:hover{
     -fx-background-color: #bb86fc;
     -fx-text-fill: black;
 }

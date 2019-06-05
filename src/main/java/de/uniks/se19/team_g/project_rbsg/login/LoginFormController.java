@@ -6,11 +6,8 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,8 +83,7 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
+                        Platform.runLater(() -> handleErrorMessage(exception.getMessage()));
                         return null;
                     });
         }
@@ -105,9 +101,7 @@ public class LoginFormController implements RootController {
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
-                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                Platform.runLater(() -> this.errorMessage.setText(message));
-                System.out.println("message: " + message);
+                Platform.runLater(() -> handleErrorMessage(message));
             }
         }
     }
@@ -119,8 +113,7 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
+                        Platform.runLater(() -> handleErrorMessage(exception.getMessage()));
                         return null;
                     });
         }
@@ -133,9 +126,7 @@ public class LoginFormController implements RootController {
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
-                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
-                Platform.runLater(() -> this.errorMessage.setText(message));
-                System.out.println("message: " + message);
+                Platform.runLater(() -> handleErrorMessage(message));
             }
         }
     }
@@ -150,4 +141,8 @@ public class LoginFormController implements RootController {
         sceneManager.setRootController(this);
     }
 
+    private void handleErrorMessage(String errorMessage){
+        this.errorMessageBox.setVisible(true);
+        this.errorMessage.setText(errorMessage);
+    }
 }
