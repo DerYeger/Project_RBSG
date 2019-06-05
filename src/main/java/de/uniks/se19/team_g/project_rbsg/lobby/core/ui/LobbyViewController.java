@@ -17,7 +17,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -202,7 +201,7 @@ public class LobbyViewController
             Node chatNode = null;
             try
             {
-                chatNode = chatBuilder.getChat();
+                chatNode = chatBuilder.buildChat();
             }
             catch (IOException e)
             {
