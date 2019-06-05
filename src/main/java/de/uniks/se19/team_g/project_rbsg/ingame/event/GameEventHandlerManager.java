@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  * @author Jan Müller
  */
 @Component
+@Scope("prototype")
 public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
 
     private static final String ENDPOINT = "/game?gameId=";
