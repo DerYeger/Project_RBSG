@@ -1,42 +1,29 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.server.rest.*;
+import de.uniks.se19.team_g.project_rbsg.termination.*;
 import io.rincl.*;
-import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
+import javafx.beans.binding.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
+import org.springframework.stereotype.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -47,6 +34,7 @@ import java.util.*;
 @Component
 public class LobbyViewController implements RootController, Terminable, Rincled
 {
+    private static final int iconSize = 30;
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
@@ -57,17 +45,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
 
-    @FXML
-    public StackPane lobbyView;
-
     private ChatBuilder chatBuilder;
     private ChatController chatController;
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
 
-    private static final int iconSize = 30;
-
+    public StackPane mainStackPane;
     public Button soundButton;
     public Button logoutButton;
     public Button enButton;
@@ -156,7 +140,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         withChatSupport();
 
-        updateLabels();
+        updateLabels(null);
 
         setAsRootController();
     }
@@ -222,6 +206,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void createGameButtonClicked(ActionEvent event)
     {
+        if(mainStackPane == null) {
+            return;
+        }
         if (this.gameForm == null) {
             try {
                 this.gameForm = this.createGameFormBuilder.getCreateGameForm();
@@ -230,9 +217,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                 e.printStackTrace();
             }
         }
-        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
-            lobbyView.getChildren().add(gameForm);
-        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+        if ((this.gameForm != null) && (!mainStackPane.getChildren().contains(this.gameForm))) {
+            mainStackPane.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (mainStackPane.getChildren().contains(this.gameForm))){
             this.gameForm.setVisible(true);
         }
 
@@ -249,8 +236,15 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         sceneManager.setRootController(this);
     }
 
-    private void updateLabels()
+    private void updateLabels(Locale locale)
     {
+        if(Locale.getDefault().equals(locale))
+        {
+            return;
+        }
+        if(locale != null) {
+            Rincl.setLocale(locale);
+        }
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));
@@ -259,16 +253,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void changeLangToDE(ActionEvent event)
     {
-        Rincl.setLocale(Locale.GERMAN);
-        logger.debug("Changed language to " + Locale.GERMAN.toString());
-        updateLabels();
+        updateLabels(Locale.GERMAN);
     }
 
     public void changeLangToEN(ActionEvent event)
     {
-        logger.debug("Changed language to " + Locale.GERMAN.toString());
-        Rincl.setLocale(Locale.ENGLISH);
-        updateLabels();
+        updateLabels(Locale.ENGLISH);
     }
 
     public void toggleSound(ActionEvent event)
