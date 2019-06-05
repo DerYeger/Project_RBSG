@@ -34,6 +34,10 @@ public class ChatBuilder implements ApplicationContextAware {
         final TabPane chat = new TabPane();
         chat.setSide(Side.BOTTOM);
 
+        if (chatController != null) {
+            chatController.terminate();
+        }
+
         chatController = applicationContext.getBean(ChatController.class);
         chatController.init(chat);
 
