@@ -48,7 +48,6 @@ public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
         this.gameID = gameID;
         System.out.println(gameID);
         webSocketClient.start(ENDPOINT + gameID, this);
-        System.out.println(ENDPOINT + gameID);
     }
 
     @Override
