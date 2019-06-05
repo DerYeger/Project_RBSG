@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import java.io.IOException;
  */
 @Component
 public class SceneManager implements ApplicationContextAware, Terminable {
+    private String applicationName = "RBSG - Advanced Wars TM";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -34,7 +36,8 @@ public class SceneManager implements ApplicationContextAware, Terminable {
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
-
+        stage.setTitle(applicationName);
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         return this;
     }
 
@@ -46,6 +49,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminateRootController();
         try {
             final Scene loginScene = context.getBean(LoginSceneBuilder.class).getLoginScene();
+            loginScene.getStylesheets().add(getClass().getResource("login-form.css").toExternalForm());
             stage.setScene(loginScene);
         } catch (IOException e) {
             logger.error("Unable to set login scene");

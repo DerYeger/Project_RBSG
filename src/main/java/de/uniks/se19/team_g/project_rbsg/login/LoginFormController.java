@@ -1,22 +1,27 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
@@ -43,11 +48,16 @@ public class LoginFormController implements RootController {
     @FXML
     private Button registerButton;
 
+    @FXML
+    private HBox errorMessageBox;
+
+    @FXML
+    private Label errorMessage;
+
     private  User user;
     private final LoginManager loginManager;
     private final RegistrationManager registrationManager;
     private final SceneManager sceneManager;
-
     private final UserProvider userProvider;
 
     @Autowired
@@ -61,6 +71,7 @@ public class LoginFormController implements RootController {
     public void init() {
         addEventListeners();
         setAsRootController();
+        errorMessageBox.setVisible(false);
     }
 
     private void addEventListeners() {
@@ -75,7 +86,8 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        handleRequestErrors("failure", exception.getMessage(), "Login");
+                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
         }
@@ -93,7 +105,9 @@ public class LoginFormController implements RootController {
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
-                handleRequestErrors(status,  message, "Login");
+                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                Platform.runLater(() -> this.errorMessage.setText(message));
+                System.out.println("message: " + message);
             }
         }
     }
@@ -105,7 +119,8 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        handleRequestErrors("failure", exception.getMessage(), "Registration");
+                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
         }
@@ -118,7 +133,9 @@ public class LoginFormController implements RootController {
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
-                handleRequestErrors(status, message, "Registration");
+                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                Platform.runLater(() -> this.errorMessage.setText(message));
+                System.out.println("message: " + message);
             }
         }
     }
@@ -128,17 +145,9 @@ public class LoginFormController implements RootController {
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
         sceneManager.setLobbyScene();
     }
-
-    public static void handleRequestErrors(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(status);
-        alert.setHeaderText(typeOfFail + " failed");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     @Override
     public void setAsRootController() {
         sceneManager.setRootController(this);
     }
+
 }
