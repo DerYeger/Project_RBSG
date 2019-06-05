@@ -1,15 +1,21 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.view.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -40,6 +46,9 @@ public class ProjectRbsgFXApplication extends Application {
             applicationContext.registerBean(HostServices.class, this::getHostServices);
         };
 
+        //Initialisiert den Resource Loader für Rincl (I18N)
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
+
         this.context = new SpringApplicationBuilder()
                 .sources(ProjectRbsgApplication.class)
                 .initializers(contextInitializer)
@@ -52,18 +61,35 @@ public class ProjectRbsgFXApplication extends Application {
     public void start(@NotNull final Stage primaryStage) throws IOException {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
-        primaryStage.setResizable(false);
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
                 .setLoginScene();
+
+        primaryStage.setOnCloseRequest(event -> showCloseDialog(event, primaryStage.getTitle()));
 
         primaryStage.show();
     }
 
     @Override
     public void stop() {
+        context.getBean(Terminator.class)
+                .terminate();
         this.context.close();
         Platform.exit();
+    }
+
+    //TODO add stylesheet
+    private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(alertTitle);
+        alert.setHeaderText("Are you sure you want to exit?");
+        alert.showAndWait();
+
+        if (alert.getResult().equals(ButtonType.OK)) {
+            //let event propagate and close
+        } else {
+            event.consume();
+        }
     }
 }

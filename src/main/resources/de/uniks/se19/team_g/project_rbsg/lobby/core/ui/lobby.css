@@ -1,0 +1,116 @@
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
+}
+
+
+/*BUTTON STYLES*/
+.button {
+    -fx-pref-height: 40px;
+    -fx-pref-width: 100px;
+
+    -fx-background-color: #8858c8;
+    /*-fx-border-color: #8858c8;*/
+
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button:hover {
+    -fx-background-color: #bb86fc;
+    -fx-text-fill: #000000;
+    /*-fx-opacity: 0.8;*/
+}
+
+.iconButton {
+    -fx-pref-width: 40px;
+    -fx-pref-width: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-padding: 0;
+}
+
+.iconWithText {
+    -fx-pref-width: 175px;
+    -fx-text-fill: #FFFFFF;
+}
+
+/*BUTTON STYLES*/
+
+
+.optionsHboxContainer {
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.optionsHboxContainer .button {
+    -fx-margin: 0 0 0 5px;
+}
+
+.mainGridPane {
+
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.body {
+    -fx-padding: 10;
+    -fx-background-color: #000000;
+}
+
+.gameTitle {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/*LIST VIEW STYLE*/
+.list-view {
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2;
+    -fx-background-color: #121212;
+}
+
+.list-cell {
+    -fx-background-color: #121212;
+    -fx-border-width: 0;
+}
+
+.list-cell:even {
+    /*-fx-text-fill: red;*/
+    -fx-background-color: #383838;
+    /*!*-fx-border-color: #FFFFFF;*!*/
+    /*-fx-border-width: 0;*/
+}
+
+.list-cell:hover {
+    -fx-background-color: #000000;
+
+}
+/*LIST VIEW STYLE*/
+
+/*GAME CELL STYLE*/
+.gameCell {
+    -fx-hgap: 10;
+    -fx-padding: 4;
+}
+
+
+.gameListChatGrid {
+    -fx-vgap: 10;
+}
+/*GAME CELL STYLE*/
+
+/*PLAYER CELL STYLE*/
+.playerCell {
+    -fx-hgap: 10;
+}
+/*PLAYER CELL STYLE*/
+
+.createGamePopUp {
+    -fx-background-color: white;
+    -fx-opacity: 1;
+}

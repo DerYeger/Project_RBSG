@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="mainStackPane" styleClass="body" stylesheets="@lobby.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
+   <children>
+       <GridPane fx:id="mainGridPane" maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="mainGridPane" StackPane.alignment="TOP_LEFT">
+           <columnConstraints>
+               <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="70.0" />
+               <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" percentWidth="30.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints percentHeight="15.0" valignment="TOP" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="55.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="30.0" vgrow="ALWAYS" />
+           </rowConstraints>
+          <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="iconWithText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       <Label fx:id="lobbyTitle" styleClass="gameTitle" text="Advanced WASP Wars" />
+               </children>
+            </GridPane>
+               <ListView fx:id="lobbyPlayerListView" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+                 <ListView fx:id="lobbyGamesListView" GridPane.rowIndex="1" />
+                <VBox fx:id="chatContainer" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+               <VBox alignment="TOP_CENTER" styleClass="optionsContainer" GridPane.columnIndex="1">
+               <children>
+                  <HBox styleClass="optionsHboxContainer" VBox.vgrow="SOMETIMES">
+                     <children>
+                        <Button fx:id="soundButton" onAction="#toggleSound" mnemonicParsing="false" styleClass="iconButton">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="enButton" mnemonicParsing="false" onAction="#changeLangToEN" styleClass="iconButton">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="deButton" mnemonicParsing="false" onAction="#changeLangToDE" styleClass="iconButton">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="logoutButton" onAction="#loggoutUser" mnemonicParsing="false" styleClass="iconButton">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox styleClass="optionsHboxContainer" VBox.vgrow="SOMETIMES" />
+               </children>
+               </VBox>
+          </children>
+       </GridPane>
+   </children>
+</StackPane>

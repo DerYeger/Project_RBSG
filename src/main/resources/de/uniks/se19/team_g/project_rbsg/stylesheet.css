@@ -1,0 +1,19 @@
+.label{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+
+.button{
+    -fx-background-color: #404040;
+    -fx-text-fill: white;
+}
+
+.text-field{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #404040;;
+    -fx-alignment: center;
+}
