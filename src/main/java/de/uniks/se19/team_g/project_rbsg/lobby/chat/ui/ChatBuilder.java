@@ -32,6 +32,7 @@ public class ChatBuilder {
         if (chat == null) {
             chat = new TabPane();
             chat.setSide(Side.BOTTOM);
+            chat.getStylesheets().add(this.getClass().getResource("chat.css").toExternalForm());
             chatController.init(chat);
         }
         return chat;

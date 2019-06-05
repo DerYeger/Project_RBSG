@@ -1,39 +1,30 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
-import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.server.rest.*;
+import de.uniks.se19.team_g.project_rbsg.termination.*;
+import io.rincl.*;
+import javafx.beans.binding.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
+import org.springframework.stereotype.*;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author Georg Siebert
@@ -41,16 +32,18 @@ import java.io.IOException;
 
 
 @Component
-public class LobbyViewController
+public class LobbyViewController implements RootController, Terminable, Rincled
 {
+    private static final int iconSize = 30;
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
-    @FXML
-    public StackPane lobbyView;
+    private final SceneManager sceneManager;
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final JoinGameManager joinGameManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -58,32 +51,30 @@ public class LobbyViewController
 
     private Node gameForm;
 
-    private static final int iconSize = 30;
-
-    @FXML
+    public StackPane mainStackPane;
+    public Button soundButton;
+    public Button logoutButton;
+    public Button enButton;
+    public Button deButton;
     public Button createGameButton;
-    @FXML
     public GridPane mainGridPane;
-    @FXML
-    private HBox headerHBox;
-    @FXML
-    private Label lobbyTitle;
-    @FXML
-    private ListView<Player> lobbyPlayerListView;
-    @FXML
-    private VBox gameListContainer;
-    @FXML
-    private ListView<Game> lobbyGamesListView;
-    @FXML
-    private VBox chatContainer;
-
-    private final GameProvider gameProvider;
-    private final UserProvider userProvider;
-    private final SceneManager sceneManager;
-    private final JoinGameManager joinGameManager;
+    public HBox headerHBox;
+    public Label lobbyTitle;
+    public ListView<Player> lobbyPlayerListView;
+    public VBox gameListContainer;
+    public ListView<Game> lobbyGamesListView;
+    public VBox chatContainer;
 
     @Autowired
-    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
+    public LobbyViewController(@NonNull final GameProvider gameProvider,
+                               @NonNull final UserProvider userProvider,
+                               @NonNull final SceneManager sceneManager,
+                               @NonNull final JoinGameManager joinGameManager,
+                               @NonNull final PlayerManager playerManager,
+                               @NonNull final GameManager gameManager,
+                               @NonNull final SystemMessageManager systemMessageManager,
+                               @NonNull final ChatController chatController,
+                               @NonNull final CreateGameFormBuilder createGameFormBuilder)
     {
         this.lobby = new Lobby();
 
@@ -134,8 +125,6 @@ public class LobbyViewController
 
 
 
-//        createGameNonHover.getStyleClass().add("iconView");
-//        createGameHover.getStyleClass().add("iconView");
 
         setCreateGameIcons();
 
@@ -150,6 +139,10 @@ public class LobbyViewController
 //        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
 
         withChatSupport();
+
+        updateLabels(null);
+
+        setAsRootController();
     }
 
     private void configureSystemMessageManager()
@@ -174,6 +167,8 @@ public class LobbyViewController
 
     private void setCreateGameIcons()
     {
+        Rincl.setLocale(Locale.ENGLISH);
+        logger.debug(getResources().getString("createGameButton"));
         ImageView createGameNonHover = new ImageView();
         ImageView createGameHover = new ImageView();
 
@@ -211,6 +206,9 @@ public class LobbyViewController
 
     public void createGameButtonClicked(ActionEvent event)
     {
+        if(mainStackPane == null) {
+            return;
+        }
         if (this.gameForm == null) {
             try {
                 this.gameForm = this.createGameFormBuilder.getCreateGameForm();
@@ -219,9 +217,9 @@ public class LobbyViewController
                 e.printStackTrace();
             }
         }
-        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
-            lobbyView.getChildren().add(gameForm);
-        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+        if ((this.gameForm != null) && (!mainStackPane.getChildren().contains(this.gameForm))) {
+            mainStackPane.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (mainStackPane.getChildren().contains(this.gameForm))){
             this.gameForm.setVisible(true);
         }
 
@@ -229,6 +227,45 @@ public class LobbyViewController
 
     public void terminate()
     {
+        chatController.terminate();
         lobby.getSystemMessageManager().stopSocket();
+        logger.debug("Terminated " + this);
+    }
+
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
+    }
+
+    private void updateLabels(Locale locale)
+    {
+        if(Locale.getDefault().equals(locale))
+        {
+            return;
+        }
+        if(locale != null) {
+            Rincl.setLocale(locale);
+        }
+        createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
+        enButton.textProperty().setValue(getResources().getString("enButton"));
+        deButton.textProperty().setValue(getResources().getString("deButton"));
+        lobbyTitle.textProperty().setValue(getResources().getString("title"));
+    }
+
+    public void changeLangToDE(ActionEvent event)
+    {
+        updateLabels(Locale.GERMAN);
+    }
+
+    public void changeLangToEN(ActionEvent event)
+    {
+        updateLabels(Locale.ENGLISH);
+    }
+
+    public void toggleSound(ActionEvent event)
+    {
+    }
+
+    public void loggoutUser(ActionEvent event)
+    {
     }
 }

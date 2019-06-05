@@ -54,13 +54,10 @@ public class WebSocketClient
         }
     };
 
-    public WebSocketClient()
-    {
-        this.noopTimer = new Timer();
-    }
-
     public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback)
     {
+        this.noopTimer = new Timer();
+
         this.wsCallback = wsCallback;
         try
         {

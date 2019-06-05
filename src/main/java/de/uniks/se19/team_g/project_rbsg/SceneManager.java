@@ -3,55 +3,68 @@ package de.uniks.se19.team_g.project_rbsg;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * @author Jan Müller
+ */
 @Component
-public class SceneManager {
+public class SceneManager implements ApplicationContextAware, Terminable {
+    private String applicationName = "RBSG - Advanced Wars TM";
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private ApplicationContext context;
+
     private Stage stage;
 
-    @Autowired
-    private LoginSceneBuilder loginSceneBuilder;
-
-    @Autowired
-    private LobbySceneBuilder lobbySceneBuilder;
-
-    @Autowired
-    private IngameSceneBuilder ingameSceneBuilder;
+    private RootController rootController;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+        stage.setTitle(applicationName);
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         return this;
     }
 
     public void setLoginScene() {
         if (stage == null) {
-            System.out.println("Not yet initialised");
+            logger.debug("Stage not initialised");
             return;
         }
+        terminateRootController();
         try {
-            final Scene loginScene = loginSceneBuilder.getLoginScene();
-            stage.setResizable(false);
+            final Scene loginScene = context.getBean(LoginSceneBuilder.class).getLoginScene();
+            loginScene.getStylesheets().add(getClass().getResource("login-form.css").toExternalForm());
             stage.setScene(loginScene);
         } catch (IOException e) {
-            System.out.println("Unable to set login scene");
+            logger.error("Unable to set login scene");
             e.printStackTrace();
         }
     }
 
     public void setLobbyScene() {
         if (stage == null) {
-            System.out.println("Not yet initialised");
+            logger.debug("Stage not initialised");
             return;
         }
+        terminateRootController();
         try {
-            final Scene lobbyScene = lobbySceneBuilder.getLobbyScene();
-            stage.setResizable(false);
+            final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
             stage.setScene(lobbyScene);
         } catch (Exception e) {
             System.out.println("Unable to set lobby scene");
@@ -65,7 +78,7 @@ public class SceneManager {
             return;
         }
         try {
-            final Scene ingameScene = ingameSceneBuilder.getIngameScene();
+            final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
             stage.setMinHeight(670);
             stage.setMinWidth(900);
             stage.setResizable(true);
@@ -74,5 +87,33 @@ public class SceneManager {
             System.out.println("Unable to set ingame scene");
             e.printStackTrace();
         }
+    }
+
+    public void terminateRootController() {
+        if (rootController != null && rootController instanceof Terminable) {
+            ((Terminable) rootController).terminate();
+            rootController = null;
+        }
+    }
+
+    public RootController getRootController() {
+        return rootController;
+    }
+
+    public void setRootController(@NonNull final RootController rootController) {
+        if (this.rootController != null) {
+            terminateRootController();
+        }
+        this.rootController = rootController;
+    }
+
+    @Override
+    public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
+    }
+
+    @Override
+    public void terminate() {
+        terminateRootController();
     }
 }
