@@ -46,7 +46,6 @@ public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
 
     public void startSocket(@NonNull final String gameID) {
         this.gameID = gameID;
-        System.out.println(gameID);
         webSocketClient.start(ENDPOINT + gameID, this);
     }
 
@@ -58,5 +57,6 @@ public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
     @Override
     public void terminate() {
         webSocketClient.stop();
+        logger.debug("Terminated " + this);
     }
 }
