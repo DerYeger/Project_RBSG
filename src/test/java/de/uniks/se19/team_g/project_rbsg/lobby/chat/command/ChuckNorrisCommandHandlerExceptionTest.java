@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
@@ -12,33 +13,34 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javax.websocket.Session;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Juri Lozowoj
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        JavaConfig.class,
         ChatController.class,
         UserProvider.class,
         ChatWebSocketCallback.class,
         ChatChannelController.class,
+        ChatController.class,
         ChuckNorrisCommandHandlerTest.ContextConfiguration.class
 })
-public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
+public class ChuckNorrisCommandHandlerExceptionTest extends ApplicationTest {
 
-
-    private static String chuckJoke;
+    private static String errorMessageJoke;
 
     @TestConfiguration
     static class ContextConfiguration{
@@ -64,36 +66,19 @@ public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
     }
 
     @Autowired
-    private ChatWebSocketCallback chatWebSocketCallback;
-
-    @Autowired
     private UserProvider userProvider;
 
-
     @Autowired
-    private WebSocketClient webSocketClient;
-
-    @Autowired
-    private ChatChannelController callback;
+    private ChatController chatController;
 
     @Test
-    public void testChuckJoke() throws Exception {
+    public void testException() throws Exception {
 
-        ChuckNorrisCommandHandler chuckNorrisCommandHandler = new ChuckNorrisCommandHandler(
-                new ChatController(userProvider, webSocketClient, chatWebSocketCallback){
-                    @Override
-                    public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) {
-                        chuckJoke = content;
-                    }
-                },
+        ChuckNorrisCommandHandler chuckNorrisCommandHandler = new ChuckNorrisCommandHandler(chatController,
                 new RestTemplate(){
                     @Override
                     public <T> T getForObject(String url, Class<T> responseType, Object... uriVariables) throws RestClientException {
-                        String joke ="Chuck Norris does not need try-catch blocks, exceptions are too afread to raise.";
-                        Assert.assertEquals(url, "https://api.chucknorris.io/jokes/random");
-                        Map<String, Object> testAnswer = new HashMap<>();
-                        testAnswer.put("value", joke);
-                        return (T) testAnswer;
+                        throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
                     }
                 });
 
@@ -101,11 +86,17 @@ public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
 
         final String chuckCommand = "/chuckMe";
 
-        String joke ="Chuck Norris does not need try-catch blocks, exceptions are too afread to raise.";
+        String errorJoke = "Error - Chuck Norris is to funny for you";
 
-        chuckNorrisCommandHandler.handleCommand(callback, chuckCommand);
+        chuckNorrisCommandHandler.handleCommand(new ChatChannelController(){
+            @Override
+            public void displayMessage(@NonNull final String from, @NonNull final String content) {
+                errorMessageJoke = content;
+            }
+
+        }, chuckCommand);
         Thread.sleep(500);
-        Assert.assertEquals(joke, chuckJoke);
+        Assert.assertEquals(errorJoke, errorMessageJoke);
     }
-
 }
+
