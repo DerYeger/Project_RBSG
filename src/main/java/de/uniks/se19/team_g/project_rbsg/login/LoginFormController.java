@@ -14,11 +14,14 @@ import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -49,12 +52,13 @@ public class LoginFormController implements RootController {
     private Button registerButton;
 
     @FXML
-    private HBox errorMessageBox;
+    private StackPane errorMessageBox;
 
     @FXML
     private Label errorMessage;
 
-    private  User user;
+    private Node loading;
+    private User user;
     private final LoginManager loginManager;
     private final RegistrationManager registrationManager;
     private final SceneManager sceneManager;
@@ -71,7 +75,15 @@ public class LoginFormController implements RootController {
     public void init() {
         addEventListeners();
         setAsRootController();
-        errorMessageBox.setVisible(false);
+        addLoadingIndicator();
+        loading.setVisible(false);
+        errorMessage.setVisible(false);
+    }
+
+    private void addLoadingIndicator() {
+        LoadingIndicatorCardBuilder loadingIndicatorCardBuilder = new LoadingIndicatorCardBuilder();
+        loading = loadingIndicatorCardBuilder.buildProgressIndicatorCard();
+        errorMessageBox.getChildren().add(loading);
     }
 
     private void addEventListeners() {
@@ -86,7 +98,7 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                        Platform.runLater(() -> this.errorMessage.setVisible(true));
                         Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
@@ -105,7 +117,7 @@ public class LoginFormController implements RootController {
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
-                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                Platform.runLater(() -> this.errorMessage.setVisible(true));
                 Platform.runLater(() -> this.errorMessage.setText(message));
                 System.out.println("message: " + message);
             }
@@ -119,7 +131,7 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                        Platform.runLater(() -> this.errorMessage.setVisible(true));
                         Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
@@ -133,7 +145,7 @@ public class LoginFormController implements RootController {
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
-                Platform.runLater(() -> this.errorMessageBox.setVisible(true));
+                Platform.runLater(() -> this.errorMessage.setVisible(true));
                 Platform.runLater(() -> this.errorMessage.setText(message));
                 System.out.println("message: " + message);
             }
