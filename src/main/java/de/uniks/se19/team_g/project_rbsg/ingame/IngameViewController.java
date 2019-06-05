@@ -1,9 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandlerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -13,9 +16,10 @@ import org.springframework.stereotype.Controller;
 
 /**
  * @author  Keanu Stückrad
+ * @author Jan Müller
  */
 @Controller
-public class IngameViewController {
+public class IngameViewController implements RootController, Terminable {
 
     @FXML
     StackPane playgroundPane;
@@ -45,17 +49,25 @@ public class IngameViewController {
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
+    @NonNull
+    private final GameEventHandlerManager gameEventHandlerManager;
 
     @Autowired
-    public IngameViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager){
+    public IngameViewController(@NonNull final GameProvider gameProvider,
+                                @NonNull final UserProvider userProvider,
+                                @NonNull final SceneManager sceneManager,
+                                @NonNull final GameEventHandlerManager gameEventHandlerManager){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
+        this.gameEventHandlerManager = gameEventHandlerManager;
     }
 
     public void init() {
         initBuilders();
         setNodes();
+
+//        gameEventHandlerManager.startSocket(WHY_IS_THERE_NO_GAME_ID);
     }
 
     private void initBuilders() {
@@ -78,4 +90,13 @@ public class IngameViewController {
         }
     }
 
+    @Override
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
+    }
+
+    @Override
+    public void terminate() {
+        gameEventHandlerManager.terminate();
+    }
 }
