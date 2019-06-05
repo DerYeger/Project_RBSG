@@ -193,4 +193,14 @@ public class ChatControllerTests extends ApplicationTest {
 
         Assert.assertNotNull(lookup("System: User chattest3 is not online"));
     }
+
+    @Test
+    public void testRecreation() throws IOException {
+        final ChatController firstController = chatBuilder.getChatController();
+
+        chatBuilder.buildChat(); //builds a new chat, thus the chatController reference is different
+
+        final ChatController secondController = chatBuilder.getChatController();
+        Assert.assertNotEquals(firstController, secondController);
+    }
 }
