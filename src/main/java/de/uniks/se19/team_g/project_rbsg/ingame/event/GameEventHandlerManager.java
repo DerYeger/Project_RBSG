@@ -26,8 +26,6 @@ public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
 
     private WebSocketClient webSocketClient;
 
-    private String gameID;
-
     public GameEventHandlerManager(@NonNull final WebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
 
@@ -45,7 +43,6 @@ public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
     }
 
     public void startSocket(@NonNull final String gameID) {
-        this.gameID = gameID;
         webSocketClient.start(ENDPOINT + gameID, this);
     }
 
