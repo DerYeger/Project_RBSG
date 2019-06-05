@@ -1,0 +1,20 @@
+@import "/de/uniks/se19/team_g/project_rbsg/stylesheets/dark-theme.css";
+
+.gridpane-size {
+    -fx-pref-width: 220;
+    -fx-max-width: 220;
+    -fx-min-width: 220;
+    -fx-pref-height: 70;
+    -fx-max-height: 70;
+    -fx-min-height: 70;
+}
+
+.default-progress-indicator .percentage {
+    -fx-fill: null;
+}
+
+.default-progress-indicator {
+    -fx-progress-color: #03DAC5;
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+}
