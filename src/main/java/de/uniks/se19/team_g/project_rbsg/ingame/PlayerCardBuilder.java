@@ -31,7 +31,7 @@ public class PlayerCardBuilder {
 
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/PlayerListCell.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("playerCard.fxml"));
             fxmlLoader.setController(this);
             try {
                 playerCardView = fxmlLoader.load();
@@ -40,7 +40,7 @@ public class PlayerCardBuilder {
             }
         }
         playerListCellLabel.setText("<missing>");
-        Image image = new Image(String.valueOf(getClass().getResource("Images/baseline_help_black_48dp.png")));
+        Image image = new Image(String.valueOf(getClass().getResource("Images/baseline_help_white_48dp.png")));
         playerListCellImageView.setImage(image);
         return playerCardView;
     }

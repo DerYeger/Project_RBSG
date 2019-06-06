@@ -18,6 +18,4 @@ public class LobbySceneBuilder {
         final VBox parent = new VBox(lobbyViewBuilder.buildLobbyScene());
         return new Scene(parent);
     }
-
-
 }

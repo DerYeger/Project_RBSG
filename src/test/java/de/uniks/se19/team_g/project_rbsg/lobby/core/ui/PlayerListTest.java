@@ -15,10 +15,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormController;
-import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -27,6 +24,9 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
@@ -35,7 +35,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -66,6 +66,8 @@ import static org.junit.Assert.assertNotNull;
         LobbySceneBuilder.class,
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
+        SceneManager.class,
+        Terminator.class,
         GameProvider.class,
         UserProvider.class,
         SceneManager.class,
@@ -79,7 +81,9 @@ import static org.junit.Assert.assertNotNull;
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
         JoinGameManager.class,
-        CreateGameFormBuilder.class
+        CreateGameFormBuilder.class,
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class PlayerListTest extends ApplicationTest
 {
@@ -89,6 +93,7 @@ public class PlayerListTest extends ApplicationTest
 
     @Override
     public void start(final Stage stage) {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
         final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene());
 

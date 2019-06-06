@@ -34,7 +34,7 @@ public class LeaveGameButtonBuilder {
             }
         }
         leaveGameLabel.setText("Leave game");
-        Image image = new Image(String.valueOf(getClass().getResource("Images/baseline_highlight_off_black_48dp.png")));
+        Image image = new Image(String.valueOf(getClass().getResource("Images/baseline_highlight_off_white_48dp.png")));
         leaveGameImage.setImage(image);
         return leaveGameButtonView;
     }
