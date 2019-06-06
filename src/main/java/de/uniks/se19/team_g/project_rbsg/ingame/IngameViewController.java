@@ -36,10 +36,12 @@ public class IngameViewController {
     Pane statusPane;
     @FXML
     Pane bottomLinePane;
-    //@FXML
-    //Pane chatLogPane;
     @FXML
     Pane leaveGamePane;
+    /*
+    @FXML
+    Pane chatLogPane;
+    */
 
     private StatusBarBuilder statusBar;
     private LeaveGameButtonBuilder leaveGameButton;
@@ -81,8 +83,14 @@ public class IngameViewController {
         player1Pane.getChildren().add(playerCard.setPlayer(new Player(userProvider.get().getName())));
         player2Pane.getChildren().add(playerCard2.buildPlayerCard());
         if(gameProvider.get().getNeededPlayer() == 4) {
+            // if visibility was disabled before for example when leaving game
+            player3Pane.setVisible(true);
+            player4Pane.setVisible(true);
             player3Pane.getChildren().add(playerCard3.buildPlayerCard());
             player4Pane.getChildren().add(playerCard4.buildPlayerCard());
+        } else {
+            player3Pane.setVisible(false);
+            player4Pane.setVisible(false);
         }
     }
 
@@ -106,5 +114,4 @@ public class IngameViewController {
             actionEvent.consume();
         }
     }
-
 }

@@ -1,0 +1,43 @@
+@import "/de/uniks/se19/team_g/project_rbsg/stylesheets/dark-theme.css";
+
+.player-card-size {
+    -fx-max-height: 50;
+    -fx-max-width: 200;
+    -fx-min-height: 50;
+    -fx-min-width: 200;
+}
+
+.status-bar-size {
+    -fx-max-height: 50;
+    -fx-max-width: 300;
+    -fx-min-height: 50;
+    -fx-min-width: 300;
+}
+
+.bottom-line-size {
+    -fx-max-height: 20;
+    -fx-max-width: infinity;
+    -fx-min-height: 20;
+    -fx-min-width: 900;
+}
+
+.grid-size {
+    -fx-max-height: 40;
+}
+
+.default-progress-indicator .percentage {
+    -fx-fill: null;
+}
+
+.default-progress-indicator {
+    -fx-min-width: 55;
+    -fx-min-height: 55;
+}
+
+/*
+.chat-line-size {
+    -fx-max-height: 100;
+    -fx-min-height: 100;
+    -fx-min-width: 745;
+}
+*/

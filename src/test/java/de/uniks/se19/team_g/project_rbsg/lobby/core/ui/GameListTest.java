@@ -1,14 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormController;
-import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.ingame.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
+import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
@@ -27,6 +23,9 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -60,11 +59,14 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
+        FXMLLoaderFactory.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
         LobbySceneBuilder.class,
         GameListTest.ContextConfiguration.class,
         ChatBuilder.class,
+        SceneManager.class,
+        Terminator.class,
         GameProvider.class,
         UserProvider.class,
         SceneManager.class,
@@ -78,19 +80,22 @@ import static org.junit.Assert.assertNotNull;
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
         JoinGameManager.class,
-        CreateGameFormBuilder.class
+        CreateGameFormBuilder.class,
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class GameListTest extends ApplicationTest
 {
     @Autowired
     private ApplicationContext context;
 
-
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage)
+    {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(), 1280, 720);
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene());
 
         stage.setScene(scene);
         stage.show();
@@ -98,59 +103,15 @@ public class GameListTest extends ApplicationTest
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() throws Exception
+    {
         FxToolkit.hideStage();
     }
 
-    @TestConfiguration
-    public static class ContextConfiguration {
-        @Bean
-        public GameManager gameManager() {
-            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
-                @Override
-                public Collection<Game> getGames() {
-                    ArrayList<Game> games = new ArrayList<>();
-                    games.add(new Game("1", "GameOfHello", 4, 2 ));
-                    games.add(new Game("2", "DefenceOfTheAncient", 10, 7));
-                    return games;
-                }
-            };
-        }
-
-        @Bean
-        public PlayerManager playerManager() {
-            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider()) {
-                @Override
-                public Collection<Player> getPlayers() {
-                    return new ArrayList<Player>();
-                }
-            };
-        }
-
-        @Bean
-        public SystemMessageManager systemMessageManager() {
-            return new SystemMessageManager(new WebSocketClient()) {
-                @Override
-                public void startSocket() {
-                }
-            };
-        }
-
-        @Bean
-        public ChatController chatController() {
-            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback()) {
-                @Override
-                public void init(@NonNull final TabPane chatPane)
-                {
-                }
-
-            };
-        }
-    }
-
-
     @Test
-    public void addItemsAndRemove() {
+    public void addItemsAndRemove()
+    {
+
         ListView<Game> gamesListView = lookup("#lobbyGamesListView").queryListView();
         assertNotNull(gamesListView);
 
@@ -202,6 +163,64 @@ public class GameListTest extends ApplicationTest
         sleep(500);
 
         assertEquals(2, games.size());
+    }
+
+    @TestConfiguration
+    public static class ContextConfiguration
+    {
+        @Bean
+        public GameManager gameManager()
+        {
+            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider())
+            {
+                @Override
+                public Collection<Game> getGames()
+                {
+                    ArrayList<Game> games = new ArrayList<>();
+                    games.add(new Game("1", "GameOfHello", 4, 2));
+                    games.add(new Game("2", "DefenceOfTheAncient", 10, 7));
+                    return games;
+                }
+            };
+        }
+
+        @Bean
+        public PlayerManager playerManager()
+        {
+            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider())
+            {
+                @Override
+                public Collection<Player> getPlayers()
+                {
+                    return new ArrayList<Player>();
+                }
+            };
+        }
+
+        @Bean
+        public SystemMessageManager systemMessageManager()
+        {
+            return new SystemMessageManager(new WebSocketClient())
+            {
+                @Override
+                public void startSocket()
+                {
+                }
+            };
+        }
+
+        @Bean
+        public ChatController chatController()
+        {
+            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
+            {
+                @Override
+                public void init(@NonNull final TabPane chatPane)
+                {
+                }
+
+            };
+        }
     }
 
 }

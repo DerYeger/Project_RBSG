@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane styleClass="gridpane-size" stylesheets="@loading.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Label fx:id="progressLabel" text="Warte auf Server...">
+         <styleClass>
+            <String fx:value="high-white-text-fill" />
+            <String fx:value="body-font" />
+         </styleClass>
+      </Label>
+      <ProgressIndicator fx:id="progressIndicator" progress="0.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets top="18.0" />
+         </GridPane.margin>
+         <styleClass>
+            <String fx:value="default-progress-indicator" />
+            <String fx:value="progress-color" />
+            <String fx:value="floating-shadow" />
+         </styleClass>
+      </ProgressIndicator>
+   </children>
+</GridPane>

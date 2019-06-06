@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
@@ -13,7 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,9 +24,13 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
@@ -45,15 +49,19 @@ import java.util.Map;
  */
 
 @RunWith(SpringJUnit4ClassRunner .class)
-@ContextConfiguration(classes = {JavaConfig.class,
+@ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         LoginFormController.class,
         LoginFormBuilder.class,
+        LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginFormControllerTestSuccess.ContextConfiguration.class,
         LobbySceneBuilder.class,
         LobbyViewBuilder.class,
         UserProvider.class,
+        TitleViewBuilder.class,
+        TitleViewController.class,
+        LoginFormControllerTestSuccess.ContextConfiguration.class,
         IngameSceneBuilder.class,
         IngameViewBuilder.class,
         IngameViewController.class,
@@ -69,7 +77,18 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
     private static boolean switchedToLobby = false;
 
     @TestConfiguration
-    static class ContextConfiguration {
+    static class ContextConfiguration implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
         @Bean
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate() {
@@ -108,6 +127,11 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
                     switchedToLobby = true;
                 }
             };
+        }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
         }
     }
 

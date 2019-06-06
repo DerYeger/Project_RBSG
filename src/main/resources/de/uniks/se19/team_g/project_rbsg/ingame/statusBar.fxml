@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane stylesheets="@ingame.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <Label fx:id="statusBarLabel" prefHeight="40.0" prefWidth="260.0" text="Label" />
-      <ImageView fx:id="statusBarImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ProgressIndicator fx:id="progressIndicator" progress="0.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets right="5.0" top="18.0" />
+         </GridPane.margin>
+         <styleClass>
+            <String fx:value="default-progress-indicator" />
+            <String fx:value="progress-color" />
+            <String fx:value="floating-shadow" />
+         </styleClass>
+      </ProgressIndicator>
+      <Label fx:id="statusBarLabel" text="Label" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+         <styleClass>
+            <String fx:value="medium-white-text-fill" />
+            <String fx:value="body-font" />
+         </styleClass>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
    </children>
-</HBox>
+   <styleClass>
+      <String fx:value="surface-background-color" />
+      <String fx:value="border" />
+      <String fx:value="grid-size" />
+   </styleClass>
+</GridPane>

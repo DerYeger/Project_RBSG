@@ -1,21 +1,26 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
@@ -28,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * @edited Keanu Stückrad
  */
 @Controller
-public class LoginFormController {
+public class LoginFormController implements RootController {
 
     @FXML
     private TextField nameField;
@@ -42,11 +47,20 @@ public class LoginFormController {
     @FXML
     private Button registerButton;
 
-    private  User user;
+    @FXML
+    private StackPane errorMessageBox;
+
+    @FXML
+    private Label errorMessage;
+
+    private Node loading;
+    private LoadingIndicatorCardBuilder loadingIndicatorCardBuilder;
+    private SimpleBooleanProperty loadingFlag;
+    private SimpleBooleanProperty errorFlag;
+    private User user;
     private final LoginManager loginManager;
     private final RegistrationManager registrationManager;
     private final SceneManager sceneManager;
-
     private final UserProvider userProvider;
 
     @Autowired
@@ -59,6 +73,30 @@ public class LoginFormController {
 
     public void init() {
         addEventListeners();
+        setAsRootController();
+        addLoadingIndicator();
+        addErrorFlag();
+    }
+
+    private void addErrorFlag() {
+        if(errorFlag == null){
+            errorFlag = new SimpleBooleanProperty(false);
+        }
+        errorMessage.visibleProperty().bind(errorFlag);
+    }
+
+    private void addLoadingIndicator() {
+        loadingIndicatorCardBuilder = new LoadingIndicatorCardBuilder();
+        loading = loadingIndicatorCardBuilder.buildProgressIndicatorCard();
+        errorMessageBox.getChildren().add(loading);
+        if(loadingFlag == null){
+            loadingFlag = new SimpleBooleanProperty(false);
+        }
+        loading.visibleProperty().bind(loadingFlag);
+        nameField.disableProperty().bind(loadingFlag);
+        passwordField.disableProperty().bind(loadingFlag);
+        loginButton.disableProperty().bind(loadingFlag);
+        registerButton.disableProperty().bind(loadingFlag);
     }
 
     private void addEventListeners() {
@@ -67,19 +105,20 @@ public class LoginFormController {
     }
 
     private void loginAction(@NotNull final ActionEvent event){
+        initFlags();
         if (nameField.getText() != null && passwordField != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = loginManager.onLogin(user);
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        handleRequestErrors("failure", exception.getMessage(), "Login");
+                        handleErrorMessage(exception.getMessage());
                         return null;
                     });
         }
     }
 
-    public void onLoginReturned(@Nullable final HashMap<String, Object> answer) {
+    private void onLoginReturned(@Nullable final HashMap<String, Object> answer) {
         if (answer != null) {
             final String status = (String) answer.get("status");
             if (status.equals("success")){
@@ -91,19 +130,20 @@ public class LoginFormController {
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
                 final String message = (String) answer.get("message");
-                handleRequestErrors(status,  message, "Login");
+                handleErrorMessage(message);
             }
         }
     }
 
     private void registerAction(@NotNull final ActionEvent event) {
+        initFlags();
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        handleRequestErrors("failure", exception.getMessage(), "Registration");
+                        handleErrorMessage(exception.getMessage());
                         return null;
                     });
         }
@@ -111,28 +151,42 @@ public class LoginFormController {
 
     private void onRegistrationReturned(@Nullable final HashMap<String, Object> answer, ActionEvent event) {
         if (answer != null) {
-            final String status = (String) answer.get("status");
             if (answer.get("status").equals("success")){
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
                 final String message = (String) answer.get("message");
-                handleRequestErrors(status, message, "Registration");
+                handleErrorMessage(message);
+                System.out.println("message: " + message);
             }
         }
     }
 
-    public void onLogin(@NonNull User user) {
+    private void onLogin(@NonNull User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
         sceneManager.setLobbyScene();
     }
-
-    public static void handleRequestErrors(@NonNull final String status, @NonNull final String message, @NonNull final String typeOfFail) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(status);
-        alert.setHeaderText(typeOfFail + " failed");
-        alert.setContentText(message);
-        alert.showAndWait();
+    @Override
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
     }
 
+    private void setErrorFlag(boolean flag) {
+        errorFlag.set(flag);
+    }
+
+    private void setLoadingFlag(boolean flag) {
+        loadingFlag.set(flag);
+    }
+
+    private void initFlags() {
+        setLoadingFlag(true);
+        setErrorFlag(false);
+    }
+
+    private void handleErrorMessage(String errorMessage){
+        setLoadingFlag(false);
+        setErrorFlag(true);
+        Platform.runLater(() -> this.errorMessage.setText(errorMessage));
+    }
 }

@@ -1,18 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginFormController;
-import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,6 +30,7 @@ import org.testfx.framework.junit.ApplicationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
+        FXMLLoaderFactory.class,
         RegistrationManager.class,
         LoginFormController.class,
         LoginFormBuilder.class,
@@ -44,7 +44,10 @@ import org.testfx.framework.junit.ApplicationTest;
         IngameViewBuilder.class,
         IngameViewController.class,
         UserProvider.class,
-        IngameViewTests.ContextConfiguration.class
+        IngameViewTests.ContextConfiguration.class,
+        Terminator.class,
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 public class IngameViewTests extends ApplicationTest {
 

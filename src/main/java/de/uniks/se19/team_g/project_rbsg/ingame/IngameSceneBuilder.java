@@ -1,9 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -16,6 +16,9 @@ public class IngameSceneBuilder {
 
     @Autowired
     private IngameViewBuilder ingameViewBuilder;
+
+    @Autowired
+    private SplashImageBuilder splashImageBuilder;
 
     private Scene ingameScene;
 

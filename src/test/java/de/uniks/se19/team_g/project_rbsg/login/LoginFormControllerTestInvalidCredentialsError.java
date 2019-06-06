@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
@@ -9,25 +10,28 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-
+import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.Stage;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
@@ -40,7 +44,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Keanu Stückrad
@@ -48,15 +51,19 @@ import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner .class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
+        FXMLLoaderFactory.class,
         LoginFormController.class,
         LoginFormBuilder.class,
+        LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
+        SceneManager.class,
         LobbySceneBuilder.class,
         LobbyViewBuilder.class,
         UserProvider.class,
+        TitleViewBuilder.class,
+        TitleViewController.class,
+        LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
         IngameSceneBuilder.class,
         IngameViewBuilder.class,
         IngameViewController.class,
@@ -72,7 +79,18 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
     private static boolean switchedToLobby = false;
 
     @TestConfiguration
-    static class ContextConfiguration {
+    static class ContextConfiguration  implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
         @Bean
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate() {
@@ -112,6 +130,11 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
                 }
             };
         }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
+        }
     }
 
     @Override
@@ -141,10 +164,9 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertEquals("falsePassword", passwordInput.getText());
 
         clickOn(loginButton);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
-        Node alert = lookup("Login failed").query();
-        Assert.assertNotNull(alert);
+        final Label errorMessage = lookup("#errorMessage").query();
+        final String expectedErrorMessage = "Invalid Credentials";
+        Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 
@@ -166,10 +188,9 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertEquals("john-117", passwordInput.getText());
 
         clickOn(registrationButton);
-        Set<Node> popDialogs = lookup(p -> p instanceof DialogPane).queryAll();
-        Assert.assertEquals(popDialogs.size(), 1);
-        Node alert = lookup("Registration failed").query();
-        Assert.assertNotNull(alert);
+        final Label errorMessage = lookup("#errorMessage").query();
+        final String expectedErrorMessage = "Name already taken";
+        Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
 

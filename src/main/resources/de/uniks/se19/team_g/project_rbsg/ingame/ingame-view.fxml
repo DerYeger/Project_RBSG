@@ -1,33 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController">
+<StackPane fx:id="playgroundPane" stylesheets="@ingame.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController">
    <children>
-      <StackPane fx:id="playgroundPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="statusPane" StackPane.alignment="TOP_CENTER">
+         <StackPane.margin>
+            <Insets top="35.0" />
+         </StackPane.margin>
+         <styleClass>
+            <String fx:value="surface-background-color" />
+            <String fx:value="border" />
+            <String fx:value="floating-shadow" />
+            <String fx:value="status-bar-size" />
+         </styleClass>
+      </Pane>
+      <AnchorPane>
          <children>
-            <Pane fx:id="statusPane" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" StackPane.alignment="TOP_CENTER">
-               <StackPane.margin>
-                  <Insets top="30.0" />
-               </StackPane.margin>
+            <Pane fx:id="player1Pane" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="35.0">
+               <styleClass>
+                  <String fx:value="surface-background-color" />
+                  <String fx:value="border" />
+                  <String fx:value="floating-shadow" />
+                  <String fx:value="player-card-size" />
+            </styleClass>
             </Pane>
-            <AnchorPane>
-               <children>
-                  <Pane fx:id="player1Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="30.0" />
-                  <Pane fx:id="player2Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="30.0" />
-                  <Pane fx:id="player3Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
-                  <Pane fx:id="player4Pane" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
-                  <Pane fx:id="bottomLinePane" maxHeight="20.0" maxWidth="-Infinity" minHeight="20.0" minWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <!--
-                  <Pane fx:id="chatLogPane" maxHeight="80.0" maxWidth="-Infinity" minHeight="80.0" minWidth="760.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="140.0" />
-                  -->
-                  <Pane fx:id="leaveGamePane" maxHeight="40.0" maxWidth="140.0" minHeight="40.0" minWidth="140.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="0.0" />
-               </children>
-            </AnchorPane>
+            <Pane fx:id="player2Pane" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="35.0">
+               <styleClass>
+                  <String fx:value="surface-background-color" />
+                  <String fx:value="border" />
+                  <String fx:value="floating-shadow" />
+                  <String fx:value="player-card-size" />
+               </styleClass>
+            </Pane>
+            <Pane fx:id="player3Pane" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="105.0">
+               <styleClass>
+                  <String fx:value="surface-background-color" />
+                  <String fx:value="border" />
+                  <String fx:value="floating-shadow" />
+                  <String fx:value="player-card-size" />
+               </styleClass>
+            </Pane>
+            <Pane fx:id="player4Pane" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="105.0">
+               <styleClass>
+                  <String fx:value="surface-background-color" />
+                  <String fx:value="border" />
+                  <String fx:value="floating-shadow" />
+                  <String fx:value="player-card-size" />
+               </styleClass>
+            </Pane>
+            <Pane fx:id="bottomLinePane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <styleClass>
+                  <String fx:value="root-background-color" />
+                  <String fx:value="border" />
+                  <String fx:value="bottom-line-size" />
+               </styleClass>
+            </Pane>
+            <!--
+            <Pane fx:id="chatLogPane" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="150.0">
+            <styleClass>
+                  <String fx:value="surface-background-color" />
+                  <String fx:value="border" />
+                  <String fx:value="floating-shadow" />
+                  <String fx:value="chat-line-size" />
+               </styleClass>
+            </Pane>
+            -->
+            <Pane fx:id="leaveGamePane" maxHeight="40.0" maxWidth="140.0" minHeight="40.0" minWidth="140.0" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="5.0" />
          </children>
-      </StackPane>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>
