@@ -64,6 +64,6 @@
             <Pane fx:id="chatLogPane" maxHeight="80.0" maxWidth="-Infinity" minHeight="80.0" minWidth="760.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="140.0" />
             -->
          </children>
-      </StackPane>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>
