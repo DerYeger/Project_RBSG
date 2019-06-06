@@ -8,7 +8,7 @@
    <children>
       <StackPane>
          <children>
-            <Label alignment="CENTER" styleClass="title" stylesheets="@title.css" text="RBSG" />
+            <Label fx:id="title" alignment="CENTER" styleClass="title" stylesheets="@title.css" text="RBSG" />
          </children>
       </StackPane>
       <StackPane>

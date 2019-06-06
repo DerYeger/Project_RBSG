@@ -33,6 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Jan Müller
  * @author Juri Lozowoj
  * @author Keanu Stückrad
+ * @edited Georg Siebert
  */
 @Controller
 public class LoginFormController implements RootController, Rincled
