@@ -9,6 +9,9 @@ import javafx.scene.control.ProgressIndicator;
 
 import java.io.IOException;
 
+/**
+ * @author Keanu Stückrad
+ */
 public class LoadingIndicatorCardBuilder {
 
     @FXML
