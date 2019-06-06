@@ -66,6 +66,8 @@ public class SystemMessageManagerTest
     @Test
     public void messageArrived() throws IOException
     {
+        messageList.clear();
+
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
         systemMessageManager.addMessageHandler(new TestMessageHandler());
         systemMessageManager.getWebSocketClient().onMessage("", null);
@@ -77,6 +79,8 @@ public class SystemMessageManagerTest
 
     @Test
     public void startWebSocket() {
+        messageList.clear();
+
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
         systemMessageManager.addMessageHandler(new TestMessageHandler());
         systemMessageManager.startSocket();
