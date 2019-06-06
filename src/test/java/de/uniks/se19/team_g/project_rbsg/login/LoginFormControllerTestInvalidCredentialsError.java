@@ -1,6 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
@@ -31,6 +34,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
@@ -93,14 +100,16 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate() {
                 @Override
-                public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
-                    Assert.assertTrue(request instanceof User);
+                public <T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) throws RestClientException {
                     Assert.assertEquals(url, "https://rbsg.uniks.de/api/user/login");
-                    Map<String, Object> testAnswer = new HashMap<>();
-                    testAnswer.put("status", "failure");
-                    testAnswer.put("message", "Invalid Credentials");
-                    testAnswer.put("data", null);
-                    return (T) testAnswer;
+                    final ObjectNode body = new ObjectMapper().createObjectNode();
+                    body.put("status", "failure");
+                    body.put("message", "Invalid Credentials");
+                    body.put("data", (JsonNode) null);
+                    ResponseEntity<ObjectNode> response = new ResponseEntity<>(body, HttpStatus.OK);
+                    @SuppressWarnings("unchecked")
+                    ResponseEntity<T> castedResponse = (ResponseEntity<T>) response;
+                    return castedResponse;
                 }
             });
         }
@@ -108,14 +117,16 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         public RegistrationManager registrationManager() {
             return new RegistrationManager(new RestTemplate() {
                 @Override
-                public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
-                    Assert.assertTrue(request instanceof User);
+                public <T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) throws RestClientException {
                     Assert.assertEquals(url, "https://rbsg.uniks.de/api/user");
-                    Map<String, Object> testAnswer = new HashMap<>();
-                    testAnswer.put("status", "failure");
-                    testAnswer.put("message", "Name already taken");
-                    testAnswer.put("data", null);
-                    return (T) testAnswer;
+                    final ObjectNode body = new ObjectMapper().createObjectNode();
+                    body.put("status", "failure");
+                    body.put("message", "Name already taken");
+                    body.put("data", (JsonNode) null);
+                    ResponseEntity<ObjectNode> response = new ResponseEntity<>(body, HttpStatus.OK);
+                    @SuppressWarnings("unchecked")
+                    ResponseEntity<T> castedResponse = (ResponseEntity<T>) response;
+                    return castedResponse;
                 }
             });
         }

@@ -147,13 +147,20 @@ public class LoginFormController implements RootController {
         }
     }
 
-    private void onLoginReturned(@Nullable final ResponseEntity<ObjectNode>  answer) {
+    private void onLoginReturned(@Nullable final ResponseEntity<ObjectNode> answer) {
+        System.out.println(answer.getBody());
         if (answer != null && answer.getBody() != null) {
 
             final ObjectNode body = answer.getBody();
 
             if (body.get("status").asText().equals("success")) {
                 final JsonNode data = body.get("data");
+
+                if (data == null) {
+                    logger.debug("No user data received");
+                    return;
+                }
+
                 onLogin(new User(user, data.get("userKey").asText()));
                 user = null;
             } else {
@@ -186,7 +193,7 @@ public class LoginFormController implements RootController {
     private Void handleException(@NonNull final Throwable throwable) {
         try {
             final ObjectNode node = new ObjectMapper().readValue(((HttpClientErrorException) throwable.getCause()).getResponseBodyAsString(), ObjectNode.class);
-            if (node.has("status") && node.get("status") .asText().equals("failure") && node.has("message")) {
+            if (node.has("status") && node.get("status").asText().equals("failure") && node.has("message")) {
                 handleErrorMessage(node.get("message").asText());
             } else {
                 logger.debug("Unknown exception format");

@@ -1,8 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -21,23 +27,20 @@ public class RegistrationManagerTest {
         RegistrationManager registrationManager = new RegistrationManager(
                 new RestTemplate() {
                     @Override
-                    public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
-                        Assert.assertTrue(request instanceof User);
+                    public <T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) throws RestClientException {
                         Assert.assertEquals(url, "https://rbsg.uniks.de/api/user");
-                        Map<String, Object> testAnswer = new HashMap<>();
-                        testAnswer.put("status", "success");
-                        return (T) testAnswer;
+                        final ObjectNode body = new ObjectMapper().createObjectNode().put("status", "success");
+                        ResponseEntity<ObjectNode> response = new ResponseEntity<>(body, HttpStatus.OK);
+                        @SuppressWarnings("unchecked")
+                        ResponseEntity<T> castedResponse = (ResponseEntity<T>) response;
+                        return castedResponse;
                     }
                 }
         );
-        CompletableFuture<HashMap<String, Object>> registrationAnswer = registrationManager.onRegistration(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> registrationAnswer = registrationManager.onRegistration(testUser);
         AtomicReference<String> string = new AtomicReference<>();
         try {
-            registrationAnswer.thenAccept(
-                    map -> {
-                        string.set((String) map.get("status"));
-                    }
-            ).get();
+            registrationAnswer.thenAccept(response -> string.set(response.getBody().get("status").asText())).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
