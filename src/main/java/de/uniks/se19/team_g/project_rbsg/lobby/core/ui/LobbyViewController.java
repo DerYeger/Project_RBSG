@@ -295,6 +295,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));
         lobbyTitle.textProperty().setValue(getResources().getString("title"));
+
+        if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
+            createGameFormBuilder.getCreateGameController().updateLabels();
+        }
     }
 
     public void changeLangToDE(ActionEvent event)

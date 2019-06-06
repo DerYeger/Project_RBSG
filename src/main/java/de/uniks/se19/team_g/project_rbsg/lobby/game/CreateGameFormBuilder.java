@@ -18,6 +18,8 @@ public class CreateGameFormBuilder {
 
     private FXMLLoader fxmlLoader;
 
+    private CreateGameController createGameController;
+
     @Autowired
     public CreateGameFormBuilder(FXMLLoader fxmlLoader){
         this.fxmlLoader = fxmlLoader;
@@ -27,11 +29,21 @@ public class CreateGameFormBuilder {
         if(this.createGameForm == null){
             fxmlLoader.setLocation(CreateGameFormBuilder.class.getResource("create-game-popup.fxml"));
             createGameForm = fxmlLoader.load();
-            final CreateGameController createGameController = fxmlLoader.getController();
+            createGameController = fxmlLoader.getController();
             createGameController.init();
             createGameController.setRootNode(createGameForm);
         }
         createGameForm.setVisible(true);
         return createGameForm;
+    }
+
+    public CreateGameController getCreateGameController()
+    {
+        return createGameController;
+    }
+
+    public void setCreateGameController(CreateGameController createGameController)
+    {
+        this.createGameController = createGameController;
     }
 }
