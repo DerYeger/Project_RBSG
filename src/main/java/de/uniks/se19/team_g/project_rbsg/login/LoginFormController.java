@@ -148,7 +148,6 @@ public class LoginFormController implements RootController {
     }
 
     private void onLoginReturned(@Nullable final ResponseEntity<ObjectNode> answer) {
-        System.out.println(answer.getBody());
         if (answer != null && answer.getBody() != null) {
 
             final ObjectNode body = answer.getBody();
