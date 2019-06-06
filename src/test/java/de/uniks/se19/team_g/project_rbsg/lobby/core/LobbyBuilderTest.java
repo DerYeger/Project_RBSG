@@ -1,10 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
@@ -13,16 +9,12 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -31,10 +23,13 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,31 +47,12 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
-        LobbyViewBuilder.class,
-        LobbySceneBuilder.class,
         LobbyBuilderTest.ContextConfiguration.class,
         ChatBuilder.class,
-        SceneManager.class,
-        Terminator.class,
         GameProvider.class,
-        UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        PlayerManager.class,
-        GameManager.class,
-        IngameViewController.class,
-        IngameViewBuilder.class,
-        IngameSceneBuilder.class,
-        LoginFormController.class,
-        LoginFormBuilder.class,
-        LoginManager.class,
-        RegistrationManager.class,
-        SplashImageBuilder.class,
-        LoginSceneBuilder.class,
-        RESTClient.class,
-        TitleViewBuilder.class,
-        TitleViewController.class
+        LobbyViewBuilder.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -110,10 +86,18 @@ public class LobbyBuilderTest extends ApplicationTest
     }
 
     @TestConfiguration
-    static class ContextConfiguration
-    {
-        @Autowired
+    static class ContextConfiguration implements ApplicationContextAware {
+
         private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
 
         @Bean
         public LobbyViewController lobbyViewController()
@@ -159,6 +143,11 @@ public class LobbyBuilderTest extends ApplicationTest
                 {
                 }
             };
+        }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
         }
     }
 

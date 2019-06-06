@@ -1,13 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -19,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.Stage;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,17 +46,10 @@ import java.util.Map;
         LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LobbySceneBuilder.class,
-        LobbyViewBuilder.class,
         UserProvider.class,
         TitleViewBuilder.class,
         TitleViewController.class,
-        LoginFormControllerTestSuccess.ContextConfiguration.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
-        GameProvider.class,
-        UserProvider.class
+        LoginFormControllerTestSuccess.ContextConfiguration.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestSuccess extends ApplicationTest {
@@ -117,6 +102,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
                 }
             });
         }
+
         @Bean
         public SceneManager sceneManager() {
             return new SceneManager() {

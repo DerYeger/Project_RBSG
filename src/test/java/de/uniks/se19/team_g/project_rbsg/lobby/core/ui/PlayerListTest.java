@@ -1,11 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
@@ -15,20 +11,17 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
@@ -37,10 +30,13 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -60,30 +56,16 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
-        LobbyViewBuilder.class,
-        LobbyViewController.class,
-        LobbySceneBuilder.class,
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
-        SceneManager.class,
-        Terminator.class,
         GameProvider.class,
         UserProvider.class,
         SceneManager.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
-        LoginFormController.class,
-        LoginFormBuilder.class,
-        LoginManager.class,
-        RegistrationManager.class,
-        SplashImageBuilder.class,
-        LoginSceneBuilder.class,
         JoinGameManager.class,
         CreateGameFormBuilder.class,
-        TitleViewBuilder.class,
-        TitleViewController.class
+        CreateGameController.class,
+        LobbyViewBuilder.class,
+        LobbyViewController.class
 })
 public class PlayerListTest extends ApplicationTest
 {
@@ -103,7 +85,19 @@ public class PlayerListTest extends ApplicationTest
     }
 
     @TestConfiguration
-    static class ContextConfiguration {
+    static class ContextConfiguration implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
+
         @Bean
         public GameManager gameManager() {
             return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
@@ -144,6 +138,11 @@ public class PlayerListTest extends ApplicationTest
                 {
                 }
             };
+        }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
         }
     }
 
