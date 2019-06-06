@@ -6,21 +6,17 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -58,6 +54,9 @@ public class LoginFormController implements RootController {
     private Label errorMessage;
 
     private Node loading;
+    private LoadingIndicatorCardBuilder loadingIndicatorCardBuilder;
+    private SimpleBooleanProperty loadingFlag;
+    private SimpleBooleanProperty errorFlag;
     private User user;
     private final LoginManager loginManager;
     private final RegistrationManager registrationManager;
@@ -76,14 +75,28 @@ public class LoginFormController implements RootController {
         addEventListeners();
         setAsRootController();
         addLoadingIndicator();
-        loading.setVisible(false);
-        errorMessage.setVisible(false);
+        addErrorFlag();
+    }
+
+    private void addErrorFlag() {
+        if(errorFlag == null){
+            errorFlag = new SimpleBooleanProperty(false);
+        }
+        errorMessage.visibleProperty().bind(errorFlag);
     }
 
     private void addLoadingIndicator() {
-        LoadingIndicatorCardBuilder loadingIndicatorCardBuilder = new LoadingIndicatorCardBuilder();
+        loadingIndicatorCardBuilder = new LoadingIndicatorCardBuilder();
         loading = loadingIndicatorCardBuilder.buildProgressIndicatorCard();
         errorMessageBox.getChildren().add(loading);
+        if(loadingFlag == null){
+            loadingFlag = new SimpleBooleanProperty(false);
+        }
+        loading.visibleProperty().bind(loadingFlag);
+        nameField.disableProperty().bind(loadingFlag);
+        passwordField.disableProperty().bind(loadingFlag);
+        loginButton.disableProperty().bind(loadingFlag);
+        registerButton.disableProperty().bind(loadingFlag);
     }
 
     private void addEventListeners() {
@@ -92,13 +105,18 @@ public class LoginFormController implements RootController {
     }
 
     private void loginAction(@NotNull final ActionEvent event){
+        loadingIndicatorCardBuilder.setProgress(0.0);
+        setLoadingFlag(true);
+        setErrorFlag(false);
         if (nameField.getText() != null && passwordField != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = loginManager.onLogin(user);
+            loadingIndicatorCardBuilder.setProgress(0.5);
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        Platform.runLater(() -> this.errorMessage.setVisible(true));
+                        setLoadingFlag(false);
+                        setErrorFlag(true);
                         Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
@@ -116,8 +134,9 @@ public class LoginFormController implements RootController {
                 }
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
+                setLoadingFlag(false);
                 final String message = (String) answer.get("message");
-                Platform.runLater(() -> this.errorMessage.setVisible(true));
+                setErrorFlag(true);
                 Platform.runLater(() -> this.errorMessage.setText(message));
                 System.out.println("message: " + message);
             }
@@ -125,13 +144,18 @@ public class LoginFormController implements RootController {
     }
 
     private void registerAction(@NotNull final ActionEvent event) {
+        loadingIndicatorCardBuilder.setProgress(0.0);
+        setLoadingFlag(true);
+        setErrorFlag(false);
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
+            loadingIndicatorCardBuilder.setProgress(0.5);
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        Platform.runLater(() -> this.errorMessage.setVisible(true));
+                        setLoadingFlag(false);
+                        setErrorFlag(true);
                         Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
                         return null;
                     });
@@ -140,12 +164,12 @@ public class LoginFormController implements RootController {
 
     private void onRegistrationReturned(@Nullable final HashMap<String, Object> answer, ActionEvent event) {
         if (answer != null) {
-            final String status = (String) answer.get("status");
             if (answer.get("status").equals("success")){
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
+                setLoadingFlag(false);
                 final String message = (String) answer.get("message");
-                Platform.runLater(() -> this.errorMessage.setVisible(true));
+                setErrorFlag(true);
                 Platform.runLater(() -> this.errorMessage.setText(message));
                 System.out.println("message: " + message);
             }
@@ -155,11 +179,20 @@ public class LoginFormController implements RootController {
     public void onLogin(@NonNull User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
+        loadingIndicatorCardBuilder.setProgress(1.0);
         sceneManager.setLobbyScene();
     }
     @Override
     public void setAsRootController() {
         sceneManager.setRootController(this);
+    }
+
+    public void setErrorFlag(boolean flag) {
+        errorFlag.set(flag);
+    }
+
+    public void setLoadingFlag(boolean flag) {
+        loadingFlag.set(flag);
     }
 
 }
