@@ -77,7 +77,7 @@ public class PlayerListTest extends ApplicationTest
     public void start(final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene());
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
 
         stage.setScene(scene);
         stage.show();
