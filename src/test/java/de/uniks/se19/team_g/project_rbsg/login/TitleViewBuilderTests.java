@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -56,6 +58,7 @@ public class TitleViewBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetTitleForm() throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final Node titleView = context.getBean(TitleViewBuilder.class).getTitleForm();
         Assert.assertNotNull(titleView);
     }

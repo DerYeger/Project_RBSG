@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import org.junit.Assert;
@@ -84,6 +86,7 @@ public class LoginSceneBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetLoginScene() throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
         final TitleViewBuilder titleFormBuilder = context.getBean(TitleViewBuilder.class);
         final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder, titleFormBuilder).getLoginScene();
