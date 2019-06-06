@@ -161,9 +161,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         setBackgroundImage();
 
+
         Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
 
@@ -289,7 +290,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if(locale != null) {
             Rincl.setLocale(locale);
         }
-        
+
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));

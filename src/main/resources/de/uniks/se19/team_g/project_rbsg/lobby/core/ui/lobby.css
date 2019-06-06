@@ -12,6 +12,24 @@
 }
 /*COLOR DEFINITIONS*/
 
+/* FONTS */
+/*@font-face {*/
+/*    font-family: Roboto;*/
+/*    src: url("./Font/Roboto/Roboto-Regular.ttf") format("truetype");*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: Cinzel;*/
+/*    src: url("./Font/Cinzel/Cinzel-Regular.ttf") format("truetype");*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: Retronnoid;*/
+/*    src: url("./Font/Retronoid/Retronoid.ttf") format("truetype");*/
+/*}*/
+
+/* FONTS */
+
 /* LABEL STYLE*/
 .label {
     -fx-font-size: 16px;
@@ -85,9 +103,13 @@
 }
 /*OPTION BUTTONS CONTIANER*/
 
+
+.body {
+    -fx-start-margin: 10px;
+    -fx-end-margin: 10px;
+}
 /*MAIN GRID STYLE*/
 .mainGridPane {
-
     -fx-hgap: 10px;
     -fx-vgap: 10px;
 }
