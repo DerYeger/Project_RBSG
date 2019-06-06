@@ -26,6 +26,7 @@
       <ProgressIndicator fx:id="progressIndicator" progress="0.0" styleClass="default-progress-indicator" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets top="18.0" />
-         </GridPane.margin></ProgressIndicator>
+         </GridPane.margin>
+      </ProgressIndicator>
    </children>
 </GridPane>
