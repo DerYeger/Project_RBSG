@@ -25,6 +25,15 @@
     -fx-max-height: 40;
 }
 
+.default-progress-indicator .percentage {
+    -fx-fill: null;
+}
+
+.default-progress-indicator {
+    -fx-min-width: 55;
+    -fx-min-height: 55;
+}
+
 /*
 .chat-line-size {
     -fx-max-height: 100;
