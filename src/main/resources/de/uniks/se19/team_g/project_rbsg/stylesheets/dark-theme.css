@@ -112,6 +112,10 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
 }
 
+.progress-color {
+    -fx-progress-color: #03DAC5;
+}
+
 /* Hovered */
 .primary-background-color:hover, .secondary-background-color:hover {
     -fx-opacity: 0.8;

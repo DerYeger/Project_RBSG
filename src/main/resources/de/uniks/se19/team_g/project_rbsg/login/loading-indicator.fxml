@@ -23,10 +23,15 @@
             <String fx:value="body-font" />
          </styleClass>
       </Label>
-      <ProgressIndicator fx:id="progressIndicator" progress="0.0" styleClass="default-progress-indicator" GridPane.columnIndex="1">
+      <ProgressIndicator fx:id="progressIndicator" progress="0.0" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets top="18.0" />
          </GridPane.margin>
+         <styleClass>
+            <String fx:value="default-progress-indicator" />
+            <String fx:value="progress-color" />
+            <String fx:value="floating-shadow" />
+         </styleClass>
       </ProgressIndicator>
    </children>
 </GridPane>

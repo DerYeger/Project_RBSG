@@ -14,7 +14,6 @@
 }
 
 .default-progress-indicator {
-    -fx-progress-color: #03DAC5;
     -fx-min-width: 80;
     -fx-min-height: 80;
 }
