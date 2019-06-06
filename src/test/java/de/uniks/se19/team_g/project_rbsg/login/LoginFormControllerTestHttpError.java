@@ -39,8 +39,8 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Keanu Stückrad
+ * @author Jan Müller
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         LoginFormController.class,

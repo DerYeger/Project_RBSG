@@ -13,12 +13,14 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * @author Juri Lozowoj
+ * @author Jan Müller
+ */
 public class RegistrationManagerTest {
 
     @Test

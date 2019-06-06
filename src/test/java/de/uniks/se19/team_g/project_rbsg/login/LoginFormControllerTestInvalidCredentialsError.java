@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
@@ -40,13 +39,11 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Keanu Stückrad
+ * @author Jan Müller
  */
-
 @RunWith(SpringJUnit4ClassRunner .class)
 @ContextConfiguration(classes = {
         LoginFormController.class,

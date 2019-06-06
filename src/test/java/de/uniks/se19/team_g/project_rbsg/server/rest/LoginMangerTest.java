@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Keanu Stückrad
+ * @author Jan Müller
  */
 @Component
 public class LoginMangerTest {

@@ -117,7 +117,6 @@ public class LoginFormController implements RootController {
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<ResponseEntity<ObjectNode>> answerPromise = registrationManager.onRegistration(user);
-            loadingIndicatorCardBuilder.setProgress(0.5);
             answerPromise.thenAccept(this::onRegistrationReturned)
                     .exceptionally(this::handleException);
         }
@@ -128,7 +127,6 @@ public class LoginFormController implements RootController {
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<ResponseEntity<ObjectNode>> answerPromise = loginManager.onLogin(user);
-            loadingIndicatorCardBuilder.setProgress(0.5);
             answerPromise.thenAccept(this::onLoginReturned)
                     .exceptionally(this::handleException);
         }
