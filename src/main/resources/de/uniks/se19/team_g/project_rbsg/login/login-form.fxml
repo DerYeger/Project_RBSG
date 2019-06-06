@@ -60,12 +60,12 @@
       </HBox>
       <ImageView fitHeight="62.0" fitWidth="60.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <image>
-            <Image url="@account.png" />
+            <Image url="@Images/account.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="51.0" fitWidth="51.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <image>
-            <Image url="@key.png" />
+            <Image url="@Images/key.png" />
          </image>
       </ImageView>
    </children>
