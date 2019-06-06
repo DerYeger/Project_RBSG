@@ -40,7 +40,8 @@ import java.util.concurrent.TimeUnit;
         ChatControllerTests.ContextConfiguration.class,
         ChatController.class,
         UserProvider.class,
-        ChatWebSocketCallback.class
+        ChatWebSocketCallback.class,
+        ChatBuilder.class
 })
 public class ChatControllerTests extends ApplicationTest {
 
@@ -87,9 +88,6 @@ public class ChatControllerTests extends ApplicationTest {
     }
 
     @Autowired
-    private ChatController chatController;
-
-    @Autowired
     private WebSocketClient webSocketClient;
 
     @Autowired
@@ -98,14 +96,18 @@ public class ChatControllerTests extends ApplicationTest {
     @Autowired
     private UserProvider userProvider;
 
+    @Autowired
+    private ChatBuilder chatBuilder;
+
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
         userProvider.get()
                 .setName("chattest1");
 
-        final ChatBuilder chatBuilder = new ChatBuilder(chatController);
-        final Node chat = chatBuilder.getChat();
+        final Node chat = chatBuilder.buildChat();
         Assert.assertNotNull(chat);
+
+        Assert.assertNotNull(chatBuilder.getChatController());
 
         webSocketClient.start("unimportant", chatWebSocketCallback);
 
@@ -188,5 +190,15 @@ public class ChatControllerTests extends ApplicationTest {
         Assert.assertEquals("inputField", ct3Input.getId());
 
         Assert.assertNotNull(lookup("System: User chattest3 is not online"));
+    }
+
+    @Test
+    public void testRecreation() throws IOException {
+        final ChatController firstController = chatBuilder.getChatController();
+
+        chatBuilder.buildChat(); //builds a new chat, thus the chatController reference is different
+
+        final ChatController secondController = chatBuilder.getChatController();
+        Assert.assertNotEquals(firstController, secondController);
     }
 }

@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import org.springframework.context.annotation.Scope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -30,6 +31,7 @@ import java.util.HashMap;
  * @author Jan Müller
  */
 @Component
+@Scope("prototype")
 public class ChatController implements Terminable {
 
     public static final String SYSTEM = "System";
