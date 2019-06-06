@@ -171,7 +171,6 @@ public class LoginFormController implements RootController {
     private void onLogin(@NonNull final User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-        loadingIndicatorCardBuilder.setProgress(1.0);
         sceneManager.setLobbyScene();
     }
 
@@ -184,7 +183,6 @@ public class LoginFormController implements RootController {
     }
 
     private void initFlags() {
-        loadingIndicatorCardBuilder.setProgress(0.0);
         setLoadingFlag(true);
         setErrorFlag(false);
     }

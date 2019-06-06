@@ -1,12 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -29,6 +23,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -53,17 +49,10 @@ import java.util.concurrent.CompletableFuture;
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
         SceneManager.class,
-        LobbySceneBuilder.class,
-        LobbyViewBuilder.class,
         UserProvider.class,
         TitleViewBuilder.class,
         TitleViewController.class,
-        LoginFormControllerTestHttpError.ContextConfiguration.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
-        GameProvider.class,
-        UserProvider.class
+        LoginFormControllerTestHttpError.ContextConfiguration.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestHttpError extends ApplicationTest {
@@ -119,6 +108,19 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
                     switchedToLobby = true;
                 }
             };
+        }
+
+        @Bean
+        public RestTemplate restTemplate(){
+            return new RestTemplate(getClientHttpRequestFactory());
+        }
+
+        private ClientHttpRequestFactory getClientHttpRequestFactory() {
+            int timeOut = 10000;
+            HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+            clientHttpRequestFactory.setConnectTimeout(timeOut);
+            clientHttpRequestFactory.setReadTimeout(timeOut);
+            return clientHttpRequestFactory;
         }
 
         @Override
