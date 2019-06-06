@@ -52,7 +52,7 @@ public class Game
     }
 
     public void setId(String id) {
-        if(id.equals(null)){
+        if(this.id == null){
             this.id = id;
         }
     }
