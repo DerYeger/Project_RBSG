@@ -28,7 +28,7 @@
         <Font size="0.1" />
     </font>
    <styleClass>
-      <String fx:value="secondary-background-color" />
+      <String fx:value="primary-background-color" />
       <String fx:value="border" />
       <String fx:value="floating-shadow" />
    </styleClass>
