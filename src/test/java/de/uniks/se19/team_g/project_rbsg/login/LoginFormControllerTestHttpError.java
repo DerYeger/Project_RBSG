@@ -49,7 +49,6 @@ import java.util.concurrent.CompletableFuture;
         LoginSceneBuilder.class,
         SceneManager.class,
         UserProvider.class,
-        LoginManager.class,
         TitleViewBuilder.class,
         TitleViewController.class,
         LoginFormControllerTestHttpError.ContextConfiguration.class

@@ -22,8 +22,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
@@ -49,7 +47,6 @@ import java.util.Map;
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
         UserProvider.class,
-        LoginManager.class,
         TitleViewBuilder.class,
         TitleViewController.class,
         LoginFormControllerTestSuccess.ContextConfiguration.class
@@ -114,19 +111,6 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
                     switchedToLobby = true;
                 }
             };
-        }
-
-        @Bean
-        public RestTemplate restTemplate(){
-            return new RestTemplate(getClientHttpRequestFactory());
-        }
-
-        private ClientHttpRequestFactory getClientHttpRequestFactory() {
-            int timeOut = 10000;
-            HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-            clientHttpRequestFactory.setConnectTimeout(timeOut);
-            clientHttpRequestFactory.setReadTimeout(timeOut);
-            return clientHttpRequestFactory;
         }
 
         @Override
