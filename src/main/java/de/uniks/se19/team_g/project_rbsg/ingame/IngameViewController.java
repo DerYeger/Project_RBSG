@@ -96,7 +96,9 @@ public class IngameViewController {
 
     private void initLeaveGameButton() {
         Node leaveGameNode = leaveGameButton.buildLeaveGame();
-        leaveGamePane.getChildren().add(leaveGameNode);
+        if(leaveGamePane != null) {
+            leaveGamePane.getChildren().add(leaveGameNode);
+        }
         Button leaveGameButton = (Button) leaveGameNode;
         leaveGameButton.setOnAction(this::leaveGameAction);
     }

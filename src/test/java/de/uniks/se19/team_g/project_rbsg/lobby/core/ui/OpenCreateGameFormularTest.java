@@ -40,6 +40,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         JavaConfig.class,
+        FXMLLoaderFactory.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
         LobbySceneBuilder.class,

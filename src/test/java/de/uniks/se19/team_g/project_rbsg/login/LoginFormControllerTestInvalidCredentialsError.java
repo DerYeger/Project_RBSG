@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
@@ -50,6 +51,7 @@ import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner .class)
 @ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         LoginFormController.class,
         LoginFormBuilder.class,
         LoginFormController.class,
