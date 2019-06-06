@@ -61,9 +61,17 @@
                </styleClass>
             </Pane>
             <!--
-            <Pane fx:id="chatLogPane" maxHeight="80.0" maxWidth="-Infinity" minHeight="80.0" minWidth="760.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="140.0" />
+            <Pane fx:id="chatLogPane" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="150.0">
+            <styleClass>
+                  <String fx:value="surface-background-color" />
+                  <String fx:value="border" />
+                  <String fx:value="floating-shadow" />
+                  <String fx:value="chat-line-size" />
+               </styleClass>
+            </Pane>
             -->
-        </children>
+            <Pane fx:id="leaveGamePane" maxHeight="40.0" maxWidth="140.0" minHeight="40.0" minWidth="140.0" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="5.0" />
+         </children>
       </AnchorPane>
    </children>
 </StackPane>
