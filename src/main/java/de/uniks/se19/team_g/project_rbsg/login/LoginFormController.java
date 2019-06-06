@@ -109,7 +109,6 @@ public class LoginFormController implements RootController {
         if (nameField.getText() != null && passwordField != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = loginManager.onLogin(user);
-            loadingIndicatorCardBuilder.setProgress(0.5);
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
@@ -141,7 +140,6 @@ public class LoginFormController implements RootController {
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
-            loadingIndicatorCardBuilder.setProgress(0.5);
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
@@ -166,7 +164,6 @@ public class LoginFormController implements RootController {
     private void onLogin(@NonNull User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-        loadingIndicatorCardBuilder.setProgress(1.0);
         sceneManager.setLobbyScene();
     }
     @Override
@@ -183,7 +180,6 @@ public class LoginFormController implements RootController {
     }
 
     private void initFlags() {
-        loadingIndicatorCardBuilder.setProgress(0.0);
         setLoadingFlag(true);
         setErrorFlag(false);
     }
