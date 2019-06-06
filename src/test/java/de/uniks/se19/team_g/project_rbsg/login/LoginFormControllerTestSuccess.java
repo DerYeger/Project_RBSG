@@ -30,6 +30,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
@@ -54,17 +56,11 @@ import java.util.Map;
         LoginFormController.class,
         SplashImageBuilder.class,
         LoginSceneBuilder.class,
-        LobbySceneBuilder.class,
-        LobbyViewBuilder.class,
         UserProvider.class,
+        LoginManager.class,
         TitleViewBuilder.class,
         TitleViewController.class,
-        LoginFormControllerTestSuccess.ContextConfiguration.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
-        GameProvider.class,
-        UserProvider.class
+        LoginFormControllerTestSuccess.ContextConfiguration.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestSuccess extends ApplicationTest {
@@ -117,6 +113,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
                 }
             });
         }
+
         @Bean
         public SceneManager sceneManager() {
             return new SceneManager() {
@@ -125,6 +122,19 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
                     switchedToLobby = true;
                 }
             };
+        }
+
+        @Bean
+        public RestTemplate restTemplate(){
+            return new RestTemplate(getClientHttpRequestFactory());
+        }
+
+        private ClientHttpRequestFactory getClientHttpRequestFactory() {
+            int timeOut = 10000;
+            HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+            clientHttpRequestFactory.setConnectTimeout(timeOut);
+            clientHttpRequestFactory.setReadTimeout(timeOut);
+            return clientHttpRequestFactory;
         }
 
         @Override
