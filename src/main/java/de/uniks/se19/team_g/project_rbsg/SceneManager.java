@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -40,6 +41,10 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         return this;
     }
 
+    private void setScene(@NonNull final Scene scene) {
+        Platform.runLater(() -> stage.setScene(scene));
+    }
+
     public void setLoginScene() {
         if (stage == null) {
             logger.debug("Stage not initialised");
@@ -48,7 +53,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminateRootController();
         try {
             final Scene loginScene = context.getBean(LoginSceneBuilder.class).getLoginScene();
-            stage.setScene(loginScene);
+            setScene(loginScene);
         } catch (IOException e) {
             logger.error("Unable to set login scene");
             e.printStackTrace();
@@ -63,7 +68,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminateRootController();
         try {
             final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
-            stage.setScene(lobbyScene);
+            setScene(lobbyScene);
         } catch (Exception e) {
             System.out.println("Unable to set lobby scene");
             e.printStackTrace();
@@ -80,7 +85,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
             stage.setMinHeight(670);
             stage.setMinWidth(900);
             stage.setResizable(true);
-            stage.setScene(ingameScene);
+            setScene(ingameScene);
         } catch (Exception e) {
             System.out.println("Unable to set ingame scene");
             e.printStackTrace();
