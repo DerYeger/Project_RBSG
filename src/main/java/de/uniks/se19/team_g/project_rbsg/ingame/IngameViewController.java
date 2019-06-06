@@ -68,6 +68,8 @@ public class IngameViewController implements RootController, Terminable {
         setNodes();
 
         gameEventHandlerManager.startSocket(gameProvider.get().getId());
+
+        setAsRootController();
     }
 
     private void initBuilders() {
