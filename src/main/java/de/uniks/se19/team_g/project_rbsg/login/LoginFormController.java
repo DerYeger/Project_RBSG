@@ -105,9 +105,7 @@ public class LoginFormController implements RootController {
     }
 
     private void loginAction(@NotNull final ActionEvent event){
-        loadingIndicatorCardBuilder.setProgress(0.0);
-        setLoadingFlag(true);
-        setErrorFlag(false);
+        initFlags();
         if (nameField.getText() != null && passwordField != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = loginManager.onLogin(user);
@@ -115,15 +113,13 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
                     .exceptionally(exception ->  {
-                        setLoadingFlag(false);
-                        setErrorFlag(true);
-                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
+                        handleErrorMessage(exception.getMessage());
                         return null;
                     });
         }
     }
 
-    public void onLoginReturned(@Nullable final HashMap<String, Object> answer) {
+    private void onLoginReturned(@Nullable final HashMap<String, Object> answer) {
         if (answer != null) {
             final String status = (String) answer.get("status");
             if (status.equals("success")){
@@ -134,19 +130,14 @@ public class LoginFormController implements RootController {
                 }
                 onLogin(new User(user, userKey));
             } else if(status.equals("failure")) {
-                setLoadingFlag(false);
                 final String message = (String) answer.get("message");
-                setErrorFlag(true);
-                Platform.runLater(() -> this.errorMessage.setText(message));
-                System.out.println("message: " + message);
+                handleErrorMessage(message);
             }
         }
     }
 
     private void registerAction(@NotNull final ActionEvent event) {
-        loadingIndicatorCardBuilder.setProgress(0.0);
-        setLoadingFlag(true);
-        setErrorFlag(false);
+        initFlags();
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
@@ -154,9 +145,7 @@ public class LoginFormController implements RootController {
             answerPromise
                     .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
                     .exceptionally(exception ->  {
-                        setLoadingFlag(false);
-                        setErrorFlag(true);
-                        Platform.runLater(() -> this.errorMessage.setText(exception.getMessage()));
+                        handleErrorMessage(exception.getMessage());
                         return null;
                     });
         }
@@ -167,16 +156,14 @@ public class LoginFormController implements RootController {
             if (answer.get("status").equals("success")){
                 this.loginAction(event);
             } else if(answer.get("status").equals("failure")) {
-                setLoadingFlag(false);
                 final String message = (String) answer.get("message");
-                setErrorFlag(true);
-                Platform.runLater(() -> this.errorMessage.setText(message));
+                handleErrorMessage(message);
                 System.out.println("message: " + message);
             }
         }
     }
 
-    public void onLogin(@NonNull User user) {
+    private void onLogin(@NonNull User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
         loadingIndicatorCardBuilder.setProgress(1.0);
@@ -187,12 +174,23 @@ public class LoginFormController implements RootController {
         sceneManager.setRootController(this);
     }
 
-    public void setErrorFlag(boolean flag) {
+    private void setErrorFlag(boolean flag) {
         errorFlag.set(flag);
     }
 
-    public void setLoadingFlag(boolean flag) {
+    private void setLoadingFlag(boolean flag) {
         loadingFlag.set(flag);
     }
 
+    private void initFlags() {
+        loadingIndicatorCardBuilder.setProgress(0.0);
+        setLoadingFlag(true);
+        setErrorFlag(false);
+    }
+
+    private void handleErrorMessage(String errorMessage){
+        setLoadingFlag(false);
+        setErrorFlag(true);
+        Platform.runLater(() -> this.errorMessage.setText(errorMessage));
+    }
 }

@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
@@ -49,7 +48,6 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminateRootController();
         try {
             final Scene loginScene = context.getBean(LoginSceneBuilder.class).getLoginScene();
-            loginScene.getStylesheets().add(getClass().getResource("login-form.css").toExternalForm());
             stage.setScene(loginScene);
         } catch (IOException e) {
             logger.error("Unable to set login scene");
