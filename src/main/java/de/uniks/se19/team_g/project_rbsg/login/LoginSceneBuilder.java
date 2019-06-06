@@ -24,10 +24,10 @@ public class LoginSceneBuilder {
 
     private SplashImageBuilder splashImageBuilder;
     private LoginFormBuilder loginFormBuilder;
-    private TitleFormBuilder titleFormBuilder;
+    private TitleViewBuilder titleFormBuilder;
 
     @Autowired
-    public LoginSceneBuilder(@NotNull final SplashImageBuilder splashImageBuilder, @NotNull final LoginFormBuilder loginFormBuilder,  @NotNull final TitleFormBuilder titleFormBuilder) {
+    public LoginSceneBuilder(@NotNull final SplashImageBuilder splashImageBuilder, @NotNull final LoginFormBuilder loginFormBuilder,  @NotNull final TitleViewBuilder titleFormBuilder) {
         this.splashImageBuilder = splashImageBuilder;
         this.loginFormBuilder = loginFormBuilder;
         this.titleFormBuilder = titleFormBuilder;

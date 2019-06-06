@@ -1,7 +1,5 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.game;
+package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -20,15 +18,17 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
 
+/**
+ * @author  Keanu Stückrad
+ */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        CreateGameFormBuilderTest.ContextConfiguration.class,
-        CreateGameFormBuilder.class,
-        CreateGameController.class,
-        GameCreator.class,
-        UserProvider.class
+        TitleViewBuilderTests.ContextConfiguration.class,
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
-public class CreateGameFormBuilderTest extends ApplicationTest {
+public class TitleViewBuilderTests extends ApplicationTest {
 
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
@@ -52,11 +52,12 @@ public class CreateGameFormBuilderTest extends ApplicationTest {
     }
 
     @Autowired
-    public ApplicationContext context;
+    private ApplicationContext context;
 
     @Test
-    public void testGetCreateGameForm() throws IOException {
-        final Node createGameForm = context.getBean(CreateGameFormBuilder.class).getCreateGameForm();
-        Assert.assertNotNull(createGameForm);
+    public void testGetTitleForm() throws IOException {
+        final Node titleView = context.getBean(TitleViewBuilder.class).getTitleForm();
+        Assert.assertNotNull(titleView);
     }
 }
+

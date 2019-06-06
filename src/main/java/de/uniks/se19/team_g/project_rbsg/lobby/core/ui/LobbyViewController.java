@@ -10,10 +10,10 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.server.rest.*;
+import de.uniks.se19.team_g.project_rbsg.termination.*;
 import io.rincl.*;
 import javafx.beans.binding.*;
 import javafx.event.*;
-import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
@@ -33,16 +33,18 @@ import java.util.*;
 
 
 @Component
-public class LobbyViewController implements Rincled
+public class LobbyViewController implements RootController, Terminable, Rincled
 {
+    private static final int iconSize = 30;
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
     private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
-    @FXML
-    public StackPane lobbyView;
+    private final SceneManager sceneManager;
+    private final GameProvider gameProvider;
+    private final UserProvider userProvider;
+    private final JoinGameManager joinGameManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -50,8 +52,6 @@ public class LobbyViewController implements Rincled
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
-
-    private static final int iconSize = 30;
 
     public StackPane mainStackPane;
     public Button soundButton;
@@ -67,13 +67,16 @@ public class LobbyViewController implements Rincled
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
 
-    private final GameProvider gameProvider;
-    private final UserProvider userProvider;
-    private final SceneManager sceneManager;
-    private final JoinGameManager joinGameManager;
-
     @Autowired
-    public LobbyViewController(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager, @NonNull final PlayerManager playerManager, @NonNull final GameManager gameManager, @NonNull final SystemMessageManager systemMessageManager, @NonNull final ChatController chatController, @NonNull final CreateGameFormBuilder createGameFormBuilder)
+    public LobbyViewController(@NonNull final GameProvider gameProvider,
+                               @NonNull final UserProvider userProvider,
+                               @NonNull final SceneManager sceneManager,
+                               @NonNull final JoinGameManager joinGameManager,
+                               @NonNull final PlayerManager playerManager,
+                               @NonNull final GameManager gameManager,
+                               @NonNull final SystemMessageManager systemMessageManager,
+                               @NonNull final ChatController chatController,
+                               @NonNull final CreateGameFormBuilder createGameFormBuilder)
     {
         this.lobby = new Lobby();
 
@@ -157,11 +160,14 @@ public class LobbyViewController implements Rincled
         withChatSupport();
 
         setBackgroundImage();
-        updateLabels();
 
         Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
         Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 10);
         Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 10);
+
+        updateLabels(null);
+
+        setAsRootController();
     }
 
     private void updateMusicButtonIcons()
@@ -201,6 +207,7 @@ public class LobbyViewController implements Rincled
                                                                    BackgroundRepeat.NO_REPEAT,
                                                                    BackgroundPosition.CENTER,
                                                                    BackgroundSize.DEFAULT)));
+
     }
 
     private void configureSystemMessageManager()
@@ -243,6 +250,9 @@ public class LobbyViewController implements Rincled
 
     public void createGameButtonClicked(ActionEvent event)
     {
+        if(mainStackPane == null) {
+            return;
+        }
         if (this.gameForm == null) {
             try {
                 this.gameForm = this.createGameFormBuilder.getCreateGameForm();
@@ -251,9 +261,9 @@ public class LobbyViewController implements Rincled
                 e.printStackTrace();
             }
         }
-        if ((this.gameForm != null) && (!lobbyView.getChildren().contains(this.gameForm))) {
-            lobbyView.getChildren().add(gameForm);
-        } else if ((this.gameForm != null) && (lobbyView.getChildren().contains(this.gameForm))){
+        if ((this.gameForm != null) && (!mainStackPane.getChildren().contains(this.gameForm))) {
+            mainStackPane.getChildren().add(gameForm);
+        } else if ((this.gameForm != null) && (mainStackPane.getChildren().contains(this.gameForm))){
             this.gameForm.setVisible(true);
         }
 
@@ -261,11 +271,25 @@ public class LobbyViewController implements Rincled
 
     public void terminate()
     {
+        chatController.terminate();
         lobby.getSystemMessageManager().stopSocket();
+        logger.debug("Terminated " + this);
     }
 
-    private void updateLabels()
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
+    }
+
+    private void updateLabels(Locale locale)
     {
+        if(Locale.getDefault().equals(locale))
+        {
+            return;
+        }
+        if(locale != null) {
+            Rincl.setLocale(locale);
+        }
+        
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));
@@ -274,22 +298,14 @@ public class LobbyViewController implements Rincled
 
     public void changeLangToDE(ActionEvent event)
     {
-        if(Locale.getDefault().equals(Locale.GERMAN) || Locale.getDefault().equals(Locale.GERMANY)) {
-            return;
-        }
         deButton.disableProperty().setValue(true);
-        Rincl.setLocale(Locale.GERMAN);
-        updateLabels();
+        updateLabels(Locale.GERMAN);
     }
 
     public void changeLangToEN(ActionEvent event)
     {
-        if(Locale.getDefault().equals(Locale.ENGLISH) || Locale.getDefault().equals(Locale.US)) {
-            return;
-        }
         deButton.disableProperty().setValue(false);
-        Rincl.setLocale(Locale.ENGLISH);
-        updateLabels();
+        updateLabels(Locale.ENGLISH);
     }
 
     public void toggleSound(ActionEvent event)
