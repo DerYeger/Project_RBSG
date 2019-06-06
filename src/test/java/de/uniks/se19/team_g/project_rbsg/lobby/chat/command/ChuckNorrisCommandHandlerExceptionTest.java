@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,7 @@ import java.io.IOException;
         ChatWebSocketCallback.class,
         ChatChannelController.class,
         ChatController.class,
+        Terminator.class,
         ChuckNorrisCommandHandlerTest.ContextConfiguration.class
 })
 public class ChuckNorrisCommandHandlerExceptionTest extends ApplicationTest {
