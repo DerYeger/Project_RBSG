@@ -47,12 +47,13 @@ public class CreateGameController {
     private JoinGameManager joinGameManager;
     private Game game;
 
-    private int numberOfPlayers;
     private Node root;
     private UserProvider userProvider;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
+
+    private int numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
 
     private final GameProvider gameProvider;
 
