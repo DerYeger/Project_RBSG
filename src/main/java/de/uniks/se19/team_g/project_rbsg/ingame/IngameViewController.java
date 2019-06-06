@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandlerManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -50,24 +50,24 @@ public class IngameViewController implements RootController, Terminable {
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
     @NonNull
-    private final GameEventHandlerManager gameEventHandlerManager;
+    private final GameEventManager gameEventManager;
 
     @Autowired
     public IngameViewController(@NonNull final GameProvider gameProvider,
                                 @NonNull final UserProvider userProvider,
                                 @NonNull final SceneManager sceneManager,
-                                @NonNull final GameEventHandlerManager gameEventHandlerManager){
+                                @NonNull final GameEventManager gameEventManager){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
-        this.gameEventHandlerManager = gameEventHandlerManager;
+        this.gameEventManager = gameEventManager;
     }
 
     public void init() {
         initBuilders();
         setNodes();
 
-        gameEventHandlerManager.startSocket(gameProvider.get().getId());
+        gameEventManager.startSocket(gameProvider.get().getId());
 
         setAsRootController();
     }
@@ -105,6 +105,6 @@ public class IngameViewController implements RootController, Terminable {
 
     @Override
     public void terminate() {
-        gameEventHandlerManager.terminate();
+        gameEventManager.terminate();
     }
 }

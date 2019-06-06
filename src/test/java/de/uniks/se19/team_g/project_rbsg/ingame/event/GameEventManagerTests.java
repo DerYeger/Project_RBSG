@@ -17,10 +17,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        GameEventHandlerManagerTests.ContextConfiguration.class,
-        GameEventHandlerManager.class
+        GameEventManagerTests.ContextConfiguration.class,
+        GameEventManager.class
 })
-public class GameEventHandlerManagerTests {
+public class GameEventManagerTests {
 
     private static boolean socketStarted = false;
     private static boolean socketStopped = false;
@@ -28,7 +28,7 @@ public class GameEventHandlerManagerTests {
     private final String gameId = "12345";
 
     @Autowired
-    private GameEventHandlerManager gameEventHandlerManager;
+    private GameEventManager gameEventManager;
 
     @TestConfiguration
     public static class ContextConfiguration {
@@ -62,29 +62,29 @@ public class GameEventHandlerManagerTests {
 
     @Test
     public void testStartSocket() {
-        gameEventHandlerManager.startSocket(gameId);
+        gameEventManager.startSocket(gameId);
         System.out.println(socketStarted);
         Assert.assertTrue(socketStarted);
     }
 
     @Test
     public void testTerminate() {
-        gameEventHandlerManager.terminate();
+        gameEventManager.terminate();
         Assert.assertTrue(socketStopped);
     }
 
     @Test
     public void testAddHandler() {
         final TestGameEventHandler testGameEventHandler = new TestGameEventHandler();
-        gameEventHandlerManager.addHandler(testGameEventHandler);
-        Assert.assertTrue(gameEventHandlerManager.getHandlers().contains(testGameEventHandler));
+        gameEventManager.addHandler(testGameEventHandler);
+        Assert.assertTrue(gameEventManager.getHandlers().contains(testGameEventHandler));
     }
 
     @Test
     public void testHandle() {
         final TestGameEventHandler testGameEventHandler = new TestGameEventHandler();
         final String message = "A message!";
-        gameEventHandlerManager
+        gameEventManager
                 .addHandler(testGameEventHandler)
                 .handle(message);
         Assert.assertEquals(message, testGameEventHandler.handledMessage);

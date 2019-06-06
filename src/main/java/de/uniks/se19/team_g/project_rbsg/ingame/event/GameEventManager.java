@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 @Component
 @Scope("prototype")
-public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
+public class GameEventManager implements IWebSocketCallback, Terminable {
 
     private static final String ENDPOINT = "/game?gameId=";
 
@@ -26,14 +26,14 @@ public class GameEventHandlerManager implements IWebSocketCallback, Terminable {
 
     private WebSocketClient webSocketClient;
 
-    public GameEventHandlerManager(@NonNull final WebSocketClient webSocketClient) {
+    public GameEventManager(@NonNull final WebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
 
         gameEventHandlers = new ArrayList<>();
         gameEventHandlers.add(new DefaultGameEventHandler());
     }
 
-    public GameEventHandlerManager addHandler(@NonNull final GameEventHandler gameEventHandler) {
+    public GameEventManager addHandler(@NonNull final GameEventHandler gameEventHandler) {
         gameEventHandlers.add(gameEventHandler);
         return this;
     }
