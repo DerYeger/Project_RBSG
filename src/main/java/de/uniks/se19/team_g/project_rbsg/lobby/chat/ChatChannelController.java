@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import org.springframework.lang.NonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author Jan Müller
  */
@@ -22,9 +25,16 @@ public class ChatChannelController {
 
     private String channel;
 
+    private boolean displayTimestamps;
+
     public void init(@NonNull final ChatController chatController, @NonNull final String channel) {
+        init(chatController, channel, true);
+    }
+
+    public void init(@NonNull final ChatController chatController, @NonNull final String channel, final boolean displayTimestamps) {
         this.chatController = chatController;
         this.channel = channel;
+        this.displayTimestamps = displayTimestamps;
 
         //do not remove
         chatController.registerChatChannelController(this, channel);
@@ -41,7 +51,27 @@ public class ChatChannelController {
     }
 
     public void displayMessage(@NonNull final String from, @NonNull final String content) {
-        Platform.runLater(() -> messageArea.appendText(from + ": " + content + '\n'));
+        Platform.runLater(() -> messageArea.appendText(buildMessage(from, content)));
+    }
+
+    private String buildMessage(@NonNull final String from, @NonNull final String content) {
+        final StringBuilder sb = new StringBuilder();
+
+        if (displayTimestamps) {
+            sb.append(getTimestamp());
+        }
+
+        sb.append(' ')
+                .append(from)
+                .append(": ")
+                .append(content)
+                .append('\n');
+
+        return sb.toString();
+    }
+
+    private String getTimestamp() {
+        return '[' + new SimpleDateFormat("HH:mm:ss").format(new Date()) + ']';
     }
 
     private void handleInput() {
