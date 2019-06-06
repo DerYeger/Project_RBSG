@@ -67,6 +67,7 @@ public class OpenCreateGameFormularTest extends ApplicationTest
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
         }
+
         @Bean
         public GameManager gameManager()
         {
