@@ -82,6 +82,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate()) {
                 @Override
+                @SuppressWarnings("unchecked")
                 public CompletableFuture onLogin(User user) {
                     return CompletableFuture.failedFuture(
                             new HttpClientErrorException(HttpStatus.BAD_REQUEST, "status message", BODY.getBytes(), StandardCharsets.UTF_8)
@@ -93,6 +94,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         public RegistrationManager registrationManager() {
             return new RegistrationManager(new RestTemplate()) {
                 @Override
+                @SuppressWarnings("unchecked")
                 public CompletableFuture onRegistration(User user) {
                     return CompletableFuture.failedFuture(
                             new HttpClientErrorException(HttpStatus.BAD_REQUEST, "status message", BODY.getBytes(), StandardCharsets.UTF_8)

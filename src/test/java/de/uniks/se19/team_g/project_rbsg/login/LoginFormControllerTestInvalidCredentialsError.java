@@ -87,7 +87,8 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
                     final ObjectNode body = new ObjectMapper().createObjectNode();
                     body.put("status", "failure");
                     body.put("message", "Invalid Credentials");
-                    body.put("data", (JsonNode) null);
+                    body.with("data");
+
                     ResponseEntity<ObjectNode> response = new ResponseEntity<>(body, HttpStatus.OK);
                     @SuppressWarnings("unchecked")
                     ResponseEntity<T> castedResponse = (ResponseEntity<T>) response;
@@ -104,7 +105,8 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
                     final ObjectNode body = new ObjectMapper().createObjectNode();
                     body.put("status", "failure");
                     body.put("message", "Name already taken");
-                    body.put("data", (JsonNode) null);
+                    body.with("data");
+
                     ResponseEntity<ObjectNode> response = new ResponseEntity<>(body, HttpStatus.OK);
                     @SuppressWarnings("unchecked")
                     ResponseEntity<T> castedResponse = (ResponseEntity<T>) response;
