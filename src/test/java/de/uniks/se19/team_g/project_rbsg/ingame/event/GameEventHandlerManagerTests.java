@@ -25,7 +25,7 @@ public class GameEventHandlerManagerTests {
     private static boolean socketStarted = false;
     private static boolean socketStopped = false;
 
-    private final int gameId = 12345;
+    private final String gameId = "12345";
 
     @Autowired
     private GameEventHandlerManager gameEventHandlerManager;
