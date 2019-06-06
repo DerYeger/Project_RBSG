@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
-import org.springframework.lang.NonNull;
+import javafx.beans.property.*;
+import org.springframework.lang.*;
 
 /**
  * @author Georg Siebert
@@ -14,7 +15,7 @@ public class Game
     private String imagePath;
 
     private int neededPlayer;
-    private int joinedPlayer;
+    private SimpleIntegerProperty joinedPlayer;
 
     public Game(String id, String name, String imagePath, int neededPlayer, int joinedPlayer)
     {
@@ -22,7 +23,7 @@ public class Game
         this.name = name;
         this.imagePath = imagePath;
         this.neededPlayer = neededPlayer;
-        this.joinedPlayer = joinedPlayer;
+        this.joinedPlayer = new SimpleIntegerProperty(joinedPlayer);
     }
 
     public Game(String id, String name, int neededPlayer, int joinedPlayer)
@@ -30,16 +31,17 @@ public class Game
         this.id = id;
         this.name = name;
         this.neededPlayer = neededPlayer;
-        this.joinedPlayer = joinedPlayer;
+        this.joinedPlayer = new SimpleIntegerProperty(joinedPlayer);
 
         //TODO: SetDefaultImagePath
         this.imagePath = "";
     }
 
-    public Game(@NonNull String name, @NonNull int neededPlayer){
+    public Game(@NonNull String name, @NonNull int neededPlayer)
+    {
         this.name = name;
         this.neededPlayer = neededPlayer;
-        this.joinedPlayer = 0;
+        this.joinedPlayer = new SimpleIntegerProperty(0);
 
         //TODO: SetDefaultImagePath
         this.imagePath = "";
@@ -51,8 +53,10 @@ public class Game
         return id;
     }
 
-    public void setId(String id) {
-        if(id.equals(null)){
+    public void setId(String id)
+    {
+        if (this.id.equals(null))
+        {
             this.id = id;
         }
     }
@@ -74,10 +78,16 @@ public class Game
 
     public int getJoinedPlayer()
     {
-        return joinedPlayer;
+        return joinedPlayer.getValue();
     }
 
-    public void setJoinedPlayer(int joinedPlayer) {
-        this.joinedPlayer = joinedPlayer;
+    public void setJoinedPlayer(int joinedPlayer)
+    {
+        this.joinedPlayer.setValue(joinedPlayer);
+    }
+
+    public SimpleIntegerProperty getJoinedPlayerProperty()
+    {
+        return this.joinedPlayer;
     }
 }
