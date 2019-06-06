@@ -1,4 +1,6 @@
 /*
+ * @author Keanu Stückrad
+ *
  * Dark-Theme Stylesheet
  *
  * Info for Usage: Use the class selector to import it on an special node in fxml.
@@ -110,6 +112,10 @@
 
 .floating-shadow {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+}
+
+.progress-color {
+    -fx-progress-color: #03DAC5;
 }
 
 /* Hovered */
