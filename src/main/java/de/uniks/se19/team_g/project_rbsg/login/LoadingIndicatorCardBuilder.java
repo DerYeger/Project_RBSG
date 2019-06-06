@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import javafx.application.Platform;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +18,7 @@ public class LoadingIndicatorCardBuilder {
 
     private FXMLLoader fxmlLoader;
     private Node loadingIndicatorView;
+    public SimpleDoubleProperty progress;
 
     public Node buildProgressIndicatorCard(){
         if(fxmlLoader == null) {
@@ -29,12 +30,15 @@ public class LoadingIndicatorCardBuilder {
                 e.printStackTrace();
             }
         }
-        setProgress(0.8);
+        if(progress == null){
+            progress = new SimpleDoubleProperty(0.0);
+        }
+        progressIndicator.progressProperty().bind(progress);
         return loadingIndicatorView;
     }
 
-    public void setProgress(double progress){
-        Platform.runLater(() -> progressIndicator.setProgress(progress));
+    public void setProgress(double progressDouble) {
+        progress.set(progressDouble);
     }
 
 }
