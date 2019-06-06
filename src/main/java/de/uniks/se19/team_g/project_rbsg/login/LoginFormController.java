@@ -156,7 +156,7 @@ public class LoginFormController implements RootController {
                 final JsonNode data = body.get("data");
 
                 if (data == null) {
-                    logger.debug("No user data received");
+                    handleErrorMessage("Empty server response");
                     return;
                 }
 
@@ -190,17 +190,31 @@ public class LoginFormController implements RootController {
     }
 
     private Void handleException(@NonNull final Throwable throwable) {
-        try {
-            final ObjectNode node = new ObjectMapper().readValue(((HttpClientErrorException) throwable.getCause()).getResponseBodyAsString(), ObjectNode.class);
-            if (node.has("status") && node.get("status").asText().equals("failure") && node.has("message")) {
-                handleErrorMessage(node.get("message").asText());
-            } else {
-                logger.debug("Unknown exception format");
+        //init with fallback case
+        String debugMessage = "Error is not an instance of HttpClientErrorException";
+        String errorMessage = "An unexpected error occurred";
+
+        if (throwable.getCause() != null && throwable.getCause() instanceof HttpClientErrorException) {
+            try {
+                final ObjectNode node = new ObjectMapper().readValue(((HttpClientErrorException) throwable.getCause()).getResponseBodyAsString(), ObjectNode.class);
+
+                if (node.has("status") && node.get("status").asText().equals("failure") && node.has("message")) {
+                    debugMessage = null;
+                    errorMessage = node.get("message").asText();
+                } else {
+                    debugMessage = "Unknown exception format";
+                    errorMessage = "Unknown server response";
+                }
+            } catch (IOException e) {
+                debugMessage = "Unable to parse exception";
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            logger.debug("Unable to parse exception");
-            e.printStackTrace();
         }
+
+        if (debugMessage != null) logger.debug(debugMessage);
+
+        handleErrorMessage(errorMessage);
+
         return null;
     }
 
