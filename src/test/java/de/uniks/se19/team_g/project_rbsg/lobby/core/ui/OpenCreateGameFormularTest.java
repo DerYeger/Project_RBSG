@@ -1,27 +1,26 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
-import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import org.junit.*;
 import org.junit.runner.*;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.context.*;
@@ -39,31 +38,17 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
         FXMLLoaderFactory.class,
-        LobbyViewBuilder.class,
-        LobbyViewController.class,
-        LobbySceneBuilder.class,
         OpenCreateGameFormularTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
         UserProvider.class,
         SceneManager.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
-        LoginFormController.class,
-        LoginFormBuilder.class,
-        LoginManager.class,
-        RegistrationManager.class,
-        SplashImageBuilder.class,
-        LoginSceneBuilder.class,
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        TitleViewBuilder.class,
-        TitleViewController.class,
-        Terminator.class
+        LobbyViewBuilder.class,
+        LobbyViewController.class
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {
@@ -72,8 +57,18 @@ public class OpenCreateGameFormularTest extends ApplicationTest
     ApplicationContext context;
 
     @TestConfiguration
-    public static class ContextConfiguration
-    {
+    public static class ContextConfiguration implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
         @Bean
         public GameManager gameManager()
         {
@@ -124,6 +119,11 @@ public class OpenCreateGameFormularTest extends ApplicationTest
 
             };
         }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
+        }
     }
 
     @Override
@@ -131,7 +131,7 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene());
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
 
         stage.setScene(scene);
         stage.show();

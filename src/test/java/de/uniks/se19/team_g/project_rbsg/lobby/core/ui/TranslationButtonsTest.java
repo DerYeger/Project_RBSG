@@ -1,26 +1,26 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
-import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
 import org.junit.*;
 import org.junit.runner.*;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.context.*;
@@ -38,31 +38,17 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        JavaConfig.class,
         FXMLLoaderFactory.class,
-        LobbyViewBuilder.class,
-        LobbyViewController.class,
-        LobbySceneBuilder.class,
         TranslationButtonsTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
         UserProvider.class,
         SceneManager.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
-        LoginFormController.class,
-        LoginFormBuilder.class,
-        LoginManager.class,
-        RegistrationManager.class,
-        SplashImageBuilder.class,
-        LoginSceneBuilder.class,
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        TitleViewBuilder.class,
-        TitleViewController.class,
-        Terminator.class
+        LobbyViewBuilder.class,
+        LobbyViewController.class
 })
 public class TranslationButtonsTest extends ApplicationTest
 {
@@ -74,7 +60,7 @@ public class TranslationButtonsTest extends ApplicationTest
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene());
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
 
         stage.setScene(scene);
         stage.show();
@@ -82,7 +68,19 @@ public class TranslationButtonsTest extends ApplicationTest
     }
 
     @TestConfiguration
-    static class ContextConfiguration {
+    static class ContextConfiguration implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
+
         @Bean
         public GameManager gameManager() {
             return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
@@ -113,6 +111,15 @@ public class TranslationButtonsTest extends ApplicationTest
         }
 
         @Bean
+        public GameEventManager gameEventManager() {
+            return new GameEventManager(new WebSocketClient()) {
+                @Override
+                public void startSocket(@NonNull final String gameID) {
+                }
+            };
+        }
+
+        @Bean
         public ChatController chatController() {
             return  new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback()) {
                 @Override
@@ -120,6 +127,11 @@ public class TranslationButtonsTest extends ApplicationTest
                 {
                 }
             };
+        }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
         }
     }
 
@@ -131,7 +143,6 @@ public class TranslationButtonsTest extends ApplicationTest
 
         assertEquals("EN", enButton.getText());
         assertEquals("DE", deButton.getText());
-        assertEquals("Create game", createGameButton.getText());
 
         clickOn("#deButton");
 

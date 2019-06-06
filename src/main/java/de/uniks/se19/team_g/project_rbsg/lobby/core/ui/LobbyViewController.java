@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -16,7 +17,6 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,6 +36,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import de.uniks.se19.team_g.project_rbsg.termination.*;
 import io.rincl.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import java.util.*;
 
 /**
@@ -59,6 +61,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
+    private boolean musicRunning = true;
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
@@ -138,26 +141,90 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.clearGames();
         lobby.addAllGames(gameManager.getGames());
 
+        deButton.disableProperty().setValue(true);
+        enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
+
+        setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
+        setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
+
+        updateMusicButtonIcons();
 
 
-
-        setCreateGameIcons();
-
-        //For ui Desgin
+        //For UI/UX Design
 //        lobby.addPlayer(new Player("Hallo1"));
 //        lobby.addPlayer(new Player("Hallo2"));
 //        lobby.addPlayer(new Player("Hallo3"));
 //        lobby.addPlayer(new Player("Hallo4"));
+//        lobby.addPlayer(new Player("Hallo5"));
+//        lobby.addPlayer(new Player("Hallo6"));
+//        lobby.addPlayer(new Player("Hallo7"));
+//        lobby.addPlayer(new Player("Hallo8"));
+//        lobby.addPlayer(new Player("Hallo9"));
+//        lobby.addPlayer(new Player("Hallo10"));
+//        lobby.addPlayer(new Player("Hallo11"));
+//        lobby.addPlayer(new Player("Hallo12"));
+//
 //        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo5", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo6", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
 
         withChatSupport();
+
+        setBackgroundImage();
+
+
+        Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
 
         setAsRootController();
+    }
+
+    private void updateMusicButtonIcons()
+    {
+        if(musicRunning) {
+            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
+        } else {
+            setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
+        }
+    }
+
+    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
+        ImageView hover = new ImageView();
+        ImageView nonHover = new ImageView();
+
+        nonHover.fitWidthProperty().setValue(iconSize);
+        nonHover.fitHeightProperty().setValue(iconSize);
+
+        hover.fitWidthProperty().setValue(iconSize);
+        hover.fitHeightProperty().setValue(iconSize);
+
+        hover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + hoverIconName))));
+        nonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + nonHoverIconName))));
+
+        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
+                                                    .then(hover)
+                                                    .otherwise(nonHover));
+    }
+
+    private void setBackgroundImage()
+    {
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("splash_darker_verschwommen.jpg")),
+                                          ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
+
+        mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,
+                                                                   BackgroundRepeat.NO_REPEAT,
+                                                                   BackgroundRepeat.NO_REPEAT,
+                                                                   BackgroundPosition.CENTER,
+                                                                   BackgroundSize.DEFAULT)));
+
     }
 
     private void configureSystemMessageManager()
@@ -178,27 +245,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.getSystemMessageManager().addMessageHandler(gameDeletedMessageHandler);
         lobby.getSystemMessageManager().addMessageHandler(playerJoinedAndLeftGameMessageHandler);
         lobby.getSystemMessageManager().startSocket();
-    }
-
-    private void setCreateGameIcons()
-    {
-        Rincl.setLocale(Locale.ENGLISH);
-        logger.debug(getResources().getString("createGameButton"));
-        ImageView createGameNonHover = new ImageView();
-        ImageView createGameHover = new ImageView();
-
-        createGameHover.fitHeightProperty().setValue(iconSize);
-        createGameHover.fitWidthProperty().setValue(iconSize);
-
-        createGameNonHover.fitHeightProperty().setValue(iconSize);
-        createGameNonHover.fitWidthProperty().setValue(iconSize);
-
-        createGameNonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_white_48dp.png"))));
-        createGameHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_black_48dp.png"))));
-
-        createGameButton.graphicProperty().bind(Bindings.when(createGameButton.hoverProperty())
-                                                        .then(createGameHover)
-                                                        .otherwise(createGameNonHover));
     }
 
     private void withChatSupport()
@@ -262,6 +308,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if(locale != null) {
             Rincl.setLocale(locale);
         }
+
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));
@@ -270,19 +317,25 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void changeLangToDE(ActionEvent event)
     {
+        deButton.disableProperty().setValue(true);
         updateLabels(Locale.GERMAN);
     }
 
     public void changeLangToEN(ActionEvent event)
     {
+        deButton.disableProperty().setValue(false);
         updateLabels(Locale.ENGLISH);
     }
 
     public void toggleSound(ActionEvent event)
     {
+        logger.debug("Pressed the toggleSound button");
+        musicRunning = !musicRunning;
+        updateMusicButtonIcons();
     }
 
-    public void loggoutUser(ActionEvent event)
+    public void logoutUser(ActionEvent event)
     {
+        logger.debug("Pressed the logout button");
     }
 }

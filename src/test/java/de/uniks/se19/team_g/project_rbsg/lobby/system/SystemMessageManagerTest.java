@@ -76,6 +76,8 @@ public class SystemMessageManagerTest
 
     @Test
     public void startWebSocket() {
+        WebSocketConfigurator.userKey = "";
+
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
         systemMessageManager.addMessageHandler(new TestMessageHandler());
         systemMessageManager.startSocket();
