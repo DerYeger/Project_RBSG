@@ -24,7 +24,7 @@ import java.io.IOException;
  */
 @Component
 public class SceneManager implements ApplicationContextAware, Terminable {
-    private String applicationName = "RBSG - Advanced Wars TM";
+    private String applicationName = "RBSG - Enhanced Wars TM";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
