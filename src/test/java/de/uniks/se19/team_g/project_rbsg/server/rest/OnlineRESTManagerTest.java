@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
+@Category(OnlineTests.class)
 @Ignore
 public class OnlineRESTManagerTest {
 
