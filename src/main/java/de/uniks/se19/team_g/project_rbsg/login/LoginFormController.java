@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -10,36 +8,32 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
-import io.rincl.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.client.HttpClientErrorException;
 
-import java.io.IOException;
+import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Jan Müller
- * @author Juri Lozowoj
- * @author Keanu Stückrad
- * @edited Georg Siebert
+ * @edited Juri Lozowoj
+ * @edited Keanu Stückrad
  */
 @Controller
-public class LoginFormController implements RootController, Rincled
-{
-
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+public class LoginFormController implements RootController {
 
     @FXML
     private TextField nameField;
@@ -77,24 +71,11 @@ public class LoginFormController implements RootController, Rincled
         this.sceneManager = sceneManager;
     }
 
-    @Override
-    public void setAsRootController() {
-        sceneManager.setRootController(this);
-    }
-
     public void init() {
         addEventListeners();
+        setAsRootController();
         addLoadingIndicator();
         addErrorFlag();
-        setAsRootController();
-
-        updateLabels();
-    }
-
-    private void updateLabels()
-    {
-        loginButton.setText(getResources().getString("loginButton"));
-        registerButton.setText(getResources().getString("registerButton"));
     }
 
     private void addErrorFlag() {
@@ -119,68 +100,75 @@ public class LoginFormController implements RootController, Rincled
     }
 
     private void addEventListeners() {
-        loginButton.setOnAction(event -> loginAction());
-        registerButton.setOnAction(event -> registerAction());
+        loginButton.setOnAction(this::loginAction);
+        registerButton.setOnAction(this::registerAction);
     }
 
-    private void registerAction() {
+    private void loginAction(@NotNull final ActionEvent event){
         initFlags();
-        if (nameField.getText() != null && passwordField.getText() != null) {
+        if (nameField.getText() != null && passwordField != null) {
             user = new User(nameField.getText(), passwordField.getText());
-            final CompletableFuture<ResponseEntity<ObjectNode>> answerPromise = registrationManager.onRegistration(user);
-            answerPromise.thenAccept(this::onRegistrationReturned)
-                    .exceptionally(this::handleException);
+            final CompletableFuture<HashMap<String, Object>> answerPromise = loginManager.onLogin(user);
+            answerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onLoginReturned(map)))
+                    .exceptionally(exception ->  {
+                        handleErrorMessage(exception.getMessage());
+                        return null;
+                    });
         }
     }
 
-    private void loginAction() {
-        initFlags();
-        if (nameField.getText() != null && passwordField.getText() != null) {
-            user = new User(nameField.getText(), passwordField.getText());
-            final CompletableFuture<ResponseEntity<ObjectNode>> answerPromise = loginManager.onLogin(user);
-            answerPromise.thenAccept(this::onLoginReturned)
-                    .exceptionally(this::handleException);
-        }
-    }
-
-    private void onRegistrationReturned(@Nullable final ResponseEntity<ObjectNode> answer) {
-        if (answer != null && answer.getBody() != null) {
-
-            final ObjectNode body = answer.getBody();
-
-            if (body.get("status").asText().equals("success")){
-                this.loginAction();
-            } else {
-                handleErrorMessage(body.get("message").asText());
-            }
-        }
-    }
-
-    private void onLoginReturned(@Nullable final ResponseEntity<ObjectNode> answer) {
-        if (answer != null && answer.getBody() != null) {
-
-            final ObjectNode body = answer.getBody();
-
-            if (body.get("status").asText().equals("success")) {
-                final JsonNode data = body.get("data");
-
-                if (data == null) {
-                    handleErrorMessage("Empty server response");
-                    return;
+    private void onLoginReturned(@Nullable final HashMap<String, Object> answer) {
+        if (answer != null) {
+            final String status = (String) answer.get("status");
+            if (status.equals("success")){
+                final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
+                String userKey = "";
+                if(data != null){
+                    userKey = ((String) data.get("userKey"));
                 }
-
-                onLogin(new User(user, data.get("userKey").asText()));
-                user = null;
-            } else {
-                handleErrorMessage(body.get("message").asText());
+                onLogin(new User(user, userKey));
+            } else if(status.equals("failure")) {
+                final String message = (String) answer.get("message");
+                handleErrorMessage(message);
             }
         }
     }
 
-    private void onLogin(@NonNull final User user) {
+    private void registerAction(@NotNull final ActionEvent event) {
+        initFlags();
+        if (nameField.getText() != null && passwordField.getText() != null) {
+            user = new User(nameField.getText(), passwordField.getText());
+            final CompletableFuture<HashMap<String, Object>> answerPromise = registrationManager.onRegistration(user);
+            answerPromise
+                    .thenAccept(map -> Platform.runLater(() -> onRegistrationReturned(map, event)))
+                    .exceptionally(exception ->  {
+                        handleErrorMessage(exception.getMessage());
+                        return null;
+                    });
+        }
+    }
+
+    private void onRegistrationReturned(@Nullable final HashMap<String, Object> answer, ActionEvent event) {
+        if (answer != null) {
+            if (answer.get("status").equals("success")){
+                this.loginAction(event);
+            } else if(answer.get("status").equals("failure")) {
+                final String message = (String) answer.get("message");
+                handleErrorMessage(message);
+                System.out.println("message: " + message);
+            }
+        }
+    }
+
+    private void onLogin(@NonNull User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
         sceneManager.setLobbyScene();
+    }
+    @Override
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
     }
 
     private void setErrorFlag(boolean flag) {
@@ -196,37 +184,7 @@ public class LoginFormController implements RootController, Rincled
         setErrorFlag(false);
     }
 
-    private Void handleException(@NonNull final Throwable throwable) {
-        //init with fallback case
-        String debugMessage = "Error is not an instance of HttpClientErrorException";
-        String errorMessage = "An unexpected error occurred";
-
-        if (throwable.getCause() != null && throwable.getCause() instanceof HttpClientErrorException) {
-            try {
-                final ObjectNode node = new ObjectMapper().readValue(((HttpClientErrorException) throwable.getCause()).getResponseBodyAsString(), ObjectNode.class);
-
-                if (node.has("status") && node.get("status").asText().equals("failure") && node.has("message")) {
-                    debugMessage = null;
-                    errorMessage = node.get("message").asText();
-                } else {
-                    debugMessage = "Unknown exception format";
-                    errorMessage = "Unknown server response";
-                }
-            } catch (IOException e) {
-                debugMessage = "Unable to parse exception";
-                e.printStackTrace();
-            }
-        }
-
-        if (debugMessage != null) logger.debug(debugMessage);
-
-        handleErrorMessage(errorMessage);
-
-        return null;
-    }
-
-    private void handleErrorMessage(@NonNull final String errorMessage) {
-        logger.debug("Error: " + errorMessage);
+    private void handleErrorMessage(String errorMessage){
         setLoadingFlag(false);
         setErrorFlag(true);
         Platform.runLater(() -> this.errorMessage.setText(errorMessage));
