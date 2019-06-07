@@ -48,7 +48,7 @@ import java.io.IOException;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        LoginSceneBuilder.class,
+        StartSceneBuilder.class,
         UserProvider.class,
         TitleViewBuilder.class,
         TitleViewController.class,

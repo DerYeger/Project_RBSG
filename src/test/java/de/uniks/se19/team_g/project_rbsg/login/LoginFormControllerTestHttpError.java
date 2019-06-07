@@ -47,7 +47,7 @@ import java.util.concurrent.CompletableFuture;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        LoginSceneBuilder.class,
+        StartSceneBuilder.class,
         SceneManager.class,
         UserProvider.class,
         TitleViewBuilder.class,

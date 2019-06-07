@@ -84,12 +84,10 @@ public class LoginSceneBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetLoginScene() throws IOException {
-        final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
-        final TitleViewBuilder titleFormBuilder = context.getBean(TitleViewBuilder.class);
-        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder, titleFormBuilder).getLoginScene();
+        final StartViewBuilder startViewBuilder = context.getBean(StartViewBuilder.class);
+        final Scene scene = new StartSceneBuilder(startViewBuilder).getStartScene();
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
-        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(loginFormBuilder.getLoginForm()));
-        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(titleFormBuilder.getTitleForm()));
+        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(startViewBuilder.getStartView()));
     }
 }
