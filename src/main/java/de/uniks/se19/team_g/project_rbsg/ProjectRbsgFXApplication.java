@@ -25,7 +25,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class ProjectRbsgFXApplication extends Application {
+public class ProjectRbsgFXApplication extends Application implements Rincled {
 
     public static final int WIDTH = 1336;
     public static final int HEIGHT = 768;
