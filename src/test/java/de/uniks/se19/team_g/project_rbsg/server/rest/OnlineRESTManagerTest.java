@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import org.junit.Assert;
@@ -22,9 +24,9 @@ public class OnlineRESTManagerTest {
     public void loginOnlineTest() throws InterruptedException, ExecutionException {
         LoginManager loginManager = new LoginManager(new RestTemplate());
         User testUser = new User("TestUser123", "geheim");
-        CompletableFuture<HashMap<String, Object>> loginAnswer = loginManager.onLogin(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.onLogin(testUser);
         AtomicReference<String> string = new AtomicReference<>();
-        loginAnswer.thenAccept(map -> string.set((String) map.get("status"))).get();
+        loginAnswer.thenAccept(response -> string.set(response.getBody().get("status").asText())).get();
         Assert.assertEquals("success", string.get());
     }
 
@@ -36,14 +38,14 @@ public class OnlineRESTManagerTest {
         final User testUser = new User("TestUser123", "geheim");
         final Game testGame = new Game("make war, not love", 4);
 
-        CompletableFuture<HashMap<String, Object>> loginAnswer = loginManager.onLogin(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.onLogin(testUser);
         AtomicReference<String> loginStatus = new AtomicReference<>();
-        loginAnswer.thenAccept(map -> loginStatus.set((String) map.get("status"))).get();
+        loginAnswer.thenAccept(response -> loginStatus.set(response.getBody().get("status").asText())).get();
         Assert.assertEquals("success", loginStatus.get());
 
-        final HashMap<String, Object> loginAnswerMap = loginAnswer.get();
-        final HashMap<String, Object> data = (HashMap<String, Object>) loginAnswerMap.get("data");
-        final String userKey = ((String) data.get("userKey"));
+        final ResponseEntity<ObjectNode> loginAnswerMap = loginAnswer.get();
+        final JsonNode data = loginAnswerMap.getBody().get("data");
+        final String userKey = data.get("userKey").asText();
         testUser.setUserKey(userKey);
 
         CompletableFuture<HashMap<String, Object>> requestedGame = gameCreator.sendGameRequest(testUser, testGame);
@@ -61,14 +63,14 @@ public class OnlineRESTManagerTest {
 
         final User testUser = new User("TestUser123", "geheim");
         final Game testGame = new Game("make war, not love", 4);
-        CompletableFuture<HashMap<String, Object>> loginRequest = loginManager.onLogin(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> loginRequest = loginManager.onLogin(testUser);
         AtomicReference<String> loginStatus = new AtomicReference<>();
-        loginRequest.thenAccept(map -> loginStatus.set((String) map.get("status"))).get();
+        loginRequest.thenAccept(response -> loginStatus.set(response.getBody().get("status").asText())).get();
         Assert.assertEquals("success", loginStatus.get());
 
-        final HashMap<String, Object> loginAnswer = loginRequest.get();
-        final HashMap<String, Object> loginData = (HashMap<String, Object>) loginAnswer.get("data");
-        final String userKey = ((String) loginData.get("userKey"));
+        final ResponseEntity<ObjectNode> loginAnswer = loginRequest.get();
+        final JsonNode loginData = loginAnswer.getBody().get("data");
+        final String userKey = loginData.get("userKey").asText();
         testUser.setUserKey(userKey);
 
         CompletableFuture<HashMap<String, Object>> createGameRequest = gameCreator.sendGameRequest(testUser, testGame);
