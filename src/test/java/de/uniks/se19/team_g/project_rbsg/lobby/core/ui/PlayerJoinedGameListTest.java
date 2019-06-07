@@ -132,7 +132,7 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
         Parent parent = (Parent) lobbyViewBuilder.buildLobbyScene();
-        Scene scene = new Scene(parent, 1280, 720);
+        Scene scene = new Scene(parent, 1000, 700);
         stage.setScene(scene);
         stage.show();
         stage.toFront();

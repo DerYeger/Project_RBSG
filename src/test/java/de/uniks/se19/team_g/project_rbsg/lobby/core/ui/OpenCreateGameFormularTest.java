@@ -130,7 +130,7 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1000 ,700);
 
         stage.setScene(scene);
         stage.show();
