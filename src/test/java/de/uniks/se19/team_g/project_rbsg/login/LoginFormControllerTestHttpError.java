@@ -5,6 +5,8 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -47,7 +49,8 @@ import java.util.concurrent.CompletableFuture;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        LoginSceneBuilder.class,
+        StartSceneBuilder.class,
+        StartViewBuilder.class,
         SceneManager.class,
         UserProvider.class,
         TitleViewBuilder.class,
@@ -134,6 +137,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         Node testLoginForm = loginFormBuilder.getLoginForm();
         Assert.assertNotNull(testLoginForm);
         final Scene scene = new Scene((Parent) testLoginForm);

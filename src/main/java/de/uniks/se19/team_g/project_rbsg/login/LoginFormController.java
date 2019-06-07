@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import io.rincl.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -32,9 +33,11 @@ import java.util.concurrent.CompletableFuture;
  * @author Jan Müller
  * @author Juri Lozowoj
  * @author Keanu Stückrad
+ * @edited Georg Siebert
  */
 @Controller
-public class LoginFormController implements RootController {
+public class LoginFormController implements RootController, Rincled
+{
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -84,6 +87,14 @@ public class LoginFormController implements RootController {
         addLoadingIndicator();
         addErrorFlag();
         setAsRootController();
+
+        updateLabels();
+    }
+
+    private void updateLabels()
+    {
+        loginButton.setText(getResources().getString("loginButton"));
+        registerButton.setText(getResources().getString("registerButton"));
     }
 
     private void addErrorFlag() {

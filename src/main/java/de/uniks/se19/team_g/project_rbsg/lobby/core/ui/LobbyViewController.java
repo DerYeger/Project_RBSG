@@ -100,7 +100,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     @Autowired
-    public void setChatBuilder(ChatBuilder chatBuilder)
+    public void setChatBuilder(@NonNull final ChatBuilder chatBuilder)
     {
         this.chatBuilder = chatBuilder;
     }
@@ -117,7 +117,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         lobbyTitle.textProperty().setValue("Advanced WASP War");
 
-        lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
+        withChatSupport();
+
+        lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell(chatController, userProvider.get().getName()));
         lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
@@ -157,10 +159,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 //        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
 
-        withChatSupport();
-
         setBackgroundImage();
-
 
         Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
         Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
@@ -175,7 +174,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if(musicRunning) {
             setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
+            if(sceneManager.audioPlayed == false) {
+                sceneManager.playAudio();
+            }
         } else {
+            sceneManager.stopAudio();
             setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
         }
     }
@@ -295,6 +298,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));
         lobbyTitle.textProperty().setValue(getResources().getString("title"));
+
+        if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
+            createGameFormBuilder.getCreateGameController().updateLabels();
+        }
     }
 
     public void changeLangToDE(ActionEvent event)

@@ -1,12 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -50,7 +51,8 @@ import java.io.IOException;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        LoginSceneBuilder.class,
+        StartSceneBuilder.class,
+        StartViewBuilder.class,
         SceneManager.class,
         UserProvider.class,
         LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
@@ -133,6 +135,7 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         Node testLoginForm = loginFormBuilder.getLoginForm();
         Assert.assertNotNull(testLoginForm);
         final Scene scene = new Scene((Parent) testLoginForm);
