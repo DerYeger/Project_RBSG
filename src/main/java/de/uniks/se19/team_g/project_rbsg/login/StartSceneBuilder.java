@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.IOException;
  * @edited Keanu Stückrad
  */
 @Component
+@Scope("prototype")
 public class StartSceneBuilder {
 
     private Scene startScene;

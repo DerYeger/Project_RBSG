@@ -331,6 +331,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void logoutUser(ActionEvent event)
     {
         logoutManager.logout(userProvider);
-        sceneManager.setLoginScene();
+        sceneManager.setStartScene();
     }
 }
