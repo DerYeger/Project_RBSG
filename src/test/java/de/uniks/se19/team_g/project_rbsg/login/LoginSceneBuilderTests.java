@@ -31,6 +31,9 @@ import java.io.IOException;
         LoginSceneBuilderTests.ContextConfiguration.class,
         LoginFormBuilder.class,
         LoginFormController.class,
+        SplashImageBuilder.class,
+        StartViewBuilder.class,
+        StartViewController.class,
         UserProvider.class,
         LoginManager.class,
         RegistrationManager.class,
@@ -83,7 +86,7 @@ public class LoginSceneBuilderTests extends ApplicationTest {
     private ApplicationContext context;
 
     @Test
-    public void testGetLoginScene() throws IOException {
+    public void testGetStartScene() throws IOException {
         final StartViewBuilder startViewBuilder = context.getBean(StartViewBuilder.class);
         final Scene scene = new StartSceneBuilder(startViewBuilder).getStartScene();
         Assert.assertNotNull(scene);

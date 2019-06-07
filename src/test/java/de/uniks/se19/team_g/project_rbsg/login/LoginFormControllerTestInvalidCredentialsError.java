@@ -52,6 +52,7 @@ import java.io.IOException;
         LoginFormController.class,
         SplashImageBuilder.class,
         StartSceneBuilder.class,
+        StartViewBuilder.class,
         SceneManager.class,
         UserProvider.class,
         LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,

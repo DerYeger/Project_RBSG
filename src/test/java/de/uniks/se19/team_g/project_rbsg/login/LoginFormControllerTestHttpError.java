@@ -50,6 +50,7 @@ import java.util.concurrent.CompletableFuture;
         LoginFormController.class,
         SplashImageBuilder.class,
         StartSceneBuilder.class,
+        StartViewBuilder.class,
         SceneManager.class,
         UserProvider.class,
         TitleViewBuilder.class,
