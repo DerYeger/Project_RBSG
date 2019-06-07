@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
@@ -52,7 +51,8 @@ import java.io.IOException;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        LoginSceneBuilder.class,
+        StartSceneBuilder.class,
+        StartViewBuilder.class,
         SceneManager.class,
         UserProvider.class,
         LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
