@@ -64,7 +64,7 @@ public class ProjectRbsgFXApplication extends Application {
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
-                .setLoginScene();
+                .setStartScene();
 
         primaryStage.setOnCloseRequest(event -> showCloseDialog(event, primaryStage.getTitle()));
 
