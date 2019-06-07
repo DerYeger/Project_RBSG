@@ -2,12 +2,13 @@ package de.uniks.se19.team_g.project_rbsg;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.LoginSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +35,15 @@ public class SceneManager implements ApplicationContextAware, Terminable {
 
     private RootController rootController;
 
+    private AudioClip audioClip;
+    public boolean audioPlayed = true;
+
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setTitle(applicationName);
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
+        audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
+        audioClip.setCycleCount(AudioClip.INDEFINITE);
         return this;
     }
 
@@ -45,17 +51,18 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         Platform.runLater(() -> stage.setScene(scene));
     }
 
-    public void setLoginScene() {
+    public void setStartScene() {
         if (stage == null) {
             logger.debug("Stage not initialised");
             return;
         }
         terminateRootController();
         try {
-            final Scene loginScene = context.getBean(LoginSceneBuilder.class).getLoginScene();
-            setScene(loginScene);
+            final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
+            setScene(startScene);
+            playAudio();
         } catch (IOException e) {
-            logger.error("Unable to set login scene");
+            logger.error("Unable to set start scene");
             e.printStackTrace();
         }
     }
@@ -118,5 +125,15 @@ public class SceneManager implements ApplicationContextAware, Terminable {
     @Override
     public void terminate() {
         terminateRootController();
+    }
+
+    public void playAudio() {
+        audioClip.play();
+        audioPlayed = true;
+    }
+
+    public void stopAudio() {
+        audioClip.stop();
+        audioPlayed = false;
     }
 }
