@@ -53,6 +53,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminateRootController();
         try {
             final Scene loginScene = context.getBean(LoginSceneBuilder.class).getLoginScene();
+            stage.setResizable(false);
             setScene(loginScene);
         } catch (IOException e) {
             logger.error("Unable to set login scene");
@@ -68,6 +69,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminateRootController();
         try {
             final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
+            stage.setResizable(false);
             setScene(lobbyScene);
         } catch (Exception e) {
             System.out.println("Unable to set lobby scene");
@@ -84,7 +86,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
             final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
             stage.setMinHeight(670);
             stage.setMinWidth(900);
-            stage.setResizable(true);
+            stage.setResizable(false);
             setScene(ingameScene);
         } catch (Exception e) {
             System.out.println("Unable to set ingame scene");
