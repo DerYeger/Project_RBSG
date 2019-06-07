@@ -67,6 +67,11 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         }
 
         @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
+        }
+
+        @Bean
         public GameManager gameManager()
         {
             return new GameManager(new RESTClient(new RestTemplate()), new UserProvider())

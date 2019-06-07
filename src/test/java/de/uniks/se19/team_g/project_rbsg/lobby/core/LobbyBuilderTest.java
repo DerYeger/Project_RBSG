@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
@@ -111,7 +112,8 @@ public class LobbyBuilderTest extends ApplicationTest
                     new GameManager(new RESTClient(new RestTemplate()), userProvider()),
                     new SystemMessageManager(new WebSocketClient()),
                     chatController(),
-                    new CreateGameFormBuilder(new FXMLLoader()))
+                    new CreateGameFormBuilder(new FXMLLoader()),
+                    new DefaultLogoutManager(new RESTClient(new RestTemplate())))
             {
                 @Override
                 public void init()
