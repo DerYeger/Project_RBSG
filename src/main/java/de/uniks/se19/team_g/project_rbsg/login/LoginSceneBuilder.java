@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import java.io.IOException;
  * Its children are the Nodes provided by the LoginFormBuilder and TitleFormBuilder.
  */
 @Component
+@Scope("prototype")
 public class LoginSceneBuilder {
 
     private Scene loginScene;

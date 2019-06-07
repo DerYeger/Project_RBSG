@@ -20,6 +20,7 @@ import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -36,6 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * @edited Georg Siebert
  */
 @Controller
+@Scope("prototype")
 public class LoginFormController implements RootController, Rincled
 {
 

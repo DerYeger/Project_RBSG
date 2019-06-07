@@ -45,6 +45,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
+    @NonNull
+    private final LogoutManager logoutManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -76,8 +78,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                                @NonNull final GameManager gameManager,
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
-                               @NonNull final CreateGameFormBuilder createGameFormBuilder)
+                               @NonNull final CreateGameFormBuilder createGameFormBuilder,
+                               @NonNull final LogoutManager logoutManager)
     {
+        this.logoutManager = logoutManager;
+
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
@@ -322,6 +327,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void logoutUser(ActionEvent event)
     {
-        logger.debug("Pressed the logout button");
+        logoutManager.logout(userProvider);
+        sceneManager.setLoginScene();
     }
 }
