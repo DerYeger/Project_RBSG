@@ -109,11 +109,30 @@ public class ChatController implements Terminable {
         addTab(GENERAL_CHANNEL_NAME, false);
     }
 
-    public void addPrivateTab(@NonNull final String channel) throws IOException {
-        addTab(channel, true);
+    public void setTabAsActive(@NonNull final String channel) {
+        Tab tab = null;
+
+        if (chatTabs.containsKey(channel)) {
+            tab = chatTabs.get(channel);
+        } else {
+            try {
+                tab = addPrivateTab(channel);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (tab != null) {
+            final Tab finalTab = tab;
+            Platform.runLater(() -> chatPane.getSelectionModel().select(finalTab));
+        }
     }
 
-    private void addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
+    public Tab addPrivateTab(@NonNull final String channel) throws IOException {
+        return addTab(channel, true);
+    }
+
+    private Tab addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
         if (!chatChannelControllers.containsKey(channel)) {
             final Tab tab = chatTabBuilder.buildChatTab(channel);
             Platform.runLater(() -> {
@@ -121,7 +140,9 @@ public class ChatController implements Terminable {
                 tab.setClosable(isClosable);
                 chatTabs.put(channel, tab);
             });
+            return tab;
         }
+        return null;
     }
 
     public boolean removeTab(@NonNull final String channel) {

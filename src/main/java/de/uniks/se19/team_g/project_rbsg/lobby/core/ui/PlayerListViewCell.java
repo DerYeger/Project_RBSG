@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,10 @@ import java.io.IOException;
 
 public class PlayerListViewCell extends ListCell<Player>
 {
+    @NonNull
+    private final ChatController chatController;
+    private final String localUserName;
+
     @FXML
     private Label playerListCellLabel;
 
@@ -30,11 +35,18 @@ public class PlayerListViewCell extends ListCell<Player>
     private GridPane playerListCellGridPane;
 
     private FXMLLoader fxmlLoader;
+    private Player player;
 
+    public PlayerListViewCell(@NonNull final ChatController chatController, final String localUserName) {
+        this.chatController = chatController;
+        this.localUserName = localUserName;
+    }
 
     @Override
     protected void updateItem(final Player player, final boolean empty)
     {
+        this.player = player;
+
         super.updateItem(player, empty);
 
         if (empty || player == null)
@@ -74,9 +86,8 @@ public class PlayerListViewCell extends ListCell<Player>
     }
 
     private void mouseRightCLick(final @NonNull MouseEvent event) {
-        if(event.getButton() == MouseButton.SECONDARY) {
-            System.out.println("RightClick on " + this.getId());
-            //TODO: Add behavior
+        if(event.getButton() == MouseButton.SECONDARY && !localUserName.equals(player.getName())) {
+            chatController.setTabAsActive('@' + player.getName());
         }
     }
 }
