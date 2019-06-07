@@ -174,7 +174,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if(musicRunning) {
             setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
+            if(sceneManager.audioPlayed == false) {
+                sceneManager.playAudio();
+            }
         } else {
+            sceneManager.stopAudio();
             setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
         }
     }
