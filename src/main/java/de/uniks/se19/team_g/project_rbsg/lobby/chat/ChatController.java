@@ -109,7 +109,7 @@ public class ChatController implements Terminable {
         addTab(GENERAL_CHANNEL_NAME, false);
     }
 
-    public void setTabAsActive(@NonNull final String channel) {
+    public void openTab(@NonNull final String channel) {
         Tab tab = null;
 
         if (chatTabs.containsKey(channel)) {

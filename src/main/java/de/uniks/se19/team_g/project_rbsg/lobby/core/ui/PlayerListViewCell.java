@@ -86,8 +86,11 @@ public class PlayerListViewCell extends ListCell<Player>
     }
 
     private void mouseRightCLick(final @NonNull MouseEvent event) {
-        if(event.getButton() == MouseButton.SECONDARY && !localUserName.equals(player.getName())) {
-            chatController.setTabAsActive('@' + player.getName());
+        if(event.getButton() == MouseButton.SECONDARY
+                && localUserName != null
+                && player != null
+                && !localUserName.equals(player.getName())) {
+            chatController.openTab('@' + player.getName());
         }
     }
 }
