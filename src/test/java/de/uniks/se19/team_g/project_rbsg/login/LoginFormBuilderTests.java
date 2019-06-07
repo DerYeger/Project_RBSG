@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -82,6 +84,7 @@ public class LoginFormBuilderTests extends ApplicationTest {
 
     @Test
     public void testGetLoginForm() throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final Node loginForm = context.getBean(LoginFormBuilder.class).getLoginForm();
         Assert.assertNotNull(loginForm);
     }
