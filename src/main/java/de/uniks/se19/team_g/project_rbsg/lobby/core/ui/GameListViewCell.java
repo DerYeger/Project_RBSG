@@ -5,6 +5,8 @@ import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import javafx.application.*;
+import javafx.beans.*;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,19 +30,11 @@ import java.io.IOException;
 
 public class GameListViewCell extends ListCell<Game>
 {
-    @FXML
     public GridPane gridPane;
-    @FXML
     public ImageView gameImageView;
-    @FXML
     public Label nameLabel;
-    @FXML
     public ImageView playersImageView;
-    @FXML
     public Label playersLabel;
-//    @FXML
-//    public ImageView joinImageView;
-    @FXML
     public Button joinButton;
 
     private FXMLLoader fxmlLoader;
@@ -87,7 +81,9 @@ public class GameListViewCell extends ListCell<Game>
 
             nameLabel.setText(game.getName());
 
+            game.getJoinedPlayerProperty().addListener(this::updateItem);
             playersLabel.setText(String.format("%s/%s", game.getJoinedPlayer(), game.getNeededPlayer()));
+            playersLabel.setId("gameCellPlayersLabel" + game.getName());
 
             Image gameImage = new Image(String.valueOf(getClass().getResource("Images/baseline_videogame_asset_white_48dp.png")));
             gameImageView.setImage(gameImage);
@@ -96,8 +92,6 @@ public class GameListViewCell extends ListCell<Game>
             playersImageView.setImage(playersImage);
 
 
-//            Image joinImage = new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_white_48dp.png")));
-//            joinImageView.setImage(joinImage);
 
             this.setText(null);
             this.setGraphic(gridPane);
@@ -122,14 +116,19 @@ public class GameListViewCell extends ListCell<Game>
 
             joinButton.setOnAction(this::joinButtonClicked);
 
-//            joinImageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this::mouseLeftClickOnJoin);
-
-            // For testing
-//            joinImageView.setId("gameCellJoin" +  game.getName());
             joinButton.setId("joinGameButton"+ game.getName());
 
             this.game = game;
         }
+    }
+
+    private void updateItem(Observable observable)
+    {
+        Platform.runLater(() -> {
+            playersLabel.setText(String.format("%s/%s", game.getJoinedPlayer(), game.getNeededPlayer()));
+        });
+
+        logger.debug("Updated joined Player to" + game.getJoinedPlayer());
     }
 
     private void joinButtonClicked(ActionEvent event)

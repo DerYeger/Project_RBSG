@@ -6,6 +6,8 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -130,6 +132,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         Node testLoginForm = loginFormBuilder.getLoginForm();
         Assert.assertNotNull(testLoginForm);
         final Scene scene = new Scene((Parent) testLoginForm);
