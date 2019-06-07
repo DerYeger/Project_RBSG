@@ -180,7 +180,7 @@ public class LoginFormController implements RootController, Rincled
     private void onLogin(@NonNull final User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-        sceneManager.setLobbyScene();
+        Platform.runLater(sceneManager::setLobbyScene);
     }
 
     private void setErrorFlag(boolean flag) {
