@@ -43,7 +43,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         this.stage = stage;
         stage.setTitle(applicationName);
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
-        audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/marioTheme.mp3").toString());
+        audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
         return this;
     }
