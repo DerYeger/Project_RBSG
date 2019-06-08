@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * @author Jan Müller
- * @author Juri Lozowoj
+ * @edited: Juri Lozowoj
  */
 @Component
 public class LoginFormBuilder {

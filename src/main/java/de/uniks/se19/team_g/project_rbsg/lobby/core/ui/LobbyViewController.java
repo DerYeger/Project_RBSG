@@ -100,7 +100,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     @Autowired
-    public void setChatBuilder(ChatBuilder chatBuilder)
+    public void setChatBuilder(@NonNull final ChatBuilder chatBuilder)
     {
         this.chatBuilder = chatBuilder;
     }
@@ -117,7 +117,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         lobbyTitle.textProperty().setValue("Advanced WASP War");
 
-        lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
+        withChatSupport();
+
+        lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell(chatController, userProvider.get().getName()));
         lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
@@ -158,10 +160,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 //        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
 
-        withChatSupport();
-
         setBackgroundImage();
-
 
         Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
         Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
