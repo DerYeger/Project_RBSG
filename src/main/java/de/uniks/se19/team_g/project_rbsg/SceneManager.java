@@ -37,7 +37,8 @@ public class SceneManager implements ApplicationContextAware, Terminable {
     private RootController rootController;
 
     private AudioClip audioClip;
-    public boolean audioPlayed = true;
+
+    public boolean musicRunning;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
@@ -59,9 +60,9 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         }
         terminateRootController();
         try {
+            musicRunning = true;
             final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
             setScene(startScene);
-            playAudio();
         } catch (IOException e) {
             logger.error("Unable to set start scene");
             e.printStackTrace();
@@ -130,11 +131,11 @@ public class SceneManager implements ApplicationContextAware, Terminable {
 
     public void playAudio() {
         audioClip.play();
-        audioPlayed = true;
+        musicRunning = true;
     }
 
     public void stopAudio() {
         audioClip.stop();
-        audioPlayed = false;
+        musicRunning = false;
     }
 }

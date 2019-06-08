@@ -46,6 +46,7 @@ public class StartViewController {
         setButtonIcon("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png");
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
         loginAndTitleBox.getChildren().addAll(titleViewBuilder.getTitleForm(), loginFormBuilder.getLoginForm());
+        updateMusicButtonIcons();
     }
 
     public void toggleSound(ActionEvent actionEvent) {

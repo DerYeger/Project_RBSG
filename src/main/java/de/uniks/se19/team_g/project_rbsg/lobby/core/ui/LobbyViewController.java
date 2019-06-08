@@ -48,7 +48,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
-    private boolean musicRunning = true;
+    private boolean musicRunning;
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
@@ -131,6 +131,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
         setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
 
+        this.musicRunning = sceneManager.musicRunning;
         updateMusicButtonIcons();
 
 
@@ -174,10 +175,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private void updateMusicButtonIcons()
     {
         if(musicRunning) {
-            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
-            if(sceneManager.audioPlayed == false) {
+            if(!sceneManager.musicRunning) {
                 sceneManager.playAudio();
             }
+            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
         } else {
             sceneManager.stopAudio();
             setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
