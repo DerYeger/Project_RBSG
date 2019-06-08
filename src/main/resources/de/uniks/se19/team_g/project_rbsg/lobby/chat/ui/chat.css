@@ -1,14 +1,14 @@
 * {
     -fx-focus-color: transparent; /*temporary until general css is ready*/
     -fx-faint-focus-color: transparent; /*temporary until general css is ready*/
+
+    -fx-text-fill: #FFF;
 }
 
 .tab-pane {
     -fx-background-color: rgba(18,18,18,0.8);
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
 
-    -fx-border-color: #fff;
-    -fx-border-radius: 2;
+    -fx-border-width: 0;
 
     -fx-padding: 0;
     -fx-tab-min-width: 100;
@@ -28,8 +28,14 @@
 }
 
 .tab {
-    -fx-background-color: #212121;
+    -fx-background-color: transparent;
+
     -fx-background-radius: 0;
+
+    /*-fx-border-color: #03DAC5;*/
+    -fx-border-color: #666666;
+
+    -fx-border-width: 3 0 0 0;
 
     -fx-focus-traversable: false;
 
@@ -37,7 +43,7 @@
 }
 
 .tab:selected {
-    -fx-background-color: #424242;
+    -fx-border-color: #BB86FC;
 }
 
 .tab .tab-close-button {
@@ -45,8 +51,6 @@
 }
 
 .tab-label {
-    -fx-text-fill: #fff; /*temporary until general css is ready*/
-
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
@@ -65,8 +69,6 @@
 }
 
 .inputField {
-    -fx-text-fill: #fff; /*temporary until general css is ready*/
-
     -fx-background-color: rgba(255, 255, 255, 0.09);
     -fx-background-radius: 0;
 

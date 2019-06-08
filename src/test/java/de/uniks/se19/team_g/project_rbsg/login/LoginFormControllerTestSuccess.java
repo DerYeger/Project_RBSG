@@ -1,10 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -25,10 +24,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
@@ -39,18 +34,21 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Keanu Stückrad
- * @author Jan Müller
  */
+
 @RunWith(SpringJUnit4ClassRunner .class)
 @ContextConfiguration(classes = {
         LoginFormController.class,
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        LoginSceneBuilder.class,
+        StartSceneBuilder.class,
+        StartViewBuilder.class,
         UserProvider.class,
         TitleViewBuilder.class,
         TitleViewController.class,
@@ -81,17 +79,14 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate() {
                 @Override
-                public <T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) throws RestClientException {
+                public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
+                    Assert.assertTrue(request instanceof User);
                     Assert.assertEquals(url, "https://rbsg.uniks.de/api/user/login");
-                    final ObjectNode body = new ObjectMapper().createObjectNode();
-                    body.put("status", "success");
-                    body.put("message", "");
-                    body.with("data").put("name", "test").put("userKey", "12345");
-
-                    ResponseEntity<ObjectNode> response = new ResponseEntity<>(body, HttpStatus.OK);
-                    @SuppressWarnings("unchecked")
-                    ResponseEntity<T> castedResponse = (ResponseEntity<T>) response;
-                    return castedResponse;
+                    Map<String, Object> testAnswer = new HashMap<>();
+                    testAnswer.put("status", "success");
+                    testAnswer.put("message", "");
+                    testAnswer.put("data", null);
+                    return (T) testAnswer;
                 }
             });
         }
@@ -99,17 +94,14 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         public RegistrationManager registrationManager() {
             return new RegistrationManager(new RestTemplate() {
                 @Override
-                public <T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity, Class<T> responseType, Object... uriVariables) throws RestClientException {
+                public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
+                    Assert.assertTrue(request instanceof User);
                     Assert.assertEquals(url, "https://rbsg.uniks.de/api/user");
-                    final ObjectNode body = new ObjectMapper().createObjectNode();
-                    body.put("status", "success");
-                    body.put("message", "");
-                    body.with("data").put("name", "test").put("userKey", "12345");
-
-                    ResponseEntity<ObjectNode> response = new ResponseEntity<>(body, HttpStatus.OK);
-                    @SuppressWarnings("unchecked")
-                    ResponseEntity<T> castedResponse = (ResponseEntity<T>) response;
-                    return castedResponse;
+                    Map<String, Object> testAnswer = new HashMap<>();
+                    testAnswer.put("status", "success");
+                    testAnswer.put("message", "");
+                    testAnswer.put("data", null);
+                    return (T) testAnswer;
                 }
             });
         }
