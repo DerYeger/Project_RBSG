@@ -6,6 +6,7 @@
     -fx-max-height: 250;
     -fx-background-color: rgba(18,18,18, 0.9);
     -fx-border-width: 2;
+    -fx-border-color: white;
 }
 
 .createGame .label{
