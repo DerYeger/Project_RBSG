@@ -1,19 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.UserManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import org.junit.Assert;
@@ -38,9 +30,12 @@ import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        LoginSceneBuilderTests.ContextConfiguration.class,
+        StartSceneBuilderTests.ContextConfiguration.class,
         LoginFormBuilder.class,
         LoginFormController.class,
+        SplashImageBuilder.class,
+        StartViewBuilder.class,
+        StartViewController.class,
         UserProvider.class,
         LoginManager.class,
         RegistrationManager.class,
@@ -48,7 +43,7 @@ import java.io.IOException;
         TitleViewBuilder.class,
         TitleViewController.class
 })
-public class LoginSceneBuilderTests extends ApplicationTest {
+public class StartSceneBuilderTests extends ApplicationTest {
 
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
@@ -93,13 +88,16 @@ public class LoginSceneBuilderTests extends ApplicationTest {
     private ApplicationContext context;
 
     @Test
-    public void testGetLoginScene() throws IOException {
-        final LoginFormBuilder loginFormBuilder = context.getBean(LoginFormBuilder.class);
-        final TitleViewBuilder titleFormBuilder = context.getBean(TitleViewBuilder.class);
-        final Scene scene = new LoginSceneBuilder(new SplashImageBuilder(), loginFormBuilder, titleFormBuilder).getLoginScene();
+    public void testGetStartScene() throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
+        final StartViewBuilder startViewBuilder = context.getBean(StartViewBuilder.class);
+        final Scene scene = new StartSceneBuilder(startViewBuilder).getStartScene();
+        sleep(100);
+
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
-        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(loginFormBuilder.getLoginForm()));
-        Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(titleFormBuilder.getTitleForm()));
+        //Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(startViewBuilder.getStartView()));
+        Assert.assertEquals(scene.getRoot(), startViewBuilder.getStartView());
+
     }
 }

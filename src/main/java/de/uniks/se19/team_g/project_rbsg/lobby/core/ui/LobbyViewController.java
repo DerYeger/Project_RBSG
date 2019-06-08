@@ -18,6 +18,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.lang.*;
@@ -47,6 +48,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
+    private boolean musicRunning = true;
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
@@ -98,7 +100,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     @Autowired
-    public void setChatBuilder(ChatBuilder chatBuilder)
+    public void setChatBuilder(@NonNull final ChatBuilder chatBuilder)
     {
         this.chatBuilder = chatBuilder;
     }
@@ -115,7 +117,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         lobbyTitle.textProperty().setValue("Advanced WASP War");
 
-        lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell());
+        withChatSupport();
+
+        lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell(chatController, userProvider.get().getName()));
         lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
@@ -123,26 +127,91 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.addAllPlayer(playerManager.getPlayers());
         lobby.addAllGames(gameManager.getGames());
 
+        deButton.disableProperty().setValue(true);
+        enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
+
+        setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
+        setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
+
+        updateMusicButtonIcons();
 
 
-
-        setCreateGameIcons();
-
-        //For ui Desgin
+        //For UI/UX Design
 //        lobby.addPlayer(new Player("Hallo1"));
 //        lobby.addPlayer(new Player("Hallo2"));
 //        lobby.addPlayer(new Player("Hallo3"));
 //        lobby.addPlayer(new Player("Hallo4"));
+//        lobby.addPlayer(new Player("Hallo5"));
+//        lobby.addPlayer(new Player("Hallo6"));
+//        lobby.addPlayer(new Player("Hallo7"));
+//        lobby.addPlayer(new Player("Hallo8"));
+//        lobby.addPlayer(new Player("Hallo9"));
+//        lobby.addPlayer(new Player("Hallo10"));
+//        lobby.addPlayer(new Player("Hallo11"));
+//        lobby.addPlayer(new Player("Hallo12"));
+//
 //        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
 //        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo5", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo6", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
+//        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
 
-        withChatSupport();
+        setBackgroundImage();
+
+        Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
 
         setAsRootController();
+    }
+
+    private void updateMusicButtonIcons()
+    {
+        if(musicRunning) {
+            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
+            if(sceneManager.audioPlayed == false) {
+                sceneManager.playAudio();
+            }
+        } else {
+            sceneManager.stopAudio();
+            setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
+        }
+    }
+
+    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
+        ImageView hover = new ImageView();
+        ImageView nonHover = new ImageView();
+
+        nonHover.fitWidthProperty().setValue(iconSize);
+        nonHover.fitHeightProperty().setValue(iconSize);
+
+        hover.fitWidthProperty().setValue(iconSize);
+        hover.fitHeightProperty().setValue(iconSize);
+
+        hover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + hoverIconName))));
+        nonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + nonHoverIconName))));
+
+        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
+                                                    .then(hover)
+                                                    .otherwise(nonHover));
+    }
+
+    private void setBackgroundImage()
+    {
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("splash_darker_verschwommen.jpg")),
+                                          ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
+
+        mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,
+                                                                   BackgroundRepeat.NO_REPEAT,
+                                                                   BackgroundRepeat.NO_REPEAT,
+                                                                   BackgroundPosition.CENTER,
+                                                                   BackgroundSize.DEFAULT)));
+
     }
 
     private void configureSystemMessageManager()
@@ -163,27 +232,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.getSystemMessageManager().addMessageHandler(gameDeletedMessageHandler);
         lobby.getSystemMessageManager().addMessageHandler(playerJoinedAndLeftGameMessageHandler);
         lobby.getSystemMessageManager().startSocket();
-    }
-
-    private void setCreateGameIcons()
-    {
-        Rincl.setLocale(Locale.ENGLISH);
-        logger.debug(getResources().getString("createGameButton"));
-        ImageView createGameNonHover = new ImageView();
-        ImageView createGameHover = new ImageView();
-
-        createGameHover.fitHeightProperty().setValue(iconSize);
-        createGameHover.fitWidthProperty().setValue(iconSize);
-
-        createGameNonHover.fitHeightProperty().setValue(iconSize);
-        createGameNonHover.fitWidthProperty().setValue(iconSize);
-
-        createGameNonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_white_48dp.png"))));
-        createGameHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_add_circle_black_48dp.png"))));
-
-        createGameButton.graphicProperty().bind(Bindings.when(createGameButton.hoverProperty())
-                                                        .then(createGameHover)
-                                                        .otherwise(createGameNonHover));
     }
 
     private void withChatSupport()
@@ -245,27 +293,38 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if(locale != null) {
             Rincl.setLocale(locale);
         }
+
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
         enButton.textProperty().setValue(getResources().getString("enButton"));
         deButton.textProperty().setValue(getResources().getString("deButton"));
         lobbyTitle.textProperty().setValue(getResources().getString("title"));
+
+        if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
+            createGameFormBuilder.getCreateGameController().updateLabels();
+        }
     }
 
     public void changeLangToDE(ActionEvent event)
     {
+        deButton.disableProperty().setValue(true);
         updateLabels(Locale.GERMAN);
     }
 
     public void changeLangToEN(ActionEvent event)
     {
+        deButton.disableProperty().setValue(false);
         updateLabels(Locale.ENGLISH);
     }
 
     public void toggleSound(ActionEvent event)
     {
+        logger.debug("Pressed the toggleSound button");
+        musicRunning = !musicRunning;
+        updateMusicButtonIcons();
     }
 
-    public void loggoutUser(ActionEvent event)
+    public void logoutUser(ActionEvent event)
     {
+        logger.debug("Pressed the logout button");
     }
 }

@@ -5,15 +5,13 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import io.rincl.*;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -24,10 +22,13 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Juri Lozowoj
+ * @edited Georg Siebert
  */
 @Controller
-public class CreateGameController {
+public class CreateGameController implements Rincled
+{
 
+    public Label titelLabel;
     @FXML
     private TextField gameName;
 
@@ -47,12 +48,13 @@ public class CreateGameController {
     private JoinGameManager joinGameManager;
     private Game game;
 
-    private int numberOfPlayers;
     private Node root;
     private UserProvider userProvider;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
+
+    private int numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
 
     private final GameProvider gameProvider;
 
@@ -70,6 +72,18 @@ public class CreateGameController {
 
         this.twoPlayers.selectedProperty().addListener(event -> setTwoPlayerGame(event));
         this.fourPlayers.selectedProperty().addListener(event -> setFourPlayerGame(event));
+        
+        updateLabels();
+    }
+
+    public void updateLabels()
+    {
+        titelLabel.textProperty().setValue(getResources().getString("title"));
+        gameName.setPromptText(getResources().getString("gameName_promptText"));
+        twoPlayers.textProperty().setValue(getResources().getString("twoPlayersButton"));
+        fourPlayers.textProperty().setValue(getResources().getString("fourPlayersButton"));
+        create.setText(getResources().getString("createGameButton"));
+        cancel.setText(getResources().getString("cancelGameButton"));
     }
 
 

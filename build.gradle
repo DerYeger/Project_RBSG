@@ -7,7 +7,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 group = 'de.uniks.se19.team_g'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 sourceCompatibility = 11
 targetCompatibility = 11
 mainClassName = 'de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication'
@@ -49,5 +49,5 @@ dependencies {
 
 javafx {
 	version = '11.0.2'
-	modules = [ 'javafx.controls', 'javafx.fxml' ]
+	modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ]
 }

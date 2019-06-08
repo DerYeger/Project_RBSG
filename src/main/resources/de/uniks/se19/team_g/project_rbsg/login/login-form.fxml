@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="loginForm" stylesheets="@../login-form.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="loginForm" stylesheets="@login-form.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,11 +26,11 @@
     <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox fx:id="errorMessageBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3">
+      <StackPane fx:id="errorMessageBox" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3">
          <children>
-            <Label id="errorMessage" fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" styleClass="errorLabel" text="Label" />
+            <Label id="errorMessage" fx:id="errorMessage" contentDisplay="CENTER" styleClass="errorLabel" text="Label" StackPane.alignment="CENTER" />
          </children>
-      </HBox>
+      </StackPane>
       <TextField id="name-field" fx:id="nameField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="30.0" />
@@ -58,12 +59,12 @@
       </HBox>
       <ImageView fitHeight="62.0" fitWidth="60.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <image>
-            <Image url="@account.png" />
+            <Image url="@Images/account.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="51.0" fitWidth="51.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <image>
-            <Image url="@key.png" />
+            <Image url="@Images/key.png" />
          </image>
       </ImageView>
    </children>

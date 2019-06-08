@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 

@@ -1,18 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -54,19 +48,13 @@ import java.util.Map;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        LoginSceneBuilder.class,
+        StartSceneBuilder.class,
+        StartViewBuilder.class,
         SceneManager.class,
-        LobbySceneBuilder.class,
-        LobbyViewBuilder.class,
         UserProvider.class,
-        TitleViewBuilder.class,
-        TitleViewController.class,
         LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
-        GameProvider.class,
-        UserProvider.class
+        TitleViewBuilder.class,
+        TitleViewController.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoginFormControllerTestInvalidCredentialsError extends ApplicationTest {
@@ -119,6 +107,7 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
                 }
             });
         }
+
         @Bean
         public SceneManager sceneManager() {
             return new SceneManager() {
@@ -137,6 +126,7 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
 
     @Override
     public void start(@NonNull final Stage stage) throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         Node testLoginForm = loginFormBuilder.getLoginForm();
         Assert.assertNotNull(testLoginForm);
         final Scene scene = new Scene((Parent) testLoginForm);
