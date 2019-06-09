@@ -1,19 +1,20 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
+import de.uniks.se19.team_g.project_rbsg.configuration.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import org.springframework.context.annotation.*;
+import org.springframework.lang.*;
+import org.springframework.stereotype.*;
 
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @author Georg Siebert
  */
+
 @Component
+@Scope("prototype")
 public class LobbyViewBuilder
 {
     private LobbyViewController lobbyViewController;
