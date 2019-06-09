@@ -36,7 +36,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private RootController rootController;
 
-    private AudioClip audioClip;
+    private AudioClip audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
 
     public boolean musicRunning;
 
@@ -44,7 +44,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         this.stage = stage;
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
-        audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
         return this;
     }

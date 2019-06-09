@@ -96,7 +96,6 @@ public class StartSceneBuilderTests extends ApplicationTest {
 
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
-        //Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(startViewBuilder.getStartView()));
         Assert.assertEquals(scene.getRoot(), startViewBuilder.getStartView());
 
     }
