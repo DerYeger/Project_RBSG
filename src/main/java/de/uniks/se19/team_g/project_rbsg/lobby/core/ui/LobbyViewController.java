@@ -127,7 +127,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.addAllPlayer(playerManager.getPlayers());
         lobby.addAllGames(gameManager.getGames());
 
-        deButton.disableProperty().setValue(true);
+        if(Locale.getDefault().equals(Locale.GERMAN)) {
+            deButton.disableProperty().setValue(true);
+        }
+        else {
+            deButton.disableProperty().setValue(false);
+        }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
         setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");

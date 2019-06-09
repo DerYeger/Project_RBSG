@@ -25,7 +25,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class ProjectRbsgFXApplication extends Application {
+public class ProjectRbsgFXApplication extends Application implements Rincled {
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 840;
@@ -83,7 +83,7 @@ public class ProjectRbsgFXApplication extends Application {
     private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(alertTitle);
-        alert.setHeaderText("Are you sure you want to exit?");
+        alert.setHeaderText(getResources().getString("closeDialoge"));
         alert.showAndWait();
 
         if (alert.getResult().equals(ButtonType.OK)) {
