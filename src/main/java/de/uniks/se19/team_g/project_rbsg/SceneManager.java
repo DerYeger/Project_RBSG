@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import io.rincl.*;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -24,9 +25,8 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable {
-
-    private String applicationName = "RBSG - Advanced Wars TM";
+public class SceneManager implements ApplicationContextAware, Terminable, Rincled
+{
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -42,7 +42,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
-        stage.setTitle(applicationName);
+        stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
@@ -77,6 +77,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
         terminateRootController();
         try {
             final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
+            stage.setResizable(false);
             setScene(lobbyScene);
         } catch (Exception e) {
             System.out.println("Unable to set lobby scene");
@@ -93,7 +94,7 @@ public class SceneManager implements ApplicationContextAware, Terminable {
             final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
             stage.setMinHeight(670);
             stage.setMinWidth(900);
-            stage.setResizable(true);
+            stage.setResizable(false);
             setScene(ingameScene);
         } catch (Exception e) {
             System.out.println("Unable to set ingame scene");

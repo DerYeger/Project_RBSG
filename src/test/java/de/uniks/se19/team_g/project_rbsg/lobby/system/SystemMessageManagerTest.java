@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -37,6 +37,7 @@ public class SystemMessageManagerTest
     @TestConfiguration
     public static class ContextConfiguration {
         @Bean
+        @Scope("prototype")
         public WebSocketClient webSocketClient() {
             return new WebSocketClient() {
                 private IWebSocketCallback callback;
@@ -65,11 +66,13 @@ public class SystemMessageManagerTest
     @Test
     public void messageArrived() throws IOException
     {
+        WebSocketConfigurator.userKey = "aUserKey";
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
         systemMessageManager.addMessageHandler(new TestMessageHandler());
+        systemMessageManager.startSocket();
         systemMessageManager.getWebSocketClient().onMessage("", null);
-        assertEquals(1, messageList.size());
-        assertEquals("Hallo du da im Radio!", messageList.get(0));
+        assertEquals(2, messageList.size());
+        assertEquals("Hallo du da im Radio!", messageList.get(1));
 
         messageList.clear();
     }

@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
@@ -56,6 +57,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
@@ -73,15 +75,19 @@ public class PlayerListTest extends ApplicationTest
     @Autowired
     ApplicationContext context;
 
+    private LobbyViewController lobbyViewController;
+
     @Override
     public void start(final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
 
         stage.setScene(scene);
         stage.show();
         stage.toFront();
+
+        lobbyViewController = lobbyViewBuilder.getLobbyViewController();
     }
 
     @TestConfiguration
@@ -173,10 +179,10 @@ public class PlayerListTest extends ApplicationTest
         rightClickOn("#playerCellHello");
         rightClickOn("#playerCellMOBAHero42");
 
-        Lobby lobby = context.getBean(LobbyViewController.class).getLobby();
+        Lobby lobby = lobbyViewController.getLobby();
 
         lobby.addPlayer(new Player("Carlie"));
-        sleep(500);
+        sleep(100);
 
         assertEquals(3, players.size());
 

@@ -21,8 +21,7 @@ import org.springframework.web.client.RestTemplate;
  */
 
 @Configuration
-public class JavaConfig implements ApplicationContextAware
-{
+public class JavaConfig implements ApplicationContextAware {
 
     private ApplicationContext context;
 
@@ -35,20 +34,17 @@ public class JavaConfig implements ApplicationContextAware
 
     @Bean
     @Scope("prototype")
-    public FXMLLoader fxmlLoader()
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setControllerFactory(this.context::getBean);
-        return fxmlLoader;
+    public FXMLLoader fxmlLoader(FXMLLoaderFactory factory) {
+        return factory.createLoader();
     }
 
     @Bean
-    public RestTemplateBuilder restTemplateBuilder(){
+    public RestTemplateBuilder restTemplateBuilder() {
         return new RestTemplateBuilder();
     }
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate(getClientHttpRequestFactory());
     }
 
@@ -61,8 +57,7 @@ public class JavaConfig implements ApplicationContextAware
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
-    {
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
     }
 }
