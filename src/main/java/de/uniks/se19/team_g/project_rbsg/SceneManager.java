@@ -60,6 +60,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         terminateRootController();
         try {
             final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
+            stage.setResizable(false);
             setScene(startScene);
             playAudio();
         } catch (IOException e) {
