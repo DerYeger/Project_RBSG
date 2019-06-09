@@ -43,6 +43,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -74,6 +75,8 @@ public class GameListTest extends ApplicationTest
     @Autowired
     private ApplicationContext context;
 
+    private LobbyViewController lobbyViewController;
+
     @Override
     public void start(Stage stage)
     {
@@ -85,6 +88,8 @@ public class GameListTest extends ApplicationTest
         stage.setScene(scene);
         stage.show();
         stage.toFront();
+
+        lobbyViewController = lobbyViewBuilder.getLobbyViewController();
     }
 
     @Override
@@ -125,11 +130,10 @@ public class GameListTest extends ApplicationTest
         clickOn("#joinGameButtonGameOfHello");
         clickOn("#joinGameButtonDefenceOfTheAncient");
 
-        Lobby lobby = context.getBean(LobbyViewController.class).getLobby();
+        Lobby lobby = lobbyViewController.getLobby();
 
         lobby.addGame(new Game("3", "StarWars", 2, 2));
-        sleep(500);
-
+        sleep(100);
         assertEquals(3, games.size());
 
         ListCell<Game> gameStarWars = lookup("#gameCellStarWars").query();

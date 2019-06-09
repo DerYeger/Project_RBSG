@@ -75,6 +75,8 @@ public class PlayerListTest extends ApplicationTest
     @Autowired
     ApplicationContext context;
 
+    private LobbyViewController lobbyViewController;
+
     @Override
     public void start(final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
@@ -84,6 +86,8 @@ public class PlayerListTest extends ApplicationTest
         stage.setScene(scene);
         stage.show();
         stage.toFront();
+
+        lobbyViewController = lobbyViewBuilder.getLobbyViewController();
     }
 
     @TestConfiguration
@@ -175,10 +179,10 @@ public class PlayerListTest extends ApplicationTest
         rightClickOn("#playerCellHello");
         rightClickOn("#playerCellMOBAHero42");
 
-        Lobby lobby = context.getBean(LobbyViewController.class).getLobby();
+        Lobby lobby = lobbyViewController.getLobby();
 
         lobby.addPlayer(new Player("Carlie"));
-        sleep(500);
+        sleep(100);
 
         assertEquals(3, players.size());
 

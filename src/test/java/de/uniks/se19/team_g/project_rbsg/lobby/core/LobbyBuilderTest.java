@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -39,6 +40,7 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -70,7 +72,7 @@ public class LobbyBuilderTest extends ApplicationTest
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
         lobbyView = lobbyViewBuilder.buildLobbyScene();
 
-        final Scene scene = new Scene((Parent) lobbyView);
+        final Scene scene = new Scene((Parent) lobbyView,1280 ,720);
         stage.setScene(scene);
         stage.show();
         stage.toFront();
