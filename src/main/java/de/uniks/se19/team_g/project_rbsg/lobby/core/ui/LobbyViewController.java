@@ -1,30 +1,44 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.server.rest.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 import de.uniks.se19.team_g.project_rbsg.termination.*;
 import io.rincl.*;
-import javafx.beans.binding.*;
-import javafx.event.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.stereotype.*;
-
-import java.io.*;
 import java.util.*;
 
 /**
@@ -33,6 +47,7 @@ import java.util.*;
 
 
 @Component
+@Scope("prototype")
 public class LobbyViewController implements RootController, Terminable, Rincled
 {
     private static final int iconSize = 30;
@@ -124,10 +139,18 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         configureSystemMessageManager();
 
+        lobby.clearPlayers();
         lobby.addAllPlayer(playerManager.getPlayers());
+
+        lobby.clearGames();
         lobby.addAllGames(gameManager.getGames());
 
-        deButton.disableProperty().setValue(true);
+        if(Locale.getDefault().equals(Locale.GERMAN)) {
+            deButton.disableProperty().setValue(true);
+        }
+        else {
+            deButton.disableProperty().setValue(false);
+        }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
         setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
@@ -241,7 +264,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             Node chatNode = null;
             try
             {
-                chatNode = chatBuilder.getChat();
+                chatNode = chatBuilder.buildChat();
             }
             catch (IOException e)
             {
@@ -250,6 +273,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             chatContainer.getChildren().add(chatNode);
             chatController = chatBuilder.getChatController();
         }
+
+
     }
 
     public void createGameButtonClicked(ActionEvent event)

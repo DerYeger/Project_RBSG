@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.system;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import org.springframework.context.annotation.*;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  */
 
 @Component
+@Scope("prototype")
 public class SystemMessageManager implements IWebSocketCallback
 {
     private static final String endpoint = "/system";
