@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -56,6 +58,7 @@ public class CreateGameFormBuilderTest extends ApplicationTest {
 
     @Test
     public void testGetCreateGameForm() throws IOException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final Node createGameForm = context.getBean(CreateGameFormBuilder.class).getCreateGameForm();
         Assert.assertNotNull(createGameForm);
     }

@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import javafx.scene.control.Tab;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,8 +68,9 @@ public class WhisperCommandHandlerTests {
         public ChatController chatController() {
             return new ChatController(userProvider, webSocketClient(), chatWebSocketCallback) {
                 @Override
-                public void addPrivateTab(@NonNull final String channel) {
+                public Tab addPrivateTab(@NonNull final String channel) {
                     activeChannels.add(channel);
+                    return null;
                 }
 
                 @Override

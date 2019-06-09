@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -13,14 +12,13 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.stage.*;
 import org.junit.*;
 import org.junit.runner.*;
-import org.springframework.beans.BeansException;
+import org.springframework.beans.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.context.*;
@@ -29,17 +27,16 @@ import org.springframework.lang.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
-import org.testfx.api.*;
 import org.testfx.framework.junit.*;
 
+import java.io.*;
 import java.util.*;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        FXMLLoaderFactory.class,
-        OpenCreateGameFormularTest.ContextConfiguration.class,
+        PlayerLeftGameListTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
         UserProvider.class,
@@ -48,26 +45,25 @@ import static org.junit.Assert.*;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         LobbyViewBuilder.class,
-        LobbyViewController.class
-})
-public class OpenCreateGameFormularTest extends ApplicationTest
+        LobbyViewController.class}
+)
+public class PlayerLeftGameListTest extends ApplicationTest
 {
-
     @Autowired
-    ApplicationContext context;
+    private ApplicationContext context;
+
+    private final String message = "{\"action\":\"playerLeftGame\",\"data\":{\"id\":\"1\",\"joinedPlayer\":1}}";
 
     @TestConfiguration
-    public static class ContextConfiguration implements ApplicationContextAware {
-
+    public static class ContextConfiguration implements ApplicationContextAware{
         private ApplicationContext context;
 
         @Bean
         @Scope("prototype")
-        public FXMLLoader fxmlLoader()
-        {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(this.context::getBean);
-            return fxmlLoader;
+        public FXMLLoader fxmlLoader() {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setControllerFactory(this.context::getBean);
+            return loader;
         }
 
         @Bean
@@ -78,7 +74,9 @@ public class OpenCreateGameFormularTest extends ApplicationTest
                 @Override
                 public Collection<Game> getGames()
                 {
-                   return new ArrayList<>();
+                    ArrayList<Game> games = new ArrayList<>();
+                    games.add(new Game("1", "game1", 4, 2));
+                    return games;
                 }
             };
         }
@@ -122,7 +120,8 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         }
 
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
+        {
             this.context = applicationContext;
         }
     }
@@ -132,26 +131,27 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
-
+        Parent parent = (Parent) lobbyViewBuilder.buildLobbyScene();
+        Scene scene = new Scene(parent, 1280, 720);
         stage.setScene(scene);
         stage.show();
         stage.toFront();
     }
 
-
-    @Override
-    public void stop() throws Exception
-    {
-        FxToolkit.hideStage();
-    }
-
     @Test
-    public void openCreateGame() {
-        clickOn("#createGameButton");
-        StackPane stackPane = lookup("#mainStackPane").query();
+    public void TestGameList() throws IOException
+    {
+        SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
+        systemMessageManager.getWebSocketClient().setWsCallback(systemMessageManager);
 
-        assertEquals(2, stackPane.getChildren().size());
+        Label playersLabel = lookup("#gameCellPlayersLabelgame1").query();
+        assertEquals("2/4", playersLabel.textProperty().get());
+
+        systemMessageManager.getWebSocketClient().onMessage(message, null);
+
+        sleep(100);
+
+        assertEquals("1/4", playersLabel.textProperty().get());
+
     }
-
 }
