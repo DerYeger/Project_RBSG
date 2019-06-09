@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -45,14 +46,16 @@ import static org.junit.Assert.*;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         LobbyViewBuilder.class,
-        LobbyViewController.class}
+        LobbyViewController.class,
+        FXMLLoaderFactory.class
+        }
 )
 public class PlayerLeftGameListTest extends ApplicationTest
 {
     @Autowired
     private ApplicationContext context;
 
-    private final String message = "{\"action\":\"playerLeftGame\",\"data\":{\"id\":\"1\",\"joinedPlayer\":1}}";
+    private Lobby lobby;
 
     @TestConfiguration
     public static class ContextConfiguration implements ApplicationContextAware{
@@ -136,19 +139,20 @@ public class PlayerLeftGameListTest extends ApplicationTest
         stage.setScene(scene);
         stage.show();
         stage.toFront();
+
+        lobby = lobbyViewBuilder.getLobbyViewController().getLobby();
     }
 
     @Test
     public void TestGameList() throws IOException
     {
-        SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
-        systemMessageManager.getWebSocketClient().setWsCallback(systemMessageManager);
-
         Label playersLabel = lookup("#gameCellPlayersLabelgame1").query();
         assertEquals("2/4", playersLabel.textProperty().get());
 
-        systemMessageManager.getWebSocketClient().onMessage(message, null);
-
+        assertNotNull(lobby);
+        Game gameOne = lobby.getGameOverId("1");
+        assertNotNull(gameOne);
+        gameOne.setJoinedPlayer(1);
         sleep(100);
 
         assertEquals("1/4", playersLabel.textProperty().get());
