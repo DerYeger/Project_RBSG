@@ -27,8 +27,8 @@ import java.io.IOException;
 @Component
 public class ProjectRbsgFXApplication extends Application {
 
-    public static final int WIDTH = 1336;
-    public static final int HEIGHT = 768;
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 840;
 
     private ConfigurableApplicationContext context;
 
