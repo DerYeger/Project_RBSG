@@ -5,9 +5,14 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +40,15 @@ public class IngameViewController implements RootController, Terminable {
     Pane statusPane;
     @FXML
     Pane bottomLinePane;
+    @FXML
+    Pane leaveGamePane;
     /*
     @FXML
     Pane chatLogPane;
     */
 
     private StatusBarBuilder statusBar;
+    private LeaveGameButtonBuilder leaveGameButton;
     private PlayerCardBuilder playerCard;
     private PlayerCardBuilder playerCard2;
     private PlayerCardBuilder playerCard3;
@@ -66,14 +74,14 @@ public class IngameViewController implements RootController, Terminable {
     public void init() {
         initBuilders();
         setNodes();
-
+        initLeaveGameButton();
         gameEventManager.startSocket(gameProvider.get().getId());
-
         setAsRootController();
     }
 
     private void initBuilders() {
         statusBar = new StatusBarBuilder(gameProvider.get().getNeededPlayer() - 1);
+        leaveGameButton = new LeaveGameButtonBuilder();
         playerCard = new PlayerCardBuilder();
         playerCard2 = new PlayerCardBuilder();
         if(gameProvider.get().getNeededPlayer() == 4) {
@@ -95,6 +103,27 @@ public class IngameViewController implements RootController, Terminable {
         } else {
             player3Pane.setVisible(false);
             player4Pane.setVisible(false);
+        }
+    }
+
+    private void initLeaveGameButton() {
+        Node leaveGameNode = leaveGameButton.buildLeaveGame();
+        leaveGamePane.getChildren().add(leaveGameNode);
+        Button leaveGameButton = (Button) leaveGameNode;
+        leaveGameButton.setOnAction(this::leaveGameAction);
+    }
+
+    private void leaveGameAction(ActionEvent actionEvent) { //back to lobby, close WS
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Leave Game");
+        alert.setHeaderText("Are you sure you want to exit?");
+        alert.showAndWait();
+        if (alert.getResult().equals(ButtonType.OK)) {
+            // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
+            sceneManager.setLobbyScene();
+            gameProvider.clear();
+        } else {
+            actionEvent.consume();
         }
     }
 

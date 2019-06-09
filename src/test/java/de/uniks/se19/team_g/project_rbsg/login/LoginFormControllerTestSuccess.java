@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -46,6 +47,7 @@ import java.io.IOException;
  */
 @RunWith(SpringJUnit4ClassRunner .class)
 @ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         LoginFormController.class,
         LoginFormBuilder.class,
         LoginFormController.class,

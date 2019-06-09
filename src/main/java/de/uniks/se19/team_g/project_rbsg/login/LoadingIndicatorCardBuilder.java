@@ -26,7 +26,7 @@ public class LoadingIndicatorCardBuilder {
 
     private FXMLLoader fxmlLoader;
     private Node loadingIndicatorView;
-    public SimpleDoubleProperty progress;
+    private SimpleDoubleProperty progress;
 
     public Node buildProgressIndicatorCard(){
         if(fxmlLoader == null) {
