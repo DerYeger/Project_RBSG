@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import javafx.scene.Node;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Parent;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,10 +19,13 @@ import org.testfx.framework.junit.ApplicationTest;
         FXMLLoaderFactory.class,
         SceneController.class
 })
-public class SceneControllerTest extends ApplicationTest {
+public class ArmyBuilderSceneTest extends ApplicationTest {
 
     @Autowired
     public ApplicationContext context;
+
+    @Autowired
+    public SimpleObjectProperty<Context> model;
 
     @Test
     public void testSceneCreation()
@@ -30,6 +33,8 @@ public class SceneControllerTest extends ApplicationTest {
         @SuppressWarnings("unchecked") ViewComponent<SceneController, Parent> armyBuilderScene
                 = (ViewComponent<SceneController, Parent>) context.getBean("armyBuilderScene");
         final SceneController controller = armyBuilderScene.getController();
+
+        Assert.assertNotNull(model);
 
         Assert.assertNotNull(controller.armyBuilderScene);
         Assert.assertNotNull(controller.content);
