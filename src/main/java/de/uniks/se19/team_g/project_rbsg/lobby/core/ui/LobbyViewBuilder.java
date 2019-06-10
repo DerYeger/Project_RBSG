@@ -29,7 +29,7 @@ public class LobbyViewBuilder
     }
 
     private FXMLLoader getLoader() {
-        FXMLLoader loader = loaderFactory.createLoader();
+        FXMLLoader loader = loaderFactory.fxmlLoader();
         loader.setLocation(getClass().getResource("LobbyView.fxml"));
 
         return loader;

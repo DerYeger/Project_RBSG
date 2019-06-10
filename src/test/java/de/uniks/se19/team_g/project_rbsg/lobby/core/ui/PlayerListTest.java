@@ -43,6 +43,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -182,7 +183,7 @@ public class PlayerListTest extends ApplicationTest
         Lobby lobby = lobbyViewController.getLobby();
 
         lobby.addPlayer(new Player("Carlie"));
-        sleep(100);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(3, players.size());
 
@@ -194,7 +195,7 @@ public class PlayerListTest extends ApplicationTest
         rightClickOn("#playerCellCarlie");
 
         Platform.runLater(() -> lobby.getPlayers().remove(0));
-        sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, players.size());
     }
