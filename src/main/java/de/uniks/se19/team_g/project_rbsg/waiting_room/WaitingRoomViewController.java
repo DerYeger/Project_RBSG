@@ -8,13 +8,11 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -26,29 +24,17 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WaitingRoomViewController implements RootController, Terminable {
 
-    @FXML
-    StackPane playgroundPane;
-    @FXML
-    Pane player1Pane;
-    @FXML
-    Pane player2Pane;
-    @FXML
-    Pane player3Pane;
-    @FXML
-    Pane player4Pane;
-    @FXML
-    Pane statusPane;
-    @FXML
-    Pane bottomLinePane;
-    @FXML
-    Pane leaveGamePane;
-    /*
-    @FXML
-    Pane chatLogPane;
-    */
+    public Pane player1Pane;
+    public Pane player2Pane;
+    public Pane player3Pane;
+    public Pane player4Pane;
+    public Pane chatPane;
+    public Pane armiesPane;
+    public Pane mapPreviewPane;
+    public ImageView musicImage;
+    public ImageView backImage;
+    public ImageView infoImage;
 
-    private StatusBarBuilder statusBar;
-    private LeaveGameButtonBuilder leaveGameButton;
     private PlayerCardBuilder playerCard;
     private PlayerCardBuilder playerCard2;
     private PlayerCardBuilder playerCard3;
@@ -57,6 +43,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
+
     @NonNull
     private final GameEventManager gameEventManager;
 
@@ -64,7 +51,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
                                      @NonNull final UserProvider userProvider,
                                      @NonNull final SceneManager sceneManager,
-                                     @NonNull final GameEventManager gameEventManager){
+                                     @NonNull final GameEventManager gameEventManager) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -72,16 +59,13 @@ public class WaitingRoomViewController implements RootController, Terminable {
     }
 
     public void init() {
-        initBuilders();
-        setNodes();
-        initLeaveGameButton();
+        initPlayerCardBuilders();
+        setPlayerCardNodes();
         gameEventManager.startSocket(gameProvider.get().getId());
         setAsRootController();
     }
 
-    private void initBuilders() {
-        statusBar = new StatusBarBuilder(gameProvider.get().getNeededPlayer() - 1);
-        leaveGameButton = new LeaveGameButtonBuilder();
+    private void initPlayerCardBuilders() {
         playerCard = new PlayerCardBuilder();
         playerCard2 = new PlayerCardBuilder();
         if(gameProvider.get().getNeededPlayer() == 4) {
@@ -90,30 +74,39 @@ public class WaitingRoomViewController implements RootController, Terminable {
         }
     }
 
-    private void setNodes() {
-        statusPane.getChildren().add(statusBar.buildStatusBar());
+    private void setPlayerCardNodes() {
         player1Pane.getChildren().add(playerCard.setPlayer(new Player(userProvider.get().getName())));
         player2Pane.getChildren().add(playerCard2.buildPlayerCard());
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
+            AnchorPane.setTopAnchor(player1Pane, 90.0);
+            AnchorPane.setTopAnchor(player2Pane, 90.0);
             player3Pane.getChildren().add(playerCard3.buildPlayerCard());
             player4Pane.getChildren().add(playerCard4.buildPlayerCard());
         } else {
+            AnchorPane.setTopAnchor(player1Pane, 160.0);
+            AnchorPane.setTopAnchor(player2Pane, 160.0);
             player3Pane.setVisible(false);
             player4Pane.setVisible(false);
         }
     }
 
-    private void initLeaveGameButton() {
-        Node leaveGameNode = leaveGameButton.buildLeaveGame();
-        leaveGamePane.getChildren().add(leaveGameNode);
-        Button leaveGameButton = (Button) leaveGameNode;
-        leaveGameButton.setOnAction(this::leaveGameAction);
+    @Override
+    public void setAsRootController() {
+        sceneManager.setRootController(this);
     }
 
-    private void leaveGameAction(ActionEvent actionEvent) { //back to lobby, close WS
+    @Override
+    public void terminate() {
+        gameEventManager.terminate();
+    }
+
+    public void showInfo(ActionEvent actionEvent) {
+    }
+
+    public void leaveRoom(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Leave Game");
         alert.setHeaderText("Are you sure you want to exit?");
@@ -127,13 +120,6 @@ public class WaitingRoomViewController implements RootController, Terminable {
         }
     }
 
-    @Override
-    public void setAsRootController() {
-        sceneManager.setRootController(this);
-    }
-
-    @Override
-    public void terminate() {
-        gameEventManager.terminate();
+    public void toggleSound(ActionEvent actionEvent) {
     }
 }
