@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.ingame;
+package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import javafx.fxml.FXML;
@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 

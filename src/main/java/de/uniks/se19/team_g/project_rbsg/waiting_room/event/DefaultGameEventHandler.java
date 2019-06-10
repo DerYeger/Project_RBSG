@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.event;
+package de.uniks.se19.team_g.project_rbsg.waiting_room.event;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

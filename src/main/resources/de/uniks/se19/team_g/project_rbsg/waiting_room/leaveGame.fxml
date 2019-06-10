@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<Button graphicTextGap="0.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" stylesheets="@ingame.css" text="Button" wrapText="true" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<Button graphicTextGap="0.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" stylesheets="@waiting-room.css" text="Button" wrapText="true" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
         <HBox prefHeight="40.0" prefWidth="140.0">
             <children>

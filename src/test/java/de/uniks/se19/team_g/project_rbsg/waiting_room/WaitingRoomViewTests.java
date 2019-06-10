@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.ingame;
+package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -30,14 +30,14 @@ import org.testfx.framework.junit.ApplicationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         SceneManager.class,
-        IngameSceneBuilder.class,
+        WaitingRoomSceneBuilder.class,
         SplashImageBuilder.class,
-        IngameViewBuilder.class,
-        IngameViewController.class,
+        WaitingRoomViewBuilder.class,
+        WaitingRoomViewController.class,
         UserProvider.class,
-        IngameViewTests.ContextConfiguration.class,
+        WaitingRoomViewTests.ContextConfiguration.class,
 })
-public class IngameViewTests extends ApplicationTest {
+public class WaitingRoomViewTests extends ApplicationTest {
 
     @Autowired
     private ApplicationContext context;
@@ -82,8 +82,8 @@ public class IngameViewTests extends ApplicationTest {
     }
 
     @Test
-    public void testBuildIngameView() throws Exception {
-        final Node ingameView = context.getBean(IngameViewBuilder.class).buildIngameView();
-        Assert.assertNotNull(ingameView);
+    public void testBuildWaitingRoomView() throws Exception {
+        final Node waitingRoomView = context.getBean(WaitingRoomViewBuilder.class).buildIngameView();
+        Assert.assertNotNull(waitingRoomView);
     }
 }

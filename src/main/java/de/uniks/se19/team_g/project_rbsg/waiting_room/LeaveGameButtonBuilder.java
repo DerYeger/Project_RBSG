@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.ingame;
+package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

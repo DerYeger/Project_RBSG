@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.ingame;
+package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Controller;
  * @author Jan Müller
  */
 @Controller
-public class IngameViewController implements RootController, Terminable {
+public class WaitingRoomViewController implements RootController, Terminable {
 
     @FXML
     StackPane playgroundPane;
@@ -61,10 +61,10 @@ public class IngameViewController implements RootController, Terminable {
     private final GameEventManager gameEventManager;
 
     @Autowired
-    public IngameViewController(@NonNull final GameProvider gameProvider,
-                                @NonNull final UserProvider userProvider,
-                                @NonNull final SceneManager sceneManager,
-                                @NonNull final GameEventManager gameEventManager){
+    public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
+                                     @NonNull final UserProvider userProvider,
+                                     @NonNull final SceneManager sceneManager,
+                                     @NonNull final GameEventManager gameEventManager){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
