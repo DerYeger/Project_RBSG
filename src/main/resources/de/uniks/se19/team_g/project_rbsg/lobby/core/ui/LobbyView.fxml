@@ -69,7 +69,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="goToArmies" mnemonicParsing="false" onAction="#goToArmies" styleClass="primary" text="Armies" />
+                        <Button fx:id="goToArmyBuilder" mnemonicParsing="false" onAction="#goToArmyBuilder" styleClass="primary" text="Armies" />
                      </children>
                   </HBox>
                </children>

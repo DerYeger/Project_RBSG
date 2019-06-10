@@ -141,7 +141,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         audioPlayed = false;
     }
 
-    public void setArmiesScene() {
+    public void setArmyBuilderScene() {
         @SuppressWarnings("unchecked") ViewComponent<Object, Parent> component
                 = (ViewComponent<Object, Parent>) context.getBean("armyBuilderScene");
         showSceneFromViewComponent(component);
