@@ -2,7 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 
 import io.rincl.Rincl;
-import io.rincl.Rincled;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +16,9 @@ import java.util.Locale;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * @author Goatfryed
+ */
 public class LobbyRoutingTest extends ApplicationTest {
 
     boolean armyRoutingCalled = false;

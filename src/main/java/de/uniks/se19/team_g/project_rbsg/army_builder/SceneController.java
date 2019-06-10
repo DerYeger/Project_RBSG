@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Goatfryed
+ */
 @Component
 public class SceneController implements Initializable {
 
