@@ -2,17 +2,16 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
-
-import java.lang.reflect.ParameterizedType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -28,7 +27,8 @@ public class SceneControllerTest extends ApplicationTest {
     @Test
     public void testSceneCreation()
     {
-        ViewComponent<SceneController> armyBuilderScene = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
+        @SuppressWarnings("unchecked") ViewComponent<SceneController, Parent> armyBuilderScene
+                = (ViewComponent<SceneController, Parent>) context.getBean("armyBuilderScene");
         final SceneController controller = armyBuilderScene.getController();
 
         Assert.assertNotNull(controller.armyBuilderScene);

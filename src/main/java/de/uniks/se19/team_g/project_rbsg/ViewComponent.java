@@ -5,10 +5,10 @@ import javafx.scene.Node;
 
 import java.io.IOException;
 
-public class ViewComponent<T> {
-    private final Node root;
+public class ViewComponent<T, R extends Node> {
+    private final R root;
 
-    public Node getRoot() {
+    public R getRoot() {
         return root;
     }
 
@@ -18,13 +18,13 @@ public class ViewComponent<T> {
 
     private final T controller;
 
-    public ViewComponent(Node root, T controller) {
+    public ViewComponent(R root, T controller) {
 
         this.root = root;
         this.controller = controller;
     }
 
-    public static <T> ViewComponent<T> fromLoader(FXMLLoader loader)
+    public static <T, R extends Node> ViewComponent<T, R> fromLoader(FXMLLoader loader)
     {
         try {
             loader.load();
