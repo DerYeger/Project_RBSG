@@ -14,7 +14,7 @@ public class Config {
     @Scope("prototype")
     public ViewComponent<SceneController, Parent> armyBuilderScene(FXMLLoader fxmlLoader)
     {
-        fxmlLoader.setLocation(SceneController.class.getResource("ArmyBuilderScene.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/ArmyBuilderScene.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 }
