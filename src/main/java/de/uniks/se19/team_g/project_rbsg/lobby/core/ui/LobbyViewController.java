@@ -352,4 +352,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         logger.debug("Pressed the logout button");
     }
+
+    public void goToArmyBuilder(ActionEvent actionEvent) {
+        sceneManager.setArmyBuilderScene();
+    }
 }
