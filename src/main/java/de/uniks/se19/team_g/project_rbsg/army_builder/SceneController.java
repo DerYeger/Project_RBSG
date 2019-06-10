@@ -4,9 +4,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SceneController {
-
 
     public VBox sideBarLeft;
     public VBox content;
@@ -16,6 +17,5 @@ public class SceneController {
     public VBox armyView;
     public VBox sideBarRight;
     public HBox armyBuilderScene;
-
 
 }
