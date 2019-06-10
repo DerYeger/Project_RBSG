@@ -85,17 +85,17 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         }
     }
 
-    public void setIngameScene() {
+    public void setWaitingRoomScene() {
         if (stage == null) {
             System.out.println("Not yet initialised");
             return;
         }
         try {
-            final Scene ingameScene = context.getBean(WaitingRoomSceneBuilder.class).getWaitingRoomScene();
+            final Scene waitingRoomScene = context.getBean(WaitingRoomSceneBuilder.class).getWaitingRoomScene();
             stage.setMinHeight(670);
             stage.setMinWidth(1250);
             stage.setResizable(true);
-            setScene(ingameScene);
+            setScene(waitingRoomScene);
         } catch (Exception e) {
             System.out.println("Unable to set waiting_room scene");
             e.printStackTrace();

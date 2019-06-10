@@ -9,7 +9,6 @@ import javafx.application.*;
 import javafx.beans.*;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -136,7 +135,7 @@ public class GameListViewCell extends ListCell<Game>
         if(game != null) {
             gameProvider.set(game);
             joinGameManager.joinGame(userProvider.get(), game);
-            sceneManager.setIngameScene();
+            sceneManager.setWaitingRoomScene();
         }
     }
 
