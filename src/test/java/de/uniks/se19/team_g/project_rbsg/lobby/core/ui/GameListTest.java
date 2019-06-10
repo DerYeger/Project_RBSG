@@ -133,7 +133,7 @@ public class GameListTest extends ApplicationTest
         Lobby lobby = lobbyViewController.getLobby();
 
         lobby.addGame(new Game("3", "StarWars", 2, 2));
-        sleep(100);
+        WaitForAsyncUtils.waitForFxEvents();
         assertEquals(3, games.size());
 
         ListCell<Game> gameStarWars = lookup("#gameCellStarWars").query();
@@ -149,7 +149,7 @@ public class GameListTest extends ApplicationTest
 
 
         lobby.removeGame(dota);
-        sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, games.size());
     }
