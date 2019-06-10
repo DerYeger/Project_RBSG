@@ -11,7 +11,7 @@ public class Config {
 
     @Bean
     @Scope("prototype")
-    public ViewComponent armyBuilderScene(FXMLLoader fxmlLoader)
+    public ViewComponent<SceneController> armyBuilderScene(FXMLLoader fxmlLoader)
     {
         fxmlLoader.setLocation(SceneController.class.getResource("armyBuilderScene.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
