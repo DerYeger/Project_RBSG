@@ -9,7 +9,7 @@
    <VBox fx:id="sideBarLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
    <VBox fx:id="content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
       <HBox fx:id="topContentContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-         <ListView fx:id="unitListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <ListView fx:id="unitListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="default">
          </ListView>
          <Pane fx:id="unitDetailView" HBox.hgrow="ALWAYS" />
       </HBox>
