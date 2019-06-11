@@ -1,11 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import javafx.application.Platform;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
@@ -21,51 +18,31 @@ import java.io.IOException;
 @Controller
 public class StartViewController {
 
-    @FXML
-    private AnchorPane root;
-    @FXML
-    private ImageView musicImage;
-    @FXML
-    private VBox loginAndTitleBox;
+    public AnchorPane root;
+    public Button musicButton;
+    public VBox loginAndTitleBox;
 
-    private boolean musicRunning = true;
     private final LoginFormBuilder loginFormBuilder;
     private final TitleViewBuilder titleViewBuilder;
     private final SplashImageBuilder splashImageBuilder;
-    private final SceneManager sceneManager;
+    private final MusicManager musicManager;
 
     @Autowired
-    public StartViewController(@NotNull final SplashImageBuilder splashImageBuilder, @NotNull final LoginFormBuilder loginFormBuilder, @NotNull final TitleViewBuilder titleViewBuilder, @NotNull final SceneManager sceneManager) {
+    public StartViewController(@NotNull final SplashImageBuilder splashImageBuilder, @NotNull final LoginFormBuilder loginFormBuilder, @NotNull final TitleViewBuilder titleViewBuilder, @NotNull final MusicManager musicManager) {
         this.splashImageBuilder = splashImageBuilder;
         this.loginFormBuilder = loginFormBuilder;
         this.titleViewBuilder = titleViewBuilder;
-        this.sceneManager = sceneManager;
+        this.musicManager = musicManager.init();
     }
 
     public void init() throws IOException {
-        setButtonIcon("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png");
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
         loginAndTitleBox.getChildren().addAll(titleViewBuilder.getTitleForm(), loginFormBuilder.getLoginForm());
-        updateMusicButtonIcons();
+        musicManager.initButtonIcons(musicButton);
     }
 
     public void toggleSound(ActionEvent actionEvent) {
-        musicRunning = !musicRunning;
-        updateMusicButtonIcons();
-    }
-
-    private void updateMusicButtonIcons() {
-        if(musicRunning) {
-            setButtonIcon("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png");
-            sceneManager.playAudio();
-        } else {
-            setButtonIcon("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_black_48dp.png");
-            sceneManager.stopAudio();
-        }
-    }
-
-    private void setButtonIcon(String iconName) {
-        Platform.runLater(() -> musicImage.setImage(new Image(String.valueOf(getClass().getResource(iconName)))));
+        musicManager.updateMusicButtonIcons(musicButton);
     }
 
 }
