@@ -17,12 +17,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Component
 public class UnitDetailController implements Initializable {
 
     public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magic-defense.png").toString();
