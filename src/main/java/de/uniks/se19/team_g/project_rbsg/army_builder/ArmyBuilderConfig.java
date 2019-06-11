@@ -34,8 +34,8 @@ public class ArmyBuilderConfig {
     }
 
     @Bean
-    public SimpleObjectProperty<ArmyBuilderState> armyBuilderContext()
+    public ArmyBuilderState armyBuilderState()
     {
-        return new SimpleObjectProperty<>();
+        return new ArmyBuilderState();
     }
 }

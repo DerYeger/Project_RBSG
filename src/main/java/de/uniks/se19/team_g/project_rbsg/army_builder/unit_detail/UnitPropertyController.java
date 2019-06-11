@@ -4,21 +4,19 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.converter.NumberStringConverter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope("prototype")
 public class UnitPropertyController {
-    private NumberStringConverter converter = new NumberStringConverter();
 
     public Label propertyValue;
     public ImageView propertyIcon;
 
 
     public void bindTo(SimpleIntegerProperty prop, Image image) {
-        propertyValue.textProperty().bindBidirectional(prop, converter);
+        propertyValue.textProperty().bind(prop.asString());
 
         propertyIcon.setImage(image);
     }

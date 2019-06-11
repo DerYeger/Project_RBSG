@@ -3,7 +3,6 @@
  */
 
 .unitPropertyContainer {
-    -fx-padding: 10px;
     -fx-border-color: white;
     -fx-border-width: 2px;
 }
@@ -22,4 +21,13 @@
 
 .unitPropertyContainer #propertyIcon {
     -fx-padding: 5;
+}
+
+.unitPropertyContainer.text-area {
+    -fx-text-fill: white;
+    -fx-font-family: Roboto;
+}
+
+.unitPropertyContainer.text-area .content {
+    -fx-background-color: black;
 }
