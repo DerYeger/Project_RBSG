@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.29)  12 JUN 2019 01:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.29)  12 JUN 2019 01:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -229,18 +229,18 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 (./Doku_Release_2.aux)
 \openout1 = `Doku_Release_2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 (d:/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -358,66 +358,101 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout3 = `Doku_Release_2.toc'.
 
  [1]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 54.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 58.
 
 (d:/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 54.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 58.
 <georg_avatar.png, id=17, 90.3375pt x 90.3375pt>
 File: georg_avatar.png Graphic file (type png)
 <use georg_avatar.png>
-Package pdftex.def Info: georg_avatar.png  used on input line 59.
+Package pdftex.def Info: georg_avatar.png  used on input line 63.
 (pdftex.def)             Requested size: 21.34087pt x 21.34096pt.
 <juri_avatar.png, id=19, 90.3375pt x 90.3375pt>
 File: juri_avatar.png Graphic file (type png)
 <use juri_avatar.png>
-Package pdftex.def Info: juri_avatar.png  used on input line 60.
+Package pdftex.def Info: juri_avatar.png  used on input line 64.
 (pdftex.def)             Requested size: 21.34087pt x 21.34096pt.
 <omar_avatar.png, id=20, 90.3375pt x 90.3375pt>
 File: omar_avatar.png Graphic file (type png)
 <use omar_avatar.png>
-Package pdftex.def Info: omar_avatar.png  used on input line 63.
+Package pdftex.def Info: omar_avatar.png  used on input line 67.
 (pdftex.def)             Requested size: 21.34087pt x 21.34096pt.
 <tobias_avatar.png, id=21, 18.0675pt x 18.0675pt>
 File: tobias_avatar.png Graphic file (type png)
 <use tobias_avatar.png>
-Package pdftex.def Info: tobias_avatar.png  used on input line 64.
+Package pdftex.def Info: tobias_avatar.png  used on input line 68.
 (pdftex.def)             Requested size: 21.34087pt x 21.34206pt.
 <jan_avatar.png, id=22, 90.3375pt x 90.3375pt>
 File: jan_avatar.png Graphic file (type png)
 <use jan_avatar.png>
-Package pdftex.def Info: jan_avatar.png  used on input line 65.
+Package pdftex.def Info: jan_avatar.png  used on input line 69.
 (pdftex.def)             Requested size: 21.34087pt x 21.34096pt.
 <keanu_avatar.png, id=23, 90.3375pt x 90.3375pt>
 File: keanu_avatar.png Graphic file (type png)
 <use keanu_avatar.png>
-Package pdftex.def Info: keanu_avatar.png  used on input line 66.
+Package pdftex.def Info: keanu_avatar.png  used on input line 70.
 (pdftex.def)             Requested size: 21.34087pt x 21.34096pt.
  [1 <./georg_avatar.png> <./juri_avatar.png> <./omar_avatar.png> <./tobias_avat
-ar.png> <./jan_avatar.png> <./keanu_avatar.png>] [2] [3] (./Doku_Release_2.aux)
- ) 
+ar.png> <./jan_avatar.png> <./keanu_avatar.png>]
+<Login_Release_One.PNG, id=34, 446.79422pt x 313.5464pt>
+File: Login_Release_One.PNG Graphic file (type png)
+<use Login_Release_One.PNG>
+Package pdftex.def Info: Login_Release_One.PNG  used on input line 109.
+(pdftex.def)             Requested size: 426.79135pt x 299.5132pt.
+<Lobby_Release_One.PNG, id=35, 447.92343pt x 314.29922pt>
+File: Lobby_Release_One.PNG Graphic file (type png)
+<use Lobby_Release_One.PNG>
+Package pdftex.def Info: Lobby_Release_One.PNG  used on input line 117.
+(pdftex.def)             Requested size: 426.79135pt x 299.47937pt.
+<CreateGame_Release_One.PNG, id=36, 447.54703pt x 314.29922pt>
+File: CreateGame_Release_One.PNG Graphic file (type png)
+<use CreateGame_Release_One.PNG>
+Package pdftex.def Info: CreateGame_Release_One.PNG  used on input line 125.
+(pdftex.def)             Requested size: 426.79135pt x 299.72876pt.
+<WaitingRoom_Release_One.PNG, id=37, 447.54703pt x 314.67563pt>
+File: WaitingRoom_Release_One.PNG Graphic file (type png)
+<use WaitingRoom_Release_One.PNG>
+Package pdftex.def Info: WaitingRoom_Release_One.PNG  used on input line 133.
+(pdftex.def)             Requested size: 426.79135pt x 300.0877pt.
+ [2] [3 <./Login_Release_One.PNG> <./Lobby_Release_One.PNG>]
+<Internationalisierung_Release_One.PNG, id=49, 37.26422pt x 21.07875pt>
+File: Internationalisierung_Release_One.PNG Graphic file (type png)
+<use Internationalisierung_Release_One.PNG>
+Package pdftex.def Info: Internationalisierung_Release_One.PNG  used on input l
+ine 146.
+(pdftex.def)             Requested size: 85.35696pt x 48.2906pt.
+<Musik_Release_One.PNG, id=50, 19.19672pt x 20.70235pt>
+File: Musik_Release_One.PNG Graphic file (type png)
+<use Musik_Release_One.PNG>
+Package pdftex.def Info: Musik_Release_One.PNG  used on input line 152.
+(pdftex.def)             Requested size: 42.68173pt x 46.03235pt.
+ [4 <./CreateGame_Release_One.PNG>] [5 <./WaitingRoom_Release_One.PNG> <./Inter
+nationalisierung_Release_One.PNG> <./Musik_Release_One.PNG>] [6]
+(./Doku_Release_2.aux) ) 
 Here is how much of TeX's memory you used:
- 5162 strings out of 492639
- 85541 string characters out of 6133087
- 259624 words of memory out of 5000000
- 8960 multiletter control sequences out of 15000+600000
+ 5202 strings out of 492639
+ 86629 string characters out of 6133087
+ 260695 words of memory out of 5000000
+ 8993 multiletter control sequences out of 15000+600000
  13933 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,8n,51p,9093b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
-<d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/tex
-live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><d:/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2018/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive/2018/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr8.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmssbx10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Doku_Release_2.pdf (6 pages, 130091 bytes).
+<d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx12.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc
+10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:
+/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive/2
+018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2018/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr8.pfb><d:/texlive/2018/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmssbx10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmti12.pfb>
+Output written on Doku_Release_2.pdf (9 pages, 824989 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 95 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

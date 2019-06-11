@@ -13,6 +13,10 @@
 	\textup{\uppercase\expandafter{\romannumeral#1}}%
 }
 
+\newcommand{\Abb}[1]{%
+	Abb.\ \ref{#1}%
+}
+
 \begin{document}
 	\begin{titlepage}
 		\centering
@@ -98,16 +102,58 @@
 			\item Beitreten eines Spiels \footnote{Das Beitreten eines Spiels wurde auf dem Stand der Serverdoku Release \RN{1} realisiert. Dort war ein Anmelden an den Websocket des Servers noch nicht möglich}
 		\end{itemize}
 
-		\subsection{Login}
-			
-		\subsection{Lobby}
-		\subsection{Spiel erstellen}
-		\subsection{Spiel beitreten}
-		\begin{itemize}
-			\item Login
-			\item Lobby 
-			\item Ingame
-		\end{itemize}
+		\subsubsection{Login}
+			Der Login wurde so realisiert, das es möglich ist eine Nutzer zu registrieren und Anzumelden. Dies ist auf Abb.\ref{Login_Release_One} zu sehen.
+			\begin{figure}[htbp] 
+				\centering
+				\includegraphics[width=1\textwidth]{Login_Release_One.PNG}
+				\caption{Login Release \RN{1}}
+				\label{Login_Release_One}
+			\end{figure}
+		\subsubsection{Lobby}
+		In der Lobby werden die Spielerlisten und Spiellisten angezeigt. Es ist möglich über den \glqq Spiel erstellen\grqq ein Spiel zu erstellen. Das Abmelden eine Nutzers ist über den \glqq Logout\grqq-Knopf vorhanden. 
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=1\textwidth]{Lobby_Release_One.PNG}
+			\caption{Lobby Release \RN{1}}
+			\label{Lobby_Release_One}
+		\end{figure}
+		\subsubsection{Spiel erstellen}
+		Es lässt sich ein \glqq Spiel erstellen\grqq Dialoge über den entsprechenden Button in der Lobby aufrufen.
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=1\textwidth]{CreateGame_Release_One.PNG}
+			\caption{Spiel erstellen Release \RN{1}}
+			\label{CreateGame_Release_One}
+		\end{figure}
+		\subsubsection{Spiel beitreten}
+		Über den Knopf in der Spielerliste lassen sich bereits Spielen, auf Stand der Serverdoku für Release \RN{1} beitreten. Ist man einem Spiel beigetreten, zeigen wir einen Warteraum für das Spiel an.
+		 \begin{figure}[htbp] 
+		 	\centering
+		 	\includegraphics[width=1\textwidth]{WaitingRoom_Release_One.PNG}
+		 	\caption{Warteraum eines Spiels Release \RN{1}}
+		 	\label{WaitingRoom_Release_One}
+		 \end{figure}
+	 	\subsubsection{Umgesetze Optionale Features}
+	 	Im Release \RN{1} wurden bereits folgende optionale Features umgesetzt:
+	 	\begin{itemize}
+	 		\item Internationalisierung, diese kann über Buttons in der Lobby eingestellt werden \Abb{Internationalisierung_Release_One}
+	 		\item Musik, diese kann über einen Button an- und ausgestellt werden \Abb{Musik_Release_One}
+	 	\end{itemize}
+ 		Es ist bereits eine Testabdeckung von $\sim$ 80\% vorhanden, womit die Anforderung für Release \RN{2} erfüllt ist. Diese muss nur noch aufrecht erhalten werden.
+ 		\begin{figure}[htbp] 
+ 			\centering
+ 			\includegraphics[width=0.2\textwidth]{Internationalisierung_Release_One.PNG}
+ 			\caption{Button für die Internationalisierung Release \RN{1}}
+ 			\label{Internationalisierung_Release_One}
+ 		\end{figure}
+ 		\begin{figure}[htbp] 
+ 			\centering
+ 			\includegraphics[width=0.1\textwidth]{Musik_Release_One.PNG}
+ 			\caption{Button für Musik Release \RN{1}}
+ 			\label{Musik_Release_One}
+ 		\end{figure}
+ 		
 	\section{Zielsetzung f"ur Release \RN{2}}
 		\begin{itemize}
 			\item Waiting Room
