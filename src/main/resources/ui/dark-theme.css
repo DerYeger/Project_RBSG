@@ -163,7 +163,7 @@
 }
 
 .list-view.default {
-    -fx-background-color: -backgroundTransparent-color;
+    -fx-background-color: transparent;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
     -fx-border-color: #FFFFFF;
     -fx-border-width: 0;
@@ -187,7 +187,7 @@
 }
 
 .list-view.default > .list-cell:hover {
-    -fx-background-color: -background-color;
+    -fx-background-color: #BB86FC;
     -fx-opacity: 1;
 }
 
