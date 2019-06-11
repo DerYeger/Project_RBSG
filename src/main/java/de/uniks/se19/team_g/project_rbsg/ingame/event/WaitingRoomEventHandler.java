@@ -5,7 +5,7 @@ import org.springframework.lang.NonNull;
 /**
  * @author Jan Müller
  */
-public interface GameEventHandler {
+public interface WaitingRoomEventHandler {
 
     //TODO arguments
     void handle(@NonNull final String message);

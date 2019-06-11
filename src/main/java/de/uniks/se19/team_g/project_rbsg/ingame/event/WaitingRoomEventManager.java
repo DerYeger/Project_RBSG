@@ -16,30 +16,30 @@ import java.util.ArrayList;
  */
 @Component
 @Scope("prototype")
-public class GameEventManager implements IWebSocketCallback, Terminable {
+public class WaitingRoomEventManager implements IWebSocketCallback, Terminable {
 
     private static final String ENDPOINT = "/game?gameId=";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final ArrayList<GameEventHandler> gameEventHandlers;
+    private final ArrayList<WaitingRoomEventHandler> waitingRoomEventHandlers;
 
     private WebSocketClient webSocketClient;
 
-    public GameEventManager(@NonNull final WebSocketClient webSocketClient) {
+    public WaitingRoomEventManager(@NonNull final WebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
 
-        gameEventHandlers = new ArrayList<>();
-        gameEventHandlers.add(new DefaultGameEventHandler());
+        waitingRoomEventHandlers = new ArrayList<>();
+        waitingRoomEventHandlers.add(new DefaultWaitingRoomEventHandler());
     }
 
-    public GameEventManager addHandler(@NonNull final GameEventHandler gameEventHandler) {
-        gameEventHandlers.add(gameEventHandler);
+    public WaitingRoomEventManager addHandler(@NonNull final WaitingRoomEventHandler waitingRoomEventHandler) {
+        waitingRoomEventHandlers.add(waitingRoomEventHandler);
         return this;
     }
 
-    public ArrayList<GameEventHandler> getHandlers() {
-        return gameEventHandlers;
+    public ArrayList<WaitingRoomEventHandler> getHandlers() {
+        return waitingRoomEventHandlers;
     }
 
     public void startSocket(@NonNull final String gameID) {
@@ -48,7 +48,7 @@ public class GameEventManager implements IWebSocketCallback, Terminable {
 
     @Override
     public void handle(@NonNull final String message) {
-        gameEventHandlers.forEach(handler -> handler.handle(message));
+        waitingRoomEventHandlers.forEach(handler -> handler.handle(message));
     }
 
     @Override

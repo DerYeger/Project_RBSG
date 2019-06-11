@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.WaitingRoomEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -116,8 +116,8 @@ public class TranslationButtonsTest extends ApplicationTest
         }
 
         @Bean
-        public GameEventManager gameEventManager() {
-            return new GameEventManager(new WebSocketClient()) {
+        public WaitingRoomEventManager gameEventManager() {
+            return new WaitingRoomEventManager(new WebSocketClient()) {
                 @Override
                 public void startSocket(@NonNull final String gameID) {
                 }

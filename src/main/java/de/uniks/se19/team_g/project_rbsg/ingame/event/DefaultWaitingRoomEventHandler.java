@@ -7,7 +7,7 @@ import org.springframework.lang.NonNull;
 /**
  * @author Jan Müller
  */
-public class DefaultGameEventHandler implements GameEventHandler {
+public class DefaultWaitingRoomEventHandler implements WaitingRoomEventHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
