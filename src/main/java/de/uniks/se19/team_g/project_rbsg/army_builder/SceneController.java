@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 @Component
 public class SceneController implements Initializable {
 
-    private final SimpleObjectProperty<State> contextProvider;
+    private final SimpleObjectProperty<ArmyBuilderState> contextProvider;
     public VBox sideBarLeft;
     public VBox content;
     public HBox topContentContainer;
@@ -27,7 +27,7 @@ public class SceneController implements Initializable {
     public VBox sideBarRight;
     public HBox armyBuilderScene;
 
-    public SceneController(SimpleObjectProperty<State> contextProvider)
+    public SceneController(SimpleObjectProperty<ArmyBuilderState> contextProvider)
     {
         this.contextProvider = contextProvider;
     }
@@ -35,7 +35,7 @@ public class SceneController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (contextProvider.get() == null) {
-            contextProvider.set(new State());
+            contextProvider.set(new ArmyBuilderState());
         }
     }
 }

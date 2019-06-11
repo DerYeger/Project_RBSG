@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class State {
+public class ArmyBuilderState {
 
     public final SimpleObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
     public final SimpleObjectProperty<Unit> selectedUnit = new SimpleObjectProperty<>();

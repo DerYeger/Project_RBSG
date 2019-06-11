@@ -18,7 +18,7 @@ import org.testfx.framework.junit.ApplicationTest;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        Config.class,
+        ArmyBuilderConfig.class,
         FXMLLoaderFactory.class,
         SceneController.class
 })
@@ -28,7 +28,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
     public ApplicationContext context;
 
     @Autowired
-    public SimpleObjectProperty<State> model;
+    public SimpleObjectProperty<ArmyBuilderState> model;
 
     @Test
     public void testSceneCreation()

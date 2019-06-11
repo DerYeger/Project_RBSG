@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Scope;
  */
 @Configuration
 @Lazy
-public class Config {
+public class ArmyBuilderConfig {
 
     @Bean
     @Scope("prototype")
@@ -33,7 +33,7 @@ public class Config {
     }
 
     @Bean
-    public SimpleObjectProperty<State> armyBuilderContext()
+    public SimpleObjectProperty<ArmyBuilderState> armyBuilderContext()
     {
         return new SimpleObjectProperty<>();
     }
