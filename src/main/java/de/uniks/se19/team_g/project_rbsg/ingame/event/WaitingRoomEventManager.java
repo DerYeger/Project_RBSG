@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.leaveGameCommand;
+
 /**
  * @author Jan Müller
  */
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 @Scope("prototype")
 public class WaitingRoomEventManager implements IWebSocketCallback, Terminable {
 
-    private static final String ENDPOINT = "/game?gameId=";
+    private static final String ENDPOINT = "/game?";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -42,8 +44,16 @@ public class WaitingRoomEventManager implements IWebSocketCallback, Terminable {
         return waitingRoomEventHandlers;
     }
 
-    public void startSocket(@NonNull final String gameID) {
-        webSocketClient.start(ENDPOINT + gameID, this);
+    public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
+        webSocketClient.start(ENDPOINT + getGameIDParam(gameID) + '&' + getArmyIDParam(armyID), this);
+    }
+
+    private String getGameIDParam(@NonNull final String gameID) {
+        return "gameId=" + gameID;
+    }
+
+    private String getArmyIDParam(@NonNull final String armyID) {
+        return "armyId=" + armyID;
     }
 
     @Override
@@ -53,7 +63,12 @@ public class WaitingRoomEventManager implements IWebSocketCallback, Terminable {
 
     @Override
     public void terminate() {
+        sendLeaveCommand();
         webSocketClient.stop();
         logger.debug("Terminated " + this);
+    }
+
+    private void sendLeaveCommand() {
+        webSocketClient.sendMessage(leaveGameCommand());
     }
 }
