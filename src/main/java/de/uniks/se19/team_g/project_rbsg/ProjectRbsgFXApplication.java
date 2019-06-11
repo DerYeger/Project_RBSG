@@ -66,6 +66,8 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
                 .init(primaryStage)
                 .setStartScene();
 
+        context.getBean(MusicManager.class).initMusic();
+
         primaryStage.setOnCloseRequest(event -> showCloseDialog(event, primaryStage.getTitle()));
 
         primaryStage.show();
