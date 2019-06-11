@@ -92,5 +92,6 @@ public class UnitDetailController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         listener = (observable, oldValue, newValue) -> bind(newValue);
         state.selectedUnit.addListener(new WeakChangeListener<>(listener));
+        bind(state.selectedUnit.get());
     }
 }
