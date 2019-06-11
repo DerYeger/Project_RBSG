@@ -1,0 +1,20 @@
+\babel@toc {ngerman}{}
+\contentsline {section}{\numberline {1}Ziel der Dokumentation}{1}
+\contentsline {section}{\numberline {2}Das Projekt RBSG}{1}
+\contentsline {section}{\numberline {3}Das Release \textup {\uppercase {ii}}}{1}
+\contentsline {subsection}{\numberline {3.1}Anforderung an das zweite Release}{2}
+\contentsline {subsection}{\numberline {3.2}Stand zum Ende des Release \textup {\uppercase {i}}}{2}
+\contentsline {subsection}{\numberline {3.3}Login}{2}
+\contentsline {subsection}{\numberline {3.4}Lobby}{2}
+\contentsline {subsection}{\numberline {3.5}Spiel erstellen}{2}
+\contentsline {subsection}{\numberline {3.6}Spiel beitreten}{2}
+\contentsline {section}{\numberline {4}Zielsetzung f"ur Release \textup {\uppercase {ii}}}{3}
+\contentsline {subsection}{\numberline {4.1}Plan f\"ur die Umsetzung}{3}
+\contentsline {section}{\numberline {5}Sprint 3.}{3}
+\contentsline {subsection}{\numberline {5.1}Sprintziel}{3}
+\contentsline {subsection}{\numberline {5.2}User Stories}{3}
+\contentsline {subsection}{\numberline {5.3}Analyse des Sprintverlaufs}{3}
+\contentsline {section}{\numberline {6}Sprint 4.}{3}
+\contentsline {subsection}{\numberline {6.1}Sprintziel}{3}
+\contentsline {subsection}{\numberline {6.2}User Stories}{3}
+\contentsline {subsection}{\numberline {6.3}Analyse des Sprintverlaufs}{3}

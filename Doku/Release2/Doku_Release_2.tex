@@ -1,0 +1,134 @@
+\documentclass[12pt, titlepage]{scrartcl}
+
+\usepackage[ngerman]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage{color}
+\usepackage[a4paper, lmargin={4cm}, rmargin={2cm}, tmargin={2.5cm}, bmargin={2.5cm}]{geometry}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\newcommand{\RN}[1]{%
+	\textup{\uppercase\expandafter{\romannumeral#1}}%
+}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		% \includegraphics[width=0.15\textwidth]{example-image-1x1}\par\vspace{1cm}
+		{\scshape\LARGE UniKasselVersität \par}
+		\vspace{1cm}
+		{\scshape\Large Dokumentation\par}
+		\vspace{1.5cm}
+		{\huge\bfseries RBSG - Release \RN{2}\par}
+		\vspace{2cm}
+		{\Large\itshape Juri Lozowoj\par}
+		\vspace{0.5cm}
+		{\Large\itshape Georg Siebert\par}
+		\vfill
+		% supervised by\par
+		% Dr.~Mark \textsc{Brown}
+	\vfill
+	
+	% Bottom of the page
+	{\large \today\par}
+	\end{titlepage}
+	\newpage
+	\begin{abstract}
+		Diese Dokumentation soll den Release \RN{2} des Projektes RBSG von Team G darstellen. Dies umfasst die Auflistung und Erläuterung MockUps und Domain Stories. Es werden die Sprints dokumentiert und analysiert. Zum Schluss wird noch das Resultat mit des Releases mit dem geplanten Verglichen und auf Probleme oder nicht erfüllte  Anforderungen eingegangen.
+	\end{abstract}
+	\pagenumbering{Roman}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	\section{Ziel der Dokumentation}
+		Die Dokumentation soll den Verlauf des Entwicklungsprozesses des Spiels RBSG für das Release \RN{2} veranschaulichen und analysieren. Dies umfasst die Entstehung der \glqq MockUps\grqq und Domain Stories, welche die Grundlagen für die Entwicklung bilden. Es werden für alle Sprints das Sprintziel, die \glqq User Stories\grqq, sowie eine Analyse des Sprintverlaufs erstellt. Zuletzt wird es noch einen Soll/Ist-Vergleich der erstelleten MockUps und des Endresultats des Sprints geben, in dem darauf eingegangen wird, wieso Features anders Umgesetzt oder weggelassen wurden.
+	\section{Das Projekt RBSG}
+			Das Projekt RBSG findet im Rahmen der Veranstaltung \glqq Software Engineering \RN{1}\grqq, vom Fachbereich \glqq Software Engineering\grqq, statt. Im Rahmen dieser Veranstaltung soll das Spiel RBSG in einzelnen Gruppen umgesetzt werden. Es handelt sich dabei um einen \glqq Advanced Wars\grqq Klon. Die Entwicklung ist dabei in 4 Releases eingeteilt, mit jeweils 2 Sprints. In einem Team gibt es einen \glqq Product Owner\grqq und einen \glqq Scrum Master\grqq. Die restlichen Teammitglieder sind Entwickler. Es soll dabei nach \glqq Scrum\grqq entwickelt werden. 
+		
+	\section{Das Release \RN{2}}
+		Das zweiten Release knüpft direkte an das Ende des ersten Releases an und hat am  10.06.2019 begonnen und läuft bis zum 09.07.2019. Der Entwicklungsprozess ist in zwei Sprints eingeteilt:
+		\begin{itemize}
+			\item Sprint \RN{3} 10.06.2019 bis zum 25.06.2019
+			\item Sprint \RN{4} 26.06.2019 bis zum 09.07.2019
+		\end{itemize}
+		Für die zweite Phase des Projektes gab es folgende Teamkonstellation:
+		\begin{itemize}
+			\item Product Owner:  \ \ \includegraphics[width=0.05\textwidth]{georg_avatar.png} \ Georg Siebert
+			\item Scrum Master:  \ \ \ \ \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
+			\item Entwickler:
+			\begin{itemize}
+				\item \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
+				\item \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
+				\item \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
+				\item \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
+			\end{itemize}
+		\end{itemize}
+	
+		\subsection{Anforderung an das zweite Release}
+			An das Release wurde folgende Anforderungen vom Kunden gestellt:
+			\begin{enumerate}
+				\item Armeemanager
+				\begin{itemize}
+					\item Erstellen von Armeen 
+					\item Speichern und Laden von Armeen (Lokal und Server)
+					\item Es sollen mindestens 3 Armeen konfigurierbar sein
+					\item Es sollen 10 Einheiten pro Armee ausgew\"ahlt werden können
+				\end{itemize}
+				\item Client
+					\begin{itemize}
+						\item es soll einem Spiel beigetreten werden können
+						\item der Client verarbeitet die Nachrichten vom Server korrekt
+						\item Es soll zurück zur Lobby navigiert werden können
+						\item ein Ingame Chat soll zur Verfügung stehen
+					\end{itemize}
+				\item Testabdeckung von 60\%
+			\end{enumerate}
+		Die genauen Anforderungen können im Anhang %Verweis 
+		nachvollzogen werden.
+		
+		\subsection{Stand zum Ende des Release \RN{1}}
+		Der Release \RN{1} endete am 09.06.2019. Es wurden bereits folgende Komponenten fertiggestellt:
+		\begin{itemize}
+			\item Login
+			\item Lobby
+			\item Erstellen eines Spiels
+			\item Beitreten eines Spiels \footnote{Das Beitreten eines Spiels wurde auf dem Stand der Serverdoku Release \RN{1} realisiert. Dort war ein Anmelden an den Websocket des Servers noch nicht möglich}
+		\end{itemize}
+
+		\subsection{Login}
+			
+		\subsection{Lobby}
+		\subsection{Spiel erstellen}
+		\subsection{Spiel beitreten}
+		\begin{itemize}
+			\item Login
+			\item Lobby 
+			\item Ingame
+		\end{itemize}
+	\section{Zielsetzung f"ur Release \RN{2}}
+		\begin{itemize}
+			\item Waiting Room
+			\item ArmyBuilder
+			\item Lobby
+			\item Ingame
+			\item Serverdoku
+		\end{itemize}
+		\subsection{Plan f\"ur die Umsetzung}
+			\begin{itemize}
+				\item MockUps
+				\item Priorit\"at
+			\end{itemize}
+	\section{Sprint 3.}
+		\subsection{Sprintziel}
+		\subsection{User Stories}
+		\subsection{Analyse des Sprintverlaufs}
+	\section{Sprint 4.}
+		\subsection{Sprintziel}
+		\subsection{User Stories}
+		\subsection{Analyse des Sprintverlaufs}
+	
+	
+\end{document}
