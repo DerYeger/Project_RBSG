@@ -53,10 +53,8 @@ public class Game
         return id;
     }
 
-    public void setId(String id)
-    {
-        if (this.id.equals(null))
-        {
+    public void setId(String id) {
+        if(this.id == null){
             this.id = id;
         }
     }

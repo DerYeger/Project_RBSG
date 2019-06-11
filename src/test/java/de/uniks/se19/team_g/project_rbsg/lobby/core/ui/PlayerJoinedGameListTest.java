@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -45,14 +46,16 @@ import static org.junit.Assert.*;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         LobbyViewBuilder.class,
-        LobbyViewController.class}
+        LobbyViewController.class,
+        FXMLLoaderFactory.class
+        }
 )
 public class PlayerJoinedGameListTest extends ApplicationTest
 {
     @Autowired
     private ApplicationContext context;
 
-    private final String message = "{\"action\":\"playerJoinedGame\",\"data\":{\"id\":\"1\",\"joinedPlayer\":1}}";
+    private Lobby lobby;
 
     @TestConfiguration
     public static class ContextConfiguration implements ApplicationContextAware{
@@ -137,22 +140,26 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
         Parent parent = (Parent) lobbyViewBuilder.buildLobbyScene();
-        Scene scene = new Scene(parent, 1280, 720);
+        Scene scene = new Scene(parent, 1200, 840);
         stage.setScene(scene);
         stage.show();
         stage.toFront();
+
+        lobby = lobbyViewBuilder.getLobbyViewController().getLobby();
     }
 
     @Test
     public void TestGameList() throws IOException
     {
-        SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
-        systemMessageManager.getWebSocketClient().setWsCallback(systemMessageManager);
-
         Label playersLabel = lookup("#gameCellPlayersLabelgame1").query();
         assertEquals("0/2", playersLabel.textProperty().get());
 
-        systemMessageManager.getWebSocketClient().onMessage(message, null);
+        assertNotNull(lobby);
+        Game gameOne = lobby.getGameOverId("1");
+
+        assertNotNull(gameOne);
+
+        gameOne.setJoinedPlayer(1);
 
         sleep(100);
 

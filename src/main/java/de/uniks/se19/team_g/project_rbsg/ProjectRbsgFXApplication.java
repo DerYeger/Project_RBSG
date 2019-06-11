@@ -20,15 +20,16 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * @author Jan Müller
  */
 @Component
-public class ProjectRbsgFXApplication extends Application {
+public class ProjectRbsgFXApplication extends Application implements Rincled {
 
-    public static final int WIDTH = 1336;
-    public static final int HEIGHT = 768;
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 840;
 
     private ConfigurableApplicationContext context;
 
@@ -62,6 +63,8 @@ public class ProjectRbsgFXApplication extends Application {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
 
+        Rincl.setLocale(Locale.ENGLISH);
+
         context.getBean(SceneManager.class)
                 .init(primaryStage)
                 .setStartScene();
@@ -83,7 +86,7 @@ public class ProjectRbsgFXApplication extends Application {
     private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(alertTitle);
-        alert.setHeaderText("Are you sure you want to exit?");
+        alert.setHeaderText(getResources().getString("closeDialoge"));
         alert.showAndWait();
 
         if (alert.getResult().equals(ButtonType.OK)) {

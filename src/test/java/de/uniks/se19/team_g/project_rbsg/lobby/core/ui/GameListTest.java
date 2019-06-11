@@ -1,17 +1,18 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
@@ -19,8 +20,8 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import io.rincl.*;
-import io.rincl.resourcebundle.*;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,6 +45,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,6 +59,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         GameListTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
@@ -74,17 +77,21 @@ public class GameListTest extends ApplicationTest
     @Autowired
     private ApplicationContext context;
 
+    private LobbyViewController lobbyViewController;
+
     @Override
     public void start(Stage stage)
     {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
 
         stage.setScene(scene);
         stage.show();
         stage.toFront();
+
+        lobbyViewController = lobbyViewBuilder.getLobbyViewController();
     }
 
     @Override
@@ -125,11 +132,10 @@ public class GameListTest extends ApplicationTest
         clickOn("#joinGameButtonGameOfHello");
         clickOn("#joinGameButtonDefenceOfTheAncient");
 
-        Lobby lobby = context.getBean(LobbyViewController.class).getLobby();
+        Lobby lobby = lobbyViewController.getLobby();
 
         lobby.addGame(new Game("3", "StarWars", 2, 2));
-        sleep(500);
-
+        WaitForAsyncUtils.waitForFxEvents();
         assertEquals(3, games.size());
 
         ListCell<Game> gameStarWars = lookup("#gameCellStarWars").query();
@@ -145,7 +151,7 @@ public class GameListTest extends ApplicationTest
 
 
         lobby.removeGame(dota);
-        sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, games.size());
     }

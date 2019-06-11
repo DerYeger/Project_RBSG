@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
@@ -44,6 +45,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
@@ -75,15 +78,19 @@ public class PlayerListTest extends ApplicationTest
     @Autowired
     ApplicationContext context;
 
+    private LobbyViewController lobbyViewController;
+
     @Override
     public void start(final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
 
         stage.setScene(scene);
         stage.show();
         stage.toFront();
+
+        lobbyViewController = lobbyViewBuilder.getLobbyViewController();
     }
 
     @TestConfiguration
@@ -180,10 +187,10 @@ public class PlayerListTest extends ApplicationTest
         rightClickOn("#playerCellHello");
         rightClickOn("#playerCellMOBAHero42");
 
-        Lobby lobby = context.getBean(LobbyViewController.class).getLobby();
+        Lobby lobby = lobbyViewController.getLobby();
 
         lobby.addPlayer(new Player("Carlie"));
-        sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(3, players.size());
 
@@ -195,7 +202,7 @@ public class PlayerListTest extends ApplicationTest
         rightClickOn("#playerCellCarlie");
 
         Platform.runLater(() -> lobby.getPlayers().remove(0));
-        sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, players.size());
     }
