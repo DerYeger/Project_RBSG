@@ -4,6 +4,9 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.UnitType;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * @author Goatfryed
@@ -24,6 +28,7 @@ public class SceneController implements Initializable {
 
     private final ArmyBuilderState state;
     private final UnitListEntryFactory unitCellFactory;
+    private final GetUnitTypesService getUnitTypesService;
     public VBox sideBarLeft;
     public VBox content;
     public HBox topContentContainer;
@@ -36,10 +41,12 @@ public class SceneController implements Initializable {
 
     public SceneController(
         ArmyBuilderState state,
-        UnitListEntryFactory unitCellFactory
+        UnitListEntryFactory unitCellFactory,
+        GetUnitTypesService getUnitTypesService
     ) {
         this.state = state;
         this.unitCellFactory = unitCellFactory;
+        this.getUnitTypesService = getUnitTypesService;
     }
 
     @Autowired
@@ -57,5 +64,28 @@ public class SceneController implements Initializable {
 
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(state.unitTypes);
+
+        getUnitTypesService.queryUnitTypes().thenAccept(
+            unitTypes -> Platform.runLater(() ->
+                state.unitTypes.setAll(
+                    unitTypes.stream()
+                        .map(this::mapUnitTypes)
+                        .collect(Collectors.toList())
+                )
+            )
+        );
+
+
+    }
+
+    private Unit mapUnitTypes(UnitType unitType) {
+        final Unit unit = new Unit();
+        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
+        unit.imageUrl.set(getClass().getResource("/assets/sprites/Soldier.png").toString());
+        unit.name.set(unitType.type);
+        unit.description.set(unitType.id);
+        unit.speed.set(unitType.mp);
+        unit.health.set(unitType.hp);
+        return unit;
     }
 }
