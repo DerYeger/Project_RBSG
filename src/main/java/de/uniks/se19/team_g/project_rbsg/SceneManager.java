@@ -9,7 +9,6 @@ import io.rincl.*;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,15 +35,10 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private RootController rootController;
 
-    private AudioClip audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
-
-    public boolean musicRunning;
-
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
-        audioClip.setCycleCount(AudioClip.INDEFINITE);
         return this;
     }
 
@@ -59,7 +53,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         }
         terminateRootController();
         try {
-            musicRunning = true;
             final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
             setScene(startScene);
         } catch (IOException e) {
@@ -127,15 +120,5 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     @Override
     public void terminate() {
         terminateRootController();
-    }
-
-    public void playAudio() {
-        audioClip.play();
-        musicRunning = true;
-    }
-
-    public void stopAudio() {
-        audioClip.stop();
-        musicRunning = false;
     }
 }
