@@ -10,4 +10,5 @@ public class ArmyBuilderState {
 
     public final SimpleObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
     public final SimpleObjectProperty<Unit> selectedUnit = new SimpleObjectProperty<>();
+    public  ObservableList<Unit> unitTypes = FXCollections.observableArrayList();
 }
