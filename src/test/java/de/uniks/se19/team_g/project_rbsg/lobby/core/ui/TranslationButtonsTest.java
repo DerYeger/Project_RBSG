@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
@@ -37,6 +38,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         TranslationButtonsTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
@@ -58,7 +60,7 @@ public class TranslationButtonsTest extends ApplicationTest
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1280 ,720);
+        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
 
         stage.setScene(scene);
         stage.show();
@@ -77,6 +79,11 @@ public class TranslationButtonsTest extends ApplicationTest
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
         }
 
         @Bean

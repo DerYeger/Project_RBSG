@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -31,19 +32,21 @@ import org.springframework.lang.NonNull;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.RestClientResponseException;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Keanu Stückrad
+ * @author Jan Müller
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        FXMLLoaderFactory.class,
         LoginFormController.class,
         LoginFormBuilder.class,
         LoginFormController.class,
@@ -67,6 +70,8 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
 
+        private static final String BODY = "{\"status\":\"failure\", \"message\":\"Service Unavailable\"}";
+
         private ApplicationContext context;
 
         @Bean
@@ -82,14 +87,10 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate()) {
                 @Override
+                @SuppressWarnings("unchecked")
                 public CompletableFuture onLogin(User user) {
                     return CompletableFuture.failedFuture(
-                            new RestClientResponseException(
-                                    "Service Unavailable",
-                                    HttpStatus.SERVICE_UNAVAILABLE.value(),
-                                    "Unauthorized",
-                                    null, null, null
-                            )
+                            new HttpClientErrorException(HttpStatus.BAD_REQUEST, "status message", BODY.getBytes(), StandardCharsets.UTF_8)
                     );
                 }
             };
@@ -98,14 +99,10 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         public RegistrationManager registrationManager() {
             return new RegistrationManager(new RestTemplate()) {
                 @Override
+                @SuppressWarnings("unchecked")
                 public CompletableFuture onRegistration(User user) {
                     return CompletableFuture.failedFuture(
-                            new RestClientResponseException(
-                                    "Service Unavailable",
-                                    HttpStatus.SERVICE_UNAVAILABLE.value(),
-                                    "Unauthorized",
-                                    null, null, null
-                            )
+                            new HttpClientErrorException(HttpStatus.BAD_REQUEST, "status message", BODY.getBytes(), StandardCharsets.UTF_8)
                     );
                 }
             };
@@ -158,7 +155,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
 
         clickOn(loginButton);
         final Label errorMessage = lookup("#errorMessage").query();
-        final String expectedErrorMessage = "org.springframework.web.client.RestClientResponseException: Service Unavailable";
+        final String expectedErrorMessage = "Service Unavailable";
         Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }
@@ -171,7 +168,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
 
         clickOn(registrationButton);
         final Label errorMessage = lookup("#errorMessage").query();
-        final String expectedErrorMessage = "org.springframework.web.client.RestClientResponseException: Service Unavailable";
+        final String expectedErrorMessage = "Service Unavailable";
         Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
     }

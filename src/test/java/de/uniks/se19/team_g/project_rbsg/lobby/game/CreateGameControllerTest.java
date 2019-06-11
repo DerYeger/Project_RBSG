@@ -124,12 +124,6 @@ public class CreateGameControllerTest extends ApplicationTest {
         final Button cancelButton = lookup("#create").queryButton();
         Assert.assertNotNull(cancelButton);
 
-        press(KeyCode.TAB);
-        release(KeyCode.TAB);
-
-        press(KeyCode.TAB);
-        release(KeyCode.TAB);
-
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 

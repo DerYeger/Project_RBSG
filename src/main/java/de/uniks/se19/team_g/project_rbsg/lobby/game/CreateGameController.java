@@ -72,6 +72,7 @@ public class CreateGameController implements Rincled
     public void init(){
         cancel.setOnAction(this::closeCreateGameWindow);
         create.setOnAction(this::createGame);
+        create.setDefaultButton(true);
 
         this.twoPlayers.selectedProperty().addListener(event -> setTwoPlayerGame(event));
         this.fourPlayers.selectedProperty().addListener(event -> setFourPlayerGame(event));
