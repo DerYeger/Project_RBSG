@@ -45,7 +45,7 @@ public class UnitPropertyControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
 
-        Assert.assertEquals(0, lookup("42").queryAll().size());
+        Assert.assertEquals(0, lookup("666").queryAll().size());
         lookup("42").query();
     }
 

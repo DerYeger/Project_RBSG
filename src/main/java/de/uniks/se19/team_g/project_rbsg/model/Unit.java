@@ -15,4 +15,5 @@ public class Unit {
     public final SimpleIntegerProperty spellPower = new SimpleIntegerProperty();
 
     public final SimpleStringProperty name = new SimpleStringProperty();
+    public final SimpleStringProperty description = new SimpleStringProperty();
 }
