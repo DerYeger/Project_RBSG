@@ -33,8 +33,8 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
     @Test
     public void testSceneCreation()
     {
-        @SuppressWarnings("unchecked") ViewComponent<SceneController, Parent> armyBuilderScene
-                = (ViewComponent<SceneController, Parent>) context.getBean("armyBuilderScene");
+        @SuppressWarnings("unchecked") ViewComponent<SceneController> armyBuilderScene
+                = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
         final SceneController controller = armyBuilderScene.getController();
 
         Assert.assertNotNull(model);

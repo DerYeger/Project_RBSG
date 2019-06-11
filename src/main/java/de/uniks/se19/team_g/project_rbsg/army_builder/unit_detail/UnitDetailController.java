@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -21,10 +22,10 @@ public class UnitDetailController {
     public ImageView imageView;
     public TilePane statsContainer;
     public TextField unitDescription;
-    @Nullable private ObjectFactory<ViewComponent<UnitPropertyController, Node>> propertyViewComponentFactory;
+    @Nullable private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
 
     public UnitDetailController(
-        @Nullable ObjectFactory<ViewComponent<UnitPropertyController, Node>> propertyViewComponentFactory
+        @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory
     ) {
         this.propertyViewComponentFactory = propertyViewComponentFactory;
     }
@@ -49,10 +50,12 @@ public class UnitDetailController {
 
     private void addPropertyDetail(SimpleIntegerProperty property, Image icon) {
         assert propertyViewComponentFactory != null;
-        ViewComponent<UnitPropertyController, Node> viewComponent;
+        ViewComponent<UnitPropertyController> viewComponent;
         viewComponent = propertyViewComponentFactory.getObject();
         viewComponent.getController().bindTo(property, icon);
-        statsContainer.getChildren().add(viewComponent.getRoot());
+        final Node node = viewComponent.getRoot();
+        statsContainer.getChildren().add(node);
+        TilePane.setMargin(node, new Insets(10, 10, 0, 10));
     }
 
     private void updateImage(String image) {
