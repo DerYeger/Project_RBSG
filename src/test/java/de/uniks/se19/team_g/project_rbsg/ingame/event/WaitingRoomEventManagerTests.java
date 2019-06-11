@@ -26,6 +26,7 @@ public class WaitingRoomEventManagerTests {
     private static boolean socketStopped = false;
 
     private final String gameId = "12345";
+    private final String armyID = "54321";
 
     @Autowired
     private WaitingRoomEventManager waitingRoomEventManager;
@@ -38,7 +39,7 @@ public class WaitingRoomEventManagerTests {
                 @Override
                 public void start(String endpoint, IWebSocketCallback webSocketCallback)
                 {
-                    if (endpoint.equals("/game?gameId=12345")) {
+                    if (endpoint.equals("/game?gameId=12345&armyId=54321")) {
                         socketStarted = true;
                     }
                 }
@@ -62,8 +63,7 @@ public class WaitingRoomEventManagerTests {
 
     @Test
     public void testStartSocket() {
-        waitingRoomEventManager.startSocket(gameId);
-        System.out.println(socketStarted);
+        waitingRoomEventManager.startSocket(gameId, armyID);
         Assert.assertTrue(socketStarted);
     }
 

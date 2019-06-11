@@ -119,7 +119,7 @@ public class TranslationButtonsTest extends ApplicationTest
         public WaitingRoomEventManager gameEventManager() {
             return new WaitingRoomEventManager(new WebSocketClient()) {
                 @Override
-                public void startSocket(@NonNull final String gameID) {
+                public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
                 }
             };
         }
