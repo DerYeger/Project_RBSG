@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.army_builder;
+package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
