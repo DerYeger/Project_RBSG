@@ -1,0 +1,25 @@
+/*
+ * @author Goatfryed
+ */
+
+.unitPropertyContainer {
+    -fx-padding: 10px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+}
+
+.unitPropertyContainer > .box {
+    -fx-padding: 2px;
+}
+
+.unitPropertyContainer .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-family: Roboto;
+    -fx-font-size: 24;
+    -fx-text-alignment: center;
+}
+
+.unitPropertyContainer #propertyIcon {
+    -fx-padding: 5;
+}
