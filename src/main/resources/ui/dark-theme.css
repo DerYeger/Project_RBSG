@@ -190,6 +190,10 @@
     -fx-background-color: -background-color;
     -fx-opacity: 1;
 }
+
+.list-view.default > .list-cell.selected {
+    -fx-background-color: #8858C8;
+}
 /*LIST CELL STYLE*/
 
 /*LISTVIEW SCROLLBAR STYLE*/
