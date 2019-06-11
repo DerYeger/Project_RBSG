@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
@@ -27,7 +28,8 @@ public class LobbyViewControllerTest {
                 mock(GameManager.class),
                 mock(SystemMessageManager.class),
                 mock(ChatController.class),
-                mock(CreateGameFormBuilder.class)
+                mock(CreateGameFormBuilder.class),
+                mock(DefaultLogoutManager.class)
         );
 
         sut.goToArmyBuilder(null);

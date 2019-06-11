@@ -46,6 +46,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
         audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
+        playAudio();
         return this;
     }
 
@@ -63,7 +64,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
             final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
             stage.setResizable(false);
             setScene(startScene);
-            playAudio();
         } catch (IOException e) {
             logger.error("Unable to set start scene");
             e.printStackTrace();
