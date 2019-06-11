@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,20 +28,25 @@ public class UnitPropertyControllerTest extends ApplicationTest {
         loader.setLocation(UnitPropertyController.class.getResource("/ui/army_builder/UnitPropertyView.fxml"));
         loader.load();
         final UnitPropertyController controller = loader.getController();
-        final SimpleIntegerProperty prop = new SimpleIntegerProperty(42);
-        controller.bindTo(prop);
+        final SimpleIntegerProperty prop = new SimpleIntegerProperty(666);
+        controller.bindTo(
+            prop,
+            new Image(
+                getClass().getResource("/assets/icons/army/magic-defense.png").toString()
+            )
+        );
 
         WaitForAsyncUtils.asyncFx( () -> stage.setScene(new Scene(loader.getRoot())));
         WaitForAsyncUtils.waitForFxEvents();
 
-        lookup("42").query();
+        lookup("666").query();
 
-        WaitForAsyncUtils.asyncFx(() -> prop.set(666));
+        WaitForAsyncUtils.asyncFx(() -> prop.set(42));
         WaitForAsyncUtils.waitForFxEvents();
 
 
         Assert.assertEquals(0, lookup("42").queryAll().size());
-        lookup("666").query();
+        lookup("42").query();
     }
 
 }
