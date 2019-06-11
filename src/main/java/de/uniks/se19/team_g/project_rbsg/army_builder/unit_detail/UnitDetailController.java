@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 
 public class UnitDetailController {
 
-    public final static Image attackIcon = new Image(UnitDetailController.class.getResource("/assets/icons/army/magic-defense.png").toString());
+    public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magic-defense.png").toString();
 
     public StackPane imageStackPane;
     public ImageView imageView;
@@ -37,12 +37,12 @@ public class UnitDetailController {
 
         if (propertyViewComponentFactory != null) {
             statsContainer.getChildren().clear();
-            addPropertyDetail(unit.health, UnitDetailController.attackIcon);
-            addPropertyDetail(unit.physicalResistance, UnitDetailController.attackIcon);
-            addPropertyDetail(unit.magicResistance, UnitDetailController.attackIcon);
-            addPropertyDetail(unit.speed, UnitDetailController.attackIcon);
-            addPropertyDetail(unit.attack, UnitDetailController.attackIcon);
-            addPropertyDetail(unit.spellPower, UnitDetailController.attackIcon);
+            addPropertyDetail(unit.health, new Image(UnitDetailController.ATTACK_ICON_URL));
+            addPropertyDetail(unit.physicalResistance, new Image(UnitDetailController.ATTACK_ICON_URL));
+            addPropertyDetail(unit.magicResistance, new Image(UnitDetailController.ATTACK_ICON_URL));
+            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL));
+            addPropertyDetail(unit.attack, new Image(UnitDetailController.ATTACK_ICON_URL));
+            addPropertyDetail(unit.spellPower, new Image(UnitDetailController.ATTACK_ICON_URL));
         }
 
     }
