@@ -23,7 +23,7 @@ public class ServerConfig {
                 .additionalInterceptors(userKeyInterceptor)
                 .rootUri("https://rbsg.uniks.de/api")
                 .setConnectTimeout(Duration.ofSeconds(TIMEOUT_CONNECT))
-                .setReadTimeout(Duration.ofMillis(TIMEOUT_READ))
+                .setReadTimeout(Duration.ofSeconds(TIMEOUT_READ))
                 .build();
     }
 }
