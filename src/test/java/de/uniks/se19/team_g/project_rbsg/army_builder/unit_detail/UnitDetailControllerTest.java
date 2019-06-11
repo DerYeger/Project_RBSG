@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
+import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import javafx.application.Platform;
@@ -34,6 +35,9 @@ public class UnitDetailControllerTest extends ApplicationTest {
     @Autowired
     private FXMLLoaderFactory loaderFactory;
 
+    @Autowired
+    private ArmyBuilderState state;
+
     @Override
     public void start(Stage stage) {
         this.stage = stage;
@@ -66,8 +70,7 @@ public class UnitDetailControllerTest extends ApplicationTest {
         final FXMLLoader loader = loaderFactory.fxmlLoader();
         loader.setLocation(getClass().getResource("/ui/army_builder/UnitDetailView.fxml"));
         loader.load();
-        final UnitDetailController controller = loader.getController();
-        controller.bind(unit1);
+        state.selectedUnit.set(unit1);
 
         Platform.runLater(() -> stage.setScene(new Scene(loader.getRoot())));
         WaitForAsyncUtils.waitForFxEvents();
@@ -101,7 +104,7 @@ public class UnitDetailControllerTest extends ApplicationTest {
                 lookup(".unitPropertyContainer.text-area").<TextArea>query().getText()
         );
 
-        Platform.runLater(() -> controller.bind(unit2));
+        Platform.runLater(() -> state.selectedUnit.set(unit2));
         WaitForAsyncUtils.waitForFxEvents();
 
 
@@ -130,5 +133,15 @@ public class UnitDetailControllerTest extends ApplicationTest {
                 noCake,
                 lookup(".unitPropertyContainer.text-area").<TextArea>query().getText()
         );
+
+
+        Platform.runLater(() -> state.selectedUnit.set(null));
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Assert.assertEquals(
+                1,
+                lookup(".unitPropertyContainer").queryAll().size()
+        );
+        Assert.assertNull(lookup(".unitPropertyContainer").<TextArea>query().getText());
     }
 }

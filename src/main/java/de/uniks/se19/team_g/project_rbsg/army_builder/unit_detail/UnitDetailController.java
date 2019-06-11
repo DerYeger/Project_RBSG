@@ -6,6 +6,8 @@ import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -30,6 +32,7 @@ public class UnitDetailController implements Initializable {
     public TilePane statsContainer;
     public TextArea unitDescription;
     @Nullable private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
+    private ChangeListener<Unit> listener;
 
     public UnitDetailController(
         @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory,
@@ -41,8 +44,12 @@ public class UnitDetailController implements Initializable {
 
 
 
-    public void bind(@Nonnull Unit unit)
+    private void bind(@Nullable Unit unit)
     {
+        if (unit == null) {
+            unbind();
+            return;
+        }
 
         unitDescription.textProperty().bind(unit.description);
 
@@ -61,6 +68,14 @@ public class UnitDetailController implements Initializable {
 
     }
 
+    private void unbind() {
+        unitDescription.textProperty().unbind();
+        unitDescription.setText(null);
+        imageView.imageProperty().unbind();
+        imageView.setImage(null);
+        statsContainer.getChildren().clear();
+    }
+
     private void addPropertyDetail(SimpleIntegerProperty property, Image icon) {
         assert propertyViewComponentFactory != null;
         ViewComponent<UnitPropertyController> viewComponent;
@@ -73,5 +88,7 @@ public class UnitDetailController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        listener = (observable, oldValue, newValue) -> bind(newValue);
+        state.selectedUnit.addListener(new WeakChangeListener<>(listener));
     }
 }
