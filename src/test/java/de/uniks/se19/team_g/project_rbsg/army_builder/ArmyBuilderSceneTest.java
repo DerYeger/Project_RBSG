@@ -28,7 +28,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
     public ApplicationContext context;
 
     @Autowired
-    public SimpleObjectProperty<Context> model;
+    public SimpleObjectProperty<State> model;
 
     @Test
     public void testSceneCreation()

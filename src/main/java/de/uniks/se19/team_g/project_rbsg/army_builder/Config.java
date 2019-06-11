@@ -23,7 +23,7 @@ public class Config {
     }
 
     @Bean
-    public SimpleObjectProperty<Context> armyBuilderContext()
+    public SimpleObjectProperty<State> armyBuilderContext()
     {
         return new SimpleObjectProperty<>();
     }
