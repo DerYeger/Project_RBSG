@@ -7,10 +7,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Keanu Stückrad
+ */
 @Component
 public class MusicManager {
 
-    private AudioClip audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
+    private static final String MUSIC_NOTE_BLACK = "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png";
+    private static final String MUSIC_NOTE_WHITE = "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_white_48dp.png";
+    private static final String MUSIC_NOTE_BLACK_OFF = "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_black_48dp.png";
+    private static final String MUSIC_NOTE_WHITE_OFF = "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_white_48dp.png";
+    private static final String MUSIC = "/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3";
+
+    private AudioClip audioClip = new AudioClip(getClass().getResource(MUSIC).toString());
     private static final int iconSize = 40;
     private boolean musicRunning = true;
 
@@ -19,27 +28,27 @@ public class MusicManager {
         return this;
     }
 
-    public void updateMusicButtonIcons(Button soundButton) {
-        musicRunning = !musicRunning;
-        if(musicRunning) {
-            audioClip.play();
-            setButtonIcons(soundButton, "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png", "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_white_48dp.png");
-        } else {
-            audioClip.stop();
-            setButtonIcons(soundButton, "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_black_48dp.png", "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_white_48dp.png");
-        }
+    public void initMusic() {
+        audioClip.play();
     }
 
     public void initButtonIcons(Button soundButton) {
         if(musicRunning) {
-            setButtonIcons(soundButton, "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png", "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_white_48dp.png");
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE);
         } else {
-            setButtonIcons(soundButton, "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_black_48dp.png", "/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_white_48dp.png");
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF);
         }
     }
 
-    public void initMusic() {
-        audioClip.play();
+    public void updateMusicButtonIcons(Button soundButton) {
+        musicRunning = !musicRunning;
+        if(musicRunning) {
+            audioClip.play();
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE);
+        } else {
+            audioClip.stop();
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF);
+        }
     }
 
     private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {

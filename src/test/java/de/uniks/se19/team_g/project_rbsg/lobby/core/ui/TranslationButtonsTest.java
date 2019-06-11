@@ -48,7 +48,8 @@ import static org.junit.Assert.*;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         LobbyViewBuilder.class,
-        LobbyViewController.class
+        LobbyViewController.class,
+        MusicManager.class
 })
 public class TranslationButtonsTest extends ApplicationTest
 {
@@ -79,6 +80,11 @@ public class TranslationButtonsTest extends ApplicationTest
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
         }
 
         @Bean

@@ -133,3 +133,11 @@
     font-family: 'Black';
     src: url("/de/uniks/se19/team_g/project_rbsg/login/Fonts/black.ttf") format("truetype");
 }
+
+.button.primary {
+    -fx-background-color: #8858C8;
+}
+
+.button.primary:hover {
+    -fx-background-color: #BB86FC;
+}

@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.io.IOException;
  * @author Keanu Stückrad
  */
 @Controller
+@Scope("prototype")
 public class StartViewController {
 
     public AnchorPane root;

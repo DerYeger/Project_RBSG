@@ -47,7 +47,8 @@ import static org.junit.Assert.*;
         CreateGameController.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        FXMLLoaderFactory.class
+        FXMLLoaderFactory.class,
+        MusicManager.class
         }
 )
 public class PlayerJoinedGameListTest extends ApplicationTest
@@ -67,6 +68,11 @@ public class PlayerJoinedGameListTest extends ApplicationTest
             FXMLLoader loader = new FXMLLoader();
             loader.setControllerFactory(this.context::getBean);
             return loader;
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
         }
 
         @Bean

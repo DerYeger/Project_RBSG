@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * @author Jan Müller
@@ -61,6 +62,8 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
     public void start(@NotNull final Stage primaryStage) throws IOException {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
+
+        Rincl.setLocale(Locale.ENGLISH);
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)

@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -62,6 +63,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
     private final MusicManager musicManager;
+    private final LogoutManager logoutManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -94,8 +96,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
                                @NonNull final CreateGameFormBuilder createGameFormBuilder,
-                               @NonNull final MusicManager musicManager)
+                               @NonNull final MusicManager musicManager,
+                               @NonNull final LogoutManager logoutManager)
     {
+        this.logoutManager = logoutManager;
+
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
@@ -340,6 +345,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void logoutUser(ActionEvent event)
     {
-        logger.debug("Pressed the logout button");
+        logoutManager.logout(userProvider);
+        sceneManager.setStartScene();
+    }
+
+    public void goToArmyBuilder(ActionEvent actionEvent) {
+        sceneManager.setArmyBuilderScene();
     }
 }
