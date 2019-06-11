@@ -6,20 +6,25 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
+
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Goatfryed
@@ -31,9 +36,22 @@ import org.testfx.util.WaitForAsyncUtils;
         SceneController.class,
         UnitDetailController.class,
         UnitListEntryFactory.class,
-        UnitListEntryController.class
+        UnitListEntryController.class,
+        ArmyBuilderSceneTest.ContextConfiguration.class
 })
 public class ArmyBuilderSceneTest extends ApplicationTest {
+
+
+    @TestConfiguration
+    static class ContextConfiguration {
+        @Bean
+        public GetUnitTypesService getUnitTypesService()
+        {
+            final GetUnitTypesService mock = Mockito.mock(GetUnitTypesService.class);
+            Mockito.when(mock.queryUnitTypes()).thenReturn(CompletableFuture.completedFuture(new ArrayList<>()));
+            return mock;
+        }
+    }
 
     @Autowired
     public ApplicationContext context;
