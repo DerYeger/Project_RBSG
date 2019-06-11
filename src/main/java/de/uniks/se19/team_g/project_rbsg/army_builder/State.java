@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 
 public class State {
 
-    public final ObservableList<Army> armies =  FXCollections.observableArrayList();
     public final SimpleObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
     public final SimpleObjectProperty<Unit> selectedUnit = new SimpleObjectProperty<>();
 }
