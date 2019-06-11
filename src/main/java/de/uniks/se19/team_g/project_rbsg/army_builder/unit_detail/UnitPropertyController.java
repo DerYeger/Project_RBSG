@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 
-public class UnitPropertyDetailController {
+public class UnitPropertyController {
     private NumberStringConverter converter = new NumberStringConverter();
 
     public Label propertyValue;

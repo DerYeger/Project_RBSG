@@ -11,7 +11,7 @@
         prefRows="1"
         xmlns="http://javafx.com/javafx/8.0.172-ea"
         xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyDetailController">
+        fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController">
     <stylesheets>
         <URL value="@UnitDetailView.css"/>
         <URL value="@../dark-theme.css"/>
