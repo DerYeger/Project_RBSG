@@ -16,9 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -38,7 +36,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     public Pane player4Pane;
     public Pane chatPane; // TODO @DerYeger
     public Pane mapPreviewPane; // TODO @DerYeger
-    public Pane miniGamePane; // Tic-Tac-Toe?
+    public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public Button soundButton;
     public Button leaveButton;
     public Button showInfoButton;
@@ -94,6 +92,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     private void setPlayerCardNodes() {
         player1Pane.getChildren().add(playerCard.setPlayer(new Player(userProvider.get().getName())));
         player2Pane.getChildren().add(playerCard2.buildPlayerCard());
+        playerCard2.switchColumns();
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             player3Pane.setVisible(true);
@@ -102,6 +101,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
             AnchorPane.setTopAnchor(player2Pane, 110.0);
             player3Pane.getChildren().add(playerCard3.buildPlayerCard());
             player4Pane.getChildren().add(playerCard4.buildPlayerCard());
+            playerCard4.switchColumns();
         } else {
             AnchorPane.setTopAnchor(player1Pane, 180.0);
             AnchorPane.setTopAnchor(player2Pane, 180.0);
@@ -121,6 +121,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     }
 
     public void showInfo(ActionEvent actionEvent) {
+        // TODO
     }
 
     public void leaveRoom(ActionEvent actionEvent) {

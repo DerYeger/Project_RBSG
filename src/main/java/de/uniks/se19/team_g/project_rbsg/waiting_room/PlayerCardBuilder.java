@@ -1,13 +1,25 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -16,17 +28,16 @@ import java.io.IOException;
  */
 public class PlayerCardBuilder {
 
-    @FXML
-    private Label playerListCellLabel;
-
-    @FXML
-    private ImageView playerListCellImageView;
-
-    @FXML
-    private GridPane playerListCellGridPane;
+    public Label playerListCellLabel;
+    public ImageView playerListCellImageView;
+    public StackPane playerStackPane;
+    public ProgressIndicator progressIndicator;
+    public ColumnConstraints column0;
+    public ColumnConstraints column1;
 
     private FXMLLoader fxmlLoader;
     private Node playerCardView;
+    private SimpleDoubleProperty progress;
 
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
@@ -38,9 +49,37 @@ public class PlayerCardBuilder {
                 e.printStackTrace();
             }
         }
-        playerListCellLabel.setText("<missing>");
+
+        if(progress == null){
+            progress = new SimpleDoubleProperty(0.0);
+        }
+        progressIndicator.progressProperty().bind(progress);
+        Timeline progressTimeline = setupTimeline();
+        progressTimeline.setCycleCount(Animation.INDEFINITE);
+        progressTimeline.play();
+
         Image image = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/account-white.png")));
         playerListCellImageView.setImage(image);
+
+        setEmpty();
+
+        return playerCardView;
+    }
+
+    private void setEmpty() {
+        Platform.runLater(()-> playerListCellLabel.setText("Waiting for\nplayer..."));
+        Platform.runLater(()-> progressIndicator.setVisible(true));
+        Platform.runLater(()-> playerListCellImageView.setVisible(false));
+        playerListCellLabel.getStyleClass().remove("default-label-size");
+        playerListCellLabel.getStyleClass().add("default-label-waiting-size");
+    }
+
+    public Node playerLeft() {
+        if(fxmlLoader == null) {
+            buildPlayerCard();
+        } else {
+            setEmpty();
+        }
         return playerCardView;
     }
 
@@ -48,10 +87,36 @@ public class PlayerCardBuilder {
         if(fxmlLoader == null) {
             buildPlayerCard();
         }
-        playerListCellLabel.setText(player.getName());
-        Image image = new Image(String.valueOf(getClass().getResource(player.getImagePath())));
-        playerListCellImageView.setImage(image);
+        Platform.runLater(()-> playerListCellLabel.setText(player.getName()));
+        setReady();
         return playerCardView;
+    }
+
+    private void setReady() {
+        Platform.runLater(()-> progressIndicator.setVisible(false));
+        Platform.runLater(()-> playerListCellImageView.setVisible(true));
+        playerListCellLabel.getStyleClass().remove("default-label-waiting-size");
+        playerListCellLabel.getStyleClass().add("default-label-size");
+    }
+
+    private Timeline setupTimeline() {
+        return new Timeline(
+                new KeyFrame(Duration.millis(2000),
+                        new KeyValue(progress, 1.0)
+                )
+        );
+    }
+
+    public void switchColumns() {
+        GridPane.setColumnIndex(playerStackPane, 1);
+        GridPane.setColumnIndex(playerListCellLabel, 0);
+        GridPane.setHalignment(playerListCellLabel, HPos.RIGHT);
+        column0.setPrefWidth(250);
+        column0.setMinWidth(250);
+        column0.setMaxWidth(250);
+        column1.setPrefWidth(100);
+        column1.setMinWidth(100);
+        column1.setMaxWidth(100);
     }
 
 }

@@ -13,11 +13,16 @@
     -fx-effect: -shadow;
 }
 
+.player-card-not-ready {
+    -fx-background-color: -selected-background-color;
+    -fx-opacity: 0.8;
+}
+
 .chat {
     -fx-min-height: 350;
     -fx-max-height: 350;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter*/
+    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Chat-Einbund*/
 }
 
 .mini-game-stack-pane {
@@ -40,7 +45,7 @@
     -fx-min-width: 290;
     -fx-min-height: 290;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter*/
+    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Kartenvorschau-Einbund*/
 }
 
 .default-button {
@@ -62,19 +67,23 @@
 
 .default-label {
     -fx-text-fill: -on-primary-fill;
-    -fx-font-size: 22pt;
     -fx-font-family: Roboto-Medium;
 }
 
-/*
+.default-label-size {
+    -fx-font-size: 22pt;
+}
+
+.default-label-waiting-size {
+    -fx-font-size: 16pt;
+}
 
 .default-progress-indicator .percentage {
     -fx-fill: null;
 }
 
 .default-progress-indicator {
-    -fx-min-width: 55;
-    -fx-min-height: 55;
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+    -fx-progress-color: -primary-background-color;
 }
-
-*/
