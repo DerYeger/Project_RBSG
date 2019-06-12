@@ -27,7 +27,7 @@ public class LeaveCommandHandler implements ChatCommandHandler {
             channelToRemove = '@' + options.trim();
         }
 
-        if (!chatController.removeTab(channelToRemove)) {
+        if (!chatController.closeChannel(channelToRemove)) {
             chatController.receiveMessage(callback.getChannel(), ChatController.SYSTEM, REMOVE_ERROR);
         }
     }

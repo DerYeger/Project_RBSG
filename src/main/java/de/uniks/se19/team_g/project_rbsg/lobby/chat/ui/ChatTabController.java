@@ -10,6 +10,6 @@ import org.springframework.lang.NonNull;
 public class ChatTabController {
 
     public void init(@NonNull final ChatController chatController, @NonNull final Tab chatTab, @NonNull final String channel) {
-        chatTab.setOnCloseRequest(event -> chatController.removeChannelEntry(channel));
+        chatTab.setOnCloseRequest(event -> chatController.closeChannel(channel));
     }
 }

@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatTabBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -38,61 +39,42 @@ public class ChatController implements Terminable {
 
     public static final String GENERAL_CHANNEL_NAME = "General";
 
-    public static final String SERVER_PUBLIC_CHANNEL_NAME = "all";
-
-    public static final String SERVER_PRIVATE_CHANNEL_NAME = "private";
-
-    public static final String SERVER_ENDPOINT = "/chat?user=";
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
-    private HashMap<String, Tab> chatTabs;
-
     private HashMap<String, ChatChannelController> chatChannelControllers;
-
-    private ChatTabBuilder chatTabBuilder;
-
-    private TabPane chatPane;
 
     @NonNull
     private final UserProvider userProvider;
 
-    @NonNull
-    private final WebSocketClient webSocketClient;
+    private ChatTabManager chatTabManager;
 
-    @NonNull
-    private final ChatWebSocketCallback chatWebSocketCallback;
+    private ChatClient chatClient;
 
-    public ChatController(@NonNull final UserProvider userProvider, @NonNull final WebSocketClient webSocketClient, @NonNull final ChatWebSocketCallback chatWebSocketCallback)
+    public ChatController(@NonNull final UserProvider userProvider)
     {
         this.userProvider = userProvider;
-        this.webSocketClient = webSocketClient;
-        this.chatWebSocketCallback = chatWebSocketCallback;
     }
 
-    public void init(@NonNull final TabPane chatPane) throws IOException {
-        this.chatPane = chatPane;
-
-        final ChatChannelBuilder chatChannelBuilder = new ChatChannelBuilder(this);
-        chatTabBuilder = new ChatTabBuilder(chatChannelBuilder, this);
+    public void init(@NonNull final TabPane tabPane, @NonNull final ChatClient chatClient) {
+        this.chatClient = chatClient;
 
         chatCommandHandlers = new HashMap<>();
-        chatTabs = new HashMap<>();
         chatChannelControllers = new HashMap<>();
+
+        final ChatChannelBuilder chatChannelBuilder = new ChatChannelBuilder(this);
+        final ChatTabBuilder chatTabBuilder = new ChatTabBuilder(chatChannelBuilder, this);
+        chatTabManager = new ChatTabManager(this, tabPane, chatTabBuilder);
+        chatTabManager.init();
 
         addChatCommandHandlers();
 
-        addGeneralTab();
-
-        startClient();
+        withClient();
     }
 
-    private void startClient() throws UnsupportedEncodingException
-    {
-        chatWebSocketCallback.registerChatController(this);
-        webSocketClient.start(SERVER_ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), chatWebSocketCallback);
+    private void withClient() {
+        chatClient.start(this);
     }
 
     @NonNull
@@ -100,62 +82,16 @@ public class ChatController implements Terminable {
         return userProvider.get().getName();
     }
 
+    @NonNull
+    public ChatTabManager chatTabManager() {
+        return chatTabManager;
+    }
+
     //register additional chat command handlers in this method
     private void addChatCommandHandlers() {
         chatCommandHandlers.put(WhisperCommandHandler.COMMAND, new WhisperCommandHandler(this));
         chatCommandHandlers.put(LeaveCommandHandler.COMMAND, new LeaveCommandHandler(this));
         chatCommandHandlers.put(ChuckNorrisCommandHandler.COMMAND, new ChuckNorrisCommandHandler(this, new RestTemplate()));
-    }
-
-    private void addGeneralTab() throws IOException {
-        addTab(GENERAL_CHANNEL_NAME, false);
-    }
-
-    public void openTab(@NonNull final String channel) {
-        Tab tab = null;
-
-        if (chatTabs.containsKey(channel)) {
-            tab = chatTabs.get(channel);
-        } else {
-            try {
-                tab = addPrivateTab(channel);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (tab != null) {
-            final Tab finalTab = tab;
-            Platform.runLater(() -> chatPane.getSelectionModel().select(finalTab));
-        }
-    }
-
-    public Tab addPrivateTab(@NonNull final String channel) throws IOException {
-        return addTab(channel, true);
-    }
-
-    private Tab addTab(@NonNull final String channel, @NonNull final boolean isClosable) throws IOException {
-        if (!chatChannelControllers.containsKey(channel)) {
-            final Tab tab = chatTabBuilder.buildChatTab(channel);
-            Platform.runLater(() -> {
-                chatPane.getTabs().add(tab);
-                tab.setClosable(isClosable);
-                chatTabs.put(channel, tab);
-            });
-            return tab;
-        }
-        return null;
-    }
-
-    public boolean removeTab(@NonNull final String channel) {
-        if (channel.equals(GENERAL_CHANNEL_NAME)) {
-            return false;
-        } else if (chatTabs.containsKey(channel)) {
-            chatPane.getTabs().remove(chatTabs.get(channel));
-            removeChannelEntry(channel);
-            return true;
-        }
-        return false;
     }
 
     public void handleInput(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws Exception {
@@ -186,44 +122,24 @@ public class ChatController implements Terminable {
     }
 
     public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) {
-        final ObjectNode node = getMessageAsNode(channel, content);
-        webSocketClient.sendMessage(node);
+        String to = null;
 
         if (channel.charAt(0) == '@') { //private message
-            //TODO: Check if user is reachable first (via user list in lobby and game participants in game) later on
+            to = channel.substring(1);
             receiveMessage(channel, userProvider.get().getName(), content);
         }
 
-        Platform.runLater(() -> chatPane.getSelectionModel().select(chatTabs.get(channel)));
-    }
+        chatClient.sendMessage(channel, to, content);
 
-    @NonNull
-    private ObjectNode getMessageAsNode(@NonNull final String channel, @NonNull final String content) {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final ObjectNode node = objectMapper.createObjectNode();
-
-        if (channel.equals(GENERAL_CHANNEL_NAME)) { //public message
-            node.put("channel", SERVER_PUBLIC_CHANNEL_NAME);
-        } else { //private message
-            node.put("channel", SERVER_PRIVATE_CHANNEL_NAME);
-            node.put("to", channel.substring(1));
-        }
-
-        node.put("message", content);
-
-        return node;
+        chatTabManager.selectTab(channel);
     }
 
     public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) {
-        try {
-            if (!chatChannelControllers.containsKey(channel)) {
-                addPrivateTab(channel);
-            }
-            final ChatChannelController chatChannelController = chatChannelControllers.get(channel);
-            chatChannelController.displayMessage(from, content.trim());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!chatChannelControllers.containsKey(channel)) {
+            chatTabManager.addPrivateTab(channel);
         }
+        final ChatChannelController chatChannelController = chatChannelControllers.get(channel);
+        chatChannelController.displayMessage(from, content.trim());
     }
     
     public void receiveErrorMessage(@NonNull final String message) {
@@ -238,9 +154,13 @@ public class ChatController implements Terminable {
         }
     }
 
-    public void removeChannelEntry(@NonNull final String channel) {
-        chatTabs.remove(channel);
-        chatChannelControllers.remove(channel);
+    public boolean closeChannel(@NonNull final String channel) {
+        if (chatTabManager.closeTab(channel)) {
+            chatChannelControllers.remove(channel);
+            return true;
+        }
+
+        return false;
     }
 
     public void registerChatChannelController(@NonNull final ChatChannelController chatChannelController, @NonNull final String channel) {
@@ -248,7 +168,7 @@ public class ChatController implements Terminable {
     }
 
     public void terminate() {
-        webSocketClient.stop();
+        chatClient.terminate();
         logger.debug("Terminated " + this);
     }
 }

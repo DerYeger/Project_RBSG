@@ -9,7 +9,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;

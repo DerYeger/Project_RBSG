@@ -62,6 +62,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
     @NonNull
+    private final LobbyChatClient lobbyChatClient;
+    @NonNull
     private final LogoutManager logoutManager;
 
     private ChatBuilder chatBuilder;
@@ -94,9 +96,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                                @NonNull final GameManager gameManager,
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
+                               @NonNull final LobbyChatClient lobbyChatClient,
                                @NonNull final CreateGameFormBuilder createGameFormBuilder,
                                @NonNull final LogoutManager logoutManager)
     {
+        this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
 
         this.lobby = new Lobby();
@@ -267,15 +271,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if (chatBuilder != null)
         {
-            Node chatNode = null;
-            try
-            {
-                chatNode = chatBuilder.buildChat();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            final Node chatNode = chatBuilder.buildChat(lobbyChatClient);;
             chatContainer.getChildren().add(chatNode);
             chatController = chatBuilder.getChatController();
         }

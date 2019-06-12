@@ -90,7 +90,7 @@ public class PlayerListViewCell extends ListCell<Player>
                 && localUserName != null
                 && player != null
                 && !localUserName.equals(player.getName())) {
-            chatController.openTab('@' + player.getName());
+            chatController.chatTabManager().openTab('@' + player.getName());
         }
     }
 }
