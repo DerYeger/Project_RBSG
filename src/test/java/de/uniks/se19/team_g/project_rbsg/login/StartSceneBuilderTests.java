@@ -25,6 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
 
@@ -92,7 +93,7 @@ public class StartSceneBuilderTests extends ApplicationTest {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final StartViewBuilder startViewBuilder = context.getBean(StartViewBuilder.class);
         final Scene scene = new StartSceneBuilder(startViewBuilder).getStartScene();
-        sleep(100);
+        WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());

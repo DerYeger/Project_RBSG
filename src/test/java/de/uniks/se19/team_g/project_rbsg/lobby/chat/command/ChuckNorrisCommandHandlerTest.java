@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import javax.websocket.Session;
 import java.io.IOException;
@@ -104,7 +105,7 @@ public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
         String joke ="Chuck Norris does not need try-catch blocks, exceptions are too afread to raise.";
 
         chuckNorrisCommandHandler.handleCommand(callback, chuckCommand);
-        Thread.sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
         Assert.assertEquals(joke, chuckJoke);
     }
 
