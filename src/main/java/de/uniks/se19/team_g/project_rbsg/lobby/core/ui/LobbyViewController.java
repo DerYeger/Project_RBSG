@@ -271,12 +271,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if (chatBuilder != null)
         {
-            final Node chatNode = chatBuilder.buildChat(lobbyChatClient);;
+            final Node chatNode = chatBuilder.buildChat(lobbyChatClient);
             chatContainer.getChildren().add(chatNode);
             chatController = chatBuilder.getChatController();
         }
-
-
     }
 
     public void createGameButtonClicked(ActionEvent event)
