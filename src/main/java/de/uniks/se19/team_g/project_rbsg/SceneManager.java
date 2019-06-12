@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,16 +34,10 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private Object rootController;
 
-    private AudioClip audioClip;
-    public boolean audioPlayed = true;
-
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
-        audioClip = new AudioClip(getClass().getResource("/assets/music/simple-8bit-loop.mp3").toString());
-        audioClip.setCycleCount(AudioClip.INDEFINITE);
-        playAudio();
         return this;
     }
 
@@ -129,16 +122,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         terminateRootController();
     }
 
-    public void playAudio() {
-        audioClip.play();
-        audioPlayed = true;
-    }
-
-    public void stopAudio() {
-        audioClip.stop();
-        audioPlayed = false;
-    }
-
     public void setArmyBuilderScene() {
         @SuppressWarnings("unchecked") ViewComponent<Object> component
                 = (ViewComponent<Object>) context.getBean("armyBuilderScene");
@@ -156,4 +139,5 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     {
         return new Scene(parent);
     }
+
 }

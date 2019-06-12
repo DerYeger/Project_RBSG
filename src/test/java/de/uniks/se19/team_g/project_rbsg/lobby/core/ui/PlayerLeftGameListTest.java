@@ -48,7 +48,8 @@ import static org.junit.Assert.*;
         CreateGameController.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        FXMLLoaderFactory.class
+        FXMLLoaderFactory.class,
+        MusicManager.class
         }
 )
 public class PlayerLeftGameListTest extends ApplicationTest

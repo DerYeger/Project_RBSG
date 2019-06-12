@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
@@ -68,7 +69,8 @@ import static org.junit.Assert.*;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         LobbyViewBuilder.class,
-        LobbyViewController.class
+        LobbyViewController.class,
+        MusicManager.class
 })
 public class GameListTest extends ApplicationTest
 {
