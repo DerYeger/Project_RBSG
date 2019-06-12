@@ -1,135 +1,77 @@
 /*
  * @author Keanu Stückrad
  *
+ * Special thanks to Georg Siebert for the Style-Guide
+ *
  * Dark-Theme Stylesheet
  *
- * Info for Usage: Use the class selector to import it on an special node in fxml.
- *
- * Background-Colors:
- *
- * Background: Dark Grey #121212
- * Surface: Dark Grey with 3dp White Overlay #1F1B24
- * Surface Overlay: Dark Purple #332940
- * Primary: Purple #BB86FC
- * Secondary: Teal #03DAC5
- * Error: Pale Violet Red Variant #CF6679
- *
- * On-Colors (for texts and icons, etc.):
- *
- * On background: White #FFFFFF
- * On Surface: White #FFFFFF
- * On Surface Overlay: White #FFFFFF
- * On Primary: Black #000000
- * On Secondary: Black #000000
- * On Error: Black #000000
- *
- * Opacity for importance of texts/backgrounds:
- *
- * High-emphasis text: 87%
- * Medium-emphasis text: 60%
- * Disabled text: 38% and Background: 12%
- * Hovered: 80%
- * Focused: 60%
+ * Info for Usage: Use the constants of * { ... } in your css after importing this stylesheet
  *
  */
 
-/* All Nodes */
-* {
-    -fx-faint-focus-color: transparent;
-    -fx-focus-color: transparent;
-}
+/* --- Additional Fonts --- */
 
-/* Background-Color */
-.root-background-color {
-    -fx-background-color: #121212;
-}
-
-.surface-background-color {
-    -fx-background-color: #1F1B24;
-}
-
-.surface-overlay-background-color {
-    -fx-background-color: #332940;
-}
-
-.primary-background-color {
-    -fx-background-color: #BB86FC;
-}
-
-.secondary-background-color {
-    -fx-background-color: #03DAC5;
-}
-
-.error-background-color {
-    -fx-background-color: #CF6679;
-}
-
-/* On-Colors + Opacity */
-.high-black-text-fill {
-    -fx-text-fill: rgba(0, 0, 0, 0.87);
-}
-
-.medium-black-text-fill {
-    -fx-text-fill: rgba(0, 0, 0, 0.6);
-}
-
-.primary-background-color:disabled, .secondary-background-color:disabled {
-    -fx-text-fill: rgba(0, 0, 0, 0.38);
-    -fx-opacity: 0.12;
-}
-
-.high-white-text-fill {
-    -fx-text-fill: rgba(255, 255, 255, 0.87);
-}
-
-.medium-white-text-fill {
-    -fx-text-fill: rgba(255, 255, 255, 0.6);
-}
-
-.surface-overlay-background-color:disabled {
-    -fx-text-fill: rgba(255, 255, 255, 0.38);
-    -fx-opacity: 0.12;
-}
-
-/* Additional Styling */
-.body-font {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
-
-.header-font {
-    -fx-font-family: 'Black';
-    -fx-font-size: 40px;
-    -fx-font-weight: bold;
-}
-
-.border {
-    -fx-border-radius: 0;
-    -fx-border-width: 0;
-    -fx-background-radius: 0;
-}
-
-.floating-shadow {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
-}
-
-.progress-color {
-    -fx-progress-color: #BB86FC;
-}
-
-/* Hovered */
-.primary-background-color:hover, .secondary-background-color:hover {
-    -fx-opacity: 0.8;
-}
-
-/* Focused */
-.surface-overlay-background-color:focused {
-    -fx-opacity: 0.6;
-}
-
-/* Additional Fonts */
 @font-face {
     font-family: 'Black';
     src: url("/de/uniks/se19/team_g/project_rbsg/login/Fonts/black.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Retronoid';
+    src: url('/de/uniks/se19/team_g/project_rbsg/login/Fonts/retronoid.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Font/Roboto/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Roboto-Medium';
+    src: url("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Font/Roboto/Roboto-Medium.ttf") format("truetype");
+}
+
+* {
+
+    /* --- To all nodes --- */
+
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+
+    /* --- Constants --- */
+
+        /* Font-Size with Font-Family Roboto-Regular */
+    -headline-font-size: 26pt;
+    -subheader-font-size: 18pt;
+    -body-font-size: 16pt;
+    -caption-font-size: 14pt;
+    /* use -fx-font-family: Roboto-Regular; */
+
+        /* Font-Size with Font-Family Roboto-Medium */
+    -title-font-size: 22pt;
+    -body2-menu-font-size: 16pt;
+    -button-font-size: 16pt;
+    /* use -fx-font-family: Roboto-Medium; */
+
+        /* Text-Fill */
+    -on-primary-fill: #ffffff; /* Button non-hover */
+    -on-secondary-fill: rgba(255, 255, 255, 0.7);
+    -on-disabled-fill: rgba(255, 255, 255, 0.3);
+    -on-hovered-fill: #000000; /* Button hover */
+    /* use -fx-font-weight: bold; to highlight something! */
+
+        /* Background-Colors */
+    -root-background-color: rgb(18, 18, 18); /* == #121212 */
+    -surface-background-color: rgba(18, 18, 18, 0.8);
+    -surface-overlay-background-color: rgba(18, 18, 18, 0.6);
+    -primary-background-color: #88588c; /* Button non-hover */
+    -primary-lighter-background-color: #bb86fc; /* Button hover */
+    -secondary-background-color: #03dac5;
+    -selected-background-color: #868cfc;
+    -error-background-color: #cf6679;
+    -disabled-background-color: #d3d3d3;
+
+        /* Effects */
+    -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+
 }
