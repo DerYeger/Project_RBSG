@@ -30,7 +30,7 @@ public class PlayerCardBuilder {
 
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("player-card.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/waiting_room/player-card.fxml"));
             fxmlLoader.setController(this);
             try {
                 playerCardView = fxmlLoader.load();
@@ -39,8 +39,8 @@ public class PlayerCardBuilder {
             }
         }
         playerListCellLabel.setText("<missing>");
-        //Image image = new Image(String.valueOf(getClass().getResource("")));
-        playerListCellImageView.setImage(null);
+        Image image = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/account-white.png")));
+        playerListCellImageView.setImage(image);
         return playerCardView;
     }
 
@@ -49,7 +49,7 @@ public class PlayerCardBuilder {
             buildPlayerCard();
         }
         playerListCellLabel.setText(player.getName());
-        Image image = new Image(String.valueOf(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/" + player.getImagePath())));
+        Image image = new Image(String.valueOf(getClass().getResource(player.getImagePath())));
         playerListCellImageView.setImage(image);
         return playerCardView;
     }
