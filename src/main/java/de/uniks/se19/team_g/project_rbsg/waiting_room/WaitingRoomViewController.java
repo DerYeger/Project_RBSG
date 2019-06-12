@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,11 +30,10 @@ public class WaitingRoomViewController implements RootController, Terminable {
     public Pane player3Pane;
     public Pane player4Pane;
     public Pane chatPane;
-    public Pane armiesPane;
     public Pane mapPreviewPane;
-    public ImageView musicImage;
-    public ImageView backImage;
-    public ImageView infoImage;
+    public Button soundButton;
+    public Button leaveButton;
+    public Button showInfoButton;
 
     private PlayerCardBuilder playerCard;
     private PlayerCardBuilder playerCard2;
@@ -43,8 +43,6 @@ public class WaitingRoomViewController implements RootController, Terminable {
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
-
-    @NonNull
     private final GameEventManager gameEventManager;
 
     @Autowired
