@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
@@ -24,7 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -50,9 +50,10 @@ import java.util.*;
 
 @Component
 @Scope("prototype")
-public class LobbyViewController implements RootController, Terminable, Rincled
+public class LobbyViewController extends ButtonIconsSetter implements RootController, Terminable, Rincled
 {
-    private static final int iconSize = 30;
+
+    private static final int ICON_SIZE = 30;
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
@@ -162,8 +163,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
-        setButtonIcons(createGameButton, "/assets/icons/navigation/add-circle-black.png" , "/assets/icons/navigation/add-circle-white.png");
-        setButtonIcons(logoutButton, "/assets/icons/navigation/exit-black.png", "/assets/icons/navigation/exit-white.png");
+        setButtonIcons(createGameButton, "/assets/icons/navigation/add-circle-black.png" , "/assets/icons/navigation/add-circle-white.png", ICON_SIZE);
+        setButtonIcons(logoutButton, "/assets/icons/navigation/exit-black.png", "/assets/icons/navigation/exit-white.png", ICON_SIZE);
 
         musicManager.initButtonIcons(soundButton);
 
@@ -200,24 +201,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         updateLabels(null);
 
         setAsRootController();
-    }
-
-    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
-        ImageView hover = new ImageView();
-        ImageView nonHover = new ImageView();
-
-        nonHover.fitWidthProperty().setValue(iconSize);
-        nonHover.fitHeightProperty().setValue(iconSize);
-
-        hover.fitWidthProperty().setValue(iconSize);
-        hover.fitHeightProperty().setValue(iconSize);
-
-        hover.setImage(new Image(String.valueOf(getClass().getResource(hoverIconName))));
-        nonHover.setImage(new Image(String.valueOf(getClass().getResource(nonHoverIconName))));
-
-        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
-                                                    .then(hover)
-                                                    .otherwise(nonHover));
     }
 
     private void setBackgroundImage()

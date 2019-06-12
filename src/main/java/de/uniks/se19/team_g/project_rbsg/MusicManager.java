@@ -1,9 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import javafx.beans.binding.Bindings;
+import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author Keanu Stückrad
  */
 @Component
-public class MusicManager {
+public class MusicManager extends ButtonIconsSetter {
 
     private static final String MUSIC_NOTE_BLACK = "/assets/icons/navigation/music-note-black.png";
     private static final String MUSIC_NOTE_WHITE = "/assets/icons/navigation/music-note-white.png";
@@ -34,9 +32,9 @@ public class MusicManager {
 
     public void initButtonIcons(Button soundButton) {
         if(musicRunning) {
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE);
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE, ICON_SIZE);
         } else {
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF);
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF, ICON_SIZE);
         }
     }
 
@@ -44,25 +42,11 @@ public class MusicManager {
         musicRunning = !musicRunning;
         if(musicRunning) {
             audioClip.play();
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE);
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE, ICON_SIZE);
         } else {
             audioClip.stop();
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF);
+            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF, ICON_SIZE);
         }
-    }
-
-    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
-        ImageView hover = new ImageView();
-        ImageView nonHover = new ImageView();
-        nonHover.fitWidthProperty().setValue(ICON_SIZE);
-        nonHover.fitHeightProperty().setValue(ICON_SIZE);
-        hover.fitWidthProperty().setValue(ICON_SIZE);
-        hover.fitHeightProperty().setValue(ICON_SIZE);
-        hover.setImage(new Image(String.valueOf(getClass().getResource(hoverIconName))));
-        nonHover.setImage(new Image(String.valueOf(getClass().getResource(nonHoverIconName))));
-        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
-                .then(hover)
-                .otherwise(nonHover));
     }
 
 }

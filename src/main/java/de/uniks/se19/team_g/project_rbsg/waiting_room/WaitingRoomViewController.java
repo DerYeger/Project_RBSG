@@ -7,15 +7,13 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import javafx.beans.binding.Bindings;
+import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -26,7 +24,7 @@ import org.springframework.stereotype.Controller;
  * @author Jan Müller
  */
 @Controller
-public class WaitingRoomViewController implements RootController, Terminable {
+public class WaitingRoomViewController extends ButtonIconsSetter implements RootController, Terminable {
 
     private static final int ICON_SIZE = 40;
 
@@ -74,8 +72,8 @@ public class WaitingRoomViewController implements RootController, Terminable {
         setPlayerCardNodes();
         gameEventManager.startSocket(gameProvider.get().getId());
         setAsRootController();
-        setButtonIcons(leaveButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png");
-        setButtonIcons(showInfoButton,"/assets/icons/navigation/info-black.png", "/assets/icons/navigation/info-white.png");
+        setButtonIcons(leaveButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", ICON_SIZE);
+        setButtonIcons(showInfoButton,"/assets/icons/navigation/info-black.png", "/assets/icons/navigation/info-white.png", ICON_SIZE);
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
     }
@@ -142,17 +140,4 @@ public class WaitingRoomViewController implements RootController, Terminable {
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
-    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
-        ImageView hover = new ImageView();
-        ImageView nonHover = new ImageView();
-        nonHover.fitWidthProperty().setValue(ICON_SIZE);
-        nonHover.fitHeightProperty().setValue(ICON_SIZE);
-        hover.fitWidthProperty().setValue(ICON_SIZE);
-        hover.fitHeightProperty().setValue(ICON_SIZE);
-        hover.setImage(new Image(String.valueOf(getClass().getResource(hoverIconName))));
-        nonHover.setImage(new Image(String.valueOf(getClass().getResource(nonHoverIconName))));
-        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
-                .then(hover)
-                .otherwise(nonHover));
-    }
 }
