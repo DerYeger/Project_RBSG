@@ -63,7 +63,7 @@ public class LoginFormController implements RootController, Rincled
 
     private Node loading;
     private LoadingIndicatorCardBuilder loadingIndicatorCardBuilder;
-    private SimpleBooleanProperty loadingFlag;
+    public SimpleBooleanProperty loadingFlag;
     private SimpleBooleanProperty errorFlag;
     private User user;
     private final LoginManager loginManager;
@@ -72,7 +72,10 @@ public class LoginFormController implements RootController, Rincled
     private final UserProvider userProvider;
 
     @Autowired
-    public LoginFormController(@NonNull final UserProvider userProvider, @NonNull final LoginManager loginManager, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
+    public LoginFormController(@NonNull final UserProvider userProvider,
+                               @NonNull final LoginManager loginManager,
+                               @NonNull final RegistrationManager registrationManager,
+                               @NonNull final SceneManager sceneManager) {
         this.userProvider = userProvider;
         this.loginManager = loginManager;
         this.registrationManager = registrationManager;

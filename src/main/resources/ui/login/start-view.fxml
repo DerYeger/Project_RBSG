@@ -16,7 +16,7 @@
                 <VBox fx:id="loginAndTitleBox" StackPane.alignment="CENTER" alignment="CENTER"/>
              </children>
        </StackPane>
-       <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleSound" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10" styleClass="icon-button">
+       <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleSound" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" styleClass="icon-button">
        </Button>
    </children>
 </AnchorPane>
