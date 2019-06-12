@@ -1,19 +1,14 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat;
+package de.uniks.se19.team_g.project_rbsg.chat;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.ChuckNorrisCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.ChatCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.LeaveCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.WhisperCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatChannelBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatTabBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatTabManager;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChuckNorrisCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.command.LeaveCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.command.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import javafx.application.Platform;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.springframework.context.annotation.Scope;
 import org.slf4j.Logger;
@@ -22,10 +17,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**

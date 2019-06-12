@@ -1,10 +1,9 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.control.Tab;
 import org.junit.Assert;
@@ -28,7 +27,6 @@ import java.util.HashSet;
 @ContextConfiguration(classes = {
         WhisperCommandHandlerTests.ContextConfiguration.class,
         UserProvider.class,
-        ChatWebSocketCallback.class
 })
 public class WhisperCommandHandlerTests {
 
@@ -37,9 +35,6 @@ public class WhisperCommandHandlerTests {
 
     @TestConfiguration
     static class ContextConfiguration {
-
-        @Autowired
-        private ChatWebSocketCallback chatWebSocketCallback;
 
         @Autowired
         private UserProvider userProvider;
@@ -66,7 +61,7 @@ public class WhisperCommandHandlerTests {
 
         @Bean
         public ChatController chatController() {
-            return new ChatController(userProvider, webSocketClient(), chatWebSocketCallback) {
+            return new ChatController(userProvider, webSocketClient()) {
                 @Override
                 public Tab addPrivateTab(@NonNull final String channel) {
                     activeChannels.add(channel);

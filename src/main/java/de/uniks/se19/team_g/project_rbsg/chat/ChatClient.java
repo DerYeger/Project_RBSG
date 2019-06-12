@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat;
+package de.uniks.se19.team_g.project_rbsg.chat;
 
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;

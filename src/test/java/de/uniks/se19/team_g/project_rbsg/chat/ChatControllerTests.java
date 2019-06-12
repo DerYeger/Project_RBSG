@@ -1,12 +1,12 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat;
+package de.uniks.se19.team_g.project_rbsg.chat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.LeaveCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.command.WhisperCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.command.LeaveCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.command.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.Node;
 import javafx.scene.Parent;

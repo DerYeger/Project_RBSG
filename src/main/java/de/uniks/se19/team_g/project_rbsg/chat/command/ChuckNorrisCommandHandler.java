@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
