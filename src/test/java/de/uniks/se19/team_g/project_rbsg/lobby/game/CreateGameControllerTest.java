@@ -121,12 +121,6 @@ public class CreateGameControllerTest extends ApplicationTest {
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
 
-        clickOn(gameNameInput);
-        for (int i = 0; i < 20; ++i){
-            press(KeyCode.RIGHT);
-        }
-        eraseText(20);
-
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 

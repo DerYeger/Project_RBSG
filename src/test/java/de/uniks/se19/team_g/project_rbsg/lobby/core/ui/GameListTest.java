@@ -50,8 +50,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Georg Siebert
@@ -111,8 +110,8 @@ public class GameListTest extends ApplicationTest
         assertNotNull(games);
         assertEquals(2, games.size());
 
-        ListCell<Game> gameOfHello = lookup("#gameCellGameOfHello").query();
-        ListCell<Game> gameOfDota = lookup("#gameCellDefenceOfTheAncient").query();
+        ListCell<Game> gameOfHello = lookup("#lobbyGamesListView .list-cell").nth(0).query();
+        ListCell<Game> gameOfDota = lookup("#lobbyGamesListView .list-cell").nth(1).query();
 
         assertNotNull(gameOfHello);
         assertNotNull(gameOfDota);

@@ -29,6 +29,7 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
 import org.testfx.framework.junit.*;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.*;
 import java.util.*;
@@ -160,8 +161,7 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         assertNotNull(gameOne);
 
         gameOne.setJoinedPlayer(1);
-
-        sleep(100);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals("1/2", playersLabel.textProperty().get());
 

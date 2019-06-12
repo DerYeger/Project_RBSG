@@ -184,8 +184,6 @@ public class PlayerListTest extends ApplicationTest
         assertEquals("Hello", cellHello.getItem().getName());
         assertEquals("MOBAHero42", cellMobaHero.getItem().getName());
 
-        rightClickOn("#playerCellHello");
-        rightClickOn("#playerCellMOBAHero42");
 
         Lobby lobby = lobbyViewController.getLobby();
 
