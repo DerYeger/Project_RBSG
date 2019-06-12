@@ -21,7 +21,12 @@ public class LeaveCommandHandler implements ChatCommandHandler {
     }
 
     @Override
-    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) throws Exception {
+    public String getCommand() {
+        return COMMAND;
+    }
+
+    @Override
+    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) {
         String channelToRemove = callback.getChannel();
         if (options != null && !options.isBlank()) {
             channelToRemove = '@' + options.trim();

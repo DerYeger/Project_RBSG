@@ -1,9 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.chat;
 
-import de.uniks.se19.team_g.project_rbsg.chat.command.ChuckNorrisCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.chat.command.LeaveCommandHandler;
-import de.uniks.se19.team_g.project_rbsg.chat.command.WhisperCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.command.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
@@ -28,30 +25,30 @@ public class ChatController implements Terminable {
 
     public static final String SYSTEM = "System";
 
-    public static final String GENERAL_CHANNEL_NAME = "General";
+    public static final String CLIENT_PUBLIC_CHANNEL = "General";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
-    private HashMap<String, ChatCommandHandler> chatCommandHandlers;
 
     private HashMap<String, ChatChannelController> chatChannelControllers;
 
     @NonNull
     private final UserProvider userProvider;
 
-    private ChatTabManager chatTabManager;
-
     private ChatClient chatClient;
 
-    public ChatController(@NonNull final UserProvider userProvider)
+    private ChatTabManager chatTabManager;
+
+    private ChatCommandManager chatCommandManager;
+
+    public ChatController(@NonNull final UserProvider userProvider, @NonNull final ChatCommandManager chatCommandManager)
     {
         this.userProvider = userProvider;
+        this.chatCommandManager = chatCommandManager;
     }
 
     public void init(@NonNull final TabPane tabPane, @NonNull final ChatClient chatClient) {
         this.chatClient = chatClient;
 
-        chatCommandHandlers = new HashMap<>();
         chatChannelControllers = new HashMap<>();
 
         final ChatChannelBuilder chatChannelBuilder = new ChatChannelBuilder(this);
@@ -61,10 +58,6 @@ public class ChatController implements Terminable {
 
         addChatCommandHandlers();
 
-        withClient();
-    }
-
-    private void withClient() {
         chatClient.start(this);
     }
 
@@ -80,9 +73,9 @@ public class ChatController implements Terminable {
 
     //register additional chat command handlers in this method
     private void addChatCommandHandlers() {
-        chatCommandHandlers.put(WhisperCommandHandler.COMMAND, new WhisperCommandHandler(this));
-        chatCommandHandlers.put(LeaveCommandHandler.COMMAND, new LeaveCommandHandler(this));
-        chatCommandHandlers.put(ChuckNorrisCommandHandler.COMMAND, new ChuckNorrisCommandHandler(this, new RestTemplate()));
+        chatCommandManager.addHandler(new WhisperCommandHandler(this));
+        chatCommandManager.addHandler(new LeaveCommandHandler(this));
+        chatCommandManager.addHandler(new ChuckNorrisCommandHandler(this, new RestTemplate()));
     }
 
     public void handleInput(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) throws Exception {
@@ -105,11 +98,7 @@ public class ChatController implements Terminable {
         final String command = content.substring(0, indexOfFirstOption);
         final String options = content.substring(indexOfFirstOption);
 
-        if (chatCommandHandlers.containsKey(command)) {
-            chatCommandHandlers.get(command).handleCommand(callback, options);
-            return true;
-        }
-        return false;
+        return chatCommandManager.handleCommand(callback, command, options);
     }
 
     public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) {
@@ -141,7 +130,7 @@ public class ChatController implements Terminable {
             receiveMessage(channel, SYSTEM, message);
             chatChannelControllers.get(channel).disableInput();
         } else {
-            receiveMessage(GENERAL_CHANNEL_NAME, SYSTEM, message);
+            receiveMessage(CLIENT_PUBLIC_CHANNEL, SYSTEM, message);
         }
     }
 

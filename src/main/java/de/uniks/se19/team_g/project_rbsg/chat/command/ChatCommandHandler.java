@@ -7,8 +7,7 @@ import org.springframework.lang.Nullable;
 /**
  * @author Jan Müller
  */
-@FunctionalInterface
 public interface ChatCommandHandler {
-
-    void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) throws Exception;
+    String getCommand();
+    void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options);
 }
