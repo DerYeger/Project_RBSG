@@ -22,7 +22,7 @@ public class ChatChannelBuilder {
     @NonNull
     public Node buildChatChannel(@NonNull final String channel) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(ChatChannelBuilder.class.getResource("chat-channel.fxml"));
+        fxmlLoader.setLocation(ChatChannelBuilder.class.getResource("/ui/lobby/chat/chat-channel.fxml"));
 
         final Node chatTabContent = fxmlLoader.load();
 

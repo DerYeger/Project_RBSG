@@ -3,10 +3,10 @@ package de.uniks.se19.team_g.project_rbsg;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import io.rincl.*;
 import javafx.application.Platform;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
@@ -25,8 +25,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable, Rincled
-{
+public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -34,7 +33,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private Stage stage;
 
-    private RootController rootController;
+    private Object rootController;
 
     private AudioClip audioClip;
     public boolean audioPlayed = true;
@@ -42,9 +41,10 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
-        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
-        audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
+        audioClip = new AudioClip(getClass().getResource("/assets/music/simple-8bit-loop.mp3").toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
+        playAudio();
         return this;
     }
 
@@ -62,7 +62,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
             final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
             stage.setResizable(false);
             setScene(startScene);
-            playAudio();
         } catch (IOException e) {
             logger.error("Unable to set start scene");
             e.printStackTrace();
@@ -109,11 +108,11 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         }
     }
 
-    public RootController getRootController() {
+    public Object getRootController() {
         return rootController;
     }
 
-    public void setRootController(@NonNull final RootController rootController) {
+    public void setRootController(@NonNull final Object rootController) {
         if (this.rootController != null) {
             terminateRootController();
         }
@@ -138,5 +137,23 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     public void stopAudio() {
         audioClip.stop();
         audioPlayed = false;
+    }
+
+    public void setArmyBuilderScene() {
+        @SuppressWarnings("unchecked") ViewComponent<Object> component
+                = (ViewComponent<Object>) context.getBean("armyBuilderScene");
+        showSceneFromViewComponent(component);
+    }
+
+    private void showSceneFromViewComponent(ViewComponent<Object> component) {
+        Platform.runLater(() -> {
+            stage.setScene(sceneFromParent(component.getRoot()));
+            setRootController(component.getController());
+        });
+    }
+
+    public Scene sceneFromParent(Parent parent)
+    {
+        return new Scene(parent);
     }
 }

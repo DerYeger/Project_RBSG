@@ -1,0 +1,57 @@
+
+.createGame{
+    -fx-pref-width: 400;
+    -fx-max-width: 350;
+    -fx-pref-height: 300;
+    -fx-max-height: 250;
+    -fx-background-color: rgba(18,18,18, 0.9);
+    -fx-border-width: 2;
+    -fx-border-color: white;
+}
+
+.createGame .label{
+    -fx-text-fill: white;
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+}
+
+.createGame .text-field{
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #404040;
+    -fx-alignment: center;
+}
+
+.createGame .toggle-button{
+    -fx-border-width: 2;
+    -fx-background-color: #8858c8;
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-pref-width: 115;
+    -fx-pref-height: 40;
+}
+
+.createGame .toggle-button:selected{
+    -fx-background-color: #868cfc;
+    -fx-text-fill: black;
+    -fx-pref-width: 115;
+    -fx-pref-height: 40;
+}
+
+.createGame .start{
+    -fx-background-color: #089000;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-pref-width: 115;
+    -fx-pref-height: 40;
+}
+
+.createGame .cancel{
+    -fx-background-color: #ff0000;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-pref-width: 115;
+    -fx-pref-height: 40;
+}

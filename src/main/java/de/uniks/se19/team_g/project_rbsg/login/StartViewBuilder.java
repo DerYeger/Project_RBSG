@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 
@@ -10,6 +11,7 @@ import java.io.IOException;
  * @author Keanu Stückrad
  */
 @Component
+@Scope("prototype")
 public class StartViewBuilder {
 
     private Node startView;
@@ -23,7 +25,7 @@ public class StartViewBuilder {
 
     public Node getStartView() throws IOException {
         if (startView == null) {
-            fxmlLoader.setLocation(LoginFormBuilder.class.getResource("start-view.fxml"));
+            fxmlLoader.setLocation(LoginFormBuilder.class.getResource("/ui/login/start-view.fxml"));
             startView = fxmlLoader.load();
             final StartViewController startViewController = fxmlLoader.getController();
             startViewController.init();

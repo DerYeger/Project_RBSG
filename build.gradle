@@ -28,6 +28,8 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	testImplementation "org.mockito:mockito-core:2.+"
+
 	//javafx 11 components for multiplatform deployment
 	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:win'
 	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:linux'

@@ -15,7 +15,9 @@ import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import io.rincl.*;
@@ -43,6 +45,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,6 +75,8 @@ import static org.junit.Assert.assertNotNull;
 public class PlayerListTest extends ApplicationTest
 {
 
+    public static final Player PLAYER_1 = new Player("Hello");
+    public static final Player PLAYER_2 = new Player("MOBAHero42");
     @Autowired
     ApplicationContext context;
 
@@ -105,6 +110,11 @@ public class PlayerListTest extends ApplicationTest
         }
 
         @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
+        }
+
+        @Bean
         public GameManager gameManager() {
             return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
                 @Override
@@ -120,8 +130,8 @@ public class PlayerListTest extends ApplicationTest
                 @Override
                 public Collection<Player> getPlayers() {
                     ArrayList<Player> players = new ArrayList<>();
-                    players.add(new Player("Hello"));
-                    players.add(new Player("MOBAHero42"));
+                    players.add(PLAYER_1);
+                    players.add(PLAYER_2);
                     return players;
                 }
             };
@@ -161,40 +171,29 @@ public class PlayerListTest extends ApplicationTest
         assertNotNull(players);
         assertEquals(2, players.size());
 
-        ListCell<Player> cellHello = lookup("#playerCellHello").query();
-        ListCell<Player> cellMobaHero = lookup("#playerCellMOBAHero42").query();
-
-//        Player hello = cellHello.getItem().;
-
+        ListCell<Player> cellHello = lookup("#lobbyPlayerListView .list-cell").nth(0).query();
+        ListCell<Player> cellMobaHero = lookup("#lobbyPlayerListView .list-cell").nth(1).query();
 
         assertNotNull(cellHello);
         assertNotNull(cellMobaHero);
 
-        clickOn("#playerCellHello");
-        clickOn("#playerCellMOBAHero42");
+        assertEquals(PLAYER_1, cellHello.getItem());
+        assertEquals(PLAYER_2, cellMobaHero.getItem());
 
-        assertEquals("Hello", cellHello.getItem().getName());
-        assertEquals("MOBAHero42", cellMobaHero.getItem().getName());
-
-        rightClickOn("#playerCellHello");
-        rightClickOn("#playerCellMOBAHero42");
 
         Lobby lobby = lobbyViewController.getLobby();
 
-        lobby.addPlayer(new Player("Carlie"));
-        sleep(100);
+        final Player carlie = new Player("Carlie");
+        lobby.addPlayer(carlie);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(3, players.size());
 
-        ListCell<Player> cellCarlie = lookup("#playerCellCarlie").query();
-        assertNotNull(cellCarlie);
-
-        assertEquals("Carlie", cellCarlie.getItem().getName());
-
-        rightClickOn("#playerCellCarlie");
+        ListCell<Player> cellCarlie = lookup("#lobbyPlayerListView .list-cell").nth(2).query();
+        assertEquals(carlie, cellCarlie.getItem());
 
         Platform.runLater(() -> lobby.getPlayers().remove(0));
-        sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, players.size());
     }

@@ -15,6 +15,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -60,6 +61,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
+    @NonNull
+    private final LogoutManager logoutManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -91,8 +94,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                                @NonNull final GameManager gameManager,
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
-                               @NonNull final CreateGameFormBuilder createGameFormBuilder)
+                               @NonNull final CreateGameFormBuilder createGameFormBuilder,
+                               @NonNull final LogoutManager logoutManager)
     {
+        this.logoutManager = logoutManager;
+
         this.lobby = new Lobby();
 
         this.playerManager = playerManager;
@@ -153,8 +159,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
-        setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
-        setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
+        setButtonIcons(createGameButton, "/assets/icons/navigation/add-circle-black.png" , "/assets/icons/navigation/add-circle-white.png");
+        setButtonIcons(logoutButton, "/assets/icons/navigation/exit-black.png", "/assets/icons/navigation/exit-white.png");
 
         updateMusicButtonIcons();
 
@@ -184,9 +190,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         setBackgroundImage();
 
-        Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
-        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 28);
+        Font.loadFont(getClass().getResource("/assets/fonts/retronoid.otf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/assets/fonts/roboto-regular.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("/assets/fonts/cinzel-regular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
 
@@ -196,13 +202,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private void updateMusicButtonIcons()
     {
         if(musicRunning) {
-            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
+            setButtonIcons(soundButton, "/assets/icons/navigation/music-note-black.png", "/assets/icons/navigation/music-note-white.png");
             if(sceneManager.audioPlayed == false) {
                 sceneManager.playAudio();
             }
         } else {
             sceneManager.stopAudio();
-            setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
+            setButtonIcons(soundButton, "/assets/icons/navigation/music-off-black.png", "/assets/icons/navigation/music-off-white.png");
         }
     }
 
@@ -216,8 +222,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         hover.fitWidthProperty().setValue(iconSize);
         hover.fitHeightProperty().setValue(iconSize);
 
-        hover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + hoverIconName))));
-        nonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + nonHoverIconName))));
+        hover.setImage(new Image(String.valueOf(getClass().getResource(hoverIconName))));
+        nonHover.setImage(new Image(String.valueOf(getClass().getResource(nonHoverIconName))));
 
         button.graphicProperty().bind(Bindings.when(button.hoverProperty())
                                                     .then(hover)
@@ -226,7 +232,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private void setBackgroundImage()
     {
-        Image backgroundImage = new Image(String.valueOf(getClass().getResource("splash_darker_verschwommen.jpg")),
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.jpg")),
                                           ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
 
         mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,
@@ -350,6 +356,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void logoutUser(ActionEvent event)
     {
-        logger.debug("Pressed the logout button");
+        logoutManager.logout(userProvider);
+        sceneManager.setStartScene();
+    }
+
+    public void goToArmyBuilder(ActionEvent actionEvent) {
+        sceneManager.setArmyBuilderScene();
     }
 }

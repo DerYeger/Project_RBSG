@@ -2,24 +2,26 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import io.rincl.*;
-import io.rincl.resourcebundle.*;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -43,13 +45,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.util.*;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Georg Siebert
@@ -72,6 +73,8 @@ import static org.junit.Assert.assertNotNull;
 public class GameListTest extends ApplicationTest
 {
 
+    public static final Game GAME_OF_HELLO = new Game("1", "GameOfHello", 4, 2);
+    public static final Game DEFENCE_OF_THE_ANCIENT = new Game("2", "DefenceOfTheAncient", 10, 7);
     @Autowired
     private ApplicationContext context;
 
@@ -109,47 +112,26 @@ public class GameListTest extends ApplicationTest
         assertNotNull(games);
         assertEquals(2, games.size());
 
-        ListCell<Game> gameOfHello = lookup("#gameCellGameOfHello").query();
-        ListCell<Game> gameOfDota = lookup("#gameCellDefenceOfTheAncient").query();
+        ListCell<Game> gameOfHello = lookup("#lobbyGamesListView .list-cell").nth(0).query();
+        ListCell<Game> gameOfDota = lookup("#lobbyGamesListView .list-cell").nth(1).query();
 
-        assertNotNull(gameOfHello);
-        assertNotNull(gameOfDota);
-
-        Game goH = gameOfHello.getItem();
-        assertEquals("GameOfHello", goH.getName());
-        assertEquals("1", goH.getId());
-        assertEquals(4, goH.getNeededPlayer());
-        assertEquals(2, goH.getJoinedPlayer());
-
-        Game dota = gameOfDota.getItem();
-        assertEquals("DefenceOfTheAncient", dota.getName());
-        assertEquals("2", dota.getId());
-        assertEquals(10, dota.getNeededPlayer());
-        assertEquals(7, dota.getJoinedPlayer());
-
-        clickOn("#joinGameButtonGameOfHello");
-        clickOn("#joinGameButtonDefenceOfTheAncient");
+        assertEquals(GAME_OF_HELLO, gameOfHello.getItem());
+        assertEquals(DEFENCE_OF_THE_ANCIENT, gameOfDota.getItem());
 
         Lobby lobby = lobbyViewController.getLobby();
 
-        lobby.addGame(new Game("3", "StarWars", 2, 2));
-        sleep(100);
+        final Game starWars1 = new Game("3", "StarWars", 2, 2);
+        lobby.addGame(starWars1);
+        WaitForAsyncUtils.waitForFxEvents();
         assertEquals(3, games.size());
 
-        ListCell<Game> gameStarWars = lookup("#gameCellStarWars").query();
-        assertNotNull(gameStarWars);
+        ListCell<Game> gameStarWars = lookup("#lobbyGamesListView .list-cell").nth(2).query();
 
-        Game starWars = gameStarWars.getItem();
-        assertEquals("StarWars", starWars.getName());
-        assertEquals("3", starWars.getId());
-        assertEquals(2, starWars.getNeededPlayer());
-        assertEquals(2, starWars.getJoinedPlayer());
-
-        clickOn("#joinGameButtonStarWars");
+        assertEquals(starWars1, gameStarWars.getItem());
 
 
-        lobby.removeGame(dota);
-        sleep(500);
+        lobby.removeGame(DEFENCE_OF_THE_ANCIENT);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, games.size());
     }
@@ -169,6 +151,11 @@ public class GameListTest extends ApplicationTest
         }
 
         @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
+        }
+
+        @Bean
         public GameManager gameManager()
         {
             return new GameManager(new RESTClient(new RestTemplate()), new UserProvider())
@@ -177,8 +164,8 @@ public class GameListTest extends ApplicationTest
                 public Collection<Game> getGames()
                 {
                     ArrayList<Game> games = new ArrayList<>();
-                    games.add(new Game("1", "GameOfHello", 4, 2));
-                    games.add(new Game("2", "DefenceOfTheAncient", 10, 7));
+                    games.add(GAME_OF_HELLO);
+                    games.add(DEFENCE_OF_THE_ANCIENT);
                     return games;
                 }
             };

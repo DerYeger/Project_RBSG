@@ -129,16 +129,12 @@ public class WaitingRoomViewController implements RootController, Terminable {
     private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
         ImageView hover = new ImageView();
         ImageView nonHover = new ImageView();
-
         nonHover.fitWidthProperty().setValue(ICON_SIZE);
         nonHover.fitHeightProperty().setValue(ICON_SIZE);
-
         hover.fitWidthProperty().setValue(ICON_SIZE);
         hover.fitHeightProperty().setValue(ICON_SIZE);
-
         hover.setImage(new Image(String.valueOf(getClass().getResource(hoverIconName))));
         nonHover.setImage(new Image(String.valueOf(getClass().getResource(nonHoverIconName))));
-
         button.graphicProperty().bind(Bindings.when(button.hoverProperty())
                 .then(hover)
                 .otherwise(nonHover));

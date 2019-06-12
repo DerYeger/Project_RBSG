@@ -1,0 +1,223 @@
+/*
+ * @author Keanu Stückrad
+ *
+ * Special thanks to Georg Siebert for the Style-Guide
+ *
+ * Dark-Theme Stylesheet
+ *
+ * Info for Usage: Use the constants of * { ... } in your css after importing this stylesheet
+ *
+ */
+
+/* --- Additional Fonts --- */
+
+@font-face {
+    font-family: 'Black';
+    src: url("/assets/fonts/black.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Retronoid';
+    src: url('/assets/fonts/retronoid.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url("/assets/fonts/roboto-regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Roboto-Medium';
+    src: url("/assets/fonts/roboto-medium.ttf") format("truetype");
+}
+
+* {
+
+    /* --- To all nodes --- */
+
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+
+    /* --- Constants --- */
+
+        /* Font-Size with Font-Family Roboto-Regular */
+    -headline-font-size: 26pt;
+    -subheader-font-size: 18pt;
+    -body-font-size: 16pt;
+    -caption-font-size: 14pt;
+    /* use -fx-font-family: Roboto-Regular; */
+
+        /* Font-Size with Font-Family Roboto-Medium */
+    -title-font-size: 22pt;
+    -body2-menu-font-size: 16pt;
+    -button-font-size: 16pt;
+    /* use -fx-font-family: Roboto-Medium; */
+
+        /* Text-Fill */
+    -on-primary-fill: #ffffff; /* Button non-hover */
+    -on-secondary-fill: rgba(255, 255, 255, 0.7);
+    -on-disabled-fill: rgba(255, 255, 255, 0.3);
+    -on-hovered-fill: #000000; /* Button hover */
+    /* use -fx-font-weight: bold; to highlight something! */
+
+        /* Background-Colors */
+    -root-background-color: rgb(18, 18, 18); /* == #121212 */
+    -surface-background-color: rgba(18, 18, 18, 0.8);
+    -surface-overlay-background-color: rgba(18, 18, 18, 0.6);
+    -primary-background-color: #88588c; /* Button non-hover */
+    -primary-lighter-background-color: #bb86fc; /* Button hover */
+    -secondary-background-color: #03dac5;
+    -selected-background-color: #868cfc;
+    -error-background-color: #cf6679;
+    -disabled-background-color: #d3d3d3;
+
+        /* Effects */
+    -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+
+}
+
+/*------------------------------------*/
+
+.elevation-0 {
+    -fx-background-color: white;
+    -fx-opacity: 0%;
+}
+
+.elevation-2 {
+    -fx-background-color: white;
+    -fx-opacity: 7%;
+}
+
+.elevation-4 {
+    -fx-background-color: white;
+    -fx-opacity: 9%;
+}
+
+.elevation-6 {
+    -fx-background-color: white;
+    -fx-opacity: 11%;
+}
+
+/* Background-Color */
+.root-background-color {
+    -fx-background-color: #121212;
+}
+
+.surface-background-color {
+    -fx-background-color: #1F1B24;
+}
+
+.surface-overlay-background-color {
+    -fx-background-color: #332940;
+}
+
+.primary-background-color {
+    -fx-background-color: #BB86FC;
+}
+
+.secondary-background-color {
+    -fx-background-color: #03DAC5;
+}
+
+.error-background-color {
+    -fx-background-color: #CF6679;
+}
+
+/* On-Colors + Opacity */
+.high-black-text-fill {
+    -fx-text-fill: rgba(0, 0, 0, 0.87);
+}
+
+/*------------------------------------*/
+
+.button.primary {
+    -fx-background-color: #8858C8;
+}
+
+.button.primary:hover {
+    -fx-background-color: #BB86FC;
+}
+
+.list-view.default {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0;
+}
+
+.list-view.default:focused {
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+}
+
+/*LIST CELL STYLE*/
+.list-view.default > .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-opacity: 0.8;
+}
+
+.list-view.default > .list-cell:empty:hover{
+    -fx-background-color: transparent;
+}
+
+.list-view.default > .list-cell:hover {
+    -fx-background-color: #BB86FC;
+    -fx-opacity: 1;
+}
+
+.list-view.default > .list-cell.selected {
+    -fx-background-color: #8858C8;
+}
+/*LIST CELL STYLE*/
+
+/*LISTVIEW SCROLLBAR STYLE*/
+
+.list-view.default .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+/*DECREMENT AND INCREMENT BUTTON STYLE*/
+.list-view.default .scroll-bar .increment-button,
+.list-view.default .scroll-bar.decrement-button{
+    -fx-background-color: transparent;
+}
+
+.list-view.default .scroll-bar .increment-button:hover,
+.list-view.default .scroll-bar .decrement-button:hover{
+    -fx-background-color: transparent;
+}
+
+
+.list-view .scroll-bar .increment-button:hover .increment-arrow,
+.list-view .scroll-bar.decrement-button:hover .decrement-arrow{
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+}
+
+.list-view  .scroll-bar .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+}
+.list-view  .scroll-bar .decrement-arrow
+{
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+    -fx-rotate: -180;
+}
+/*DECREMENT BUTTONS STYLE*/
+
+.list-view .thumb {
+    -fx-background-radius: 0px;
+    -fx-background-color: #FFFFFF;
+}
+
+.list-view .track {
+
+}

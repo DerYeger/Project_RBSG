@@ -5,6 +5,7 @@ import io.rincl.*;
 import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
  */
 
 @Controller
+@Scope("prototype")
 public class TitleViewController implements Rincled
 {
 

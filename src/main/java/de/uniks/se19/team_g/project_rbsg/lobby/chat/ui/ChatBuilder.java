@@ -33,7 +33,7 @@ public class ChatBuilder implements ApplicationContextAware {
     public Node buildChat() throws IOException {
         final TabPane chat = new TabPane();
         chat.setSide(Side.BOTTOM);
-        chat.getStylesheets().add(this.getClass().getResource("chat.css").toExternalForm());
+        chat.getStylesheets().add(this.getClass().getResource("/ui/lobby/chat/chat-channel.css").toExternalForm());
         if (chatController != null) {
             chatController.terminate();
         }

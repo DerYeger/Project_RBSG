@@ -29,6 +29,7 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
 import org.testfx.framework.junit.*;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.*;
 import java.util.*;
@@ -67,6 +68,11 @@ public class PlayerLeftGameListTest extends ApplicationTest
             FXMLLoader loader = new FXMLLoader();
             loader.setControllerFactory(this.context::getBean);
             return loader;
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
         }
 
         @Bean
@@ -153,7 +159,7 @@ public class PlayerLeftGameListTest extends ApplicationTest
         Game gameOne = lobby.getGameOverId("1");
         assertNotNull(gameOne);
         gameOne.setJoinedPlayer(1);
-        sleep(100);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals("1/4", playersLabel.textProperty().get());
 

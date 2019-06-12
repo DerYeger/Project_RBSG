@@ -18,7 +18,7 @@ public class WaitingRoomViewBuilder {
 
     public Node buildIngameView() throws Exception{
         if(waitingRoomView == null) {
-            fxmlLoader.setLocation(getClass().getResource("waiting-room-view.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/ui/waiting_room/waiting-room-view.fxml"));
             waitingRoomView = fxmlLoader.load();
             final WaitingRoomViewController waitingRoomViewController = fxmlLoader.getController();
             waitingRoomViewController.init();

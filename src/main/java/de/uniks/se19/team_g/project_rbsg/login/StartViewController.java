@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * @author Keanu Stückrad
  */
 @Controller
+@Scope("prototype")
 public class StartViewController {
 
     @FXML
@@ -43,7 +45,7 @@ public class StartViewController {
     }
 
     public void init() throws IOException {
-        setButtonIcon("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png");
+        setButtonIcon("/assets/icons/navigation/music-note-black.png");
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
         loginAndTitleBox.getChildren().addAll(titleViewBuilder.getTitleForm(), loginFormBuilder.getLoginForm());
     }
@@ -55,10 +57,10 @@ public class StartViewController {
 
     private void updateMusicButtonIcons() {
         if(musicRunning) {
-            setButtonIcon("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_note_black_48dp.png");
+            setButtonIcon("/assets/icons/navigation/music-note-black.png");
             sceneManager.playAudio();
         } else {
-            setButtonIcon("/de/uniks/se19/team_g/project_rbsg/lobby/core/ui/Images/baseline_music_off_black_48dp.png");
+            setButtonIcon("/assets/icons/navigation/music-off-black.png");
             sceneManager.stopAudio();
         }
     }

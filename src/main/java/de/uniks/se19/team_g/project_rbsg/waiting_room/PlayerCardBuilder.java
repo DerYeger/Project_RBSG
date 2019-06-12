@@ -30,7 +30,7 @@ public class PlayerCardBuilder {
 
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("playerCard.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("player-card.fxml"));
             fxmlLoader.setController(this);
             try {
                 playerCardView = fxmlLoader.load();
@@ -39,8 +39,8 @@ public class PlayerCardBuilder {
             }
         }
         playerListCellLabel.setText("<missing>");
-        Image image = new Image(String.valueOf(getClass().getResource("Images/baseline_help_white_48dp.png")));
-        playerListCellImageView.setImage(image);
+        //Image image = new Image(String.valueOf(getClass().getResource("")));
+        playerListCellImageView.setImage(null);
         return playerCardView;
     }
 

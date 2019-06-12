@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="armyBuilderScene" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="root-background-color" stylesheets="@../dark-theme.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.SceneController">
+   <VBox fx:id="sideBarLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
+   <VBox fx:id="content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+      <HBox fx:id="topContentContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <ListView fx:id="unitListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="default">
+         </ListView>
+         <Pane fx:id="unitDetailView" HBox.hgrow="ALWAYS" />
+      </HBox>
+      <VBox fx:id="armyView" VBox.vgrow="ALWAYS" />
+   </VBox>
+   <VBox fx:id="sideBarRight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+</HBox>
