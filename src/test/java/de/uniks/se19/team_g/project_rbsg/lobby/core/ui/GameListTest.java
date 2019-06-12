@@ -73,6 +73,8 @@ import static org.junit.Assert.*;
 public class GameListTest extends ApplicationTest
 {
 
+    public static final Game GAME_OF_HELLO = new Game("1", "GameOfHello", 4, 2);
+    public static final Game DEFENCE_OF_THE_ANCIENT = new Game("2", "DefenceOfTheAncient", 10, 7);
     @Autowired
     private ApplicationContext context;
 
@@ -113,43 +115,22 @@ public class GameListTest extends ApplicationTest
         ListCell<Game> gameOfHello = lookup("#lobbyGamesListView .list-cell").nth(0).query();
         ListCell<Game> gameOfDota = lookup("#lobbyGamesListView .list-cell").nth(1).query();
 
-        assertNotNull(gameOfHello);
-        assertNotNull(gameOfDota);
-
-        Game goH = gameOfHello.getItem();
-        assertEquals("GameOfHello", goH.getName());
-        assertEquals("1", goH.getId());
-        assertEquals(4, goH.getNeededPlayer());
-        assertEquals(2, goH.getJoinedPlayer());
-
-        Game dota = gameOfDota.getItem();
-        assertEquals("DefenceOfTheAncient", dota.getName());
-        assertEquals("2", dota.getId());
-        assertEquals(10, dota.getNeededPlayer());
-        assertEquals(7, dota.getJoinedPlayer());
-
-        clickOn("#joinGameButtonGameOfHello");
-        clickOn("#joinGameButtonDefenceOfTheAncient");
+        assertEquals(GAME_OF_HELLO, gameOfHello.getItem());
+        assertEquals(DEFENCE_OF_THE_ANCIENT, gameOfDota.getItem());
 
         Lobby lobby = lobbyViewController.getLobby();
 
-        lobby.addGame(new Game("3", "StarWars", 2, 2));
+        final Game starWars1 = new Game("3", "StarWars", 2, 2);
+        lobby.addGame(starWars1);
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(3, games.size());
 
-        ListCell<Game> gameStarWars = lookup("#gameCellStarWars").query();
-        assertNotNull(gameStarWars);
+        ListCell<Game> gameStarWars = lookup("#lobbyGamesListView .list-cell").nth(2).query();
 
-        Game starWars = gameStarWars.getItem();
-        assertEquals("StarWars", starWars.getName());
-        assertEquals("3", starWars.getId());
-        assertEquals(2, starWars.getNeededPlayer());
-        assertEquals(2, starWars.getJoinedPlayer());
-
-        clickOn("#joinGameButtonStarWars");
+        assertEquals(starWars1, gameStarWars.getItem());
 
 
-        lobby.removeGame(dota);
+        lobby.removeGame(DEFENCE_OF_THE_ANCIENT);
         WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, games.size());
@@ -183,8 +164,8 @@ public class GameListTest extends ApplicationTest
                 public Collection<Game> getGames()
                 {
                     ArrayList<Game> games = new ArrayList<>();
-                    games.add(new Game("1", "GameOfHello", 4, 2));
-                    games.add(new Game("2", "DefenceOfTheAncient", 10, 7));
+                    games.add(GAME_OF_HELLO);
+                    games.add(DEFENCE_OF_THE_ANCIENT);
                     return games;
                 }
             };
