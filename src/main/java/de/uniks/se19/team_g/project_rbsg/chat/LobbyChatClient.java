@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 @Scope("prototype")
 public class LobbyChatClient implements ChatClient {
 
-    public static final String ENDPOINT = "/chat?user=";
+    private static final String ENDPOINT = "/chat?user=";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -29,6 +29,7 @@ public class LobbyChatClient implements ChatClient {
 
     @NonNull
     private final UserProvider userProvider;
+
     private ChatController chatController;
 
     public LobbyChatClient(@NonNull final WebSocketClient webSocketClient, @NonNull final UserProvider userProvider) {
@@ -82,7 +83,7 @@ public class LobbyChatClient implements ChatClient {
                 final String from = json.get("from").asText();
                 final String content = json.get("message").asText();
 
-                final String internalChannel = channel.equals(SERVER_PUBLIC_CHANNEL) ? ChatController.GENERAL_CHANNEL_NAME : '@' + from;
+                final String internalChannel = channel.equals(SERVER_PUBLIC_CHANNEL) ? CLIENT_PUBLIC_CHANNEL : '@' + from;
 
                 chatController.receiveMessage(internalChannel, from, content);
             }
