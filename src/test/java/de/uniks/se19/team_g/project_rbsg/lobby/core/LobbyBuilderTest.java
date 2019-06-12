@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
@@ -119,6 +120,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     chatController(),
                     new LobbyChatClient(new WebSocketClient(), userProvider()),
                     new CreateGameFormBuilder(new FXMLLoader()),
+                    new MusicManager(),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())))
             {
                 @Override

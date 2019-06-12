@@ -49,7 +49,8 @@ import static org.junit.Assert.*;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         LobbyViewBuilder.class,
-        LobbyViewController.class
+        LobbyViewController.class,
+        MusicManager.class
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {

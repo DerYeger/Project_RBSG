@@ -125,8 +125,8 @@ public class ChatControllerTests extends ApplicationTest {
         final TextInputControl generalMessageArea = lookup(".text-area").queryTextInputControl();
         Assert.assertNotNull(generalMessageArea);
 
-        final String text = "This is a test";
-        final String expectedPublicMessage = "{\"channel\":\"all\",\"message\":\"This is a test\"}";
+        final String text = "Test me!";
+        final String expectedPublicMessage = "{\"channel\":\"all\",\"message\":\"Test me!\"}";
 
         clickOn(generalInput);
         write(text);
@@ -170,7 +170,7 @@ public class ChatControllerTests extends ApplicationTest {
         chatClient.handle(incomingPrivateMessage);
 
         //do not remove or the test will fail
-        WaitForAsyncUtils.sleep(1, TimeUnit.SECONDS);
+        WaitForAsyncUtils.waitForFxEvents();
 
         final Node chattest3ChatTab = lookup("@chattest3").query();
         Assert.assertNotNull(chattest3ChatTab);

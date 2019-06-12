@@ -22,6 +22,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import javax.websocket.Session;
 
@@ -96,7 +97,7 @@ public class ChuckNorrisCommandHandlerExceptionTest extends ApplicationTest {
             }
 
         }, chuckCommand);
-        Thread.sleep(500);
+        WaitForAsyncUtils.waitForFxEvents();
         Assert.assertEquals(errorJoke, errorMessageJoke);
     }
 }

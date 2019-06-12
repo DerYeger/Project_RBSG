@@ -30,6 +30,7 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
 import org.testfx.framework.junit.*;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.*;
 import java.util.*;
@@ -48,7 +49,8 @@ import static org.junit.Assert.*;
         CreateGameController.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        FXMLLoaderFactory.class
+        FXMLLoaderFactory.class,
+        MusicManager.class
         }
 )
 public class PlayerLeftGameListTest extends ApplicationTest
@@ -165,7 +167,7 @@ public class PlayerLeftGameListTest extends ApplicationTest
         Game gameOne = lobby.getGameOverId("1");
         assertNotNull(gameOne);
         gameOne.setJoinedPlayer(1);
-        sleep(100);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals("1/4", playersLabel.textProperty().get());
 

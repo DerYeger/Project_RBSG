@@ -31,7 +31,7 @@ public class LoginMangerTest {
 
     @Test
     public void onLoginTest() throws InterruptedException {
-        User testUser = new User("MasterChief", "john-117");
+        User testUser = new User("user1", "ab123");
         LoginManager loginManager = new LoginManager(
                 new RestTemplate() {
                     @Override
