@@ -34,6 +34,7 @@ public class ChatBuilder implements ApplicationContextAware {
         final TabPane tabPane = new TabPane();
         tabPane.setSide(Side.BOTTOM);
         tabPane.getStylesheets().add(this.getClass().getResource("chat.css").toExternalForm());
+
         if (chatController != null) {
             chatController.terminate();
         }
