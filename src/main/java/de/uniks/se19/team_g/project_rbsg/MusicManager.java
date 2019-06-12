@@ -20,7 +20,7 @@ public class MusicManager {
     private static final String MUSIC = "/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3";
 
     private AudioClip audioClip = new AudioClip(getClass().getResource(MUSIC).toString());
-    private static final int iconSize = 40;
+    private static final int ICON_SIZE = 40;
     private boolean musicRunning = true;
 
     public MusicManager init() {
@@ -54,10 +54,10 @@ public class MusicManager {
     private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
         ImageView hover = new ImageView();
         ImageView nonHover = new ImageView();
-        nonHover.fitWidthProperty().setValue(iconSize);
-        nonHover.fitHeightProperty().setValue(iconSize);
-        hover.fitWidthProperty().setValue(iconSize);
-        hover.fitHeightProperty().setValue(iconSize);
+        nonHover.fitWidthProperty().setValue(ICON_SIZE);
+        nonHover.fitHeightProperty().setValue(ICON_SIZE);
+        hover.fitWidthProperty().setValue(ICON_SIZE);
+        hover.fitHeightProperty().setValue(ICON_SIZE);
         hover.setImage(new Image(String.valueOf(getClass().getResource(hoverIconName))));
         nonHover.setImage(new Image(String.valueOf(getClass().getResource(nonHoverIconName))));
         button.graphicProperty().bind(Bindings.when(button.hoverProperty())
