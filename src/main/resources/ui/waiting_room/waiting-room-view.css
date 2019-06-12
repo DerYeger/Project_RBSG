@@ -9,21 +9,29 @@
     -fx-max-width: 350;
     -fx-min-height: 100;
     -fx-min-width: 350;
-    -fx-border-color: #000000;
+    -fx-background-color: -root-background-color;
+    -fx-effect: -shadow;
 }
 
 .chat {
-    -fx-border-color: #000000;
+    -fx-min-height: 350;
+    -fx-max-height: 350;
+    -fx-effect: -shadow;
+    -fx-border-color: #000000; /*Platzhalter*/
 }
 
 .mini-game-stack-pane {
     -fx-min-width: 350;
     -fx-max-width: 350;
-    -fx-border-color: #000000;
 }
 
 .mini-game-pane {
-    -fx-border-color: #000000;
+    -fx-min-width: 300;
+    -fx-min-height: 300;
+    -fx-max-height: 300;
+    -fx-max-width: 300;
+    -fx-background-color: -root-background-color;
+    -fx-effect: -shadow;
 }
 
 .map-preview-pane {
@@ -31,11 +39,31 @@
     -fx-max-height: 290;
     -fx-min-width: 290;
     -fx-min-height: 290;
-    -fx-border-color: #000000;
+    -fx-effect: -shadow;
+    -fx-border-color: #000000; /*Platzhalter*/
 }
 
 .default-button {
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-padding: 0;
+    -fx-effect: -shadow;
+}
 
+.button {
+    -fx-background-color: -primary-background-color;
+}
+
+.button:hover {
+    -fx-background-color: -primary-lighter-background-color;
+}
+
+.default-label {
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-size: 22pt;
+    -fx-font-family: Roboto-Medium;
 }
 
 /*

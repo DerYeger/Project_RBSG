@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -15,6 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -33,12 +36,13 @@ public class WaitingRoomViewController implements RootController, Terminable {
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
-    public Pane chatPane;
-    public Pane mapPreviewPane;
-    public Pane miniGamePane;
+    public Pane chatPane; // TODO @DerYeger
+    public Pane mapPreviewPane; // TODO @DerYeger
+    public Pane miniGamePane; // Tic-Tac-Toe?
     public Button soundButton;
     public Button leaveButton;
     public Button showInfoButton;
+    public AnchorPane root;
 
     private PlayerCardBuilder playerCard;
     private PlayerCardBuilder playerCard2;
@@ -49,16 +53,22 @@ public class WaitingRoomViewController implements RootController, Terminable {
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
     private final GameEventManager gameEventManager;
+    private final MusicManager musicManager;
+    private final SplashImageBuilder splashImageBuilder;
 
     @Autowired
     public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
                                      @NonNull final UserProvider userProvider,
                                      @NonNull final SceneManager sceneManager,
-                                     @NonNull final GameEventManager gameEventManager) {
+                                     @NonNull final GameEventManager gameEventManager,
+                                     @NonNull final MusicManager musicManager,
+                                     @NonNull final SplashImageBuilder splashImageBuilder) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.gameEventManager = gameEventManager;
+        this.musicManager = musicManager.init();
+        this.splashImageBuilder = splashImageBuilder;
     }
 
     public void init() {
@@ -66,6 +76,10 @@ public class WaitingRoomViewController implements RootController, Terminable {
         setPlayerCardNodes();
         gameEventManager.startSocket(gameProvider.get().getId());
         setAsRootController();
+        setButtonIcons(leaveButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png");
+        setButtonIcons(showInfoButton,"/assets/icons/navigation/info-black.png", "/assets/icons/navigation/info-white.png");
+        musicManager.initButtonIcons(soundButton);
+        root.setBackground(new Background(splashImageBuilder.getSplashImage()));
     }
 
     private void initPlayerCardBuilders() {
@@ -84,13 +98,13 @@ public class WaitingRoomViewController implements RootController, Terminable {
             // if visibility was disabled before for example when leaving game
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
-            AnchorPane.setTopAnchor(player1Pane, 90.0);
-            AnchorPane.setTopAnchor(player2Pane, 90.0);
+            AnchorPane.setTopAnchor(player1Pane, 110.0);
+            AnchorPane.setTopAnchor(player2Pane, 110.0);
             player3Pane.getChildren().add(playerCard3.buildPlayerCard());
             player4Pane.getChildren().add(playerCard4.buildPlayerCard());
         } else {
-            AnchorPane.setTopAnchor(player1Pane, 160.0);
-            AnchorPane.setTopAnchor(player2Pane, 160.0);
+            AnchorPane.setTopAnchor(player1Pane, 180.0);
+            AnchorPane.setTopAnchor(player2Pane, 180.0);
             player3Pane.setVisible(false);
             player4Pane.setVisible(false);
         }
@@ -124,6 +138,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     }
 
     public void toggleSound(ActionEvent actionEvent) {
+        musicManager.updateMusicButtonIcons(soundButton);
     }
 
     private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
