@@ -98,6 +98,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
         unit2.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
 
         state.unitTypes.add(unit1);
+        WaitForAsyncUtils.waitForFxEvents();
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));

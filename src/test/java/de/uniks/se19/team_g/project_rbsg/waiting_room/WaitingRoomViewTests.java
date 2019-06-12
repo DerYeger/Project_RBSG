@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
@@ -36,6 +38,8 @@ import org.testfx.framework.junit.ApplicationTest;
         WaitingRoomViewController.class,
         UserProvider.class,
         WaitingRoomViewTests.ContextConfiguration.class,
+        FXMLLoaderFactory.class,
+        MusicManager.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
