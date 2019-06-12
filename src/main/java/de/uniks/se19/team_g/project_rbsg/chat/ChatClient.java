@@ -5,6 +5,9 @@ import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+/**
+ * @author Jan Müller
+ */
 public interface ChatClient extends IWebSocketCallback, Terminable {
 
     String CLIENT_PUBLIC_CHANNEL = ChatController.CLIENT_PUBLIC_CHANNEL;

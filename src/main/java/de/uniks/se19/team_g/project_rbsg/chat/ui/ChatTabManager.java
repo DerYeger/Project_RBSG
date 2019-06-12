@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author Jan Müller
+ */
 @Component
 @Scope("prototype")
 public class ChatTabManager {
