@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
@@ -224,6 +225,15 @@ public class GameListTest extends ApplicationTest
                 @Override
                 public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
                 {
+                }
+            };
+        }
+
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void start(@NonNull final ChatController chatController) {
                 }
             };
         }

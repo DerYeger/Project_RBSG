@@ -135,6 +135,15 @@ public class TranslationButtonsTest extends ApplicationTest
             };
         }
 
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void start(@NonNull final ChatController chatController) {
+                }
+            };
+        }
+
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
             this.context = applicationContext;
