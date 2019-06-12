@@ -44,11 +44,9 @@ public class ChatTabManager {
         if (!chatTabs.containsKey(channel)) {
             try {
                 final Tab tab = chatTabBuilder.buildChatTab(channel);
-                Platform.runLater(() -> {
-                    tabPane.getTabs().add(tab);
-                    tab.setClosable(isClosable);
-                    chatTabs.put(channel, tab);
-                });
+                tab.setClosable(isClosable);
+                chatTabs.put(channel, tab);
+                Platform.runLater(() -> tabPane.getTabs().add(tab));
                 return tab;
             } catch (final IOException e) {
                 e.printStackTrace();
