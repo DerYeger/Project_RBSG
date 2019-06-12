@@ -1,19 +1,13 @@
-@font-face {
-    font-family: 'Retronoid';
-    src: url('Fonts/retronoid.otf') format("opentype");
-}
-
-@font-face {
-    font-family: 'Black';
-    src: url("Fonts/black.ttf") format("truetype");
-}
+@import "/de/uniks/se19/team_g/project_rbsg/stylesheets/dark-theme.css";
 
 .title {
-    -fx-font-family: 'Retronoid';
+    -fx-font-family: Retronoid;
     -fx-font-size: 160px;
+    -fx-effect: -shadow;
 }
 
 .subtitle {
-    -fx-font-family: 'Black';
+    -fx-font-family: Black;
     -fx-font-size: 80px;
+    -fx-effect: -shadow;
 }

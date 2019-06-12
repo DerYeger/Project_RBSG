@@ -9,11 +9,19 @@
     -fx-min-height: 70;
 }
 
+.progress-label {
+    -fx-font-family: -font-roboto;
+    -fx-font-size: -body-font-size;
+    -fx-font-weight: bold;
+    -fx-text-fill: -on-primary-fill;
+}
 .default-progress-indicator .percentage {
     -fx-fill: null;
 }
 
 .default-progress-indicator {
+    -fx-progress-color: -primary-background-color;
+    -fx-effect: -shadow;
     -fx-min-width: 80;
     -fx-min-height: 80;
 }
