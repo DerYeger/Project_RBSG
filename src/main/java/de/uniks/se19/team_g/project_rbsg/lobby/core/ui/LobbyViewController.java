@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
@@ -61,12 +62,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
-    @NonNull
+    private final MusicManager musicManager;
     private final LogoutManager logoutManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
-    private boolean musicRunning = true;
+    private boolean musicRunning;
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
@@ -95,6 +96,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
                                @NonNull final CreateGameFormBuilder createGameFormBuilder,
+                               @NonNull final MusicManager musicManager,
                                @NonNull final LogoutManager logoutManager)
     {
         this.logoutManager = logoutManager;
@@ -113,6 +115,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.joinGameManager = joinGameManager;
+        this.musicManager = musicManager.init();
     }
 
     public Lobby getLobby()
@@ -162,7 +165,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
         setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
 
-        updateMusicButtonIcons();
+        musicManager.initButtonIcons(soundButton);
 
 
         //For UI/UX Design
@@ -197,19 +200,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         updateLabels(null);
 
         setAsRootController();
-    }
-
-    private void updateMusicButtonIcons()
-    {
-        if(musicRunning) {
-            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
-            if(sceneManager.audioPlayed == false) {
-                sceneManager.playAudio();
-            }
-        } else {
-            sceneManager.stopAudio();
-            setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
-        }
     }
 
     private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
@@ -350,8 +340,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void toggleSound(ActionEvent event)
     {
         logger.debug("Pressed the toggleSound button");
-        musicRunning = !musicRunning;
-        updateMusicButtonIcons();
+        musicManager.updateMusicButtonIcons(soundButton);
     }
 
     public void logoutUser(ActionEvent event)

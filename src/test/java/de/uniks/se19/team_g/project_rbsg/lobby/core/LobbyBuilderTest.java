@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
@@ -117,6 +118,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new SystemMessageManager(new WebSocketClient()),
                     chatController(),
                     new CreateGameFormBuilder(new FXMLLoader()),
+                    new MusicManager(),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())))
             {
                 @Override

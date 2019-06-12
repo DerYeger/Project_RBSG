@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -42,7 +43,8 @@ import java.io.IOException;
         RegistrationManager.class,
         SceneManager.class,
         TitleViewBuilder.class,
-        TitleViewController.class
+        TitleViewController.class,
+        MusicManager.class
 })
 public class StartSceneBuilderTests extends ApplicationTest {
 
@@ -97,7 +99,6 @@ public class StartSceneBuilderTests extends ApplicationTest {
 
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
-        //Assert.assertTrue(scene.getRoot().getChildrenUnmodifiable().contains(startViewBuilder.getStartView()));
         Assert.assertEquals(scene.getRoot(), startViewBuilder.getStartView());
 
     }
