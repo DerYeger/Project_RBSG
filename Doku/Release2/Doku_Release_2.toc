@@ -8,14 +8,16 @@
 \contentsline {subsubsection}{\numberline {3.2.2}Lobby}{2}
 \contentsline {subsubsection}{\numberline {3.2.3}Spiel erstellen}{2}
 \contentsline {subsubsection}{\numberline {3.2.4}Spiel beitreten}{4}
-\contentsline {subsubsection}{\numberline {3.2.5}Umgesetze Optionale Features}{4}
-\contentsline {section}{\numberline {4}Zielsetzung f"ur Release \textup {\uppercase {ii}}}{4}
-\contentsline {subsection}{\numberline {4.1}Plan f\"ur die Umsetzung}{6}
-\contentsline {section}{\numberline {5}Sprint 3.}{6}
-\contentsline {subsection}{\numberline {5.1}Sprintziel}{6}
-\contentsline {subsection}{\numberline {5.2}User Stories}{6}
-\contentsline {subsection}{\numberline {5.3}Analyse des Sprintverlaufs}{6}
-\contentsline {section}{\numberline {6}Sprint 4.}{6}
-\contentsline {subsection}{\numberline {6.1}Sprintziel}{6}
-\contentsline {subsection}{\numberline {6.2}User Stories}{6}
-\contentsline {subsection}{\numberline {6.3}Analyse des Sprintverlaufs}{6}
+\contentsline {subsubsection}{\numberline {3.2.5}Umgesetzte Optionale Features}{4}
+\contentsline {subsection}{\numberline {3.3}Mockups}{4}
+\contentsline {subsubsection}{\numberline {3.3.1}ArmyBuilder}{6}
+\contentsline {subsubsection}{\numberline {3.3.2}Waiting Room}{7}
+\contentsline {subsection}{\numberline {3.4}Domain Stories}{7}
+\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{10}
+\contentsline {subsection}{\numberline {4.1}Sprintziel}{10}
+\contentsline {subsection}{\numberline {4.2}User Stories}{10}
+\contentsline {subsection}{\numberline {4.3}Analyse des Sprintverlaufs}{10}
+\contentsline {section}{\numberline {5}Sprint \textup {\uppercase {iv}}}{10}
+\contentsline {subsection}{\numberline {5.1}Sprintziel}{10}
+\contentsline {subsection}{\numberline {5.2}User Stories}{10}
+\contentsline {subsection}{\numberline {5.3}Analyse des Sprintverlaufs}{10}

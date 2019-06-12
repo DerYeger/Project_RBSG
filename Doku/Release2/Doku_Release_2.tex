@@ -154,7 +154,71 @@
  			\label{Musik_Release_One}
  		\end{figure}
  		
-	\section{Zielsetzung f"ur Release \RN{2}}
+	\subsection{Mockups}
+		Für das Kundentreffen am 27.05.2019 wurden MockUps für den Armenkonfigurator, im folgenden als \glqq ArmyBuilder\grqq bezeichnet, und dem einem \glqq Waiting Room\grqq vorbereitet. Eine Besonderheit der erstellten MockUps ist, dass diese bereits den Stil der bisherigen Applikation übernehmen und so dem Kunden schon einen Eindruck von dem aussehen des späteren Produktes gibt.
+		\subsubsection{ArmyBuilder}
+			Der ArmyBuilder besteht insgesamt aus 3 Komponenten:
+			\begin{enumerate}
+				\item der Einheitenauswahl
+				\item der Armeeauswahl
+				\item der Armeeübersicht
+			\end{enumerate}
+		Das Kernstück des ArmyBuilders sind die konfigurierbaren Armeen. Diese werden auf der rechte Seite, insgesamt sieben Stück, in einer Liste angezeigt. Klick man auf eines der Armee Icons, so wird die Armee selektiert und es werden entsprechende Informationen über die Armee angezeigt. Darunter fallen zum einem der Armeename, sowie die Anzahl der Eineheiten, die sich in der Armee befinden. Es ist nun möglich eine Einheit aus der Einheitenauswahl zu selektieren. Ist eine Einheit ausgewählt so wird eine Detailansicht zu dieser Einheit angezeigt, mit Informationen, wie Attributen und einem Bild. Über den \glqq +\grqq Button ist es möglich eine Einheit der ausgewählten Armee hinzuzufügen. Die Einheit wird anschließen der Armeeübersicht hinzugefügt und entsprechende Informationen werden aktualisiert. Der Nutzer kann in der Armeeübersicht ebenfalls Einheiten auswählen. Der ausgewählte Einheitentyp wird dann in der Detailansicht angezeigt. Über den \glqq -\grqq kann die Einheit dann wieder aus der Armee entfernt werden. Ist die Armee fertig konfiguriert, so hat man die Möglichkeit über den \glqq Speichern\grqq-Button die Armee auf dem Server sowie lokal zu speichern. \\ \\ Für den ArmyBuilder wurden 2 Designs entworfen \Abb{ArmyBuilder_Design_One} und \Abb{ArmyBuilder_Design_Two}. Es wurde sich im Team bereits auf Design \RN{2} geeinigt.
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=1\textwidth]{ArmyBuilder_Design_One.png}
+			\caption{MockUp ArmyBuilder Design \RN{1} }
+			\label{ArmyBuilder_Design_One}
+		\end{figure}
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=1\textwidth]{ArmyBuilder_Design_Two.png}
+			\caption{MockUp ArmyBuilder Design \RN{2} }
+			\label{ArmyBuilder_Design_Two}
+		\end{figure}
+		\\ \\Im Kundentreffen kamen noch die Anforderung, nach dem Konfigurieren der Armee Icons auf. Dafür wurde eine entsprechender Button der Armeeauswahl hinzugefügt \Abb{ArmyBuilder_EditButton}. Es öffnet sich nach betätigen des Buttons ein Dialog \Abb{AmryEditor} in dem das Icon, sowie der Name der Armee bearbeitet werden kann. Wir stellen dafür eine Auswahl an Icons bereit, aus welchen der Nutzer eins Auswählen kann. 
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=1\textwidth]{ArmyBuilder_Save_Edit.png}
+			\caption{MockUp ArmyBuilder mit \glqq Bearbeitungs\grqq-Button für Armeeicons}
+			\label{ArmyBuilder_EditButton}
+		\end{figure}
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=0.5\textwidth]{ArmyEditor.png}
+			\caption{MockUp Armee Icon Bearbeitung}
+			\label{AmryEditor}
+		\end{figure}
+		\\\\Wir haben des Weiteren noch MockUps für verschieden Status haben wir noch entsprechende MockUps beigefügt:
+		\begin{itemize}
+			\item Eine Armee ist leer. Es müssen ihr Einheiten hinzugefügt werden \Abb{ArmyBuilder_AddUnits}.
+			\item Es ist keine Einheit in der Einheitenauswahl selektiert. Es können keine Einheiten der Armee hinzugefügt werden \Abb{ArmyBuilder_Select_Unit}. 
+		\end{itemize}
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=0.5\textwidth]{Army_Builder_Add_Units.png}
+			\caption{MockUp ArmyBuilder eine Armee enthält keine Einheiten}
+			\label{ArmyBuilder_AddUnits}
+		\end{figure}
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=0.5\textwidth]{ArmyBuilder_Select_Unit.png}
+			\caption{MockUp ArmyBuilder es ist keine Einheit selektiert}
+			\label{ArmyBuilder_Select_Unit}
+		\end{figure}
+		\begin{figure}[htbp] 
+			\centering
+			\includegraphics[width=0.5\textwidth]{ArmyEditor.png}
+			\caption{MockUp ArmyBuilder Design}
+			\label{AmryEditor}
+		\end{figure}
+		
+		
+		\subsubsection{Waiting Room}
+		Für den Waiting Room gab es im vorherigen Release schon bereits MockUps und eine anfängliche Realisierung. Diese haben wir aufgegriffen und erweitert.
+		Der Waiting Room besteht aus 2 Komponenten, dem \glqq Gamechat\grqq und der Anzeige der Mitspieler.
+		
+	\subsection{Domain Stories}
 		\begin{itemize}
 			\item Waiting Room
 			\item ArmyBuilder
@@ -162,19 +226,15 @@
 			\item Ingame
 			\item Serverdoku
 		\end{itemize}
-		\subsection{Plan f\"ur die Umsetzung}
-			\begin{itemize}
-				\item MockUps
-				\item Priorit\"at
-			\end{itemize}
-	\section{Sprint 3.}
+	
+	\section{Sprint \RN{3}}
 		\subsection{Sprintziel}
 		\subsection{User Stories}
 		\subsection{Analyse des Sprintverlaufs}
-	\section{Sprint 4.}
+	\section{Sprint \RN{4}}
 		\subsection{Sprintziel}
 		\subsection{User Stories}
 		\subsection{Analyse des Sprintverlaufs}
-	
-	
+	\appendix
+	\listoffigures
 \end{document}

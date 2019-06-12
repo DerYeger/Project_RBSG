@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.29)  12 JUN 2019 01:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.29)  12 JUN 2019 13:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -226,7 +226,11 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@lastruleclass=\count97
 \@thisrulewidth=\dimen126
 )
-(./Doku_Release_2.aux)
+(./Doku_Release_2.aux
+
+LaTeX Warning: Label `AmryEditor' multiply defined.
+
+)
 \openout1 = `Doku_Release_2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
@@ -241,8 +245,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
-
-(d:/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (d:/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count98
 \scratchdimen=\dimen127
@@ -429,30 +432,96 @@ File: Musik_Release_One.PNG Graphic file (type png)
 <use Musik_Release_One.PNG>
 Package pdftex.def Info: Musik_Release_One.PNG  used on input line 152.
 (pdftex.def)             Requested size: 42.68173pt x 46.03235pt.
- [4 <./CreateGame_Release_One.PNG>] [5 <./WaitingRoom_Release_One.PNG> <./Inter
-nationalisierung_Release_One.PNG> <./Musik_Release_One.PNG>] [6]
-(./Doku_Release_2.aux) ) 
+
+Overfull \hbox (16.85999pt too wide) in paragraph at lines 158--159
+\OT1/cmr/m/n/12 im fol-gen-den als []Ar-my-Buil-der\bezeichnet, und dem ei-nem 
+[]Wai-ting Room\vorbereitet.
+ []
+
+[4 <./CreateGame_Release_One.PNG>] [5 <./WaitingRoom_Release_One.PNG> <./Intern
+ationalisierung_Release_One.PNG> <./Musik_Release_One.PNG>]
+<ArmyBuilder_Design_One.png, id=62, 1341.01pt x 770.88pt>
+File: ArmyBuilder_Design_One.png Graphic file (type png)
+<use ArmyBuilder_Design_One.png>
+Package pdftex.def Info: ArmyBuilder_Design_One.png  used on input line 169.
+(pdftex.def)             Requested size: 426.79135pt x 245.33394pt.
+<ArmyBuilder_Design_Two.png, id=63, 1341.01pt x 770.88pt>
+File: ArmyBuilder_Design_Two.png Graphic file (type png)
+<use ArmyBuilder_Design_Two.png>
+Package pdftex.def Info: ArmyBuilder_Design_Two.png  used on input line 175.
+(pdftex.def)             Requested size: 426.79135pt x 245.33394pt.
+<ArmyBuilder_Save_Edit.png, id=64, 1341.01pt x 770.88pt>
+File: ArmyBuilder_Save_Edit.png Graphic file (type png)
+<use ArmyBuilder_Save_Edit.png>
+Package pdftex.def Info: ArmyBuilder_Save_Edit.png  used on input line 182.
+(pdftex.def)             Requested size: 426.79135pt x 245.33394pt.
+<ArmyEditor.png, id=65, 501.875pt x 501.875pt>
+File: ArmyEditor.png Graphic file (type png)
+<use ArmyEditor.png>
+Package pdftex.def Info: ArmyEditor.png  used on input line 188.
+(pdftex.def)             Requested size: 213.39568pt x 213.39743pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--193
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--193
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--193
+
+ []
+
+[6 <./ArmyBuilder_Design_One.png>]
+<Army_Builder_Add_Units.png, id=70, 1341.01pt x 770.88pt>
+File: Army_Builder_Add_Units.png Graphic file (type png)
+<use Army_Builder_Add_Units.png>
+Package pdftex.def Info: Army_Builder_Add_Units.png  used on input line 199.
+(pdftex.def)             Requested size: 213.39568pt x 122.66109pt.
+<ArmyBuilder_Select_Unit.png, id=71, 1341.01pt x 770.88pt>
+File: ArmyBuilder_Select_Unit.png Graphic file (type png)
+<use ArmyBuilder_Select_Unit.png>
+Package pdftex.def Info: ArmyBuilder_Select_Unit.png  used on input line 205.
+(pdftex.def)             Requested size: 213.39568pt x 122.66109pt.
+File: ArmyEditor.png Graphic file (type png)
+<use ArmyEditor.png>
+Package pdftex.def Info: ArmyEditor.png  used on input line 211.
+(pdftex.def)             Requested size: 213.39568pt x 213.39743pt.
+ [7 <./ArmyBuilder_Design_Two.png>] [8 <./ArmyBuilder_Save_Edit.png> <./ArmyEdi
+tor.png> <./Army_Builder_Add_Units.png>]
+[9 <./ArmyBuilder_Select_Unit.png>] (./Doku_Release_2.lof)
+\tf@lof=\write4
+\openout4 = `Doku_Release_2.lof'.
+
+ [10]
+(./Doku_Release_2.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 5202 strings out of 492639
- 86629 string characters out of 6133087
- 260695 words of memory out of 5000000
- 8993 multiletter control sequences out of 15000+600000
+ 5247 strings out of 492639
+ 87764 string characters out of 6133087
+ 261785 words of memory out of 5000000
+ 9029 multiletter control sequences out of 15000+600000
  13933 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,8n,51p,9093b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
-<d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc
-10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:
-/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive/2
-018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2018/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr8.pfb><d:/texlive/2018/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmssbx10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmti12.pfb>
-Output written on Doku_Release_2.pdf (9 pages, 824989 bytes).
+<d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/tex
+live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><d:/texlive/201
+8/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2018/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive/2018/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr8.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmssbx10.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><d:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on Doku_Release_2.pdf (13 pages, 1271913 bytes).
 PDF statistics:
- 95 PDF objects out of 1000 (max. 8388607)
- 50 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 59 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
