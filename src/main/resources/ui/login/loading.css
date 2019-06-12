@@ -1,5 +1,9 @@
 @import "/ui/dark-theme.css";
 
+/*
+ * @author Keanu Stückrad
+ */
+
 .gridpane-size {
     -fx-pref-width: 220;
     -fx-max-width: 220;

@@ -1,5 +1,9 @@
 @import "/ui/dark-theme.css";
 
+/*
+ * @author Keanu Stückrad
+ */
+
 .player-card {
     -fx-max-height: 100;
     -fx-max-width: 350;

@@ -5,6 +5,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
+<!--
+ @author Keanu Stückrad
+ !-->
+
 <AnchorPane stylesheets="@waiting-room-view.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
     <children>
         <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" styleClass="default-button" />

@@ -6,6 +6,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<!--
+ @author Keanu Stückrad
+ !-->
 
 <GridPane fx:id="playerListCellGridPane" stylesheets="@waiting-room-view.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>

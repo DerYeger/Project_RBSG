@@ -1,5 +1,9 @@
 @import "/ui/dark-theme.css";
 
+/*
+ * @author Keanu Stückrad
+ */
+
 .title {
     -fx-font-family: Retronoid;
     -fx-font-size: 160px;
