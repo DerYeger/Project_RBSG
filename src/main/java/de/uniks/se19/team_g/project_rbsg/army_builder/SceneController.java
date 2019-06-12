@@ -2,8 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -21,19 +23,23 @@ import java.util.ResourceBundle;
 public class SceneController implements Initializable {
 
     private final ArmyBuilderState state;
+    private final UnitListEntryFactory unitCellFactory;
     public VBox sideBarLeft;
     public VBox content;
     public HBox topContentContainer;
-    public ScrollPane unitListView;
+    public ListView<Unit> unitListView;
     public Pane unitDetailView;
     public VBox armyView;
     public VBox sideBarRight;
     public HBox armyBuilderScene;
     private ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
 
-    public SceneController(ArmyBuilderState state)
-    {
+    public SceneController(
+        ArmyBuilderState state,
+        UnitListEntryFactory unitCellFactory
+    ) {
         this.state = state;
+        this.unitCellFactory = unitCellFactory;
     }
 
     @Autowired
@@ -48,5 +54,8 @@ public class SceneController implements Initializable {
     {
         final ViewComponent<UnitDetailController> viewComponent = unitDetailViewFactory.getObject();
         unitDetailView.getChildren().add(viewComponent.getRoot());
+
+        unitListView.setCellFactory(unitCellFactory);
+        unitListView.setItems(state.unitTypes);
     }
 }

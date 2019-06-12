@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Unit {
 
     public final SimpleStringProperty imageUrl = new SimpleStringProperty();
+    public final SimpleStringProperty iconUrl = new SimpleStringProperty();
 
     public final SimpleIntegerProperty health = new SimpleIntegerProperty();
     public final SimpleIntegerProperty physicalResistance = new SimpleIntegerProperty();

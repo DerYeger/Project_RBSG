@@ -161,3 +161,87 @@
 .button.primary:hover {
     -fx-background-color: #BB86FC;
 }
+
+.list-view.default {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0;
+}
+
+.list-view.default:focused {
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+}
+
+/*LIST CELL STYLE*/
+.list-view.default > .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-opacity: 0.8;
+}
+
+.list-view.default > .list-cell:empty:hover{
+    -fx-background-color: transparent;
+}
+
+.list-view.default > .list-cell:hover {
+    -fx-background-color: #BB86FC;
+    -fx-opacity: 1;
+}
+
+.list-view.default > .list-cell.selected {
+    -fx-background-color: #8858C8;
+}
+/*LIST CELL STYLE*/
+
+/*LISTVIEW SCROLLBAR STYLE*/
+
+.list-view.default .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+/*DECREMENT AND INCREMENT BUTTON STYLE*/
+.list-view.default .scroll-bar .increment-button,
+.list-view.default .scroll-bar.decrement-button{
+    -fx-background-color: transparent;
+}
+
+.list-view.default .scroll-bar .increment-button:hover,
+.list-view.default .scroll-bar .decrement-button:hover{
+    -fx-background-color: transparent;
+}
+
+
+.list-view .scroll-bar .increment-button:hover .increment-arrow,
+.list-view .scroll-bar.decrement-button:hover .decrement-arrow{
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+}
+
+.list-view  .scroll-bar .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+}
+.list-view  .scroll-bar .decrement-arrow
+{
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+    -fx-rotate: -180;
+}
+/*DECREMENT BUTTONS STYLE*/
+
+.list-view .thumb {
+    -fx-background-radius: 0px;
+    -fx-background-color: #FFFFFF;
+}
+
+.list-view .track {
+
+}
