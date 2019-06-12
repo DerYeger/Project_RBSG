@@ -26,8 +26,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable, Rincled
-{
+public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
