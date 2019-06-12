@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.chat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.LeaveCommandHandler;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -38,11 +41,14 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         ChatControllerTests.ContextConfiguration.class,
+        ChatCommandManager.class,
         ChatController.class,
-        UserProvider.class,
-        ChatWebSocketCallback.class,
-        ChatBuilder.class
+        ChatBuilder.class,
+        ChatTabManager.class,
+        LobbyChatClient.class,
+        UserProvider.class
 })
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ChatControllerTests extends ApplicationTest {
 
     private static ArrayList<String> sentMessages = new ArrayList<>();
@@ -88,28 +94,23 @@ public class ChatControllerTests extends ApplicationTest {
     }
 
     @Autowired
-    private WebSocketClient webSocketClient;
-
-    @Autowired
-    private ChatWebSocketCallback chatWebSocketCallback;
-
-    @Autowired
     private UserProvider userProvider;
 
     @Autowired
     private ChatBuilder chatBuilder;
 
+    @Autowired
+    private ChatClient chatClient;
+
     @Override
-    public void start(@NonNull final Stage stage) throws IOException {
+    public void start(@NonNull final Stage stage) {
         userProvider.get()
                 .setName("chattest1");
 
-        final Node chat = chatBuilder.buildChat();
+        final Node chat = chatBuilder.buildChat(chatClient);
         Assert.assertNotNull(chat);
 
         Assert.assertNotNull(chatBuilder.getChatController());
-
-        webSocketClient.start("unimportant", chatWebSocketCallback);
 
         final Scene scene = new Scene((Parent) chat, 400, 300);
         stage.setScene(scene);
@@ -117,7 +118,7 @@ public class ChatControllerTests extends ApplicationTest {
     }
 
     @Test
-    public void test() throws IOException {
+    public void test() {
         final TextInputControl generalInput = lookup(".text-field").queryTextInputControl();
         Assert.assertNotNull(generalInput);
 
@@ -166,7 +167,7 @@ public class ChatControllerTests extends ApplicationTest {
 
         final String incomingPrivateMessage = "{\"channel\":\"private\",\"message\":\"The last test!\",\"from\":\"chattest3\"}";
 
-        webSocketClient.onMessage(incomingPrivateMessage, null);
+        chatClient.handle(incomingPrivateMessage);
 
         //do not remove or the test will fail
         WaitForAsyncUtils.sleep(1, TimeUnit.SECONDS);
@@ -176,7 +177,7 @@ public class ChatControllerTests extends ApplicationTest {
 
         clickOn(chattest3ChatTab);
 
-        chatWebSocketCallback.handle("{\"msg\":\"User chattest3 is not online\"}");
+        chatClient.handle("{\"msg\":\"User chattest3 is not online\"}");
 
         final Node ct3Input = lookup(".text-field")
                 .queryAll()
@@ -193,10 +194,10 @@ public class ChatControllerTests extends ApplicationTest {
     }
 
     @Test
-    public void testRecreation() throws IOException {
+    public void testRecreation()  {
         final ChatController firstController = chatBuilder.getChatController();
 
-        chatBuilder.buildChat(); //builds a new chat, thus the chatController reference is different
+        chatBuilder.buildChat(chatClient); //builds a new chat, thus the chatController reference is different
 
         final ChatController secondController = chatBuilder.getChatController();
         Assert.assertNotEquals(firstController, secondController);

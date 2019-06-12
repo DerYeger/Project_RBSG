@@ -1,9 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
@@ -40,7 +43,6 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -115,6 +117,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new GameManager(new RESTClient(new RestTemplate()), userProvider()),
                     new SystemMessageManager(new WebSocketClient()),
                     chatController(),
+                    new LobbyChatClient(new WebSocketClient(), userProvider()),
                     new CreateGameFormBuilder(new FXMLLoader()),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())))
             {
@@ -140,11 +143,10 @@ public class LobbyBuilderTest extends ApplicationTest
         }
 
         @Bean
-        public ChatController chatController()
-        {
-            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
-            {
-                public void init(@NonNull final TabPane chatPane) throws IOException
+        public ChatController chatController() {
+            return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
+                @Override
+                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
                 {
                 }
             };

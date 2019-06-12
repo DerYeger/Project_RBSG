@@ -40,10 +40,11 @@ public class ChatController implements Terminable {
 
     private ChatCommandManager chatCommandManager;
 
-    public ChatController(@NonNull final UserProvider userProvider, @NonNull final ChatCommandManager chatCommandManager)
+    public ChatController(@NonNull final UserProvider userProvider, @NonNull final ChatCommandManager chatCommandManager, @NonNull final ChatTabManager chatTabManager)
     {
         this.userProvider = userProvider;
         this.chatCommandManager = chatCommandManager;
+        this.chatTabManager = chatTabManager;
     }
 
     public void init(@NonNull final TabPane tabPane, @NonNull final ChatClient chatClient) {
@@ -53,8 +54,8 @@ public class ChatController implements Terminable {
 
         final ChatChannelBuilder chatChannelBuilder = new ChatChannelBuilder(this);
         final ChatTabBuilder chatTabBuilder = new ChatTabBuilder(chatChannelBuilder, this);
-        chatTabManager = new ChatTabManager(this, tabPane, chatTabBuilder);
-        chatTabManager.init();
+
+        chatTabManager.init(this, tabPane, chatTabBuilder);
 
         addChatCommandHandlers();
 

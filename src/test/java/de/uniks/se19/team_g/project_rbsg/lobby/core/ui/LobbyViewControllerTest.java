@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -28,6 +29,7 @@ public class LobbyViewControllerTest {
                 mock(GameManager.class),
                 mock(SystemMessageManager.class),
                 mock(ChatController.class),
+                mock(LobbyChatClient.class),
                 mock(CreateGameFormBuilder.class),
                 mock(DefaultLogoutManager.class)
         );

@@ -18,25 +18,23 @@ public class ChatTabManager {
     private static final String PUBLIC_CHANNEL_NAME = "General";
 
     @NonNull
-    private final ChatController chatController;
+    private ChatController chatController;
 
     @NonNull
-    private final TabPane tabPane;
+    private TabPane tabPane;
 
     @NonNull
-    private final ChatTabBuilder chatTabBuilder;
+    private ChatTabBuilder chatTabBuilder;
 
     private HashMap<String, Tab> chatTabs;
 
-    public ChatTabManager(@NonNull final ChatController chatController, @NonNull final TabPane tabPane, @NonNull final ChatTabBuilder chatTabBuilder) {
+    public void init(@NonNull final ChatController chatController, @NonNull final TabPane tabPane, @NonNull final ChatTabBuilder chatTabBuilder) {
         this.chatController = chatController;
         this.tabPane = tabPane;
         this.chatTabBuilder = chatTabBuilder;
 
         chatTabs = new HashMap<>();
-    }
 
-    public void init() {
         addPublicTab();
     }
 
