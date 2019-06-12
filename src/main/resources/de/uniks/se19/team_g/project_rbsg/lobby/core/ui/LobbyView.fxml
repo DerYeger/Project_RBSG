@@ -91,6 +91,6 @@
    </children>
    <stylesheets>
       <URL value="@lobby.css" />
-      <URL value="@../../../stylesheets/dark-theme.css" />
+      <URL value="@../../../../../../../../ui/dark-theme.css" />
    </stylesheets>
 </StackPane>

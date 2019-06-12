@@ -4,7 +4,7 @@
     -fx-max-width: 350;
     -fx-pref-height: 300;
     -fx-max-height: 250;
-    -fx-background-color: rgba(18,18,18, 0.6);
+    -fx-background-color: rgba(18,18,18, 0.9);
 }
 
 .loginForm > .label{
@@ -14,14 +14,14 @@
 }
 
 .errorLabel{
-    -fx-font-size: 16;
+    -fx-font-size: 24;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
     -fx-text-fill: #CF6679;
 }
 
 .loginForm > .text-field{
-    -fx-font-size: 12;
+    -fx-font-size: 16;
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-background-color: #404040;
@@ -29,7 +29,7 @@
 }
 
 .loginForm > .password-field{
-    -fx-font-size: 12;
+    -fx-font-size: 16;
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-background-color: #404040;
@@ -41,6 +41,16 @@
     -fx-text-fill: white;
     -fx-pref-height: 40;
     -fx-pref-width: 100;
+    -fx-font-size: 14;
+}
+
+.loginForm .registerButton{
+    -fx-background-color: #8858c8;
+    -fx-text-fill: white;
+    -fx-pref-height: 40;
+    -fx-pref-width: 100;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
 }
 
 .loginForm .button:hover{

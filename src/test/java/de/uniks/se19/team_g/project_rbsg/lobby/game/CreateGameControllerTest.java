@@ -120,13 +120,13 @@ public class CreateGameControllerTest extends ApplicationTest {
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
+        Assert.assertNotNull(createGameButton);
+        final Button cancelButton = lookup("#create").queryButton();
+        Assert.assertNotNull(cancelButton);
 
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 
-        clickOn(twoPlayerButton);
-
-        clickOn(createGameButton);
         final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
         Assert.assertNotNull(alert);
     }

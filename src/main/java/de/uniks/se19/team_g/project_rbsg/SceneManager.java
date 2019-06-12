@@ -26,8 +26,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable, Rincled
-{
+public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -142,12 +141,12 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     }
 
     public void setArmyBuilderScene() {
-        @SuppressWarnings("unchecked") ViewComponent<Object, Parent> component
-                = (ViewComponent<Object, Parent>) context.getBean("armyBuilderScene");
+        @SuppressWarnings("unchecked") ViewComponent<Object> component
+                = (ViewComponent<Object>) context.getBean("armyBuilderScene");
         showSceneFromViewComponent(component);
     }
 
-    private void showSceneFromViewComponent(ViewComponent<Object, Parent> component) {
+    private void showSceneFromViewComponent(ViewComponent<Object> component) {
         Platform.runLater(() -> {
             stage.setScene(sceneFromParent(component.getRoot()));
             setRootController(component.getController());
