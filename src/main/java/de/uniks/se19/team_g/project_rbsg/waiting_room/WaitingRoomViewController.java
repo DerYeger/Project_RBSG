@@ -5,12 +5,14 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -25,12 +27,15 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WaitingRoomViewController implements RootController, Terminable {
 
+    private static final int ICON_SIZE = 40;
+
     public Pane player1Pane;
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
     public Pane chatPane;
     public Pane mapPreviewPane;
+    public Pane miniGamePane;
     public Button soundButton;
     public Button leaveButton;
     public Button showInfoButton;
@@ -119,5 +124,23 @@ public class WaitingRoomViewController implements RootController, Terminable {
     }
 
     public void toggleSound(ActionEvent actionEvent) {
+    }
+
+    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
+        ImageView hover = new ImageView();
+        ImageView nonHover = new ImageView();
+
+        nonHover.fitWidthProperty().setValue(ICON_SIZE);
+        nonHover.fitHeightProperty().setValue(ICON_SIZE);
+
+        hover.fitWidthProperty().setValue(ICON_SIZE);
+        hover.fitHeightProperty().setValue(ICON_SIZE);
+
+        hover.setImage(new Image(String.valueOf(getClass().getResource(hoverIconName))));
+        nonHover.setImage(new Image(String.valueOf(getClass().getResource(nonHoverIconName))));
+
+        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
+                .then(hover)
+                .otherwise(nonHover));
     }
 }
