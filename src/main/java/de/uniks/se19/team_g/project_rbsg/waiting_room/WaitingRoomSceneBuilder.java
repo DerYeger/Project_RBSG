@@ -16,14 +16,9 @@ public class WaitingRoomSceneBuilder {
     @Autowired
     private WaitingRoomViewBuilder waitingRoomViewBuilder;
 
-    private Scene waitingRoomScene;
-
     @NonNull
     public Scene getWaitingRoomScene() throws Exception {
-        if (waitingRoomScene == null) {
-            Node waitingRoomNode = waitingRoomViewBuilder.buildIngameView();
-            waitingRoomScene = new Scene((Parent) waitingRoomNode);
-        }
-        return waitingRoomScene;
+        Node waitingRoomNode = waitingRoomViewBuilder.buildIngameView();
+        return new Scene((Parent) waitingRoomNode);
     }
 }

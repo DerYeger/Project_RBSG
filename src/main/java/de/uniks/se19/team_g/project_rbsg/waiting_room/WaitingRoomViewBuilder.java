@@ -1,9 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 /**
  * @author  Keanu Stückrad
@@ -11,18 +16,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class WaitingRoomViewBuilder {
 
+    private WaitingRoomViewController waitingRoomViewController;
+    private FXMLLoaderFactory fxmlLoaderFactory;
     private Node waitingRoomView;
 
-    @Autowired
-    private FXMLLoader fxmlLoader;
+    public WaitingRoomViewBuilder(FXMLLoaderFactory fxmlLoaderFactory) {
+        this.fxmlLoaderFactory = fxmlLoaderFactory;
+    }
 
-    public Node buildIngameView() throws Exception{
-        if(waitingRoomView == null) {
-            fxmlLoader.setLocation(getClass().getResource("/ui/waiting_room/waiting-room-view.fxml"));
+    private FXMLLoader getLoader() {
+        FXMLLoader loader = fxmlLoaderFactory.fxmlLoader();
+        loader.setLocation(getClass().getResource("/ui/waiting_room/waiting-room-view.fxml"));
+        return loader;
+    }
+
+    public @NonNull Node buildIngameView() {
+        FXMLLoader fxmlLoader = getLoader();
+        try {
             waitingRoomView = fxmlLoader.load();
-            final WaitingRoomViewController waitingRoomViewController = fxmlLoader.getController();
-            waitingRoomViewController.init();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        waitingRoomViewController = fxmlLoader.getController();
+        waitingRoomViewController.init();
         return waitingRoomView;
     }
 }
