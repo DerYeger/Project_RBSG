@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
  * @author Keanu Stückrad
  */
 @Component
-public class SceneController extends JavaFXUtils implements Initializable {
+public class SceneController implements Initializable {
 
     public Parent root;
 
@@ -93,7 +93,7 @@ public class SceneController extends JavaFXUtils implements Initializable {
 
         musicManager.initButtonIcons(soundButton);
 
-        setButtonIcons(
+        JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
                 getClass().getResource("/assets/icons/navigation/arrow-back-white.png"),
