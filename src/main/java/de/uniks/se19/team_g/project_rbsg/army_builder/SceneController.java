@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Goatfryed
+ * @author Keanu Stückrad
  */
 @Component
 public class SceneController extends ButtonIconsSetter implements Initializable {

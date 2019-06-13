@@ -7,10 +7,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="armyBuilderScene" stylesheets="@army-builder-scene.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.SceneController">
+<!--
+ @author Goatfryed
+ @author Keanu Stückrad
+ !-->
+
+<AnchorPane fx:id="armyBuilderScene" stylesheets="@army-builder-scene.css" styleClass="root-background-color" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.SceneController">
    <children>
       <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-      <VBox fx:id="content" styleClass="root-background-color" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.bottomAnchor="0.0">
+      <VBox fx:id="content"  maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.bottomAnchor="0.0">
          <HBox fx:id="topContentContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
             <ListView fx:id="unitListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="default">
             </ListView>
