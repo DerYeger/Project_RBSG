@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -156,7 +157,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         write("user1");
         Assert.assertEquals("user1", nameInput.getText());
 
-        clickOn(passwordInput);
+        type(KeyCode.TAB);
         write("ab123");
         Assert.assertEquals("ab123", passwordInput.getText());
 
@@ -177,7 +178,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         write("user1");
         Assert.assertEquals("user1", nameInput.getText());
 
-        clickOn(passwordInput);
+        type(KeyCode.TAB);
         write("ab123");
         Assert.assertEquals("ab123", passwordInput.getText());
 
