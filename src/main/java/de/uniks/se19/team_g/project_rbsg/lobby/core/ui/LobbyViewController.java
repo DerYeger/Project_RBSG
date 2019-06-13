@@ -17,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -24,7 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -78,6 +78,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Button armyBuilderLink;
     public GridPane mainGridPane;
     public HBox headerHBox;
     public Label lobbyTitle;
@@ -162,8 +163,24 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
-        setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
-        setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
+        JavaFXUtils.setButtonIcons(
+            createGameButton,
+            getClass().getResource("Images/baseline_add_circle_white_48dp.png"),
+            getClass().getResource("Images/baseline_add_circle_black_48dp.png"),
+            LobbyViewController.iconSize
+        );
+        JavaFXUtils.setButtonIcons(
+            logoutButton,
+            getClass().getResource("Images/iconfinder_exit_white_2676937.png"),
+            getClass().getResource("Images/iconfinder_exit_black_2676937.png"),
+            LobbyViewController.iconSize
+        );
+        JavaFXUtils.setButtonIcons(
+            armyBuilderLink,
+            getClass().getResource("/assets/icons/army/rally-the-troops_dark_background.png"),
+            getClass().getResource("/assets/icons/army/rally-the-troops_light_background.png"),
+            LobbyViewController.iconSize
+        );
 
         musicManager.initButtonIcons(soundButton);
 
@@ -200,24 +217,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         updateLabels(null);
 
         setAsRootController();
-    }
-
-    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
-        ImageView hover = new ImageView();
-        ImageView nonHover = new ImageView();
-
-        nonHover.fitWidthProperty().setValue(iconSize);
-        nonHover.fitHeightProperty().setValue(iconSize);
-
-        hover.fitWidthProperty().setValue(iconSize);
-        hover.fitHeightProperty().setValue(iconSize);
-
-        hover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + hoverIconName))));
-        nonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + nonHoverIconName))));
-
-        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
-                                                    .then(hover)
-                                                    .otherwise(nonHover));
     }
 
     private void setBackgroundImage()
