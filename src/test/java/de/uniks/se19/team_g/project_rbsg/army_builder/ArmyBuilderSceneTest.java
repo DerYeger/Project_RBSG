@@ -77,7 +77,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
 
         Assert.assertNotNull(controller.armyBuilderScene);
         Assert.assertNotNull(controller.content);
-        Assert.assertNotNull(controller.leaveButton);
+        Assert.assertNotNull(controller.soundButton);
         Assert.assertNotNull(controller.sideBarRight);
         Assert.assertNotNull(controller.unitDetailView);
         Assert.assertNotNull(controller.armyView);
