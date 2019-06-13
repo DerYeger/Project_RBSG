@@ -88,7 +88,7 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
             )
         );
 
-        setButtonIcons(showInfoButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", ICON_SIZE);
+        setButtonIcons(showInfoButton, "/assets/icons/navigation/info-black.png", "/assets/icons/navigation/info-white.png", ICON_SIZE);
 
     }
 
@@ -104,7 +104,7 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
     }
 
     public void showInfo(ActionEvent actionEvent) {
-
+        
     }
 
 }
