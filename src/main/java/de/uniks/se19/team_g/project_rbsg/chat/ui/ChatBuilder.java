@@ -1,6 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.ui;
+package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
@@ -10,8 +11,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 /**
  * @author Jan Müller
@@ -30,18 +29,20 @@ public class ChatBuilder implements ApplicationContextAware {
     }
 
     @NonNull
-    public Node buildChat() throws IOException {
-        final TabPane chat = new TabPane();
-        chat.setSide(Side.BOTTOM);
-        chat.getStylesheets().add(this.getClass().getResource("chat.css").toExternalForm());
+    public Node buildChat(@NonNull final ChatClient chatClient) {
+        final TabPane tabPane = new TabPane();
+        tabPane.setSide(Side.BOTTOM);
+        tabPane.getStylesheets().add(this.getClass().getResource("chat.css").toExternalForm());
+
         if (chatController != null) {
             chatController.terminate();
         }
 
         chatController = applicationContext.getBean(ChatController.class);
-        chatController.init(chat);
 
-        return chat;
+        chatController.init(tabPane, chatClient);
+
+        return tabPane;
     }
 
     @Override

@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -24,9 +24,13 @@ public class WhisperCommandHandler implements ChatCommandHandler {
         this.chatController = chatController;
     }
 
-    //TODO check if user exists?
     @Override
-    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) throws Exception {
+    public String getCommand() {
+        return COMMAND;
+    }
+
+    @Override
+    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) {
         if (options == null || options.isBlank() || !options.trim().matches(pattern)) {
             callback.displayMessage(ChatController.SYSTEM, OPTION_ERROR_MESSAGE);
             return;

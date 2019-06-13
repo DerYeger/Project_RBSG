@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -21,13 +21,18 @@ public class LeaveCommandHandler implements ChatCommandHandler {
     }
 
     @Override
-    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) throws Exception {
+    public String getCommand() {
+        return COMMAND;
+    }
+
+    @Override
+    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) {
         String channelToRemove = callback.getChannel();
         if (options != null && !options.isBlank()) {
             channelToRemove = '@' + options.trim();
         }
 
-        if (!chatController.removeTab(channelToRemove)) {
+        if (!chatController.closeChannel(channelToRemove)) {
             chatController.receiveMessage(callback.getChannel(), ChatController.SYSTEM, REMOVE_ERROR);
         }
     }

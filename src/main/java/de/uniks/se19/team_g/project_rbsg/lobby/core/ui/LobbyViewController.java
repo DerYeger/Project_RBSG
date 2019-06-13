@@ -2,8 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -62,6 +62,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
+    @NonNull
+    private final LobbyChatClient lobbyChatClient;
+    @NonNull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
 
@@ -95,10 +98,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                                @NonNull final GameManager gameManager,
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
+                               @NonNull final LobbyChatClient lobbyChatClient,
                                @NonNull final CreateGameFormBuilder createGameFormBuilder,
                                @NonNull final MusicManager musicManager,
                                @NonNull final LogoutManager logoutManager)
     {
+        this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
 
         this.lobby = new Lobby();
@@ -257,20 +262,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if (chatBuilder != null)
         {
-            Node chatNode = null;
-            try
-            {
-                chatNode = chatBuilder.buildChat();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            final Node chatNode = chatBuilder.buildChat(lobbyChatClient);
             chatContainer.getChildren().add(chatNode);
             chatController = chatBuilder.getChatController();
         }
-
-
     }
 
     public void createGameButtonClicked(ActionEvent event)

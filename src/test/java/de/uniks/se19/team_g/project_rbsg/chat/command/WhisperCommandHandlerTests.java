@@ -1,10 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.control.Tab;
 import org.junit.Assert;
@@ -18,8 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.websocket.Session;
-import java.io.IOException;
-import java.util.HashSet;
 
 /**
  * @author Jan Müller
@@ -27,22 +25,25 @@ import java.util.HashSet;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         WhisperCommandHandlerTests.ContextConfiguration.class,
-        UserProvider.class,
-        ChatWebSocketCallback.class
+        ChatCommandManager.class,
+        ChatController.class,
+        UserProvider.class
 })
 public class WhisperCommandHandlerTests {
-
-    private static final HashSet<String> activeChannels = new HashSet<>();
-
 
     @TestConfiguration
     static class ContextConfiguration {
 
-        @Autowired
-        private ChatWebSocketCallback chatWebSocketCallback;
-
-        @Autowired
-        private UserProvider userProvider;
+        @Bean
+        public ChatTabManager chatTabManager() {
+            return new ChatTabManager() {
+                @Override
+                public Tab addPrivateTab(@NonNull final String channel) {
+                    Assert.fail();
+                    return null;
+                }
+            };
+        }
 
         @Bean
         public WebSocketClient webSocketClient() {
@@ -53,7 +54,7 @@ public class WhisperCommandHandlerTests {
                 }
 
                 @Override
-                public void onOpen(final Session session) throws IOException {
+                public void onOpen(final Session session) {
 
                 }
 
@@ -63,26 +64,7 @@ public class WhisperCommandHandlerTests {
                 }
             };
         }
-
-        @Bean
-        public ChatController chatController() {
-            return new ChatController(userProvider, webSocketClient(), chatWebSocketCallback) {
-                @Override
-                public Tab addPrivateTab(@NonNull final String channel) {
-                    activeChannels.add(channel);
-                    return null;
-                }
-
-                @Override
-                public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) {
-                    Assert.fail();
-                }
-            };
-        }
     }
-
-    @Autowired
-    private ChatController chatController;
 
     @Autowired
     private UserProvider userProvider;
@@ -90,7 +72,9 @@ public class WhisperCommandHandlerTests {
     private int[] optionErrorCount = {0, 0};
 
     @Test
-    public void testWrongOptions() throws Exception {
+    public void testWrongOptions() {
+        final ChatController chatController = new ChatController(userProvider, new ChatCommandManager(), new ChatTabManager());
+
         userProvider.get()
                 .setName("MyUserName");
 
@@ -118,21 +102,16 @@ public class WhisperCommandHandlerTests {
         final String sixthTestOptions = "\"MyUserName\" message";
 
         handler.handleCommand(callback, firstTestOptions);
-        Assert.assertTrue(activeChannels.isEmpty());
 
         handler.handleCommand(callback, secondTestOptions);
-        Assert.assertTrue(activeChannels.isEmpty());
 
         handler.handleCommand(callback, thirdTestOptions);
-        Assert.assertTrue(activeChannels.isEmpty());
 
         handler.handleCommand(callback, fourthTestOptions);
-        Assert.assertTrue(activeChannels.isEmpty());
 
         handler.handleCommand(callback, fifthTestOptions);
-        Assert.assertTrue(activeChannels.isEmpty());
+
         handler.handleCommand(callback, sixthTestOptions);
-        Assert.assertTrue(activeChannels.isEmpty());
 
         Assert.assertEquals(5, optionErrorCount[0]);
         Assert.assertEquals(1, optionErrorCount[1]);

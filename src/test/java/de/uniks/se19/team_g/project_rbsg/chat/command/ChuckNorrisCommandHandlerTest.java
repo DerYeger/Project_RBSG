@@ -1,8 +1,8 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
@@ -21,7 +21,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
 import javax.websocket.Session;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +31,6 @@ import java.util.Map;
 @ContextConfiguration(classes = {
         ChatController.class,
         UserProvider.class,
-        ChatWebSocketCallback.class,
         ChatChannelController.class,
         ChuckNorrisCommandHandlerTest.ContextConfiguration.class
 })
@@ -53,7 +51,7 @@ public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
                 }
 
                 @Override
-                public void onOpen(final Session session) throws IOException {
+                public void onOpen(final Session session) {
                 }
 
                 @Override
@@ -65,14 +63,7 @@ public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
     }
 
     @Autowired
-    private ChatWebSocketCallback chatWebSocketCallback;
-
-    @Autowired
     private UserProvider userProvider;
-
-
-    @Autowired
-    private WebSocketClient webSocketClient;
 
     @Autowired
     private ChatChannelController callback;
@@ -81,20 +72,22 @@ public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
     public void testChuckJoke() throws Exception {
 
         ChuckNorrisCommandHandler chuckNorrisCommandHandler = new ChuckNorrisCommandHandler(
-                new ChatController(userProvider, webSocketClient, chatWebSocketCallback){
+                new ChatController(userProvider, new ChatCommandManager(), new ChatTabManager()) {
                     @Override
                     public void sendMessage(@NonNull final ChatChannelController callback, @NonNull final String channel, @NonNull final String content) {
                         chuckJoke = content;
                     }
                 },
-                new RestTemplate(){
+                new RestTemplate() {
                     @Override
-                    public <T> T getForObject(String url, Class<T> responseType, Object... uriVariables) throws RestClientException {
-                        String joke ="Chuck Norris does not need try-catch blocks, exceptions are too afread to raise.";
+                    public <T> T getForObject(@NonNull final String url, Class<T> responseType, @NonNull final Object... uriVariables) throws RestClientException {
+                        String joke = "Chuck Norris does not need try-catch blocks, exceptions are too afread to raise.";
                         Assert.assertEquals(url, "https://api.chucknorris.io/jokes/random");
                         Map<String, Object> testAnswer = new HashMap<>();
                         testAnswer.put("value", joke);
-                        return (T) testAnswer;
+                        @SuppressWarnings("unchecked")
+                        T finalAnswer = (T) testAnswer;
+                        return finalAnswer;
                     }
                 });
 
