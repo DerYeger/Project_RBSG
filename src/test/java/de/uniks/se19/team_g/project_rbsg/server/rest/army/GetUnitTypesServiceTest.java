@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army;
 
+import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
@@ -46,7 +47,7 @@ public class GetUnitTypesServiceTest {
         );
         userProvider.set(user);
 
-        final List<UnitType> unitTypes = service.queryUnitTypes().get();
+        final List<Unit> unitTypes = service.queryUnitPrototypes().get();
 
         Assert.assertTrue(unitTypes.size() > 0);
     }

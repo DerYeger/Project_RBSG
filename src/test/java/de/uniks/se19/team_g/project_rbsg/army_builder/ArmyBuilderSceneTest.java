@@ -48,7 +48,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
         public GetUnitTypesService getUnitTypesService()
         {
             final GetUnitTypesService mock = Mockito.mock(GetUnitTypesService.class);
-            Mockito.when(mock.queryUnitTypes()).thenReturn(CompletableFuture.completedFuture(new ArrayList<>()));
+            Mockito.when(mock.queryUnitPrototypes()).thenReturn(CompletableFuture.completedFuture(new ArrayList<>()));
             return mock;
         }
     }
