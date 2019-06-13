@@ -11,7 +11,7 @@ import java.net.URL;
  * @author Keanu Stückrad
  */
 @Component
-public class MusicManager extends JavaFXUtils {
+public class MusicManager {
 
     private URL musicNoteBlack = getClass().getResource("/assets/icons/navigation/music-note-black.png");
     private URL musicNoteWhite = getClass().getResource("/assets/icons/navigation/music-note-white.png");
@@ -34,9 +34,9 @@ public class MusicManager extends JavaFXUtils {
 
     public void initButtonIcons(Button soundButton) {
         if(musicRunning) {
-            setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
         } else {
-            setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
         }
     }
 
@@ -44,10 +44,10 @@ public class MusicManager extends JavaFXUtils {
         musicRunning = !musicRunning;
         if(musicRunning) {
             audioClip.play();
-            setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
         } else {
             audioClip.stop();
-            setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
         }
     }
 

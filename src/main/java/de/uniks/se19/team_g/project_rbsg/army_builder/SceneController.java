@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,7 +32,7 @@ import java.util.ResourceBundle;
  * @author Keanu Stückrad
  */
 @Component
-public class SceneController extends JavaFXUtils implements Initializable {
+public class SceneController implements Initializable {
 
     private static final int ICON_SIZE = 40;
 
@@ -88,7 +87,7 @@ public class SceneController extends JavaFXUtils implements Initializable {
             )
         );
 
-        setButtonIcons(
+        JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
                 getClass().getResource("/assets/icons/navigation/arrow-back-white.png"),

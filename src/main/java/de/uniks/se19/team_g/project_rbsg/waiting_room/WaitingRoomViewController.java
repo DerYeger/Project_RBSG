@@ -24,7 +24,7 @@ import org.springframework.stereotype.Controller;
  * @author Jan Müller
  */
 @Controller
-public class WaitingRoomViewController extends JavaFXUtils implements RootController, Terminable {
+public class WaitingRoomViewController implements RootController, Terminable {
 
     private static final int ICON_SIZE = 40;
 
@@ -72,13 +72,13 @@ public class WaitingRoomViewController extends JavaFXUtils implements RootContro
         setPlayerCardNodes();
         gameEventManager.startSocket(gameProvider.get().getId());
         setAsRootController();
-        setButtonIcons(
+        JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
                 getClass().getResource("/assets/icons/navigation/arrow-back-white.png"),
                 ICON_SIZE
         );
-        setButtonIcons(
+        JavaFXUtils.setButtonIcons(
                 showInfoButton,
                 getClass().getResource("/assets/icons/navigation/info-black.png"),
                 getClass().getResource("/assets/icons/navigation/info-white.png"),

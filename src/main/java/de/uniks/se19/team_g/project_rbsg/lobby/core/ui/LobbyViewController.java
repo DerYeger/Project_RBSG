@@ -50,7 +50,7 @@ import java.util.*;
 
 @Component
 @Scope("prototype")
-public class LobbyViewController extends JavaFXUtils implements RootController, Terminable, Rincled
+public class LobbyViewController implements RootController, Terminable, Rincled
 {
 
     private static final int ICON_SIZE = 30;
@@ -169,19 +169,19 @@ public class LobbyViewController extends JavaFXUtils implements RootController, 
         }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
-        setButtonIcons(
+        JavaFXUtils.setButtonIcons(
             createGameButton,
             getClass().getResource("/assets/icons/navigation/add-circle-white.png"),
             getClass().getResource("/assets/icons/navigation/add-circle-black.png"),
             LobbyViewController.ICON_SIZE
         );
-        setButtonIcons(
+        JavaFXUtils.setButtonIcons(
             logoutButton,
             getClass().getResource("/assets/icons/navigation/exit-white.png"),
             getClass().getResource("/assets/icons/navigation/exit-black.png"),
             LobbyViewController.ICON_SIZE
         );
-        setButtonIcons(
+        JavaFXUtils.setButtonIcons(
             armyBuilderLink,
             getClass().getResource("/assets/icons/army/rally-the-troops_dark_background.png"),
             getClass().getResource("/assets/icons/army/rally-the-troops_light_background.png"),
