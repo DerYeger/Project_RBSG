@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.UnitType;
@@ -14,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -30,7 +32,7 @@ import java.util.stream.Collectors;
  * @author Goatfryed
  */
 @Component
-public class SceneController implements Initializable {
+public class SceneController extends ButtonIconsSetter implements Initializable {
 
     private static final int ICON_SIZE = 40;
 
@@ -44,7 +46,7 @@ public class SceneController implements Initializable {
     public Pane unitDetailView;
     public VBox armyView;
     public VBox sideBarRight;
-    public HBox armyBuilderScene;
+    public AnchorPane armyBuilderScene;
     private ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
     public Button leaveButton;
 

@@ -1,10 +1,10 @@
 @import "/ui/dark-theme.css";
 
-.default-button {
+.icon-button {
     -fx-border-color: #88588c;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
 }
 
-.default-button:hover {
+.icon-button:hover {
     -fx-background-color: #bb86fc;
 }
