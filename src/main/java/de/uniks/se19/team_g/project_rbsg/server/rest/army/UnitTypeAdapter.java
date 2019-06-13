@@ -12,6 +12,18 @@ public class UnitTypeAdapter {
         unit.description.set(unitType.id);
         unit.speed.set(unitType.mp);
         unit.health.set(unitType.hp);
+
+        unit.description.set(mapDescription(unitType));
+
         return unit;
+    }
+
+    private String mapDescription(UnitType unitType) {
+        return String.format(
+            "id: %s\n"+
+            "Can attack %s",
+            unitType.id,
+            String.join(", ", unitType.canAttack)
+        );
     }
 }
