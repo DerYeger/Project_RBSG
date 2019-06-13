@@ -13,6 +13,21 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0); /*Platzhalter: need constant of stylesheet*/
 }
 
+.info-label {
+    -fx-text-fill: #ffffff; /*Platzhalter: need constant of stylesheet*/
+    -fx-font-size: 16pt;
+    -fx-font-family: Roboto-Regular;
+}
+
+.unit-property-list-info-box {
+    -fx-background-color: #121212; /*Platzhalter: need constant of stylesheet*/
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0); /*Platzhalter: need constant of stylesheet*/
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
 .button {
     -fx-background-color: #88588c; /*Platzhalter: need constant of stylesheet*/
 }
