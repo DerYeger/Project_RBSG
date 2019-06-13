@@ -67,7 +67,7 @@ public class SceneController implements Initializable {
 
         getUnitTypesService.queryUnitPrototypes().thenAccept(
             unitTypes -> Platform.runLater(() ->
-                state.unitTypes.setAll()
+                state.unitTypes.setAll(unitTypes)
             )
         );
     }
