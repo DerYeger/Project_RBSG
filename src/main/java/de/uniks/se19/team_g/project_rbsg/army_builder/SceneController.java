@@ -10,9 +10,9 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.UnitType;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @Component
 public class SceneController implements Initializable {
 
-    private static final int ICON_SIZE = 40;
+    public Parent root;
 
     private final ArmyBuilderState state;
     private final UnitListEntryFactory unitCellFactory;
@@ -43,7 +43,7 @@ public class SceneController implements Initializable {
     public Pane unitDetailView;
     public VBox armyView;
     public VBox sideBarRight;
-    public AnchorPane armyBuilderScene;
+    public VBox sideBarLeft;
     private ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
     public Button soundButton;
 
