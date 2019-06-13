@@ -75,10 +75,11 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
                 = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
         final SceneController controller = armyBuilderScene.getController();
 
-        Assert.assertNotNull(controller.armyBuilderScene);
+        Assert.assertNotNull(controller.root);
         Assert.assertNotNull(controller.content);
         Assert.assertNotNull(controller.leaveButton);
         Assert.assertNotNull(controller.sideBarRight);
+        Assert.assertNotNull(controller.sideBarLeft);
         Assert.assertNotNull(controller.unitDetailView);
         Assert.assertNotNull(controller.armyView);
         Assert.assertNotNull(controller.unitListView);
