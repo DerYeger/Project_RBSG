@@ -38,5 +38,5 @@ public class GetUnitTypesService {
         return Objects.requireNonNull(response).data;
     }
 
-    private static class ResponseType extends RBSGDataResponse<List<UnitType>> {}
+    public static class ResponseType extends RBSGDataResponse<List<UnitType>> {}
 }
