@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -31,11 +31,16 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
         this.restTemplate = restTemplate;
     }
 
+    @Override
+    public String getCommand() {
+        return COMMAND;
+    }
 
     @Override
-    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) throws Exception {
+    public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) {
 
-        final CompletableFuture<HashMap<String, Object>> answer = getChuckNorrisJoke();
+        @SuppressWarnings("unchecked")
+        final CompletableFuture<HashMap<String, Object>> answer = (CompletableFuture<HashMap<String, Object>>) getChuckNorrisJoke();
         answer
                 .thenAccept(joke -> jokeReturned((String)joke.get("value"), callback))
                 .exceptionally(exception ->  {
@@ -46,7 +51,7 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
 
     }
 
-    public CompletableFuture<HashMap<String, Object>> getChuckNorrisJoke(){
+    public CompletableFuture getChuckNorrisJoke(){
         return CompletableFuture.supplyAsync(() -> this.restTemplate.getForObject(this.uri, HashMap.class, ""));
     }
 

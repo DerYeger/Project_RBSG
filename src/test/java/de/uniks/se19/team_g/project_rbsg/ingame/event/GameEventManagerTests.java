@@ -83,7 +83,7 @@ public class GameEventManagerTests {
     @Test
     public void testHandle() {
         final TestGameEventHandler testGameEventHandler = new TestGameEventHandler();
-        final String message = "A message!";
+        final String message = "{\"field\":\"value\"}";
         gameEventManager
                 .addHandler(testGameEventHandler)
                 .handle(message);
