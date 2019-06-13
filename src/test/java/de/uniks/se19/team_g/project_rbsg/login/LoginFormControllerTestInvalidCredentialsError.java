@@ -181,7 +181,7 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         write("user1");
         Assert.assertEquals("user1", nameInput.getText());
 
-        clickOn(passwordInput);
+        type(KeyCode.TAB);
         write("ab123");
         Assert.assertEquals("ab123", passwordInput.getText());
 

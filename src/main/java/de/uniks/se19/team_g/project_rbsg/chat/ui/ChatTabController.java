@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.ui;
+package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import javafx.scene.control.Tab;
 import org.springframework.lang.NonNull;
 
@@ -10,6 +10,6 @@ import org.springframework.lang.NonNull;
 public class ChatTabController {
 
     public void init(@NonNull final ChatController chatController, @NonNull final Tab chatTab, @NonNull final String channel) {
-        chatTab.setOnCloseRequest(event -> chatController.removeChannelEntry(channel));
+        chatTab.setOnCloseRequest(event -> chatController.closeChannel(channel));
     }
 }

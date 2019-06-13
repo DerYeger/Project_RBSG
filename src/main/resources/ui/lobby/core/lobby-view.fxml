@@ -69,7 +69,11 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="goToArmyBuilder" mnemonicParsing="false" onAction="#goToArmyBuilder" styleClass="primary" text="Armies" />
+                        <Button fx:id="armyBuilderLink" mnemonicParsing="false" onAction="#goToArmyBuilder" text="Armies">
+                           <styleClass>
+                              <String fx:value="rally-troops" />
+                              <String fx:value="iconWithText" />
+                           </styleClass></Button>
                      </children>
                   </HBox>
                </children>

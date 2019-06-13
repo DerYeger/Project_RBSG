@@ -2,9 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -18,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -50,7 +50,7 @@ import java.util.*;
 
 @Component
 @Scope("prototype")
-public class LobbyViewController extends ButtonIconsSetter implements RootController, Terminable, Rincled
+public class LobbyViewController extends JavaFXUtils implements RootController, Terminable, Rincled
 {
 
     private static final int ICON_SIZE = 30;
@@ -63,6 +63,9 @@ public class LobbyViewController extends ButtonIconsSetter implements RootContro
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
+    @NonNull
+    private final LobbyChatClient lobbyChatClient;
+    @NonNull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
 
@@ -79,6 +82,7 @@ public class LobbyViewController extends ButtonIconsSetter implements RootContro
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Button armyBuilderLink;
     public GridPane mainGridPane;
     public HBox headerHBox;
     public Label lobbyTitle;
@@ -96,10 +100,12 @@ public class LobbyViewController extends ButtonIconsSetter implements RootContro
                                @NonNull final GameManager gameManager,
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
+                               @NonNull final LobbyChatClient lobbyChatClient,
                                @NonNull final CreateGameFormBuilder createGameFormBuilder,
                                @NonNull final MusicManager musicManager,
                                @NonNull final LogoutManager logoutManager)
     {
+        this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
 
         this.lobby = new Lobby();
@@ -163,8 +169,24 @@ public class LobbyViewController extends ButtonIconsSetter implements RootContro
         }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
-        setButtonIcons(createGameButton, "/assets/icons/navigation/add-circle-black.png" , "/assets/icons/navigation/add-circle-white.png", ICON_SIZE);
-        setButtonIcons(logoutButton, "/assets/icons/navigation/exit-black.png", "/assets/icons/navigation/exit-white.png", ICON_SIZE);
+        setButtonIcons(
+            createGameButton,
+            getClass().getResource("/assets/icons/navigation/add-circle-white.png"),
+            getClass().getResource("/assets/icons/navigation/add-circle-black.png"),
+            LobbyViewController.ICON_SIZE
+        );
+        setButtonIcons(
+            logoutButton,
+            getClass().getResource("/assets/icons/navigation/exit-white.png"),
+            getClass().getResource("/assets/icons/navigation/exit-black.png"),
+            LobbyViewController.ICON_SIZE
+        );
+        setButtonIcons(
+            armyBuilderLink,
+            getClass().getResource("/assets/icons/army/rally-the-troops_dark_background.png"),
+            getClass().getResource("/assets/icons/army/rally-the-troops_light_background.png"),
+            LobbyViewController.ICON_SIZE
+        );
 
         musicManager.initButtonIcons(soundButton);
 
@@ -240,20 +262,10 @@ public class LobbyViewController extends ButtonIconsSetter implements RootContro
     {
         if (chatBuilder != null)
         {
-            Node chatNode = null;
-            try
-            {
-                chatNode = chatBuilder.buildChat();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            final Node chatNode = chatBuilder.buildChat(lobbyChatClient);
             chatContainer.getChildren().add(chatNode);
             chatController = chatBuilder.getChatController();
         }
-
-
     }
 
     public void createGameButtonClicked(ActionEvent event)

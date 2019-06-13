@@ -3,11 +3,11 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Controller;
  * @author Jan Müller
  */
 @Controller
-public class WaitingRoomViewController extends ButtonIconsSetter implements RootController, Terminable {
+public class WaitingRoomViewController extends JavaFXUtils implements RootController, Terminable {
 
     private static final int ICON_SIZE = 40;
 
@@ -72,8 +72,18 @@ public class WaitingRoomViewController extends ButtonIconsSetter implements Root
         setPlayerCardNodes();
         gameEventManager.startSocket(gameProvider.get().getId());
         setAsRootController();
-        setButtonIcons(leaveButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", ICON_SIZE);
-        setButtonIcons(showInfoButton,"/assets/icons/navigation/info-black.png", "/assets/icons/navigation/info-white.png", ICON_SIZE);
+        setButtonIcons(
+                leaveButton,
+                getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
+                getClass().getResource("/assets/icons/navigation/arrow-back-white.png"),
+                ICON_SIZE
+        );
+        setButtonIcons(
+                showInfoButton,
+                getClass().getResource("/assets/icons/navigation/info-black.png"),
+                getClass().getResource("/assets/icons/navigation/info-white.png"),
+                ICON_SIZE
+        );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
     }

@@ -2,10 +2,13 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -199,15 +202,21 @@ public class GameListTest extends ApplicationTest
         }
 
         @Bean
-        public ChatController chatController()
-        {
-            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
-            {
+        public ChatController chatController() {
+            return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
-                public void init(@NonNull final TabPane chatPane)
+                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
                 {
                 }
+            };
+        }
 
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void startChatClient(@NonNull final ChatController chatController) {
+                }
             };
         }
 

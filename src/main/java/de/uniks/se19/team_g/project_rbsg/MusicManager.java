@@ -1,23 +1,25 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.scene.control.Button;
 import javafx.scene.media.AudioClip;
 import org.springframework.stereotype.Component;
+
+import java.net.URL;
 
 /**
  * @author Keanu Stückrad
  */
 @Component
-public class MusicManager extends ButtonIconsSetter {
+public class MusicManager extends JavaFXUtils {
 
-    private static final String MUSIC_NOTE_BLACK = "/assets/icons/navigation/music-note-black.png";
-    private static final String MUSIC_NOTE_WHITE = "/assets/icons/navigation/music-note-white.png";
-    private static final String MUSIC_NOTE_BLACK_OFF = "/assets/icons/navigation/music-off-black.png";
-    private static final String MUSIC_NOTE_WHITE_OFF = "/assets/icons/navigation/music-off-white.png";
-    private static final String MUSIC = "/assets/music/simple-8bit-loop.mp3";
+    private URL musicNoteBlack = getClass().getResource("/assets/icons/navigation/music-note-black.png");
+    private URL musicNoteWhite = getClass().getResource("/assets/icons/navigation/music-note-white.png");
+    private URL musicNoteBlackOff = getClass().getResource("/assets/icons/navigation/music-off-black.png");
+    private URL musicNoteWhiteOff = getClass().getResource("/assets/icons/navigation/music-off-white.png");
+    private URL music = getClass().getResource("/assets/music/simple-8bit-loop.mp3");
 
-    private AudioClip audioClip = new AudioClip(getClass().getResource(MUSIC).toString());
+    private AudioClip audioClip = new AudioClip(music.toString());
     private static final int ICON_SIZE = 40;
     private boolean musicRunning = true;
 
@@ -32,9 +34,9 @@ public class MusicManager extends ButtonIconsSetter {
 
     public void initButtonIcons(Button soundButton) {
         if(musicRunning) {
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE, ICON_SIZE);
+            setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
         } else {
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF, ICON_SIZE);
+            setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
         }
     }
 
@@ -42,10 +44,10 @@ public class MusicManager extends ButtonIconsSetter {
         musicRunning = !musicRunning;
         if(musicRunning) {
             audioClip.play();
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK, MUSIC_NOTE_WHITE, ICON_SIZE);
+            setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
         } else {
             audioClip.stop();
-            setButtonIcons(soundButton, MUSIC_NOTE_BLACK_OFF, MUSIC_NOTE_WHITE_OFF, ICON_SIZE);
+            setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
         }
     }
 

@@ -221,3 +221,13 @@
 .list-view .track {
 
 }
+
+/*Button icons*/
+.button.rally-troops {
+    -fx-content-display: right;
+    -fx-graphic-text-gap: 10px;
+}
+.button.rally-troops:hover {
+    -fx-content-display: right;
+    -fx-graphic-text-gap: 10px;
+}
