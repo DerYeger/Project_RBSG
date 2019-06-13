@@ -50,20 +50,16 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
     public VBox sideBarRight;
     public VBox sideBarLeft;
     private ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
-    public Button leaveButton;
-
-    private final SceneManager sceneManager;
+    public Button showInfoButton;
 
     public SceneController(
         ArmyBuilderState state,
         UnitListEntryFactory unitCellFactory,
-        GetUnitTypesService getUnitTypesService,
-        @NonNull final SceneManager sceneManager
+        GetUnitTypesService getUnitTypesService
     ) {
         this.state = state;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
-        this.sceneManager = sceneManager;
     }
 
     @Autowired
@@ -92,7 +88,7 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
             )
         );
 
-        setButtonIcons(leaveButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", ICON_SIZE);
+        setButtonIcons(showInfoButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", ICON_SIZE);
 
     }
 
@@ -107,16 +103,8 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
         return unit;
     }
 
-    public void leaveRoom(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave ArmyBuilder");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setLobbyScene();
-        } else {
-            actionEvent.consume();
-        }
+    public void showInfo(ActionEvent actionEvent) {
+
     }
 
 }
