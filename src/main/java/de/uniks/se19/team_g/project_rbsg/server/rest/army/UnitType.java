@@ -6,7 +6,7 @@ public class UnitType {
 
     public String id;
     public String type;
-    public Integer mp;
-    public Integer hp;
+    public int mp;
+    public int hp;
     public List<String> canAttack;
 }
