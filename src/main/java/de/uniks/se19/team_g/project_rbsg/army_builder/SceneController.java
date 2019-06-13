@@ -40,7 +40,6 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
     private final ArmyBuilderState state;
     private final UnitListEntryFactory unitCellFactory;
     private final GetUnitTypesService getUnitTypesService;
-    public VBox sideBarLeft;
     public VBox content;
     public HBox topContentContainer;
     public ListView<Unit> unitListView;
@@ -108,7 +107,7 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
 
     public void leaveRoom(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave Game");
+        alert.setTitle("Leave ArmyBuilder");
         alert.setHeaderText("Are you sure you want to exit?");
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.OK)) {
