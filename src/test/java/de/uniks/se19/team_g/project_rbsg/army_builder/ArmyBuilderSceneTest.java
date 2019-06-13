@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -39,7 +40,7 @@ import java.util.concurrent.CompletableFuture;
         UnitListEntryFactory.class,
         UnitListEntryController.class,
         ArmyBuilderSceneTest.ContextConfiguration.class,
-        SceneManager.class
+        MusicManager.class
 })
 public class ArmyBuilderSceneTest extends ApplicationTest {
 
