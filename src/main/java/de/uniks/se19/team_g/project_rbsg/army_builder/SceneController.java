@@ -5,10 +5,10 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
-import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.UnitType;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -27,14 +27,13 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 /**
  * @author Goatfryed
  * @author Keanu Stückrad
  */
 @Component
-public class SceneController extends ButtonIconsSetter implements Initializable {
+public class SceneController extends JavaFXUtils implements Initializable {
 
     public Parent root;
 
@@ -93,7 +92,13 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
         );
 
         musicManager.initButtonIcons(soundButton);
-        setButtonIcons(leaveButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", 40);
+
+        setButtonIcons(
+                leaveButton,
+                getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
+                getClass().getResource("/assets/icons/navigation/arrow-back-white.png"),
+                40
+        );
 
     }
 
