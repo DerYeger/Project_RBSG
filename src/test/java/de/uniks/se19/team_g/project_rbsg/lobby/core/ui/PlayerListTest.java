@@ -164,7 +164,7 @@ public class PlayerListTest extends ApplicationTest
         public LobbyChatClient lobbyChatClient() {
             return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
                 @Override
-                public void start(@NonNull final ChatController chatController) {
+                public void startChatClient(@NonNull final ChatController chatController) {
                 }
             };
         }

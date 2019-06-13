@@ -59,7 +59,7 @@ public class ChatController implements Terminable {
 
         addChatCommandHandlers();
 
-        chatClient.start(this);
+        chatClient.startChatClient(this);
     }
 
     @NonNull

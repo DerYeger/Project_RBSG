@@ -41,7 +41,7 @@ public class LobbyChatClient implements ChatClient {
     }
 
     @Override
-    public void start(@NonNull final ChatController chatController) {
+    public void startChatClient(@NonNull final ChatController chatController) {
         this.chatController = chatController;
         try {
             webSocketClient.start(ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), this);
@@ -52,14 +52,12 @@ public class LobbyChatClient implements ChatClient {
 
     @Override
     public void sendMessage(@NonNull final String  channel, @Nullable final String  to, @NonNull final String  message) {
-        final ObjectNode json = asJson(channel, to, message);
-        webSocketClient.sendMessage(json);
+        webSocketClient.sendMessage(asJson(channel, to, message));
     }
 
     @NonNull
     private ObjectNode asJson(@NonNull final String channel, @Nullable final String  to, @NonNull final String content) {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final ObjectNode node = objectMapper.createObjectNode();
+        final ObjectNode node = new ObjectMapper().createObjectNode();
 
         if (channel.equals(CLIENT_PUBLIC_CHANNEL)) { //public message
             node.put("channel", SERVER_PUBLIC_CHANNEL);
@@ -92,6 +90,7 @@ public class LobbyChatClient implements ChatClient {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            chatController.receiveErrorMessage("Error parsing message");
         }
     }
 
