@@ -82,13 +82,9 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(state.unitTypes);
 
-        getUnitTypesService.queryUnitTypes().thenAccept(
+        getUnitTypesService.queryUnitPrototypes().thenAccept(
             unitTypes -> Platform.runLater(() ->
-                state.unitTypes.setAll(
-                    unitTypes.stream()
-                        .map(this::mapUnitTypes)
-                        .collect(Collectors.toList())
-                )
+                state.unitTypes.setAll(unitTypes)
             )
         );
 
