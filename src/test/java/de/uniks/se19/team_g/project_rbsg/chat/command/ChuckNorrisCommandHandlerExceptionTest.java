@@ -1,9 +1,9 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.chat.command;
+package de.uniks.se19.team_g.project_rbsg.chat.command;
 
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatChannelController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
@@ -25,7 +25,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
 import javax.websocket.Session;
-import java.io.IOException;
 
 /**
  * @author Juri Lozowoj
@@ -34,10 +33,10 @@ import java.io.IOException;
 @ContextConfiguration(classes = {
         JavaConfig.class,
         ChatController.class,
+        ChatCommandManager.class,
+        ChatTabManager.class,
         UserProvider.class,
-        ChatWebSocketCallback.class,
         ChatChannelController.class,
-        ChatController.class,
         Terminator.class,
         ChuckNorrisCommandHandlerTest.ContextConfiguration.class
 })
@@ -57,7 +56,7 @@ public class ChuckNorrisCommandHandlerExceptionTest extends ApplicationTest {
                 }
 
                 @Override
-                public void onOpen(final Session session) throws IOException {
+                public void onOpen(final Session session) {
                 }
 
                 @Override
@@ -80,7 +79,7 @@ public class ChuckNorrisCommandHandlerExceptionTest extends ApplicationTest {
         ChuckNorrisCommandHandler chuckNorrisCommandHandler = new ChuckNorrisCommandHandler(chatController,
                 new RestTemplate(){
                     @Override
-                    public <T> T getForObject(String url, Class<T> responseType, Object... uriVariables) throws RestClientException {
+                    public <T> T getForObject(@NonNull final String url, Class<T> responseType, @NonNull final Object... uriVariables) throws RestClientException {
                         throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
                     }
                 });
