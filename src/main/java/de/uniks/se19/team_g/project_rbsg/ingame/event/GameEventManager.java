@@ -98,11 +98,12 @@ public class GameEventManager implements ChatClient {
             if (isChatMessage(json)) {
                 //TODO: Check the server's reply format and parse message
                 System.out.println(json);
+            } else {
+                gameEventHandlers.forEach(handler -> handler.handle(json));
             }
-            gameEventHandlers.forEach(handler -> handler.handle(message));
         } catch (IOException e) {
             e.printStackTrace();
-            chatController.receiveErrorMessage("Error parsing message");
+            logger.debug("Error parsing message");
         }
     }
 
