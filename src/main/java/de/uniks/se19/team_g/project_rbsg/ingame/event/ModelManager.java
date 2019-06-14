@@ -42,7 +42,7 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Game":
-                handleGame();
+                handleGame(id);
                 break;
             case "Player":
                 handlePlayer(id, data);
