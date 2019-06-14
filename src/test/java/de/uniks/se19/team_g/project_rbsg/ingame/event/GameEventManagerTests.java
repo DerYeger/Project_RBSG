@@ -17,10 +17,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        WaitingRoomEventManagerTests.ContextConfiguration.class,
-        WaitingRoomEventManager.class
+        GameEventManagerTests.ContextConfiguration.class,
+        GameEventManager.class
 })
-public class WaitingRoomEventManagerTests {
+public class GameEventManagerTests {
 
     private static boolean socketStarted = false;
     private static boolean socketStopped = false;
@@ -29,7 +29,7 @@ public class WaitingRoomEventManagerTests {
     private final String armyID = "54321";
 
     @Autowired
-    private WaitingRoomEventManager waitingRoomEventManager;
+    private GameEventManager gameEventManager;
 
     @TestConfiguration
     public static class ContextConfiguration {
@@ -52,7 +52,7 @@ public class WaitingRoomEventManagerTests {
         }
     }
 
-    private static class TestWaitingRoomEventHandler implements WaitingRoomEventHandler {
+    private static class TestGameEventHandler implements GameEventHandler {
         public String handledMessage;
 
         @Override
@@ -63,28 +63,28 @@ public class WaitingRoomEventManagerTests {
 
     @Test
     public void testStartSocket() {
-        waitingRoomEventManager.startSocket(gameId, armyID);
+        gameEventManager.startSocket(gameId, armyID);
         Assert.assertTrue(socketStarted);
     }
 
     @Test
     public void testTerminate() {
-        waitingRoomEventManager.terminate();
+        gameEventManager.terminate();
         Assert.assertTrue(socketStopped);
     }
 
     @Test
     public void testAddHandler() {
-        final TestWaitingRoomEventHandler testGameEventHandler = new TestWaitingRoomEventHandler();
-        waitingRoomEventManager.addHandler(testGameEventHandler);
-        Assert.assertTrue(waitingRoomEventManager.getHandlers().contains(testGameEventHandler));
+        final TestGameEventHandler testGameEventHandler = new TestGameEventHandler();
+        gameEventManager.addHandler(testGameEventHandler);
+        Assert.assertTrue(gameEventManager.getHandlers().contains(testGameEventHandler));
     }
 
     @Test
     public void testHandle() {
-        final TestWaitingRoomEventHandler testGameEventHandler = new TestWaitingRoomEventHandler();
+        final TestGameEventHandler testGameEventHandler = new TestGameEventHandler();
         final String message = "A message!";
-        waitingRoomEventManager
+        gameEventManager
                 .addHandler(testGameEventHandler)
                 .handle(message);
         Assert.assertEquals(message, testGameEventHandler.handledMessage);

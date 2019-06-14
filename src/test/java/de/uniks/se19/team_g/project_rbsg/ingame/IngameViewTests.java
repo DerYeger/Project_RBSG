@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.WaitingRoomEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -66,8 +66,8 @@ public class IngameViewTests extends ApplicationTest {
         }
 
         @Bean
-        public WaitingRoomEventManager gameEventManager() {
-            return new WaitingRoomEventManager(new WebSocketClient()) {
+        public GameEventManager gameEventManager() {
+            return new GameEventManager(new WebSocketClient()) {
                 @Override
                 public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
                     //do nothing

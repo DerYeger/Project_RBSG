@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.WaitingRoomEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -60,24 +60,24 @@ public class IngameViewController implements RootController, Terminable {
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
     @NonNull
-    private final WaitingRoomEventManager waitingRoomEventManager;
+    private final GameEventManager gameEventManager;
 
     @Autowired
     public IngameViewController(@NonNull final GameProvider gameProvider,
                                 @NonNull final UserProvider userProvider,
                                 @NonNull final SceneManager sceneManager,
-                                @NonNull final WaitingRoomEventManager waitingRoomEventManager){
+                                @NonNull final GameEventManager gameEventManager){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
-        this.waitingRoomEventManager = waitingRoomEventManager;
+        this.gameEventManager = gameEventManager;
     }
 
     public void init() {
         initBuilders();
         setNodes();
         initLeaveGameButton();
-        waitingRoomEventManager.startSocket(gameProvider.get().getId(), "_ARMY_ID_");
+        gameEventManager.startSocket(gameProvider.get().getId(), "5d016b8377af9d000147037a");
         setAsRootController();
     }
 
@@ -136,6 +136,6 @@ public class IngameViewController implements RootController, Terminable {
 
     @Override
     public void terminate() {
-        waitingRoomEventManager.terminate();
+        gameEventManager.terminate();
     }
 }

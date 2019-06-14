@@ -18,30 +18,30 @@ import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.leav
  */
 @Component
 @Scope("prototype")
-public class WaitingRoomEventManager implements IWebSocketCallback, Terminable {
+public class GameEventManager implements IWebSocketCallback, Terminable {
 
     private static final String ENDPOINT = "/game?";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final ArrayList<WaitingRoomEventHandler> waitingRoomEventHandlers;
+    private final ArrayList<GameEventHandler> gameEventHandlers;
 
     private WebSocketClient webSocketClient;
 
-    public WaitingRoomEventManager(@NonNull final WebSocketClient webSocketClient) {
+    public GameEventManager(@NonNull final WebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
 
-        waitingRoomEventHandlers = new ArrayList<>();
-        waitingRoomEventHandlers.add(new DefaultWaitingRoomEventHandler());
+        gameEventHandlers = new ArrayList<>();
+        gameEventHandlers.add(new DefaultGameEventHandler());
     }
 
-    public WaitingRoomEventManager addHandler(@NonNull final WaitingRoomEventHandler waitingRoomEventHandler) {
-        waitingRoomEventHandlers.add(waitingRoomEventHandler);
+    public GameEventManager addHandler(@NonNull final GameEventHandler gameEventHandler) {
+        gameEventHandlers.add(gameEventHandler);
         return this;
     }
 
-    public ArrayList<WaitingRoomEventHandler> getHandlers() {
-        return waitingRoomEventHandlers;
+    public ArrayList<GameEventHandler> getHandlers() {
+        return gameEventHandlers;
     }
 
     public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
@@ -58,7 +58,7 @@ public class WaitingRoomEventManager implements IWebSocketCallback, Terminable {
 
     @Override
     public void handle(@NonNull final String message) {
-        waitingRoomEventHandlers.forEach(handler -> handler.handle(message));
+        gameEventHandlers.forEach(handler -> handler.handle(message));
     }
 
     @Override
