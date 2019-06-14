@@ -1,13 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatWebSocketCallback;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
@@ -47,7 +51,6 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -70,11 +73,14 @@ import static org.junit.Assert.assertNotNull;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         LobbyViewBuilder.class,
-        LobbyViewController.class
+        LobbyViewController.class,
+        MusicManager.class
 })
 public class PlayerListTest extends ApplicationTest
 {
 
+    public static final Player PLAYER_1 = new Player("Hello");
+    public static final Player PLAYER_2 = new Player("MOBAHero42");
     @Autowired
     ApplicationContext context;
 
@@ -128,8 +134,8 @@ public class PlayerListTest extends ApplicationTest
                 @Override
                 public Collection<Player> getPlayers() {
                     ArrayList<Player> players = new ArrayList<>();
-                    players.add(new Player("Hello"));
-                    players.add(new Player("MOBAHero42"));
+                    players.add(PLAYER_1);
+                    players.add(PLAYER_2);
                     return players;
                 }
             };
@@ -146,16 +152,25 @@ public class PlayerListTest extends ApplicationTest
 
         @Bean
         public ChatController chatController() {
-            return  new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback()) {
+            return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
-                public void init(@NonNull final TabPane chatPane) throws IOException
+                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
                 {
                 }
             };
         }
 
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void startChatClient(@NonNull final ChatController chatController) {
+                }
+            };
+        }
+
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
             this.context = applicationContext;
         }
     }
@@ -169,37 +184,26 @@ public class PlayerListTest extends ApplicationTest
         assertNotNull(players);
         assertEquals(2, players.size());
 
-        ListCell<Player> cellHello = lookup("#playerCellHello").query();
-        ListCell<Player> cellMobaHero = lookup("#playerCellMOBAHero42").query();
-
-//        Player hello = cellHello.getItem().;
-
+        ListCell<Player> cellHello = lookup("#lobbyPlayerListView .list-cell").nth(0).query();
+        ListCell<Player> cellMobaHero = lookup("#lobbyPlayerListView .list-cell").nth(1).query();
 
         assertNotNull(cellHello);
         assertNotNull(cellMobaHero);
 
-        clickOn("#playerCellHello");
-        clickOn("#playerCellMOBAHero42");
+        assertEquals(PLAYER_1, cellHello.getItem());
+        assertEquals(PLAYER_2, cellMobaHero.getItem());
 
-        assertEquals("Hello", cellHello.getItem().getName());
-        assertEquals("MOBAHero42", cellMobaHero.getItem().getName());
-
-        rightClickOn("#playerCellHello");
-        rightClickOn("#playerCellMOBAHero42");
 
         Lobby lobby = lobbyViewController.getLobby();
 
-        lobby.addPlayer(new Player("Carlie"));
+        final Player carlie = new Player("Carlie");
+        lobby.addPlayer(carlie);
         WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(3, players.size());
 
-        ListCell<Player> cellCarlie = lookup("#playerCellCarlie").query();
-        assertNotNull(cellCarlie);
-
-        assertEquals("Carlie", cellCarlie.getItem().getName());
-
-        rightClickOn("#playerCellCarlie");
+        ListCell<Player> cellCarlie = lookup("#lobbyPlayerListView .list-cell").nth(2).query();
+        assertEquals(carlie, cellCarlie.getItem());
 
         Platform.runLater(() -> lobby.getPlayers().remove(0));
         WaitForAsyncUtils.waitForFxEvents();

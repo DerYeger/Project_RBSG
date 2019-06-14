@@ -1,4 +1,4 @@
-@import "/de/uniks/se19/team_g/project_rbsg/stylesheets/dark-theme.css";
+@import "/ui/dark-theme.css";
 
 .gridpane-size {
     -fx-pref-width: 220;

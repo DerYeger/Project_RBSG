@@ -1,8 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -16,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -23,7 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -62,11 +63,14 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final UserProvider userProvider;
     private final JoinGameManager joinGameManager;
     @NonNull
+    private final LobbyChatClient lobbyChatClient;
+    @NonNull
+    private final MusicManager musicManager;
     private final LogoutManager logoutManager;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
-    private boolean musicRunning = true;
+    private boolean musicRunning;
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
@@ -77,6 +81,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Button armyBuilderLink;
     public GridPane mainGridPane;
     public HBox headerHBox;
     public Label lobbyTitle;
@@ -94,9 +99,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                                @NonNull final GameManager gameManager,
                                @NonNull final SystemMessageManager systemMessageManager,
                                @NonNull final ChatController chatController,
+                               @NonNull final LobbyChatClient lobbyChatClient,
                                @NonNull final CreateGameFormBuilder createGameFormBuilder,
+                               @NonNull final MusicManager musicManager,
                                @NonNull final LogoutManager logoutManager)
     {
+        this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
 
         this.lobby = new Lobby();
@@ -113,6 +121,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.joinGameManager = joinGameManager;
+        this.musicManager = musicManager.init();
     }
 
     public Lobby getLobby()
@@ -159,10 +168,26 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
-        setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
-        setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
+        JavaFXUtils.setButtonIcons(
+            createGameButton,
+            getClass().getResource("Images/baseline_add_circle_white_48dp.png"),
+            getClass().getResource("Images/baseline_add_circle_black_48dp.png"),
+            LobbyViewController.iconSize
+        );
+        JavaFXUtils.setButtonIcons(
+            logoutButton,
+            getClass().getResource("Images/iconfinder_exit_white_2676937.png"),
+            getClass().getResource("Images/iconfinder_exit_black_2676937.png"),
+            LobbyViewController.iconSize
+        );
+        JavaFXUtils.setButtonIcons(
+            armyBuilderLink,
+            getClass().getResource("/assets/icons/army/rally-the-troops_dark_background.png"),
+            getClass().getResource("/assets/icons/army/rally-the-troops_light_background.png"),
+            LobbyViewController.iconSize
+        );
 
-        updateMusicButtonIcons();
+        musicManager.initButtonIcons(soundButton);
 
 
         //For UI/UX Design
@@ -197,37 +222,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         updateLabels(null);
 
         setAsRootController();
-    }
-
-    private void updateMusicButtonIcons()
-    {
-        if(musicRunning) {
-            setButtonIcons(soundButton, "baseline_music_note_black_48dp.png", "baseline_music_note_white_48dp.png");
-            if(sceneManager.audioPlayed == false) {
-                sceneManager.playAudio();
-            }
-        } else {
-            sceneManager.stopAudio();
-            setButtonIcons(soundButton, "baseline_music_off_black_48dp.png", "baseline_music_off_white_48dp.png");
-        }
-    }
-
-    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
-        ImageView hover = new ImageView();
-        ImageView nonHover = new ImageView();
-
-        nonHover.fitWidthProperty().setValue(iconSize);
-        nonHover.fitHeightProperty().setValue(iconSize);
-
-        hover.fitWidthProperty().setValue(iconSize);
-        hover.fitHeightProperty().setValue(iconSize);
-
-        hover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + hoverIconName))));
-        nonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + nonHoverIconName))));
-
-        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
-                                                    .then(hover)
-                                                    .otherwise(nonHover));
     }
 
     private void setBackgroundImage()
@@ -267,20 +261,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if (chatBuilder != null)
         {
-            Node chatNode = null;
-            try
-            {
-                chatNode = chatBuilder.buildChat();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            final Node chatNode = chatBuilder.buildChat(lobbyChatClient);
             chatContainer.getChildren().add(chatNode);
             chatController = chatBuilder.getChatController();
         }
-
-
     }
 
     public void createGameButtonClicked(ActionEvent event)
@@ -350,8 +334,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void toggleSound(ActionEvent event)
     {
         logger.debug("Pressed the toggleSound button");
-        musicRunning = !musicRunning;
-        updateMusicButtonIcons();
+        musicManager.updateMusicButtonIcons(soundButton);
     }
 
     public void logoutUser(ActionEvent event)

@@ -89,7 +89,7 @@ public class LoginFormController implements RootController, Rincled
         addLoadingIndicator();
         addErrorFlag();
         setAsRootController();
-
+        loginButton.setDefaultButton(true);
         updateLabels();
     }
 

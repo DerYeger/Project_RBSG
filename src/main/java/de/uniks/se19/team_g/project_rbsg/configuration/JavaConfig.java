@@ -36,19 +36,6 @@ public class JavaConfig implements ApplicationContextAware {
         return new RestTemplateBuilder();
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate(getClientHttpRequestFactory());
-    }
-
-    private ClientHttpRequestFactory getClientHttpRequestFactory() {
-        int timeOut = 10000;
-        HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-        clientHttpRequestFactory.setConnectTimeout(timeOut);
-        clientHttpRequestFactory.setReadTimeout(timeOut);
-        return clientHttpRequestFactory;
-    }
-
     @Override
     public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;

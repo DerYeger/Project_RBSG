@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -153,12 +154,12 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         Assert.assertNotNull(loginButton);
 
         clickOn(nameInput);
-        write("MasterChief");
-        Assert.assertEquals("MasterChief", nameInput.getText());
+        write("user1");
+        Assert.assertEquals("user1", nameInput.getText());
 
-        clickOn(passwordInput);
-        write("john-117");
-        Assert.assertEquals("john-117", passwordInput.getText());
+        type(KeyCode.TAB);
+        write("ab123");
+        Assert.assertEquals("ab123", passwordInput.getText());
 
         clickOn(loginButton);
         Assert.assertTrue(switchedToLobby);
@@ -174,12 +175,12 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         Assert.assertNotNull(registrationButton);
 
         clickOn(nameInput);
-        write("MasterChief");
-        Assert.assertEquals("MasterChief", nameInput.getText());
+        write("user1");
+        Assert.assertEquals("user1", nameInput.getText());
 
-        clickOn(passwordInput);
-        write("john-117");
-        Assert.assertEquals("john-117", passwordInput.getText());
+        type(KeyCode.TAB);
+        write("ab123");
+        Assert.assertEquals("ab123", passwordInput.getText());
 
         clickOn(registrationButton);
         Assert.assertTrue(switchedToLobby);

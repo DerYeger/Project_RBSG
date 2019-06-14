@@ -44,6 +44,9 @@ public class CreateGameController implements Rincled
     @FXML
     private Button cancel;
 
+    @FXML
+    private ToggleGroup number;
+
     private GameCreator gameCreator;
     private JoinGameManager joinGameManager;
     private Game game;
@@ -69,10 +72,16 @@ public class CreateGameController implements Rincled
     public void init(){
         cancel.setOnAction(this::closeCreateGameWindow);
         create.setOnAction(this::createGame);
+        create.setDefaultButton(true);
 
         this.twoPlayers.selectedProperty().addListener(event -> setTwoPlayerGame(event));
         this.fourPlayers.selectedProperty().addListener(event -> setFourPlayerGame(event));
-        
+
+        number.selectedToggleProperty().addListener((event, oldValue, newValue) -> {
+            if (newValue == null){
+                oldValue.setSelected(true);
+            }
+        });
         updateLabels();
     }
 

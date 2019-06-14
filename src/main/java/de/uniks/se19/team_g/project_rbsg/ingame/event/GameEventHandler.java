@@ -7,6 +7,5 @@ import org.springframework.lang.NonNull;
  */
 public interface GameEventHandler {
 
-    //TODO arguments
     void handle(@NonNull final String message);
 }
