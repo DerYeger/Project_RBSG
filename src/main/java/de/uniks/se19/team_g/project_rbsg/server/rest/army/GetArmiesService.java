@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.server.rest.army;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Nonnull;
@@ -11,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
+@Component
 public class GetArmiesService {
 
     @Nonnull private final RestTemplate rbsgTemplate;

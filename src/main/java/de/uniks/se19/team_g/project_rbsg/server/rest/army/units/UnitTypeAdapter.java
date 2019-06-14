@@ -1,7 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army.units;
 
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UnitTypeAdapter {
 
     public Unit map(UnitType unitType) {
