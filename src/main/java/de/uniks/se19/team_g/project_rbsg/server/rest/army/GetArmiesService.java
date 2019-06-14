@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GetArmiesService {
 
@@ -16,7 +17,7 @@ public class GetArmiesService {
     public List queryArmies() {
         final Response response = rbsgTemplate.getForObject("/army", Response.class);
 
-        return response.data;
+        return Objects.requireNonNull(response).data;
     }
 
     public static class Response extends RBSGDataResponse<List<Response.Data>> {
