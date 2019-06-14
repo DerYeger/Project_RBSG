@@ -216,8 +216,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.clearPlayers();
         lobby.clearGames();
 
-        CompletableFuture.supplyAsync(lobby::getPlayers).thenAccept(players -> Platform.runLater(() -> lobby.addAllPlayer(players)));
-        CompletableFuture.supplyAsync(lobby::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
+        CompletableFuture.supplyAsync(playerManager::getPlayers).thenAccept(players -> Platform.runLater(() -> lobby.addAllPlayer(players)));
+        CompletableFuture.supplyAsync(gameManager::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
 
         if (armyManager != null) {
             armyManager.getArmies().thenAccept(armies -> Platform.runLater(() -> appState.armies.setAll(armies)));
