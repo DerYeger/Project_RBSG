@@ -92,7 +92,7 @@ public class SceneController implements Initializable {
                 state.unitTypes.setAll(unitTypes)
             )
         );
-        
+
         musicManager.initButtonIcons(soundButton);
         JavaFXUtils.setButtonIcons(
                 leaveButton,
