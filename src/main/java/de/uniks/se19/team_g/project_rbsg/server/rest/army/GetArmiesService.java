@@ -1,10 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -13,10 +13,15 @@ import java.util.stream.Collectors;
 
 public class GetArmiesService {
 
-    private final RestTemplate rbsgTemplate;
+    @Nonnull private final RestTemplate rbsgTemplate;
+    @Nonnull private final ArmyAdapter armyAdapter;
 
-    public GetArmiesService(RestTemplate rbsgTemplate) {
+    public GetArmiesService(
+        @Nonnull RestTemplate rbsgTemplate,
+        @Nonnull ArmyAdapter armyAdapter
+    ) {
         this.rbsgTemplate = rbsgTemplate;
+        this.armyAdapter = armyAdapter;
     }
 
     public CompletionStage<List<Army>> queryArmies() {
@@ -26,22 +31,7 @@ public class GetArmiesService {
     protected List<Army> doQueryArmies() {
         final Response response = rbsgTemplate.getForObject("/army", Response.class);
 
-        return Objects.requireNonNull(response).data.stream().map(this::mapArmyData).collect(Collectors.toList());
-    }
-
-    private Army mapArmyData(Response.Army serverArmy) {
-        final Army localArmy = new Army();
-        localArmy.id.set(serverArmy.id);
-        localArmy.name.set(serverArmy.name);
-        localArmy.units.setAll(serverArmy.units.stream().map(this::mapServerUnit).collect(Collectors.toList()));
-
-        return localArmy;
-    }
-
-    private Unit mapServerUnit(String id) {
-        final Unit unit = new Unit();
-        unit.id.set(id);
-        return null;
+        return Objects.requireNonNull(response).data.stream().map(armyAdapter::mapArmyData).collect(Collectors.toList());
     }
 
     public static class Response extends RBSGDataResponse<List<Response.Army>> {
