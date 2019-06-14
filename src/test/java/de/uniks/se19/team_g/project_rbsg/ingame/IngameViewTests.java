@@ -69,7 +69,7 @@ public class IngameViewTests extends ApplicationTest {
         public GameEventManager gameEventManager() {
             return new GameEventManager(new WebSocketClient()) {
                 @Override
-                public void startSocket(@NonNull final String gameID) {
+                public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
                     //do nothing
                 }
             };

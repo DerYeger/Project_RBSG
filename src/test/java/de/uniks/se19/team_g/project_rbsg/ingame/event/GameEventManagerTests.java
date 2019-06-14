@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import org.junit.Assert;
@@ -26,6 +27,7 @@ public class GameEventManagerTests {
     private static boolean socketStopped = false;
 
     private final String gameId = "12345";
+    private final String armyID = "54321";
 
     @Autowired
     private GameEventManager gameEventManager;
@@ -38,7 +40,7 @@ public class GameEventManagerTests {
                 @Override
                 public void start(String endpoint, IWebSocketCallback webSocketCallback)
                 {
-                    if (endpoint.equals("/game?gameId=12345")) {
+                    if (endpoint.equals("/game?gameId=12345&armyId=54321")) {
                         socketStarted = true;
                     }
                 }
@@ -52,18 +54,18 @@ public class GameEventManagerTests {
     }
 
     private static class TestGameEventHandler implements GameEventHandler {
-        public String handledMessage;
+        public ObjectNode handledMessage;
 
         @Override
-        public void handle(@NonNull final String message) {
+        public boolean handle(@NonNull final ObjectNode message) {
             handledMessage = message;
+            return true;
         }
     }
 
     @Test
     public void testStartSocket() {
-        gameEventManager.startSocket(gameId);
-        System.out.println(socketStarted);
+        gameEventManager.startSocket(gameId, armyID);
         Assert.assertTrue(socketStarted);
     }
 
@@ -87,6 +89,6 @@ public class GameEventManagerTests {
         gameEventManager
                 .addHandler(testGameEventHandler)
                 .handle(message);
-        Assert.assertEquals(message, testGameEventHandler.handledMessage);
+        Assert.assertEquals(message, testGameEventHandler.handledMessage.toString());
     }
 }

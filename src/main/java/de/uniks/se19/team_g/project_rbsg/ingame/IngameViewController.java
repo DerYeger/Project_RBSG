@@ -16,6 +16,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Controller;
  * @author Jan Müller
  */
 @Controller
+@Scope("prototype")
 public class IngameViewController implements RootController, Terminable {
 
     @FXML
@@ -75,7 +77,7 @@ public class IngameViewController implements RootController, Terminable {
         initBuilders();
         setNodes();
         initLeaveGameButton();
-        gameEventManager.startSocket(gameProvider.get().getId());
+        gameEventManager.startSocket(gameProvider.get().getId(), "5d016b8377af9d000147037a");
         setAsRootController();
     }
 
