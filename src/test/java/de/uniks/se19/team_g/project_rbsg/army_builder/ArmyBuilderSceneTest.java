@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -24,8 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
@@ -41,6 +40,7 @@ import java.util.concurrent.CompletableFuture;
         UnitListEntryFactory.class,
         UnitListEntryController.class,
         ArmyBuilderSceneTest.ContextConfiguration.class,
+        MusicManager.class,
         SceneManager.class
 })
 public class ArmyBuilderSceneTest extends ApplicationTest {
@@ -82,6 +82,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
 
         Assert.assertNotNull(controller.root);
         Assert.assertNotNull(controller.content);
+        Assert.assertNotNull(controller.soundButton);
         Assert.assertNotNull(controller.leaveButton);
         Assert.assertNotNull(controller.sideBarRight);
         Assert.assertNotNull(controller.sideBarLeft);
