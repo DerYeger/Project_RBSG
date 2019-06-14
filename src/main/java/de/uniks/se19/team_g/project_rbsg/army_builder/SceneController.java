@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -41,6 +42,7 @@ public class SceneController implements Initializable {
     private final ArmyBuilderState state;
     private final UnitListEntryFactory unitCellFactory;
     private final GetUnitTypesService getUnitTypesService;
+
     public VBox content;
     public HBox topContentContainer;
     public ListView<Unit> unitListView;
@@ -49,19 +51,23 @@ public class SceneController implements Initializable {
     public VBox sideBarRight;
     public VBox sideBarLeft;
     private ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
+    public Button soundButton;
     public Button leaveButton;
 
+    private final MusicManager musicManager;
     private final SceneManager sceneManager;
 
     public SceneController(
-        ArmyBuilderState state,
-        UnitListEntryFactory unitCellFactory,
-        GetUnitTypesService getUnitTypesService,
-        @NonNull final SceneManager sceneManager
-    ) {
+            ArmyBuilderState state,
+            UnitListEntryFactory unitCellFactory,
+            GetUnitTypesService getUnitTypesService,
+            @NonNull final MusicManager musicManager,
+            @NonNull final SceneManager sceneManager
+            ) {
         this.state = state;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
+        this.musicManager = musicManager;
         this.sceneManager = sceneManager;
     }
 
@@ -86,7 +92,8 @@ public class SceneController implements Initializable {
                 state.unitTypes.setAll(unitTypes)
             )
         );
-
+        
+        musicManager.initButtonIcons(soundButton);
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
@@ -105,6 +112,10 @@ public class SceneController implements Initializable {
         unit.speed.set(unitType.mp);
         unit.health.set(unitType.hp);
         return unit;
+    }
+
+    public void toggleSound(ActionEvent actionEvent) {
+        musicManager.updateMusicButtonIcons(soundButton);
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
