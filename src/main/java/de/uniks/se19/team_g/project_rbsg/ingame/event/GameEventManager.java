@@ -99,7 +99,9 @@ public class GameEventManager implements ChatClient {
                 //TODO: Check the server's reply format and parse message
                 System.out.println(json);
             } else {
-                gameEventHandlers.forEach(handler -> handler.handle(json));
+                for (final GameEventHandler handler : gameEventHandlers) {
+                    if (handler.handle(json)) return;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
