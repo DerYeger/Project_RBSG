@@ -32,7 +32,6 @@ import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
 import org.testfx.framework.junit.*;
 
-import java.io.*;
 import java.util.*;
 
 import static org.junit.Assert.*;
