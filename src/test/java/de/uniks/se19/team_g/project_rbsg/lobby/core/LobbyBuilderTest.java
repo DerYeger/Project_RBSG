@@ -60,7 +60,8 @@ import static org.junit.Assert.assertNotNull;
         GameProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        LobbyViewBuilder.class
+        LobbyViewBuilder.class,
+        ApplicationState.class,
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
