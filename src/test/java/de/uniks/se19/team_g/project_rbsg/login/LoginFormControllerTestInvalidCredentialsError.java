@@ -154,12 +154,12 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertNotNull(loginButton);
 
         clickOn(nameInput);
-        write("user2");
-        Assert.assertEquals("user2", nameInput.getText());
+        write("1");
+        Assert.assertEquals("1", nameInput.getText());
 
         type(KeyCode.TAB);
-        write("ab123");
-        Assert.assertEquals("ab123", passwordInput.getText());
+        write("1");
+        Assert.assertEquals("1", passwordInput.getText());
 
         clickOn(loginButton);
         final Label errorMessage = lookup("#errorMessage").query();
@@ -178,12 +178,12 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertNotNull(registrationButton);
 
         clickOn(nameInput);
-        write("user1");
-        Assert.assertEquals("user1", nameInput.getText());
+        write("1");
+        Assert.assertEquals("1", nameInput.getText());
 
         type(KeyCode.TAB);
-        write("ab123");
-        Assert.assertEquals("ab123", passwordInput.getText());
+        write("1");
+        Assert.assertEquals("1", passwordInput.getText());
 
         clickOn(registrationButton);
         final Label errorMessage = lookup("#errorMessage").query();
