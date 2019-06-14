@@ -8,7 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

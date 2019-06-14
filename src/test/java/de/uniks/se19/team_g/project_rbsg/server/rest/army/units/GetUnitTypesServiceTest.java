@@ -1,19 +1,17 @@
-package de.uniks.se19.team_g.project_rbsg.server.rest.army;
+package de.uniks.se19.team_g.project_rbsg.server.rest.army.units;
 
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService.ResponseType;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService.ResponseType;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static org.mockito.Mockito.*;
