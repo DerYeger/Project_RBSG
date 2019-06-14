@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import org.junit.Assert;
@@ -53,11 +54,12 @@ public class GameEventManagerTests {
     }
 
     private static class TestGameEventHandler implements GameEventHandler {
-        public String handledMessage;
+        public ObjectNode handledMessage;
 
         @Override
-        public void handle(@NonNull final String message) {
+        public boolean handle(@NonNull final ObjectNode message) {
             handledMessage = message;
+            return true;
         }
     }
 
@@ -87,6 +89,6 @@ public class GameEventManagerTests {
         gameEventManager
                 .addHandler(testGameEventHandler)
                 .handle(message);
-        Assert.assertEquals(message, testGameEventHandler.handledMessage);
+        Assert.assertEquals(message, testGameEventHandler.handledMessage.toString());
     }
 }
