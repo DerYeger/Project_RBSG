@@ -19,6 +19,7 @@ public class UnitPropertyInfoListBuilder {
                 e.printStackTrace();
             }
             final UnitPropertyInfoListController unitPropertyInfoListController = fxmlLoader.getController();
+            unitPropertyInfoListController.setRootNode(infoView);
             unitPropertyInfoListController.init();
         }
         return infoView;

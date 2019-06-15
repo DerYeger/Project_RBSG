@@ -1,37 +1,59 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info;
 
-import de.uniks.se19.team_g.project_rbsg.army_builder.SceneController;
 import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import org.springframework.lang.NonNull;
+
+import java.io.File;
 
 public class UnitPropertyInfoListController extends ButtonIconsSetter {
-
-    private static final int PROPERTY_COUNT = 7;
 
     public Button closeButton;
     public VBox infoBox;
 
-    private UnitPropertyInfoCellBuilder unitPropertyInfoCellBuilder;
+    private Node root;
 
-    private final SceneController sceneController;
-
-    public UnitPropertyInfoListController(@NonNull final SceneController sceneController) {
-        this.sceneController = sceneController;
-    }
+    private UnitPropertyInfoCellBuilder health;
+    private UnitPropertyInfoCellBuilder physicalResistance;
+    private UnitPropertyInfoCellBuilder magicResistance;
+    private UnitPropertyInfoCellBuilder speed;
+    private UnitPropertyInfoCellBuilder attack;
+    private UnitPropertyInfoCellBuilder spellPower;
 
     public void init() {
         setButtonIcons(closeButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", 40);
-        unitPropertyInfoCellBuilder = new UnitPropertyInfoCellBuilder();
-        for (int i = 0; i < PROPERTY_COUNT; i++) {
-            infoBox.getChildren().add(unitPropertyInfoCellBuilder.buildInfoCellNode());
-        }
+        initBuilders();
+        // add property images and infos here with relative path
+        infoBox.getChildren().addAll(
+                health.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
+                physicalResistance.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
+                magicResistance.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
+                speed.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
+                attack.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
+                spellPower.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt"))
+        );
+    }
+
+    private void initBuilders() {
+        health = new UnitPropertyInfoCellBuilder();
+        physicalResistance = new UnitPropertyInfoCellBuilder();
+        magicResistance = new UnitPropertyInfoCellBuilder();
+        speed = new UnitPropertyInfoCellBuilder();
+        attack = new UnitPropertyInfoCellBuilder();
+        spellPower = new UnitPropertyInfoCellBuilder();
+    }
+
+    public void setRootNode(Node root){
+        this.root = root;
     }
 
     public void closeInfo(ActionEvent actionEvent) {
-        sceneController.infoFlag.set(false);
+        if (root != null){
+            root.setVisible(false);
+        }
     }
 
 }
