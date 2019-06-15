@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -18,6 +20,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -34,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -41,7 +45,10 @@ import de.uniks.se19.team_g.project_rbsg.termination.*;
 import io.rincl.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
+
+import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Georg Siebert
@@ -67,6 +74,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     @NonNull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
+    @Nullable
+    private final ArmyManager armyManager;
+
+    @Nonnull
+    private final ApplicationState appState;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -91,21 +103,25 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public VBox chatContainer;
 
     @Autowired
-    public LobbyViewController(@NonNull final GameProvider gameProvider,
-                               @NonNull final UserProvider userProvider,
-                               @NonNull final SceneManager sceneManager,
-                               @NonNull final JoinGameManager joinGameManager,
-                               @NonNull final PlayerManager playerManager,
-                               @NonNull final GameManager gameManager,
-                               @NonNull final SystemMessageManager systemMessageManager,
-                               @NonNull final ChatController chatController,
-                               @NonNull final LobbyChatClient lobbyChatClient,
-                               @NonNull final CreateGameFormBuilder createGameFormBuilder,
-                               @NonNull final MusicManager musicManager,
-                               @NonNull final LogoutManager logoutManager)
-    {
+    public LobbyViewController(
+            @Nonnull ApplicationState appState, @NonNull final GameProvider gameProvider,
+            @NonNull final UserProvider userProvider,
+            @NonNull final SceneManager sceneManager,
+            @NonNull final JoinGameManager joinGameManager,
+            @NonNull final PlayerManager playerManager,
+            @NonNull final GameManager gameManager,
+            @NonNull final SystemMessageManager systemMessageManager,
+            @NonNull final ChatController chatController,
+            @NonNull final LobbyChatClient lobbyChatClient,
+            @NonNull final CreateGameFormBuilder createGameFormBuilder,
+            @NonNull final MusicManager musicManager,
+            @NonNull final LogoutManager logoutManager,
+            @Nullable ArmyManager armyManager
+    ) {
+        this.appState = appState;
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
+        this.armyManager = armyManager;
 
         this.lobby = new Lobby();
 
@@ -149,16 +165,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         withChatSupport();
 
+        onLobbyOpen();
+
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell(chatController, userProvider.get().getName()));
         lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
-
-        lobby.clearPlayers();
-        lobby.addAllPlayer(playerManager.getPlayers());
-
-        lobby.clearGames();
-        lobby.addAllGames(gameManager.getGames());
 
         if(Locale.getDefault().equals(Locale.GERMAN)) {
             deButton.disableProperty().setValue(true);
@@ -189,30 +201,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         musicManager.initButtonIcons(soundButton);
 
-
-        //For UI/UX Design
-//        lobby.addPlayer(new Player("Hallo1"));
-//        lobby.addPlayer(new Player("Hallo2"));
-//        lobby.addPlayer(new Player("Hallo3"));
-//        lobby.addPlayer(new Player("Hallo4"));
-//        lobby.addPlayer(new Player("Hallo5"));
-//        lobby.addPlayer(new Player("Hallo6"));
-//        lobby.addPlayer(new Player("Hallo7"));
-//        lobby.addPlayer(new Player("Hallo8"));
-//        lobby.addPlayer(new Player("Hallo9"));
-//        lobby.addPlayer(new Player("Hallo10"));
-//        lobby.addPlayer(new Player("Hallo11"));
-//        lobby.addPlayer(new Player("Hallo12"));
-//
-//        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo5", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo6", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
-
         setBackgroundImage();
 
         Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
@@ -222,6 +210,18 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         updateLabels(null);
 
         setAsRootController();
+    }
+
+    private void onLobbyOpen() {
+        lobby.clearPlayers();
+        lobby.clearGames();
+
+        CompletableFuture.supplyAsync(playerManager::getPlayers).thenAccept(players -> Platform.runLater(() -> lobby.addAllPlayer(players)));
+        CompletableFuture.supplyAsync(gameManager::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
+
+        if (armyManager != null) {
+            armyManager.getArmies().thenAccept(armies -> Platform.runLater(() -> appState.armies.setAll(armies)));
+        }
     }
 
     private void setBackgroundImage()

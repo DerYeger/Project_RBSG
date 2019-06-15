@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -73,7 +74,8 @@ import static org.junit.Assert.*;
         CreateGameController.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        MusicManager.class
+        MusicManager.class,
+        ApplicationState.class,
 })
 public class GameListTest extends ApplicationTest
 {

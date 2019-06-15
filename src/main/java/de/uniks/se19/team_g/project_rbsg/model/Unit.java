@@ -17,4 +17,5 @@ public class Unit {
 
     public final SimpleStringProperty name = new SimpleStringProperty();
     public final SimpleStringProperty description = new SimpleStringProperty();
+    public final SimpleStringProperty id = new SimpleStringProperty();
 }
