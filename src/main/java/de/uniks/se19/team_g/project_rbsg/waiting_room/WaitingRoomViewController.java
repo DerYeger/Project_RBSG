@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Controller;
  * @author  Keanu Stückrad
  * @author Jan Müller
  */
+@Scope("prototype")
 @Controller
 public class WaitingRoomViewController implements RootController, Terminable {
 
@@ -70,7 +72,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     public void init() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
-        gameEventManager.startSocket(gameProvider.get().getId());
+        gameEventManager.startSocket(gameProvider.get().getId(), "5d016b8377af9d000147037a");
         setAsRootController();
         JavaFXUtils.setButtonIcons(
                 leaveButton,

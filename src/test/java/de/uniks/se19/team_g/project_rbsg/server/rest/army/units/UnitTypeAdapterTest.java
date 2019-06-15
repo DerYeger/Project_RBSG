@@ -1,13 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.server.rest.army;
+package de.uniks.se19.team_g.project_rbsg.server.rest.army.units;
 
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-
-import static org.junit.Assert.*;
 
 public class UnitTypeAdapterTest {
 

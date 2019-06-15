@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.event;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.lang.NonNull;
 
 /**
@@ -7,5 +8,5 @@ import org.springframework.lang.NonNull;
  */
 public interface GameEventHandler {
 
-    void handle(@NonNull final String message);
+    boolean handle(@NonNull final ObjectNode message);
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.leaveGameCommand;
+
 /**
  * @author Jan Müller
  */
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 @Scope("prototype")
 public class GameEventManager implements ChatClient {
 
-    private static final String ENDPOINT = "/game?gameId=";
+    private static final String ENDPOINT = "/game?";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -36,7 +38,7 @@ public class GameEventManager implements ChatClient {
         this.webSocketClient = webSocketClient;
 
         gameEventHandlers = new ArrayList<>();
-        gameEventHandlers.add(new DefaultGameEventHandler());
+//        gameEventHandlers.add(new DefaultGameEventHandler());
     }
 
     @Override
@@ -53,8 +55,16 @@ public class GameEventManager implements ChatClient {
         return gameEventHandlers;
     }
 
-    public void startSocket(@NonNull final String gameID) {
-        webSocketClient.start(ENDPOINT + gameID, this);
+    public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
+        webSocketClient.start(ENDPOINT + getGameIDParam(gameID) + '&' + getArmyIDParam(armyID), this);
+    }
+
+    private String getGameIDParam(@NonNull final String gameID) {
+        return "gameId=" + gameID;
+    }
+
+    private String getArmyIDParam(@NonNull final String armyID) {
+        return "armyId=" + armyID;
     }
 
     @Override
@@ -82,17 +92,22 @@ public class GameEventManager implements ChatClient {
 
     @Override
     public void handle(@NonNull final String message) {
+        logger.debug(message);
+
         final ObjectNode json;
         try {
             json = new ObjectMapper().readValue(message, ObjectNode.class);
             if (isChatMessage(json)) {
                 //TODO: Check the server's reply format and parse message
                 System.out.println(json);
+            } else {
+                for (final GameEventHandler handler : gameEventHandlers) {
+                    if (handler.handle(json)) return;
+                }
             }
-            gameEventHandlers.forEach(handler -> handler.handle(message));
         } catch (IOException e) {
             e.printStackTrace();
-            chatController.receiveErrorMessage("Error parsing message");
+            logger.debug("Error parsing message");
         }
     }
 
@@ -103,7 +118,12 @@ public class GameEventManager implements ChatClient {
 
     @Override
     public void terminate() {
+        sendLeaveCommand();
         webSocketClient.stop();
         logger.debug("Terminated " + this);
+    }
+
+    private void sendLeaveCommand() {
+        webSocketClient.sendMessage(leaveGameCommand());
     }
 }

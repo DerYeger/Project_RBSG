@@ -50,7 +50,8 @@ import static org.junit.Assert.*;
         LobbyViewBuilder.class,
         LobbyViewController.class,
         FXMLLoaderFactory.class,
-        MusicManager.class
+        MusicManager.class,
+        ApplicationState.class,
         }
 )
 public class PlayerJoinedGameListTest extends ApplicationTest

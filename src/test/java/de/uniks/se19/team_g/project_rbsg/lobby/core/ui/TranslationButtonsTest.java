@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
@@ -49,7 +50,8 @@ import static org.junit.Assert.*;
         CreateGameController.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        MusicManager.class
+        MusicManager.class,
+        ApplicationState.class,
 })
 public class TranslationButtonsTest extends ApplicationTest
 {
@@ -120,7 +122,7 @@ public class TranslationButtonsTest extends ApplicationTest
         public GameEventManager gameEventManager() {
             return new GameEventManager(new WebSocketClient()) {
                 @Override
-                public void startSocket(@NonNull final String gameID) {
+                public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
                 }
             };
         }
