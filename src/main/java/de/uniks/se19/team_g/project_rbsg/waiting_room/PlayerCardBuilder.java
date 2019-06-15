@@ -68,8 +68,8 @@ public class PlayerCardBuilder {
         Platform.runLater(()-> playerListCellLabel.setText("Waiting for\nplayer..."));
         Platform.runLater(()-> progressIndicator.setVisible(true));
         Platform.runLater(()-> playerListCellImageView.setVisible(false));
-        playerListCellLabel.getStyleClass().remove("default-label-size");
-        playerListCellLabel.getStyleClass().add("default-label-waiting-size");
+        playerListCellLabel.getStyleClass().remove("player");
+        playerListCellLabel.getStyleClass().add("waiting");
     }
 
     public Node playerLeft() {
@@ -93,8 +93,8 @@ public class PlayerCardBuilder {
     private void setReady() {
         Platform.runLater(()-> progressIndicator.setVisible(false));
         Platform.runLater(()-> playerListCellImageView.setVisible(true));
-        playerListCellLabel.getStyleClass().remove("default-label-waiting-size");
-        playerListCellLabel.getStyleClass().add("default-label-size");
+        playerListCellLabel.getStyleClass().remove("waiting");
+        playerListCellLabel.getStyleClass().add("player");
     }
 
     private Timeline setupTimeline() {

@@ -34,9 +34,9 @@ public class MusicManager {
 
     public void initButtonIcons(Button soundButton) {
         if(musicRunning) {
-            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteWhite, musicNoteBlack, ICON_SIZE);
         } else {
-            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteWhiteOff, musicNoteBlackOff, ICON_SIZE);
         }
     }
 
@@ -44,10 +44,10 @@ public class MusicManager {
         musicRunning = !musicRunning;
         if(musicRunning) {
             audioClip.play();
-            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlack, musicNoteWhite, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteWhite, musicNoteBlack, ICON_SIZE);
         } else {
             audioClip.stop();
-            JavaFXUtils.setButtonIcons(soundButton, musicNoteBlackOff, musicNoteWhiteOff, ICON_SIZE);
+            JavaFXUtils.setButtonIcons(soundButton, musicNoteWhiteOff, musicNoteBlackOff, ICON_SIZE);
         }
     }
 

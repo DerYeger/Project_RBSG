@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
@@ -11,7 +13,7 @@
  @author Keanu Stückrad
  !-->
 
-<GridPane styleClass="gridpane-size" stylesheets="@loading.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane styleClass="gridpane-size" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="160.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
@@ -20,11 +22,19 @@
       <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Label fx:id="progressLabel" text="Warte auf Server..." styleClass="progress-label" />
-      <ProgressIndicator fx:id="progressIndicator" progress="0.0" GridPane.columnIndex="1" styleClass="default-progress-indicator">
+      <Label fx:id="progressLabel" text="Warte auf Server...">
+         <styleClass>
+            <String fx:value="default" />
+            <String fx:value="progress" />
+         </styleClass></Label>
+      <ProgressIndicator fx:id="progressIndicator" progress="0.0" styleClass="default" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets top="18.0" />
          </GridPane.margin>
       </ProgressIndicator>
    </children>
+   <stylesheets>
+      <URL value="@loading.css" />
+      <URL value="@../darkTheme.css" />
+   </stylesheets>
 </GridPane>

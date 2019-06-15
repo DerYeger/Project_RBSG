@@ -95,8 +95,8 @@ public class SceneController implements Initializable {
         musicManager.initButtonIcons(soundButton);
         JavaFXUtils.setButtonIcons(
                 leaveButton,
-                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 SceneController.ICON_SIZE
         );
 

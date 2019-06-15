@@ -1,5 +1,3 @@
-@import "/ui/darkTheme.css";
-
 /*
  * @author Keanu Stückrad
  */
@@ -13,12 +11,7 @@
     -fx-effect: -shadow;
 }
 
-.player-card-not-ready {
-    -fx-background-color: -selected-background-color;
-    -fx-opacity: 0.8;
-}
-
-.chat {
+.chat-pane {
     -fx-min-height: 350;
     -fx-max-height: 350;
     -fx-effect: -shadow;
@@ -48,42 +41,10 @@
     -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Kartenvorschau-Einbund*/
 }
 
-.default-button {
-    -fx-pref-width: 40px;
-    -fx-pref-height: 40px;
-    -fx-max-width: 40px;
-    -fx-max-height: 40px;
-    -fx-padding: 0;
-    -fx-effect: -shadow;
-}
-
-.button {
-    -fx-background-color: -primary-background-color;
-}
-
-.button:hover {
-    -fx-background-color: -primary-lighter-background-color;
-}
-
-.default-label {
-    -fx-text-fill: -on-primary-fill;
-    -fx-font-family: Roboto-Medium;
-}
-
-.default-label-size {
+.label.player {
     -fx-font-size: 22pt;
 }
 
-.default-label-waiting-size {
+.label.waiting {
     -fx-font-size: 16pt;
-}
-
-.default-progress-indicator .percentage {
-    -fx-fill: null;
-}
-
-.default-progress-indicator {
-    -fx-min-width: 80;
-    -fx-min-height: 80;
-    -fx-progress-color: -primary-background-color;
 }

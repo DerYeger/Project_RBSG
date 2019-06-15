@@ -8,16 +8,16 @@
  @author Keanu Stückrad
  !-->
 
-<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.TitleViewController">
+<VBox stylesheets="@../darkTheme.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.TitleViewController">
    <children>
       <StackPane>
          <children>
-            <Label fx:id="title" alignment="CENTER" styleClass="title" stylesheets="@titleView.css" text="RBSG" />
+            <Label fx:id="title" alignment="CENTER" styleClass="title" text="RBSG" />
          </children>
       </StackPane>
       <StackPane>
          <children>
-            <Label fx:id="subtitle" alignment="CENTER" styleClass="subtitle" stylesheets="@titleView.css" text="Advanced Wars" />
+            <Label fx:id="subtitle" alignment="CENTER" styleClass="subtitle" text="Advanced Wars" />
          </children>
       </StackPane>
    </children>

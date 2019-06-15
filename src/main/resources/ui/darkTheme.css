@@ -6,6 +6,7 @@
  * Dark-Theme Stylesheet
  *
  * Info for Usage: Use the constants of * { ... } in your css after importing this stylesheet
+ *                 Use the -fx-font-size: and -fx-font-family: values from the comments
  *
  */
 
@@ -41,17 +42,19 @@
     /* --- Constants --- */
 
         /* Font-Size with Font-Family Roboto-Regular */
-    -headline-font-size: 26pt;
-    -subheader-font-size: 18pt;
-    -body-font-size: 16pt;
-    -caption-font-size: 14pt;
-    /* use -fx-font-family: Roboto-Regular; */
+    /* Use: -fx-font-size:
+    Headline: 26pt
+    Subheader: 18pt
+    Body: 16pt
+    Caption: 14pt
+    and use -fx-font-family: Roboto-Regular; */
 
         /* Font-Size with Font-Family Roboto-Medium */
-    -title-font-size: 22pt;
-    -body2-menu-font-size: 16pt;
-    -button-font-size: 16pt;
-    /* use -fx-font-family: Roboto-Medium; */
+    /* Use: -fx-font-size:
+    Title 22pt
+    Body 2 bzw. Menu 16pt
+    Button 16pt
+    and use -fx-font-family: Roboto-Medium; */
 
         /* Text-Fill */
     -on-primary-fill: #ffffff; /* Button non-hover */
@@ -62,8 +65,7 @@
 
         /* Background-Colors */
     -root-background-color: rgb(18, 18, 18); /* == #121212 */
-    -surface-background-color: rgba(18, 18, 18, 0.8);
-    -surface-overlay-background-color: rgba(18, 18, 18, 0.6);
+    -surface-elevation-color: #ffffff; /* only for elevation 2 und 8 used with opacity! */
     -primary-background-color: #88588c; /* Button non-hover */
     -primary-lighter-background-color: #bb86fc; /* Button hover */
     -secondary-background-color: #03dac5;
@@ -73,85 +75,108 @@
 
         /* Effects */
     -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+    -default-border-color: #ffffff;
 
 }
 
-/*------------------------------------*/
-
-.elevation-0 {
-    -fx-background-color: white;
-    -fx-opacity: 0%;
-}
+/*------------------Background------------------*/
 
 .elevation-2 {
-    -fx-background-color: white;
+    -fx-background-color: -surface-elevation-color;
     -fx-opacity: 7%;
 }
 
-.elevation-4 {
-    -fx-background-color: white;
-    -fx-opacity: 9%;
+.elevation-8 {
+    -fx-background-color: -surface-elevation-color;
+    -fx-opacity: 13%;
 }
 
-.elevation-6 {
-    -fx-background-color: white;
-    -fx-opacity: 11%;
-}
-
-/* Background-Color */
 .root-background-color {
-    -fx-background-color: #121212;
+    -fx-background-color: -root-background-color;
 }
 
-.surface-background-color {
-    -fx-background-color: #1F1B24;
+/*------------------Button------------------*/
+
+.button.icon-button {
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
 }
 
-.surface-overlay-background-color {
-    -fx-background-color: #332940;
+.button.icon-button:hover {
+    -fx-background-color: -primary-lighter-background-color;
 }
 
-.primary-background-color {
-    -fx-background-color: #BB86FC;
+.button.rally-troops {
+    -fx-content-display: right;
+    -fx-graphic-text-gap: 10px;
+}
+.button.rally-troops:hover {
+    -fx-content-display: right;
+    -fx-graphic-text-gap: 10px;
 }
 
-.secondary-background-color {
-    -fx-background-color: #03DAC5;
+/*------------------Label------------------*/
+
+.label.default {
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Regular;
 }
 
-.error-background-color {
-    -fx-background-color: #CF6679;
+.label.default-medium {
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
 }
 
-/* On-Colors + Opacity */
-.high-black-text-fill {
-    -fx-text-fill: rgba(0, 0, 0, 0.87);
+.label.title {
+    -fx-font-family: Retronoid;
+    -fx-font-size: 160px;
+    -fx-effect: -shadow;
 }
 
-/*------------------------------------*/
-
-.button.primary {
-    -fx-background-color: #8858C8;
+.label.subtitle {
+    -fx-font-family: Black;
+    -fx-font-size: 80px;
+    -fx-effect: -shadow;
 }
 
-.button.primary:hover {
-    -fx-background-color: #BB86FC;
+/*------------------ProgressIndicator------------------*/
+
+.progress-indicator.default .percentage {
+    -fx-fill: null;
 }
+
+.progress-indicator.default {
+    -fx-progress-color: -primary-background-color;
+    -fx-effect: -shadow;
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+}
+
+/*------------------ListView------------------*/
 
 .list-view.default {
     -fx-background-color: transparent;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
-    -fx-border-color: #FFFFFF;
+    -fx-effect: -shadow;
+    -fx-border-color: -default-border-color;
     -fx-border-width: 0;
 }
 
 .list-view.default:focused {
     -fx-background-radius: 0;
     -fx-border-width: 0;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+    -fx-effect: -shadow;
 }
 
-/*LIST CELL STYLE*/
+/*------------------ListCell------------------*/
+
 .list-view.default > .list-cell {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -163,22 +188,22 @@
 }
 
 .list-view.default > .list-cell:hover {
-    -fx-background-color: #BB86FC;
+    -fx-background-color: -primary-lighter-background-color;
     -fx-opacity: 1;
 }
 
 .list-view.default > .list-cell.selected {
-    -fx-background-color: #8858C8;
+    -fx-background-color: -selected-background-color;
 }
-/*LIST CELL STYLE*/
 
-/*LISTVIEW SCROLLBAR STYLE*/
+/*------------------ListView-ScrollBar------------------*/
 
 .list-view.default .scroll-bar {
     -fx-background-color: transparent;
 }
 
-/*DECREMENT AND INCREMENT BUTTON STYLE*/
+/*------------------ListView-De/Increment------------------*/
+
 .list-view.default .scroll-bar .increment-button,
 .list-view.default .scroll-bar.decrement-button{
     -fx-background-color: transparent;
@@ -193,41 +218,32 @@
 .list-view .scroll-bar .increment-button:hover .increment-arrow,
 .list-view .scroll-bar.decrement-button:hover .decrement-arrow{
     -fx-stroke: 3px;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: -default-border-color;
     -fx-effect: none;
 }
 
 .list-view  .scroll-bar .increment-arrow {
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-stroke: 3px;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: -default-border-color;
     -fx-effect: none;
 }
 .list-view  .scroll-bar .decrement-arrow
 {
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-stroke: 3px;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: -default-border-color;
     -fx-effect: none;
     -fx-rotate: -180;
 }
-/*DECREMENT BUTTONS STYLE*/
+
+/*------------------ListView-Additionals------------------*/
 
 .list-view .thumb {
     -fx-background-radius: 0px;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: -default-border-color;
 }
 
 .list-view .track {
 
-}
-
-/*Button icons*/
-.button.rally-troops {
-    -fx-content-display: right;
-    -fx-graphic-text-gap: 10px;
-}
-.button.rally-troops:hover {
-    -fx-content-display: right;
-    -fx-graphic-text-gap: 10px;
 }
