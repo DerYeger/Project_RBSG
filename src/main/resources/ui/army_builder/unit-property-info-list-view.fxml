@@ -18,7 +18,7 @@
             </VBox.margin>
         </Button>
     </VBox>
-    <ScrollPane maxHeight="1.7976931348623157E308" minWidth="540" styleClass="scroll-pane-default">
+    <ScrollPane maxHeight="1.7976931348623157E308" minWidth="540" styleClass="default">
         <VBox fx:id="infoBox" />
     </ScrollPane>
 </HBox>

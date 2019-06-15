@@ -26,7 +26,8 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0); /*Platzhalter: need constant of stylesheet*/
 }
 
-.scroll-pane-default {
+.scroll-pane.default,
+.scroll-pane.default * {
     -fx-fit-to-width: true;
     -fx-background-color: transparent;
 }
@@ -36,10 +37,6 @@
 }
 
 .scroll-pane-default .scroll-bar {
-    -fx-background-color: transparent;
-}
-
-.test {
     -fx-background-color: transparent;
 }
 
