@@ -3,7 +3,7 @@
  */
 
 .unitPropertyContainer {
-    -fx-border-color: white;
+    -fx-border-color: -default-border-color;
     -fx-border-width: 2px;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .unitPropertyContainer .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -default-border-color;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
     -fx-font-size: 24;
@@ -24,10 +24,10 @@
 }
 
 .unitPropertyContainer.text-area {
-    -fx-text-fill: white;
+    -fx-text-fill: -default-border-color;
     -fx-font-family: Roboto;
 }
 
 .unitPropertyContainer.text-area .content {
-    -fx-background-color: black;
+    -fx-background-color: -root-background-color;
 }
