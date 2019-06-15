@@ -1,10 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.model;
+package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -22,7 +22,7 @@ public class ModelManager implements GameEventHandler {
     @NonNull
     private final HashMap<String, Object> objectMap;
 
-    private Game game;
+    private de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game;
 
     public ModelManager() {
         objectMap = new HashMap<>();
