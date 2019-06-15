@@ -10,16 +10,15 @@
  @author Keanu Stückrad
  !-->
 
-<HBox alignment="CENTER" styleClass="unit-property-list-info-box" stylesheets="@army-builder-scene.css"
-      fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPropertyInfoListController" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox>
+<HBox styleClass="unit-property-list-info-box" stylesheets="@army-builder-scene.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPropertyInfoListController">
+    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
         <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeInfo" styleClass="icon-button">
             <VBox.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </VBox.margin>
         </Button>
     </VBox>
-    <ScrollPane>
+    <ScrollPane maxHeight="1.7976931348623157E308" minWidth="540" styleClass="scroll-pane-default">
         <VBox fx:id="infoBox" />
     </ScrollPane>
 </HBox>
