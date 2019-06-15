@@ -11,6 +11,10 @@ public class Player {
 
     private Game game;
 
+    private String name;
+
+    private String color;
+
     private HashSet<Unit> units;
 
     public Player(@NonNull final String id) {
@@ -25,6 +29,14 @@ public class Player {
 
     public Game getGame() {
         return game;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public HashSet<Unit> getUnits() {
@@ -58,5 +70,16 @@ public class Player {
 
     void doAddUnit(@NonNull final Unit unit) {
         units.add(unit);
+    }
+
+
+    public Player setName(@NonNull final String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Player setColor(@NonNull final String color) {
+        this.color = color;
+        return this;
     }
 }

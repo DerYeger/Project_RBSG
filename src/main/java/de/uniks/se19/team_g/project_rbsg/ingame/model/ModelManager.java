@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +30,12 @@ public class ModelManager implements GameEventHandler {
             case "gameInitObject":
                 handleInit(node);
                 break;
+            case "gameInitFinished":
+                logger.debug("Game has " + game.getCells().size() + " cells");
+                logger.debug("Player has " + game.getPlayers().iterator().next().getUnits().size() + " units");
+                break;
             default:
                 logger.debug("Not a model message");
-        }
-
-        if (node.get("action").asText().equals("gameInitFinished")) {
-            System.out.println("Game has " + game.getCells().size() + " cells");
         }
     }
 
@@ -84,7 +83,28 @@ public class ModelManager implements GameEventHandler {
     }
 
     private void initPlayer(@NonNull final String identifier, @NonNull final JsonNode data) {
-        logger.debug("Player handler not yet implemented: " + data);
+        if (!data.has("name")
+                || !data.has("color")
+                || !data.has("currentGame")
+                || !data.has("army")) {
+            logger.debug("Player information incomplete");
+            return;
+        }
+
+        final String name = data.get("name").asText();
+        final String color = data.get("color").asText();
+        final String gameIdentifier = data.get("currentGame").asText();
+
+        final Player player = playerWithId(identifier);
+
+        player.setGame(gameWithId(gameIdentifier))
+                .setName(name)
+                .setColor(color);
+
+        final JsonNode army = data.get("army");
+        for (final JsonNode unit : army) {
+            player.withUnit(unitWithId(unit.asText()));
+        }
     }
 
     private void initUnit(@NonNull final String identifier, @NonNull final JsonNode data) {
@@ -92,16 +112,17 @@ public class ModelManager implements GameEventHandler {
     }
 
     private void initCell(@NonNull final String identifier, @NonNull final Biome biome, @NonNull final JsonNode data) {
-        if (!data.has("isPassable") || !data.has("x") || !data.has("y") || !data.has("game")) {
+        if (!data.has("isPassable")
+                || !data.has("x")
+                || !data.has("y")
+                || !data.has("game")) {
             logger.debug("Cell information incomplete");
             return;
         }
 
         final boolean isPassable = data.get("isPassable").asBoolean();
-
         final int x = data.get("x").asInt();
         final int y = data.get("y").asInt();
-
         final String gameIdentifier = data.get("game").asText();
 
         final Cell cell = cellWithId(identifier);
@@ -122,7 +143,7 @@ public class ModelManager implements GameEventHandler {
                 .setRight(right)
                 .setBottom(bottom);
 
-        System.out.println(cell);
+//        System.out.println(cell);
     }
 
     private Cell cellInDirection(@NonNull final JsonNode data, @NonNull final String direction) {
