@@ -58,19 +58,19 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Game":
-                game = GameBuilder.buildGame(this, identifier, data);
+                game = GameBuilder.buildGame(this, identifier, data, true);
                 break;
             case "Player":
-                PlayerBuilder.buildPlayer(this, identifier, data);
+                PlayerBuilder.buildPlayer(this, identifier, data, true);
                 break;
             case "Unit":
-                UnitBuilder.buildUnit(this, identifier, data);
+                UnitBuilder.buildUnit(this, identifier, data, true);
                 break;
             case "Forest":
             case "Grass":
             case "Mountain":
             case "Water":
-                CellBuilder.buildCell(this, identifier, Biome.valueOf(type.toUpperCase()), data);
+                CellBuilder.buildCell(this, identifier, Biome.valueOf(type.toUpperCase()), data, false);
                 break;
             default:
                 logger.debug("Unknown class");

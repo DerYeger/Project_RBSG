@@ -17,7 +17,8 @@ public class UnitBuilder {
 
     public static Unit buildUnit(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
-                                 @NonNull final JsonNode data) {
+                                 @NonNull final JsonNode data,
+                                 @NonNull final boolean debug) {
         final Unit unit = modelManager.unitWithId(identifier);
 
         if (data.has("type")) unit.setUnitType(UnitType.valueOf(data.get("type").asText().toUpperCase().replace(" ", "_")));
@@ -38,7 +39,8 @@ public class UnitBuilder {
             }
         }
 
-        logger.debug("Added unit: " + unit);
+        if (debug) logger.debug("Added unit: " + unit);
+
         return unit;
     }
 }

@@ -16,7 +16,8 @@ public class CellBuilder {
     public static Cell buildCell(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
                                  @NonNull final Biome biome,
-                                 @NonNull final JsonNode data) {
+                                 @NonNull final JsonNode data,
+                                 @NonNull final boolean debug) {
         final Cell cell = modelManager.cellWithId(identifier).setBiome(biome);
 
         if (data.has("game")) cell.setGame(modelManager.gameWithId(data.get("game").asText()));
@@ -34,7 +35,8 @@ public class CellBuilder {
                 .setRight(right)
                 .setBottom(bottom);
 
-//        logger.debug("Added cell:" + cell);
+        if (debug) logger.debug("Added cell:" + cell);
+
         return cell;
     }
 

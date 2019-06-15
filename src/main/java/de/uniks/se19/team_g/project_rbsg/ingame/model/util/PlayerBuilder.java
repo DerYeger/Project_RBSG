@@ -14,7 +14,8 @@ public class PlayerBuilder {
 
     public static Player buildPlayer(@NonNull final ModelManager modelManager,
                                      @NonNull final String identifier,
-                                     @NonNull final JsonNode data) {
+                                     @NonNull final JsonNode data,
+                                     @NonNull final boolean debug) {
         final Player player = modelManager.playerWithId(identifier);
 
         if (data.has("currentGame")) player.setGame(modelManager.gameWithId(data.get("currentGame").asText()));
@@ -30,7 +31,8 @@ public class PlayerBuilder {
             }
         }
 
-        logger.debug("Added player: " + player);
+        if (debug) logger.debug("Added player: " + player);
+
         return player;
     }
 }
