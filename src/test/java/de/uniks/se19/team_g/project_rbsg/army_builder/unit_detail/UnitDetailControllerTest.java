@@ -47,7 +47,7 @@ public class UnitDetailControllerTest extends ApplicationTest {
     @Test
     public void testBind() throws IOException {
         Unit unit1 = new Unit();
-        unit1.imageUrl.set( getClass().getResource("/assets/sprites/Soldier.png").toString());
+        unit1.imageUrl.set( getClass().getResource("/assets/sprites/soldier.png").toString());
         unit1.health.set(20);
         final int physicalResistance = 15;
         unit1.physicalResistance.set(physicalResistance);
@@ -58,7 +58,7 @@ public class UnitDetailControllerTest extends ApplicationTest {
         final String unit1Description = "/chuckMe";
         unit1.description.set(unit1Description);
         Unit unit2 = new Unit();
-        unit2.imageUrl.set( getClass().getResource("/assets/sprites/Soldier.png").toString());
+        unit2.imageUrl.set( getClass().getResource("/assets/sprites/soldier.png").toString());
         unit2.health.set(11);
         unit2.physicalResistance.set(21);
         unit2.magicResistance.set(31);
@@ -68,7 +68,7 @@ public class UnitDetailControllerTest extends ApplicationTest {
         unit2.description.set("Chuck Norris wins the game");
 
         final FXMLLoader loader = loaderFactory.fxmlLoader();
-        loader.setLocation(getClass().getResource("/ui/army_builder/UnitDetailView.fxml"));
+        loader.setLocation(getClass().getResource("/ui/army_builder/unitDetailView.fxml"));
         loader.load();
         state.selectedUnit.set(unit1);
 

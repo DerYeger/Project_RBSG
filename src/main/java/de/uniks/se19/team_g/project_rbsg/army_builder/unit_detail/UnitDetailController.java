@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 @Component
 public class UnitDetailController implements Initializable {
 
-    public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magic-defense.png").toString();
+    public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magicDefense.png").toString();
     @Nonnull private final ArmyBuilderState state;
     public StackPane imageStackPane;
     public ImageView imageView;

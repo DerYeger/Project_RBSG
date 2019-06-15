@@ -1,0 +1,236 @@
+/*COLOR DEFINITIONS*/
+* {
+    -background-color:   #121212;
+    -buttonNonHover-color: #8858c8;
+    -buttonHover-color: #bb86fc;
+    /*-buttonSelected-color: #03DAC5;*/
+    -primaryThree-color: #868cfc;
+    -backgroundTransparent-color: rgba(18,18,18,0.8);
+    -backgroundMoreTransparent-color: rgba(18,18,18,0.6);
+    -textLightBackground-color: #000000;
+    -textDarkBackground-color: #FFFFFF;
+}
+/*COLOR DEFINITIONS*/
+
+/* FONTS */
+/*@font-face {*/
+/*    font-family: Roboto;*/
+/*    src: url("./Font/Roboto/robotoRegular.ttf") format("truetype");*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: Cinzel;*/
+/*    src: url("./Font/Cinzel/cinzelRegular.ttf") format("truetype");*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: Retronnoid;*/
+/*    src: url("./Font/Retronoid/Retronoid.ttf") format("truetype");*/
+/*}*/
+
+/* FONTS */
+
+/* LABEL STYLE*/
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Roboto;
+}
+
+.gameTitle {
+    -fx-font-family: Cinzel;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-background-color: -backgroundMoreTransparent-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+    /*-fx-background-color: transparent;*/
+    /*-fx-text-fill: black;*/
+}
+/*LABEL STYLE*/
+
+
+/*BUTTON STYLES*/
+.button {
+    -fx-pref-height: 40px;
+    -fx-pref-width: 100px;
+
+    -fx-background-color: -buttonNonHover-color;
+
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -textDarkBackground-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: -buttonHover-color;
+    -fx-text-fill: -textLightBackground-color;
+}
+
+.button:disabled {
+    -fx-background-color: grey;
+    -fx-text-fill: lightgrey;
+    -fx-opacity: 1;
+}
+
+.iconButton {
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-padding: 0;
+}
+
+.iconWithText {
+    -fx-pref-width: 175px;
+}
+
+.languageButton:disabled {
+    -fx-background-color: -primaryThree-color;
+    -fx-text-fill: -textLightBackground-color;
+    -fx-opacity: 1;
+}
+/*BUTTON STYLES*/
+
+/*OPTION BUTTONS CONTIANER*/
+.optionsHboxContainer {
+    -fx-alignment: CENTER_RIGHT;
+}
+/*OPTION BUTTONS CONTIANER*/
+
+
+.body {
+    -fx-start-margin: 10px;
+    -fx-end-margin: 10px;
+}
+/*MAIN GRID STYLE*/
+.mainGridPane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+/*MAIN GRID STYLE*/
+
+
+/*GAME LIST BOX STLYE*/
+.gameListHbox {
+    -fx-background-color: transparent;
+}
+/*GAME LIST BOX STLYE*/
+
+
+/*LIST VIEW STYLE*/
+.list-view {
+    -fx-background-color: -backgroundTransparent-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0;
+}
+
+.list-view:focused {
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+}
+
+/*LIST CELL STYLE*/
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-opacity: 0.8;
+}
+
+.list-cell:empty:hover{
+    -fx-background-color: transparent;
+}
+
+.list-cell:hover {
+    -fx-background-color: -background-color;
+    -fx-opacity: 1;
+}
+/*LIST CELL STYLE*/
+
+/*LISTVIEW SCROLLBAR STYLE*/
+
+.list-view .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+/*DECREMENT AND INCREMENT BUTTON STYLE*/
+.list-view .scroll-bar .increment-button,
+.list-view .scroll-bar.decrement-button{
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar .increment-button:hover,
+.list-view .scroll-bar .decrement-button:hover{
+    -fx-background-color: transparent;
+}
+
+
+.list-view .scroll-bar .increment-button:hover .increment-arrow,
+.list-view .scroll-bar.decrement-button:hover .decrement-arrow{
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+}
+
+.list-view  .scroll-bar .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+}
+.list-view  .scroll-bar .decrement-arrow
+{
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: none;
+    -fx-rotate: -180;
+}
+/*DECREMENT BUTTONS STYLE*/
+
+.list-view .thumb {
+    -fx-background-radius: 0px;
+    -fx-background-color: #FFFFFF;
+}
+
+.list-view .track {
+
+}
+
+/*LISTVIEW SCROLLBAR STYLE*/
+
+/*LIST VIEW STYLE*/
+
+/*GAME CELL STYLE*/
+.gameCell {
+    -fx-hgap: 10;
+    -fx-padding: 4;
+}
+
+
+.gameListChatGrid {
+    -fx-vgap: 10;
+}
+/*GAME CELL STYLE*/
+
+/*PLAYER CELL STYLE*/
+.playerCell {
+    -fx-hgap: 10;
+}
+/*PLAYER CELL STYLE*/
+
+.createGamePopUp {
+    -fx-background-color: white;
+    -fx-opacity: 1;
+}
+
+.chatContainer {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.2, 0, 0);
+}

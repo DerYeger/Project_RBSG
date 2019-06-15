@@ -27,7 +27,7 @@ public class CreateGameFormBuilder {
 
     public Node getCreateGameForm() throws IOException {
         if(this.createGameForm == null){
-            fxmlLoader.setLocation(CreateGameFormBuilder.class.getResource("create-game-popup.fxml"));
+            fxmlLoader.setLocation(CreateGameFormBuilder.class.getResource("/ui/lobby/create_game/createGame.fxml"));
             createGameForm = fxmlLoader.load();
             createGameController = fxmlLoader.getController();
             createGameController.init();

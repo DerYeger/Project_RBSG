@@ -25,14 +25,14 @@ public class UnitPropertyControllerTest extends ApplicationTest {
     @Test
     public void test() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(UnitPropertyController.class.getResource("/ui/army_builder/UnitPropertyView.fxml"));
+        loader.setLocation(UnitPropertyController.class.getResource("/ui/army_builder/unitPropertyView.fxml"));
         loader.load();
         final UnitPropertyController controller = loader.getController();
         final SimpleIntegerProperty prop = new SimpleIntegerProperty(666);
         controller.bindTo(
             prop,
             new Image(
-                getClass().getResource("/assets/icons/army/magic-defense.png").toString()
+                getClass().getResource("/assets/icons/army/magicDefense.png").toString()
             )
         );
 
