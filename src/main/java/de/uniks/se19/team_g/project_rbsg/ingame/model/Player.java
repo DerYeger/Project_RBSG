@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 public class Player {
 
+    @NonNull
     private final String id;
 
     private Game game;
@@ -81,5 +82,10 @@ public class Player {
     public Player setColor(@NonNull final String color) {
         this.color = color;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + name + ", " + color + ")";
     }
 }

@@ -2,8 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import org.springframework.lang.NonNull;
 
-public enum Type {
-    BAZOOKA("Bazooka"),
+public enum UnitType {
+    BAZOOKA_TROOPER("Bazooka Trooper"),
     CHOPPER("Chopper"),
     HEAVY_TANK("Heavy Tank"),
     INFANTRY("Infantry"),
@@ -12,7 +12,7 @@ public enum Type {
 
     private final String type;
 
-    Type(@NonNull final String type) {
+    UnitType(@NonNull final String type) {
         this.type = type;
     }
 

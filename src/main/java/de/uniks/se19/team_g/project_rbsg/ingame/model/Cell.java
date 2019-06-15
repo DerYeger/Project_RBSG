@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 
 public class Cell {
 
+    @NonNull
     private final String id;
 
     private Game game;

@@ -9,11 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class ModelManager implements GameEventHandler {
 
+    @NonNull
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @NonNull
     private final HashMap<String, Object> objectMap;
 
     private Game game;
@@ -61,16 +64,10 @@ public class ModelManager implements GameEventHandler {
                 initUnit(identifier, data);
                 break;
             case "Forest":
-                initCell(identifier, Biome.FOREST, data);
-                break;
             case "Grass":
-                initCell(identifier, Biome.GRASS, data);
-                break;
             case "Mountain":
-                initCell(identifier, Biome.MOUNTAIN, data);
-                break;
             case "Water":
-                initCell(identifier, Biome.WATER, data);
+                initCell(identifier, Biome.valueOf(type.toUpperCase()), data);
                 break;
             default:
                 logger.debug("Unknown class");
@@ -79,59 +76,78 @@ public class ModelManager implements GameEventHandler {
 
     private void initGame(@NonNull final String identifier, @NonNull final JsonNode data) {
         game = gameWithId(identifier);
-        logger.debug("Game handler not yet implemented: " + data);
+
+        if (data.has("allPlayer")) {
+            final JsonNode players = data.get("allPlayer");
+            if (players.isArray()) {
+                for (final JsonNode player : players) {
+                    game.withPlayer(playerWithId(player.asText()));
+                }
+            }
+        }
+
+        if (data.has("allUnits")) {
+            final JsonNode units = data.get("allUnits");
+            if (units.isArray()) {
+                for (final JsonNode unit : units) {
+                    game.withUnit(unitWithId(unit.asText()));
+                }
+            }
+        }
+
+        logger.debug("Added game: " + game);
     }
 
     private void initPlayer(@NonNull final String identifier, @NonNull final JsonNode data) {
-        if (!data.has("name")
-                || !data.has("color")
-                || !data.has("currentGame")
-                || !data.has("army")) {
-            logger.debug("Player information incomplete");
-            return;
-        }
-
-        final String name = data.get("name").asText();
-        final String color = data.get("color").asText();
-        final String gameIdentifier = data.get("currentGame").asText();
-
         final Player player = playerWithId(identifier);
 
-        player.setGame(gameWithId(gameIdentifier))
-                .setName(name)
-                .setColor(color);
+        if (data.has("currentGame")) player.setGame(gameWithId(data.get("currentGame").asText()));
+        if (data.has("name")) player.setName(data.get("name").asText());
+        if (data.has("color")) player.setColor(data.get("color").asText());
 
-        final JsonNode army = data.get("army");
-        for (final JsonNode unit : army) {
-            player.withUnit(unitWithId(unit.asText()));
+        if (data.has("army")) {
+            final JsonNode army = data.get("army");
+            if (army.isArray()) {
+                for (final JsonNode unit : army) {
+                    player.withUnit(unitWithId(unit.asText()));
+                }
+            }
         }
+
+//        logger.debug("Added player: " + player);
     }
 
     private void initUnit(@NonNull final String identifier, @NonNull final JsonNode data) {
-        logger.debug("Unit handler not yet implemented: " + data);
+        final Unit unit = unitWithId(identifier);
+
+        if (data.has("type")) unit.setUnitType(UnitType.valueOf(data.get("type").asText().toUpperCase().replace(" ", "_")));
+        if (data.has("mp")) unit.setMp(data.get("mp").asInt());
+        if (data.has("hp")) unit.setHp(data.get("hp").asInt());
+        if (data.has("game")) unit.setGame(gameWithId(data.get("game").asText()));
+        if (data.has("leader")) unit.setLeader(playerWithId(data.get("leader").asText()));
+        if (data.has("position")) unit.doSetPosition(cellWithId(data.get("position").asText()));
+
+        if (data.has("canAttack")) {
+            final JsonNode unitTypes = data.get("canAttack");
+            if (unitTypes.isArray()) {
+                final HashSet<UnitType> canAttack = new HashSet<>();
+                for (final JsonNode unitType : unitTypes) {
+                    canAttack.add(UnitType.valueOf(unitType.asText().toUpperCase().replace(" ", "_")));
+                }
+                unit.setCanAttack(canAttack);
+            }
+        }
+
+//        logger.debug("Added unit: " + unit);
     }
 
     private void initCell(@NonNull final String identifier, @NonNull final Biome biome, @NonNull final JsonNode data) {
-        if (!data.has("isPassable")
-                || !data.has("x")
-                || !data.has("y")
-                || !data.has("game")) {
-            logger.debug("Cell information incomplete");
-            return;
-        }
+        final Cell cell = cellWithId(identifier).setBiome(biome);
 
-        final boolean isPassable = data.get("isPassable").asBoolean();
-        final int x = data.get("x").asInt();
-        final int y = data.get("y").asInt();
-        final String gameIdentifier = data.get("game").asText();
-
-        final Cell cell = cellWithId(identifier);
-
-        cell.setGame(gameWithId(gameIdentifier))
-                .setBiome(biome)
-                .setPassable(isPassable)
-                .setX(x)
-                .setY(y);
+        if (data.has("game")) cell.setGame(gameWithId(data.get("game").asText()));
+        if (data.has("isPassable")) cell.setPassable(data.get("isPassable").asBoolean());
+        if (data.has("x")) cell.setX(data.get("x").asInt());
+        if (data.has("y")) cell.setY(data.get("y").asInt());
 
         final Cell left = cellInDirection(data, "left");
         final Cell top = cellInDirection(data, "top");
@@ -143,7 +159,7 @@ public class ModelManager implements GameEventHandler {
                 .setRight(right)
                 .setBottom(bottom);
 
-//        System.out.println(cell);
+//        logger.debug("Added cell:" + cell);
     }
 
     private Cell cellInDirection(@NonNull final JsonNode data, @NonNull final String direction) {

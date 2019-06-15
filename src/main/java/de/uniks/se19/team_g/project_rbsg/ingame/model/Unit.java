@@ -3,10 +3,11 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Unit {
 
+    @NonNull
     private final String id;
 
     private Game game;
@@ -15,12 +16,12 @@ public class Unit {
 
     private Cell position;
 
-    private Type type;
+    private UnitType unitType;
 
     private int mp;
     private int hp;
 
-    private ArrayList<Type> canAttack;
+    private HashSet<UnitType> canAttack;
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -42,8 +43,8 @@ public class Unit {
         return position;
     }
 
-    public Type getType() {
-        return type;
+    public UnitType getUnitType() {
+        return unitType;
     }
 
     public int getMp() {
@@ -54,7 +55,7 @@ public class Unit {
         return hp;
     }
 
-    public ArrayList<Type> getCanAttack() {
+    public HashSet<UnitType> getCanAttack() {
         return canAttack;
     }
 
@@ -65,7 +66,7 @@ public class Unit {
     }
 
     Unit doSetGame(@NonNull final Game game) {
-
+        this.game = game;
         return this;
     }
 
@@ -75,8 +76,8 @@ public class Unit {
         return this;
     }
 
-    public void doSetLeader(@NonNull final Player leader) {
-        this.game = game;
+    void doSetLeader(@NonNull final Player leader) {
+        this.leader = leader;
     }
 
     public Unit setPosition(@Nullable final Cell position) {
@@ -90,8 +91,8 @@ public class Unit {
         this.position = position;
     }
 
-    public Unit setType(@NonNull final Type type) {
-        this.type = type;
+    public Unit setUnitType(@NonNull final UnitType unitType) {
+        this.unitType = unitType;
         return this;
     }
 
@@ -105,8 +106,13 @@ public class Unit {
         return this;
     }
 
-    public Unit setCanAttack(@NonNull final ArrayList<Type> canAttack) {
+    public Unit setCanAttack(@NonNull final HashSet<UnitType> canAttack) {
         this.canAttack = canAttack;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + unitType + ", mp : " + mp + ", hp: " + hp + ")";
     }
 }

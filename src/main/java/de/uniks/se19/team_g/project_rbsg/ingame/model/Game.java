@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 public class Game {
 
+    @NonNull
     private final String id;
 
     private HashSet<Player> players;
@@ -70,7 +71,7 @@ public class Game {
 
     public Game withUnit(@NonNull final Unit unit) {
         doAddUnit(unit);
-        unit.setGame(this);
+        unit.doSetGame(this);
         return this;
     }
 
@@ -86,5 +87,10 @@ public class Game {
 
     void doAddCell(@NonNull final Cell cell) {
         cells.add(cell);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + id + ", " + players.size() + " players, " + units.size() + " units)";
     }
 }
