@@ -7,7 +7,6 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailCont
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.UnitType;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -34,6 +33,8 @@ import java.util.ResourceBundle;
  */
 @Component
 public class SceneController implements Initializable {
+
+    private static final int ICON_SIZE = 40;
 
     public Parent root;
 
@@ -92,12 +93,11 @@ public class SceneController implements Initializable {
         );
 
         musicManager.initButtonIcons(soundButton);
-
         JavaFXUtils.setButtonIcons(
                 leaveButton,
-                getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
-                getClass().getResource("/assets/icons/navigation/arrow-back-white.png"),
-                40
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                SceneController.ICON_SIZE
         );
 
     }

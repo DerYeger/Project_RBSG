@@ -59,7 +59,8 @@ import java.util.concurrent.CompletableFuture;
 @Scope("prototype")
 public class LobbyViewController implements RootController, Terminable, Rincled
 {
-    private static final int iconSize = 30;
+
+    private static final int ICON_SIZE = 30;
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
@@ -182,30 +183,30 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         JavaFXUtils.setButtonIcons(
             createGameButton,
-            getClass().getResource("Images/baseline_add_circle_white_48dp.png"),
-            getClass().getResource("Images/baseline_add_circle_black_48dp.png"),
-            LobbyViewController.iconSize
+            getClass().getResource("/assets/icons/navigation/addCircleWhite.png"),
+            getClass().getResource("/assets/icons/navigation/addCircleBlack.png"),
+            LobbyViewController.ICON_SIZE
         );
         JavaFXUtils.setButtonIcons(
             logoutButton,
-            getClass().getResource("Images/iconfinder_exit_white_2676937.png"),
-            getClass().getResource("Images/iconfinder_exit_black_2676937.png"),
-            LobbyViewController.iconSize
+            getClass().getResource("/assets/icons/navigation/exitWhite.png"),
+            getClass().getResource("/assets/icons/navigation/exitBlack.png"),
+            LobbyViewController.ICON_SIZE
         );
         JavaFXUtils.setButtonIcons(
             armyBuilderLink,
-            getClass().getResource("/assets/icons/army/rally-the-troops_dark_background.png"),
-            getClass().getResource("/assets/icons/army/rally-the-troops_light_background.png"),
-            LobbyViewController.iconSize
+            getClass().getResource("/assets/icons/army/rallyTroopsWhite.png"),
+            getClass().getResource("/assets/icons/army/rallyTroopsBlack.png"),
+            LobbyViewController.ICON_SIZE
         );
 
         musicManager.initButtonIcons(soundButton);
 
         setBackgroundImage();
 
-        Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
-        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 28);
+        Font.loadFont(getClass().getResource("/assets/fonts/retronoid.otf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/assets/fonts/robotoRegular.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
 
@@ -226,7 +227,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private void setBackgroundImage()
     {
-        Image backgroundImage = new Image(String.valueOf(getClass().getResource("splash_darker_verschwommen.jpg")),
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.jpg")),
                                           ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
 
         mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,

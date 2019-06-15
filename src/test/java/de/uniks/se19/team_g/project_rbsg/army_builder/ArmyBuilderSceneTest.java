@@ -52,7 +52,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
         public GetUnitTypesService getUnitTypesService()
         {
             final Unit unit = new Unit();
-            unit.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
+            unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
             unit.name.set("novice");
             final GetUnitTypesService mock = Mockito.mock(GetUnitTypesService.class);
             Mockito.when(mock.queryUnitPrototypes()).thenReturn(CompletableFuture.completedFuture(Collections.singletonList(unit)));
@@ -96,7 +96,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
     {
         Unit unit = new Unit();
         unit.name.set("Archer");
-        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
+        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
         Assert.assertEquals(0, state.unitTypes.size());
 

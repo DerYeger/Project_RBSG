@@ -59,7 +59,7 @@ public class PlayerListViewCell extends ListCell<Player>
             if (fxmlLoader == null)
             {
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("PlayerListCell.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ui/lobby/core/playerListCell.fxml"));
                 fxmlLoader.setController(this);
                 try
                 {
@@ -74,7 +74,7 @@ public class PlayerListViewCell extends ListCell<Player>
 
 
             playerListCellLabel.setText(player.getName());
-            Image image = new Image(String.valueOf(getClass().getResource("Images/" + player.getImagePath())));
+            Image image = new Image(String.valueOf(getClass().getResource(player.getImagePath())));
 
             playerListCellImageView.setImage(image);
 
