@@ -57,9 +57,8 @@ public class GameEventManagerTests {
         public ObjectNode handledMessage;
 
         @Override
-        public boolean handle(@NonNull final ObjectNode message) {
+        public void handle(@NonNull final ObjectNode message) {
             handledMessage = message;
-            return true;
         }
     }
 
