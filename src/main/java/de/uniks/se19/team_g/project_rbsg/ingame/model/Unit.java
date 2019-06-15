@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Unit {
@@ -21,7 +22,7 @@ public class Unit {
     private int mp;
     private int hp;
 
-    private HashSet<UnitType> canAttack;
+    private ArrayList<UnitType> canAttack;
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -55,7 +56,7 @@ public class Unit {
         return hp;
     }
 
-    public HashSet<UnitType> getCanAttack() {
+    public ArrayList<UnitType> getCanAttack() {
         return canAttack;
     }
 
@@ -106,7 +107,7 @@ public class Unit {
         return this;
     }
 
-    public Unit setCanAttack(@NonNull final HashSet<UnitType> canAttack) {
+    public Unit setCanAttack(@NonNull final ArrayList<UnitType> canAttack) {
         this.canAttack = canAttack;
         return this;
     }

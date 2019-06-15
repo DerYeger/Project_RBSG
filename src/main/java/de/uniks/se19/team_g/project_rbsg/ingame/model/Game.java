@@ -3,40 +3,40 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Game {
 
     @NonNull
     private final String id;
 
-    private HashSet<Player> players;
+    private ArrayList<Player> players;
 
-    private HashSet<Unit> units;
+    private ArrayList<Unit> units;
 
-    private HashSet<Cell> cells;
+    private ArrayList<Cell> cells;
 
     public Game(@NonNull final String id) {
         this.id = id;
 
-        players = new HashSet<>();
-        units = new HashSet<>();
-        cells = new HashSet<>();
+        players = new ArrayList<>();
+        units = new ArrayList<>();
+        cells = new ArrayList<>();
     }
 
     public String getId() {
         return id;
     }
 
-    public HashSet<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public HashSet<Unit> getUnits() {
+    public ArrayList<Unit> getUnits() {
         return units;
     }
 
-    public HashSet<Cell> getCells() {
+    public ArrayList<Cell> getCells() {
         return cells;
     }
 
@@ -51,6 +51,7 @@ public class Game {
     }
 
     public Game withPlayer(@NonNull final Player player) {
+        if (players.contains(player)) return this;
         doAddPlayer(player);
         player.doSetGame(this);
         return this;
@@ -70,6 +71,7 @@ public class Game {
     }
 
     public Game withUnit(@NonNull final Unit unit) {
+        if (units.contains(unit)) return this;
         doAddUnit(unit);
         unit.doSetGame(this);
         return this;
@@ -80,6 +82,7 @@ public class Game {
     }
 
     public Game withCell(@NonNull final Cell cell) {
+        if (cells.contains(cell)) return this;
         doAddCell(cell);
         cell.doSetGame(this);
         return this;

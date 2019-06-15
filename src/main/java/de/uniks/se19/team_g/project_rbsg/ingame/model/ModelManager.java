@@ -38,7 +38,10 @@ public class ModelManager implements GameEventHandler {
                 break;
             case "gameInitFinished":
                 logger.debug("Game has " + game.getCells().size() + " cells");
-                logger.debug("Player has " + game.getPlayers().iterator().next().getUnits().size() + " units");
+                final Player firstPlayer = game.getPlayers().get(0);
+                logger.debug(firstPlayer.getName() + " has " + firstPlayer.getUnits().size() + " units");
+                logger.debug(firstPlayer.getName() + "'s first unit has type " + firstPlayer.getUnits().get(0).getUnitType());
+                logger.debug("It can attack " + firstPlayer.getUnits().get(0).getCanAttack());
                 break;
             default:
                 logger.debug("Not a model message");

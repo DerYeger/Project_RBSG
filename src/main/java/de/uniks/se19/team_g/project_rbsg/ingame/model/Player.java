@@ -3,7 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Player {
 
@@ -16,12 +16,12 @@ public class Player {
 
     private String color;
 
-    private HashSet<Unit> units;
+    private ArrayList<Unit> units;
 
     public Player(@NonNull final String id) {
         this.id = id;
 
-        units = new HashSet<>();
+        units = new ArrayList<>();
     }
 
     public String getId() {
@@ -40,7 +40,7 @@ public class Player {
         return color;
     }
 
-    public HashSet<Unit> getUnits() {
+    public ArrayList<Unit> getUnits() {
         return units;
     }
 
@@ -64,6 +64,7 @@ public class Player {
     }
 
     public Player withUnit(@NonNull final Unit unit) {
+        if (units.contains(unit)) return this;
         doAddUnit(unit);
         unit.doSetLeader(this);
         return this;

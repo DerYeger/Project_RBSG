@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class UnitBuilder {
 
@@ -31,7 +31,7 @@ public class UnitBuilder {
         if (data.has("canAttack")) {
             final JsonNode unitTypes = data.get("canAttack");
             if (unitTypes.isArray()) {
-                final HashSet<UnitType> canAttack = new HashSet<>();
+                final ArrayList<UnitType> canAttack = new ArrayList<>();
                 for (final JsonNode unitType : unitTypes) {
                     canAttack.add(UnitType.valueOf(unitType.asText().toUpperCase().replace(" ", "_")));
                 }
