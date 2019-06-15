@@ -37,6 +37,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     public Pane chatPane; // TODO @DerYeger
     public Pane mapPreviewPane; // TODO @DerYeger
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
+    public Pane armyBar; // TODO has to be filled later
     public Button soundButton;
     public Button leaveButton;
     public Button showInfoButton;
