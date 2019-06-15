@@ -9,15 +9,15 @@ import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.UnitType;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +36,11 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
 
     private static final int ICON_SIZE = 40;
 
-    public Parent root;
-
     private final ArmyBuilderState state;
     private final UnitListEntryFactory unitCellFactory;
     private final GetUnitTypesService getUnitTypesService;
+
+    public StackPane root;
     public VBox content;
     public HBox topContentContainer;
     public ListView<Unit> unitListView;
@@ -52,7 +52,6 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
     public Button showInfoButton;
     private UnitPropertyInfoListBuilder unitPropertyInfoListBuilder;
     private Node infoView;
-    public SimpleBooleanProperty infoFlag;
 
     public SceneController(
         ArmyBuilderState state,
@@ -91,7 +90,6 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
         );
 
         setButtonIcons(showInfoButton, "/assets/icons/navigation/info-black.png", "/assets/icons/navigation/info-white.png", ICON_SIZE);
-        infoFlag = new SimpleBooleanProperty(false);
         unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
 
     }
@@ -110,9 +108,10 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
     public void showInfo(ActionEvent actionEvent) {
         if(infoView == null) {
             infoView = unitPropertyInfoListBuilder.buildInfoView();
-            infoView.visibleProperty().bind(infoFlag);
+            root.getChildren().add(infoView);
+            StackPane.setAlignment(infoView, Pos.CENTER);
         }
-        infoFlag.set(true);
+        infoView.setVisible(true);
     }
 
 }
