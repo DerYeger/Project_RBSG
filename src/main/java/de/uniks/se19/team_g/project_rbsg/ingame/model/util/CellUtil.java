@@ -10,32 +10,40 @@ import org.springframework.lang.NonNull;
 
 public class CellUtil {
 
-    @NonNull
+    private static final String GAME = "game";
+    private static final String IS_PASSABLE = "value";
+    private static final String X = "x";
+    private static final String Y = "y";
+    private static final String LEFT = "left";
+    private static final String TOP = "top";
+    private static final String RIGHT = "right";
+    private static final String BOTTOM = "bottom";
+
     private static final Logger logger = LoggerFactory.getLogger(CellUtil.class);
 
     public static Cell buildCell(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
                                  @NonNull final Biome biome,
                                  @NonNull final JsonNode data,
-                                 @NonNull final boolean debug) {
+                                 @NonNull final boolean logging) {
         final Cell cell = modelManager.cellWithId(identifier).setBiome(biome);
 
-        if (data.has("game")) cell.setGame(modelManager.gameWithId(data.get("game").asText()));
-        if (data.has("isPassable")) cell.setPassable(data.get("isPassable").asBoolean());
-        if (data.has("x")) cell.setX(data.get("x").asInt());
-        if (data.has("y")) cell.setY(data.get("y").asInt());
+        if (data.has(GAME)) cell.setGame(modelManager.gameWithId(data.get(GAME).asText()));
+        if (data.has(IS_PASSABLE)) cell.setPassable(data.get(IS_PASSABLE).asBoolean());
+        if (data.has(X)) cell.setX(data.get(X).asInt());
+        if (data.has(Y)) cell.setY(data.get(Y).asInt());
 
-        final Cell left = cellInDirection(modelManager, "left", data);
-        final Cell top = cellInDirection(modelManager, "top",  data);
-        final Cell right = cellInDirection(modelManager, "right",  data);
-        final Cell bottom = cellInDirection(modelManager, "bottom", data);
+        final Cell left = cellInDirection(modelManager, LEFT, data);
+        final Cell top = cellInDirection(modelManager, TOP,  data);
+        final Cell right = cellInDirection(modelManager, RIGHT,  data);
+        final Cell bottom = cellInDirection(modelManager, BOTTOM, data);
 
         cell.setLeft(left)
                 .setTop(top)
                 .setRight(right)
                 .setBottom(bottom);
 
-        if (debug) logger.debug("Added cell:" + cell);
+        if (logging) logger.debug("Added cell:" + cell);
 
         return cell;
     }
@@ -44,7 +52,6 @@ public class CellUtil {
                                         @NonNull final String direction,
                                         @NonNull final JsonNode data) {
         if (!data.has(direction)) return null;
-
         return modelManager.cellWithId(data.get(direction).asText());
     }
 }

@@ -12,34 +12,41 @@ import java.util.ArrayList;
 
 public class UnitUtil {
 
-    @NonNull
+    private static final String TYPE = "type";
+    private static final String MP = "mp";
+    private static final String HP = "hp";
+    private static final String GAME = "game";
+    private static final String LEADER = "leader";
+    private static final String POSITION = "position";
+    private static final String CAN_ATTACK = "canAttack";
+
     private static final Logger logger = LoggerFactory.getLogger(UnitUtil.class);
 
     public static Unit buildUnit(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
                                  @NonNull final JsonNode data,
-                                 @NonNull final boolean debug) {
+                                 @NonNull final boolean logging) {
         final Unit unit = modelManager.unitWithId(identifier);
 
-        if (data.has("type")) unit.setUnitType(UnitType.valueOf(data.get("type").asText().toUpperCase().replace(" ", "_")));
-        if (data.has("mp")) unit.setMp(data.get("mp").asInt());
-        if (data.has("hp")) unit.setHp(data.get("hp").asInt());
-        if (data.has("game")) unit.setGame(modelManager.gameWithId(data.get("game").asText()));
-        if (data.has("leader")) unit.setLeader(modelManager.playerWithId(data.get("leader").asText()));
-        if (data.has("position")) unit.setPosition(modelManager.cellWithId(data.get("position").asText()));
+        if (data.has(TYPE)) unit.setUnitType(StringToEnum.unitType(data.get(TYPE).asText()));
+        if (data.has(MP)) unit.setMp(data.get(MP).asInt());
+        if (data.has(HP)) unit.setHp(data.get(HP).asInt());
+        if (data.has(GAME)) unit.setGame(modelManager.gameWithId(data.get(GAME).asText()));
+        if (data.has(LEADER)) unit.setLeader(modelManager.playerWithId(data.get(LEADER).asText()));
+        if (data.has(POSITION)) unit.setPosition(modelManager.cellWithId(data.get(POSITION).asText()));
 
-        if (data.has("canAttack")) {
-            final JsonNode unitTypes = data.get("canAttack");
+        if (data.has(CAN_ATTACK)) {
+            final JsonNode unitTypes = data.get(CAN_ATTACK);
             if (unitTypes.isArray()) {
                 final ArrayList<UnitType> canAttack = new ArrayList<>();
                 for (final JsonNode unitType : unitTypes) {
-                    canAttack.add(UnitType.valueOf(unitType.asText().toUpperCase().replace(" ", "_")));
+                    canAttack.add(StringToEnum.unitType(unitType.asText()));
                 }
                 unit.setCanAttack(canAttack);
             }
         }
 
-        if (debug) logger.debug("Added unit: " + unit);
+        if (logging) logger.debug("Added unit: " + unit);
 
         return unit;
     }

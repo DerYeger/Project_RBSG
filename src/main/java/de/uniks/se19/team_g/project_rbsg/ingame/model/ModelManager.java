@@ -3,10 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.CellUtil;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.GameUtil;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.PlayerUtil;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.UnitUtil;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,19 +61,19 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Game":
-                game = GameUtil.buildGame(this, identifier, data, true);
+                game = GameUtil.buildGame(this, identifier, data, false);
                 break;
             case "Player":
-                PlayerUtil.buildPlayer(this, identifier, data, true);
+                PlayerUtil.buildPlayer(this, identifier, data, false);
                 break;
             case "Unit":
-                UnitUtil.buildUnit(this, identifier, data, true);
+                UnitUtil.buildUnit(this, identifier, data, false);
                 break;
             case "Forest":
             case "Grass":
             case "Mountain":
             case "Water":
-                CellUtil.buildCell(this, identifier, Biome.valueOf(type.toUpperCase()), data, false);
+                CellUtil.buildCell(this, identifier, StringToEnum.biome(type), data, false);
                 break;
             default:
                 logger.debug("Unknown class");

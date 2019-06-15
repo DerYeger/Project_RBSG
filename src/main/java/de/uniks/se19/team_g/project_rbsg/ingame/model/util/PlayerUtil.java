@@ -9,21 +9,25 @@ import org.springframework.lang.NonNull;
 
 public class PlayerUtil {
 
-    @NonNull
+    private static final String CURRENT_GAME = "currentGame";
+    private static final String NAME = "name";
+    private static final String COLOR = "color";
+    private static final String ARMY = "army";
+
     private static final Logger logger = LoggerFactory.getLogger(PlayerUtil.class);
 
     public static Player buildPlayer(@NonNull final ModelManager modelManager,
                                      @NonNull final String identifier,
                                      @NonNull final JsonNode data,
-                                     @NonNull final boolean debug) {
+                                     @NonNull final boolean logging) {
         final Player player = modelManager.playerWithId(identifier);
 
-        if (data.has("currentGame")) player.setGame(modelManager.gameWithId(data.get("currentGame").asText()));
-        if (data.has("name")) player.setName(data.get("name").asText());
-        if (data.has("color")) player.setColor(data.get("color").asText());
+        if (data.has(CURRENT_GAME)) player.setGame(modelManager.gameWithId(data.get(CURRENT_GAME).asText()));
+        if (data.has(NAME)) player.setName(data.get(NAME).asText());
+        if (data.has(COLOR)) player.setColor(data.get(COLOR).asText());
 
-        if (data.has("army")) {
-            final JsonNode army = data.get("army");
+        if (data.has(ARMY)) {
+            final JsonNode army = data.get(ARMY);
             if (army.isArray()) {
                 for (final JsonNode unit : army) {
                     player.withUnit(modelManager.unitWithId(unit.asText()));
@@ -31,7 +35,7 @@ public class PlayerUtil {
             }
         }
 
-        if (debug) logger.debug("Added player: " + player);
+        if (logging) logger.debug("Added player: " + player);
 
         return player;
     }

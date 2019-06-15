@@ -5,21 +5,23 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;;
+import org.springframework.lang.NonNull;
 
 public class GameUtil {
 
-    @NonNull
+    private static final String ALL_PLAYER = "allPlayer";
+    private static final String ALL_UNITS = "allUnits";
+
     private static final Logger logger = LoggerFactory.getLogger(GameUtil.class);
 
     public static Game buildGame(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
                                  @NonNull final JsonNode data,
-                                 @NonNull final boolean debug) {
+                                 @NonNull final boolean logging) {
         final Game game = modelManager.gameWithId(identifier);
 
-        if (data.has("allPlayer")) {
-            final JsonNode players = data.get("allPlayer");
+        if (data.has(ALL_PLAYER)) {
+            final JsonNode players = data.get(ALL_PLAYER);
             if (players.isArray()) {
                 for (final JsonNode player : players) {
                     game.withPlayer(modelManager.playerWithId(player.asText()));
@@ -27,8 +29,8 @@ public class GameUtil {
             }
         }
 
-        if (data.has("allUnits")) {
-            final JsonNode units = data.get("allUnits");
+        if (data.has(ALL_UNITS)) {
+            final JsonNode units = data.get(ALL_UNITS);
             if (units.isArray()) {
                 for (final JsonNode unit : units) {
                     game.withUnit(modelManager.unitWithId(unit.asText()));
@@ -36,7 +38,7 @@ public class GameUtil {
             }
         }
 
-        if (debug) logger.debug("Added game: " + game);
+        if (logging) logger.debug("Added game: " + game);
 
         return game;
     }
