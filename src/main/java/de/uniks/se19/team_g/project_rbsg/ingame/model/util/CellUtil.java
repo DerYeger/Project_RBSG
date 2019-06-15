@@ -22,7 +22,7 @@ public class CellUtil {
     private static final String RIGHT = "right";
     private static final String BOTTOM = "bottom";
 
-    private static final Logger logger = LoggerFactory.getLogger(CellUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CellUtil.class);
 
     public static Cell buildCell(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
@@ -46,7 +46,7 @@ public class CellUtil {
                 .setRight(right)
                 .setBottom(bottom);
 
-        if (logging) logger.debug("Added cell:" + cell);
+        if (logging) LOGGER.debug("Added cell:" + cell);
 
         return cell;
     }

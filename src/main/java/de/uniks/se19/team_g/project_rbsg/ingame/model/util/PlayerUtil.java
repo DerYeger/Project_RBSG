@@ -17,7 +17,7 @@ public class PlayerUtil {
     private static final String COLOR = "color";
     private static final String ARMY = "army";
 
-    private static final Logger logger = LoggerFactory.getLogger(PlayerUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerUtil.class);
 
     public static Player buildPlayer(@NonNull final ModelManager modelManager,
                                      @NonNull final String identifier,
@@ -38,7 +38,7 @@ public class PlayerUtil {
             }
         }
 
-        if (logging) logger.debug("Added player: " + player);
+        if (logging) LOGGER.debug("Added player: " + player);
 
         return player;
     }

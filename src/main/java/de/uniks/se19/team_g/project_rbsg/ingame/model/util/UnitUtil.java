@@ -23,7 +23,7 @@ public class UnitUtil {
     private static final String POSITION = "position";
     private static final String CAN_ATTACK = "canAttack";
 
-    private static final Logger logger = LoggerFactory.getLogger(UnitUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UnitUtil.class);
 
     public static Unit buildUnit(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
@@ -49,7 +49,7 @@ public class UnitUtil {
             }
         }
 
-        if (logging) logger.debug("Added unit: " + unit);
+        if (logging) LOGGER.debug("Added unit: " + unit);
 
         return unit;
     }

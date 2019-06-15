@@ -15,7 +15,7 @@ public class GameUtil {
     private static final String ALL_PLAYER = "allPlayer";
     private static final String ALL_UNITS = "allUnits";
 
-    private static final Logger logger = LoggerFactory.getLogger(GameUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameUtil.class);
 
     public static Game buildGame(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
@@ -41,7 +41,7 @@ public class GameUtil {
             }
         }
 
-        if (logging) logger.debug("Added game: " + game);
+        if (logging) LOGGER.debug("Added game: " + game);
 
         return game;
     }
