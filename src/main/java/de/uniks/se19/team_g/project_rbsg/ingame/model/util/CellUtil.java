@@ -8,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
-public class CellBuilder {
+public class CellUtil {
 
     @NonNull
-    private static final Logger logger = LoggerFactory.getLogger(CellBuilder.class);
+    private static final Logger logger = LoggerFactory.getLogger(CellUtil.class);
 
     public static Cell buildCell(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,

@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;;
 
-public class GameBuilder {
+public class GameUtil {
 
     @NonNull
-    private static final Logger logger = LoggerFactory.getLogger(GameBuilder.class);
+    private static final Logger logger = LoggerFactory.getLogger(GameUtil.class);
 
     public static Game buildGame(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,

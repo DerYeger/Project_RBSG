@@ -10,10 +10,10 @@ import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 
-public class UnitBuilder {
+public class UnitUtil {
 
     @NonNull
-    private static final Logger logger = LoggerFactory.getLogger(UnitBuilder.class);
+    private static final Logger logger = LoggerFactory.getLogger(UnitUtil.class);
 
     public static Unit buildUnit(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
