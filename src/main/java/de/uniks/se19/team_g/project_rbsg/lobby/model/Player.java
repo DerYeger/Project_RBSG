@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 public class Player
 {
-    private static final String defaultImagePath = "/assets/icons/navigation/account-white.png";
+    private static final String defaultImagePath = "/assets/icons/navigation/accountWhite.png";
     private String name;
     private String imagePath;
 

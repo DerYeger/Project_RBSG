@@ -9,7 +9,7 @@
  @author Keanu Stückrad
  !-->
 
-<AnchorPane fx:id="root" stylesheets="@waiting-room-view.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
+<AnchorPane fx:id="root" stylesheets="@waitingRoomView.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
     <children>
         <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" styleClass="default-button" />
         <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" styleClass="default-button" />

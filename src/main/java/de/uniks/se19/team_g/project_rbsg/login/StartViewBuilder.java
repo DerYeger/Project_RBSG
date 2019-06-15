@@ -25,7 +25,7 @@ public class StartViewBuilder {
 
     public Node getStartView() throws IOException {
         if (startView == null) {
-            fxmlLoader.setLocation(LoginFormBuilder.class.getResource("/ui/login/start-view.fxml"));
+            fxmlLoader.setLocation(LoginFormBuilder.class.getResource("/ui/login/startView.fxml"));
             startView = fxmlLoader.load();
             final StartViewController startViewController = fxmlLoader.getController();
             startViewController.init();

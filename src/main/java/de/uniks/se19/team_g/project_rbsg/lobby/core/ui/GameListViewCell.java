@@ -65,7 +65,7 @@ public class GameListViewCell extends ListCell<Game>
         else {
             if(fxmlLoader == null) {
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ui/lobby/core/game-list-cell.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ui/lobby/core/gameListCell.fxml"));
                 fxmlLoader.setController(this);
 
                 try
@@ -84,10 +84,10 @@ public class GameListViewCell extends ListCell<Game>
             playersLabel.setText(String.format("%d/%d", game.getJoinedPlayer(), game.getNeededPlayer()));
             playersLabel.setId("gameCellPlayersLabel" + game.getName());
 
-            Image gameImage = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/videogame-white.png")));
+            Image gameImage = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/videogameWhite.png")));
             gameImageView.setImage(gameImage);
 
-            Image playersImage = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/group-white.png")));
+            Image playersImage = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/groupWhite.png")));
             playersImageView.setImage(playersImage);
 
 
@@ -106,8 +106,8 @@ public class GameListViewCell extends ListCell<Game>
             joinImageViewNonHover.setFitHeight(40);
             joinImageViewNonHover.setFitWidth(40);
 
-            joinImageViewHover.setImage(new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/last-page-black.png"))));
-            joinImageViewNonHover.setImage(new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/last-page-white.png"))));
+            joinImageViewHover.setImage(new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/lastPageBlack.png"))));
+            joinImageViewNonHover.setImage(new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/lastPageWhite.png"))));
 
             joinButton.graphicProperty().bind(Bindings.when(joinButton.hoverProperty())
                                                       .then(joinImageViewHover)

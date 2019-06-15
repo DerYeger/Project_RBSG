@@ -13,7 +13,7 @@
  @author Keanu Stückrad
  !-->
 
-<GridPane stylesheets="@waiting-room-view.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane stylesheets="@waitingRoomView.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints fx:id="column0" halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
         <ColumnConstraints fx:id="column1" halignment="LEFT" hgrow="ALWAYS" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />

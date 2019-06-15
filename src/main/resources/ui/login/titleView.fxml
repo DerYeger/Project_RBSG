@@ -12,12 +12,12 @@
    <children>
       <StackPane>
          <children>
-            <Label fx:id="title" alignment="CENTER" styleClass="title" stylesheets="@title-view.css" text="RBSG" />
+            <Label fx:id="title" alignment="CENTER" styleClass="title" stylesheets="@titleView.css" text="RBSG" />
          </children>
       </StackPane>
       <StackPane>
          <children>
-            <Label fx:id="subtitle" alignment="CENTER" styleClass="subtitle" stylesheets="@title-view.css" text="Advanced Wars" />
+            <Label fx:id="subtitle" alignment="CENTER" styleClass="subtitle" stylesheets="@titleView.css" text="Advanced Wars" />
          </children>
       </StackPane>
    </children>

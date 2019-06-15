@@ -7,7 +7,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -17,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -41,7 +39,7 @@ public class PlayerCardBuilder {
 
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/waiting_room/player-card.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/waiting_room/playerCard.fxml"));
             fxmlLoader.setController(this);
             try {
                 playerCardView = fxmlLoader.load();
@@ -58,7 +56,7 @@ public class PlayerCardBuilder {
         progressTimeline.setCycleCount(Animation.INDEFINITE);
         progressTimeline.play();
 
-        Image image = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/account-white.png")));
+        Image image = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/accountWhite.png")));
         playerListCellImageView.setImage(image);
 
         setEmpty();

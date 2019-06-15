@@ -1,10 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +24,7 @@ public class WaitingRoomViewBuilder {
 
     private FXMLLoader getLoader() {
         FXMLLoader loader = fxmlLoaderFactory.fxmlLoader();
-        loader.setLocation(getClass().getResource("/ui/waiting_room/waiting-room-view.fxml"));
+        loader.setLocation(getClass().getResource("/ui/waiting_room/waitingRoomView.fxml"));
         return loader;
     }
 

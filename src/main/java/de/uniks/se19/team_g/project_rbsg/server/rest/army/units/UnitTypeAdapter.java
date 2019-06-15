@@ -8,8 +8,8 @@ public class UnitTypeAdapter {
 
     public Unit map(UnitType unitType) {
         final Unit unit = new Unit();
-        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
-        unit.imageUrl.set(getClass().getResource("/assets/sprites/Soldier.png").toString());
+        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
+        unit.imageUrl.set(getClass().getResource("/assets/sprites/soldier.png").toString());
         unit.name.set(unitType.type);
         unit.description.set(unitType.id);
         unit.speed.set(unitType.mp);

@@ -76,14 +76,14 @@ public class WaitingRoomViewController implements RootController, Terminable {
         setAsRootController();
         JavaFXUtils.setButtonIcons(
                 leaveButton,
-                getClass().getResource("/assets/icons/navigation/arrow-back-black.png"),
-                getClass().getResource("/assets/icons/navigation/arrow-back-white.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
                 ICON_SIZE
         );
         JavaFXUtils.setButtonIcons(
                 showInfoButton,
-                getClass().getResource("/assets/icons/navigation/info-black.png"),
-                getClass().getResource("/assets/icons/navigation/info-white.png"),
+                getClass().getResource("/assets/icons/navigation/infoBlack.png"),
+                getClass().getResource("/assets/icons/navigation/infoWhite.png"),
                 ICON_SIZE
         );
         musicManager.initButtonIcons(soundButton);

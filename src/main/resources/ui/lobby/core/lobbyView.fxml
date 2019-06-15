@@ -94,7 +94,7 @@
       </GridPane>
    </children>
    <stylesheets>
-      <URL value="@lobby-view.css" />
-      <URL value="@../../dark-theme.css" />
+      <URL value="@lobbyView.css" />
+      <URL value="@../../darkTheme.css" />
    </stylesheets>
 </StackPane>

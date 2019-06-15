@@ -13,11 +13,11 @@ import java.net.URL;
 @Component
 public class MusicManager {
 
-    private URL musicNoteBlack = getClass().getResource("/assets/icons/navigation/music-note-black.png");
-    private URL musicNoteWhite = getClass().getResource("/assets/icons/navigation/music-note-white.png");
-    private URL musicNoteBlackOff = getClass().getResource("/assets/icons/navigation/music-off-black.png");
-    private URL musicNoteWhiteOff = getClass().getResource("/assets/icons/navigation/music-off-white.png");
-    private URL music = getClass().getResource("/assets/music/simple-8bit-loop.mp3");
+    private URL musicNoteBlack = getClass().getResource("/assets/icons/navigation/musicNoteBlack.png");
+    private URL musicNoteWhite = getClass().getResource("/assets/icons/navigation/musicNoteWhite.png");
+    private URL musicNoteBlackOff = getClass().getResource("/assets/icons/navigation/musicOffBlack.png");
+    private URL musicNoteWhiteOff = getClass().getResource("/assets/icons/navigation/musicOffWhite.png");
+    private URL music = getClass().getResource("/assets/music/simple8BitLoop.mp3");
 
     private AudioClip audioClip = new AudioClip(music.toString());
     private static final int ICON_SIZE = 40;

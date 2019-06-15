@@ -59,7 +59,7 @@ public class PlayerListViewCell extends ListCell<Player>
             if (fxmlLoader == null)
             {
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ui/lobby/core/player-list-cell.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ui/lobby/core/playerListCell.fxml"));
                 fxmlLoader.setController(this);
                 try
                 {

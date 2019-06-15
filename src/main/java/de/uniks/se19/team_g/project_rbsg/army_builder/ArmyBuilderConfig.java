@@ -20,21 +20,21 @@ public class ArmyBuilderConfig {
     @Scope("prototype")
     public ViewComponent<SceneController> armyBuilderScene(FXMLLoader fxmlLoader)
     {
-        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/ArmyBuilderScene.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/armyBuilderScene.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 
     @Bean
     @Scope("prototype")
     public ViewComponent<UnitPropertyController> unitProperty(FXMLLoader fxmlLoader) {
-        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/UnitPropertyView.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/unitPropertyView.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 
     @Bean
     @Scope("prototype")
     public ViewComponent<UnitDetailController> unitDetail(FXMLLoader fxmlLoader) {
-        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/UnitDetailView.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/unitDetailView.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 

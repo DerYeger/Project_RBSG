@@ -183,20 +183,20 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         JavaFXUtils.setButtonIcons(
             createGameButton,
-            getClass().getResource("/assets/icons/navigation/add-circle-white.png"),
-            getClass().getResource("/assets/icons/navigation/add-circle-black.png"),
+            getClass().getResource("/assets/icons/navigation/addCircleWhite.png"),
+            getClass().getResource("/assets/icons/navigation/addCircleBlack.png"),
             LobbyViewController.ICON_SIZE
         );
         JavaFXUtils.setButtonIcons(
             logoutButton,
-            getClass().getResource("/assets/icons/navigation/exit-white.png"),
-            getClass().getResource("/assets/icons/navigation/exit-black.png"),
+            getClass().getResource("/assets/icons/navigation/exitWhite.png"),
+            getClass().getResource("/assets/icons/navigation/exitBlack.png"),
             LobbyViewController.ICON_SIZE
         );
         JavaFXUtils.setButtonIcons(
             armyBuilderLink,
-            getClass().getResource("/assets/icons/army/rally-the-troops_dark_background.png"),
-            getClass().getResource("/assets/icons/army/rally-the-troops_light_background.png"),
+            getClass().getResource("/assets/icons/army/rallyTroopsWhite.png"),
+            getClass().getResource("/assets/icons/army/rallyTroopsBlack.png"),
             LobbyViewController.ICON_SIZE
         );
 
@@ -205,8 +205,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         setBackgroundImage();
 
         Font.loadFont(getClass().getResource("/assets/fonts/retronoid.otf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("/assets/fonts/roboto-regular.ttf").toExternalForm(), 16);
-        Font.loadFont(getClass().getResource("/assets/fonts/cinzel-regular.ttf").toExternalForm(), 28);
+        Font.loadFont(getClass().getResource("/assets/fonts/robotoRegular.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
 

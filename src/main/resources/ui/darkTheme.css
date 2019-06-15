@@ -23,12 +23,12 @@
 
 @font-face {
     font-family: 'Roboto-Regular';
-    src: url("/assets/fonts/roboto-regular.ttf") format("truetype");
+    src: url("/assets/fonts/robotoRegular.ttf") format("truetype");
 }
 
 @font-face {
     font-family: 'Roboto-Medium';
-    src: url("/assets/fonts/roboto-medium.ttf") format("truetype");
+    src: url("/assets/fonts/robotoMedium.ttf") format("truetype");
 }
 
 * {

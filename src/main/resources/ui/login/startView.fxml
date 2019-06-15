@@ -9,7 +9,7 @@
  @author Keanu Stückrad
  !-->
 
-<AnchorPane fx:id="root" stylesheets="@start-view.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.StartViewController">
+<AnchorPane fx:id="root" stylesheets="@startView.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.StartViewController">
    <children>
        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
              <children>

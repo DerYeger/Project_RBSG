@@ -19,7 +19,7 @@
         </HBox.margin>
       <Pane prefHeight="200.0" prefWidth="200.0" styleClass="elevation-2" />
         <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../../assets/sprites/Soldier.png" />
+            <Image url="@../../assets/sprites/soldier.png" />
         </ImageView>
     </StackPane>
     <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
@@ -66,8 +66,8 @@
       </TextArea>
     </VBox>
    <stylesheets>
-      <URL value="@../dark-theme.css" />
-      <URL value="@UnitDetailView.css" />
+      <URL value="@../darkTheme.css" />
+      <URL value="@unitDetailView.css" />
    </stylesheets>
    <styleClass>
       <String fx:value="root-background-color" />
