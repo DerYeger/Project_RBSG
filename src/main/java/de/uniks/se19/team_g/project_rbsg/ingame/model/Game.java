@@ -5,6 +5,9 @@ import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * @author Jan Müller
+ */
 public class Game {
 
     @NonNull

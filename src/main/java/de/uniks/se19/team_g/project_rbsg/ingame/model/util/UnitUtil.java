@@ -10,6 +10,9 @@ import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 
+/**
+ * @author Jan Müller
+ */
 public class UnitUtil {
 
     private static final String TYPE = "type";

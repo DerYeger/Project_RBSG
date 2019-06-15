@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
+/**
+ * @author Jan Müller
+ */
 public class PlayerUtil {
 
     private static final String CURRENT_GAME = "currentGame";

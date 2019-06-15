@@ -11,6 +11,9 @@ import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
 
+/**
+ * @author Jan Müller
+ */
 public class ModelManager implements GameEventHandler {
 
     @NonNull

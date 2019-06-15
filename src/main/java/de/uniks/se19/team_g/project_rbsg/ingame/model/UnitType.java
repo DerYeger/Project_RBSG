@@ -2,6 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import org.springframework.lang.NonNull;
 
+/**
+ * @author Jan Müller
+ */
 public enum UnitType {
     BAZOOKA_TROOPER("Bazooka Trooper"),
     CHOPPER("Chopper"),
