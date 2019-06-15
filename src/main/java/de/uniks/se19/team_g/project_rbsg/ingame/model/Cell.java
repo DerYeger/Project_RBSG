@@ -144,6 +144,7 @@ public class Cell {
     }
 
     public Cell setUnit(@Nullable final Unit unit) {
+        if (this.unit == unit) return this;
         if (this.unit != null) this.unit.setPosition(null);
         doSetUnit(unit);
         if (unit != null) unit.doSetPosition(this);

@@ -37,11 +37,14 @@ public class ModelManager implements GameEventHandler {
                 handleInit(node);
                 break;
             case "gameInitFinished":
+                //FOR DEMONSTRATION
                 logger.debug("Game has " + game.getCells().size() + " cells");
                 final Player firstPlayer = game.getPlayers().get(0);
                 logger.debug(firstPlayer.getName() + " has " + firstPlayer.getUnits().size() + " units");
                 logger.debug(firstPlayer.getName() + "'s first unit has type " + firstPlayer.getUnits().get(0).getUnitType());
                 logger.debug("It can attack " + firstPlayer.getUnits().get(0).getCanAttack());
+                logger.debug("Its position is " + firstPlayer.getUnits().get(0).getPosition());
+                //END
                 break;
             default:
                 logger.debug("Not a model message");
@@ -98,12 +101,9 @@ public class ModelManager implements GameEventHandler {
 
     @NonNull
     private Tuple<String, String> splitIdentifier(@NonNull final String identifier) {
-        final int id_index = identifier.indexOf('@');
-
-        final String type = identifier.substring(0, id_index);
-
-        final String id = identifier.substring(id_index + 1);
-
-        return new Tuple<>(type, id);
+        final int at_index = identifier.indexOf('@');
+        final String clazz = identifier.substring(0, at_index);
+        final String code = identifier.substring(at_index + 1);
+        return new Tuple<>(clazz, code);
     }
 }

@@ -71,6 +71,7 @@ public class Unit {
     }
 
     public Unit setLeader(@NonNull final Player leader) {
+        if (this.leader == leader) return this;
         doSetLeader(leader);
         leader.doAddUnit(this);
         return this;
@@ -81,7 +82,8 @@ public class Unit {
     }
 
     public Unit setPosition(@Nullable final Cell position) {
-        if (this.position != null) this.position.doSetUnit(null);
+        if (this.position == position) return this;
+        if (this.position != null) this.position.setUnit(null);
         doSetPosition(position);
         if (position != null) position.doSetUnit(this);
         return this;
