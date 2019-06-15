@@ -21,6 +21,8 @@ public class Cell {
     private Cell right;
     private Cell bottom;
 
+    private Unit unit;
+
     public Cell(@NonNull final String id) {
         this.id = id;
     }
@@ -65,13 +67,17 @@ public class Cell {
         return bottom;
     }
 
+    public Unit getUnit() {
+        return unit;
+    }
+
     public Cell setGame(@NonNull final Game game) {
         doSetGame(game);
         game.withCell(this);
         return this;
     }
 
-    public Cell doSetGame(@NonNull final Game game) {
+    Cell doSetGame(@NonNull final Game game) {
         this.game = game;
         return this;
     }
@@ -102,7 +108,7 @@ public class Cell {
         return this;
     }
 
-    public void doSetLeft(@Nullable final Cell left) {
+    private void doSetLeft(@Nullable final Cell left) {
         this.left = left;
     }
 
@@ -112,7 +118,7 @@ public class Cell {
         return this;
     }
 
-    public void doSetTop(@Nullable final Cell top) {
+    private void doSetTop(@Nullable final Cell top) {
         this.top = top;
     }
 
@@ -122,7 +128,7 @@ public class Cell {
         return this;
     }
 
-    public void doSetRight(@Nullable final Cell right) {
+    private void doSetRight(@Nullable final Cell right) {
         this.right = right;
     }
 
@@ -132,8 +138,19 @@ public class Cell {
         return this;
     }
 
-    public void doSetBottom(@Nullable final Cell bottom) {
+    private void doSetBottom(@Nullable final Cell bottom) {
         this.bottom = bottom;
+    }
+
+    public Cell setUnit(@Nullable final Unit unit) {
+        if (this.unit != null) this.unit.setPosition(null);
+        doSetUnit(unit);
+        if (unit != null) unit.doSetPosition(this);
+        return this;
+    }
+
+    void doSetUnit(@Nullable final Unit unit) {
+        this.unit = unit;
     }
 
     @Override
