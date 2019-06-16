@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.concurrent.CompletionStage;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class ArmyManager {
@@ -18,7 +18,7 @@ public class ArmyManager {
     }
 
     @Nonnull
-    public CompletionStage<List<Army>> getArmies() {
+    public CompletableFuture<List<Army>> getArmies() {
         return getArmiesService.queryArmies();
     }
 }

@@ -9,7 +9,6 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,7 +25,7 @@ public class GetArmiesService {
         this.armyAdapter = armyAdapter;
     }
 
-    public CompletionStage<List<Army>> queryArmies() {
+    public CompletableFuture<List<Army>> queryArmies() {
         return CompletableFuture.supplyAsync(this::doQueryArmies);
     }
 
