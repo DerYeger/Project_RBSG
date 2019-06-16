@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
@@ -37,7 +38,8 @@ import java.util.concurrent.CompletableFuture;
         UnitDetailController.class,
         UnitListEntryFactory.class,
         UnitListEntryController.class,
-        ArmyBuilderViewTest.ContextConfiguration.class
+        ArmyBuilderViewTest.ContextConfiguration.class,
+        ApplicationState.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
 
@@ -60,7 +62,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     public ApplicationContext context;
 
     @Autowired
-    public ArmyBuilderState state;
+    public ApplicationState state;
     private Stage stage;
 
     @Override
@@ -94,11 +96,11 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         unit.name.set("Archer");
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
-        Assert.assertEquals(0, state.unitTypes.size());
+        Assert.assertEquals(0, state.unitTypeDefinitions.size());
 
         @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
                 = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
-        Assert.assertEquals(1, state.unitTypes.size());
+        Assert.assertEquals(1, state.unitTypeDefinitions.size());
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));
@@ -107,12 +109,12 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         Assert.assertEquals(1, lookup(".list-cell #imageView").queryAll().size());
 
-        Platform.runLater(() -> state.unitTypes.add(unit));
+        Platform.runLater(() -> state.unitTypeDefinitions.add(unit));
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(2, lookup(".list-cell #imageView").queryAll().size());
 
-        Platform.runLater(() -> state.unitTypes.clear());
+        Platform.runLater(() -> state.unitTypeDefinitions.clear());
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(0, lookup(".list-cell #imageView").queryAll().size());

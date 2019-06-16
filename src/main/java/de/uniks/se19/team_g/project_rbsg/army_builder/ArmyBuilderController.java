@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
@@ -13,7 +14,6 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -41,7 +41,7 @@ public class ArmyBuilderController implements Initializable {
     public Parent root;
 
     @Nonnull
-    private final ArmyBuilderState state;
+    private final ApplicationState appState;
     @Nullable
     private final Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory;
     @Nonnull
@@ -67,15 +67,15 @@ public class ArmyBuilderController implements Initializable {
 
 
     public ArmyBuilderController(
-            @Nonnull ArmyBuilderState state,
+            @Nonnull ApplicationState appState,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
-            @Nullable Function<HBox,ViewComponent<ArmyDetailController>> armyDetaiLFactory,
+            @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
             @Nonnull UnitListEntryFactory unitCellFactory,
             @Nullable GetUnitTypesService getUnitTypesService,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager
     ) {
-        this.state = state;
+        this.appState = appState;
         this.armyDetaiLFactory = armyDetaiLFactory;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
@@ -88,7 +88,7 @@ public class ArmyBuilderController implements Initializable {
     public void initialize(URL location, ResourceBundle resources)
     {
         unitListView.setCellFactory(unitCellFactory);
-        unitListView.setItems(state.unitTypes);
+        unitListView.setItems(appState.unitTypeDefinitions);
 
         if (armyDetaiLFactory != null) {
             armyDetaiLFactory.apply(bottomContentContainer);
@@ -102,7 +102,7 @@ public class ArmyBuilderController implements Initializable {
         if (getUnitTypesService != null) {
             getUnitTypesService.queryUnitPrototypes().thenAccept(
                 unitTypes -> Platform.runLater(() ->
-                    state.unitTypes.setAll(unitTypes)
+                    appState.unitTypeDefinitions.setAll(unitTypes)
                 )
             );
         }
