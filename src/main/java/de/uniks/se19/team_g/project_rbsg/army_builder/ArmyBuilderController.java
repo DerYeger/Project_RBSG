@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
@@ -12,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -37,18 +39,26 @@ public class ArmyBuilderController implements Initializable {
 
     public Parent root;
 
-    @Nonnull private final ArmyBuilderState state;
-    @Nonnull private final UnitListEntryFactory unitCellFactory;
-    @Nullable private final GetUnitTypesService getUnitTypesService;
-    @Nullable private final MusicManager musicManager;
-    @Nullable private final SceneManager sceneManager;
-    @Nullable private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
+    @Nonnull
+    private final ArmyBuilderState state;
+    @Nullable
+    private final ViewComponent<ArmyDetailController> armyDetaiLView;
+    @Nonnull
+    private final UnitListEntryFactory unitCellFactory;
+    @Nullable
+    private final GetUnitTypesService getUnitTypesService;
+    @Nullable
+    private final MusicManager musicManager;
+    @Nullable
+    private final SceneManager sceneManager;
+    @Nullable
+    private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
 
     public VBox content;
     public HBox topContentContainer;
     public ListView<Unit> unitListView;
     public Pane unitDetailView;
-    public VBox armyView;
+    public Pane bottomContentContainer;
     public VBox sideBarRight;
     public VBox sideBarLeft;
     public Button soundButton;
@@ -58,12 +68,14 @@ public class ArmyBuilderController implements Initializable {
     public ArmyBuilderController(
             @Nonnull ArmyBuilderState state,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
+            @Nullable ViewComponent<ArmyDetailController> armyDetaiLView,
             @Nonnull UnitListEntryFactory unitCellFactory,
             @Nullable GetUnitTypesService getUnitTypesService,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager
     ) {
         this.state = state;
+        this.armyDetaiLView = armyDetaiLView;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
         this.musicManager = musicManager;
@@ -76,6 +88,10 @@ public class ArmyBuilderController implements Initializable {
     {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(state.unitTypes);
+
+        if (armyDetaiLView != null) {
+            bottomContentContainer.getChildren().setAll(armyDetaiLView.<Node>getRoot());
+        }
 
         if (unitDetailViewFactory != null) {
             final ViewComponent<UnitDetailController> viewComponent = unitDetailViewFactory.getObject();

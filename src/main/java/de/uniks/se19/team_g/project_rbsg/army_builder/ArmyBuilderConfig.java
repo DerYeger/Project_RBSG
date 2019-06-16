@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +36,13 @@ public class ArmyBuilderConfig {
     @Scope("prototype")
     public ViewComponent<UnitDetailController> unitDetail(FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/unitDetailView.fxml"));
+        return ViewComponent.fromLoader(fxmlLoader);
+    }
+
+    @Bean
+    @Scope("prototype")
+    public ViewComponent<ArmyDetailController> armyDetail(FXMLLoader fxmlLoader) {
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/ArmyDetail.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 
