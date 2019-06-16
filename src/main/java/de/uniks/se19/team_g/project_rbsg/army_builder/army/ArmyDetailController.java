@@ -8,9 +8,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,10 +27,16 @@ public class ArmyDetailController implements Initializable {
     public ListView<Unit> armySquadList;
 
     private final ApplicationState state;
+    @Nullable
+    private final Callback<ListView<Unit>, ListCell<Unit>> cellFactory;
     private ChangeListener<Army> selectedArmyListener;
 
-    public ArmyDetailController(ApplicationState state) {
+    public ArmyDetailController(
+        @Nonnull ApplicationState state,
+        @Nullable ArmySquadCellFactory armySquadCellFactory
+    ) {
         this.state = state;
+        this.cellFactory = armySquadCellFactory;
         selectedArmyListener = this::onSelectedArmyUpdate;
     }
 
@@ -37,6 +47,8 @@ public class ArmyDetailController implements Initializable {
         if (selectedArmy != null) {
             bindToArmy(selectedArmy);
         }
+
+        armySquadList.setCellFactory(cellFactory);
     }
 
     private void onSelectedArmyUpdate(ObservableValue<? extends Army> observableValue, Army prev, Army nextArmy) {
