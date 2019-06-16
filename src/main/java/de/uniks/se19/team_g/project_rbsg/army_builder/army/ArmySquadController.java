@@ -7,12 +7,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
+@Scope("prototype")
 public class ArmySquadController extends ListCell<Unit> implements Initializable {
 
     public Label typeLabel;
