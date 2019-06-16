@@ -29,6 +29,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 /**
  * @author Goatfryed
@@ -42,7 +43,7 @@ public class ArmyBuilderController implements Initializable {
     @Nonnull
     private final ArmyBuilderState state;
     @Nullable
-    private final ViewComponent<ArmyDetailController> armyDetaiLView;
+    private final Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory;
     @Nonnull
     private final UnitListEntryFactory unitCellFactory;
     @Nullable
@@ -58,7 +59,7 @@ public class ArmyBuilderController implements Initializable {
     public HBox topContentContainer;
     public ListView<Unit> unitListView;
     public Pane unitDetailView;
-    public Pane bottomContentContainer;
+    public HBox bottomContentContainer;
     public VBox sideBarRight;
     public VBox sideBarLeft;
     public Button soundButton;
@@ -68,14 +69,14 @@ public class ArmyBuilderController implements Initializable {
     public ArmyBuilderController(
             @Nonnull ArmyBuilderState state,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
-            @Nullable ViewComponent<ArmyDetailController> armyDetaiLView,
+            @Nullable Function<HBox,ViewComponent<ArmyDetailController>> armyDetaiLFactory,
             @Nonnull UnitListEntryFactory unitCellFactory,
             @Nullable GetUnitTypesService getUnitTypesService,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager
     ) {
         this.state = state;
-        this.armyDetaiLView = armyDetaiLView;
+        this.armyDetaiLFactory = armyDetaiLFactory;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
         this.musicManager = musicManager;
@@ -89,8 +90,8 @@ public class ArmyBuilderController implements Initializable {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(state.unitTypes);
 
-        if (armyDetaiLView != null) {
-            bottomContentContainer.getChildren().setAll(armyDetaiLView.<Node>getRoot());
+        if (armyDetaiLFactory != null) {
+            armyDetaiLFactory.apply(bottomContentContainer);
         }
 
         if (unitDetailViewFactory != null) {
