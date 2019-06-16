@@ -8,5 +8,5 @@ import org.springframework.lang.NonNull;
  */
 public interface GameEventHandler {
 
-    boolean handle(@NonNull final ObjectNode message);
+    void handle(@NonNull final ObjectNode message);
 }

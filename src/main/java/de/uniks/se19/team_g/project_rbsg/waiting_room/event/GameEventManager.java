@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,8 @@ public class GameEventManager implements ChatClient {
         this.webSocketClient = webSocketClient;
 
         gameEventHandlers = new ArrayList<>();
-//        gameEventHandlers.add(new DefaultGameEventHandler());
+        gameEventHandlers.add(new ModelManager());
+        gameEventHandlers.add(new DefaultGameEventHandler());
     }
 
     @Override
@@ -92,8 +94,6 @@ public class GameEventManager implements ChatClient {
 
     @Override
     public void handle(@NonNull final String message) {
-        logger.debug(message);
-
         final ObjectNode json;
         try {
             json = new ObjectMapper().readValue(message, ObjectNode.class);
@@ -101,9 +101,7 @@ public class GameEventManager implements ChatClient {
                 //TODO: Check the server's reply format and parse message
                 System.out.println(json);
             } else {
-                for (final GameEventHandler handler : gameEventHandlers) {
-                    if (handler.handle(json)) return;
-                }
+                gameEventHandlers.forEach(handler -> handler.handle(json));
             }
         } catch (IOException e) {
             e.printStackTrace();
