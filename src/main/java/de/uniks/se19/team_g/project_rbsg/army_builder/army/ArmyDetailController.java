@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -22,6 +24,8 @@ import java.util.ResourceBundle;
 
 @Component
 public class ArmyDetailController implements Initializable {
+
+    public static final int ARMY_MAX_SIZE = 10;
 
     public Label armyNameLabel;
     public Label armySizeLabel;
@@ -65,13 +69,21 @@ public class ArmyDetailController implements Initializable {
     private void bindToArmy(Army army) {
         armyNameLabel.textProperty().bind(army.name);
         armySquadList.setItems(army.units);
+
+        armySizeLabel.textProperty().bind(
+            Bindings.format(
+                "%d/%d",
+                Bindings.size(army.units),
+                ARMY_MAX_SIZE
+            )
+        );
     }
 
     public void onAddUnit()
     {
         final Army army = appState.selectedArmy.get();
         final Unit unit = armyBuilderState.selectedUnit.get();
-        if (Objects.nonNull(army) && Objects.nonNull(unit)) {
+        if (Objects.nonNull(army) && Objects.nonNull(unit) && army.units.size() < ARMY_MAX_SIZE) {
             army.units.add(unit.clone());
         }
     }
