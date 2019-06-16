@@ -23,7 +23,6 @@ public class LobbyViewControllerTest {
     {
         final SceneManager sceneManager = mock(SceneManager.class);
         LobbyViewController sut = new LobbyViewController(
-                new ApplicationState(),
                 mock(GameProvider.class),
                 mock(UserProvider.class),
                 sceneManager,
@@ -35,8 +34,7 @@ public class LobbyViewControllerTest {
                 mock(LobbyChatClient.class),
                 mock(CreateGameFormBuilder.class),
                 mock(MusicManager.class),
-                mock(DefaultLogoutManager.class),
-                null
+                mock(DefaultLogoutManager.class)
         );
 
         sut.goToArmyBuilder(null);
