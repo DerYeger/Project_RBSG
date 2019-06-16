@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
@@ -34,8 +35,6 @@ import java.util.ResourceBundle;
 @Component
 public class ArmyBuilderController implements Initializable {
 
-    private static final int ICON_SIZE = 40;
-
     public Parent root;
 
     @Nonnull private final ArmyBuilderState state;
@@ -43,6 +42,7 @@ public class ArmyBuilderController implements Initializable {
     @Nullable private final GetUnitTypesService getUnitTypesService;
     @Nullable private final MusicManager musicManager;
     @Nullable private final SceneManager sceneManager;
+    @Nullable private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
 
     public VBox content;
     public HBox topContentContainer;
@@ -51,33 +51,36 @@ public class ArmyBuilderController implements Initializable {
     public VBox armyView;
     public VBox sideBarRight;
     public VBox sideBarLeft;
-    private ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
     public Button soundButton;
     public Button leaveButton;
 
 
     public ArmyBuilderController(
-            @Nonnull final ArmyBuilderState state,
+            @Nonnull ArmyBuilderState state,
+            @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nonnull UnitListEntryFactory unitCellFactory,
             @Nullable GetUnitTypesService getUnitTypesService,
-            @Nullable final MusicManager musicManager,
-            @Nullable final SceneManager sceneManager
-        ) {
+            @Nullable MusicManager musicManager,
+            @Nullable SceneManager sceneManager
+    ) {
         this.state = state;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
+        this.unitDetailViewFactory = unitDetailViewFactory;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        final ViewComponent<UnitDetailController> viewComponent = unitDetailViewFactory.getObject();
-        unitDetailView.getChildren().add(viewComponent.getRoot());
-
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(state.unitTypes);
+
+        if (unitDetailViewFactory != null) {
+            final ViewComponent<UnitDetailController> viewComponent = unitDetailViewFactory.getObject();
+            unitDetailView.getChildren().add(viewComponent.getRoot());
+        }
 
         if (getUnitTypesService != null) {
             getUnitTypesService.queryUnitPrototypes().thenAccept(
@@ -95,7 +98,7 @@ public class ArmyBuilderController implements Initializable {
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
-                ArmyBuilderController.ICON_SIZE
+                JavaConfig.ICON_SIZE
         );
 
     }
