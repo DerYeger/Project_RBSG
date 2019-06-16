@@ -7,18 +7,16 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<fx:root type="HBox"  xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController">
+<fx:root type="HBox" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController">
     <VBox HBox.hgrow="ALWAYS">
         <HBox alignment="BOTTOM_CENTER">
-          <Label fx:id="armyNameLabel" text="Name"/>
+          <Label fx:id="armyNameLabel" text="Name" />
           <TilePane alignment="BOTTOM_CENTER" prefColumns="1" prefRows="1" HBox.hgrow="ALWAYS">
-              <Button mnemonicParsing="false" text="+"/>
-              <Button mnemonicParsing="false" text="-"/>
+              <Button mnemonicParsing="false" onAction="#onAddUnit" text="+" />
+              <Button mnemonicParsing="false" onAction="#onRemoveUnit" text="-" />
           </TilePane>
-          <Label fx:id="armySizeLabel" text="0/10"/>
+          <Label fx:id="armySizeLabel" text="0/10" />
         </HBox>
-        <ListView fx:id="armySquadList" orientation="HORIZONTAL" VBox.vgrow="ALWAYS"/>
+        <ListView fx:id="armySquadList" orientation="HORIZONTAL" VBox.vgrow="ALWAYS" />
     </VBox>
 </fx:root>

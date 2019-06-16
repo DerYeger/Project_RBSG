@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 
+import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Component
@@ -26,24 +28,29 @@ public class ArmyDetailController implements Initializable {
 
     public ListView<Unit> armySquadList;
 
-    private final ApplicationState state;
+    @Nonnull
+    private final ApplicationState appState;
+    @Nonnull
+    private final ArmyBuilderState armyBuilderState;
     @Nullable
     private final Callback<ListView<Unit>, ListCell<Unit>> cellFactory;
     private ChangeListener<Army> selectedArmyListener;
 
     public ArmyDetailController(
-        @Nonnull ApplicationState state,
+        @Nonnull ApplicationState appState,
+        @Nonnull ArmyBuilderState armyBuilderState,
         @Nullable ArmySquadCellFactory armySquadCellFactory
     ) {
-        this.state = state;
+        this.appState = appState;
+        this.armyBuilderState = armyBuilderState;
         this.cellFactory = armySquadCellFactory;
         selectedArmyListener = this::onSelectedArmyUpdate;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        state.selectedArmy.addListener(new WeakChangeListener<>(selectedArmyListener));
-        final Army selectedArmy = state.selectedArmy.get();
+        appState.selectedArmy.addListener(new WeakChangeListener<>(selectedArmyListener));
+        final Army selectedArmy = appState.selectedArmy.get();
         if (selectedArmy != null) {
             bindToArmy(selectedArmy);
         }
@@ -58,5 +65,23 @@ public class ArmyDetailController implements Initializable {
     private void bindToArmy(Army army) {
         armyNameLabel.textProperty().bind(army.name);
         armySquadList.setItems(army.units);
+    }
+
+    public void onAddUnit()
+    {
+        final Army army = appState.selectedArmy.get();
+        final Unit unit = armyBuilderState.selectedUnit.get();
+        if (Objects.nonNull(army) && Objects.nonNull(unit)) {
+            army.units.add(unit.clone());
+        }
+    }
+
+    public void onRemoveUnit()
+    {
+        final Army army = appState.selectedArmy.get();
+        final Unit unit = armyBuilderState.selectedUnit.get();
+        if (Objects.nonNull(army) && Objects.nonNull(unit)) {
+            army.units.remove(unit);
+        }
     }
 }
