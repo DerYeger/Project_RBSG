@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  * @author Keanu Stückrad
  */
 @Component
-public class SceneController implements Initializable {
+public class ArmyBuilderController implements Initializable {
 
     private static final int ICON_SIZE = 40;
 
@@ -56,7 +56,7 @@ public class SceneController implements Initializable {
     private final MusicManager musicManager;
     private final SceneManager sceneManager;
 
-    public SceneController(
+    public ArmyBuilderController(
             ArmyBuilderState state,
             UnitListEntryFactory unitCellFactory,
             GetUnitTypesService getUnitTypesService,
@@ -97,7 +97,7 @@ public class SceneController implements Initializable {
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
-                SceneController.ICON_SIZE
+                ArmyBuilderController.ICON_SIZE
         );
 
     }

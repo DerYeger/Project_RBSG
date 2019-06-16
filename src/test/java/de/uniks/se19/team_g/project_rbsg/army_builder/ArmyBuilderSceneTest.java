@@ -35,7 +35,7 @@ import java.util.concurrent.CompletableFuture;
 @ContextConfiguration(classes = {
         ArmyBuilderConfig.class,
         FXMLLoaderFactory.class,
-        SceneController.class,
+        ArmyBuilderController.class,
         UnitDetailController.class,
         UnitListEntryFactory.class,
         UnitListEntryController.class,
@@ -76,9 +76,9 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
     @Test
     public void testSceneCreation()
     {
-        @SuppressWarnings("unchecked") ViewComponent<SceneController> armyBuilderScene
-                = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
-        final SceneController controller = armyBuilderScene.getController();
+        @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderScene
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
+        final ArmyBuilderController controller = armyBuilderScene.getController();
 
         Assert.assertNotNull(controller.root);
         Assert.assertNotNull(controller.content);
@@ -100,8 +100,8 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
 
         Assert.assertEquals(0, state.unitTypes.size());
 
-        @SuppressWarnings("unchecked") ViewComponent<SceneController> armyBuilderComponent
-                = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
+        @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
         Assert.assertEquals(1, state.unitTypes.size());
 
         Platform.runLater(() -> {

@@ -18,7 +18,7 @@ public class ArmyBuilderConfig {
 
     @Bean
     @Scope("prototype")
-    public ViewComponent<SceneController> armyBuilderScene(FXMLLoader fxmlLoader)
+    public ViewComponent<ArmyBuilderController> armyBuilderScene(FXMLLoader fxmlLoader)
     {
         fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/armyBuilderScene.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
