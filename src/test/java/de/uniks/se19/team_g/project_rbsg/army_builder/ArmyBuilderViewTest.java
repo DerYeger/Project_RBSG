@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
@@ -56,6 +57,8 @@ public class ArmyBuilderViewTest extends ApplicationTest {
             Mockito.when(mock.queryUnitPrototypes()).thenReturn(CompletableFuture.completedFuture(Collections.singletonList(unit)));
             return mock;
         }
+        @Bean
+        public ArmyDetailController armyDetailController() { return Mockito.mock(ArmyDetailController.class);}
     }
 
     @Autowired
