@@ -47,8 +47,6 @@ public class ArmyBuilderController implements Initializable {
     @Nonnull
     private final UnitListEntryFactory unitCellFactory;
     @Nullable
-    private final GetUnitTypesService getUnitTypesService;
-    @Nullable
     private final MusicManager musicManager;
     @Nullable
     private final SceneManager sceneManager;
@@ -71,14 +69,12 @@ public class ArmyBuilderController implements Initializable {
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
             @Nonnull UnitListEntryFactory unitCellFactory,
-            @Nullable GetUnitTypesService getUnitTypesService,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager
     ) {
         this.appState = appState;
         this.armyDetaiLFactory = armyDetaiLFactory;
         this.unitCellFactory = unitCellFactory;
-        this.getUnitTypesService = getUnitTypesService;
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
@@ -97,14 +93,6 @@ public class ArmyBuilderController implements Initializable {
         if (unitDetailViewFactory != null) {
             final ViewComponent<UnitDetailController> viewComponent = unitDetailViewFactory.getObject();
             unitDetailView.getChildren().add(viewComponent.getRoot());
-        }
-
-        if (getUnitTypesService != null) {
-            getUnitTypesService.queryUnitPrototypes().thenAccept(
-                unitTypes -> Platform.runLater(() ->
-                    appState.unitDefinitions.setAll(unitTypes)
-                )
-            );
         }
 
         if (musicManager != null) {
