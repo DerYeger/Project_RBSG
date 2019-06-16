@@ -20,10 +20,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,9 +38,11 @@ public class ArmyBuilderController implements Initializable {
 
     public Parent root;
 
-    private final ArmyBuilderState state;
-    private final UnitListEntryFactory unitCellFactory;
-    private final GetUnitTypesService getUnitTypesService;
+    @Nonnull private final ArmyBuilderState state;
+    @Nonnull private final UnitListEntryFactory unitCellFactory;
+    @Nullable private final GetUnitTypesService getUnitTypesService;
+    @Nullable private final MusicManager musicManager;
+    @Nullable private final SceneManager sceneManager;
 
     public VBox content;
     public HBox topContentContainer;
@@ -53,28 +55,19 @@ public class ArmyBuilderController implements Initializable {
     public Button soundButton;
     public Button leaveButton;
 
-    private final MusicManager musicManager;
-    private final SceneManager sceneManager;
 
     public ArmyBuilderController(
-            ArmyBuilderState state,
-            UnitListEntryFactory unitCellFactory,
-            GetUnitTypesService getUnitTypesService,
-            @NonNull final MusicManager musicManager,
-            @NonNull final SceneManager sceneManager
-            ) {
+            @Nonnull final ArmyBuilderState state,
+            @Nonnull UnitListEntryFactory unitCellFactory,
+            @Nullable GetUnitTypesService getUnitTypesService,
+            @Nullable final MusicManager musicManager,
+            @Nullable final SceneManager sceneManager
+        ) {
         this.state = state;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
-    }
-
-    @Autowired
-    public void setUnitDetailViewFactory(ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory)
-    {
-
-        this.unitDetailViewFactory = unitDetailViewFactory;
     }
 
     @Override
@@ -86,13 +79,18 @@ public class ArmyBuilderController implements Initializable {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(state.unitTypes);
 
-        getUnitTypesService.queryUnitPrototypes().thenAccept(
-            unitTypes -> Platform.runLater(() ->
-                state.unitTypes.setAll(unitTypes)
-            )
-        );
+        if (getUnitTypesService != null) {
+            getUnitTypesService.queryUnitPrototypes().thenAccept(
+                unitTypes -> Platform.runLater(() ->
+                    state.unitTypes.setAll(unitTypes)
+                )
+            );
+        }
 
-        musicManager.initButtonIcons(soundButton);
+        if (musicManager != null) {
+            musicManager.initButtonIcons(soundButton);
+        }
+
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -103,10 +101,14 @@ public class ArmyBuilderController implements Initializable {
     }
 
     public void toggleSound(ActionEvent actionEvent) {
+        if(musicManager == null) return;
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
+        if (sceneManager == null) {
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Leave ArmyBuilder");
         alert.setHeaderText("Are you sure you want to exit?");
