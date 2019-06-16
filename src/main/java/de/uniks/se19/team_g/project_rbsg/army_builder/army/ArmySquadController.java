@@ -56,7 +56,6 @@ public class ArmySquadController extends ListCell<Unit> implements Initializable
     }
 
     private void onSelection(MouseEvent mouseEvent) {
-        System.out.println("clicked on " + unit.id.get());
         armyBuilderState.selectedUnit.set(unit);
     }
 }
