@@ -41,6 +41,7 @@ public class ArmySquadController extends ListCell<Unit> implements Initializable
         }
 
         typeLabel.textProperty().bind(unit.name);
+        countLabel.setText("1");
 
         setGraphic(root);
     }
