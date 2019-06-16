@@ -48,16 +48,6 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     @TestConfiguration
     static class ContextConfiguration {
         @Bean
-        public GetUnitTypesService getUnitTypesService()
-        {
-            final Unit unit = new Unit();
-            unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
-            unit.name.set("novice");
-            final GetUnitTypesService mock = Mockito.mock(GetUnitTypesService.class);
-            Mockito.when(mock.queryUnitPrototypes()).thenReturn(CompletableFuture.completedFuture(Collections.singletonList(unit)));
-            return mock;
-        }
-        @Bean
         public ArmyDetailController armyDetailController() { return Mockito.mock(ArmyDetailController.class);}
     }
 
@@ -99,28 +89,25 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         unit.name.set("Archer");
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
-        Assert.assertEquals(0, state.unitDefinitions.size());
-
         @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
                 = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
-        Assert.assertEquals(1, state.unitDefinitions.size());
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));
             stage.show();
         });
         WaitForAsyncUtils.waitForFxEvents();
-        Assert.assertEquals(1, lookup(".list-cell #imageView").queryAll().size());
+        Assert.assertEquals(0, lookup(".list-cell .label").queryAll().size());
 
         Platform.runLater(() -> state.unitDefinitions.add(unit));
         WaitForAsyncUtils.waitForFxEvents();
 
-        Assert.assertEquals(2, lookup(".list-cell #imageView").queryAll().size());
+        Assert.assertEquals(1, lookup(".list-cell .label").queryAll().size());
 
         Platform.runLater(() -> state.unitDefinitions.clear());
         WaitForAsyncUtils.waitForFxEvents();
 
-        Assert.assertEquals(0, lookup(".list-cell #imageView").queryAll().size());
+        Assert.assertEquals(0, lookup(".list-cell .label").queryAll().size());
 
         Platform.runLater(() -> stage.hide());
         WaitForAsyncUtils.waitForFxEvents();
