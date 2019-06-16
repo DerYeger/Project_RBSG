@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -40,7 +42,9 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Keanu Stückrad
@@ -68,10 +72,19 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
 
     private static boolean switchedToLobby = false;
 
+    static private ApplicationStateInitializer initializer;
+
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
 
         private ApplicationContext context;
+
+        @Bean
+        public ApplicationStateInitializer stateInitializer() {
+            initializer = Mockito.mock(ApplicationStateInitializer.class);
+            Mockito.when(initializer.initialize()).thenReturn(CompletableFuture.completedFuture(null));
+            return initializer;
+        }
 
         @Bean
         @Scope("prototype")
@@ -129,7 +142,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         }
 
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
             this.context = applicationContext;
         }
     }
@@ -163,6 +176,8 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
 
         clickOn(loginButton);
         Assert.assertTrue(switchedToLobby);
+
+        Mockito.verify(initializer, Mockito.times(1)).initialize();
     }
 
     @Test

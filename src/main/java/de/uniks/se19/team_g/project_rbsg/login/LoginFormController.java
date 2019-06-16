@@ -202,7 +202,7 @@ public class LoginFormController implements RootController, Rincled
 
         try {
             appStateInitializer.initialize().get();
-        } catch (Exception e) {
+        } catch (InterruptedException | ExecutionException e) {
             logger.debug("unexpected initializer error", e);
             handleErrorMessage(getResources().getString("unexpectedInitializerError"));
         }
