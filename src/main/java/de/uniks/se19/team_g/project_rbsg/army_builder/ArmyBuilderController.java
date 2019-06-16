@@ -88,7 +88,7 @@ public class ArmyBuilderController implements Initializable {
     public void initialize(URL location, ResourceBundle resources)
     {
         unitListView.setCellFactory(unitCellFactory);
-        unitListView.setItems(appState.unitTypeDefinitions);
+        unitListView.setItems(appState.unitDefinitions);
 
         if (armyDetaiLFactory != null) {
             armyDetaiLFactory.apply(armyDetailsContainer);
@@ -102,7 +102,7 @@ public class ArmyBuilderController implements Initializable {
         if (getUnitTypesService != null) {
             getUnitTypesService.queryUnitPrototypes().thenAccept(
                 unitTypes -> Platform.runLater(() ->
-                    appState.unitTypeDefinitions.setAll(unitTypes)
+                    appState.unitDefinitions.setAll(unitTypes)
                 )
             );
         }

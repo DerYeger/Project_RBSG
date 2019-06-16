@@ -99,11 +99,11 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         unit.name.set("Archer");
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
-        Assert.assertEquals(0, state.unitTypeDefinitions.size());
+        Assert.assertEquals(0, state.unitDefinitions.size());
 
         @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
                 = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
-        Assert.assertEquals(1, state.unitTypeDefinitions.size());
+        Assert.assertEquals(1, state.unitDefinitions.size());
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));
@@ -112,12 +112,12 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         Assert.assertEquals(1, lookup(".list-cell #imageView").queryAll().size());
 
-        Platform.runLater(() -> state.unitTypeDefinitions.add(unit));
+        Platform.runLater(() -> state.unitDefinitions.add(unit));
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(2, lookup(".list-cell #imageView").queryAll().size());
 
-        Platform.runLater(() -> state.unitTypeDefinitions.clear());
+        Platform.runLater(() -> state.unitDefinitions.clear());
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(0, lookup(".list-cell #imageView").queryAll().size());

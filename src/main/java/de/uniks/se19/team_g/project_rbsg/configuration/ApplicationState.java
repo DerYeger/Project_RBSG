@@ -13,7 +13,7 @@ public class ApplicationState {
 
     public final SimpleObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
     public final ObservableList<Army> armies =  FXCollections.observableArrayList();
-    public final ObservableList<Unit> unitTypeDefinitions = FXCollections.observableArrayList();
+    public final ObservableList<Unit> unitDefinitions = FXCollections.observableArrayList();
 
     public ApplicationState () {
         armies.addListener(this::onArmyUpdate);
