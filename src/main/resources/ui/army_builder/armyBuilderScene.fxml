@@ -34,7 +34,7 @@
                <Insets />
             </HBox.margin></Pane>
       </HBox>
-      <HBox fx:id="bottomContentContainer" VBox.vgrow="ALWAYS" />
+      <HBox fx:id="armyDetailsContainer" VBox.vgrow="ALWAYS" />
    </VBox>
    <VBox fx:id="sideBarRight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
 </HBox>

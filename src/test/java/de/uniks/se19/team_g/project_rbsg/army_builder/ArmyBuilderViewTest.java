@@ -85,7 +85,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         Assert.assertNotNull(controller.sideBarRight);
         Assert.assertNotNull(controller.sideBarLeft);
         Assert.assertNotNull(controller.unitDetailView);
-        Assert.assertNotNull(controller.armyView);
+        Assert.assertNotNull(controller.armyDetailsContainer);
         Assert.assertNotNull(controller.unitListView);
     }
 

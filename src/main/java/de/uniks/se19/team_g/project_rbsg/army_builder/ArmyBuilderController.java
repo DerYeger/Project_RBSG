@@ -59,7 +59,7 @@ public class ArmyBuilderController implements Initializable {
     public HBox topContentContainer;
     public ListView<Unit> unitListView;
     public Pane unitDetailView;
-    public HBox bottomContentContainer;
+    public HBox armyDetailsContainer;
     public VBox sideBarRight;
     public VBox sideBarLeft;
     public Button soundButton;
@@ -91,7 +91,7 @@ public class ArmyBuilderController implements Initializable {
         unitListView.setItems(appState.unitTypeDefinitions);
 
         if (armyDetaiLFactory != null) {
-            armyDetaiLFactory.apply(bottomContentContainer);
+            armyDetaiLFactory.apply(armyDetailsContainer);
         }
 
         if (unitDetailViewFactory != null) {
