@@ -13,9 +13,10 @@ public class DefaultGameEventHandler implements GameEventHandler {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public boolean handle(final @NonNull ObjectNode message)
+    public void handle(final @NonNull ObjectNode message)
     {
+        if (message.has("action") && message.get("action").asText().equals("gameInitObject")) return;
+
         logger.debug(message.toString());
-        return true;
     }
 }
