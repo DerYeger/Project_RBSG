@@ -7,6 +7,9 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * @author Jan Müller
+ */
 public class ModelTests {
 
     private static final String ALICE = "Alice";

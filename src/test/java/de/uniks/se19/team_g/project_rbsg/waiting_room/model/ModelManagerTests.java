@@ -9,6 +9,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * @author Jan Müller
+ */
 public class ModelManagerTests {
 
     @Test
