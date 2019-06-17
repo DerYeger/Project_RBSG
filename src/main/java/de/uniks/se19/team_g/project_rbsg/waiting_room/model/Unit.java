@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Null;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Jan Müller
@@ -118,8 +119,8 @@ public class Unit {
         return this;
     }
 
-    public Unit setCanAttack(@NonNull final ArrayList<UnitType> canAttack) {
-        this.canAttack = canAttack;
+    public Unit setCanAttack(@NonNull final Collection<UnitType> canAttack) {
+        this.canAttack = new ArrayList<>(canAttack);
         return this;
     }
 
