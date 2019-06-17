@@ -105,7 +105,7 @@ public class Player {
     public Player withoutUnit(@NonNull final Unit unit) {
         if (!units.contains(unit)) return this;
         doRemoveUnit(unit);
-        unit.doSetGame(null);
+        unit.doSetLeader(null);
         return this;
     }
 
@@ -125,7 +125,7 @@ public class Player {
 
     public void remove() {
         setGame(null);
-        withoutUnits(units);
+        withoutUnits(new ArrayList<>(units));
     }
 
     @Override

@@ -94,7 +94,7 @@ public class Unit {
 
     public Unit setPosition(@Nullable final Cell position) {
         if (this.position.get() == position) return this;
-        if (this.position.get() != null) this.position.get().setUnit(null);
+        if (this.position.get() != null) this.position.get().doSetUnit(null);
         doSetPosition(position);
         if (position != null) position.doSetUnit(this);
         return this;

@@ -200,9 +200,9 @@ public class Game {
     }
 
     public void remove() {
-        withoutPlayers(players);
-        withoutUnits(units);
-        withoutCells(cells);
+        withoutPlayers(new ArrayList<>(players));
+        withoutUnits(new ArrayList<>(units));
+        withoutCells(new ArrayList<>(cells));
     }
 
     @Override

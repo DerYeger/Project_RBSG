@@ -185,5 +185,76 @@ public class ModelTests {
         assertEquals(10, bobChopper10And10.getMp());
         assertEquals(10, bobChopper10And10.getHp());
         assertEquals(canAttack, bobChopper10And10.getCanAttack());
+
+        //action
+        aliceJeep1And5.remove();
+
+        //asserts
+        assertFalse(game.getUnits().contains(aliceJeep1And5));
+        assertEquals(2, game.getUnits().size());
+
+        assertNull(grass.getUnit().get());
+
+        assertFalse(alice.getUnits().contains(aliceJeep1And5));
+        assertEquals(1, alice.getUnits().size());
+
+        assertNull(aliceJeep1And5.getGame());
+        assertNull(aliceJeep1And5.getLeader());
+        assertNull(aliceJeep1And5.getPosition().get());
+        assertEquals(UnitType.JEEP, aliceJeep1And5.getUnitType());
+        assertEquals(1, aliceJeep1And5.getMp());
+        assertEquals(5, aliceJeep1And5.getHp());
+        assertEquals(canAttack, aliceJeep1And5.getCanAttack());
+
+
+        //action
+        water.remove();
+
+        //asserts
+        assertFalse(game.getCells().contains(water));
+        assertEquals(3, game.getCells().size());
+
+        assertNull(water.getGame());
+        assertEquals(Biome.WATER, water.getBiome());
+        assertFalse(water.isPassable());
+        assertEquals(1, water.getX());
+        assertEquals(1, water.getY());
+        assertNull(water.getLeft());
+        assertNull(water.getTop());
+        assertNull(water.getRight());
+        assertNull(water.getBottom());
+        assertNull(water.getUnit().get());
+
+        assertNull(mountain.getRight());
+        assertNull(grass.getBottom());
+
+        //action
+        bob.remove();
+
+        //asserts
+        assertFalse(game.getPlayers().contains(bob));
+        assertEquals(1, game.getPlayers().size());
+
+        assertNull(bobChopper10And10.getLeader());
+
+        //action
+        game.remove();
+
+        //asserts
+        assertTrue(game.getPlayers().isEmpty());
+        assertTrue(game.getUnits().isEmpty());
+        assertTrue(game.getCells().isEmpty());
+
+        assertNull(forest.getGame());
+        assertNull(grass.getGame());
+        assertNull(mountain.getGame());
+        assertNull(water.getGame());
+
+        assertNull(alice.getGame());
+        assertNull(bob.getGame());
+
+        assertNull(aliceChopper5And10.getGame());
+        assertNull(aliceJeep1And5.getGame());
+        assertNull(bobChopper10And10.getGame());
     }
 }
