@@ -85,6 +85,62 @@ public class ArmyDetailController implements Initializable {
                 ARMY_MAX_SIZE
             )
         );
+
+        bindSquadList(army);
+
+
+    }
+
+    private void bindSquadList(Army army) {
+        final ObservableList<SquadViewModel> squadList = FXCollections.observableArrayList();
+        final Map<String, SquadViewModel> squadMap = new HashMap<>();
+        armySquadList.setItems(squadList);
+
+        initializeSquadList(army, squadList, squadMap);
+        addArmyUnitChangeListener(army, squadList, squadMap);
+    }
+
+    private void addArmyUnitChangeListener(Army army, ObservableList<SquadViewModel> squadList, Map<String, SquadViewModel> squadMap) {
+        armyUnitChangeListener = change -> {
+            boolean dirtyList = false;
+            while (change.next()) {
+                for (Unit unit : change.getRemoved()) {
+                    final String key = unit.id.get();
+                    final SquadViewModel squadViewModel = squadMap.get(key);
+                    squadViewModel.members.remove(unit);
+                    if (squadViewModel.members.size() == 0) {
+                        squadMap.remove(key);
+                        dirtyList = true;
+                    }
+                }
+                for (Unit unit : change.getAddedSubList()) {
+                    final String key = unit.id.get();
+                    if (!squadMap.containsKey(key)) {
+                        squadMap.put(key, new SquadViewModel());
+                        dirtyList = true;
+                    }
+                    final SquadViewModel squadViewModel = squadMap.get(key);
+                    squadViewModel.members.add(unit);
+                }
+            }
+            if (dirtyList) {
+                squadList.setAll(squadMap.values());
+            }
+        };
+
+        army.units.addListener(
+            new WeakListChangeListener<>(armyUnitChangeListener)
+        );
+    }
+
+    private void initializeSquadList(Army army, ObservableList<SquadViewModel> squadList, Map<String, SquadViewModel> squadMap) {
+        for (Unit unit : army.units) {
+            if (!squadMap.containsKey(unit.id.get())) {
+                squadMap.put(unit.id.get(), new SquadViewModel());
+            }
+            squadMap.get(unit.id.get()).members.add(unit);
+        }
+        squadList.setAll(squadMap.values());
     }
 
     public void onAddUnit()
