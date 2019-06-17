@@ -29,6 +29,8 @@ public class Unit {
 
     public Unit(@NonNull final String id) {
         this.id = id;
+
+        position = new SimpleObjectProperty<>();
     }
 
     public String getId() {
@@ -87,7 +89,7 @@ public class Unit {
 
     public Unit setPosition(@Nullable final Cell position) {
         if (this.position.get() == position) return this;
-        if (this.position != null) this.position.get().setUnit(null);
+        if (this.position.get() != null) this.position.get().setUnit(null);
         doSetPosition(position);
         if (position != null) position.doSetUnit(this);
         return this;
