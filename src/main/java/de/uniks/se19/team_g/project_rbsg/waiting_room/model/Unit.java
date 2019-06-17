@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -17,7 +18,7 @@ public class Unit {
 
     private Player leader;
 
-    private Cell position;
+    private SimpleObjectProperty<Cell> position;
 
     private UnitType unitType;
 
@@ -42,7 +43,7 @@ public class Unit {
         return leader;
     }
 
-    public Cell getPosition() {
+    public SimpleObjectProperty<Cell> getPosition() {
         return position;
     }
 
@@ -85,15 +86,15 @@ public class Unit {
     }
 
     public Unit setPosition(@Nullable final Cell position) {
-        if (this.position == position) return this;
-        if (this.position != null) this.position.setUnit(null);
+        if (this.position.get() == position) return this;
+        if (this.position != null) this.position.get().setUnit(null);
         doSetPosition(position);
         if (position != null) position.doSetUnit(this);
         return this;
     }
 
     void doSetPosition(@Nullable final Cell position) {
-        this.position = position;
+        this.position = new SimpleObjectProperty<>(position);
     }
 
     public Unit setUnitType(@NonNull final UnitType unitType) {
