@@ -14,6 +14,7 @@ public class UnitTypeAdapter {
         unit.description.set(unitType.id);
         unit.speed.set(unitType.mp);
         unit.health.set(unitType.hp);
+        unit.id.set(unitType.id);
 
         unit.description.set(mapDescription(unitType));
 
