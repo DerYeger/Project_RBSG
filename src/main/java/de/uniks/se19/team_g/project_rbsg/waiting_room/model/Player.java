@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -19,12 +21,12 @@ public class Player {
 
     private String color;
 
-    private ArrayList<Unit> units;
+    private ObservableList<Unit> units;
 
     public Player(@NonNull final String id) {
         this.id = id;
 
-        units = new ArrayList<>();
+        units = FXCollections.observableArrayList();
     }
 
     public String getId() {
@@ -43,7 +45,7 @@ public class Player {
         return color;
     }
 
-    public ArrayList<Unit> getUnits() {
+    public ObservableList<Unit> getUnits() {
         return units;
     }
 

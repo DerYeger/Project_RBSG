@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -13,33 +15,33 @@ public class Game {
     @NonNull
     private final String id;
 
-    private ArrayList<Player> players;
+    private ObservableList<Player> players;
 
-    private ArrayList<Unit> units;
+    private ObservableList<Unit> units;
 
-    private ArrayList<Cell> cells;
+    private ObservableList<Cell> cells;
 
     public Game(@NonNull final String id) {
         this.id = id;
 
-        players = new ArrayList<>();
-        units = new ArrayList<>();
-        cells = new ArrayList<>();
+        players = FXCollections.observableArrayList();
+        units = FXCollections.observableArrayList();
+        cells = FXCollections.observableArrayList();
     }
 
     public String getId() {
         return id;
     }
 
-    public ArrayList<Player> getPlayers() {
+    public ObservableList<Player> getPlayers() {
         return players;
     }
 
-    public ArrayList<Unit> getUnits() {
+    public ObservableList<Unit> getUnits() {
         return units;
     }
 
-    public ArrayList<Cell> getCells() {
+    public ObservableList<Cell> getCells() {
         return cells;
     }
 
