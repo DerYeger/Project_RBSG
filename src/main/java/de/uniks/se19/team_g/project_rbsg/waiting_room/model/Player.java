@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -62,6 +63,11 @@ public class Player {
         this.game = game;
     }
 
+    public Player withUnits(@Nullable final Unit ...units) {
+        if (units == null) return this;
+        return withUnits(Arrays.asList(units));
+    }
+
     public Player withUnits(@Nullable final Collection<Unit> units) {
         if (units != null) {
             for (final Unit unit : units) {
@@ -80,6 +86,11 @@ public class Player {
 
     void doAddUnit(@NonNull final Unit unit) {
         units.add(unit);
+    }
+
+    public Player withoutUnits(@Nullable final Unit ...units) {
+        if (units == null) return this;
+        return withoutUnits(Arrays.asList(units));
     }
 
     public Player withoutUnits(@Nullable final Collection<Unit> units) {

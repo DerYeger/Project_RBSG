@@ -5,7 +5,9 @@ import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -46,6 +48,11 @@ public class Game {
         return cells;
     }
 
+    public Game withPlayers(@Nullable final Player ...players) {
+        if (players == null) return this;
+        return withPlayers(Arrays.asList(players));
+    }
+
     public Game withPlayers(@Nullable final Collection<Player> players)
     {
         if (players != null) {
@@ -65,6 +72,11 @@ public class Game {
 
     void doAddPlayer(@Nullable final Player player) {
         players.add(player);
+    }
+
+    public Game withoutPlayers(@Nullable final Player ...players) {
+        if (players == null) return this;
+        return withoutPlayers(Arrays.asList(players));
     }
 
     public Game withoutPlayers(@Nullable final Collection<Player> players) {
@@ -87,6 +99,11 @@ public class Game {
         players.remove(player);
     }
 
+    public Game withUnits(@Nullable final Unit ...units) {
+        if (units == null) return this;
+        return withUnits(Arrays.asList(units));
+    }
+
     public Game withUnits(@Nullable final Collection<Unit> units) {
         if (units != null) {
             for (final Unit unit : units) {
@@ -105,6 +122,11 @@ public class Game {
 
     void doAddUnit(@NonNull final Unit unit) {
         units.add(unit);
+    }
+
+    public Game withoutUnits(@Nullable final Unit ...units) {
+        if (units == null) return this;
+        return withoutUnits(Arrays.asList(units));
     }
 
     public Game withoutUnits(@Nullable final Collection<Unit> units) {
@@ -127,6 +149,20 @@ public class Game {
         units.remove(unit);
     }
 
+    public Game withCells(@Nullable final Cell ...cells) {
+        if (cells == null) return this;
+        return withCells(Arrays.asList(cells));
+    }
+
+    public Game withCells(@Nullable final Collection<Cell> cells) {
+        if (cells != null) {
+            for (final Cell cell : cells) {
+                if (cell != null) withCell(cell);
+            }
+        }
+        return this;
+    }
+
     public Game withCell(@NonNull final Cell cell) {
         if (cells.contains(cell)) return this;
         doAddCell(cell);
@@ -136,6 +172,11 @@ public class Game {
 
     void doAddCell(@NonNull final Cell cell) {
         cells.add(cell);
+    }
+
+    public Game withoutCells(@Nullable final Cell ...cells) {
+        if (cells == null) return this;
+        return withoutCells(Arrays.asList(cells));
     }
 
     public Game withoutCells(@Nullable final Collection<Cell> cells) {
