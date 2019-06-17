@@ -14,7 +14,7 @@ import org.springframework.lang.NonNull;
 public class CellUtil {
 
     private static final String GAME = "game";
-    private static final String IS_PASSABLE = "value";
+    private static final String IS_PASSABLE = "isPassable";
     private static final String X = "x";
     private static final String Y = "y";
     private static final String LEFT = "left";

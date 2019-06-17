@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -25,10 +26,12 @@ public class Cell {
     private Cell right;
     private Cell bottom;
 
-    private Unit unit;
+    private SimpleObjectProperty<Unit> unit;
 
     public Cell(@NonNull final String id) {
         this.id = id;
+
+        unit = new SimpleObjectProperty<>();
     }
 
     public String getId() {
@@ -71,17 +74,19 @@ public class Cell {
         return bottom;
     }
 
-    public Unit getUnit() {
+    public SimpleObjectProperty<Unit> getUnit() {
         return unit;
     }
 
-    public Cell setGame(@NonNull final Game game) {
+    public Cell setGame(@Nullable final Game game) {
+        if (this.game == game) return this;
+        if (this.game != null) this.game.doRemoveCell(this);
         doSetGame(game);
-        game.withCell(this);
+        if (game != null) game.doAddCell(this);
         return this;
     }
 
-    Cell doSetGame(@NonNull final Game game) {
+    Cell doSetGame(@Nullable final Game game) {
         this.game = game;
         return this;
     }
@@ -107,6 +112,8 @@ public class Cell {
     }
 
     public Cell setLeft(@Nullable final Cell left) {
+        if (this.left == left) return this;
+        if (this.left != null) this.left.doSetRight(null);
         doSetLeft(left);
         if (left != null) left.doSetRight(this);
         return this;
@@ -117,6 +124,8 @@ public class Cell {
     }
 
     public Cell setTop(@Nullable final Cell top) {
+        if (this.top == top) return this;
+        if (this.top != null) this.top.doSetBottom(null);
         doSetTop(top);
         if (top != null) top.doSetBottom(this);
         return this;
@@ -127,6 +136,8 @@ public class Cell {
     }
 
     public Cell setRight(@Nullable final Cell right) {
+        if (this.right == right) return this;
+        if (this.right != null) this.right.doSetLeft(null);
         doSetRight(right);
         if (right != null) right.doSetLeft(this);
         return this;
@@ -137,6 +148,8 @@ public class Cell {
     }
 
     public Cell setBottom(@Nullable final Cell bottom) {
+        if (this.bottom == bottom) return this;
+        if (this.bottom != null) this.bottom.doSetTop(null);
         doSetBottom(bottom);
         if (bottom != null) bottom.doSetTop(this);
         return this;
@@ -147,15 +160,24 @@ public class Cell {
     }
 
     public Cell setUnit(@Nullable final Unit unit) {
-        if (this.unit == unit) return this;
-        if (this.unit != null) this.unit.setPosition(null);
+        if (this.unit.get() == unit) return this;
+        if (this.unit.get() != null) this.unit.get().setPosition(null);
         doSetUnit(unit);
         if (unit != null) unit.doSetPosition(this);
         return this;
     }
 
     void doSetUnit(@Nullable final Unit unit) {
-        this.unit = unit;
+        this.unit = new SimpleObjectProperty<>(unit);
+    }
+
+    public void remove() {
+        setGame(null);
+        setLeft(null);
+        setTop(null);
+        setRight(null);
+        setBottom(null);
+        setUnit(null);
     }
 
     @Override

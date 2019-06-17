@@ -1,9 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Jan Müller
@@ -17,7 +20,7 @@ public class Unit {
 
     private Player leader;
 
-    private Cell position;
+    private SimpleObjectProperty<Cell> position;
 
     private UnitType unitType;
 
@@ -28,6 +31,8 @@ public class Unit {
 
     public Unit(@NonNull final String id) {
         this.id = id;
+
+        position = new SimpleObjectProperty<>();
     }
 
     public String getId() {
@@ -42,7 +47,7 @@ public class Unit {
         return leader;
     }
 
-    public Cell getPosition() {
+    public SimpleObjectProperty<Cell> getPosition() {
         return position;
     }
 
@@ -62,38 +67,41 @@ public class Unit {
         return canAttack;
     }
 
-    public Unit setGame(@NonNull final Game game) {
+    public Unit setGame(@Nullable final Game game) {
+        if (this.game == game) return this;
+        if (this.game != null) this.game.doRemoveUnit(this);
         doSetGame(game);
-        game.withUnit(this);
+        if (game != null) game.doAddUnit(this);
         return this;
     }
 
-    Unit doSetGame(@NonNull final Game game) {
+    Unit doSetGame(@Nullable final Game game) {
         this.game = game;
         return this;
     }
 
-    public Unit setLeader(@NonNull final Player leader) {
+    public Unit setLeader(@Nullable final Player leader) {
         if (this.leader == leader) return this;
+        if (this.leader != null) this.leader.doRemoveUnit(this);
         doSetLeader(leader);
-        leader.doAddUnit(this);
+        if (leader != null) leader.doAddUnit(this);
         return this;
     }
 
-    void doSetLeader(@NonNull final Player leader) {
+    void doSetLeader(@Nullable final Player leader) {
         this.leader = leader;
     }
 
     public Unit setPosition(@Nullable final Cell position) {
-        if (this.position == position) return this;
-        if (this.position != null) this.position.setUnit(null);
+        if (this.position.get() == position) return this;
+        if (this.position.get() != null) this.position.get().doSetUnit(null);
         doSetPosition(position);
         if (position != null) position.doSetUnit(this);
         return this;
     }
 
     void doSetPosition(@Nullable final Cell position) {
-        this.position = position;
+        this.position = new SimpleObjectProperty<>(position);
     }
 
     public Unit setUnitType(@NonNull final UnitType unitType) {
@@ -111,9 +119,15 @@ public class Unit {
         return this;
     }
 
-    public Unit setCanAttack(@NonNull final ArrayList<UnitType> canAttack) {
-        this.canAttack = canAttack;
+    public Unit setCanAttack(@NonNull final Collection<UnitType> canAttack) {
+        this.canAttack = new ArrayList<>(canAttack);
         return this;
+    }
+
+    public void remove() {
+        setGame(null);
+        setLeader(null);
+        setPosition(null);
     }
 
     @Override
