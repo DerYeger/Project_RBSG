@@ -4,11 +4,14 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.WeakListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -30,15 +35,19 @@ public class ArmyDetailController implements Initializable {
     public Label armyNameLabel;
     public Label armySizeLabel;
 
-    public ListView<Unit> armySquadList;
+    public ListView<SquadViewModel> armySquadList;
 
     @Nonnull
     private final ApplicationState appState;
     @Nonnull
     private final ArmyBuilderState armyBuilderState;
     @Nullable
-    private final Callback<ListView<Unit>, ListCell<Unit>> cellFactory;
+    private final Callback<ListView<SquadViewModel>, ListCell<SquadViewModel>> cellFactory;
     private ChangeListener<Army> selectedArmyListener;
+
+    // we want to hold a reference to our change listener so that we can add a weak list change listener and not get garbage collected to early
+    @SuppressWarnings("FieldCanBeLocal")
+    private ListChangeListener<? super Unit> armyUnitChangeListener;
 
     public ArmyDetailController(
         @Nonnull ApplicationState appState,
@@ -68,7 +77,6 @@ public class ArmyDetailController implements Initializable {
 
     private void bindToArmy(Army army) {
         armyNameLabel.textProperty().bind(army.name);
-        armySquadList.setItems(army.units);
 
         armySizeLabel.textProperty().bind(
             Bindings.format(
@@ -95,5 +103,8 @@ public class ArmyDetailController implements Initializable {
         if (Objects.nonNull(army) && Objects.nonNull(unit)) {
             army.units.remove(unit);
         }
+    }
+
+    private class Sqaud {
     }
 }
