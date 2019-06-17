@@ -53,15 +53,35 @@ public class Game {
         return this;
     }
 
-    public Game withPlayer(@NonNull final Player player) {
+    public Game withPlayer(@Nullable final Player player) {
         if (players.contains(player)) return this;
         doAddPlayer(player);
-        player.doSetGame(this);
+        if (player != null) player.doSetGame(this);
         return this;
     }
 
-    void doAddPlayer(@NonNull final Player player) {
+    void doAddPlayer(@Nullable final Player player) {
         players.add(player);
+    }
+
+    public Game withoutPlayers(@Nullable final Player ...players) {
+        if (players != null) {
+            for (final Player player : players) {
+                if (player != null) withoutPlayer(player);
+            }
+        }
+        return this;
+    }
+
+    public Game withoutPlayer(@NonNull final Player player) {
+        if (!players.contains(player)) return this;
+        doRemovePlayer(player);
+        player.doSetGame(null);
+        return this;
+    }
+
+    void doRemovePlayer(@NonNull final Player player) {
+        players.remove(player);
     }
 
     public Game withUnits(@Nullable final Unit ...units) {
@@ -84,6 +104,26 @@ public class Game {
         units.add(unit);
     }
 
+    public Game withoutUnits(@Nullable final Unit ...units) {
+        if (units != null) {
+            for (final Unit unit : units) {
+                if (unit != null) withoutUnit(unit);
+            }
+        }
+        return this;
+    }
+
+    public Game withoutUnit(@NonNull final Unit unit) {
+        if (!units.contains(unit)) return this;
+        doRemoveUnit(unit);
+        unit.doSetGame(null);
+        return this;
+    }
+
+    void doRemoveUnit(@NonNull final Unit unit) {
+        units.remove(unit);
+    }
+
     public Game withCell(@NonNull final Cell cell) {
         if (cells.contains(cell)) return this;
         doAddCell(cell);
@@ -93,6 +133,26 @@ public class Game {
 
     void doAddCell(@NonNull final Cell cell) {
         cells.add(cell);
+    }
+
+    public Game withoutCells(@Nullable final Cell ...cells) {
+        if (cells != null) {
+            for (final Cell cell : cells) {
+                if (cell != null) withoutCell(cell);
+            }
+        }
+        return this;
+    }
+
+    public Game withoutCell(@NonNull final Cell cell) {
+        if (!cells.contains(cell)) return this;
+        doRemoveCell(cell);
+        cell.doSetGame(null);
+        return this;
+    }
+
+    void doRemoveCell(@NonNull final Cell cell) {
+        cells.remove(cell);
     }
 
     @Override

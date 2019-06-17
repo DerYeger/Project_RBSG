@@ -47,13 +47,14 @@ public class Player {
         return units;
     }
 
-    public Player setGame(@NonNull final Game game) {
+    public Player setGame(@Nullable final Game game) {
+        if (this.game != null) this.game.doRemovePlayer(this);
         doSetGame(game);
-        game.doAddPlayer(this);
+        if (game != null) game.doAddPlayer(this);
         return this;
     }
 
-    void doSetGame(@NonNull final Game game) {
+    void doSetGame(@Nullable final Game game) {
         this.game = game;
     }
 
