@@ -9,8 +9,8 @@ import java.util.Collection;
 
 public class ModelTests {
 
-    private static final String ALICE = "alice";
-    private static final String BOB = "bob";
+    private static final String ALICE = "Alice";
+    private static final String BOB = "Bob";
 
     private static final String RED = "RED";
     private static final String BLUE = "BLUE";
@@ -67,7 +67,7 @@ public class ModelTests {
                 .setHp(10)
                 .setCanAttack(canAttack);
         final Unit aliceJeep1And5 = new Unit("")
-                .setUnitType(UnitType.CHOPPER)
+                .setUnitType(UnitType.JEEP)
                 .setMp(1)
                 .setHp(5)
                 .setCanAttack(canAttack);
@@ -106,6 +106,7 @@ public class ModelTests {
         assertEquals(game, aliceJeep1And5.getGame());
         assertEquals(game, bobChopper10And10.getGame());
 
+        assertEquals(game, forest.getGame());
         assertEquals(Biome.FOREST, forest.getBiome());
         assertTrue(forest.isPassable());
         assertEquals(0, forest.getX());
@@ -114,7 +115,9 @@ public class ModelTests {
         assertNull(forest.getTop());
         assertEquals(grass, forest.getRight());
         assertEquals(mountain, forest.getBottom());
+        assertNull(forest.getUnit().get());
 
+        assertEquals(game, grass.getGame());
         assertEquals(Biome.GRASS, grass.getBiome());
         assertTrue(grass.isPassable());
         assertEquals(1, grass.getX());
@@ -123,7 +126,9 @@ public class ModelTests {
         assertNull(grass.getTop());
         assertNull(grass.getRight());
         assertEquals(water, grass.getBottom());
+        assertEquals(aliceJeep1And5, grass.getUnit().get());
 
+        assertEquals(game, mountain.getGame());
         assertEquals(Biome.MOUNTAIN, mountain.getBiome());
         assertFalse(mountain.isPassable());
         assertEquals(0, mountain.getX());
@@ -132,7 +137,9 @@ public class ModelTests {
         assertEquals(forest, mountain.getTop());
         assertEquals(water, mountain.getRight());
         assertNull(mountain.getBottom());
+        assertEquals(bobChopper10And10, mountain.getUnit().get());
 
+        assertEquals(game, water.getGame());
         assertEquals(Biome.WATER, water.getBiome());
         assertFalse(water.isPassable());
         assertEquals(1, water.getX());
@@ -141,5 +148,42 @@ public class ModelTests {
         assertEquals(grass, water.getTop());
         assertNull(water.getRight());
         assertNull(water.getBottom());
+        assertEquals(aliceChopper5And10, water.getUnit().get());
+
+        assertEquals(game, alice.getGame());
+        assertEquals(ALICE, alice.getName());
+        assertEquals(RED, alice.getColor());
+        assertTrue(alice.getUnits().containsAll(Arrays.asList(aliceChopper5And10, aliceJeep1And5)));
+        assertEquals(2, alice.getUnits().size());
+
+        assertEquals(game, bob.getGame());
+        assertEquals(BOB, bob.getName());
+        assertEquals(BLUE, bob.getColor());
+        assertTrue(bob.getUnits().contains(bobChopper10And10));
+        assertEquals(1, bob.getUnits().size());
+
+        assertEquals(game, aliceChopper5And10.getGame());
+        assertEquals(alice, aliceChopper5And10.getLeader());
+        assertEquals(water, aliceChopper5And10.getPosition().get());
+        assertEquals(UnitType.CHOPPER, aliceChopper5And10.getUnitType());
+        assertEquals(5, aliceChopper5And10.getMp());
+        assertEquals(10, aliceChopper5And10.getHp());
+        assertEquals(canAttack, aliceChopper5And10.getCanAttack());
+
+        assertEquals(game, aliceJeep1And5.getGame());
+        assertEquals(alice, aliceJeep1And5.getLeader());
+        assertEquals(grass, aliceJeep1And5.getPosition().get());
+        assertEquals(UnitType.JEEP, aliceJeep1And5.getUnitType());
+        assertEquals(1, aliceJeep1And5.getMp());
+        assertEquals(5, aliceJeep1And5.getHp());
+        assertEquals(canAttack, aliceJeep1And5.getCanAttack());
+
+        assertEquals(game, bobChopper10And10.getGame());
+        assertEquals(bob, bobChopper10And10.getLeader());
+        assertEquals(mountain, bobChopper10And10.getPosition().get());
+        assertEquals(UnitType.CHOPPER, bobChopper10And10.getUnitType());
+        assertEquals(10, bobChopper10And10.getMp());
+        assertEquals(10, bobChopper10And10.getHp());
+        assertEquals(canAttack, bobChopper10And10.getCanAttack());
     }
 }
