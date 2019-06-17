@@ -50,6 +50,7 @@ public class Player {
     }
 
     public Player setGame(@Nullable final Game game) {
+        if (this.game == game) return this;
         if (this.game != null) this.game.doRemovePlayer(this);
         doSetGame(game);
         if (game != null) game.doAddPlayer(this);

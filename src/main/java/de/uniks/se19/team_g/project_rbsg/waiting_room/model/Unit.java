@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 
 /**
@@ -65,13 +66,15 @@ public class Unit {
         return canAttack;
     }
 
-    public Unit setGame(@NonNull final Game game) {
+    public Unit setGame(@Nullable final Game game) {
+        if (this.game == game) return this;
+        if (this.game != null) this.game.doRemoveUnit(this);
         doSetGame(game);
-        game.withUnit(this);
+        if (game != null) game.doAddUnit(this);
         return this;
     }
 
-    Unit doSetGame(@NonNull final Game game) {
+    Unit doSetGame(@Nullable final Game game) {
         this.game = game;
         return this;
     }

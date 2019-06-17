@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -25,10 +26,12 @@ public class Cell {
     private Cell right;
     private Cell bottom;
 
-    private Unit unit;
+    private SimpleObjectProperty<Unit> unit;
 
     public Cell(@NonNull final String id) {
         this.id = id;
+
+        unit = new SimpleObjectProperty<>();
     }
 
     public String getId() {
@@ -71,17 +74,19 @@ public class Cell {
         return bottom;
     }
 
-    public Unit getUnit() {
+    public SimpleObjectProperty<Unit> getUnit() {
         return unit;
     }
 
-    public Cell setGame(@NonNull final Game game) {
+    public Cell setGame(@Nullable final Game game) {
+        if (this.game == game) return this;
+        if (this.game != null) this.game.doRemoveCell(this);
         doSetGame(game);
-        game.withCell(this);
+        if (game != null) game.doAddCell(this);
         return this;
     }
 
-    Cell doSetGame(@NonNull final Game game) {
+    Cell doSetGame(@Nullable final Game game) {
         this.game = game;
         return this;
     }
@@ -147,15 +152,15 @@ public class Cell {
     }
 
     public Cell setUnit(@Nullable final Unit unit) {
-        if (this.unit == unit) return this;
-        if (this.unit != null) this.unit.setPosition(null);
+        if (this.unit.get() == unit) return this;
+        if (this.unit.get() != null) this.unit.get().setPosition(null);
         doSetUnit(unit);
         if (unit != null) unit.doSetPosition(this);
         return this;
     }
 
     void doSetUnit(@Nullable final Unit unit) {
-        this.unit = unit;
+        this.unit = new SimpleObjectProperty<>(unit);
     }
 
     @Override
