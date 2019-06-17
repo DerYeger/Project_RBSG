@@ -28,6 +28,10 @@ public class ModelManager implements GameEventHandler {
         objectMap = new HashMap<>();
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     @Override
     public void handle(@NonNull final ObjectNode node) {
         if (!node.has("action")) return;
@@ -43,7 +47,7 @@ public class ModelManager implements GameEventHandler {
                 logger.debug(firstPlayer.getName() + " has " + firstPlayer.getUnits().size() + " units");
                 logger.debug(firstPlayer.getName() + "'s first unit has type " + firstPlayer.getUnits().get(0).getUnitType());
                 logger.debug("It can attack " + firstPlayer.getUnits().get(0).getCanAttack());
-                logger.debug("Its position is " + firstPlayer.getUnits().get(0).getPosition());
+                logger.debug("Its position is " + firstPlayer.getUnits().get(0).getPosition().get());
                 //END
                 break;
             default:
