@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Jan Müller
@@ -61,7 +62,7 @@ public class Player {
         this.game = game;
     }
 
-    public Player withUnits(@Nullable final Unit ...units) {
+    public Player withUnits(@Nullable final Collection<Unit> units) {
         if (units != null) {
             for (final Unit unit : units) {
                 if (unit != null) withUnit(unit);
@@ -81,6 +82,25 @@ public class Player {
         units.add(unit);
     }
 
+    public Player withoutUnits(@Nullable final Collection<Unit> units) {
+        if (units != null) {
+            for (final Unit unit : units) {
+                if (unit != null) withoutUnit(unit);
+            }
+        }
+        return this;
+    }
+
+    public Player withoutUnit(@NonNull final Unit unit) {
+        if (!units.contains(unit)) return this;
+        doRemoveUnit(unit);
+        unit.doSetGame(null);
+        return this;
+    }
+
+    void doRemoveUnit(@NonNull final Unit unit) {
+        units.remove(unit);
+    }
 
     public Player setName(@NonNull final String name) {
         this.name = name;
@@ -90,6 +110,11 @@ public class Player {
     public Player setColor(@NonNull final String color) {
         this.color = color;
         return this;
+    }
+
+    public void remove() {
+        setGame(null);
+        withoutUnits(units);
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Jan Müller
@@ -45,7 +46,7 @@ public class Game {
         return cells;
     }
 
-    public Game withPlayers(@Nullable final Player ...players)
+    public Game withPlayers(@Nullable final Collection<Player> players)
     {
         if (players != null) {
             for (final Player player : players) {
@@ -66,7 +67,7 @@ public class Game {
         players.add(player);
     }
 
-    public Game withoutPlayers(@Nullable final Player ...players) {
+    public Game withoutPlayers(@Nullable final Collection<Player> players) {
         if (players != null) {
             for (final Player player : players) {
                 if (player != null) withoutPlayer(player);
@@ -86,7 +87,7 @@ public class Game {
         players.remove(player);
     }
 
-    public Game withUnits(@Nullable final Unit ...units) {
+    public Game withUnits(@Nullable final Collection<Unit> units) {
         if (units != null) {
             for (final Unit unit : units) {
                 if (unit != null) withUnit(unit);
@@ -106,7 +107,7 @@ public class Game {
         units.add(unit);
     }
 
-    public Game withoutUnits(@Nullable final Unit ...units) {
+    public Game withoutUnits(@Nullable final Collection<Unit> units) {
         if (units != null) {
             for (final Unit unit : units) {
                 if (unit != null) withoutUnit(unit);
@@ -137,7 +138,7 @@ public class Game {
         cells.add(cell);
     }
 
-    public Game withoutCells(@Nullable final Cell ...cells) {
+    public Game withoutCells(@Nullable final Collection<Cell> cells) {
         if (cells != null) {
             for (final Cell cell : cells) {
                 if (cell != null) withoutCell(cell);
@@ -155,6 +156,12 @@ public class Game {
 
     void doRemoveCell(@NonNull final Cell cell) {
         cells.remove(cell);
+    }
+
+    public void remove() {
+        withoutPlayers(players);
+        withoutUnits(units);
+        withoutCells(cells);
     }
 
     @Override

@@ -79,14 +79,15 @@ public class Unit {
         return this;
     }
 
-    public Unit setLeader(@NonNull final Player leader) {
+    public Unit setLeader(@Nullable final Player leader) {
         if (this.leader == leader) return this;
+        if (this.leader != null) this.leader.doRemoveUnit(this);
         doSetLeader(leader);
-        leader.doAddUnit(this);
+        if (leader != null) leader.doAddUnit(this);
         return this;
     }
 
-    void doSetLeader(@NonNull final Player leader) {
+    void doSetLeader(@Nullable final Player leader) {
         this.leader = leader;
     }
 
@@ -120,6 +121,12 @@ public class Unit {
     public Unit setCanAttack(@NonNull final ArrayList<UnitType> canAttack) {
         this.canAttack = canAttack;
         return this;
+    }
+
+    public void remove() {
+        setGame(null);
+        setLeader(null);
+        setPosition(null);
     }
 
     @Override

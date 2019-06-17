@@ -112,6 +112,8 @@ public class Cell {
     }
 
     public Cell setLeft(@Nullable final Cell left) {
+        if (this.left == left) return this;
+        if (this.left != null) this.left.doSetRight(null);
         doSetLeft(left);
         if (left != null) left.doSetRight(this);
         return this;
@@ -122,6 +124,8 @@ public class Cell {
     }
 
     public Cell setTop(@Nullable final Cell top) {
+        if (this.top == top) return this;
+        if (this.top != null) this.top.doSetBottom(null);
         doSetTop(top);
         if (top != null) top.doSetBottom(this);
         return this;
@@ -132,6 +136,8 @@ public class Cell {
     }
 
     public Cell setRight(@Nullable final Cell right) {
+        if (this.right == right) return this;
+        if (this.right != null) this.right.doSetLeft(null);
         doSetRight(right);
         if (right != null) right.doSetLeft(this);
         return this;
@@ -142,6 +148,8 @@ public class Cell {
     }
 
     public Cell setBottom(@Nullable final Cell bottom) {
+        if (this.bottom == bottom) return this;
+        if (this.bottom != null) this.bottom.doSetTop(null);
         doSetBottom(bottom);
         if (bottom != null) bottom.doSetTop(this);
         return this;
@@ -161,6 +169,15 @@ public class Cell {
 
     void doSetUnit(@Nullable final Unit unit) {
         this.unit = new SimpleObjectProperty<>(unit);
+    }
+
+    public void remove() {
+        setGame(null);
+        setLeft(null);
+        setTop(null);
+        setRight(null);
+        setBottom(null);
+        setUnit(null);
     }
 
     @Override
