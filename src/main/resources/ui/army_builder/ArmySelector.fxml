@@ -3,17 +3,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
 
-
-<fx:root type="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-     fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController"
-
->
-    <ListView
-        fixedCellSize="5.0"
-        maxHeight="-Infinity" maxWidth="-Infinity"
-        minHeight="-Infinity" minWidth="-Infinity"
-        styleClass="default"
-        fx:id="listView"
-    />
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="Pane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController">
+    <ListView fx:id="listView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="default" />
 </fx:root>

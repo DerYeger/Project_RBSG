@@ -3,6 +3,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onItemClicked" styleClass="elevation-2" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorEntryController">
+<Pane fx:id="root" minHeight="40.0" minWidth="40.0" onMouseClicked="#onItemClicked" styleClass="elevation-2" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorEntryController">
     <ImageView fx:id="imageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
 </Pane>
