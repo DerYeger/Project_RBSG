@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army.units;
 
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.model.UnitTypeMetaData;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,16 +9,30 @@ public class UnitTypeAdapter {
 
     public Unit map(UnitType unitType) {
         final Unit unit = new Unit();
-        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
-        unit.imageUrl.set(getClass().getResource("/assets/sprites/soldier.png").toString());
+
+        UnitTypeMetaData metaData = getMetaDataForType(unitType.type);
+
+        unit.iconUrl.set(metaData.getIcon().toString());
+        unit.imageUrl.set(metaData.getImage().toString());
         unit.name.set(unitType.type);
         unit.description.set(unitType.id);
         unit.speed.set(unitType.mp);
         unit.health.set(unitType.hp);
+        unit.id.set(unitType.id);
 
         unit.description.set(mapDescription(unitType));
 
         return unit;
+    }
+
+    private UnitTypeMetaData getMetaDataForType(final String type) {
+        String asCamelCaseType = type.replace(" ", "");
+
+        try {
+            return UnitTypeMetaData.valueOf(asCamelCaseType);
+        } catch (IllegalArgumentException e) {
+            return UnitTypeMetaData.UNKNOWN;
+        }
     }
 
     private String mapDescription(UnitType unitType) {

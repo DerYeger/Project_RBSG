@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -27,14 +28,16 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.HttpClientErrorException;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Jan Müller
  * @author Juri Lozowoj
  * @author Keanu Stückrad
- * @edited Georg Siebert
+ * @author  Georg Siebert
  */
 @Controller
 @Scope("prototype")
@@ -66,20 +69,31 @@ public class LoginFormController implements RootController, Rincled
     public SimpleBooleanProperty loadingFlag;
     private SimpleBooleanProperty errorFlag;
     private User user;
+
+    @Nonnull
     private final LoginManager loginManager;
+    @Nonnull
     private final RegistrationManager registrationManager;
+    @Nonnull
     private final SceneManager sceneManager;
+    @Nonnull
+    private final ApplicationStateInitializer appStateInitializer;
+    @Nonnull
     private final UserProvider userProvider;
 
     @Autowired
-    public LoginFormController(@NonNull final UserProvider userProvider,
-                               @NonNull final LoginManager loginManager,
-                               @NonNull final RegistrationManager registrationManager,
-                               @NonNull final SceneManager sceneManager) {
+    public LoginFormController(
+            @Nonnull final UserProvider userProvider,
+            @Nonnull final LoginManager loginManager,
+            @Nonnull final RegistrationManager registrationManager,
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final ApplicationStateInitializer appStateInitializer
+        ) {
         this.userProvider = userProvider;
         this.loginManager = loginManager;
         this.registrationManager = registrationManager;
         this.sceneManager = sceneManager;
+        this.appStateInitializer = appStateInitializer;
     }
 
     @Override
@@ -185,6 +199,13 @@ public class LoginFormController implements RootController, Rincled
     private void onLogin(@NonNull final User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
+
+        try {
+            appStateInitializer.initialize().get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.debug("unexpected initializer error", e);
+            handleErrorMessage(getResources().getString("unexpectedInitializerError"));
+        }
         Platform.runLater(sceneManager::setLobbyScene);
     }
 

@@ -2,24 +2,27 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincl;
+import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -28,26 +31,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import de.uniks.se19.team_g.project_rbsg.termination.*;
-import io.rincl.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
-
-import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -75,11 +69,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     @NonNull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
-    @Nullable
-    private final ArmyManager armyManager;
-
-    @Nonnull
-    private final ApplicationState appState;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -105,7 +94,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     @Autowired
     public LobbyViewController(
-            @Nonnull ApplicationState appState, @NonNull final GameProvider gameProvider,
+            @NonNull final GameProvider gameProvider,
             @NonNull final UserProvider userProvider,
             @NonNull final SceneManager sceneManager,
             @NonNull final JoinGameManager joinGameManager,
@@ -116,13 +105,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @NonNull final LobbyChatClient lobbyChatClient,
             @NonNull final CreateGameFormBuilder createGameFormBuilder,
             @NonNull final MusicManager musicManager,
-            @NonNull final LogoutManager logoutManager,
-            @Nullable ArmyManager armyManager
+            @NonNull final LogoutManager logoutManager
     ) {
-        this.appState = appState;
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
-        this.armyManager = armyManager;
 
         this.lobby = new Lobby();
 
@@ -219,10 +205,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         CompletableFuture.supplyAsync(playerManager::getPlayers).thenAccept(players -> Platform.runLater(() -> lobby.addAllPlayer(players)));
         CompletableFuture.supplyAsync(gameManager::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
-
-        if (armyManager != null) {
-            armyManager.getArmies().thenAccept(armies -> Platform.runLater(() -> appState.armies.setAll(armies)));
-        }
     }
 
     private void setBackgroundImage()

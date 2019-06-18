@@ -1,6 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.util;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableStringValue;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,5 +28,11 @@ public class JavaFXUtils {
         button.graphicProperty().bind(Bindings.when(button.hoverProperty())
                 .then(hover)
                 .otherwise(nonHover));
+    }
+
+    public static void bindImage(ObjectProperty<Image> imageProperty, ObservableStringValue imgUrlProperty) {
+        final ObjectBinding<Image> imageBinding = Bindings.createObjectBinding(() -> new Image(imgUrlProperty.get()), imgUrlProperty);
+        imageProperty.bind(imageBinding);
+
     }
 }

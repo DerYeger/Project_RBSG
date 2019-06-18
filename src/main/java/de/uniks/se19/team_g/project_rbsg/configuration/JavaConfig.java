@@ -19,6 +19,8 @@ import javax.annotation.Nonnull;
 @Configuration
 public class JavaConfig implements ApplicationContextAware {
 
+    public static final int ICON_SIZE = 40;
+
     private ApplicationContext context;
 
     @Bean

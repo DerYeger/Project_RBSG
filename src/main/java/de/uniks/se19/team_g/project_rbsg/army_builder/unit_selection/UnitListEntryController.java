@@ -2,8 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -50,8 +52,8 @@ public class UnitListEntryController extends ListCell<Unit> implements Initializ
 
         unitName.textProperty().bind(unit.name);
 
-        final ObjectBinding<Image> imageBinding = Bindings.createObjectBinding(() -> new Image(unit.iconUrl.get()), unit.iconUrl);
-        imageView.imageProperty().bind(imageBinding);
+        final ObjectProperty<Image> imageObjectProperty = imageView.imageProperty();
+        JavaFXUtils.bindImage(imageObjectProperty, unit.iconUrl);
 
         setGraphic(root);
     }

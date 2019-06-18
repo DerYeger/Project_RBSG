@@ -98,6 +98,8 @@
 /*------------------Button------------------*/
 
 .button.icon-button {
+    -fx-min-height: 40px;
+    -fx-min-width: 40px;
     -fx-pref-width: 40px;
     -fx-pref-height: 40px;
     -fx-max-width: 40px;
@@ -177,22 +179,22 @@
 
 /*------------------ListCell------------------*/
 
-.list-view.default > .list-cell {
+.list-view.default .list-cell {
     -fx-background-color: transparent;
     -fx-border-width: 0;
     -fx-opacity: 0.8;
 }
 
-.list-view.default > .list-cell:empty:hover{
+.list-view.default .list-cell:empty:hover{
     -fx-background-color: transparent;
 }
 
-.list-view.default > .list-cell:hover {
+.list-view.default .list-cell:hover {
     -fx-background-color: -primary-lighter-background-color;
     -fx-opacity: 1;
 }
 
-.list-view.default > .list-cell.selected {
+.list-view.default .list-cell:selected {
     -fx-background-color: -selected-background-color;
 }
 
