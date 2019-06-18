@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class ArmySelectorControllerTest extends ApplicationTest {
     @Override
     public void start(Stage stage) {
 
-        mountPoint = new Pane();
+        mountPoint = new VBox();
         final Pane root = new Pane(mountPoint);
 
         stage.setScene(new Scene(root, 200, 500));
