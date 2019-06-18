@@ -6,6 +6,7 @@
 
 <fx:root type="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+     fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController"
 
 >
     <ListView
