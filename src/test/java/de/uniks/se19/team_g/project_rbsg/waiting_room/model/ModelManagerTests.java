@@ -154,5 +154,12 @@ public class ModelManagerTests {
 
         assertNull(chopper.getPosition().get());
         assertNull(water.getUnit().get());
+
+        final String removePlayerFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Player@1\",\"from\":\"Game@1\",\"fieldName\":\"allPlayer\"}}";
+
+        modelManager.handle(mapper.readValue(removePlayerFromGame, ObjectNode.class));
+
+        assertTrue(game.getPlayers().isEmpty());
+        assertNull(player.getGame());
     }
 }
