@@ -83,7 +83,7 @@ public class ModelManager implements GameEventHandler {
                 CellUtil.buildCell(this, identifier, StringToEnum.biome(type), data, false);
                 break;
             default:
-                logger.error("Unknown class: " + type);
+                logger.error("Unknown init class: " + type);
         }
     }
 
@@ -110,7 +110,7 @@ public class ModelManager implements GameEventHandler {
                 UnitUtil.removeUnitFrom(this, identifier, from, fieldName, true);
                 break;
             default:
-                logger.error("Unknown class: " + type);
+                logger.error("Unknown removal class: " + type);
         }
     }
 
