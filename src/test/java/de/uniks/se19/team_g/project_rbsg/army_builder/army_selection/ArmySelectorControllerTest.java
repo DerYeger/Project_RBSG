@@ -58,7 +58,8 @@ public class ArmySelectorControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void test() throws ExecutionException, InterruptedException {
+    public void test() throws ExecutionException, InterruptedException
+    {
         final ArmySelectorController controller = CompletableFuture.supplyAsync(
             () -> armySelectionMounter.apply(mountPoint),
             Platform::runLater

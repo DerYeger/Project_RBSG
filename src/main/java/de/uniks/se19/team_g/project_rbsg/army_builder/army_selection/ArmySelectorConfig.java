@@ -18,7 +18,7 @@ public class ArmySelectorConfig {
         return pane -> {
             final FXMLLoader loader = fxmlLoader.getObject();
             loader.setRoot(pane);
-            loader.setLocation(ClassLoader.getSystemResource("/ui/army_builder/ArmySelector.fxml"));
+            loader.setLocation(getClass().getResource("/ui/army_builder/ArmySelector.fxml"));
             try {
                 loader.load();
             } catch (IOException e) {
