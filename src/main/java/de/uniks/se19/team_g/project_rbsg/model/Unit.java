@@ -35,6 +35,15 @@ public class Unit implements Cloneable {
         unit.description.set(UNKNOWN);
         unit.id.set(id);
 
+        UnitTypeMetaData metaData = UnitTypeMetaData.UNKNOWN;
+
+        unit.iconUrl.set(
+            metaData.getIcon().toString()
+        );
+        unit.imageUrl.set(
+            metaData.getImage().toString()
+        );
+
         return unit;
     }
 
