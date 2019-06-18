@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 
-public class UnitPropertyInfoListController extends ButtonIconsSetter {
+public class UnitPropertyInfoListController {
 
     public Button closeButton;
     public VBox infoBox;
@@ -24,7 +24,7 @@ public class UnitPropertyInfoListController extends ButtonIconsSetter {
     private UnitPropertyInfoCellBuilder spellPower;
 
     public void init() {
-        setButtonIcons(closeButton, "/assets/icons/navigation/arrow-back-black.png", "/assets/icons/navigation/arrow-back-white.png", 40);
+        JavaFXUtils.setButtonIcons(closeButton, getClass().getResource("/assets/icons/navigation/arrow-back-black.png"), getClass().getResource("/assets/icons/navigation/arrow-back-white.png"), 40);
         initBuilders();
         // add property images and infos here with relative path
         infoBox.getChildren().addAll(

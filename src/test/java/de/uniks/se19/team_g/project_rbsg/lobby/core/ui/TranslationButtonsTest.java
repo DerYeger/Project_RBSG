@@ -1,10 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
@@ -31,7 +33,6 @@ import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
 import org.testfx.framework.junit.*;
 
-import java.io.*;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -49,7 +50,8 @@ import static org.junit.Assert.*;
         CreateGameController.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        MusicManager.class
+        MusicManager.class,
+        ApplicationState.class,
 })
 public class TranslationButtonsTest extends ApplicationTest
 {
@@ -120,17 +122,26 @@ public class TranslationButtonsTest extends ApplicationTest
         public GameEventManager gameEventManager() {
             return new GameEventManager(new WebSocketClient()) {
                 @Override
-                public void startSocket(@NonNull final String gameID) {
+                public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
                 }
             };
         }
 
         @Bean
         public ChatController chatController() {
-            return  new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback()) {
+            return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
-                public void init(@NonNull final TabPane chatPane) throws IOException
+                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
                 {
+                }
+            };
+        }
+
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void startChatClient(@NonNull final ChatController chatController) {
                 }
             };
         }

@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -7,7 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -39,6 +40,7 @@ import java.util.concurrent.CompletableFuture;
         UnitListEntryFactory.class,
         UnitListEntryController.class,
         ArmyBuilderSceneTest.ContextConfiguration.class,
+        MusicManager.class,
         SceneManager.class
 })
 public class ArmyBuilderSceneTest extends ApplicationTest {
@@ -49,8 +51,11 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
         @Bean
         public GetUnitTypesService getUnitTypesService()
         {
+            final Unit unit = new Unit();
+            unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
+            unit.name.set("novice");
             final GetUnitTypesService mock = Mockito.mock(GetUnitTypesService.class);
-            Mockito.when(mock.queryUnitTypes()).thenReturn(CompletableFuture.completedFuture(new ArrayList<>()));
+            Mockito.when(mock.queryUnitPrototypes()).thenReturn(CompletableFuture.completedFuture(Collections.singletonList(unit)));
             return mock;
         }
     }
@@ -78,6 +83,8 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
         Assert.assertNotNull(controller.root);
         Assert.assertNotNull(controller.content);
         Assert.assertNotNull(controller.showInfoButton);
+        Assert.assertNotNull(controller.soundButton);
+        Assert.assertNotNull(controller.leaveButton);
         Assert.assertNotNull(controller.sideBarRight);
         Assert.assertNotNull(controller.sideBarLeft);
         Assert.assertNotNull(controller.unitDetailView);
@@ -88,29 +95,24 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
     @Test
     public void testUnitList()
     {
+        Unit unit = new Unit();
+        unit.name.set("Archer");
+        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
+
+        Assert.assertEquals(0, state.unitTypes.size());
+
         @SuppressWarnings("unchecked") ViewComponent<SceneController> armyBuilderComponent
                 = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
-
-
-        Unit unit1 = new Unit();
-        unit1.name.set("Soldier");
-        unit1.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
-
-        Unit unit2 = new Unit();
-        unit2.name.set("Archer");
-        unit2.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
-
-        state.unitTypes.add(unit1);
+        Assert.assertEquals(1, state.unitTypes.size());
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));
             stage.show();
         });
         WaitForAsyncUtils.waitForFxEvents();
-
         Assert.assertEquals(1, lookup(".list-cell #imageView").queryAll().size());
 
-        Platform.runLater(() -> state.unitTypes.add(unit2));
+        Platform.runLater(() -> state.unitTypes.add(unit));
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(2, lookup(".list-cell #imageView").queryAll().size());

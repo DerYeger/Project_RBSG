@@ -1,9 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
@@ -49,7 +50,8 @@ import static org.junit.Assert.*;
         LobbyViewBuilder.class,
         LobbyViewController.class,
         FXMLLoaderFactory.class,
-        MusicManager.class
+        MusicManager.class,
+        ApplicationState.class,
         }
 )
 public class PlayerLeftGameListTest extends ApplicationTest
@@ -117,15 +119,21 @@ public class PlayerLeftGameListTest extends ApplicationTest
         }
 
         @Bean
-        public ChatController chatController()
-        {
-            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
-            {
+        public ChatController chatController() {
+            return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
-                public void init(@NonNull final TabPane chatPane)
+                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
                 {
                 }
+            };
+        }
 
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void startChatClient(@NonNull final ChatController chatController) {
+                }
             };
         }
 

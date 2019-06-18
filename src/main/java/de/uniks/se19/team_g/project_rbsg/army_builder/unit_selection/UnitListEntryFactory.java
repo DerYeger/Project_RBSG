@@ -22,7 +22,7 @@ public class UnitListEntryFactory implements Callback<ListView<Unit>, ListCell<U
     @Override
     public ListCell<Unit> call(ListView<Unit> param) {
         final FXMLLoader loader = fxmlLoaderFactory.fxmlLoader();
-        loader.setLocation(getClass().getResource("/ui/army_builder/UnitListEntry.fxml"));
+        loader.setLocation(getClass().getResource("/ui/army_builder/unitListEntry.fxml"));
         try {
             loader.load();
         } catch (IOException e) {

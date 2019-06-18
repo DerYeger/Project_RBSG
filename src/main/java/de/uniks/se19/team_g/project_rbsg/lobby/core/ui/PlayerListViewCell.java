@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +59,7 @@ public class PlayerListViewCell extends ListCell<Player>
             if (fxmlLoader == null)
             {
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("PlayerListCell.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ui/lobby/core/playerListCell.fxml"));
                 fxmlLoader.setController(this);
                 try
                 {
@@ -74,7 +74,7 @@ public class PlayerListViewCell extends ListCell<Player>
 
 
             playerListCellLabel.setText(player.getName());
-            Image image = new Image(String.valueOf(getClass().getResource("Images/" + player.getImagePath())));
+            Image image = new Image(String.valueOf(getClass().getResource(player.getImagePath())));
 
             playerListCellImageView.setImage(image);
 
@@ -90,7 +90,7 @@ public class PlayerListViewCell extends ListCell<Player>
                 && localUserName != null
                 && player != null
                 && !localUserName.equals(player.getName())) {
-            chatController.openTab('@' + player.getName());
+            chatController.chatTabManager().openTab('@' + player.getName());
         }
     }
 }

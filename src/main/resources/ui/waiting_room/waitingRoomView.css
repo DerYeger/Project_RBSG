@@ -1,0 +1,59 @@
+/*
+ * @author Keanu Stückrad
+ */
+
+.player-card {
+    -fx-max-height: 100;
+    -fx-max-width: 350;
+    -fx-min-height: 100;
+    -fx-min-width: 350;
+    -fx-background-color: -root-background-color;
+    -fx-effect: -shadow;
+}
+
+.chat-pane {
+    -fx-min-height: 350;
+    -fx-max-height: 350;
+    -fx-effect: -shadow;
+    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Chat-Einbund*/
+}
+
+.mini-game-stack-pane {
+    -fx-min-width: 350;
+    -fx-max-width: 350;
+}
+
+.mini-game-pane {
+    -fx-min-width: 300;
+    -fx-min-height: 300;
+    -fx-max-height: 300;
+    -fx-max-width: 300;
+    -fx-background-color: -root-background-color;
+    -fx-effect: -shadow;
+}
+
+.map-preview-pane {
+    -fx-max-width: 290;
+    -fx-max-height: 290;
+    -fx-min-width: 290;
+    -fx-min-height: 290;
+    -fx-effect: -shadow;
+    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Kartenvorschau-Einbund*/
+}
+
+.army-pane {
+    -fx-max-width: 80;
+    -fx-max-height: 700;
+    -fx-min-width: 80;
+    -fx-min-height: 700;
+    -fx-effect: -shadow;
+    -fx-border-color: #000000; /*Platzhalter muesste spaeter geloescht werden nach einfuegen der aktiven Army*/
+}
+
+.label.player {
+    -fx-font-size: 22pt;
+}
+
+.label.waiting {
+    -fx-font-size: 16pt;
+}

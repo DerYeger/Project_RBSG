@@ -2,7 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -21,6 +23,7 @@ public class LobbyViewControllerTest {
     {
         final SceneManager sceneManager = mock(SceneManager.class);
         LobbyViewController sut = new LobbyViewController(
+                new ApplicationState(),
                 mock(GameProvider.class),
                 mock(UserProvider.class),
                 sceneManager,
@@ -29,9 +32,11 @@ public class LobbyViewControllerTest {
                 mock(GameManager.class),
                 mock(SystemMessageManager.class),
                 mock(ChatController.class),
+                mock(LobbyChatClient.class),
                 mock(CreateGameFormBuilder.class),
                 mock(MusicManager.class),
-                mock(DefaultLogoutManager.class)
+                mock(DefaultLogoutManager.class),
+                null
         );
 
         sut.goToArmyBuilder(null);

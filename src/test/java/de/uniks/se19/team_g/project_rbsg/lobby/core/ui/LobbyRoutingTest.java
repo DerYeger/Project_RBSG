@@ -28,7 +28,7 @@ public class LobbyRoutingTest extends ApplicationTest {
         Rincl.setLocale(Locale.ENGLISH);
 
         final FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(LobbyViewController.class.getResource("LobbyView.fxml"));
+        loader.setLocation(LobbyViewController.class.getResource("/ui/lobby/core/lobbyView.fxml"));
         loader.setControllerFactory(param -> {
             Assert.assertEquals(param, LobbyViewController.class);
             final LobbyViewController mock = mock(LobbyViewController.class);

@@ -1,13 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPropertyInfoListBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
-import de.uniks.se19.team_g.project_rbsg.configuration.ButtonIconsSetter;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetUnitTypesService;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.UnitType;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -21,18 +22,18 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 /**
  * @author Goatfryed
  * @author Keanu Stückrad
  */
 @Component
-public class SceneController extends ButtonIconsSetter implements Initializable {
+public class SceneController implements Initializable {
 
     private static final int ICON_SIZE = 40;
 
@@ -52,15 +53,24 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
     public Button showInfoButton;
     private UnitPropertyInfoListBuilder unitPropertyInfoListBuilder;
     private Node infoView;
+    public Button soundButton;
+    public Button leaveButton;
+
+    private final MusicManager musicManager;
+    private final SceneManager sceneManager;
 
     public SceneController(
-        ArmyBuilderState state,
-        UnitListEntryFactory unitCellFactory,
-        GetUnitTypesService getUnitTypesService
-    ) {
+            ArmyBuilderState state,
+            UnitListEntryFactory unitCellFactory,
+            GetUnitTypesService getUnitTypesService,
+            @NonNull final MusicManager musicManager,
+            @NonNull final SceneManager sceneManager
+            ) {
         this.state = state;
         this.unitCellFactory = unitCellFactory;
         this.getUnitTypesService = getUnitTypesService;
+        this.musicManager = musicManager;
+        this.sceneManager = sceneManager;
     }
 
     @Autowired
@@ -79,30 +89,32 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(state.unitTypes);
 
-        getUnitTypesService.queryUnitTypes().thenAccept(
+        getUnitTypesService.queryUnitPrototypes().thenAccept(
             unitTypes -> Platform.runLater(() ->
-                state.unitTypes.setAll(
-                    unitTypes.stream()
-                        .map(this::mapUnitTypes)
-                        .collect(Collectors.toList())
-                )
+                state.unitTypes.setAll(unitTypes)
             )
         );
 
-        setButtonIcons(showInfoButton, "/assets/icons/navigation/info-black.png", "/assets/icons/navigation/info-white.png", ICON_SIZE);
         unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
+        musicManager.initButtonIcons(soundButton);
+
+        JavaFXUtils.setButtonIcons(
+                showInfoButton,
+                getClass().getResource("/assets/icons/navigation/infoBlack.png"),
+                getClass().getResource("/assets/icons/navigation/infoWhite.png"),
+                SceneController.ICON_SIZE
+        );
+        JavaFXUtils.setButtonIcons(
+                leaveButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                SceneController.ICON_SIZE
+        );
 
     }
 
-    private Unit mapUnitTypes(UnitType unitType) {
-        final Unit unit = new Unit();
-        unit.iconUrl.set(getClass().getResource("/assets/icons/army/magic-defense.png").toString());
-        unit.imageUrl.set(getClass().getResource("/assets/sprites/Soldier.png").toString());
-        unit.name.set(unitType.type);
-        unit.description.set(unitType.id);
-        unit.speed.set(unitType.mp);
-        unit.health.set(unitType.hp);
-        return unit;
+    public void toggleSound(ActionEvent actionEvent) {
+        musicManager.updateMusicButtonIcons(soundButton);
     }
 
     public void showInfo(ActionEvent actionEvent) {
@@ -114,4 +126,7 @@ public class SceneController extends ButtonIconsSetter implements Initializable 
         infoView.setVisible(true);
     }
 
+    public void leaveRoom(ActionEvent actionEvent) {
+        
+    }
 }
