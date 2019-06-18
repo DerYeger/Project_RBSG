@@ -34,7 +34,11 @@
                <Insets />
             </HBox.margin></Pane>
       </HBox>
-      <HBox fx:id="armyDetailsContainer" VBox.vgrow="ALWAYS" />
+      <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox fx:id="armyDetailsContainer" fillHeight="false" VBox.vgrow="NEVER" />
+         </children>
+      </VBox>
    </VBox>
    <VBox fx:id="sideBarRight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
       <VBox fx:id="armySelectorRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"

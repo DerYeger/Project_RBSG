@@ -11,17 +11,19 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -35,12 +37,15 @@ import java.util.function.Function;
  * @author Keanu Stückrad
  */
 @Component
+@Scope("prototype")
 public class ArmyBuilderController implements Initializable {
 
     public Parent root;
 
     @Nonnull
     private final ApplicationState appState;
+    @Nonnull
+    private final ArmyBuilderState viewState;
     @Nullable
     private final Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory;
     @Nonnull
@@ -64,17 +69,21 @@ public class ArmyBuilderController implements Initializable {
     public Button soundButton;
     public Button leaveButton;
     public Pane armySelectorRoot;
+    private ChangeListener<Unit> onSelectionUpdated;
 
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
-            @Nonnull UnitListEntryFactory unitCellFactory, @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
+            @Nonnull ArmyBuilderState viewState,
+            @Nonnull UnitListEntryFactory unitCellFactory,
+            @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
             @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager
     ) {
         this.appState = appState;
+        this.viewState = viewState;
         this.armyDetaiLFactory = armyDetaiLFactory;
         this.unitCellFactory = unitCellFactory;
         this.armySelectorComponent = armySelectorComponent;
@@ -88,6 +97,10 @@ public class ArmyBuilderController implements Initializable {
     {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(appState.unitDefinitions);
+
+        // setup listener to focus items based on selected unit
+        onSelectionUpdated = this::onSelectionUpdated;
+        viewState.selectedUnit.addListener(new WeakChangeListener<>(onSelectionUpdated));
 
         if (armyDetaiLFactory != null) {
             armyDetaiLFactory.apply(armyDetailsContainer);
@@ -117,6 +130,22 @@ public class ArmyBuilderController implements Initializable {
 
     }
 
+    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue)
+    {
+        final Unit selection;
+        if (newValue == null) {
+            selection = null;
+        } else {
+            final String id = viewState.selectedUnit.get().id.get();
+            selection = appState.unitDefinitions.stream()
+                    .filter(u -> id.equals(u.id.get()))
+                    .findFirst()
+                    .orElse(null)
+            ;
+        }
+        unitListView.getSelectionModel().select(selection);
+    }
+
     public void toggleSound(ActionEvent actionEvent) {
         if(musicManager == null) return;
         musicManager.updateMusicButtonIcons(soundButton);
@@ -126,15 +155,7 @@ public class ArmyBuilderController implements Initializable {
         if (sceneManager == null) {
             return;
         }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave ArmyBuilder");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setLobbyScene();
-        } else {
-            actionEvent.consume();
-        }
+        sceneManager.setLobbyScene();
     }
 
 }

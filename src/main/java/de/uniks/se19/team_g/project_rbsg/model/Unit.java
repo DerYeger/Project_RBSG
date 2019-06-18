@@ -35,6 +35,15 @@ public class Unit implements Cloneable {
         unit.description.set(UNKNOWN);
         unit.id.set(id);
 
+        UnitTypeMetaData metaData = UnitTypeMetaData.UNKNOWN;
+
+        unit.iconUrl.set(
+            metaData.getIcon().toString()
+        );
+        unit.imageUrl.set(
+            metaData.getImage().toString()
+        );
+
         return unit;
     }
 
@@ -46,5 +55,13 @@ public class Unit implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Unit
+                && id.get() != null
+                && id.get().equals(((Unit) obj).id.get())
+        ;
     }
 }
