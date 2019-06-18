@@ -30,7 +30,7 @@ public class LoadingIndicatorCardBuilder {
 
     public Node buildProgressIndicatorCard(){
         if(fxmlLoader == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("loading-indicator.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/login/loading.fxml"));
             fxmlLoader.setController(this);
             try {
                 loadingIndicatorView = fxmlLoader.load();

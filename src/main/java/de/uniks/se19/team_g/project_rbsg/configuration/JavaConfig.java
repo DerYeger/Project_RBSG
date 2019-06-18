@@ -9,9 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Nonnull;
 
@@ -21,6 +18,8 @@ import javax.annotation.Nonnull;
 
 @Configuration
 public class JavaConfig implements ApplicationContextAware {
+
+    public static final int ICON_SIZE = 40;
 
     private ApplicationContext context;
 

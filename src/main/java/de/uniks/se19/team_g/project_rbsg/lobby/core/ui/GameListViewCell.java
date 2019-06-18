@@ -9,7 +9,6 @@ import javafx.application.*;
 import javafx.beans.*;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -66,7 +65,7 @@ public class GameListViewCell extends ListCell<Game>
         else {
             if(fxmlLoader == null) {
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("GameListCell.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ui/lobby/core/gameListCell.fxml"));
                 fxmlLoader.setController(this);
 
                 try
@@ -82,13 +81,13 @@ public class GameListViewCell extends ListCell<Game>
             nameLabel.setText(game.getName());
 
             game.getJoinedPlayerProperty().addListener(this::updateItem);
-            playersLabel.setText(String.format("%s/%s", game.getJoinedPlayer(), game.getNeededPlayer()));
+            playersLabel.setText(String.format("%d/%d", game.getJoinedPlayer(), game.getNeededPlayer()));
             playersLabel.setId("gameCellPlayersLabel" + game.getName());
 
-            Image gameImage = new Image(String.valueOf(getClass().getResource("Images/baseline_videogame_asset_white_48dp.png")));
+            Image gameImage = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/videogameWhite.png")));
             gameImageView.setImage(gameImage);
 
-            Image playersImage = new Image(String.valueOf(getClass().getResource("Images/baseline_group_white_48dp.png")));
+            Image playersImage = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/groupWhite.png")));
             playersImageView.setImage(playersImage);
 
 
@@ -107,8 +106,8 @@ public class GameListViewCell extends ListCell<Game>
             joinImageViewNonHover.setFitHeight(40);
             joinImageViewNonHover.setFitWidth(40);
 
-            joinImageViewHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_black_48dp.png"))));
-            joinImageViewNonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/baseline_last_page_white_48dp.png"))));
+            joinImageViewHover.setImage(new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/lastPageBlack.png"))));
+            joinImageViewNonHover.setImage(new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/lastPageWhite.png"))));
 
             joinButton.graphicProperty().bind(Bindings.when(joinButton.hoverProperty())
                                                       .then(joinImageViewHover)
@@ -125,7 +124,7 @@ public class GameListViewCell extends ListCell<Game>
     private void updateItem(Observable observable)
     {
         Platform.runLater(() -> {
-            playersLabel.setText(String.format("%s/%s", game.getJoinedPlayer(), game.getNeededPlayer()));
+            playersLabel.setText(String.format("%d/%d", game.getJoinedPlayer(), game.getNeededPlayer()));
         });
 
         logger.debug("Updated joined Player to" + game.getJoinedPlayer());
@@ -136,7 +135,7 @@ public class GameListViewCell extends ListCell<Game>
         if(game != null) {
             gameProvider.set(game);
             joinGameManager.joinGame(userProvider.get(), game);
-            sceneManager.setIngameScene();
+            sceneManager.setWaitingRoomScene();
         }
     }
 

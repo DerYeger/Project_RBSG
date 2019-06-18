@@ -6,6 +6,8 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -37,12 +39,13 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.io.IOException;
+import javax.annotation.Nonnull;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -59,7 +62,8 @@ import static org.junit.Assert.assertNotNull;
         GameProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        LobbyViewBuilder.class
+        LobbyViewBuilder.class,
+        ApplicationState.class,
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -107,13 +111,20 @@ public class LobbyBuilderTest extends ApplicationTest
         }
 
         @Bean
-        public LobbyViewController lobbyViewController()
+        public LobbyViewController lobbyViewController(
+                ApplicationState appState,
+                GameProvider gameProvider,
+                UserProvider userProvider,
+                SceneManager sceneManager,
+                JoinGameManager joinGameManager,
+                @Nullable ArmyManager armyManager
+        )
         {
             return new LobbyViewController(
-                    context.getBean(GameProvider.class),
-                    context.getBean(UserProvider.class),
-                    context.getBean(SceneManager.class),
-                    context.getBean(JoinGameManager.class),
+                    gameProvider,
+                    userProvider,
+                    sceneManager,
+                    joinGameManager,
                     new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
                     new GameManager(new RESTClient(new RestTemplate()), userProvider()),
                     new SystemMessageManager(new WebSocketClient()),
@@ -121,8 +132,8 @@ public class LobbyBuilderTest extends ApplicationTest
                     new LobbyChatClient(new WebSocketClient(), userProvider()),
                     new CreateGameFormBuilder(new FXMLLoader()),
                     new MusicManager(),
-                    new DefaultLogoutManager(new RESTClient(new RestTemplate())))
-            {
+                    new DefaultLogoutManager(new RESTClient(new RestTemplate()))
+            ) {
                 @Override
                 public void init()
                 {
@@ -155,7 +166,7 @@ public class LobbyBuilderTest extends ApplicationTest
         }
 
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
             this.context = applicationContext;
         }
     }

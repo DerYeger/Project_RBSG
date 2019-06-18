@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
 @Component
 public class UnitDetailController implements Initializable {
 
-    public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magic-defense.png").toString();
+    public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magicDefense.png").toString();
     @Nonnull private final ArmyBuilderState state;
     public StackPane imageStackPane;
     public ImageView imageView;
@@ -55,8 +56,7 @@ public class UnitDetailController implements Initializable {
 
         unitDescription.textProperty().bind(unit.description);
 
-        final ObjectBinding<Image> imageBinding = Bindings.createObjectBinding(() -> new Image(unit.imageUrl.get()), unit.imageUrl);
-        imageView.imageProperty().bind(imageBinding);
+        JavaFXUtils.bindImage(imageView.imageProperty(), unit.imageUrl);
 
         if (propertyViewComponentFactory != null) {
             statsContainer.getChildren().clear();

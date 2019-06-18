@@ -32,8 +32,7 @@ public class ChatBuilder implements ApplicationContextAware {
     public Node buildChat(@NonNull final ChatClient chatClient) {
         final TabPane tabPane = new TabPane();
         tabPane.setSide(Side.BOTTOM);
-        tabPane.getStylesheets().add(this.getClass().getResource("chat.css").toExternalForm());
-
+        tabPane.getStylesheets().add(this.getClass().getResource("/ui/chat/chat.css").toExternalForm());
         if (chatController != null) {
             chatController.terminate();
         }

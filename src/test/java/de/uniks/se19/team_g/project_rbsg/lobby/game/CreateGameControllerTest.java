@@ -104,7 +104,7 @@ public class CreateGameControllerTest extends ApplicationTest {
         final ToggleButton fourPlayerButton = lookup("#fourPlayers").query();
         Assert.assertNotNull(fourPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
-        final String newGameName = "Noodles";
+        final String newGameName = "G";
         clickOn(gameNameInput);
         write(newGameName);
         clickOn(fourPlayerButton);

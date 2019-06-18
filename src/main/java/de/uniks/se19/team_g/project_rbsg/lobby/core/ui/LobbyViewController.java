@@ -2,21 +2,28 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincl;
+import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -24,24 +31,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import de.uniks.se19.team_g.project_rbsg.termination.*;
-import io.rincl.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
-import java.util.*;
+import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Georg Siebert
@@ -52,7 +53,8 @@ import java.util.*;
 @Scope("prototype")
 public class LobbyViewController implements RootController, Terminable, Rincled
 {
-    private static final int iconSize = 30;
+
+    private static final int ICON_SIZE = 30;
 
     private final Lobby lobby;
     private final PlayerManager playerManager;
@@ -81,6 +83,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Button armyBuilderLink;
     public GridPane mainGridPane;
     public HBox headerHBox;
     public Label lobbyTitle;
@@ -90,19 +93,20 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public VBox chatContainer;
 
     @Autowired
-    public LobbyViewController(@NonNull final GameProvider gameProvider,
-                               @NonNull final UserProvider userProvider,
-                               @NonNull final SceneManager sceneManager,
-                               @NonNull final JoinGameManager joinGameManager,
-                               @NonNull final PlayerManager playerManager,
-                               @NonNull final GameManager gameManager,
-                               @NonNull final SystemMessageManager systemMessageManager,
-                               @NonNull final ChatController chatController,
-                               @NonNull final LobbyChatClient lobbyChatClient,
-                               @NonNull final CreateGameFormBuilder createGameFormBuilder,
-                               @NonNull final MusicManager musicManager,
-                               @NonNull final LogoutManager logoutManager)
-    {
+    public LobbyViewController(
+            @NonNull final GameProvider gameProvider,
+            @NonNull final UserProvider userProvider,
+            @NonNull final SceneManager sceneManager,
+            @NonNull final JoinGameManager joinGameManager,
+            @NonNull final PlayerManager playerManager,
+            @NonNull final GameManager gameManager,
+            @NonNull final SystemMessageManager systemMessageManager,
+            @NonNull final ChatController chatController,
+            @NonNull final LobbyChatClient lobbyChatClient,
+            @NonNull final CreateGameFormBuilder createGameFormBuilder,
+            @NonNull final MusicManager musicManager,
+            @NonNull final LogoutManager logoutManager
+    ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
 
@@ -148,16 +152,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         withChatSupport();
 
+        onLobbyOpen();
+
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell(chatController, userProvider.get().getName()));
         lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
 
         configureSystemMessageManager();
-
-        lobby.clearPlayers();
-        lobby.addAllPlayer(playerManager.getPlayers());
-
-        lobby.clearGames();
-        lobby.addAllGames(gameManager.getGames());
 
         if(Locale.getDefault().equals(Locale.GERMAN)) {
             deButton.disableProperty().setValue(true);
@@ -167,67 +167,49 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
-        setButtonIcons(createGameButton, "baseline_add_circle_black_48dp.png" , "baseline_add_circle_white_48dp.png");
-        setButtonIcons(logoutButton, "iconfinder_exit_black_2676937.png", "iconfinder_exit_white_2676937.png");
+        JavaFXUtils.setButtonIcons(
+            createGameButton,
+            getClass().getResource("/assets/icons/navigation/addCircleWhite.png"),
+            getClass().getResource("/assets/icons/navigation/addCircleBlack.png"),
+            LobbyViewController.ICON_SIZE
+        );
+        JavaFXUtils.setButtonIcons(
+            logoutButton,
+            getClass().getResource("/assets/icons/navigation/exitWhite.png"),
+            getClass().getResource("/assets/icons/navigation/exitBlack.png"),
+            LobbyViewController.ICON_SIZE
+        );
+        JavaFXUtils.setButtonIcons(
+            armyBuilderLink,
+            getClass().getResource("/assets/icons/army/rallyTroopsWhite.png"),
+            getClass().getResource("/assets/icons/army/rallyTroopsBlack.png"),
+            LobbyViewController.ICON_SIZE
+        );
 
         musicManager.initButtonIcons(soundButton);
 
-
-        //For UI/UX Design
-//        lobby.addPlayer(new Player("Hallo1"));
-//        lobby.addPlayer(new Player("Hallo2"));
-//        lobby.addPlayer(new Player("Hallo3"));
-//        lobby.addPlayer(new Player("Hallo4"));
-//        lobby.addPlayer(new Player("Hallo5"));
-//        lobby.addPlayer(new Player("Hallo6"));
-//        lobby.addPlayer(new Player("Hallo7"));
-//        lobby.addPlayer(new Player("Hallo8"));
-//        lobby.addPlayer(new Player("Hallo9"));
-//        lobby.addPlayer(new Player("Hallo10"));
-//        lobby.addPlayer(new Player("Hallo11"));
-//        lobby.addPlayer(new Player("Hallo12"));
-//
-//        lobby.addGame(new Game("an id", "GameOfHallo1", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo2", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo3", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo4", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo5", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo6", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo7", 4, 2));
-//        lobby.addGame(new Game("an id", "GameOfHallo8", 4, 2));
-
         setBackgroundImage();
 
-        Font.loadFont(getClass().getResource("Font/Retronoid/Retronoid.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("Font/Roboto/Roboto-Regular.ttf").toExternalForm(), 16);
-        Font.loadFont(getClass().getResource("Font/Cinzel/Cinzel-Regular.ttf").toExternalForm(), 28);
+        Font.loadFont(getClass().getResource("/assets/fonts/retronoid.otf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/assets/fonts/robotoRegular.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
 
         setAsRootController();
     }
 
-    private void setButtonIcons(Button button, String hoverIconName, String nonHoverIconName) {
-        ImageView hover = new ImageView();
-        ImageView nonHover = new ImageView();
+    private void onLobbyOpen() {
+        lobby.clearPlayers();
+        lobby.clearGames();
 
-        nonHover.fitWidthProperty().setValue(iconSize);
-        nonHover.fitHeightProperty().setValue(iconSize);
-
-        hover.fitWidthProperty().setValue(iconSize);
-        hover.fitHeightProperty().setValue(iconSize);
-
-        hover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + hoverIconName))));
-        nonHover.setImage(new Image(String.valueOf(getClass().getResource("Images/" + nonHoverIconName))));
-
-        button.graphicProperty().bind(Bindings.when(button.hoverProperty())
-                                                    .then(hover)
-                                                    .otherwise(nonHover));
+        CompletableFuture.supplyAsync(playerManager::getPlayers).thenAccept(players -> Platform.runLater(() -> lobby.addAllPlayer(players)));
+        CompletableFuture.supplyAsync(gameManager::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
     }
 
     private void setBackgroundImage()
     {
-        Image backgroundImage = new Image(String.valueOf(getClass().getResource("splash_darker_verschwommen.jpg")),
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.jpg")),
                                           ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
 
         mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,

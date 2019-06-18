@@ -27,7 +27,7 @@ public class LoginFormBuilder {
 
     public Node getLoginForm() throws IOException {
         if (loginForm == null) {
-            fxmlLoader.setLocation(LoginFormBuilder.class.getResource("login-form.fxml"));
+            fxmlLoader.setLocation(LoginFormBuilder.class.getResource("/ui/login/loginForm.fxml"));
             loginForm = fxmlLoader.load();
             final LoginFormController loginFormController = fxmlLoader.getController();
             loginFormController.init();

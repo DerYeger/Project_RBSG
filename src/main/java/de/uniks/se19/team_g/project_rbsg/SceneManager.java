@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -37,7 +37,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
-        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
         return this;
     }
 
@@ -77,19 +77,17 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         }
     }
 
-    public void setIngameScene() {
+    public void setWaitingRoomScene() {
         if (stage == null) {
             System.out.println("Not yet initialised");
             return;
         }
         try {
-            final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
-            stage.setMinHeight(670);
-            stage.setMinWidth(900);
+            final Scene waitingRoomScene = context.getBean(WaitingRoomSceneBuilder.class).getWaitingRoomScene();
             stage.setResizable(false);
-            setScene(ingameScene);
+            setScene(waitingRoomScene);
         } catch (Exception e) {
-            System.out.println("Unable to set ingame scene");
+            System.out.println("Unable to set waiting_room scene");
             e.printStackTrace();
         }
     }

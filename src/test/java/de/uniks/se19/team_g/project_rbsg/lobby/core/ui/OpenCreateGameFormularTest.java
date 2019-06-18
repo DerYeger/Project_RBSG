@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
@@ -50,7 +51,8 @@ import static org.junit.Assert.*;
         CreateGameController.class,
         LobbyViewBuilder.class,
         LobbyViewController.class,
-        MusicManager.class
+        MusicManager.class,
+        ApplicationState.class,
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {
