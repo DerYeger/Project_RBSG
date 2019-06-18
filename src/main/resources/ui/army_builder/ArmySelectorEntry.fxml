@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+
+
+<Button
+    maxHeight="-Infinity"
+    maxWidth="-Infinity"
+    minHeight="-Infinity"
+    minWidth="-Infinity"
+    mnemonicParsing="false"
+    styleClass="icon-button"
+    text="Army"
+    xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller=""
+/>
