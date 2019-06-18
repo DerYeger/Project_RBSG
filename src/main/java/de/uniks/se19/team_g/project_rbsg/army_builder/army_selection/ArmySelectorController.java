@@ -4,10 +4,14 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Component
+@Scope("prototype")
 public class ArmySelectorController implements Initializable {
 
     public ListView<Army> listView;
