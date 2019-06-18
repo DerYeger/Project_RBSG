@@ -66,6 +66,8 @@
         /* Background-Colors */
     -root-background-color: rgb(18, 18, 18); /* == #121212 */
     -surface-elevation-color: #ffffff; /* only for elevation 2 und 8 used with opacity! */
+    -surface-elevation-2-color: rgba(255, 255, 255, 0.07);
+    -surface-elevation-8-color: rgba(255, 255, 255, 0.13);
     -primary-background-color: #88588c; /* Button non-hover */
     -primary-lighter-background-color: #bb86fc; /* Button hover */
     -secondary-background-color: #03dac5;
@@ -82,13 +84,11 @@
 /*------------------Background------------------*/
 
 .elevation-2 {
-    -fx-background-color: -surface-elevation-color;
-    -fx-opacity: 7%;
+    -fx-background-color: -surface-elevation-2-color;
 }
 
 .elevation-8 {
-    -fx-background-color: -surface-elevation-color;
-    -fx-opacity: 13%;
+    -fx-background-color: -surface-elevation-8-color;
 }
 
 .root-background-color {
