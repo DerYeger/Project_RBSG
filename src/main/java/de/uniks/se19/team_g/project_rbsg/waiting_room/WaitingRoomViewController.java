@@ -106,6 +106,11 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private void initSocket() {
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this);
+        if (applicationState.selectedArmy.get() == null) {
+            System.out.println("USER HAS NO ARMY");
+            System.out.println("ABORTING GAMESOCKET INIT");
+            return;
+        }
         gameEventManager.startSocket(gameProvider.get().getId(), applicationState.selectedArmy.get().id.get());
     }
 
