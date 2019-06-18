@@ -67,7 +67,7 @@ public class ArmyDetailControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
 
-        final Set<Node> nodes = lookup(".list-cell:filled").queryAll();
+        final Set<Node> nodes = lookup(".list-cell #imageView").queryAll();
         Assert.assertEquals(3, nodes.size());
     }
 }
