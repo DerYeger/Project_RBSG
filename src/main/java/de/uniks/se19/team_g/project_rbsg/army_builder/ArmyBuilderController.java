@@ -117,15 +117,7 @@ public class ArmyBuilderController implements Initializable {
         if (sceneManager == null) {
             return;
         }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave ArmyBuilder");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setLobbyScene();
-        } else {
-            actionEvent.consume();
-        }
+        sceneManager.setLobbyScene();
     }
 
 }
