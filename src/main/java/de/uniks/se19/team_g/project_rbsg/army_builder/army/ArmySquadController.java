@@ -43,6 +43,9 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
             return;
         }
 
+        prefHeightProperty().bindBidirectional(prefWidthProperty());
+
+
         typeLabel.textProperty().bind(squad.members.get(0).name);
         countLabel.textProperty().bind(
             Bindings.size(squad.members).asString()
