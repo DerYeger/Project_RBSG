@@ -1,9 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -67,13 +65,16 @@ public class UnitUtil {
 
         switch (fieldName) {
             case GAME_UNITS:
-                modelManager.gameWithId(from).withoutUnit(unit);
+                final Game game = modelManager.gameWithId(from);
+                if (unit.getGame().equals(game)) unit.setGame(null);
                 break;
             case PLAYER_UNITS:
-                modelManager.playerWithId(from).withoutUnit(unit);
+                final Player player = modelManager.playerWithId(from);
+                if (unit.getLeader().equals(player)) unit.setLeader(null);
                 break;
             case CELL:
-                modelManager.cellWithId(from).setUnit(null);
+                final Cell cell = modelManager.cellWithId(from);
+                if (unit.getPosition().get().equals(cell)) unit.setPosition(null);
                 break;
             default:
                 LOGGER.error("Unknown fieldName for " + from + ": " + fieldName);

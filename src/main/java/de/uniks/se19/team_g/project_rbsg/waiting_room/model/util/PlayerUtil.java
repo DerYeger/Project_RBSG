@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
 import org.slf4j.Logger;
@@ -54,7 +55,8 @@ public class PlayerUtil {
 
         switch (fieldName) {
             case PLAYERS:
-                modelManager.gameWithId(from).withoutPlayer(player);
+                final Game game = modelManager.gameWithId(from);
+                if (player.getGame().equals(game)) player.setGame(null);
                 break;
             default:
                 LOGGER.error("Unknown fieldName for " + from + ": " + fieldName);
