@@ -1,19 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
-import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
-import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmySquadCellFactory;
-import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmySquadController;
-import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.Assert;
@@ -28,8 +20,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
