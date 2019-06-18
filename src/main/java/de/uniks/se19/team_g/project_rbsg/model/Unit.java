@@ -56,4 +56,12 @@ public class Unit implements Cloneable {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Unit
+                && id.get() != null
+                && id.get().equals(((Unit) obj).id.get())
+        ;
+    }
 }

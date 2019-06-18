@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,9 +27,12 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
 
     private SquadViewModel squad;
 
+    @Nonnull
     private final ArmyBuilderState armyBuilderState;
 
-    public ArmySquadController(ArmyBuilderState armyBuilderState) {
+    public ArmySquadController(
+        @Nonnull ArmyBuilderState armyBuilderState
+    ) {
         this.armyBuilderState = armyBuilderState;
     }
 
