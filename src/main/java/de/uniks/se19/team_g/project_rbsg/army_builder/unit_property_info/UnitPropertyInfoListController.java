@@ -24,16 +24,21 @@ public class UnitPropertyInfoListController {
     private UnitPropertyInfoCellBuilder spellPower;
 
     public void init() {
-        JavaFXUtils.setButtonIcons(closeButton, getClass().getResource("/assets/icons/navigation/arrow-back-black.png"), getClass().getResource("/assets/icons/navigation/arrow-back-white.png"), 40);
+        JavaFXUtils.setButtonIcons(
+                closeButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                40
+        );
         initBuilders();
         // add property images and infos here with relative path
         infoBox.getChildren().addAll(
-                health.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
-                physicalResistance.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
-                magicResistance.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
-                speed.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
-                attack.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt")),
-                spellPower.buildInfoCellNode(new Image("/assets/icons/army/magic-defense.png"), new File("/assets/text_files/magicDefense.txt"))
+                health.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
+                physicalResistance.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
+                magicResistance.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
+                speed.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
+                attack.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
+                spellPower.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt"))
         );
     }
 

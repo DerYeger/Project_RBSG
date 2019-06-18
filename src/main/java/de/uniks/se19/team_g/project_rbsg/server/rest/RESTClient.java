@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -14,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 
 @Component
+@Scope("prototype")
 public class RESTClient
 {
     private static final String baseURL = "https://rbsg.uniks.de/api";

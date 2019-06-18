@@ -45,6 +45,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
+import javax.annotation.Nonnull;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -119,7 +121,6 @@ public class LobbyBuilderTest extends ApplicationTest
         )
         {
             return new LobbyViewController(
-                    appState,
                     gameProvider,
                     userProvider,
                     sceneManager,
@@ -131,8 +132,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new LobbyChatClient(new WebSocketClient(), userProvider()),
                     new CreateGameFormBuilder(new FXMLLoader()),
                     new MusicManager(),
-                    new DefaultLogoutManager(new RESTClient(new RestTemplate())),
-                    armyManager
+                    new DefaultLogoutManager(new RESTClient(new RestTemplate()))
             ) {
                 @Override
                 public void init()
@@ -166,7 +166,7 @@ public class LobbyBuilderTest extends ApplicationTest
         }
 
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
             this.context = applicationContext;
         }
     }

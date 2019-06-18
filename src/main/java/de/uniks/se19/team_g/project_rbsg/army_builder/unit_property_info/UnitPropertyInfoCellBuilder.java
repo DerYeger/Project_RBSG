@@ -14,7 +14,7 @@ public class UnitPropertyInfoCellBuilder {
 
     public Node buildInfoCellNode(Image propertyImage, File propertyInfo) {
         if(infoCellView == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/army_builder/unit-property-info-cell-view.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/army_builder/unitPropertyInfoCellView.fxml"));
             try {
                 infoCellView = fxmlLoader.load();
             } catch (IOException e) {

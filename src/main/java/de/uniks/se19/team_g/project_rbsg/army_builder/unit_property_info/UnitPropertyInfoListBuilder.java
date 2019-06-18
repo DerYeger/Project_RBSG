@@ -12,7 +12,7 @@ public class UnitPropertyInfoListBuilder {
 
     public Node buildInfoView() {
         if(infoView == null) {
-            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/army_builder/unit-property-info-list-view.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ui/army_builder/unitPropertyInfoListView.fxml"));
             try {
                 infoView = fxmlLoader.load();
             } catch (IOException e) {

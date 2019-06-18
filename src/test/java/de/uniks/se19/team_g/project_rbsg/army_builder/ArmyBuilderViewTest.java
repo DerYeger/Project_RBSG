@@ -1,11 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
@@ -35,36 +35,27 @@ import java.util.concurrent.CompletableFuture;
 @ContextConfiguration(classes = {
         ArmyBuilderConfig.class,
         FXMLLoaderFactory.class,
-        SceneController.class,
+        ArmyBuilderController.class,
         UnitDetailController.class,
         UnitListEntryFactory.class,
         UnitListEntryController.class,
-        ArmyBuilderSceneTest.ContextConfiguration.class,
-        MusicManager.class,
-        SceneManager.class
+        ArmyBuilderViewTest.ContextConfiguration.class,
+        ApplicationState.class
 })
-public class ArmyBuilderSceneTest extends ApplicationTest {
+public class ArmyBuilderViewTest extends ApplicationTest {
 
 
     @TestConfiguration
     static class ContextConfiguration {
         @Bean
-        public GetUnitTypesService getUnitTypesService()
-        {
-            final Unit unit = new Unit();
-            unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
-            unit.name.set("novice");
-            final GetUnitTypesService mock = Mockito.mock(GetUnitTypesService.class);
-            Mockito.when(mock.queryUnitPrototypes()).thenReturn(CompletableFuture.completedFuture(Collections.singletonList(unit)));
-            return mock;
-        }
+        public ArmyDetailController armyDetailController() { return Mockito.mock(ArmyDetailController.class);}
     }
 
     @Autowired
     public ApplicationContext context;
 
     @Autowired
-    public ArmyBuilderState state;
+    public ApplicationState state;
     private Stage stage;
 
     @Override
@@ -76,9 +67,9 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
     @Test
     public void testSceneCreation()
     {
-        @SuppressWarnings("unchecked") ViewComponent<SceneController> armyBuilderScene
-                = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
-        final SceneController controller = armyBuilderScene.getController();
+        @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderScene
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
+        final ArmyBuilderController controller = armyBuilderScene.getController();
 
         Assert.assertNotNull(controller.root);
         Assert.assertNotNull(controller.content);
@@ -88,7 +79,7 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
         Assert.assertNotNull(controller.sideBarRight);
         Assert.assertNotNull(controller.sideBarLeft);
         Assert.assertNotNull(controller.unitDetailView);
-        Assert.assertNotNull(controller.armyView);
+        Assert.assertNotNull(controller.armyDetailsContainer);
         Assert.assertNotNull(controller.unitListView);
     }
 
@@ -99,28 +90,25 @@ public class ArmyBuilderSceneTest extends ApplicationTest {
         unit.name.set("Archer");
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
-        Assert.assertEquals(0, state.unitTypes.size());
-
-        @SuppressWarnings("unchecked") ViewComponent<SceneController> armyBuilderComponent
-                = (ViewComponent<SceneController>) context.getBean("armyBuilderScene");
-        Assert.assertEquals(1, state.unitTypes.size());
+        @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));
             stage.show();
         });
         WaitForAsyncUtils.waitForFxEvents();
-        Assert.assertEquals(1, lookup(".list-cell #imageView").queryAll().size());
+        Assert.assertEquals(0, lookup(".list-cell .label").queryAll().size());
 
-        Platform.runLater(() -> state.unitTypes.add(unit));
+        Platform.runLater(() -> state.unitDefinitions.add(unit));
         WaitForAsyncUtils.waitForFxEvents();
 
-        Assert.assertEquals(2, lookup(".list-cell #imageView").queryAll().size());
+        Assert.assertEquals(1, lookup(".list-cell .label").queryAll().size());
 
-        Platform.runLater(() -> state.unitTypes.clear());
+        Platform.runLater(() -> state.unitDefinitions.clear());
         WaitForAsyncUtils.waitForFxEvents();
 
-        Assert.assertEquals(0, lookup(".list-cell #imageView").queryAll().size());
+        Assert.assertEquals(0, lookup(".list-cell .label").queryAll().size());
 
         Platform.runLater(() -> stage.hide());
         WaitForAsyncUtils.waitForFxEvents();
