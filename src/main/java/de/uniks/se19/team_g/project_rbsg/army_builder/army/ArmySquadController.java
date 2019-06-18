@@ -1,8 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
-import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -12,40 +12,49 @@ import javafx.scene.layout.Pane;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
 @Scope("prototype")
-public class ArmySquadController extends ListCell<Unit> implements Initializable {
+public class ArmySquadController extends ListCell<SquadViewModel> implements Initializable {
 
     public Label typeLabel;
     public Label countLabel;
     public Pane root;
     public ImageView imageView;
 
-    private Unit unit;
+    private SquadViewModel squad;
 
+    @Nonnull
     private final ArmyBuilderState armyBuilderState;
 
-    public ArmySquadController(ArmyBuilderState armyBuilderState) {
+    public ArmySquadController(
+        @Nonnull ArmyBuilderState armyBuilderState
+    ) {
         this.armyBuilderState = armyBuilderState;
     }
 
     @Override
-    protected void updateItem(final Unit unit, final boolean empty) {
-        this.unit = unit;
-        super.updateItem(unit, empty);
+    protected void updateItem(final SquadViewModel squad, final boolean empty) {
+        this.squad = squad;
+        super.updateItem(squad, empty);
 
-        if (unit == null || empty) {
+        if (squad == null || empty) {
             setText(null);
             setGraphic(null);
             return;
         }
 
-        typeLabel.textProperty().bind(unit.name);
-        countLabel.setText("1");
-        JavaFXUtils.bindImage(imageView.imageProperty(), unit.imageUrl);
+        prefHeightProperty().bindBidirectional(prefWidthProperty());
+
+
+        typeLabel.textProperty().bind(squad.members.get(0).name);
+        countLabel.textProperty().bind(
+            Bindings.size(squad.members).asString()
+        );
+        JavaFXUtils.bindImage(imageView.imageProperty(), squad.members.get(0).imageUrl);
 
         setGraphic(root);
     }
@@ -62,6 +71,8 @@ public class ArmySquadController extends ListCell<Unit> implements Initializable
     }
 
     private void onSelection(MouseEvent mouseEvent) {
-        armyBuilderState.selectedUnit.set(unit);
+        armyBuilderState.selectedUnit.set(squad.members.get(0));
     }
+
+
 }
