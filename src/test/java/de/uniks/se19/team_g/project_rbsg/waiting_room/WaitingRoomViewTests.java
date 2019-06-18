@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
@@ -77,6 +78,11 @@ public class WaitingRoomViewTests extends ApplicationTest {
                     //do nothing
                 }
             };
+        }
+
+        @Bean
+        public ApplicationState applicationState() {
+            return new ApplicationState();
         }
 
         @Override

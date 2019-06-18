@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
@@ -58,6 +59,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final GameEventManager gameEventManager;
     private final MusicManager musicManager;
     private final SplashImageBuilder splashImageBuilder;
+    private final ApplicationState applicationState;
     private final ModelManager modelManager;
 
     @Autowired
@@ -66,13 +68,15 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final SceneManager sceneManager,
                                      @NonNull final GameEventManager gameEventManager,
                                      @NonNull final MusicManager musicManager,
-                                     @NonNull final SplashImageBuilder splashImageBuilder) {
+                                     @NonNull final SplashImageBuilder splashImageBuilder,
+                                     @NonNull final ApplicationState applicationState) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.gameEventManager = gameEventManager;
         this.musicManager = musicManager.init();
         this.splashImageBuilder = splashImageBuilder;
+        this.applicationState = applicationState;
         modelManager = new ModelManager();
     }
 
@@ -102,7 +106,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private void initSocket() {
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this);
-        gameEventManager.startSocket(gameProvider.get().getId(), "5d016b8377af9d000147037a");
+        gameEventManager.startSocket(gameProvider.get().getId(), applicationState.selectedArmy.get().id.get());
     }
 
     private void initPlayerCardBuilders() {
