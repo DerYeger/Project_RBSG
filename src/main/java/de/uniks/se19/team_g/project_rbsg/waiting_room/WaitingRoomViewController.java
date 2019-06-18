@@ -1,13 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -26,7 +30,7 @@ import org.springframework.stereotype.Controller;
  */
 @Scope("prototype")
 @Controller
-public class WaitingRoomViewController implements RootController, Terminable {
+public class WaitingRoomViewController implements RootController, Terminable, GameEventHandler {
 
     private static final int ICON_SIZE = 40;
 
@@ -54,6 +58,7 @@ public class WaitingRoomViewController implements RootController, Terminable {
     private final GameEventManager gameEventManager;
     private final MusicManager musicManager;
     private final SplashImageBuilder splashImageBuilder;
+    private final ModelManager modelManager;
 
     @Autowired
     public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
@@ -68,12 +73,13 @@ public class WaitingRoomViewController implements RootController, Terminable {
         this.gameEventManager = gameEventManager;
         this.musicManager = musicManager.init();
         this.splashImageBuilder = splashImageBuilder;
+        modelManager = new ModelManager();
     }
 
     public void init() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
-        gameEventManager.startSocket(gameProvider.get().getId(), "5d016b8377af9d000147037a");
+
         setAsRootController();
         JavaFXUtils.setButtonIcons(
                 leaveButton,
@@ -89,6 +95,14 @@ public class WaitingRoomViewController implements RootController, Terminable {
         );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
+
+        initSocket();
+    }
+
+    private void initSocket() {
+        gameEventManager.addHandler(modelManager);
+        gameEventManager.addHandler(this);
+        gameEventManager.startSocket(gameProvider.get().getId(), "5d016b8377af9d000147037a");
     }
 
     private void initPlayerCardBuilders() {
@@ -153,4 +167,11 @@ public class WaitingRoomViewController implements RootController, Terminable {
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
+    @Override
+    public void handle(@NonNull final ObjectNode message) {
+        if (!message.has("action")) return;
+        if (!message.get("action").asText().equals("gameInitFinished")) return;
+        final Game game = modelManager.getGame();
+        //game SHOULD (no guarantee) be ready now
+    }
 }
