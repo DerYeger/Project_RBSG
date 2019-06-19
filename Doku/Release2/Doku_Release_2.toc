@@ -1,24 +1,36 @@
 \babel@toc {ngerman}{}
-\contentsline {section}{\numberline {1}Ziel der Dokumentation}{1}
-\contentsline {section}{\numberline {2}Das Projekt RBSG}{1}
-\contentsline {section}{\numberline {3}Das Release \textup {\uppercase {ii}}}{1}
-\contentsline {subsection}{\numberline {3.1}Anforderung an das zweite Release}{2}
-\contentsline {subsection}{\numberline {3.2}Stand zum Ende des Release \textup {\uppercase {i}}}{2}
-\contentsline {subsubsection}{\numberline {3.2.1}Login}{2}
-\contentsline {subsubsection}{\numberline {3.2.2}Lobby}{2}
-\contentsline {subsubsection}{\numberline {3.2.3}Spiel erstellen}{2}
-\contentsline {subsubsection}{\numberline {3.2.4}Spiel beitreten}{4}
-\contentsline {subsubsection}{\numberline {3.2.5}Umgesetzte Optionale Features}{4}
-\contentsline {subsection}{\numberline {3.3}Mockups}{4}
-\contentsline {subsubsection}{\numberline {3.3.1}ArmyBuilder}{6}
-\contentsline {subsection}{\numberline {3.4}Lobby}{7}
-\contentsline {subsubsection}{\numberline {3.4.1}Waiting Room}{7}
-\contentsline {subsection}{\numberline {3.5}Domain Stories}{7}
-\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{10}
-\contentsline {subsection}{\numberline {4.1}Sprintziel}{10}
-\contentsline {subsection}{\numberline {4.2}User Stories}{10}
-\contentsline {subsection}{\numberline {4.3}Analyse des Sprintverlaufs}{10}
-\contentsline {section}{\numberline {5}Sprint \textup {\uppercase {iv}}}{10}
-\contentsline {subsection}{\numberline {5.1}Sprintziel}{10}
-\contentsline {subsection}{\numberline {5.2}User Stories}{10}
-\contentsline {subsection}{\numberline {5.3}Analyse des Sprintverlaufs}{10}
+\contentsline {section}{\numberline {1}Ziel der Dokumentation}{1}% 
+\contentsline {section}{\numberline {2}Das Projekt RBSG}{1}% 
+\contentsline {section}{\numberline {3}Das Release \textup {\uppercase {ii}}}{1}% 
+\contentsline {subsection}{\numberline {3.1}Anforderung an das zweite Release}{2}% 
+\contentsline {subsection}{\numberline {3.2}Stand zum Ende des Release \textup {\uppercase {i}}}{2}% 
+\contentsline {subsubsection}{\numberline {3.2.1}Login}{2}% 
+\contentsline {subsubsection}{\numberline {3.2.2}Lobby}{3}% 
+\contentsline {subsubsection}{\numberline {3.2.3}Spiel erstellen}{4}% 
+\contentsline {subsubsection}{\numberline {3.2.4}Spiel beitreten}{4}% 
+\contentsline {subsubsection}{\numberline {3.2.5}Lobby Chat}{5}% 
+\contentsline {subsubsection}{\numberline {3.2.6}Umgesetzte Optionale Features}{5}% 
+\contentsline {subsection}{\numberline {3.3}Mockups}{6}% 
+\contentsline {subsubsection}{\numberline {3.3.1}ArmyBuilder}{6}% 
+\contentsline {subsection}{\numberline {3.4}Lobby}{9}% 
+\contentsline {subsubsection}{\numberline {3.4.1}Waiting Room}{10}% 
+\contentsline {paragraph}{\nonumberline Game Chat}{10}% 
+\contentsline {paragraph}{\nonumberline Anzeige der Mitspieler}{10}% 
+\contentsline {paragraph}{\nonumberline Anzeige des Spielfelds}{10}% 
+\contentsline {paragraph}{\nonumberline Anzeige der gew\"ahlten Armee}{11}% 
+\contentsline {paragraph}{\nonumberline MockUps mit m\"oglichen Zusatzfeatures}{11}% 
+\contentsline {paragraph}{\nonumberline Nicht umsetzbare MockUps}{11}% 
+\contentsline {subsection}{\numberline {3.5}Domain Stories}{13}% 
+\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{13}% 
+\contentsline {subsection}{\numberline {4.1}Sprintziel}{13}% 
+\contentsline {subsection}{\numberline {4.2}User Stories}{14}% 
+\contentsline {subsubsection}{\numberline {4.2.1}Core - ArmyBuilder - Laden der Armeen}{14}% 
+\contentsline {paragraph}{\nonumberline Story}{14}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{14}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{14}% 
+\contentsline {subsection}{\numberline {4.3}Zeit\"ubersicht}{16}% 
+\contentsline {subsection}{\numberline {4.4}Analyse des Sprintverlaufs}{17}% 
+\contentsline {section}{\numberline {5}Sprint \textup {\uppercase {iv}}}{17}% 
+\contentsline {subsection}{\numberline {5.1}Sprintziel}{17}% 
+\contentsline {subsection}{\numberline {5.2}User Stories}{17}% 
+\contentsline {subsection}{\numberline {5.3}Analyse des Sprintverlaufs}{17}% 

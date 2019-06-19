@@ -8,6 +8,18 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{float}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{xcoffins}
+\usepackage{longtable}
+
+\NewCoffin\tablecoffin
+\NewDocumentCommand\Vcentre{m}
+{%
+	\SetHorizontalCoffin\tablecoffin{#1}%
+	\TypesetCoffin\tablecoffin[l,vc]%
+}
 
 \newcommand{\RN}[1]{%
 	\textup{\uppercase\expandafter{\romannumeral#1}}%
@@ -17,19 +29,36 @@
 	Abb.\ \ref{#1}%
 }
 
+\renewcommand{\arraystretch}{1.5}
+
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+
+\ofoot{\pagemark}
+\ifoot{RBSG - Enhanced Wars}
+\cfoot{Gruppe G}
+\ohead{\includegraphics[width=0.17\textwidth]{Logo.png}}
+
 \begin{document}
 	\begin{titlepage}
 		\centering
 		% \includegraphics[width=0.15\textwidth]{example-image-1x1}\par\vspace{1cm}
 		{\scshape\LARGE Universtität Kassel \par}
 		\vspace{1cm}
-		{\scshape\Large Dokumentation\par}
+		{\scshape\Large Projektdokumentation\par}
 		\vspace{1.5cm}
 		{\huge\bfseries RBSG - Release \RN{2}\par}
 		\vspace{2cm}
-		{\Large\itshape Juri Lozowoj\par}
+		{\scshape\Large Software Engineering \RN{1} SS19\par}
 		\vspace{0.5cm}
-		{\Large\itshape Georg Siebert\par}
+		{\scshape\Large Gruppe G\par}
+		\vspace{0.5cm}
+		{\Large\itshape Scrum Master: Juri Lozowoj\par}
+		\vspace{0.5cm}
+		{\Large\itshape Project Owner: Georg Siebert\par}
+		\vspace{2cm}
+		{\includegraphics[width=1\textwidth]{Logo.png}\par}
 		\vfill
 		% supervised by\par
 		% Dr.~Mark \textsc{Brown}
@@ -103,51 +132,55 @@
 		\end{itemize}
 
 		\subsubsection{Login}
-			Der Login wurde so realisiert, das es möglich ist eine Nutzer zu registrieren und Anzumelden. Dies ist auf Abb.\ref{Login_Release_One} zu sehen.
-			\begin{figure}[htbp] 
+			Der Login wurde so realisiert, das es möglich ist eine Nutzer zu registrieren und Anzumelden. Dies ist auf Abb.\ref{Login_Release_One} zu sehen. Loggt sich ein Nutzer ein wird ein animiertes Ladesymbol eingeschaltet. Der Untertitel \glqq Enhanced Wars\grqq \\ist animiert. Die Oberfläche ist internationalisiert.
+			\begin{figure}[H] 
 				\centering
-				\includegraphics[width=1\textwidth]{Login_Release_One.PNG}
+				\includegraphics[width=0.8\textwidth]{Login_Release_One.PNG}
 				\caption{Login Release \RN{1}}
 				\label{Login_Release_One}
 			\end{figure}
 		\subsubsection{Lobby}
-		In der Lobby werden die Spielerlisten und Spiellisten angezeigt. Es ist möglich über den \glqq Spiel erstellen\grqq ein Spiel zu erstellen. Das Abmelden eine Nutzers ist über den \glqq Logout\grqq-Knopf vorhanden. 
-		\begin{figure}[htbp] 
+		In der Lobby werden die Spielerlisten und Spiellisten angezeigt. Diese aktualisieren sich, wenn der Server eine entsprechende Nachricht sendet. Es ist möglich über den \glqq Spiel erstellen\grqq ein Spiel zu erstellen. Das Abmelden eine Nutzers ist über den \glqq Logout\grqq-Knopf vorhanden.
+		\begin{figure}[H] 
 			\centering
-			\includegraphics[width=1\textwidth]{Lobby_Release_One.PNG}
+			\includegraphics[width=0.8\textwidth]{Lobby_Release_One.PNG}
 			\caption{Lobby Release \RN{1}}
 			\label{Lobby_Release_One}
 		\end{figure}
 		\subsubsection{Spiel erstellen}
-		Es lässt sich ein \glqq Spiel erstellen\grqq Dialoge über den entsprechenden Button in der Lobby aufrufen.
-		\begin{figure}[htbp] 
+		Es lässt sich ein \glqq Spiel erstellen\grqq Dialog über den entsprechenden Button in der Lobby aufrufen. Im Spiel erstellen Fenster hat man die Möglichkeit, den Name des Spiels und die Anzahl der Spieler einzustellen.\footnote{2-Spieler und 4-Spieler} Das Spiel wird über den \glqq Erstellen\grqq-Button erstellt und über den \grqq Abbrechen\glqq-Button kann man den Dialog wieder verlassen.
+		\begin{figure}[H] 
 			\centering
-			\includegraphics[width=1\textwidth]{CreateGame_Release_One.PNG}
+			\includegraphics[width=0.8\textwidth]{CreateGame_Release_One.PNG}
 			\caption{Spiel erstellen Release \RN{1}}
 			\label{CreateGame_Release_One}
 		\end{figure}
 		\subsubsection{Spiel beitreten}
 		Über den Knopf in der Spielerliste lassen sich bereits Spielen, auf Stand der Serverdoku für Release \RN{1} beitreten. Ist man einem Spiel beigetreten, zeigen wir einen Warteraum für das Spiel an.
-		 \begin{figure}[htbp] 
+		 \begin{figure}[H] 
 		 	\centering
-		 	\includegraphics[width=1\textwidth]{WaitingRoom_Release_One.PNG}
+		 	\includegraphics[width=0.8\textwidth]{WaitingRoom_Release_One.PNG}
 		 	\caption{Warteraum eines Spiels Release \RN{1}}
 		 	\label{WaitingRoom_Release_One}
 		 \end{figure}
+	 	\subsubsection{Lobby Chat}
+	 	In der Lobby ist ein Chat vorhanden. Über diesen ist es möglich Nachrichten in den \glqq General\grqq-Chat und in Private-Chats zu versenden.
 	 	\subsubsection{Umgesetzte Optionale Features}
 	 	Im Release \RN{1} wurden bereits folgende optionale Features umgesetzt:
 	 	\begin{itemize}
 	 		\item Internationalisierung, diese kann über Buttons in der Lobby eingestellt werden \Abb{Internationalisierung_Release_One}
 	 		\item Musik, diese kann über einen Button an- und ausgestellt werden \Abb{Musik_Release_One}
+	 		\item Ein \glqq Dark\grqq-Theme 
+	 		\item Chuck Norris Zitate über den Chat-Befehl \glqq \textbackslash chuckMe\grqq werden in den Chat gesendet
 	 	\end{itemize}
- 		Es ist bereits eine Testabdeckung von $\sim$ 80\% vorhanden, womit die Anforderung für Release \RN{2} erfüllt ist. Diese muss nur noch aufrecht erhalten werden.
- 		\begin{figure}[htbp] 
+ 		Es ist bereits eine Testabdeckung von $\sim$ 80\% vorhanden, womit die Anforderung für Release \RN{2} bereits grundlegend erfüllt ist. Das Team möchte die Abdeckung aufrecht erhalten und weiter ausbauen.
+ 		\begin{figure}[H] 
  			\centering
  			\includegraphics[width=0.2\textwidth]{Internationalisierung_Release_One.PNG}
  			\caption{Button für die Internationalisierung Release \RN{1}}
  			\label{Internationalisierung_Release_One}
  		\end{figure}
- 		\begin{figure}[htbp] 
+ 		\begin{figure}[H] 
  			\centering
  			\includegraphics[width=0.1\textwidth]{Musik_Release_One.PNG}
  			\caption{Button für Musik Release \RN{1}}
@@ -163,50 +196,57 @@
 				\item der Armeeauswahl
 				\item der Armeeübersicht
 			\end{enumerate}
-		Das Kernstück des ArmyBuilders sind die konfigurierbaren Armeen. Diese werden auf der rechte Seite, insgesamt sieben Stück, in einer Liste angezeigt. Klick man auf eines der Armee Icons, so wird die Armee selektiert und es werden entsprechende Informationen über die Armee angezeigt. Darunter fallen zum einem der Armeename, sowie die Anzahl der Eineheiten, die sich in der Armee befinden. Es ist nun möglich eine Einheit aus der Einheitenauswahl zu selektieren. Ist eine Einheit ausgewählt so wird eine Detailansicht zu dieser Einheit angezeigt, mit Informationen, wie Attributen und einem Bild. Über den \glqq +\grqq Button ist es möglich eine Einheit der ausgewählten Armee hinzuzufügen. Die Einheit wird anschließen der Armeeübersicht hinzugefügt und entsprechende Informationen werden aktualisiert. Der Nutzer kann in der Armeeübersicht ebenfalls Einheiten auswählen. Der ausgewählte Einheitentyp wird dann in der Detailansicht angezeigt. Über den \glqq -\grqq kann die Einheit dann wieder aus der Armee entfernt werden. Ist die Armee fertig konfiguriert, so hat man die Möglichkeit über den \glqq Speichern\grqq-Button die Armee auf dem Server sowie lokal zu speichern. \\ \\ Für den ArmyBuilder wurden 2 Designs entworfen \Abb{ArmyBuilder_Design_One} und \Abb{ArmyBuilder_Design_Two}. Es wurde sich im Team bereits auf Design \RN{2} geeinigt.
-		\begin{figure}[htbp] 
+		Das Kernstück des ArmyBuilders sind die konfigurierbaren Armeen. Diese werden auf der rechte Seite, insgesamt sieben Stück, in einer Liste angezeigt. Klick man auf eines der Armee Icons, so wird die Armee selektiert und es werden entsprechende Informationen über die Armee angezeigt. Darunter fallen zum einem der Armeename, sowie die Anzahl der Eineheiten, die sich in der Armee befinden. Es ist nun möglich eine Einheit aus der Einheitenauswahl zu selektieren. Ist eine Einheit ausgewählt so wird eine Detailansicht zu dieser Einheit angezeigt, mit Informationen, wie Attributen und einem Bild. Über den \glqq +\grqq Button ist es möglich eine Einheit der ausgewählten Armee hinzuzufügen. Die Einheit wird anschließen der Armeeübersicht hinzugefügt und entsprechende Informationen werden aktualisiert. Der Nutzer kann in der Armeeübersicht ebenfalls Einheiten auswählen. Der ausgewählte Einheitentyp wird dann in der Detailansicht angezeigt. Über den \glqq -\grqq kann die Einheit dann wieder aus der Armee entfernt werden. Ist die Armee fertig konfiguriert, so hat man die Möglichkeit über den \glqq Speichern\grqq-Button die Armee auf dem Server sowie lokal zu speichern. Über den \grqq Info\glqq-Button hat der Nutzer die Möglichkeit sich die angezeigten Symbole erläutern zu lassen. Dazu wurde eine entsprechendes MockUp erstellt, dieses ist in \Abb{InfoView} zu sehen.\\ \\ Für den ArmyBuilder wurden 2 Designs entworfen \Abb{ArmyBuilder_Design_One} und \Abb{ArmyBuilder_Design_Two}. Es wurde sich im Team bereits auf Design \RN{2} geeinigt. 
+		\begin{figure}[H] 
 			\centering
-			\includegraphics[width=1\textwidth]{ArmyBuilder_Design_One.png}
+			\includegraphics[width=0.8\textwidth]{ArmyBuilder_Design_One.png}
 			\caption{MockUp ArmyBuilder Design \RN{1} }
 			\label{ArmyBuilder_Design_One}
 		\end{figure}
-		\begin{figure}[htbp] 
+		\begin{figure}[H] 
 			\centering
-			\includegraphics[width=1\textwidth]{ArmyBuilder_Design_Two.png}
+			\includegraphics[width=0.8\textwidth]{ArmyBuilder_Design_Two.png}
 			\caption{MockUp ArmyBuilder Design \RN{2} }
 			\label{ArmyBuilder_Design_Two}
 		\end{figure}
-		\\ \\Im Kundentreffen kamen noch die Anforderung, nach dem Konfigurieren der Armee Icons auf. Dafür wurde eine entsprechender Button der Armeeauswahl hinzugefügt \Abb{ArmyBuilder_EditButton}. Es öffnet sich nach betätigen des Buttons ein Dialog \Abb{AmryEditor} in dem das Icon, sowie der Name der Armee bearbeitet werden kann. Wir stellen dafür eine Auswahl an Icons bereit, aus welchen der Nutzer eins Auswählen kann. 
-		\begin{figure}[htbp] 
+		\begin{figure}[H] 
 			\centering
-			\includegraphics[width=1\textwidth]{ArmyBuilder_Save_Edit.png}
+			\includegraphics[width=0.5\textwidth]{InfoView.png}
+			\caption{MockUp Informationsanzeige \RN{2} }
+			\label{InfoView}
+		\end{figure}
+		
+		\ \\Im Kundentreffen kamen noch die Anforderung, nach dem Konfigurieren der Armee Icons auf. Dafür wurde eine entsprechender Button der Armeeauswahl hinzugefügt \Abb{ArmyBuilder_EditButton}. Es öffnet sich nach betätigen des Buttons ein Dialog \Abb{AmryEditor} in dem das Icon, sowie der Name der Armee bearbeitet werden kann. Wir stellen dafür eine Auswahl an Icons bereit, aus welchen der Nutzer eins Auswählen kann. 
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{ArmyBuilder_Save_Edit.png}
 			\caption{MockUp ArmyBuilder mit \glqq Bearbeitungs\grqq-Button für Armeeicons}
 			\label{ArmyBuilder_EditButton}
 		\end{figure}
-		\begin{figure}[htbp] 
+		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.5\textwidth]{ArmyEditor.png}
 			\caption{MockUp Armee Icon Bearbeitung}
 			\label{AmryEditor}
 		\end{figure}
-		\\\\Wir haben des Weiteren noch MockUps für verschieden Status haben wir noch entsprechende MockUps beigefügt:
+		Wir haben des Weiteren noch MockUps für verschieden Status haben wir noch entsprechende MockUps beigefügt:
 		\begin{itemize}
 			\item Eine Armee ist leer. Es müssen ihr Einheiten hinzugefügt werden \Abb{ArmyBuilder_AddUnits}.
 			\item Es ist keine Einheit in der Einheitenauswahl selektiert. Es können keine Einheiten der Armee hinzugefügt werden \Abb{ArmyBuilder_Select_Unit}. 
 		\end{itemize}
-		\begin{figure}[htbp] 
+		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.5\textwidth]{Army_Builder_Add_Units.png}
 			\caption{MockUp ArmyBuilder eine Armee enthält keine Einheiten}
 			\label{ArmyBuilder_AddUnits}
 		\end{figure}
-		\begin{figure}[htbp] 
+		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.5\textwidth]{ArmyBuilder_Select_Unit.png}
 			\caption{MockUp ArmyBuilder es ist keine Einheit selektiert}
 			\label{ArmyBuilder_Select_Unit}
 		\end{figure}
-		\begin{figure}[htbp] 
+		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.5\textwidth]{ArmyEditor.png}
 			\caption{MockUp ArmyBuilder Design}
@@ -214,11 +254,71 @@
 		\end{figure}
 		
 		\subsection{Lobby}
-		Da es nicht möglich ist, die Armee nach betreten des Spiels zu ändern, muss eine Armeeauswahl
+		Da es nicht möglich ist, die Armee nach betreten des Spiels zu ändern, muss die Armee bereits in der Lobby gewählt werden. Dazu erweitern wir die Lobby um eine Armeeauswahl \Abb{Lobby_with_Army}. Dort werden die Armeen über die zugehörigen Icons dargestellt. Ist eine Armee nicht wählbar, so wird diese grau hinterlegt dargestellt. 
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{Lobby_mit_Army_Button_und_Armeeliste.png}
+			\caption{MockUp Lobby mit Armeeauswahl und Amree-Button}
+			\label{Lobby_with_Army}
+		\end{figure}
 		
 		\subsubsection{Waiting Room}
-		Für den Waiting Room gab es im vorherigen Release schon bereits MockUps und eine anfängliche Realisierung. Diese haben wir aufgegriffen und erweitert.
-		Der Waiting Room besteht aus 2 Komponenten, dem \glqq Gamechat\grqq und der Anzeige der Mitspieler.
+		Für den Waiting Room gab es im vorherigen Release schon bereits MockUps und eine anfängliche Realisierung. Diese haben wir aufgegriffen und erweitert. Der Waiting Room besteht aus den Komponenten:
+		\begin{itemize}
+			\item dem Game Chat
+			\item der Anzeige der Mitspieler
+			\item der Anzeige des Spielfelds
+			\item der Anzeige der gewählten Armee
+		\end{itemize}
+		Dieser ist auf \Abb{WaitingRoomWithArmy}
+		\paragraph{Game Chat}
+		Über den Game Chat ist es möglich mit den Mitspielern zu chatten. Es gibt einen Allgemeinen Chat und es sind Private Chats zu den anderen Spielern möglich.
+		\paragraph{Anzeige der Mitspieler}
+		Für jeden Spieler gibt, Abhängig von der Anzahl der Spieler, es einen eigenen \glqq Kasten\grqq. In diesem wird der Name des Spielers und ein Spieler-Icon angezeigt. Für jeden nicht besetzten Platz wird ,so lange dieser nicht besetzt ist, ein Status sowie eine Warteanimation angezeigt.  
+		\paragraph{Anzeige des Spielfelds}
+		Es soll eine Vorschau zum Spielfeld in der Mitte des Waiting Rooms angezeigt. Es handelt sich hierbei nur um ein Optionales Feature. Das Spielfeld ist bereits auf dem MockUp enthalten, damit sich die Entwickler die Oberfläche besser darstellen können und entsprechend vorbereiten können.
+		\paragraph{Anzeige der gewählten Armee}
+		Die für das Spiel ausgewählte Armee soll auf der rechten Seite des Waiting Rooms angezeigt werden
+		
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_mit_ArmyView.png}
+			\caption{MockUp Waiting Room mit Armeeanzeige}
+			\label{WaitingRoomWithArmy}
+		\end{figure}
+	
+		\paragraph{MockUps mit möglichen Zusatzfeatures}
+		Als mögliches Zusatzfeature ist ein Minispiel im Waiting Room. Ein MockUp ist auf \Abb{WaitingRoomWithMiniGame} zu sehen.
+		
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_With_TTT.png}
+			\caption{MockUp Waiting Room mit Minispiel}
+			\label{WaitingRoomWithMiniGame}
+		\end{figure}
+	
+		\paragraph{Nicht umsetzbare MockUps}
+		Es wurde noch weitere MockUps erstellt. Dort sind Funktionalitäten enthalten, die Aufgrund der derzeitigen Server Implementation nicht möglich ist.\footnote{19.06.2019}
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_Mit_Map_Ready_Button.png}
+				\caption{MockUp Waiting Room mit \glqq Ready\grqq-Button}
+				\label{WaitingRoomWithReadyButton}
+			\end{figure}
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.8\textwidth]{Waitin_Room_Game_Ohne_Map.png}
+				\caption{MockUp Waiting Room ohne Map und mit Armeeauswahl}
+				\label{WaitingRoomWithOutMapAndWithArmySelector}
+			\end{figure}
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_Mit_Map_Not_Ready.png}
+				\caption{MockUp Waiting Room mit Map und mit \glqq Not Ready\grqq-Button}
+				\label{WaitingRoomWithMapAndWithNotReayButton}
+			\end{figure}
+		
 		
 	\subsection{Domain Stories}
 		\begin{itemize}
@@ -230,8 +330,79 @@
 		\end{itemize}
 	
 	\section{Sprint \RN{3}}
+		Der Sprint \RN{3} geht vom 10.06.2019 bis zum 25.06.2019. Es wurden für den Sprint 122 Storypoints geschätzt.
 		\subsection{Sprintziel}
+		Das Sprintziel ist im Jira mit \glqq Die Ausgangsituation zum Spielen erreichen.\grqq definiert. Darunter fällt:
+		\begin{itemize}
+			\item Erstellen von Armeen
+			\item Speichern und Laden von Armeen
+			\item Auswählen einer Armee
+			\item Verarbeiten der Initialen Servernachrichten
+			\item Anzeigen des Waiting Rooms
+		\end{itemize}
 		\subsection{User Stories}
+		Die Titel der User Stories ergeben sich nach folgendem Muster. Zuerst wird die Priorität für das Release genannt. Hierbei unterteilen wir in \glqq Core\grqq, für Hauptfeatures, und in \glqq Optional\grqq, für Zusatzfeatures, aufgeteilt. Danach folgt der Zugehörige Bereich zum Beispiel, \glqq Lobby\grqq. Zuletzt folgt eine kurze Beschreibung des Features. Dies wird im Folgendem beibehalten. Die Entwickler werden in den kommenden Abschnitten mit den Icons aus Jira dargestell:
+		\begin{itemize}
+			\item \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
+			\item \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
+			\item \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
+			\item \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
+		\end{itemize}
+		\subsubsection{Core - ArmyBuilder - Laden der Armeen}
+		\paragraph{Story} 
+		\ \\Albert befindet sich im Login Bereich. Albert loggt sich erfolgreich beim Spiel ein. Die Lokal/auf dem Server gespeicherten Armeen werden geladen. Albert befindet sich in der Lobby, die geladenen Armeen werden in der Armeenliste angezeigt.
+		\paragraph{Zugeteilter Entwickler} 
+		\ \\ \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
+		\paragraph{Schätzung}
+		Das Feature wurde auf 5 StoryPoints geschätzt.
+		
+		\subsection{Zeitübersicht}
+		\begin{center}
+			\begin{table}[H]
+				\begin{tabular}{p{5cm} c c c c }
+					User Story	& Story Points & Soll Zeit & Ist Zeit & Entwickler\\ \hline \hline
+					
+					Core - ArmyBuilder - Laden der Armeen & 5 & 5h & 1h 16m & \Vcentre{\includegraphics[width=0.04\textwidth]{tobias_avatar.png}} \\ \hline 
+					
+					Core - ArmyBuilder - Speichern der Armeen & 13 & 13h & 28h & \Vcentre{\includegraphics[width=0.04\textwidth]{tobias_avatar.png}}\\ \hline
+					
+					Core - ArmyBuilder - Hinzufügen der Einheiten & 13 & 13h & 7h 23m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					
+					Core - ArmyBuilder - Entfernen der Einheiten & 5 & 5h & 39m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					
+					Core - ArmyBuilder - Zurück in die Lobby navigieren & 3 & 3h & 1h & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					
+					Core - ArmyBuilder - Löschen der Armee (Clear) & 1 & 1h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+						
+					Core - ArmyBuilder - Info über Attribute & 3 & 3h & 5h & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					
+					Optional - ArmyBuilder - Musik an/aus & 1 & 1h & 30m & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					
+					Optional - Waiting Room - Anzeigen der Karte (Preview) & 3 & 3h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{jan_avatar.png}}\\ \hline
+					
+					Core - Lobby - Auswahl der Armee  & 1 & 1h & 18m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					
+					Core - Ingame - Anzeigen der Spielfeldes & 3 & 3h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					
+					Optional - Ingame - Zoomen auf dem Spielfeld & 13 & 13h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					
+					Core - Ingame - Spiel verlassen & 3 & 3h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					
+					Core - ArmyBuilder - Auswahl einer Einheit & 5 & 5h & 9h 59m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					
+					Core - Waiting Room - Spiel beitreten & 16 & 16h & 13h 5m & \Vcentre{\includegraphics[width=0.04\textwidth]{jan_avatar.png}}\\ \hline
+					
+					Appearance - ArmyBuilder & 8 & 8h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{tobias_avatar.png}}\\ \hline
+					
+					Core - Waiting Room - Chat & 13 & 13h & 5h & \Vcentre{\includegraphics[width=0.04\textwidth]{jan_avatar.png}}\\ \hline
+					
+					Core - ArmyBuilder - In den ArmyBuilder navigieren & 3 & 3h & 4h 7m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					
+					Core - ArmyBuilder- Auswählen einer Armee & 5 & 5h & 1h 58m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}
+				\end{tabular}
+			\end{table}
+		\end{center}
+			
 		\subsection{Analyse des Sprintverlaufs}
 	\section{Sprint \RN{4}}
 		\subsection{Sprintziel}
