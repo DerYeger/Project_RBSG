@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class ModelManagerTests {
 
     @Test
-    public void testGameInitObject() throws IOException {
+    public void testGameInitAndRemove() throws IOException {
         final String gameMessage = "{\"action\":\"gameInitObject\",\"data\":{\"id\":\"Game@1\",\"allPlayer\":[\"Player@1\"],\"allUnits\":[\"Unit@1\",\"Unit@2\"]}}";
 
         final String playerMessage = "{\"action\":\"gameInitObject\",\"data\":{\"id\":\"Player@1\",\"name\":\"ggEngineering\",\"color\":\"RED\",\"currentGame\":\"Game@1\",\"army\":[\"Unit@1\",\"Unit@2\"]}}";
@@ -135,5 +135,31 @@ public class ModelManagerTests {
 
         assertEquals(water, chopper.getPosition().get());
         assertEquals(grass, jeep.getPosition().get());
+
+        final String removeFirstUnitFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Game@1\",\"fieldName\":\"allUnits\"}}";
+        final String removeFirstUnitFromPlayer = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Player@1\",\"fieldName\":\"army\"}}";
+        final String removeFirstUnitFromCell = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Water@1\",\"fieldName\":\"blockedBy\"}}";
+
+        modelManager.handle(mapper.readValue(removeFirstUnitFromGame, ObjectNode.class));
+
+        assertFalse(game.getUnits().contains(chopper));
+        assertNull(chopper.getGame());
+
+        modelManager.handle(mapper.readValue(removeFirstUnitFromPlayer, ObjectNode.class));
+
+        assertFalse(player.getUnits().contains(chopper));
+        assertNull(chopper.getLeader());
+
+        modelManager.handle(mapper.readValue(removeFirstUnitFromCell, ObjectNode.class));
+
+        assertNull(chopper.getPosition().get());
+        assertNull(water.getUnit().get());
+
+        final String removePlayerFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Player@1\",\"from\":\"Game@1\",\"fieldName\":\"allPlayer\"}}";
+
+        modelManager.handle(mapper.readValue(removePlayerFromGame, ObjectNode.class));
+
+        assertTrue(game.getPlayers().isEmpty());
+        assertNull(player.getGame());
     }
 }

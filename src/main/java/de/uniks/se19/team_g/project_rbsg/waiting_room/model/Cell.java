@@ -161,14 +161,14 @@ public class Cell {
 
     public Cell setUnit(@Nullable final Unit unit) {
         if (this.unit.get() == unit) return this;
-        if (this.unit.get() != null) this.unit.get().setPosition(null);
+        if (this.unit.get() != null) this.unit.get().doSetPosition(null);
         doSetUnit(unit);
         if (unit != null) unit.doSetPosition(this);
         return this;
     }
 
     void doSetUnit(@Nullable final Unit unit) {
-        this.unit = new SimpleObjectProperty<>(unit);
+        this.unit.set(unit);
     }
 
     public void remove() {

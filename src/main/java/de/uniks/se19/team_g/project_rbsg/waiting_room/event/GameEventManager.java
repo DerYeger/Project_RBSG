@@ -39,7 +39,7 @@ public class GameEventManager implements ChatClient {
         this.webSocketClient = webSocketClient;
 
         gameEventHandlers = new ArrayList<>();
-        gameEventHandlers.add(new ModelManager());
+
         gameEventHandlers.add(new DefaultGameEventHandler());
     }
 
@@ -101,7 +101,9 @@ public class GameEventManager implements ChatClient {
                 //TODO: Check the server's reply format and parse message
                 System.out.println(json);
             } else {
-                gameEventHandlers.forEach(handler -> handler.handle(json));
+                gameEventHandlers.forEach(handler -> {
+                    if (handler.accepts(json)) handler.handle(json);
+                });
             }
         } catch (IOException e) {
             e.printStackTrace();
