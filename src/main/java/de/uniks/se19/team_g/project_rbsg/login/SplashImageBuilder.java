@@ -17,7 +17,7 @@ public class SplashImageBuilder {
 
     public BackgroundImage getSplashImage() {
         if (backgroundImage == null) {
-            final String url = SplashImageBuilder.class.getResource("splash.jpg").toString();
+            final String url = SplashImageBuilder.class.getResource("/assets/splash.jpg").toString();
 
             final Image image = new Image(url,
                     ProjectRbsgFXApplication.WIDTH,

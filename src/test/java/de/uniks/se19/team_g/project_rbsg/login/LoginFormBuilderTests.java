@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
@@ -11,6 +12,7 @@ import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -44,6 +46,11 @@ public class LoginFormBuilderTests extends ApplicationTest {
     static class ContextConfiguration implements ApplicationContextAware {
 
         private ApplicationContext context;
+
+        @Bean
+        public ApplicationStateInitializer stateInitializer() {
+            return Mockito.mock(ApplicationStateInitializer.class);
+        }
 
         @Bean
         @Scope("prototype")

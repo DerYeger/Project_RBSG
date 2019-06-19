@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.model;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import javafx.application.Platform;

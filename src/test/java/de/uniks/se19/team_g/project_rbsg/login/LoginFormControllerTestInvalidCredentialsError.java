@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
@@ -15,10 +16,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -80,6 +83,12 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
         }
+
+        @Bean
+        public ApplicationStateInitializer stateInitializer() {
+            return Mockito.mock(ApplicationStateInitializer.class);
+        }
+
         @Bean
         public LoginManager loginManager() {
             return new LoginManager(new RestTemplate() {
@@ -153,12 +162,12 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertNotNull(loginButton);
 
         clickOn(nameInput);
-        write("WrongName");
-        Assert.assertEquals("WrongName", nameInput.getText());
+        write("1");
+        Assert.assertEquals("1", nameInput.getText());
 
-        clickOn(passwordInput);
-        write("falsePassword");
-        Assert.assertEquals("falsePassword", passwordInput.getText());
+        type(KeyCode.TAB);
+        write("1");
+        Assert.assertEquals("1", passwordInput.getText());
 
         clickOn(loginButton);
         final Label errorMessage = lookup("#errorMessage").query();
@@ -177,12 +186,12 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         Assert.assertNotNull(registrationButton);
 
         clickOn(nameInput);
-        write("MasterChief");
-        Assert.assertEquals("MasterChief", nameInput.getText());
+        write("1");
+        Assert.assertEquals("1", nameInput.getText());
 
-        clickOn(passwordInput);
-        write("john-117");
-        Assert.assertEquals("john-117", passwordInput.getText());
+        type(KeyCode.TAB);
+        write("1");
+        Assert.assertEquals("1", passwordInput.getText());
 
         clickOn(registrationButton);
         final Label errorMessage = lookup("#errorMessage").query();

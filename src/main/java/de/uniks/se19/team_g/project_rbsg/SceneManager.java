@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.army_builder.SceneController;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -10,7 +9,6 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +24,7 @@ import java.io.IOException;
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable, Rincled
-{
+public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -37,16 +34,10 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private Object rootController;
 
-    private AudioClip audioClip;
-    public boolean audioPlayed = true;
-
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
-        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
-        audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
-        audioClip.setCycleCount(AudioClip.INDEFINITE);
-        playAudio();
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
         return this;
     }
 
@@ -86,19 +77,17 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         }
     }
 
-    public void setIngameScene() {
+    public void setWaitingRoomScene() {
         if (stage == null) {
             System.out.println("Not yet initialised");
             return;
         }
         try {
-            final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
-            stage.setMinHeight(670);
-            stage.setMinWidth(900);
+            final Scene waitingRoomScene = context.getBean(WaitingRoomSceneBuilder.class).getWaitingRoomScene();
             stage.setResizable(false);
-            setScene(ingameScene);
+            setScene(waitingRoomScene);
         } catch (Exception e) {
-            System.out.println("Unable to set ingame scene");
+            System.out.println("Unable to set waiting_room scene");
             e.printStackTrace();
         }
     }
@@ -131,23 +120,13 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         terminateRootController();
     }
 
-    public void playAudio() {
-        audioClip.play();
-        audioPlayed = true;
-    }
-
-    public void stopAudio() {
-        audioClip.stop();
-        audioPlayed = false;
-    }
-
     public void setArmyBuilderScene() {
-        @SuppressWarnings("unchecked") ViewComponent<Object, Parent> component
-                = (ViewComponent<Object, Parent>) context.getBean("armyBuilderScene");
+        @SuppressWarnings("unchecked") ViewComponent<Object> component
+                = (ViewComponent<Object>) context.getBean("armyBuilderScene");
         showSceneFromViewComponent(component);
     }
 
-    private void showSceneFromViewComponent(ViewComponent<Object, Parent> component) {
+    private void showSceneFromViewComponent(ViewComponent<Object> component) {
         Platform.runLater(() -> {
             stage.setScene(sceneFromParent(component.getRoot()));
             setRootController(component.getController());
@@ -158,4 +137,5 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     {
         return new Scene(parent);
     }
+
 }
