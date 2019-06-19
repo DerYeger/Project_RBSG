@@ -30,10 +30,10 @@ public class UnitPropertyInfoListViewTest {
     private ApplicationContext context;
 
     @Test
-    public void testUnitPropertyInfoListView() throws Exception {
+    public void testUnitPropertyInfoListView() {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         Platform.startup(() -> {
-            Node infoView = infoView = context.getBean(UnitPropertyInfoListBuilder.class).buildInfoView();
+            Node infoView = context.getBean(UnitPropertyInfoListBuilder.class).buildInfoView();
             Assert.assertNotNull(infoView);
         });
     }
