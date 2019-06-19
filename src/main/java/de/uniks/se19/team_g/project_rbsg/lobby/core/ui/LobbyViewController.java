@@ -3,9 +3,11 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -13,6 +15,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -40,9 +43,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 /**
  * @author Georg Siebert
@@ -69,6 +74,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     @NonNull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
+    @Nullable
+    private final Function<Pane, ArmySelectorController> armySelectorComponent;
+    @Nullable
+    private final ApplicationState appState;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -77,6 +86,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private Node gameForm;
 
+    public VBox armySelectorRoot;
     public StackPane mainStackPane;
     public Button soundButton;
     public Button logoutButton;
@@ -105,10 +115,14 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @NonNull final LobbyChatClient lobbyChatClient,
             @NonNull final CreateGameFormBuilder createGameFormBuilder,
             @NonNull final MusicManager musicManager,
-            @NonNull final LogoutManager logoutManager
-    ) {
+            @NonNull final LogoutManager logoutManager,
+            @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
+            @Nullable final ApplicationState appState
+            ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
+        this.armySelectorComponent = armySelectorComponent;
+        this.appState = appState;
 
         this.lobby = new Lobby();
 
@@ -195,6 +209,14 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
         updateLabels(null);
+
+        if (appState != null) {
+            if (armySelectorComponent != null) {
+                armySelectorComponent.apply(armySelectorRoot)
+                    .setSelection(appState.armies.filtered(a -> a.units.size() == Army.ARMY_MAX_SIZE))
+                ;
+            }
+        }
 
         setAsRootController();
     }

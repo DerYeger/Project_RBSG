@@ -34,7 +34,9 @@ public class LobbyViewControllerTest {
                 mock(LobbyChatClient.class),
                 mock(CreateGameFormBuilder.class),
                 mock(MusicManager.class),
-                mock(DefaultLogoutManager.class)
+                mock(DefaultLogoutManager.class),
+                null,
+                null
         );
 
         sut.goToArmyBuilder(null);

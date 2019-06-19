@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
@@ -50,6 +51,8 @@ public class ArmyBuilderController implements Initializable {
     @Nonnull
     private final UnitListEntryFactory unitCellFactory;
     @Nullable
+    private final Function<Pane, ArmySelectorController> armySelectorComponent;
+    @Nullable
     private final MusicManager musicManager;
     @Nullable
     private final SceneManager sceneManager;
@@ -65,15 +68,17 @@ public class ArmyBuilderController implements Initializable {
     public VBox sideBarLeft;
     public Button soundButton;
     public Button leaveButton;
+    public Pane armySelectorRoot;
     private ChangeListener<Unit> onSelectionUpdated;
 
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
             @Nonnull ArmyBuilderState viewState,
+            @Nonnull UnitListEntryFactory unitCellFactory,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
-            @Nonnull UnitListEntryFactory unitCellFactory,
+            @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager
     ) {
@@ -81,6 +86,7 @@ public class ArmyBuilderController implements Initializable {
         this.viewState = viewState;
         this.armyDetaiLFactory = armyDetaiLFactory;
         this.unitCellFactory = unitCellFactory;
+        this.armySelectorComponent = armySelectorComponent;
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
@@ -107,6 +113,12 @@ public class ArmyBuilderController implements Initializable {
 
         if (musicManager != null) {
             musicManager.initButtonIcons(soundButton);
+        }
+
+        if (armySelectorComponent != null) {
+            armySelectorComponent.apply(armySelectorRoot).setSelection(
+                appState.armies
+            );
         }
 
         JavaFXUtils.setButtonIcons(
