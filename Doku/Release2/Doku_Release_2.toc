@@ -11,8 +11,9 @@
 \contentsline {subsubsection}{\numberline {3.2.5}Umgesetzte Optionale Features}{4}
 \contentsline {subsection}{\numberline {3.3}Mockups}{4}
 \contentsline {subsubsection}{\numberline {3.3.1}ArmyBuilder}{6}
-\contentsline {subsubsection}{\numberline {3.3.2}Waiting Room}{7}
-\contentsline {subsection}{\numberline {3.4}Domain Stories}{7}
+\contentsline {subsection}{\numberline {3.4}Lobby}{7}
+\contentsline {subsubsection}{\numberline {3.4.1}Waiting Room}{7}
+\contentsline {subsection}{\numberline {3.5}Domain Stories}{7}
 \contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{10}
 \contentsline {subsection}{\numberline {4.1}Sprintziel}{10}
 \contentsline {subsection}{\numberline {4.2}User Stories}{10}
