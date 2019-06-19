@@ -101,7 +101,7 @@ public class Unit {
     }
 
     void doSetPosition(@Nullable final Cell position) {
-        this.position = new SimpleObjectProperty<>(position);
+        this.position.set(position);
     }
 
     public Unit setUnitType(@NonNull final UnitType unitType) {
