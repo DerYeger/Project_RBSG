@@ -7,8 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
-
+/**
+ * @author  Keanu Stückrad
+ */
 public class UnitPropertyInfoListController {
 
     public Button closeButton;
@@ -17,11 +18,11 @@ public class UnitPropertyInfoListController {
     private Node root;
 
     private UnitPropertyInfoCellBuilder health;
-    private UnitPropertyInfoCellBuilder physicalResistance;
-    private UnitPropertyInfoCellBuilder magicResistance;
-    private UnitPropertyInfoCellBuilder speed;
-    private UnitPropertyInfoCellBuilder attack;
-    private UnitPropertyInfoCellBuilder spellPower;
+    // private UnitPropertyInfoCellBuilder physicalResistance;
+    // private UnitPropertyInfoCellBuilder magicResistance;
+    // private UnitPropertyInfoCellBuilder speed;
+    // private UnitPropertyInfoCellBuilder attack;
+    // private UnitPropertyInfoCellBuilder spellPower;
 
     public void init() {
         JavaFXUtils.setButtonIcons(
@@ -31,24 +32,19 @@ public class UnitPropertyInfoListController {
                 40
         );
         initBuilders();
-        // add property images and infos here with relative path
         infoBox.getChildren().addAll(
-                health.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
-                physicalResistance.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
-                magicResistance.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
-                speed.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
-                attack.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt")),
-                spellPower.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), new File("/assets/text_files/magicDefense.txt"))
+                health.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), "magicDefense")
+                // More Properties
         );
     }
 
     private void initBuilders() {
         health = new UnitPropertyInfoCellBuilder();
-        physicalResistance = new UnitPropertyInfoCellBuilder();
-        magicResistance = new UnitPropertyInfoCellBuilder();
-        speed = new UnitPropertyInfoCellBuilder();
-        attack = new UnitPropertyInfoCellBuilder();
-        spellPower = new UnitPropertyInfoCellBuilder();
+        // physicalResistance = new UnitPropertyInfoCellBuilder();
+        // magicResistance = new UnitPropertyInfoCellBuilder();
+        // speed = new UnitPropertyInfoCellBuilder();
+        // attack = new UnitPropertyInfoCellBuilder();
+        // spellPower = new UnitPropertyInfoCellBuilder();
     }
 
     public void setRootNode(Node root){

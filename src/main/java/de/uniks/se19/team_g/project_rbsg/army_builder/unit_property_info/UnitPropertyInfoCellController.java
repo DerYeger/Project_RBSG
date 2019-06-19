@@ -1,28 +1,28 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info;
 
+import io.rincl.Rincled;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-public class UnitPropertyInfoCellController {
+/**
+ * @author  Keanu Stückrad
+ */
+public class UnitPropertyInfoCellController implements Rincled {
 
     public ImageView imageView;
     public Label infoLabel;
+    private String propertyInfo;
 
-    public void init(Image propertyImage, File propertyInfo) {
+    public void init(Image propertyImage, String propertyInfo) {
         imageView.setImage(propertyImage);
-        String data = null;
-        try {
-            data = new String(Files.readAllBytes(Paths.get(getClass().getResource(propertyInfo.getAbsolutePath()).toString().substring(5))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        infoLabel.setText(data);
+        this.propertyInfo = propertyInfo;
+        updateLabels();
+    }
+
+    public void updateLabels(){
+        infoLabel.textProperty().setValue(getResources().getString(propertyInfo));
+        // More Properties
     }
 
 }

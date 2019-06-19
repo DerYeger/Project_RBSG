@@ -4,15 +4,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 
-import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author  Keanu Stückrad
+ */
 public class UnitPropertyInfoCellBuilder {
 
     private Node infoCellView;
     private FXMLLoader fxmlLoader;
 
-    public Node buildInfoCellNode(Image propertyImage, File propertyInfo) {
+    public Node buildInfoCellNode(Image propertyImage, String propertyInfo) {
         if(infoCellView == null) {
             fxmlLoader = new FXMLLoader(getClass().getResource("/ui/army_builder/unitPropertyInfoCellView.fxml"));
             try {

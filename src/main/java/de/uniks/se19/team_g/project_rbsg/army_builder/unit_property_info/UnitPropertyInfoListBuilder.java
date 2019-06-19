@@ -5,6 +5,9 @@ import javafx.scene.Node;
 
 import java.io.IOException;
 
+/**
+ * @author  Keanu Stückrad
+ */
 public class UnitPropertyInfoListBuilder {
 
     private Node infoView;
