@@ -50,7 +50,14 @@
          </children>
       </VBox>
    </VBox>
-   <VBox fx:id="sideBarRight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+   <VBox fx:id="sideBarRight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <VBox fx:id="armySelectorRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+         </VBox.margin>
+      </VBox>
+   </VBox>
 </HBox>
    <stylesheets>
       <URL value="@unitPropertyInfoListView.css" />

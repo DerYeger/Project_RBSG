@@ -18,7 +18,12 @@
       <GridPane fx:id="mainGridPane" styleClass="mainGridPane" StackPane.alignment="TOP_LEFT">
          <children>
             <Label fx:id="lobbyTitle" alignment="CENTER" styleClass="gameTitle" text="Advanced WASP Wars" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <ListView fx:id="lobbyPlayerListView" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS" />
+            <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+               <children>
+                  <ListView fx:id="lobbyPlayerListView" />
+                  <VBox fx:id="armySelectorRoot" maxHeight="-Infinity" maxWidth="-Infinity" />
+               </children>
+            </HBox>
             <VBox fx:id="chatContainer" styleClass="chatContainer" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
             <VBox alignment="TOP_CENTER" styleClass="optionsContainer" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>

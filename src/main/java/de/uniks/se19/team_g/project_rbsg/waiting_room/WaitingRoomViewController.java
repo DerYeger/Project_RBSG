@@ -177,9 +177,16 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     @Override
+    public boolean accepts(@NonNull final ObjectNode message) {
+        if (!message.has("action")) return false;
+
+        if (!message.get("action").asText().equals("gameInitFinished")) return false;
+
+        return true;
+    }
+
+    @Override
     public void handle(@NonNull final ObjectNode message) {
-        if (!message.has("action")) return;
-        if (!message.get("action").asText().equals("gameInitFinished")) return;
         final Game game = modelManager.getGame();
         //game SHOULD (no guarantee) be ready now
     }
