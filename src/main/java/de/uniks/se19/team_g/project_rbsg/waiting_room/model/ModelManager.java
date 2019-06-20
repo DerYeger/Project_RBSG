@@ -16,6 +16,10 @@ import java.util.HashMap;
  */
 public class ModelManager implements GameEventHandler {
 
+    private static final String GAME_INIT_OBJECT = "gameInitObject";
+    private static final String GAME_NEW_OBJECT = "gameNewObject";
+    private static final String GAME_REMOVE_OBJECT = "gameRemoveObject";
+
     @NonNull
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -33,34 +37,30 @@ public class ModelManager implements GameEventHandler {
     }
 
     @Override
-    public void handle(@NonNull final ObjectNode node) {
-        if (!node.has("action")) return;
+    public boolean accepts(@NonNull final ObjectNode message) {
+        if (!message.has("action")) return false;
 
+        return message.has("data") && message.get("data").has("id");
+    }
+
+    @Override
+    public void handle(@NonNull final ObjectNode node) {
         switch (node.get("action").asText()) {
-            case "gameInitObject":
+            case GAME_INIT_OBJECT:
+            case GAME_NEW_OBJECT:
+                //may change for future server releases
                 handleInit(node);
                 break;
-            case "gameInitFinished":
-                //FOR DEMONSTRATION
-                logger.debug("Game has " + game.getCells().size() + " cells");
-                final Player firstPlayer = game.getPlayers().get(0);
-                logger.debug(firstPlayer.getName() + " has " + firstPlayer.getUnits().size() + " units");
-                logger.debug(firstPlayer.getName() + "'s first unit has type " + firstPlayer.getUnits().get(0).getUnitType());
-                logger.debug("It can attack " + firstPlayer.getUnits().get(0).getCanAttack());
-                logger.debug("Its position is " + firstPlayer.getUnits().get(0).getPosition().get());
-                //END
+            case GAME_REMOVE_OBJECT:
+                handleRemove(node);
                 break;
             default:
-                logger.debug("Not a model message");
+                logger.error("Unknown model message: " + node);
         }
     }
 
     private void handleInit(@NonNull final ObjectNode node) {
-        if (!node.has("data")) return;
-
         final JsonNode data = node.get("data");
-
-        if (!data.has("id")) return;
 
         final String identifier = data.get("id").asText();
         final Tuple<String, String> typeAndId = splitIdentifier(identifier);
@@ -68,13 +68,13 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Game":
-                game = GameUtil.buildGame(this, identifier, data, false);
+                game = GameUtil.buildGame(this, identifier, data, true);
                 break;
             case "Player":
-                PlayerUtil.buildPlayer(this, identifier, data, false);
+                PlayerUtil.buildPlayer(this, identifier, data, true);
                 break;
             case "Unit":
-                UnitUtil.buildUnit(this, identifier, data, false);
+                UnitUtil.buildUnit(this, identifier, data, true);
                 break;
             case "Forest":
             case "Grass":
@@ -83,7 +83,34 @@ public class ModelManager implements GameEventHandler {
                 CellUtil.buildCell(this, identifier, StringToEnum.biome(type), data, false);
                 break;
             default:
-                logger.debug("Unknown class");
+                logger.error("Unknown init class: " + type);
+        }
+    }
+
+    private void handleRemove(@NonNull final ObjectNode node) {
+        final JsonNode data = node.get("data");
+
+        final String identifier = data.get("id").asText();
+        final Tuple<String, String> typeAndId = splitIdentifier(identifier);
+        final String type = typeAndId.first;
+
+        if (!data.has("from") || !data.has("fieldName")) {
+            logger.error("Unknown message format: " + node);
+            return;
+        }
+
+        final String from = data.get("from").asText();
+        final String fieldName = data.get("fieldName").asText();
+
+        switch (type) {
+            case "Player":
+                PlayerUtil.removePlayerFrom(this, identifier, from, fieldName, true);
+                break;
+            case "Unit":
+                UnitUtil.removeUnitFrom(this, identifier, from, fieldName, true);
+                break;
+            default:
+                logger.error("Unknown removal class: " + type);
         }
     }
 

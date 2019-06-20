@@ -4,25 +4,29 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPropertyInfoListBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -36,16 +40,19 @@ import java.util.function.Function;
  * @author Keanu Stückrad
  */
 @Component
+@Scope("prototype")
 public class ArmyBuilderController implements Initializable {
-
-    public Parent root;
 
     @Nonnull
     private final ApplicationState appState;
+    @Nonnull
+    private final ArmyBuilderState viewState;
     @Nullable
     private final Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory;
     @Nonnull
     private final UnitListEntryFactory unitCellFactory;
+    @Nullable
+    private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
     private final MusicManager musicManager;
     @Nullable
@@ -53,6 +60,7 @@ public class ArmyBuilderController implements Initializable {
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
 
+    public StackPane root;
     public VBox content;
     public HBox topContentContainer;
     public ListView<Unit> unitListView;
@@ -63,18 +71,31 @@ public class ArmyBuilderController implements Initializable {
     public Button soundButton;
     public Button leaveButton;
 
+    public Button showInfoButton;
+
+    public Pane armySelectorRoot;
+
+    private ChangeListener<Unit> onSelectionUpdated;
+
+    private Node infoView;
+    private UnitPropertyInfoListBuilder unitPropertyInfoListBuilder;
+
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
+            @Nonnull ArmyBuilderState viewState,
+            @Nonnull UnitListEntryFactory unitCellFactory,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
-            @Nonnull UnitListEntryFactory unitCellFactory,
+            @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager
     ) {
         this.appState = appState;
+        this.viewState = viewState;
         this.armyDetaiLFactory = armyDetaiLFactory;
         this.unitCellFactory = unitCellFactory;
+        this.armySelectorComponent = armySelectorComponent;
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
@@ -85,6 +106,10 @@ public class ArmyBuilderController implements Initializable {
     {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(appState.unitDefinitions);
+
+        // setup listener to focus items based on selected unit
+        onSelectionUpdated = this::onSelectionUpdated;
+        viewState.selectedUnit.addListener(new WeakChangeListener<>(onSelectionUpdated));
 
         if (armyDetaiLFactory != null) {
             armyDetaiLFactory.apply(armyDetailsContainer);
@@ -99,13 +124,45 @@ public class ArmyBuilderController implements Initializable {
             musicManager.initButtonIcons(soundButton);
         }
 
+
+        unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
+
+        if (armySelectorComponent != null) {
+            armySelectorComponent.apply(armySelectorRoot).setSelection(
+                appState.armies
+            );
+        }
+
+
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 JavaConfig.ICON_SIZE
         );
+        JavaFXUtils.setButtonIcons(
+                showInfoButton,
+                getClass().getResource("/assets/icons/navigation/infoWhite.png"),
+                getClass().getResource("/assets/icons/navigation/infoBlack.png"),
+                JavaConfig.ICON_SIZE
+        );
 
+    }
+
+    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue)
+    {
+        final Unit selection;
+        if (newValue == null) {
+            selection = null;
+        } else {
+            final String id = viewState.selectedUnit.get().id.get();
+            selection = appState.unitDefinitions.stream()
+                    .filter(u -> id.equals(u.id.get()))
+                    .findFirst()
+                    .orElse(null)
+            ;
+        }
+        unitListView.getSelectionModel().select(selection);
     }
 
     public void toggleSound(ActionEvent actionEvent) {
@@ -117,15 +174,15 @@ public class ArmyBuilderController implements Initializable {
         if (sceneManager == null) {
             return;
         }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave ArmyBuilder");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setLobbyScene();
-        } else {
-            actionEvent.consume();
-        }
+        sceneManager.setLobbyScene();
     }
 
+    public void showInfo(ActionEvent actionEvent) {
+        if(infoView == null) {
+            infoView = unitPropertyInfoListBuilder.buildInfoView();
+            root.getChildren().add(infoView);
+            StackPane.setAlignment(infoView, Pos.CENTER);
+        }
+        infoView.setVisible(true);
+    }
 }

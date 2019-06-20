@@ -73,6 +73,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
 
         Assert.assertNotNull(controller.root);
         Assert.assertNotNull(controller.content);
+        Assert.assertNotNull(controller.showInfoButton);
         Assert.assertNotNull(controller.soundButton);
         Assert.assertNotNull(controller.leaveButton);
         Assert.assertNotNull(controller.sideBarRight);

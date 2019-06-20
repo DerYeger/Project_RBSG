@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class ModelManagerTests {
 
     @Test
-    public void testGameInitObject() throws IOException {
+    public void testGameInitAndRemove() throws IOException {
         final String gameMessage = "{\"action\":\"gameInitObject\",\"data\":{\"id\":\"Game@1\",\"allPlayer\":[\"Player@1\"],\"allUnits\":[\"Unit@1\",\"Unit@2\"]}}";
 
         final String playerMessage = "{\"action\":\"gameInitObject\",\"data\":{\"id\":\"Player@1\",\"name\":\"ggEngineering\",\"color\":\"RED\",\"currentGame\":\"Game@1\",\"army\":[\"Unit@1\",\"Unit@2\"]}}";
@@ -62,6 +62,7 @@ public class ModelManagerTests {
         final Unit chopper = player.getUnits().stream().filter(u -> u.getUnitType().equals(UnitType.CHOPPER)).findAny().orElse(null);
 
         assertNotNull(chopper);
+        assertEquals("Unit@1", chopper.getId());
         assertEquals(game, chopper.getGame());
         assertEquals(player, chopper.getLeader());
         assertEquals(UnitType.CHOPPER, chopper.getUnitType());
@@ -72,6 +73,7 @@ public class ModelManagerTests {
         final Unit jeep = player.getUnits().stream().filter(u -> u.getUnitType().equals(UnitType.JEEP)).findAny().orElse(null);
 
         assertNotNull(jeep);
+        assertEquals("Unit@2", jeep.getId());
         assertEquals(game, jeep.getGame());
         assertEquals(player, jeep.getLeader());
         assertEquals(UnitType.JEEP, jeep.getUnitType());
@@ -90,6 +92,7 @@ public class ModelManagerTests {
         assertNotNull(water);
 
         assertEquals(game, forest.getGame());
+        assertEquals("Forest@1", forest.getId());
         assertEquals(Biome.FOREST, forest.getBiome());
         assertTrue(forest.isPassable());
         assertEquals(0, forest.getX());
@@ -101,6 +104,7 @@ public class ModelManagerTests {
         assertNull(forest.getUnit().get());
 
         assertEquals(game, grass.getGame());
+        assertEquals("Grass@1", grass.getId());
         assertEquals(Biome.GRASS, grass.getBiome());
         assertTrue(grass.isPassable());
         assertEquals(1, grass.getX());
@@ -112,6 +116,7 @@ public class ModelManagerTests {
         assertEquals(jeep, grass.getUnit().get());
 
         assertEquals(game, mountain.getGame());
+        assertEquals("Mountain@1", mountain.getId());
         assertEquals(Biome.MOUNTAIN, mountain.getBiome());
         assertFalse(mountain.isPassable());
         assertEquals(0, mountain.getX());
@@ -123,6 +128,7 @@ public class ModelManagerTests {
         assertNull(mountain.getUnit().get());
 
         assertEquals(game, water.getGame());
+        assertEquals("Water@1", water.getId());
         assertEquals(Biome.WATER, water.getBiome());
         assertFalse(water.isPassable());
         assertEquals(1, water.getX());
@@ -135,5 +141,31 @@ public class ModelManagerTests {
 
         assertEquals(water, chopper.getPosition().get());
         assertEquals(grass, jeep.getPosition().get());
+
+        final String removeFirstUnitFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Game@1\",\"fieldName\":\"allUnits\"}}";
+        final String removeFirstUnitFromPlayer = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Player@1\",\"fieldName\":\"army\"}}";
+        final String removeFirstUnitFromCell = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Water@1\",\"fieldName\":\"blockedBy\"}}";
+
+        modelManager.handle(mapper.readValue(removeFirstUnitFromGame, ObjectNode.class));
+
+        assertFalse(game.getUnits().contains(chopper));
+        assertNull(chopper.getGame());
+
+        modelManager.handle(mapper.readValue(removeFirstUnitFromPlayer, ObjectNode.class));
+
+        assertFalse(player.getUnits().contains(chopper));
+        assertNull(chopper.getLeader());
+
+        modelManager.handle(mapper.readValue(removeFirstUnitFromCell, ObjectNode.class));
+
+        assertNull(chopper.getPosition().get());
+        assertNull(water.getUnit().get());
+
+        final String removePlayerFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Player@1\",\"from\":\"Game@1\",\"fieldName\":\"allPlayer\"}}";
+
+        modelManager.handle(mapper.readValue(removePlayerFromGame, ObjectNode.class));
+
+        assertTrue(game.getPlayers().isEmpty());
+        assertNull(player.getGame());
     }
 }

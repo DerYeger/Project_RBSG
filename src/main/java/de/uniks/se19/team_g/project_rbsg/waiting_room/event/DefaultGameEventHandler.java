@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
+import java.util.List;
+
 /**
  * @author Jan Müller
  */
@@ -13,10 +15,17 @@ public class DefaultGameEventHandler implements GameEventHandler {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
+    public boolean accepts(final @NonNull ObjectNode message) {
+        if (!message.has("action")) return true;
+
+        return !message.get("action").asText().equals("gameInitObject")
+                && !message.get("action").asText().equals("gameNewObject")
+                && !message.get("action").asText().equals("gameRemoveObject");
+    }
+
+    @Override
     public void handle(final @NonNull ObjectNode message)
     {
-        if (message.has("action") && message.get("action").asText().equals("gameInitObject")) return;
-
-        logger.debug(message.toString());
+         logger.debug(message.toString());
     }
 }

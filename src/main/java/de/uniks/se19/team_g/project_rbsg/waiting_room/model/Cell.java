@@ -62,16 +62,36 @@ public class Cell {
         return left;
     }
 
+    public Cell getTopLeft() {
+        if (top == null || left == null) return null;
+        return top.getLeft();
+    }
+
     public Cell getTop() {
         return top;
+    }
+
+    public Cell getTopRight() {
+        if (top == null || right == null) return null;
+        return top.getRight();
     }
 
     public Cell getRight() {
         return right;
     }
 
+    public Cell getBottomRight() {
+        if (bottom == null || right == null) return null;
+        return bottom.getRight();
+    }
+
     public Cell getBottom() {
         return bottom;
+    }
+
+    public Cell getBottomLeft() {
+        if (bottom == null || left == null) return null;
+        return bottom.getLeft();
     }
 
     public SimpleObjectProperty<Unit> getUnit() {
@@ -161,14 +181,14 @@ public class Cell {
 
     public Cell setUnit(@Nullable final Unit unit) {
         if (this.unit.get() == unit) return this;
-        if (this.unit.get() != null) this.unit.get().setPosition(null);
+        if (this.unit.get() != null) this.unit.get().doSetPosition(null);
         doSetUnit(unit);
         if (unit != null) unit.doSetPosition(this);
         return this;
     }
 
     void doSetUnit(@Nullable final Unit unit) {
-        this.unit = new SimpleObjectProperty<>(unit);
+        this.unit.set(unit);
     }
 
     public void remove() {
