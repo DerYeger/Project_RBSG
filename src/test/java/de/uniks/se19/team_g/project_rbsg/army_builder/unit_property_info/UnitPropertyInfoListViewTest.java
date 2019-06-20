@@ -27,7 +27,6 @@ import org.testfx.framework.junit.ApplicationTest;
         UnitPropertyInfoListController.class,
         UnitPropertyInfoCellController.class
 })
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UnitPropertyInfoListViewTest extends ApplicationTest {
 
     @Autowired

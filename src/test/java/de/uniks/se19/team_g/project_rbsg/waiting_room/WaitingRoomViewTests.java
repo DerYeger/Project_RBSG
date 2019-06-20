@@ -4,12 +4,9 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -41,7 +38,8 @@ import org.testfx.framework.junit.ApplicationTest;
         UserProvider.class,
         WaitingRoomViewTests.ContextConfiguration.class,
         FXMLLoaderFactory.class,
-        MusicManager.class
+        MusicManager.class,
+        IngameGameProvider.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
