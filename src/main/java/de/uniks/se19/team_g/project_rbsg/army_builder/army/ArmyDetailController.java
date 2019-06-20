@@ -30,8 +30,6 @@ import java.util.ResourceBundle;
 @Component
 public class ArmyDetailController implements Initializable {
 
-    public static final int ARMY_MAX_SIZE = 10;
-
     public Label armyNameLabel;
     public Label armySizeLabel;
 
@@ -82,7 +80,7 @@ public class ArmyDetailController implements Initializable {
             Bindings.format(
                 "%d/%d",
                 Bindings.size(army.units),
-                ARMY_MAX_SIZE
+                Army.ARMY_MAX_SIZE
             )
         );
 
@@ -147,7 +145,7 @@ public class ArmyDetailController implements Initializable {
     {
         final Army army = appState.selectedArmy.get();
         final Unit unit = armyBuilderState.selectedUnit.get();
-        if (Objects.nonNull(army) && Objects.nonNull(unit) && army.units.size() < ARMY_MAX_SIZE) {
+        if (Objects.nonNull(army) && Objects.nonNull(unit) && army.units.size() < Army.ARMY_MAX_SIZE) {
             army.units.add(unit.clone());
         }
     }

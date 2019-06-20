@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
+import io.rincl.Rincled;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -17,7 +18,7 @@ import java.io.IOException;
 /**
  * @author Keanu Stückrad
  */
-public class LoadingIndicatorCardBuilder {
+public class LoadingIndicatorCardBuilder implements Rincled {
 
     @FXML
     private Label progressLabel;
@@ -45,7 +46,13 @@ public class LoadingIndicatorCardBuilder {
         Timeline progressTimeline = setupTimeline();
         progressTimeline.setCycleCount(Animation.INDEFINITE);
         progressTimeline.play();
+        updateLabels();
         return loadingIndicatorView;
+    }
+
+    private void updateLabels()
+    {
+        progressLabel.textProperty().setValue(getResources().getString("progress"));
     }
 
     private Timeline setupTimeline() {

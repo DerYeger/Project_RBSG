@@ -64,6 +64,9 @@ public class LoginFormController implements RootController, Rincled
     @FXML
     private Label errorMessage;
 
+    @FXML
+    private Label progressLabel;
+
     private Node loading;
     private LoadingIndicatorCardBuilder loadingIndicatorCardBuilder;
     public SimpleBooleanProperty loadingFlag;

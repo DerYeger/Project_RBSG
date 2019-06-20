@@ -132,7 +132,9 @@ public class LobbyBuilderTest extends ApplicationTest
                     new LobbyChatClient(new WebSocketClient(), userProvider()),
                     new CreateGameFormBuilder(new FXMLLoader()),
                     new MusicManager(),
-                    new DefaultLogoutManager(new RESTClient(new RestTemplate()))
+                    new DefaultLogoutManager(new RESTClient(new RestTemplate())),
+                    null,
+                    null
             ) {
                 @Override
                 public void init()

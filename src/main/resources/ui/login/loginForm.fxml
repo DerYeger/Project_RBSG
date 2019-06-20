@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="loginForm" stylesheets="@loginForm.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="loginForm" stylesheets="@loginForm.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -47,18 +47,18 @@
             <Insets bottom="30.0" />
          </opaqueInsets>
       </PasswordField>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefWidth="370.0" spacing="5.0" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
          <children>
             <Button id="login-button" fx:id="loginButton" mnemonicParsing="false" text="Login">
                <GridPane.margin>
                   <Insets bottom="30.0" />
                </GridPane.margin>
                <HBox.margin>
-                  <Insets top="50.0" />
+                  <Insets />
                </HBox.margin></Button>
             <Button id="registration-button" fx:id="registerButton" mnemonicParsing="false" styleClass="registerButton" text="+">
                <HBox.margin>
-                  <Insets top="50.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
          </children>
