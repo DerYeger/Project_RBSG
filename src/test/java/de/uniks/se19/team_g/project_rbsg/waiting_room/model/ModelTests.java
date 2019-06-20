@@ -119,6 +119,10 @@ public class ModelTests {
         assertEquals(grass, forest.getRight());
         assertEquals(mountain, forest.getBottom());
         assertNull(forest.getUnit().get());
+        assertNull(forest.getTopLeft());
+        assertNull(forest.getTopRight());
+        assertEquals(water, forest.getBottomRight());
+        assertNull(forest.getBottomLeft());
 
         assertEquals(game, grass.getGame());
         assertEquals(Biome.GRASS, grass.getBiome());
@@ -130,6 +134,10 @@ public class ModelTests {
         assertNull(grass.getRight());
         assertEquals(water, grass.getBottom());
         assertEquals(aliceJeep1And5, grass.getUnit().get());
+        assertNull(grass.getTopLeft());
+        assertNull(grass.getTopRight());
+        assertNull(grass.getBottomRight());
+        assertEquals(mountain, grass.getBottomLeft());
 
         assertEquals(game, mountain.getGame());
         assertEquals(Biome.MOUNTAIN, mountain.getBiome());
@@ -141,6 +149,10 @@ public class ModelTests {
         assertEquals(water, mountain.getRight());
         assertNull(mountain.getBottom());
         assertEquals(bobChopper10And10, mountain.getUnit().get());
+        assertNull(mountain.getTopLeft());
+        assertEquals(grass, mountain.getTopRight());
+        assertNull(mountain.getBottomRight());
+        assertNull(mountain.getBottomLeft());
 
         assertEquals(game, water.getGame());
         assertEquals(Biome.WATER, water.getBiome());
@@ -152,6 +164,10 @@ public class ModelTests {
         assertNull(water.getRight());
         assertNull(water.getBottom());
         assertEquals(aliceChopper5And10, water.getUnit().get());
+        assertEquals(forest, water.getTopLeft());
+        assertNull(water.getTopRight());
+        assertNull(water.getBottomRight());
+        assertNull(water.getBottomLeft());
 
         assertEquals(game, alice.getGame());
         assertEquals(ALICE, alice.getName());
@@ -227,9 +243,11 @@ public class ModelTests {
         assertNull(water.getRight());
         assertNull(water.getBottom());
         assertNull(water.getUnit().get());
+        assertNull(water.getTopLeft());
 
         assertNull(mountain.getRight());
         assertNull(grass.getBottom());
+        assertNull(forest.getBottomRight());
 
         //action
         bob.remove();

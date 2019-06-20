@@ -62,16 +62,36 @@ public class Cell {
         return left;
     }
 
+    public Cell getTopLeft() {
+        if (top == null || left == null) return null;
+        return top.getLeft();
+    }
+
     public Cell getTop() {
         return top;
+    }
+
+    public Cell getTopRight() {
+        if (top == null || right == null) return null;
+        return top.getRight();
     }
 
     public Cell getRight() {
         return right;
     }
 
+    public Cell getBottomRight() {
+        if (bottom == null || right == null) return null;
+        return bottom.getRight();
+    }
+
     public Cell getBottom() {
         return bottom;
+    }
+
+    public Cell getBottomLeft() {
+        if (bottom == null || left == null) return null;
+        return bottom.getLeft();
     }
 
     public SimpleObjectProperty<Unit> getUnit() {
