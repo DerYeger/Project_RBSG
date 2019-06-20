@@ -96,7 +96,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testBuildWaitingRoomView() throws Exception {
-        final Node waitingRoomView = context.getBean(WaitingRoomViewBuilder.class).buildIngameView();
+        final Node waitingRoomView = context.getBean(WaitingRoomViewBuilder.class).buildWaitingRoomView();
         Assert.assertNotNull(waitingRoomView);
     }
 }

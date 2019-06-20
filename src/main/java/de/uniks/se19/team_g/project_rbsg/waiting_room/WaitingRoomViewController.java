@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
@@ -61,6 +62,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final SplashImageBuilder splashImageBuilder;
     private final ApplicationState applicationState;
     private final ModelManager modelManager;
+    private final IngameGameProvider ingameGameProvider;
 
     @Autowired
     public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
@@ -69,7 +71,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final GameEventManager gameEventManager,
                                      @NonNull final MusicManager musicManager,
                                      @NonNull final SplashImageBuilder splashImageBuilder,
-                                     @NonNull final ApplicationState applicationState) {
+                                     @NonNull final ApplicationState applicationState,
+                                     @NonNull final IngameGameProvider ingameGameProvider) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -77,6 +80,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.musicManager = musicManager.init();
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
+        this.ingameGameProvider = ingameGameProvider;
         modelManager = new ModelManager();
     }
 
@@ -155,7 +159,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     public void showInfo(ActionEvent actionEvent) {
-        // TODO
+        sceneManager.setIngameScene(); // for testing
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
@@ -188,6 +192,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     @Override
     public void handle(@NonNull final ObjectNode message) {
         final Game game = modelManager.getGame();
+        ingameGameProvider.set(game);
         //game SHOULD (no guarantee) be ready now
     }
+
 }

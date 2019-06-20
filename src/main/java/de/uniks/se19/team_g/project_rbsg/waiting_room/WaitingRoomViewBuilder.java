@@ -28,7 +28,7 @@ public class WaitingRoomViewBuilder {
         return loader;
     }
 
-    public @NonNull Node buildIngameView() {
+    public @NonNull Node buildWaitingRoomView() {
         FXMLLoader fxmlLoader = getLoader();
         try {
             waitingRoomView = fxmlLoader.load();
@@ -39,4 +39,5 @@ public class WaitingRoomViewBuilder {
         waitingRoomViewController.init();
         return waitingRoomView;
     }
+
 }
