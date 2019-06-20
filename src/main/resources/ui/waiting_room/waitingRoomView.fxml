@@ -38,7 +38,7 @@
         </StackPane>
     </children>
     </AnchorPane>
-        <StackPane AnchorPane.topAnchor="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.leftAnchor="0.0">
+        <StackPane AnchorPane.topAnchor="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0">
             <children>
                 <Pane StackPane.alignment="CENTER_RIGHT" styleClass="army-pane" fx:id="armyBar"/>
             </children>
