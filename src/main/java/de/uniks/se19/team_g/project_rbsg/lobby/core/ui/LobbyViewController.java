@@ -301,7 +301,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     public void setAsRootController() {
-        sceneManager.setRootController(this);
+        sceneManager.withRootController(this);
     }
 
     private void updateLabels(Locale locale)
@@ -349,6 +349,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent) {
-        sceneManager.setArmyBuilderScene();
+        sceneManager.setArmyBuilderScene(true, SceneManager.SceneIdentifier.LOBBY);
     }
 }

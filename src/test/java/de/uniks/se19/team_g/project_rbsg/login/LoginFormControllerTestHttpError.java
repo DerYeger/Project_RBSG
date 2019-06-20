@@ -31,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -115,7 +116,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void setLobbyScene() {
+                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
                     switchedToLobby = true;
                 }
             };

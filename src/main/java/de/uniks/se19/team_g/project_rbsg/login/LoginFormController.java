@@ -101,7 +101,7 @@ public class LoginFormController implements RootController, Rincled
 
     @Override
     public void setAsRootController() {
-        sceneManager.setRootController(this);
+        sceneManager.withRootController(this);
     }
 
     public void init() {
@@ -209,7 +209,7 @@ public class LoginFormController implements RootController, Rincled
             logger.debug("unexpected initializer error", e);
             handleErrorMessage(getResources().getString("unexpectedInitializerError"));
         }
-        Platform.runLater(sceneManager::setLobbyScene);
+        Platform.runLater(() -> sceneManager.setLobbyScene(false, null));
     }
 
     private void setErrorFlag(boolean flag) {

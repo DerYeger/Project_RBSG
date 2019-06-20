@@ -146,7 +146,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
 
     @Override
     public void setAsRootController() {
-        sceneManager.setRootController(this);
+        sceneManager.withRootController(this);
     }
 
     @Override
@@ -165,7 +165,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.OK)) {
             // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-            sceneManager.setLobbyScene();
+            sceneManager.setLobbyScene(false, null);
             gameProvider.clear();
         } else {
             actionEvent.consume();
