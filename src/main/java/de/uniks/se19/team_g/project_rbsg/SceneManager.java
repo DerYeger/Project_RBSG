@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
@@ -88,6 +89,21 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
             setScene(waitingRoomScene);
         } catch (Exception e) {
             System.out.println("Unable to set waiting_room scene");
+            e.printStackTrace();
+        }
+    }
+
+    public void setIngameScene() {
+        if (stage == null) {
+            System.out.println("Not yet initialised");
+            return;
+        }
+        try {
+            final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
+            stage.setResizable(false);
+            setScene(ingameScene);
+        } catch (Exception e) {
+            System.out.println("Unable to set ingame scene");
             e.printStackTrace();
         }
     }
