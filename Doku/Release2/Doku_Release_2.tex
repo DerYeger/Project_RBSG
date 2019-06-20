@@ -3,7 +3,7 @@
 \usepackage[ngerman]{babel}
 \usepackage[ansinew]{inputenc}
 \usepackage{color}
-\usepackage[a4paper, lmargin={4cm}, rmargin={2cm}, tmargin={2.5cm}, bmargin={2.5cm}]{geometry}
+\usepackage[a4paper, lmargin={2.5cm}, rmargin={2cm}, tmargin={2.5cm}, bmargin={2.5cm}]{geometry}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{graphicx}
@@ -11,15 +11,8 @@
 \usepackage{float}
 \usepackage{array}
 \usepackage{adjustbox}
-\usepackage{xcoffins}
 \usepackage{longtable}
-
-\NewCoffin\tablecoffin
-\NewDocumentCommand\Vcentre{m}
-{%
-	\SetHorizontalCoffin\tablecoffin{#1}%
-	\TypesetCoffin\tablecoffin[l,vc]%
-}
+\usepackage{booktabs}
 
 \newcommand{\RN}[1]{%
 	\textup{\uppercase\expandafter{\romannumeral#1}}%
@@ -29,7 +22,7 @@
 	Abb.\ \ref{#1}%
 }
 
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.2}
 
 \usepackage{scrpage2}
 \pagestyle{scrheadings}
@@ -38,7 +31,7 @@
 \ofoot{\pagemark}
 \ifoot{RBSG - Enhanced Wars}
 \cfoot{Gruppe G}
-\ohead{\includegraphics[width=0.17\textwidth]{Logo.png}}
+\ohead{\includegraphics[width=0.12\textwidth]{Logo.png}}
 
 \begin{document}
 	\begin{titlepage}
@@ -341,73 +334,247 @@
 			\item Anzeigen des Waiting Rooms
 		\end{itemize}
 		\subsection{User Stories}
-		Die Titel der User Stories ergeben sich nach folgendem Muster. Zuerst wird die Priorität für das Release genannt. Hierbei unterteilen wir in \glqq Core\grqq, für Hauptfeatures, und in \glqq Optional\grqq, für Zusatzfeatures, aufgeteilt. Danach folgt der Zugehörige Bereich zum Beispiel, \glqq Lobby\grqq. Zuletzt folgt eine kurze Beschreibung des Features. Dies wird im Folgendem beibehalten. Die Entwickler werden in den kommenden Abschnitten mit den Icons aus Jira dargestell:
-		\begin{itemize}
-			\item \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
-			\item \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
-			\item \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
-			\item \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
-		\end{itemize}
+		Die Titel der User Stories ergeben sich nach folgendem Muster. Zuerst wird die Priorität für das Release genannt. Hierbei unterteilen wir in \glqq Core\grqq, für Hauptfeatures, und in \glqq Optional\grqq, für Zusatzfeatures, aufgeteilt. Danach folgt der Zugehörige Bereich zum Beispiel, \glqq Lobby\grqq. Zuletzt folgt eine kurze Beschreibung des Features. Dies wird im Folgendem beibehalten. Es wurde vom Team entschieden, dass im zweiten Release ein Story Point einem Arbeitsaufwand von einer Stunde entspricht.
+		
+		%Die Entwickler werden in den kommenden Abschnitten mit den Icons aus Jira dargestell:
+		%\begin{itemize}
+		%	\item \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
+		%	\item \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
+		%	\item \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
+		%	\item \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
+		%\end{itemize}
+		
 		\subsubsection{Core - ArmyBuilder - Laden der Armeen}
-		\paragraph{Story} 
-		\ \\Albert befindet sich im Login Bereich. Albert loggt sich erfolgreich beim Spiel ein. Die Lokal/auf dem Server gespeicherten Armeen werden geladen. Albert befindet sich in der Lobby, die geladenen Armeen werden in der Armeenliste angezeigt.
-		\paragraph{Zugeteilter Entwickler} 
-		\ \\ \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
+		\paragraph{Ziel} Die Aufgabe besteht darin das Laden der gespeicherten Armeen lokal und serverseitig zu realisieren.
+		\paragraph{Story} Albert befindet sich im Login Bereich. Albert loggt sich erfolgreich beim Spiel ein. Die Lokal/auf dem Server gespeicherten Armeen werden geladen. Albert befindet sich in der Lobby, die geladenen Armeen werden in der Armeenliste angezeigt.
+		\paragraph{Zugeteilter Entwickler} Als Entwickler wurde Tobias Klipp eingeteilt, da dieser auch das Speichern der Armeen übernimmt.
 		\paragraph{Schätzung}
-		Das Feature wurde auf 5 StoryPoints geschätzt.
+		Das Feature wurde auf 5 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} Das Feature wurde im Verlauf der Entwicklung auf Omar Sood und Tobias Klipp aufgeteilt. Tobias übernimmt dabei das Laden der Lokalen Speicherstände und Omar das Laden der Stände vom Server. Dies wurde vollzogen, da Tobias sich erst in die Entwicklung und die Techniken einarbeiten musste, da er im letzten Release Product Owner war.
+		
+		\subsubsection{Core - ArmyBuilder - Speichern der Armeen}
+		\paragraph{Ziel} Der Entwickler soll das Speichern von Armeen loakl und serverseitig implementieren.
+		\paragraph{Story} Albert befindet sich in dem ArmyBuilder. Albert hat eine Armee eine konfiguriert. Albert klickt auf den Speichern Button. Die Armeen werden Lokal und auf dem Server gespeichert.
+		\paragraph{Zugeteilter Entwickler} Diese Story bearbeitet Tobias Klipp, um sich in mit der REST Kommunikation vertraut zu machen.
+		\paragraph{Schätzung}
+		Da das Feature von den Entwicklern als komplex eingeschätzt wurde, erhielt es 15 Story Points.
+		\paragraph{Verlauf der Entwicklung} Das Realisieren, des Speicherns der Armeen nahm deutlich mehr Zeit in Anspruch als geplant, da Tobias sich erst in die Techniken einarbeiten mussten und auch noch nicht mit der Quelltextbasis vertraut war. Dies fiel nach der Teambesprechung am 14.06.2019 auf und Tobias wurde den Scrum Master noch entsprechend eingewiesen.
+		
+		\subsubsection{Core - ArmyBuilder - Auswahl einer Einheit}
+		\paragraph{Ziel} Ziel der Story ist es die möglichen Einheiten in einer Liste darzustellen. Wird eine Einheit ausgewählt, so gibt es eine Detailansicht zu dieser.
+		\paragraph{Story} Albert befindet sich im ArmyBuilder. Es wird die Einheitenliste mit Einheiten angezeigt. Albert klickt eine Einheit aus der Liste an. Die Einheit wird ausgewählt und es wird eine Detail View zur Einheit angezeigt.
+		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 5 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} Die benötigte Zeit für die Entwicklung waren am Ende ca. 10h, da sich der Entwickler erst in einige JavaFx\footnote{Graphische Oberflächenbibilthek für Java} Themen einarbeiten musste. Des Weiteren Umfasste die Aufgabe auch das Erstellen der Liste und die Serverkommunikation. Die Zeit ist somit nachvollziehbar und wurde vom Team falsch eingeschätzt.
+		
+		\subsubsection{Core - ArmyBuilder - Entfernen der Einheiten}
+		\paragraph{Ziel} Ziel ist es eine Einheit aus einer Armee zu entfernen.
+		\paragraph{Story} Albert befindet sich in dem ArmyBuilder. Es ist eine Einheit in "Deiner Armee" ausgewählt. Albert klickt auf \glqq Entfernen\grqq-Button. Die Einheit wird aus \glqq Deiner Armee\grqq entfernt.
+		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 5 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} Omar benötigte nur 39min für das Feature. Dies kommt daher das durch andere Stories schon entsprechende Grundlagen vorhanden waren und die Implementation leicht von der Hand ging.
+		
+		\subsubsection{Core - ArmyBuilder - Zurück in die Lobby navigieren}
+		\paragraph{Ziel} Man soll den ArmyBuilder verlassen können und dann zurück in die Lobby kommen.
+		\paragraph{Story} Albert befindet sich in dem ArmyBuilder. Es ist ein \glqq Zurück\grqq-Button im ArmyBuilder vorhanden. Albert klickt auf den \glqq Zurück\grqq-Button. Albert kommt zurück in die Lobby.
+		\paragraph{Zugeteilter Entwickler} Da Keanu Stückrad schon öfters die Navigation im User Interface realisiert hat, viel Ihm diese Task zu.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 3 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Entwicklung verlief schneller als Erwartet und wurde nach 1h abgeschlossen.
+		
+		\subsubsection{Core - ArmyBuilder - Löschen der Armee (Clear)}
+		\paragraph{Ziel} Im ArmyBuilder soll ein Button vorhanden sein mit dem man eine Armee komplett leeren kann.
+		\paragraph{Story}Albert befindet sich in dem ArmyBuilder. Es ist eine Armee mit Einheiten auswählt. Albert klickt auf den \glqq Trash-Button\grqq. Alle Einheiten der ausgewählten Armee werden aus dieser entfernt. Es wird noch keine Änderung gespeichert.
+		\paragraph{Zugeteilter Entwickler} Diese Aufgabe hat Tobias Klipp bekommen, da Er das Laden und Speichern der Armee realisiert.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 1 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		TODO
+		
+		\subsubsection{Core - ArmyBuilder - Info über Attribute}
+		\paragraph{Ziel} Im ArmyBuilder soll eine Anzeige mit Informationen zu den Attributen usw. geben.
+		\paragraph{Story}Albert befindet sich in dem ArmyBuilder. Der ArmyBilder enthälte einen \glqq Info\grqq-Button. Albert klick auf den \glqq Info\grqq-Button. Es öffnet sich ein Dialog mit entsprechenden Informationen zu den Attributen und der Erklärung zu weiteren Symbolen.
+		\paragraph{Zugeteilter Entwickler} Die Task wurde von Keanu Stückrad bearbeitet.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 3 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Entwicklung hat 2 Stunden länger in Anspruch genommen, da der Entwickler mehr Zeit für das Aussehen der Oberfläche benötigte.
+		
+		\subsubsection{Optional - ArmyBuilder - Musik an/aus}
+		\paragraph{Ziel} Im ArmyBuilder soll es einen Button geben um die Musik an- und auszuschalten. 
+		\paragraph{Story} Zwei Stories zusammengefasst da sich beide Stories von den Arbeitsbereichen zu stark überschneiden. \\ \ \\ Albert befindet sich in dem ArmyBuilder. Die Musik läuft. Albert nervt die Musik. Albert klickt auf den Musik Button. Die Musik geht aus. \\ Albert hat wieder Bock auf Musik. Albert klickt auf den Musik Button. Die Musik geht wieder an.
+		\paragraph{Zugeteilter Entwickler} Die Task wurde von Keanu Stückrad bearbeitet, da dieser schon das Abspielen der Musik implementiert hat.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 1 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Entwicklung verlief mit 30 Minuten für das Feature schneller als geplannt.
+		
+		\subsubsection{Optional - Waiting Room - Anzeigen der Karte (Preview)}
+		\paragraph{Ziel} Im Warteraum soll es eine Vorschau für die Karte des kommenden Spiels geben.
+		\paragraph{Story} Albert befindet sich in der Lobby. Albert tritt einem Spiel aus der Spieleliste bei. Albert wird beim Spiel angemeldt und befindet sich nun im Waiting Room. Es wird eine Vorschau für das kommende Spielfeld angezeigt.
+		\paragraph{Zugeteilter Entwickler} Diese Story wurde von Jan Müller bearbeitet.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 3 Story Points geschätzt, da es auf das Anzeigen des Spielfeldes aufbaut und sich daran orientiert werden kann.
+		\paragraph{Verlauf der Entwicklung} 
+		TODO
+		
+		\subsubsection{Core - Waiting Room - Anzeigen des Waiting Rooms (neues Layout)}
+		\paragraph{Ziel} Durch das zweite Release gab es neue Anforderungen an den Warteraum, weshalb das Layout des Warteraums angepasster werden musste.
+		\paragraph{Story} Albert befindet sich in der Lobby. Albert tritt einem Spiel aus der Spieleliste bei. Es wird der Waiting Room für das Spiel angezeigt nach dem neuen Layout (Mockup).
+		\paragraph{Zugeteilter Entwickler} Diese Aufgabe wurde Keanu Stückrad zugeteilt, da Er im letzten Release bereits begonnen hat den Waiting Room zu implementieren.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 5 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Anpassungen erwiesen sich als zeitaufwändiger, da der Entwickler Probleme mit der Anordnung der einzelnen Elemente hatte. Es wurden insgesamt 9 Stunden dafür benötigt.
+		
+		\subsubsection{Core - Lobby - Auswahl der Armee }
+		\paragraph{Ziel} Es soll möglich sein in der Lobby eine Armee auszuwählen. 
+		\paragraph{Story} Albert befindet sich in der Lobby. Es wird die Armeeauswahl angezeigt. Albert klickt eine Armee an. Die Armee wird für das kommende Spiel ausgewählt/gemerkt.
+		\paragraph{Zugeteilter Entwickler} Omar Sood wurde dieser Aufgabe zugeteilt, da von Ihm der Armeeauswahl im ArmyBuilder bereits implementiert wurde.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 1 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Aufgabe wurde innerhalb von 18 Minuten abgeschlossen, da viele Grundlagend bereits vorhanden waren.
+		
+		\subsubsection{Core - Ingame - Anzeigen der Spielfeldes}
+		\paragraph{Ziel} Es soll das Spielfeld angezeigt werden.
+		\paragraph{Story}Albert befindet sich im Waiting Room und es sind alle Spieler für ein Spiel anwesend. Das Spiel wird gestartet. Es wird das Spielfeld angezeigt.
+		\paragraph{Zugeteilter Entwickler} Als Bearbeiter dieser Aufgabe war Keanu Stückrad verantwortlich.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 3 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Für die Aufgabe wurde am Ende 7h benötigt, da es zur Schätzung unklar war, welche Informationen uns der Server zum Spielfeld gibt. Die Schätzung der Aufgabe wurde vor Veröffentlichung der Serverdokumentation des zweiten Releases durchgeführt. Die Nachrichten, welche der Server einem zusendet, wurde nicht in der Serverdokumentation nicht erläutert, was das Schätzen der Task erschwert.
+		
+		\subsubsection{Optional - Ingame - Zoomen auf dem Spielfeld}
+		\paragraph{Ziel} Des soll ein Vergrößern und Verkleinern der Spielkarte möglich sein.
+		\paragraph{Story}Albert befindet sich in einem Spiel welches bereits gestartet ist. Es ist ein \glqq Vergrößern\grqq-Button vorhanden. Albert klickt auf den  \glqq Verkleinern\grqq-Button. Das Spielfeld wird um eine Stufe herangezoomt.
+		\paragraph{Zugeteilter Entwickler} Diese Aufgabe bearbeite Keanu Stückrad, da Er auch für die Implementierung des Spielfeldes verantwortlich war.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 15 Story Points geschätzt, da es noch unklar war wie man das Zoomen realisiert werden kann.
+		\paragraph{Verlauf der Entwicklung} 
+		TODO
+		
+		\subsubsection{Core - Ingame - Spiel verlassen}
+		\paragraph{Ziel} Es soll möglich sein ein Spiel zu verlassen.
+		\paragraph{Story} Albert befindet sich in einem gestartetem Spiel. Albert hat den Early Rush vermasselt. In der Ingame Scene ist ein Leave-Game-Button vorhanden. Albert klickt auf den Leave-Game-Button und verlässt das Spiel ordnungsgemäß. Albert kommt zurück Lobby zurück.
+		\paragraph{Zugeteilter Entwickler} Als Entwickler wurde Keanu Stückrad diser Aufgabe zugeteilt.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 3 Story Points geschätzt
+		\paragraph{Verlauf der Entwicklung} 
+		TODO
+		
+		\subsubsection{Core - ArmyBuilder - Hinzufügen der Einheiten}
+		\paragraph{Ziel} Es soll die ausgewählte Einheit der Armeeliste hinzugefügt werden.
+		\paragraph{Story} Albert befindet sich im ArmyBuilder. hat eine Einheit ausgewählt. Albert klickt auf den  \glqq Hinzufügen\grqq-Button Es wird die ausgewählte Einheit der ausgewählten Army hinzugefügt.
+		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 13 Story Points geschätzt
+		\paragraph{Verlauf der Entwicklung} 
+		Die Entwicklung verlief schneller als geplant, da bereits Techniken aus vorhergehende Tasks angewandt werden konnten. Es wurde Insgesamt nur 7 Stunden und 23 Minuten benötigt.
+		
+		\subsubsection{Core - Waiting Room - Spiel beitreten}
+		\paragraph{Ziel} Es soll erfolgreich einem Spiel beigetretn werden und der Waiting Room angezeigt werden.
+		\paragraph{Story} Albert befindet sich in der Lobby. Albert hat eine Arme ausgewählt und klickt auf \glqq Spiel beitreten\grqq. Albert befindet sich nun im Waiting Room. Die Verbindung wird korrekt aufgebaut und es können Nachrichten empfangen werden.
+		\paragraph{Zugeteilter Entwickler} Jan Müller wurde diese Aufgabe zugeteilt.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 16 Story Points geschätzt, da die Verarbeitung der Servernachrichten als komplex angesehen wurden. Eine Schätzung war für diese Aufgabe schwer, da die Serverdokumentation keine Aussage über die eingehenden Nachrichten macht.
+		\paragraph{Verlauf der Entwicklung} 
+		TODO
+		
+		\subsubsection{Core - Waiting Room - Chat}
+		\paragraph{Ziel} Im Waiting Room soll ein Chat vorhanden sein
+		\paragraph{Story} Albert befindet sich im Waiting Room eines Spiels. Albert schreibt ein Nachricht in den Game-Chat. Die Nachricht wird im Game-Chat angezeigt und die Nachricht wird an die anderen Spieler versendet.
+		\paragraph{Zugeteilter Entwickler} Jan Müller wurde diese Aufgabe zugeteilt, da Jan im letzten Release schon für den Chat in der Lobby zuständig war.
+		\paragraph{Schätzung}
+		Das Feature wurde von Jan auf 13 Story Points geschätzt, da Er die meiste Erfahrung mit dem Chat hat.
+		\paragraph{Verlauf der Entwicklung} 
+		TODO
+		
+		\subsubsection{Appearance - ArmyBuilder}
+		\paragraph{Ziel} Es soll der AmryBuilder an das Dark Theme angepasst werden.
+		\paragraph{Story} Albert befindet sich in der Lobby. Albert klickt auf den ArmyBuilder Button. Albert befindet sich nun im ArmyBuilder und es sind alle nötigen Daten geladen und werden angezeigt. Der ArmyBuilder wird entsprechend dem Style der Mockups angezeigt.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 8 Story Point geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		TODO
+		
+		\subsubsection{Core - ArmyBuilder - In den ArmyBuilder navigieren}
+		\paragraph{Ziel} In der Lobby soll ein Button vorhanden sein, mit welchem man in den ArmyBuilder navigieren kann.
+		\paragraph{Story} Albert befindet sich in der Lobby. In der Lobby ist ein "ArmyBuilder"-Burron vorhanden. Albert klickt auf den "ArmyBuilder"-Button. Albert kommt in den Army Builder.
+		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
+		\paragraph{Schätzung}
+		Das Feature wurde auf 3 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Entwicklung des Features dauerte 4 Stunden und 7 Minuten. Die Entwickler haben, die Aufgaben leicht unterschätzt.
+		
+		\subsubsection{Core - ArmyBuilder - Auswählen einer Armee}
+		\paragraph{Ziel} Im ArmyBuilder soll eine Auswahl für die Armeen vorhanden sein.
+		\paragraph{Story} Albert befindet sich in der ArmyBuilder. Es ist eine Liste der Armeen vorhanden. Albert klickt auf eine Armee (wählt diese aus). Die Armee wird selektiert und entsprechend in der Armeeübersicht angezeigt.
+		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
+		\paragraph{Schätzung}
+		Die Story wurde auf 5 Story Points geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Entwicklung daurte 1 Stunde und 58 Minuten. Der Entwickler war schneller fertig als erwartet. Dies lag daran, dass andere Tasks bereits Grundlagen für die Task gaben und somit die Implementierung schneller möglich war.
 		
 		\subsection{Zeitübersicht}
 		\begin{center}
-			\begin{table}[H]
-				\begin{tabular}{p{5cm} c c c c }
-					User Story	& Story Points & Soll Zeit & Ist Zeit & Entwickler\\ \hline \hline
+				\begin{longtable}{p{6cm} c c c c }
 					
-					Core - ArmyBuilder - Laden der Armeen & 5 & 5h & 1h 16m & \Vcentre{\includegraphics[width=0.04\textwidth]{tobias_avatar.png}} \\ \hline 
+					User Story	& Story Points & Soll Zeit & Ist Zeit & Entwickler\\
+					\toprule
+					\endhead
+					Core - ArmyBuilder - Laden der Armeen & 5 & 5h & 1h 16m & Tobias Klipp \\ \hline 
 					
-					Core - ArmyBuilder - Speichern der Armeen & 13 & 13h & 28h & \Vcentre{\includegraphics[width=0.04\textwidth]{tobias_avatar.png}}\\ \hline
+					Core - ArmyBuilder - Speichern der Armeen & 13 & 13h & 28h & Tobias Klipp\\ \hline
 					
-					Core - ArmyBuilder - Hinzufügen der Einheiten & 13 & 13h & 7h 23m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					Core - ArmyBuilder - Hinzufügen der Einheiten & 13 & 13h & 7h 23m & Omar Sood\\ \hline
 					
-					Core - ArmyBuilder - Entfernen der Einheiten & 5 & 5h & 39m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					Core - ArmyBuilder - Entfernen der Einheiten & 5 & 5h & 39m & Omar Sood\\ \hline
 					
-					Core - ArmyBuilder - Zurück in die Lobby navigieren & 3 & 3h & 1h & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					Core - ArmyBuilder - Zurück in die Lobby navigieren & 3 & 3h & 1h & Keanu Stückrad\\ \hline
 					
-					Core - ArmyBuilder - Löschen der Armee (Clear) & 1 & 1h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					Core - ArmyBuilder - Löschen der Armee (Clear) & 1 & 1h & - & Keanu Stückrad\\ \hline
 						
-					Core - ArmyBuilder - Info über Attribute & 3 & 3h & 5h & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					Core - ArmyBuilder - Info über Attribute & 3 & 3h & 5h & Keanu Stückrad\\ \hline
 					
-					Optional - ArmyBuilder - Musik an/aus & 1 & 1h & 30m & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					Optional - ArmyBuilder - Musik an/aus & 1 & 1h & 30m & Keanu Stückrad\\ \hline
 					
-					Optional - Waiting Room - Anzeigen der Karte (Preview) & 3 & 3h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{jan_avatar.png}}\\ \hline
+					Optional - Waiting Room - Anzeigen der Karte (Preview) & 3 & 3h & - & Jan Müller\\ \hline
 					
-					Core - Lobby - Auswahl der Armee  & 1 & 1h & 18m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					Core - Lobby - Auswahl der Armee  & 1 & 1h & 18m & Omar Sood\\ \hline
 					
-					Core - Ingame - Anzeigen der Spielfeldes & 3 & 3h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					Core - Ingame - Anzeigen der Spielfeldes & 3 & 3h & - &  Keanu Stückrad\\ \hline
 					
-					Optional - Ingame - Zoomen auf dem Spielfeld & 13 & 13h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					Optional - Ingame - Zoomen auf dem Spielfeld & 13 & 13h & - & Keanu Stückrad\\ \hline
 					
-					Core - Ingame - Spiel verlassen & 3 & 3h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{keanu_avatar.png}}\\ \hline
+					Core - Ingame - Spiel verlassen & 3 & 3h & - & Keanu Stückrad\\ \hline
 					
-					Core - ArmyBuilder - Auswahl einer Einheit & 5 & 5h & 9h 59m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					Core - ArmyBuilder - Auswahl einer Einheit & 5 & 5h & 9h 59m & Omar Sood\\ \hline
 					
-					Core - Waiting Room - Spiel beitreten & 16 & 16h & 13h 5m & \Vcentre{\includegraphics[width=0.04\textwidth]{jan_avatar.png}}\\ \hline
+					Core - Waiting Room - Spiel beitreten & 16 & 16h & 13h 5m & Jan Müller\\ \hline
 					
-					Appearance - ArmyBuilder & 8 & 8h & - & \Vcentre{\includegraphics[width=0.04\textwidth]{tobias_avatar.png}}\\ \hline
+					Appearance - ArmyBuilder & 8 & 8h & - & Tobias Klipp \\ \hline
 					
-					Core - Waiting Room - Chat & 13 & 13h & 5h & \Vcentre{\includegraphics[width=0.04\textwidth]{jan_avatar.png}}\\ \hline
+					Core - Waiting Room - Chat & 13 & 13h & 5h & Jan Müller\\ \hline
 					
-					Core - ArmyBuilder - In den ArmyBuilder navigieren & 3 & 3h & 4h 7m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}\\ \hline
+					Core - ArmyBuilder - In den ArmyBuilder navigieren & 3 & 3h & 4h 7m & Omar Sood\\ \hline
 					
-					Core - ArmyBuilder- Auswählen einer Armee & 5 & 5h & 1h 58m & \Vcentre{\includegraphics[width=0.04\textwidth]{omar_avatar.png}}
-				\end{tabular}
-			\end{table}
+					Core - ArmyBuilder- Auswählen einer Armee & 5 & 5h & 1h 58m & Omar Sood \\
+					\caption{Übersicht der Zeiten für den 3. Sprint} \\
+				\end{longtable}
 		\end{center}
 			
-		\subsection{Analyse des Sprintverlaufs}
+	%	\subsection{Analyse des Sprintverlaufs}
 	\section{Sprint \RN{4}}
 		\subsection{Sprintziel}
 		\subsection{User Stories}
-		\subsection{Analyse des Sprintverlaufs}
+	%	\subsection{Analyse des Sprintverlaufs}
+	\newpage
 	\appendix
+	\pagenumbering{Roman} 
 	\listoffigures
+	\listoftables
 \end{document}

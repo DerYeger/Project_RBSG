@@ -12,25 +12,138 @@
 \contentsline {subsubsection}{\numberline {3.2.6}Umgesetzte Optionale Features}{5}% 
 \contentsline {subsection}{\numberline {3.3}Mockups}{6}% 
 \contentsline {subsubsection}{\numberline {3.3.1}ArmyBuilder}{6}% 
-\contentsline {subsection}{\numberline {3.4}Lobby}{9}% 
-\contentsline {subsubsection}{\numberline {3.4.1}Waiting Room}{10}% 
-\contentsline {paragraph}{\nonumberline Game Chat}{10}% 
-\contentsline {paragraph}{\nonumberline Anzeige der Mitspieler}{10}% 
-\contentsline {paragraph}{\nonumberline Anzeige des Spielfelds}{10}% 
-\contentsline {paragraph}{\nonumberline Anzeige der gew\"ahlten Armee}{11}% 
-\contentsline {paragraph}{\nonumberline MockUps mit m\"oglichen Zusatzfeatures}{11}% 
-\contentsline {paragraph}{\nonumberline Nicht umsetzbare MockUps}{11}% 
-\contentsline {subsection}{\numberline {3.5}Domain Stories}{13}% 
-\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{13}% 
-\contentsline {subsection}{\numberline {4.1}Sprintziel}{13}% 
-\contentsline {subsection}{\numberline {4.2}User Stories}{14}% 
-\contentsline {subsubsection}{\numberline {4.2.1}Core - ArmyBuilder - Laden der Armeen}{14}% 
-\contentsline {paragraph}{\nonumberline Story}{14}% 
-\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{14}% 
-\contentsline {paragraph}{\nonumberline Sch\"atzung}{14}% 
-\contentsline {subsection}{\numberline {4.3}Zeit\"ubersicht}{16}% 
-\contentsline {subsection}{\numberline {4.4}Analyse des Sprintverlaufs}{17}% 
-\contentsline {section}{\numberline {5}Sprint \textup {\uppercase {iv}}}{17}% 
-\contentsline {subsection}{\numberline {5.1}Sprintziel}{17}% 
-\contentsline {subsection}{\numberline {5.2}User Stories}{17}% 
-\contentsline {subsection}{\numberline {5.3}Analyse des Sprintverlaufs}{17}% 
+\contentsline {subsection}{\numberline {3.4}Lobby}{10}% 
+\contentsline {subsubsection}{\numberline {3.4.1}Waiting Room}{11}% 
+\contentsline {paragraph}{\nonumberline Game Chat}{11}% 
+\contentsline {paragraph}{\nonumberline Anzeige der Mitspieler}{11}% 
+\contentsline {paragraph}{\nonumberline Anzeige des Spielfelds}{11}% 
+\contentsline {paragraph}{\nonumberline Anzeige der gew\"ahlten Armee}{12}% 
+\contentsline {paragraph}{\nonumberline MockUps mit m\"oglichen Zusatzfeatures}{12}% 
+\contentsline {paragraph}{\nonumberline Nicht umsetzbare MockUps}{12}% 
+\contentsline {subsection}{\numberline {3.5}Domain Stories}{14}% 
+\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{14}% 
+\contentsline {subsection}{\numberline {4.1}Sprintziel}{14}% 
+\contentsline {subsection}{\numberline {4.2}User Stories}{15}% 
+\contentsline {subsubsection}{\numberline {4.2.1}Core - ArmyBuilder - Laden der Armeen}{15}% 
+\contentsline {paragraph}{\nonumberline Ziel}{15}% 
+\contentsline {paragraph}{\nonumberline Story}{15}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{15}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{15}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{15}% 
+\contentsline {subsubsection}{\numberline {4.2.2}Core - ArmyBuilder - Speichern der Armeen}{15}% 
+\contentsline {paragraph}{\nonumberline Ziel}{15}% 
+\contentsline {paragraph}{\nonumberline Story}{15}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{15}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{15}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{15}% 
+\contentsline {subsubsection}{\numberline {4.2.3}Core - ArmyBuilder - Auswahl einer Einheit}{16}% 
+\contentsline {paragraph}{\nonumberline Ziel}{16}% 
+\contentsline {paragraph}{\nonumberline Story}{16}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{16}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{16}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{16}% 
+\contentsline {subsubsection}{\numberline {4.2.4}Core - ArmyBuilder - Entfernen der Einheiten}{16}% 
+\contentsline {paragraph}{\nonumberline Ziel}{16}% 
+\contentsline {paragraph}{\nonumberline Story}{16}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{16}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{16}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{16}% 
+\contentsline {subsubsection}{\numberline {4.2.5}Core - ArmyBuilder - Zur\"uck in die Lobby navigieren}{16}% 
+\contentsline {paragraph}{\nonumberline Ziel}{16}% 
+\contentsline {paragraph}{\nonumberline Story}{16}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{16}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{16}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{17}% 
+\contentsline {subsubsection}{\numberline {4.2.6}Core - ArmyBuilder - L\"oschen der Armee (Clear)}{17}% 
+\contentsline {paragraph}{\nonumberline Ziel}{17}% 
+\contentsline {paragraph}{\nonumberline Story}{17}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{17}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{17}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{17}% 
+\contentsline {subsubsection}{\numberline {4.2.7}Core - ArmyBuilder - Info \"uber Attribute}{17}% 
+\contentsline {paragraph}{\nonumberline Ziel}{17}% 
+\contentsline {paragraph}{\nonumberline Story}{17}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{17}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{17}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{17}% 
+\contentsline {subsubsection}{\numberline {4.2.8}Optional - ArmyBuilder - Musik an/aus}{17}% 
+\contentsline {paragraph}{\nonumberline Ziel}{17}% 
+\contentsline {paragraph}{\nonumberline Story}{17}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{17}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{18}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{18}% 
+\contentsline {subsubsection}{\numberline {4.2.9}Optional - Waiting Room - Anzeigen der Karte (Preview)}{18}% 
+\contentsline {paragraph}{\nonumberline Ziel}{18}% 
+\contentsline {paragraph}{\nonumberline Story}{18}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{18}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{18}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{18}% 
+\contentsline {subsubsection}{\numberline {4.2.10}Core - Waiting Room - Anzeigen des Waiting Rooms (neues Layout)}{18}% 
+\contentsline {paragraph}{\nonumberline Ziel}{18}% 
+\contentsline {paragraph}{\nonumberline Story}{18}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{18}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{18}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{18}% 
+\contentsline {subsubsection}{\numberline {4.2.11}Core - Lobby - Auswahl der Armee}{18}% 
+\contentsline {paragraph}{\nonumberline Ziel}{18}% 
+\contentsline {paragraph}{\nonumberline Story}{18}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{18}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{19}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{19}% 
+\contentsline {subsubsection}{\numberline {4.2.12}Core - Ingame - Anzeigen der Spielfeldes}{19}% 
+\contentsline {paragraph}{\nonumberline Ziel}{19}% 
+\contentsline {paragraph}{\nonumberline Story}{19}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{19}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{19}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{19}% 
+\contentsline {subsubsection}{\numberline {4.2.13}Optional - Ingame - Zoomen auf dem Spielfeld}{19}% 
+\contentsline {paragraph}{\nonumberline Ziel}{19}% 
+\contentsline {paragraph}{\nonumberline Story}{19}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{19}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{19}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{19}% 
+\contentsline {subsubsection}{\numberline {4.2.14}Core - Ingame - Spiel verlassen}{19}% 
+\contentsline {paragraph}{\nonumberline Ziel}{19}% 
+\contentsline {paragraph}{\nonumberline Story}{19}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{19}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{20}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{20}% 
+\contentsline {subsubsection}{\numberline {4.2.15}Core - ArmyBuilder - Hinzuf\"ugen der Einheiten}{20}% 
+\contentsline {paragraph}{\nonumberline Ziel}{20}% 
+\contentsline {paragraph}{\nonumberline Story}{20}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{20}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{20}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{20}% 
+\contentsline {subsubsection}{\numberline {4.2.16}Core - Waiting Room - Spiel beitreten}{20}% 
+\contentsline {paragraph}{\nonumberline Ziel}{20}% 
+\contentsline {paragraph}{\nonumberline Story}{20}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{20}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{20}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{20}% 
+\contentsline {subsubsection}{\numberline {4.2.17}Core - Waiting Room - Chat}{20}% 
+\contentsline {paragraph}{\nonumberline Ziel}{20}% 
+\contentsline {paragraph}{\nonumberline Story}{20}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{20}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{21}% 
+\contentsline {subsubsection}{\numberline {4.2.18}Appearance - ArmyBuilder}{21}% 
+\contentsline {paragraph}{\nonumberline Ziel}{21}% 
+\contentsline {paragraph}{\nonumberline Story}{21}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{21}% 
+\contentsline {subsubsection}{\numberline {4.2.19}Core - ArmyBuilder - In den ArmyBuilder navigieren}{21}% 
+\contentsline {paragraph}{\nonumberline Ziel}{21}% 
+\contentsline {paragraph}{\nonumberline Story}{21}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{21}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{21}% 
+\contentsline {subsubsection}{\numberline {4.2.20}Core - ArmyBuilder - Ausw\"ahlen einer Armee}{21}% 
+\contentsline {paragraph}{\nonumberline Ziel}{21}% 
+\contentsline {paragraph}{\nonumberline Story}{21}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{21}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{22}% 
+\contentsline {subsection}{\numberline {4.3}Zeit\"ubersicht}{22}% 
+\contentsline {section}{\numberline {5}Sprint \textup {\uppercase {iv}}}{23}% 
+\contentsline {subsection}{\numberline {5.1}Sprintziel}{23}% 
+\contentsline {subsection}{\numberline {5.2}User Stories}{23}% 
