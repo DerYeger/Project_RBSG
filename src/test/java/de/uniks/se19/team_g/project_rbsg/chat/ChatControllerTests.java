@@ -127,8 +127,8 @@ public class ChatControllerTests extends ApplicationTest {
         final TextInputControl generalMessageArea = lookup(".text-area").queryTextInputControl();
         Assert.assertNotNull(generalMessageArea);
 
-        final String text = "Test me!";
-        final String expectedPublicMessage = "{\"channel\":\"all\",\"message\":\"Test me!\"}";
+        final String text = "T1";
+        final String expectedPublicMessage = "{\"channel\":\"all\",\"message\":\"T1\"}";
 
         clickOn(generalInput);
         write(text);
@@ -139,8 +139,8 @@ public class ChatControllerTests extends ApplicationTest {
         Assert.assertEquals("", generalInput.getText());
         Assert.assertEquals(expectedPublicMessage, sentMessages.get(0));
 
-        final String whisperCommand = "/" + WhisperCommandHandler.COMMAND + " \"chattest2\" Hello there!";
-        final String expectedPrivateMessage = "{\"channel\":\"private\",\"to\":\"chattest2\",\"message\":\"Hello there!\"}";
+        final String whisperCommand = "/" + WhisperCommandHandler.COMMAND + " \"a\" T2";
+        final String expectedPrivateMessage = "{\"channel\":\"private\",\"to\":\"a\",\"message\":\"T2\"}";
 
         clickOn(generalInput);
         write(whisperCommand);
@@ -150,8 +150,8 @@ public class ChatControllerTests extends ApplicationTest {
 
         Assert.assertEquals(expectedPrivateMessage, sentMessages.get(1));
 
-        final Node chattest2ChatTab = lookup("@chattest2").query();
-        Assert.assertNotNull(chattest2ChatTab);
+        final Node test2ChatTab = lookup("@a").query();
+        Assert.assertNotNull(test2ChatTab);
 
         final TextInputControl secondTabInput = lookup(".text-field").queryTextInputControl();
         Assert.assertNotNull(secondTabInput);
@@ -164,22 +164,21 @@ public class ChatControllerTests extends ApplicationTest {
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
         
-        final Optional<Node> nullTab = lookup("@chattest2").tryQuery();
+        final Optional<Node> nullTab = lookup("@a").tryQuery();
         Assert.assertFalse(nullTab.isPresent());
 
-        final String incomingPrivateMessage = "{\"channel\":\"private\",\"message\":\"The last test!\",\"from\":\"chattest3\"}";
+        final String incomingPrivateMessage = "{\"channel\":\"private\",\"message\":\"T3\",\"from\":\"b\"}";
 
         chatClient.handle(incomingPrivateMessage);
 
-        //do not remove or the test will fail
         WaitForAsyncUtils.waitForFxEvents();
 
-        final Node chattest3ChatTab = lookup("@chattest3").query();
-        Assert.assertNotNull(chattest3ChatTab);
+        final Node test3ChatTab = lookup("@b").query();
+        Assert.assertNotNull(test3ChatTab);
 
-        clickOn(chattest3ChatTab);
+        clickOn(test3ChatTab);
 
-        chatClient.handle("{\"msg\":\"User chattest3 is not online\"}");
+        chatClient.handle("{\"msg\":\"User b is not online\"}");
 
         final Node ct3Input = lookup(".text-field")
                 .queryAll()
@@ -192,6 +191,6 @@ public class ChatControllerTests extends ApplicationTest {
 
         Assert.assertEquals("inputField", ct3Input.getId());
 
-        Assert.assertNotNull(lookup("System: User chattest3 is not online"));
+        Assert.assertNotNull(lookup("System: User b is not online"));
     }
 }
