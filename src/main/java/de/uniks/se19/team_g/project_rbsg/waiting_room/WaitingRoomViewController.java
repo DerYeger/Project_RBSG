@@ -43,7 +43,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
-    public Pane chatPane; // TODO @DerYeger
+    public Pane chatContainer; // TODO @DerYeger
     public Pane mapPreviewPane; // TODO @DerYeger
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public Pane armyBar; // TODO has to be filled later
@@ -52,7 +52,6 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Button showInfoButton;
     public AnchorPane root;
 
-    private Node chatNode;
     private ChatController chatController;
 
     private PlayerCardBuilder playerCard;
@@ -129,9 +128,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
 
     private void withChatSupport() {
         final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(gameEventManager);
-        chatNode = chatComponents.first;
+        chatContainer.getChildren().add(chatComponents.first);
         chatController = chatComponents.second;
-        chatPane.getChildren().add(chatNode);
     }
 
     private void initPlayerCardBuilders() {

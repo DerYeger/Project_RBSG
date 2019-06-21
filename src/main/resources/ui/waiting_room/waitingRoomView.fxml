@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <!--
  @author Keanu Stückrad
@@ -33,7 +34,7 @@
         </StackPane>
         <StackPane AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="400.0">
             <children>
-                <Pane fx:id="chatPane" styleClass="chat-pane" StackPane.alignment="CENTER" />
+                  <VBox fx:id="chatContainer" prefHeight="200.0" prefWidth="100.0" styleClass="chat-container" />
             </children>
         </StackPane>
     </children>
