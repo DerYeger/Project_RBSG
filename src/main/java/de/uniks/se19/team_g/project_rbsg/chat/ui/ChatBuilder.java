@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
@@ -22,26 +23,17 @@ public class ChatBuilder implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    private ChatController chatController;
-
-    public ChatController getChatController() {
-        return this.chatController;
-    }
-
     @NonNull
-    public Node buildChat(@NonNull final ChatClient chatClient) {
+    public Tuple<Node, ChatController> buildChat(@NonNull final ChatClient chatClient) {
         final TabPane tabPane = new TabPane();
         tabPane.setSide(Side.BOTTOM);
         tabPane.getStylesheets().add(this.getClass().getResource("/ui/chat/chat.css").toExternalForm());
-        if (chatController != null) {
-            chatController.terminate();
-        }
 
-        chatController = applicationContext.getBean(ChatController.class);
+        final ChatController chatController = applicationContext.getBean(ChatController.class);
 
         chatController.init(tabPane, chatClient);
 
-        return tabPane;
+        return new Tuple<>(tabPane, chatController);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.chat.command;
 
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

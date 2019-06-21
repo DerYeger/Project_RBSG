@@ -2,10 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.chat;
 
 import de.uniks.se19.team_g.project_rbsg.chat.command.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.control.TabPane;
 import org.springframework.context.annotation.Scope;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 @Component
 @Scope("prototype")
-public class ChatController implements Terminable {
+public class ChatController {
 
     public static final String SYSTEM = "System";
 
@@ -146,10 +146,5 @@ public class ChatController implements Terminable {
 
     public void registerChatChannelController(@NonNull final ChatChannelController chatChannelController, @NonNull final String channel) {
         chatChannelControllers.put(channel, chatChannelController);
-    }
-
-    public void terminate() {
-        chatClient.terminate();
-        logger.debug("Terminated " + this);
     }
 }

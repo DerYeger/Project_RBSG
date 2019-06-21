@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
-import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
