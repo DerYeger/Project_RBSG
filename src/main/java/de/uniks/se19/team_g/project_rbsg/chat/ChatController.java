@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.chat;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.chat.command.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
@@ -16,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 
+import static de.uniks.se19.team_g.project_rbsg.chat.ChatClient.*;
+
 /**
  * @author Jan Müller
  */
@@ -23,9 +27,7 @@ import java.util.HashMap;
 @Scope("prototype")
 public class ChatController {
 
-    public static final String SYSTEM = "System";
 
-    public static final String CLIENT_PUBLIC_CHANNEL = "General";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -113,6 +115,24 @@ public class ChatController {
         chatClient.sendMessage(channel, to, content);
 
         chatTabManager.selectTab(channel);
+    }
+
+    public void receiveMessage(@NonNull final JsonNode message) {
+        if (!message.has("channel") || !message.has("from") || !message.has("message")) {
+            if (message.has("msg")) {
+                receiveErrorMessage(message.get("msg").asText());
+            } else {
+                logger.error("Unknown message format: " + message);
+            }
+        } else {
+            final String channel = message.get("channel").asText();
+            final String from = message.get("from").asText();
+            final String content = message.get("message").asText();
+
+            final String internalChannel = channel.equals(SERVER_PUBLIC_CHANNEL) ? CLIENT_PUBLIC_CHANNEL : '@' + from;
+
+            receiveMessage(internalChannel, from, content);
+        }
     }
 
     public void receiveMessage(@NonNull final String channel, @NonNull final String from, @NonNull final String content) {

@@ -98,8 +98,7 @@ public class GameEventManager implements ChatClient {
         try {
             json = new ObjectMapper().readValue(message, ObjectNode.class);
             if (isChatMessage(json)) {
-                //TODO: Check the server's reply format and parse message
-                System.out.println(json);
+                chatController.receiveMessage(json.get("data"));
             } else {
                 gameEventHandlers.forEach(handler -> {
                     if (handler.accepts(json)) handler.handle(json);
@@ -112,8 +111,9 @@ public class GameEventManager implements ChatClient {
     }
 
     private boolean isChatMessage(@NonNull final ObjectNode json) {
-        return json.has("messageType")
-                && json.get("messageType").asText().equals("chat");
+        return json.has("action")
+                && json.get("action").asText().equals("gameChat")
+                && json.has("data");
     }
 
     @Override

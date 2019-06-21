@@ -5,6 +5,8 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import static de.uniks.se19.team_g.project_rbsg.chat.ChatClient.SYSTEM;
+
 /**
  * @author Jan Müller
  */
@@ -33,7 +35,7 @@ public class LeaveCommandHandler implements ChatCommandHandler {
         }
 
         if (!chatController.closeChannel(channelToRemove)) {
-            chatController.receiveMessage(callback.getChannel(), ChatController.SYSTEM, REMOVE_ERROR);
+            chatController.receiveMessage(callback.getChannel(), SYSTEM, REMOVE_ERROR);
         }
     }
 }

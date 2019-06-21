@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
+import static de.uniks.se19.team_g.project_rbsg.chat.ChatClient.SYSTEM;
+
 public class ChuckNorrisCommandHandler implements ChatCommandHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -44,7 +46,7 @@ public class ChuckNorrisCommandHandler implements ChatCommandHandler {
         answer
                 .thenAccept(joke -> jokeReturned((String)joke.get("value"), callback))
                 .exceptionally(exception ->  {
-                    callback.displayMessage(ChatController.SYSTEM, ERROR_MESSAGE);
+                    callback.displayMessage(SYSTEM, ERROR_MESSAGE);
                     logger.debug(exception.getMessage());
                     return null;
                 });

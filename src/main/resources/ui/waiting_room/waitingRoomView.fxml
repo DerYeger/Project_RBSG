@@ -10,9 +10,9 @@
  @author Keanu Stückrad
  !-->
 
-<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
+<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
     <children>
-    <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
     <children>
         <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" />
         <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
@@ -21,11 +21,6 @@
         <Pane fx:id="player2Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="11.0" />
         <Pane fx:id="player3Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="240.0" />
         <Pane fx:id="player4Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0" />
-        <StackPane AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="400.0">
-            <children>
-                <Pane fx:id="chatPane" styleClass="chat-pane" StackPane.alignment="CENTER" />
-            </children>
-        </StackPane>
         <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
             <children>
                 <Pane fx:id="miniGamePane" styleClass="mini-game-pane" StackPane.alignment="CENTER" />
@@ -36,11 +31,16 @@
                 <Pane fx:id="mapPreviewPane" styleClass="map-preview-pane" StackPane.alignment="TOP_CENTER" />
             </children>
         </StackPane>
+        <StackPane AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="400.0">
+            <children>
+                <Pane fx:id="chatPane" styleClass="chat-pane" StackPane.alignment="CENTER" />
+            </children>
+        </StackPane>
     </children>
     </AnchorPane>
-        <StackPane AnchorPane.topAnchor="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0">
+        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
             <children>
-                <Pane StackPane.alignment="CENTER_RIGHT" styleClass="army-pane" fx:id="armyBar"/>
+                <Pane fx:id="armyBar" styleClass="army-pane" StackPane.alignment="CENTER_RIGHT" />
             </children>
         </StackPane>
     </children>
