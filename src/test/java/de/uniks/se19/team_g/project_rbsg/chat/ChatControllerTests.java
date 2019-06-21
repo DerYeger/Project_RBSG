@@ -11,6 +11,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.command.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.command.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -107,12 +108,13 @@ public class ChatControllerTests extends ApplicationTest {
         userProvider.get()
                 .setName("chattest1");
 
-        final Node chat = chatBuilder.buildChat(chatClient);
-        Assert.assertNotNull(chat);
+        final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(chatClient);
 
-        Assert.assertNotNull(chatBuilder.getChatController());
+        Assert.assertNotNull(chatComponents);
+        Assert.assertNotNull(chatComponents.first);
+        Assert.assertNotNull(chatComponents.second);
 
-        final Scene scene = new Scene((Parent) chat, 400, 300);
+        final Scene scene = new Scene((Parent) chatComponents.first, 400, 300);
         stage.setScene(scene);
         stage.show();
     }
@@ -191,15 +193,5 @@ public class ChatControllerTests extends ApplicationTest {
         Assert.assertEquals("inputField", ct3Input.getId());
 
         Assert.assertNotNull(lookup("System: User chattest3 is not online"));
-    }
-
-    @Test
-    public void testRecreation()  {
-        final ChatController firstController = chatBuilder.getChatController();
-
-        chatBuilder.buildChat(chatClient); //builds a new chat, thus the chatController reference is different
-
-        final ChatController secondController = chatBuilder.getChatController();
-        Assert.assertNotEquals(firstController, secondController);
     }
 }
