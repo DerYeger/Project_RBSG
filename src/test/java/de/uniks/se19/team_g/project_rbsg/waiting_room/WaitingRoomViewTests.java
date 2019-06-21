@@ -2,9 +2,15 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
@@ -41,7 +47,8 @@ import org.testfx.framework.junit.ApplicationTest;
         UserProvider.class,
         WaitingRoomViewTests.ContextConfiguration.class,
         FXMLLoaderFactory.class,
-        MusicManager.class
+        MusicManager.class,
+        ChatBuilder.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -79,6 +86,11 @@ public class WaitingRoomViewTests extends ApplicationTest {
                     //do nothing
                 }
             };
+        }
+
+        @Bean
+        public ChatController chatController() {
+            return new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager());
         }
 
         @Bean
