@@ -99,6 +99,8 @@ public class GameEventManager implements ChatClient {
             json = new ObjectMapper().readValue(message, ObjectNode.class);
             if (isChatMessage(json)) {
                 chatController.receiveMessage(json.get("data"));
+            } else if (isChatErrorMessage(json)) {
+                chatController.receiveMessage(json);
             } else {
                 gameEventHandlers.forEach(handler -> {
                     if (handler.accepts(json)) handler.handle(json);
@@ -110,10 +112,14 @@ public class GameEventManager implements ChatClient {
         }
     }
 
-    private boolean isChatMessage(@NonNull final ObjectNode json) {
-        return json.has("action")
-                && json.get("action").asText().equals("gameChat")
-                && json.has("data");
+    private boolean isChatMessage(@NonNull final ObjectNode message) {
+        return message.has("action")
+                && message.get("action").asText().equals("gameChat")
+                && message.has("data");
+    }
+
+    private boolean isChatErrorMessage(@NonNull final ObjectNode message) {
+        return message.has("msg");
     }
 
     @Override
