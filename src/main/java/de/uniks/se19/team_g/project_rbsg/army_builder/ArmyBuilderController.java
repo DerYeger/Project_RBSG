@@ -10,7 +10,9 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPro
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistantArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,6 +34,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
@@ -59,6 +62,8 @@ public class ArmyBuilderController implements Initializable {
     private final SceneManager sceneManager;
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
+    @Nonnull
+    PersistantArmyManager persistantArmyManager;
 
     public StackPane root;
     public VBox content;
@@ -70,6 +75,7 @@ public class ArmyBuilderController implements Initializable {
     public VBox sideBarLeft;
     public Button soundButton;
     public Button leaveButton;
+    public Button saveArmiesButton;
 
     public Button showInfoButton;
 
@@ -89,7 +95,8 @@ public class ArmyBuilderController implements Initializable {
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
             @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
-            @Nullable SceneManager sceneManager
+            @Nullable SceneManager sceneManager,
+            @Nonnull PersistantArmyManager persistantArmyManager
     ) {
         this.appState = appState;
         this.viewState = viewState;
@@ -99,6 +106,7 @@ public class ArmyBuilderController implements Initializable {
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
+        this.persistantArmyManager=persistantArmyManager;
     }
 
     @Override
@@ -147,6 +155,13 @@ public class ArmyBuilderController implements Initializable {
                 JavaConfig.ICON_SIZE
         );
 
+        JavaFXUtils.setButtonIcons(
+                saveArmiesButton,
+                getClass().getResource("/assets/icons/operation/baseline_save_white_48dp.png"),
+                getClass().getResource("/assets/icons/operation/baseline_save_black_48dp.png"),
+                JavaConfig.ICON_SIZE
+        );
+
     }
 
     public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue)
@@ -175,6 +190,10 @@ public class ArmyBuilderController implements Initializable {
             return;
         }
         sceneManager.setLobbyScene();
+    }
+
+    public void saveArmies() throws InterruptedException {
+        persistantArmyManager.saveArmies(appState.armies);
     }
 
     public void showInfo(ActionEvent actionEvent) {
