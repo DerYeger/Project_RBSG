@@ -169,20 +169,17 @@ public class PersistantArmyManager {
 
     public void saveArmies(ObservableList<Army> armies) throws InterruptedException {
 
-        ArrayList<Army> malformedArmyList = new ArrayList<>();
+        ArrayList<Army> armyList = new ArrayList<>();
 
         for(Army army : armies){
-            if(army.units.size()<10){
-                //army is misfunctional
-                malformedArmyList.add(army);
-            }
             if(army.units.size()==10){
                 //army is complete
                 this.saveArmyOnline(army);
             }
+            armyList.add(army);
         }
-        if(!malformedArmyList.isEmpty()){
-            this.saveArmiesLocal(malformedArmyList);
+        if(!armyList.isEmpty()){
+            this.saveArmiesLocal(armyList);
         }
     }
 }
