@@ -43,7 +43,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
-    public VBox chatContainer; // TODO @DerYeger
+    public Pane chatContainer; // TODO @DerYeger
     public Pane mapPreviewPane; // TODO @DerYeger
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public Pane armyBar; // TODO has to be filled later

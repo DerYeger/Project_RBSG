@@ -4,9 +4,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="chatChannelContainer" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController">
+<VBox alignment="BOTTOM_CENTER" styleClass="chatChannelContainer" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController">
    <children>
-      <TextArea fx:id="messageArea" editable="false" focusTraversable="false" styleClass="messageArea" wrapText="true" />
+      <TextArea fx:id="messageArea" editable="false" focusTraversable="false" styleClass="messageArea" wrapText="true" VBox.vgrow="ALWAYS" />
       <TextField fx:id="inputField" styleClass="inputField" />
    </children>
 </VBox>

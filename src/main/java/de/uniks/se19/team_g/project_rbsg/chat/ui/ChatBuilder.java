@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Region;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -30,6 +31,8 @@ public class ChatBuilder implements ApplicationContextAware {
         tabPane.getStylesheets().add(this.getClass().getResource("/ui/chat/chat.css").toExternalForm());
 
         final ChatController chatController = applicationContext.getBean(ChatController.class);
+
+        tabPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
         chatController.init(tabPane, chatClient);
 
