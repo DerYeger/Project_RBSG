@@ -14,6 +14,8 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import org.junit.Test;
+import org.springframework.lang.NonNull;
+
 import static org.mockito.Mockito.*;
 
 public class LobbyViewControllerTest {
@@ -41,7 +43,7 @@ public class LobbyViewControllerTest {
 
         sut.goToArmyBuilder(null);
 
-        verify(sceneManager).setArmyBuilderScene();
+        verify(sceneManager).setArmyBuilderScene(true, SceneManager.SceneIdentifier.LOBBY);
         verifyNoMoreInteractions(sceneManager);
     }
 
