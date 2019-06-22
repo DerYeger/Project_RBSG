@@ -1,7 +1,9 @@
-package de.uniks.se19.team_g.project_rbsg.chat;
+package de.uniks.se19.team_g.project_rbsg.lobby.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import org.slf4j.Logger;
@@ -35,9 +37,12 @@ public class LobbyChatClient implements ChatClient {
 
     private ChatController chatController;
 
+    private ObjectMapper objectMapper;
+
     public LobbyChatClient(@NonNull final WebSocketClient webSocketClient, @NonNull final UserProvider userProvider) {
         this.webSocketClient = webSocketClient;
         this.userProvider = userProvider;
+        objectMapper = new ObjectMapper();
     }
 
     @Override
@@ -71,37 +76,14 @@ public class LobbyChatClient implements ChatClient {
         return node;
     }
 
-    //TEMP BEGIN
     @Override
     public void handle(@NonNull final String message) {
         try {
-            final ObjectNode json = new ObjectMapper().readValue(message, ObjectNode.class);
-
-            if (!json.has("channel") || !json.has("from") || !json.has("message")) {
-                handleErrorMessage(json);
-            } else {
-                final String channel = json.get("channel").asText();
-                final String from = json.get("from").asText();
-                final String content = json.get("message").asText();
-
-                final String internalChannel = channel.equals(SERVER_PUBLIC_CHANNEL) ? CLIENT_PUBLIC_CHANNEL : '@' + from;
-
-                chatController.receiveMessage(internalChannel, from, content);
-            }
+            chatController.receiveMessage(objectMapper.readValue(message, ObjectNode.class));
         } catch (IOException e) {
             e.printStackTrace();
-            chatController.receiveErrorMessage("Error parsing message");
         }
     }
-
-    private void handleErrorMessage(@NonNull final ObjectNode json) {
-        if (json.has("msg")) {
-            chatController.receiveErrorMessage(json.get("msg").asText());
-        } else {
-            System.out.println("Server response has unknown format: "  + json.toString());
-        }
-    }
-    //TEMP END
 
     @Override
     public void terminate() {

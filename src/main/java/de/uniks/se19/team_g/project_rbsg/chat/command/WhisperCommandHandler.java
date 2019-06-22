@@ -1,7 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.chat.command;
 
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -32,14 +33,14 @@ public class WhisperCommandHandler implements ChatCommandHandler {
     @Override
     public void handleCommand(@NonNull final ChatChannelController callback, @Nullable final String options) {
         if (options == null || options.isBlank() || !options.trim().matches(pattern)) {
-            callback.displayMessage(ChatController.SYSTEM, OPTION_ERROR_MESSAGE);
+            callback.displayMessage(ChatClient.SYSTEM, OPTION_ERROR_MESSAGE);
             return;
         }
 
         final String[] optionsArray = parseOptions(options);
 
         if (optionsArray[0].substring(1).equals(chatController.getUserName())) {
-            callback.displayMessage(ChatController.SYSTEM, USER_ERROR_MESSAGE);
+            callback.displayMessage(ChatClient.SYSTEM, USER_ERROR_MESSAGE);
             return;
         }
 

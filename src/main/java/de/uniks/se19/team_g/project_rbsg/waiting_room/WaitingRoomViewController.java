@@ -3,9 +3,12 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
@@ -16,6 +19,7 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -39,7 +43,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
-    public Pane chatPane; // TODO @DerYeger
+    public Pane chatContainer; // TODO @DerYeger
     public Pane mapPreviewPane; // TODO @DerYeger
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public Pane armyBar; // TODO has to be filled later
@@ -47,6 +51,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Button leaveButton;
     public Button showInfoButton;
     public AnchorPane root;
+
+    private ChatController chatController;
 
     private PlayerCardBuilder playerCard;
     private PlayerCardBuilder playerCard2;
@@ -60,6 +66,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final MusicManager musicManager;
     private final SplashImageBuilder splashImageBuilder;
     private final ApplicationState applicationState;
+    @NonNull
+    private final ChatBuilder chatBuilder;
     private final ModelManager modelManager;
 
     @Autowired
@@ -69,7 +77,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final GameEventManager gameEventManager,
                                      @NonNull final MusicManager musicManager,
                                      @NonNull final SplashImageBuilder splashImageBuilder,
-                                     @NonNull final ApplicationState applicationState) {
+                                     @NonNull final ApplicationState applicationState,
+                                     @NonNull final ChatBuilder chatBuilder) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -77,6 +86,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.musicManager = musicManager.init();
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
+        this.chatBuilder = chatBuilder;
+
         modelManager = new ModelManager();
     }
 
@@ -106,12 +117,19 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private void initSocket() {
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this);
+        withChatSupport();
         if (applicationState.selectedArmy.get() == null) {
             System.out.println("USER HAS NO ARMY");
             System.out.println("ABORTING GAMESOCKET INIT");
             return;
         }
         gameEventManager.startSocket(gameProvider.get().getId(), applicationState.selectedArmy.get().id.get());
+    }
+
+    private void withChatSupport() {
+        final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(gameEventManager);
+        chatContainer.getChildren().add(chatComponents.first);
+        chatController = chatComponents.second;
     }
 
     private void initPlayerCardBuilders() {
