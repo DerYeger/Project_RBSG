@@ -135,7 +135,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void setLobbyScene() {
+                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
                     switchedToLobby = true;
                 }
             };

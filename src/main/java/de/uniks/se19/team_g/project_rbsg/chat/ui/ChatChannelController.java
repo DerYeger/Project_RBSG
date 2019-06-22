@@ -1,5 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.chat;
+package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -9,6 +10,8 @@ import org.springframework.lang.NonNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static de.uniks.se19.team_g.project_rbsg.chat.ChatClient.SYSTEM;
 
 /**
  * @author Jan Müller
@@ -79,7 +82,7 @@ public class ChatChannelController {
             try {
                 chatController.handleInput(this, channel, inputField.getText());
             } catch (final Exception e) {
-                displayMessage(ChatController.SYSTEM, "An error occurred processing your message");
+                displayMessage(SYSTEM, "An error occurred processing your message");
                 e.printStackTrace();
             }
             Platform.runLater(() ->  inputField.clear());

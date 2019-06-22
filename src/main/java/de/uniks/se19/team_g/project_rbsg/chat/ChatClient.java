@@ -10,7 +10,9 @@ import org.springframework.lang.Nullable;
  */
 public interface ChatClient extends IWebSocketCallback, Terminable {
 
-    String CLIENT_PUBLIC_CHANNEL = ChatController.CLIENT_PUBLIC_CHANNEL;
+    String SYSTEM = "System";
+
+    String CLIENT_PUBLIC_CHANNEL = "General";
 
     String SERVER_PUBLIC_CHANNEL = "all";
     String SERVER_PRIVATE_CHANNEL = "private";
