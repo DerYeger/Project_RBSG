@@ -4,7 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.control.Tab;
 import org.junit.Assert;

@@ -11,11 +11,10 @@
     -fx-effect: -shadow;
 }
 
-.chat-pane {
+.chat-container {
     -fx-min-height: 350;
     -fx-max-height: 350;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Chat-Einbund*/
 }
 
 .mini-game-stack-pane {

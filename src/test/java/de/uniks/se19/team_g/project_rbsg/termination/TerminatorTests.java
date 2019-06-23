@@ -22,7 +22,7 @@ public class TerminatorTests {
         }
         @Override
         public void setAsRootController() {
-            sceneManager.setRootController(this);
+            sceneManager.withRootController(this);
         }
 
         @Override
@@ -54,38 +54,7 @@ public class TerminatorTests {
     }
 
     @Test
-    public void testTerminateRootController() {
-        final SceneManager sceneManager = new SceneManager();
-        final Terminator terminator = new Terminator();
-        final TestTerminableRootController firstTerminableRootController = new TestTerminableRootController(sceneManager);
-        final TestTerminableRootController secondTerminableRootController = new TestTerminableRootController(sceneManager);
-
-        terminator.register(sceneManager);
-
-        Assert.assertNull(sceneManager.getRootController());
-
-        firstTerminableRootController.setAsRootController();
-
-        Assert.assertEquals(firstTerminableRootController, sceneManager.getRootController());
-
-        Assert.assertFalse(firstTerminableRootController.hasBeenTerminated);
-        Assert.assertFalse(secondTerminableRootController.hasBeenTerminated);
-
-        secondTerminableRootController.setAsRootController();
-
-        Assert.assertEquals(secondTerminableRootController, sceneManager.getRootController());
-        Assert.assertTrue(firstTerminableRootController.hasBeenTerminated);
-        Assert.assertFalse(secondTerminableRootController.hasBeenTerminated);
-
-        terminator.terminate();
-
-        Assert.assertNull(sceneManager.getRootController());
-        Assert.assertTrue(secondTerminableRootController.hasBeenTerminated);
-    }
-
-
-    @Test
-    public void testRegisterTerminable() {
+    public void testTermination() {
         final Terminator terminator = new Terminator();
 
         final TestTerminable firstTerminable = new TestTerminable(terminator);

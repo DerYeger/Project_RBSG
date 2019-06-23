@@ -5,7 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
@@ -24,6 +24,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
@@ -266,9 +267,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if (chatBuilder != null)
         {
-            final Node chatNode = chatBuilder.buildChat(lobbyChatClient);
-            chatContainer.getChildren().add(chatNode);
-            chatController = chatBuilder.getChatController();
+            final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(lobbyChatClient);
+            chatContainer.getChildren().add(chatComponents.first);
+            chatController = chatComponents.second;
         }
     }
 
@@ -295,13 +296,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void terminate()
     {
-        chatController.terminate();
+        lobbyChatClient.terminate();
         lobby.getSystemMessageManager().stopSocket();
         logger.debug("Terminated " + this);
     }
 
     public void setAsRootController() {
-        sceneManager.setRootController(this);
+        sceneManager.withRootController(this);
     }
 
     private void updateLabels(Locale locale)
@@ -349,6 +350,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent) {
-        sceneManager.setArmyBuilderScene();
+        sceneManager.setArmyBuilderScene(true, SceneManager.SceneIdentifier.LOBBY);
     }
 }
