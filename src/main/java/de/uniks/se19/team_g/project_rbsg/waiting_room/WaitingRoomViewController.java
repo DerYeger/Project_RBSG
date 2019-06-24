@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
@@ -24,6 +25,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
@@ -38,6 +41,8 @@ import org.springframework.stereotype.Controller;
 public class WaitingRoomViewController implements RootController, Terminable, GameEventHandler {
 
     private static final int ICON_SIZE = 40;
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public Pane player1Pane;
     public Pane player2Pane;
@@ -69,6 +74,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     @NonNull
     private final ChatBuilder chatBuilder;
     private final ModelManager modelManager;
+    private final IngameGameProvider ingameGameProvider;
 
     @Autowired
     public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
@@ -78,6 +84,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final MusicManager musicManager,
                                      @NonNull final SplashImageBuilder splashImageBuilder,
                                      @NonNull final ApplicationState applicationState,
+                                     @NonNull final IngameGameProvider ingameGameProvider,
                                      @NonNull final ChatBuilder chatBuilder) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
@@ -86,8 +93,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.musicManager = musicManager.init();
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
+        this.ingameGameProvider = ingameGameProvider;
         this.chatBuilder = chatBuilder;
-
         modelManager = new ModelManager();
     }
 
@@ -173,7 +180,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     public void showInfo(ActionEvent actionEvent) {
-        // TODO
+        sceneManager.setIngameScene(); // for testing
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
@@ -206,6 +213,9 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     @Override
     public void handle(@NonNull final ObjectNode message) {
         final Game game = modelManager.getGame();
+        ingameGameProvider.set(game);
+        logger.debug("Game set to IngameGameProvider");
         //game SHOULD (no guarantee) be ready now
     }
+
 }
