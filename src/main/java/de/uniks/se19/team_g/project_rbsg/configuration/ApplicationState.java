@@ -36,10 +36,8 @@ public class ApplicationState {
             } else {
                 final Army army = selectedArmy.get();
                 final BooleanBinding validArmySizeBinding = new SimpleListProperty<>(army.units).sizeProperty().isEqualTo(Army.ARMY_MAX_SIZE);
-
-                validArmySelected.bind(
-                        army.id.isNotNull().and(validArmySizeBinding)
-                );
+                final BooleanBinding validArmyBinding = army.id.isNotNull().and(validArmySizeBinding);
+                validArmySelected.bind(validArmyBinding);
             }
         });
     }

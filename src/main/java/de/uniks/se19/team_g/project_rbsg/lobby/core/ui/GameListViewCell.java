@@ -171,18 +171,6 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
                 .then(joinImageViewHover)
                 .otherwise(joinImageViewNonHover));
 
-        final ObservableValue<Army> selectedArmy = appState.selectedArmy;
-        final BooleanBinding invalidSelectedArmyBinding = Bindings.createBooleanBinding(
-                () -> {
-                    final Army army = selectedArmy.getValue();
-                    return !(
-                        army != null
-                        && army.id.get() != null
-                        && army.units.size() == Army.ARMY_MAX_SIZE
-                    );
-                },
-                selectedArmy
-        );
-        joinButton.disableProperty().bind(invalidSelectedArmyBinding);
+        joinButton.disableProperty().bind(appState.validArmySelected.not());
     }
 }
