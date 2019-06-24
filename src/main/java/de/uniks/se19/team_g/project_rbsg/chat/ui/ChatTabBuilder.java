@@ -35,7 +35,7 @@ public class ChatTabBuilder {
 
         channelComponents
                 .getController()
-                .inTab(tab, chatTabController);
+                .registerTabController(chatTabController);
 
         return new Tuple<>(tab, chatTabController);
     }

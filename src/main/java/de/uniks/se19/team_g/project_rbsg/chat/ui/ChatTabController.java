@@ -20,7 +20,7 @@ public class ChatTabController {
     }
 
     public void markUnread() {
-        tab.getStyleClass().add(UNREAD);
+        if (!tab.isSelected()) tab.getStyleClass().add(UNREAD);
     }
 
     public void markRead() {
