@@ -7,11 +7,13 @@ import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -175,29 +177,11 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
                 .then(joinImageViewHover)
                 .otherwise(joinImageViewNonHover));
 
-        BooleanBinding tooltipBinding = Bindings.createBooleanBinding(
-                () -> {
-                    if (appState.validArmySelected.get()) return false;
-
-                    final Tooltip tooltip = createInvalidArmyTooltip();
-                    Tooltip.install(joinButtonContainer, tooltip);
-                    return true;
-                },
-                appState.validArmySelected
+        JavaFXUtils.bindButtonDisableWithTooltip(
+            joinButton,
+            joinButtonContainer,
+            new SimpleStringProperty(Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired")),
+            appState.validArmySelected
         );
-
-        joinButton.disableProperty().bind(tooltipBinding);
-
-
-
-
-    }
-
-    @Nonnull
-    protected Tooltip createInvalidArmyTooltip() {
-        final String tooltipText = Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired");
-        final Tooltip tooltip = new Tooltip(tooltipText);
-        tooltip.setShowDelay(Duration.millis(500));
-        return tooltip;
     }
 }
