@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -46,6 +47,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -78,6 +80,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
     private final ApplicationState appState;
+    @Nullable
+    private final Function<VBox, NotificationModalController> notificationRenderer;
+
+    public VBox modal;
+    public Pane modalBackground;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -117,12 +124,14 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @NonNull final MusicManager musicManager,
             @NonNull final LogoutManager logoutManager,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
-            @Nullable final ApplicationState appState
-            ) {
+            @Nullable final ApplicationState appState,
+            @Nullable final Function<VBox, NotificationModalController> notificationRenderer
+        ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
         this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
+        this.notificationRenderer = notificationRenderer;
 
         this.lobby = new Lobby();
 
@@ -219,6 +228,24 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
 
         setAsRootController();
+
+        if (Objects.nonNull(appState) && appState.notifications.size() > 0) {
+            showNotifications();
+        }
+    }
+
+    private void showNotifications() {
+        Objects.requireNonNull(appState);
+        if (notificationRenderer == null) return;
+
+        modalBackground.setVisible(true);
+        final NotificationModalController modal = notificationRenderer.apply(this.modal);
+        modal.setOnDismiss((e, c) -> {
+            modalBackground.setVisible(false);
+            appState.notifications.clear();
+            this.modal.getChildren().clear();
+        });
+        modal.setNotifications(appState.notifications);
     }
 
     private void onLobbyOpen() {
