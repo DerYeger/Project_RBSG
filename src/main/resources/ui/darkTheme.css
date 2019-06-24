@@ -95,10 +95,6 @@
     -fx-background-color: -root-background-color;
 }
 
-.modal-background {
-    -fx-background-color: rgba(0,0,0,0.6);
-}
-
 /*------------------Button------------------*/
 
 .button.icon-button {
@@ -311,6 +307,10 @@
 }
 
 /*----------------Modals--------------------*/
+
+.modal-background {
+    -fx-background-color: rgba(0,0,0,0.8);
+}
 
 .modal {
     -fx-pref-width: 400;
