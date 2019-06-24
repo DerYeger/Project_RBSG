@@ -35,14 +35,8 @@ public class PreviewMapBuilder {
                 .max()
                 .orElse(0) + 1;
 
-        System.out.println(xGridSize);
-        System.out.println(yGridSize);
-
         final double cellWidth = width / xGridSize;
         final double cellHeight = height / yGridSize;
-
-        System.out.println(cellWidth);
-        System.out.println(cellHeight);
 
         for (final Cell cell : cells) {
             switch (cell.getBiome()) {
@@ -60,7 +54,12 @@ public class PreviewMapBuilder {
                     gc.setFill(Paint.valueOf("BLUE"));
             }
 
-            gc.fillRect(cell.getX() * cellWidth, cell.getY() * cellHeight, cellWidth, cellHeight);
+            gc.fillRect(
+                    cell.getX() * cellWidth,
+                    cell.getY() * cellHeight,
+                    cellWidth,
+                    cellHeight
+            );
         }
 
         return canvas;
