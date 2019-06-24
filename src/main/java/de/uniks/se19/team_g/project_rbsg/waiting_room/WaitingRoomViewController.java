@@ -156,8 +156,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
             // if visibility was disabled before for example when leaving game
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
-            AnchorPane.setTopAnchor(player1Pane, 110.0);
-            AnchorPane.setTopAnchor(player2Pane, 110.0);
+            AnchorPane.setTopAnchor(player1Pane, 102.0);
+            AnchorPane.setTopAnchor(player2Pane, 102.0);
             player3Pane.getChildren().add(playerCard3.buildPlayerCard());
             player4Pane.getChildren().add(playerCard4.buildPlayerCard());
             playerCard4.switchColumns();
