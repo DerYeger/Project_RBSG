@@ -9,8 +9,6 @@ import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
 import javafx.collections.ObservableList;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -29,16 +27,17 @@ import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 
 @Component
-public class PersistantArmyManager {
-    final RestTemplate restTemplate;
+public class PersistentArmyManager {
     private final String url = "/army";
+    final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public PersistantArmyManager(@NonNull RestTemplate restTemplate) {
+    public PersistentArmyManager(@NonNull RestTemplate restTemplate) {
+
         this.restTemplate = restTemplate;
     }
 
-    public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) throws InterruptedException {
+    public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) {
         if (army.id.isEmpty().get()) {
             return createArmy(army);
         }
@@ -59,13 +58,12 @@ public class PersistantArmyManager {
                 HttpMethod.PUT,
                 new HttpEntity<>(updateArmyRequest),
                 SaveArmyResponse.class))
-                .thenApply(updateAnswer -> onUpdateArmyResponseReturned(updateAnswer, army))
+                .thenApply(updateAnswer -> onUpdateArmyResponseReturned(updateAnswer))
                 .exceptionally(this::handleException);
     }
 
     private SaveArmyResponse onUpdateArmyResponseReturned(
-            ResponseEntity<SaveArmyResponse> updateArmyResponse,
-            Army army) {
+            ResponseEntity<SaveArmyResponse> updateArmyResponse) {
 
         SaveArmyResponse saveArmyResponse = new SaveArmyResponse();
 
@@ -89,12 +87,12 @@ public class PersistantArmyManager {
     private CompletableFuture<SaveArmyResponse> createArmy(@NonNull Army army) {
         PersistArmyRequest createArmyRequest = new PersistArmyRequest();
         ObservableList<Unit> units = army.units;
-        ;
         createArmyRequest.units = new LinkedList<String>();
 
         for (Unit unit : units) {
             createArmyRequest.units.add(unit.id.get());
         }
+
         createArmyRequest.name = army.name.get();
 
         return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(
@@ -131,38 +129,29 @@ public class PersistantArmyManager {
     }
 
     public void saveArmiesLocal(ArrayList<Army> armyList) {
-        JSONObject localArmiesObject = new JSONObject();
-        JSONArray armies = new JSONArray();
-        ObjectMapper objectmapper = new ObjectMapper();
-        objectmapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
         ArmyWrapper armyWrapper = new ArmyWrapper(null);
         armyWrapper.armies = new ArrayList<DeserializableArmy>();
 
         for (Army army : armyList) {
             LinkedList<String> idList = new LinkedList<>();
-            JSONObject armyObject = new JSONObject();
-            armyObject.put("id", army.id.get());
-            armyObject.put("name", army.name.get());
-
-            DeserializableArmy deserializableArmyarmy = new DeserializableArmy(army.id.get(),
+            DeserializableArmy deserializableArmy = new DeserializableArmy(army.id.get(),
                     army.name.get(),
-                    new ArrayList<String>());
+                    new ArrayList<Unit>());
 
             for (Unit unit : army.units) {
                 idList.add(unit.id.get());
-                deserializableArmyarmy.units.add(unit.id.get());
+                deserializableArmy.units.add(unit);
             }
-            //armyObject.put("units", idList);
 
             if (army.id.isEmpty().get()) {
-                deserializableArmyarmy.id = "";
-                //army.id.set("");
+                deserializableArmy.id = "";;
             }
 
-            //.put(army.id.get(), armyObject);
-            //armies.put(armyObject);
-
-            armyWrapper.armies.add(deserializableArmyarmy);
+            armyWrapper.armies.add(deserializableArmy);
         }
 
         try {
@@ -173,12 +162,14 @@ public class PersistantArmyManager {
 
             if (osType.contains("Windows")) {
                 //Windows System
+                logger.debug("Windows Operating System detected.");
                 directory = new File(System.getProperty("user.home") + "/rbsg/");
                 directory.mkdirs();
                 file = new File(directory, "armies.json");
                 Files.setAttribute(Paths.get(file.getPath()), "dos:hidden", true);
             } else {
                 //Unix System
+                logger.debug("Unix System detected.");
                 directory = new File(System.getProperty("user.home") + "/.local/rbsg/");
                 directory.mkdirs();
                 file = new File(directory, "armies.json");
@@ -189,14 +180,15 @@ public class PersistantArmyManager {
             } else {
                 file.createNewFile();
             }
-            objectmapper.writeValue(file, armyWrapper);
+            objectMapper.writeValue(file, armyWrapper);
+            logger.debug("Local saving was successful.");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveArmies(ObservableList<Army> armies) throws InterruptedException {
+    public void saveArmies(ObservableList<Army> armies) {
 
         ArrayList<Army> armyList = new ArrayList<>();
 
@@ -214,14 +206,14 @@ public class PersistantArmyManager {
 
     public static class DeserializableArmy{
         @JsonCreator
-        public DeserializableArmy(@JsonProperty("id") String id, @JsonProperty("name")String name, @JsonProperty("units")ArrayList<String> units){
+        public DeserializableArmy(@JsonProperty("id") String id, @JsonProperty("name")String name, @JsonProperty("units")ArrayList<Unit> units){
             this.id=id;
             this.name=name;
             this.units=units;
         }
         public String id;
         public String name;
-        public ArrayList<String>units;
+        public ArrayList<Unit>units;
     }
 
     public static class ArmyWrapper{

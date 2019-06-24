@@ -11,7 +11,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistantArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
@@ -63,7 +63,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
     @Nonnull
-    PersistantArmyManager persistantArmyManager;
+    PersistentArmyManager persistantArmyManager;
 
     public StackPane root;
     public VBox content;
@@ -96,7 +96,7 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
-            @Nonnull PersistantArmyManager persistantArmyManager
+            @Nonnull PersistentArmyManager persistantArmyManager
     ) {
         this.appState = appState;
         this.viewState = viewState;

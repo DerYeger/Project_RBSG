@@ -8,8 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistantArmyManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,9 +26,6 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Goatfryed
  */
@@ -43,7 +39,7 @@ import java.util.concurrent.CompletableFuture;
         UnitListEntryController.class,
         ArmyBuilderViewTest.ContextConfiguration.class,
         ApplicationState.class,
-        PersistantArmyManager.class,
+        PersistentArmyManager.class,
         RestTemplate.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {

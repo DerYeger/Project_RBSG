@@ -1,7 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.model.*;
@@ -9,13 +7,9 @@ import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistantArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,12 +19,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
-import javax.json.JsonObject;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -48,7 +40,7 @@ import static org.mockito.Mockito.*;
         ServerConfig.class,
         LoginManager.class,
         UserProvider.class,
-        PersistantArmyManager.class,
+        PersistentArmyManager.class,
         UserKeyInterceptor.class,
         ApiClientErrorInterceptor.class,
         ObjectMapper.class
@@ -57,7 +49,7 @@ import static org.mockito.Mockito.*;
 public class PersistantArmyTest {
 
     @Autowired
-    PersistantArmyManager persistantArmyManager;
+    PersistentArmyManager persistantArmyManager;
     @Autowired
     LoginManager loginManager;
     @Autowired
@@ -102,7 +94,7 @@ public class PersistantArmyTest {
     @Test
     public void testCreateArmyLocal(){
         RestTemplate restMock = mock(RestTemplate.class);
-        PersistantArmyManager persistantArmyManager;
+        PersistentArmyManager persistantArmyManager;
         SaveArmyResponse saveArmyResponse = new SaveArmyResponse();
         saveArmyResponse.data=new SaveArmyResponse.SaveArmyResponseData();
         saveArmyResponse.data.units=new LinkedList<>();
@@ -126,7 +118,7 @@ public class PersistantArmyTest {
         when(restMock.postForObject(eq("/army"), isA(PersistArmyRequest.class), eq(SaveArmyResponse.class)))
                 .thenReturn(saveArmyResponse);
 
-        persistantArmyManager = new PersistantArmyManager(restMock);
+        persistantArmyManager = new PersistentArmyManager(restMock);
 
         //Assess persistArmyManger
         try {
@@ -197,7 +189,7 @@ public class PersistantArmyTest {
     public void testUpdateArmyLocal() throws InterruptedException, ExecutionException, MalformedURLException, URISyntaxException {
         RestTemplate localUpdateMock = mock(RestTemplate.class);
         SaveArmyResponse onUpdateResponse = new SaveArmyResponse();
-        PersistantArmyManager armyManager = new PersistantArmyManager(localUpdateMock);
+        PersistentArmyManager armyManager = new PersistentArmyManager(localUpdateMock);
         onUpdateResponse.status="success";
         onUpdateResponse.message="\"id\":\"5d07fc8577af9d0001476d90\",\"name\":\"ggArmyFromTest\",\"units\":[\"5cc051bd62083600017db3b7\"]}";
         onUpdateResponse.data=new SaveArmyResponse.SaveArmyResponseData();
@@ -231,14 +223,13 @@ public class PersistantArmyTest {
 
     @Test
     public void saveArmiesLocalTest() throws IOException{
-        ArrayList<Army> armyList=new ArrayList<>();
-
-        //file.createNewFile();
-
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        ArrayList<Army> armyList=new ArrayList<>();
         ArrayList<Army> armies= new ArrayList<>();
         RestTemplate localTemplateMock = mock(RestTemplate.class);
-        PersistantArmyManager persistantArmyManager = new PersistantArmyManager(localTemplateMock);
+        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(localTemplateMock);
         String armyString;
 
         Unit unit1 = new Unit();
@@ -264,7 +255,7 @@ public class PersistantArmyTest {
         armyList.add(army2);
         armyList.add(army3);
 
-        persistantArmyManager.saveArmiesLocal(armyList);
+        persistentArmyManager.saveArmiesLocal(armyList);
 
         File file = new File(System.getProperty("user.home") + "/.local/rbsg/armies.json");
         System.out.println(file.getAbsoluteFile());
@@ -273,15 +264,13 @@ public class PersistantArmyTest {
         Assert.assertTrue(file.isFile());
 
         armyString = Files.readString(Paths.get(file.getPath()));
-        PersistantArmyManager.ArmyWrapper armyWrapper = objectMapper.readValue(armyString, PersistantArmyManager.ArmyWrapper.class);
-        for(PersistantArmyManager.DeserializableArmy deserializableArmy : armyWrapper.armies){
+        PersistentArmyManager.ArmyWrapper armyWrapper = objectMapper.readValue(armyString, PersistentArmyManager.ArmyWrapper.class);
+        for(PersistentArmyManager.DeserializableArmy deserializableArmy : armyWrapper.armies){
             Army newArmy = new Army();
             newArmy.id.set(deserializableArmy.id);
             newArmy.name.set(deserializableArmy.name);
-            for(String unit : deserializableArmy.units){
-                Unit newUnit = new Unit();
-                newUnit.id.set(unit);
-                newArmy.units.add(newUnit);
+            for(Unit unit : deserializableArmy.units){
+                newArmy.units.add(unit);
             }
             armies.add(newArmy);
         }
