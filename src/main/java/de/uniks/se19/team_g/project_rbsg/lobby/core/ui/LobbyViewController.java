@@ -41,9 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
@@ -62,17 +62,24 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private static final int ICON_SIZE = 30;
 
-    private final Lobby lobby;
-    private final PlayerManager playerManager;
-    private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private final Lobby lobby;
+    @Nonnull
+    private final PlayerManager playerManager;
+    @Nonnull
+    private final GameManager gameManager;
+    @Nonnull
     private final SceneManager sceneManager;
+    @Nonnull
     private final GameProvider gameProvider;
+    @Nonnull
     private final UserProvider userProvider;
+    @Nonnull
     private final JoinGameManager joinGameManager;
-    @NonNull
+    @Nonnull
     private final LobbyChatClient lobbyChatClient;
-    @NonNull
+    @Nonnull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
     @Nullable
@@ -103,23 +110,22 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
 
-    @Autowired
     public LobbyViewController(
-            @NonNull final GameProvider gameProvider,
-            @NonNull final UserProvider userProvider,
-            @NonNull final SceneManager sceneManager,
-            @NonNull final JoinGameManager joinGameManager,
-            @NonNull final PlayerManager playerManager,
-            @NonNull final GameManager gameManager,
-            @NonNull final SystemMessageManager systemMessageManager,
-            @NonNull final ChatController chatController,
-            @NonNull final LobbyChatClient lobbyChatClient,
-            @NonNull final CreateGameFormBuilder createGameFormBuilder,
-            @NonNull final MusicManager musicManager,
-            @NonNull final LogoutManager logoutManager,
+            @Nonnull final GameProvider gameProvider,
+            @Nonnull final UserProvider userProvider,
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final JoinGameManager joinGameManager,
+            @Nonnull final PlayerManager playerManager,
+            @Nonnull final GameManager gameManager,
+            @Nonnull final SystemMessageManager systemMessageManager,
+            @Nonnull final ChatController chatController,
+            @Nonnull final LobbyChatClient lobbyChatClient,
+            @Nonnull final CreateGameFormBuilder createGameFormBuilder,
+            @Nonnull final MusicManager musicManager,
+            @Nonnull final LogoutManager logoutManager,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable final ApplicationState appState
-            ) {
+    ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
         this.armySelectorComponent = armySelectorComponent;
@@ -148,7 +154,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     @Autowired
-    public void setChatBuilder(@NonNull final ChatBuilder chatBuilder)
+    public void setChatBuilder(@Nonnull final ChatBuilder chatBuilder)
     {
         this.chatBuilder = chatBuilder;
     }
