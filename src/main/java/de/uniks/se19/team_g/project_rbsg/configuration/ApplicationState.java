@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationState {
 
     public static final int MAX_ARMY_COUNT = 7;
+    public static final int ARMY_MAX_UNIT_COUNT = 10;
 
     public final SimpleObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
     public final ObservableList<Army> armies =  FXCollections.observableArrayList();

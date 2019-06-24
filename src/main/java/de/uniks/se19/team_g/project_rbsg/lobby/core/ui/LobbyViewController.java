@@ -15,7 +15,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -214,7 +213,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if (appState != null) {
             if (armySelectorComponent != null) {
                 armySelectorComponent.apply(armySelectorRoot)
-                    .setSelection(appState.armies.filtered(a -> a.units.size() == Army.ARMY_MAX_SIZE))
+                    .setSelection(appState.armies.filtered(a -> a.units.size() == ApplicationState.ARMY_MAX_UNIT_COUNT))
                 ;
             }
         }
