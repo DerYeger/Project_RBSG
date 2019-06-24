@@ -235,8 +235,8 @@ public class PersistantArmyTest {
     @Test
     public void saveArmiesLocalTest() throws IOException{
         ArrayList<Army> armyList=new ArrayList<>();
-        File file = new File("src/main/resources/persistant/armies.json");
-        file.createNewFile();
+
+        //file.createNewFile();
 
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayList<Army> armies= new ArrayList<>();
@@ -270,6 +270,7 @@ public class PersistantArmyTest {
 
         persistantArmyManager.saveArmiesLocal(armyList);
 
+        File file = new File("~/.local/rbsg/armies.json");
         Assert.assertTrue(file.exists());
         Assert.assertTrue(file.canRead());
         Assert.assertTrue(file.isFile());

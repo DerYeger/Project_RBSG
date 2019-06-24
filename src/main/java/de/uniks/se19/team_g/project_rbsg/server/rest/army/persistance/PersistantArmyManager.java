@@ -22,6 +22,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
@@ -153,7 +156,20 @@ public class PersistantArmyManager {
         }
 
         try {
-            File file = new File("src/main/resources/persistant/armies.json");
+            String osType = System.getProperty("os.name");
+            System.out.println(osType);
+            File file;
+            File directory;
+            if(osType.contains("Windows")){
+                directory = new File("%userprofile%/rbsg/");
+                directory.mkdirs();
+                file = new File(directory,"armies.json");
+            }
+            else{
+                directory = new File("~/.local/rbsg/");
+                directory.mkdirs();
+                file = new File(directory, "armies.json");
+            }
             if(file.exists()){
                 file.delete();
             }
@@ -165,6 +181,14 @@ public class PersistantArmyManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkOs() {
+        File file = new File(".");
+        if(file.getAbsolutePath().contains("/")){
+            return true;
+        }
+        return false;
     }
 
     public void saveArmies(ObservableList<Army> armies) throws InterruptedException {
