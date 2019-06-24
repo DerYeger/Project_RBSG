@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import org.springframework.lang.NonNull;
@@ -21,13 +23,20 @@ public class ChatTabBuilder {
     }
 
     @NonNull
-    public Tab buildChatTab(@NonNull final String channel) throws IOException {
-        final Node chatTabContent = chatChannelBuilder.buildChatChannel(channel);
+    public Tuple<Tab, ChatTabController> buildChatTab(@NonNull final String channel) throws IOException {
+        final ViewComponent<ChatChannelController> channelComponents = chatChannelBuilder.buildChatChannel(channel);
 
-        final Tab newTab = new Tab(channel, chatTabContent);
+        final Tab tab = new Tab(channel, channelComponents.getRoot());
 
-        new ChatTabController().init(chatController, newTab, channel);
 
-        return newTab;
+
+        final ChatTabController chatTabController = new ChatTabController();
+        chatTabController.init(chatController, tab, channel);
+
+        channelComponents
+                .getController()
+                .inTab(tab, chatTabController);
+
+        return new Tuple<>(tab, chatTabController);
     }
 }

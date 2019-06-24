@@ -9,7 +9,21 @@ import org.springframework.lang.NonNull;
  */
 public class ChatTabController {
 
-    public void init(@NonNull final ChatController chatController, @NonNull final Tab chatTab, @NonNull final String channel) {
-        chatTab.setOnCloseRequest(event -> chatController.closeChannel(channel));
+    private static final String UNREAD = "unread";
+
+    private Tab tab;
+
+    public void init(@NonNull final ChatController chatController, @NonNull final Tab tab, @NonNull final String channel) {
+        this.tab = tab;
+        tab.setOnCloseRequest(event -> chatController.closeChannel(channel));
+        tab.setOnSelectionChanged(event -> markRead());
+    }
+
+    public void markUnread() {
+        tab.getStyleClass().add(UNREAD);
+    }
+
+    public void markRead() {
+        tab.getStyleClass().remove(UNREAD);
     }
 }
