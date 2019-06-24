@@ -29,14 +29,18 @@ import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
@@ -104,6 +108,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Pane createGameButtonContainer;
     public Button armyBuilderLink;
     public GridPane mainGridPane;
     public HBox headerHBox;
@@ -228,6 +233,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                     .setSelection(appState.armies.filtered(a -> a.units.size() == Army.ARMY_MAX_SIZE))
                 ;
             }
+
+            JavaFXUtils.bindButtonDisableWithTooltip(
+                    createGameButton,
+                    createGameButtonContainer,
+                    new SimpleStringProperty(Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired")),
+                    appState.validArmySelected
+            );
         }
 
         setAsRootController();
