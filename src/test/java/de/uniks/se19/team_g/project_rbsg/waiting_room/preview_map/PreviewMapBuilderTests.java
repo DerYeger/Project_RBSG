@@ -9,11 +9,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 import org.junit.Test;
-import org.testfx.assertions.api.Assertions;
 
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Jan Müller
+ */
 public class PreviewMapBuilderTests {
 
     @Test
