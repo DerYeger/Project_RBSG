@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistantArmyManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -39,10 +40,11 @@ import java.util.function.Function;
 /**
  * @author Goatfryed
  * @author Keanu Stückrad
+ * @author Jan Müller
  */
 @Component
 @Scope("prototype")
-public class ArmyBuilderController implements Initializable {
+public class ArmyBuilderController implements Initializable, RootController {
 
     @Nonnull
     private final ApplicationState appState;
@@ -187,7 +189,7 @@ public class ArmyBuilderController implements Initializable {
         if (sceneManager == null) {
             return;
         }
-        sceneManager.setLobbyScene();
+        sceneManager.setLobbyScene(true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
     public void saveArmies() throws InterruptedException {
@@ -201,5 +203,11 @@ public class ArmyBuilderController implements Initializable {
             StackPane.setAlignment(infoView, Pos.CENTER);
         }
         infoView.setVisible(true);
+    }
+
+    @Override
+    public void setAsRootController() {
+//        if (sceneManager == null) return;
+//        sceneManager.withRootController(this);
     }
 }
