@@ -21,6 +21,13 @@ public class ApplicationState {
 
     public ApplicationState ()
     {
+        setupValidArmySelected();
+
+        armies.addListener(this::onArmyUpdate);
+
+    }
+
+    protected void setupValidArmySelected() {
         validArmySelected.set(false);
         selectedArmy.addListener((observable, oldValue, newValue) ->{
             if (newValue == null) {
@@ -35,9 +42,6 @@ public class ApplicationState {
                 );
             }
         });
-
-        armies.addListener(this::onArmyUpdate);
-
     }
 
     private void onArmyUpdate(ListChangeListener.Change<? extends Army> change) {
