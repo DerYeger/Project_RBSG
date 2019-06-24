@@ -23,6 +23,7 @@ public class ApplicationStateInitializer {
     private final GetUnitTypesService getUnitTypesService;
     @Nullable
     private ArmyGeneratorStrategy armyGeneratorStrategy;
+    private boolean createdDefaultArmies;
 
     public ApplicationStateInitializer(
             @Nonnull ApplicationState appState,
@@ -38,6 +39,8 @@ public class ApplicationStateInitializer {
 
     public CompletableFuture<Void> initialize() {
 
+        createdDefaultArmies = false;
+
         return getUnitTypesService.queryUnitPrototypes()
                 .thenAcceptAsync(
                     appState.unitDefinitions::setAll,
@@ -52,7 +55,12 @@ public class ApplicationStateInitializer {
                     }
                 ).thenApply(this::fillArmies)
                 .thenAcceptAsync(
-                    appState.armies::setAll,
+                    armies -> {
+                        appState.armies.setAll(armies);
+                        if (createdDefaultArmies) {
+                            Platform.runLater(() -> appState.notifications.add("army.newDefaultArmies"));
+                        }
+                    },
                     Platform::runLater
                 )
         ;
@@ -62,6 +70,7 @@ public class ApplicationStateInitializer {
         if (armyGeneratorStrategy != null) {
             while (armies.size() < ApplicationState.MAX_ARMY_COUNT) {
                 armies.add(armyGeneratorStrategy.createArmy(armies));
+                createdDefaultArmies = true;
             }
         }
 

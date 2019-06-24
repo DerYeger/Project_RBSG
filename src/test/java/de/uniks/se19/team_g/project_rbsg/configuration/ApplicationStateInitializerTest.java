@@ -10,7 +10,6 @@ import org.mockito.InOrder;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -50,7 +49,8 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
         inOrder.verify(armyManager).getArmies();
         inOrder.verify(armyGenerator, times(ApplicationState.MAX_ARMY_COUNT)).createArmy(armies);
 
-        Assert.assertEquals(ApplicationState.MAX_ARMY_COUNT, armies.size());
+        Assert.assertEquals(ApplicationState.MAX_ARMY_COUNT, appState.armies.size());
+        Assert.assertEquals(1, appState.notifications.size());
     }
 
     @Test
