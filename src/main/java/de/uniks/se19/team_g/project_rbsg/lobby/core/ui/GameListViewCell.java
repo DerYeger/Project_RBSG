@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -8,6 +10,10 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableObjectValue;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,8 +28,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -44,23 +52,32 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Nullable
     private Game game;
 
+    @Nonnull
     private final GameProvider gameProvider;
+    @Nonnull
     private final UserProvider userProvider;
+    @Nonnull
     private final SceneManager sceneManager;
+    @Nonnull
     private final JoinGameManager joinGameManager;
+    @Nonnull
+    private final ApplicationState appState;
 
     public GameListViewCell(
             @Nonnull final GameProvider gameProvider,
             @Nonnull final UserProvider userProvider,
             @Nonnull final SceneManager sceneManager,
-            @Nonnull final JoinGameManager joinGameManager
-    ){
+            @Nonnull final JoinGameManager joinGameManager,
+            @Nonnull final ApplicationState appState
+            ){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.joinGameManager = joinGameManager;
+        this.appState = appState;
     }
 
     @Override
@@ -117,6 +134,8 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
 
     private void updateItem(Observable observable)
     {
+        Objects.requireNonNull(game);
+
         Platform.runLater(() -> {
             playersLabel.setText(String.format("%d/%d", game.getJoinedPlayer(), game.getNeededPlayer()));
         });
@@ -152,6 +171,18 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
                 .then(joinImageViewHover)
                 .otherwise(joinImageViewNonHover));
 
-
+        final ObservableValue<Army> selectedArmy = appState.selectedArmy;
+        final BooleanBinding invalidSelectedArmyBinding = Bindings.createBooleanBinding(
+                () -> {
+                    final Army army = selectedArmy.getValue();
+                    return !(
+                        army != null
+                        && army.id.get() != null
+                        && army.units.size() == Army.ARMY_MAX_SIZE
+                    );
+                },
+                selectedArmy
+        );
+        joinButton.disableProperty().bind(invalidSelectedArmyBinding);
     }
 }
