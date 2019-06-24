@@ -1,26 +1,29 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import io.rincl.Rincl;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -47,6 +50,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
     public ImageView playersImageView;
     public Label playersLabel;
     public Button joinButton;
+    public Pane joinButtonContainer;
 
     private FXMLLoader fxmlLoader;
 
@@ -171,6 +175,29 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
                 .then(joinImageViewHover)
                 .otherwise(joinImageViewNonHover));
 
-        joinButton.disableProperty().bind(appState.validArmySelected.not());
+        BooleanBinding tooltipBinding = Bindings.createBooleanBinding(
+                () -> {
+                    if (appState.validArmySelected.get()) return false;
+
+                    final Tooltip tooltip = createInvalidArmyTooltip();
+                    Tooltip.install(joinButtonContainer, tooltip);
+                    return true;
+                },
+                appState.validArmySelected
+        );
+
+        joinButton.disableProperty().bind(tooltipBinding);
+
+
+
+
+    }
+
+    @Nonnull
+    protected Tooltip createInvalidArmyTooltip() {
+        final String tooltipText = Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired");
+        final Tooltip tooltip = new Tooltip(tooltipText);
+        tooltip.setShowDelay(Duration.millis(500));
+        return tooltip;
     }
 }
