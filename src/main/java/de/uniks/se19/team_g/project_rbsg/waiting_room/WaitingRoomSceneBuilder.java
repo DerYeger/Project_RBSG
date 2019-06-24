@@ -18,7 +18,7 @@ public class WaitingRoomSceneBuilder {
 
     @NonNull
     public Scene getWaitingRoomScene() throws Exception {
-        Node waitingRoomNode = waitingRoomViewBuilder.buildIngameView();
+        Node waitingRoomNode = waitingRoomViewBuilder.buildWaitingRoomView();
         return new Scene((Parent) waitingRoomNode);
     }
 }

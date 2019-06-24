@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+ @author Keanu Stückrad
+ !-->
+
+<HBox xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER">
+         <content>
+            <Canvas fx:id="canvas" />
+         </content>
+      </ScrollPane>
+   </children>
+</HBox>

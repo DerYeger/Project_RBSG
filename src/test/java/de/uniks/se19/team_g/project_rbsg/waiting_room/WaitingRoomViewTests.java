@@ -2,20 +2,16 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.fxml.FXMLLoader;
@@ -50,7 +46,8 @@ import org.testfx.framework.junit.ApplicationTest;
         FXMLLoaderFactory.class,
         MusicManager.class,
         ChatBuilder.class,
-        PreviewMapBuilder.class
+        PreviewMapBuilder.class,
+        IngameGameProvider.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -110,7 +107,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testBuildWaitingRoomView() throws Exception {
-        final Node waitingRoomView = context.getBean(WaitingRoomViewBuilder.class).buildIngameView();
+        final Node waitingRoomView = context.getBean(WaitingRoomViewBuilder.class).buildWaitingRoomView();
         Assert.assertNotNull(waitingRoomView);
     }
 }
