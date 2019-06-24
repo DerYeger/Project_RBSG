@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author Jan Müller
+ */
 @Component
 public class PreviewMapBuilder {
 
