@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
@@ -243,8 +240,6 @@ public class PersistantArmyTest {
         RestTemplate localTemplateMock = mock(RestTemplate.class);
         PersistantArmyManager persistantArmyManager = new PersistantArmyManager(localTemplateMock);
         String armyString;
-        JSONArray armiesObject;
-
 
         Unit unit1 = new Unit();
         unit1.id.set("5cc051bd62083600017db3b7");
@@ -263,6 +258,7 @@ public class PersistantArmyTest {
         army2.units.add(unit3);
 
         Army army3 = new Army();
+        army3.name.set("ggArmyFromLocalTest3");
 
         armyList.add(army);
         armyList.add(army2);
@@ -270,44 +266,32 @@ public class PersistantArmyTest {
 
         persistantArmyManager.saveArmiesLocal(armyList);
 
-        File file = new File("~/.local/rbsg/armies.json");
+        File file = new File(System.getProperty("user.home") + "/.local/rbsg/armies.json");
+        System.out.println(file.getAbsoluteFile());
         Assert.assertTrue(file.exists());
         Assert.assertTrue(file.canRead());
         Assert.assertTrue(file.isFile());
 
         armyString = Files.readString(Paths.get(file.getPath()));
-        armiesObject = objectMapper.readValue(armyString, JSONArray.class);
-        for(Object armyObject : armiesObject){
-            if(armyObject.getClass().equals(JSONObject.class)){
-                JSONObject jsonArmy =(JSONObject) armyObject;
-                Army tempArmy = new Army();
-                if(jsonArmy.has("name")){
-                    tempArmy.name.set(jsonArmy.get("name").toString());
-                }
-                else{
-                    tempArmy.name.set("");
-                }
-                if(jsonArmy.has("id")){
-                    tempArmy.id.set(jsonArmy.get("id").toString());
-                }
-                else{
-                    tempArmy.id.set("");
-                }
-                if(jsonArmy.has("units")){
-                    JSONArray armyArray = jsonArmy.getJSONArray("units");
-                    for(Object object : armyArray){
-                        Unit unit = new Unit();
-                        unit.id.set(object.toString());
-                        tempArmy.units.add(unit);
-                    }
-                }
-                armies.add(tempArmy);
+        PersistantArmyManager.ArmyWrapper armyWrapper = objectMapper.readValue(armyString, PersistantArmyManager.ArmyWrapper.class);
+        for(PersistantArmyManager.DeserializableArmy deserializableArmy : armyWrapper.armies){
+            Army newArmy = new Army();
+            newArmy.id.set(deserializableArmy.id);
+            newArmy.name.set(deserializableArmy.name);
+            for(String unit : deserializableArmy.units){
+                Unit newUnit = new Unit();
+                newUnit.id.set(unit);
+                newArmy.units.add(newUnit);
             }
+            armies.add(newArmy);
         }
+
         Assert.assertTrue(armies.size()==3);
         Assert.assertTrue(armies.get(0).name.get().equals("ggArmyFromLocalTest"));
         Assert.assertTrue(armies.get(0).units.size()==2);
         Assert.assertTrue(armies.get(1).name.get().equals("ggArmyFromLocalTest2"));
         Assert.assertTrue(armies.get(1).units.size()==1);
+        Assert.assertTrue(armies.get(2).name.get().equals("ggArmyFromLocalTest3"));
+        Assert.assertTrue(armies.get(2).units.size()==0);
     }
 }
