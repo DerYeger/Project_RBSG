@@ -46,10 +46,6 @@
     -fx-border-color: #BB86FC;
 }
 
-.unread {
-    -fx-border-color: -secondary-background-color;
-}
-
 .tab .tab-close-button {
     -fx-background-color: red;
 }
