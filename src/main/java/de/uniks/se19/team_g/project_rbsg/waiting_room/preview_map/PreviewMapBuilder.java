@@ -47,11 +47,11 @@ public class PreviewMapBuilder {
                     gc.setFill(Paint.valueOf("GREEN"));
                     break;
                 case MOUNTAIN:
-                    gc.setFill(Paint.valueOf("BROWN"));
+                    gc.setFill(Paint.valueOf("#654321"));
                     break;
                 case WATER:
                 default:
-                    gc.setFill(Paint.valueOf("BLUE"));
+                    gc.setFill(Paint.valueOf("DARKBLUE"));
             }
 
             gc.fillRect(
