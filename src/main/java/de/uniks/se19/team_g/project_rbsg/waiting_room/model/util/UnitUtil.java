@@ -66,15 +66,15 @@ public class UnitUtil {
         switch (fieldName) {
             case GAME_UNITS:
                 final Game game = modelManager.gameWithId(from);
-                if (unit.getGame().equals(game)) unit.setGame(null);
+                if (unit.getGame() != null && unit.getGame().equals(game)) unit.setGame(null);
                 break;
             case PLAYER_UNITS:
                 final Player player = modelManager.playerWithId(from);
-                if (unit.getLeader().equals(player)) unit.setLeader(null);
+                if (unit.getLeader() != null && unit.getLeader().equals(player)) unit.setLeader(null);
                 break;
             case CELL:
                 final Cell cell = modelManager.cellWithId(from);
-                if (unit.getPosition().get().equals(cell)) unit.setPosition(null);
+                if (unit.getPosition().get() != null && unit.getPosition().get().equals(cell)) unit.setPosition(null);
                 break;
             default:
                 LOGGER.error("Unknown fieldName for " + from + ": " + fieldName);
