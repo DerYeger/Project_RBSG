@@ -11,8 +11,6 @@ import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +23,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,7 +37,8 @@ import java.util.ResourceBundle;
  * @author Georg Siebert
  * @edited Keanu Stückrad
  */
-
+@Component
+@Scope("prototype")
 public class GameListViewCell extends ListCell<Game> implements Initializable
 {
     public GridPane gridPane;

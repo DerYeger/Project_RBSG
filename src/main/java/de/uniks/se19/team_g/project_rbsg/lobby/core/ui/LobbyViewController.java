@@ -39,6 +39,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -82,6 +83,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     @Nonnull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
+    @Nonnull
+    private final ObjectFactory<GameListViewCell> gameListCellFactory;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
@@ -123,11 +126,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
             @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
+            @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable final ApplicationState appState
     ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
+        this.gameListCellFactory = gameListCellFactory;
         this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
 
@@ -176,7 +181,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         onLobbyOpen();
 
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell(chatController, userProvider.get().getName()));
-        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
+        lobbyGamesListView.setCellFactory(lobbyGamesListView -> gameListCellFactory.getObject());
 
         configureSystemMessageManager();
 
