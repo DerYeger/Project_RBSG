@@ -5,8 +5,8 @@ import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import javafx.application.*;
-import javafx.beans.*;
+import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +20,8 @@ import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
+
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,8 +51,12 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
     private final SceneManager sceneManager;
     private final JoinGameManager joinGameManager;
 
-    @Autowired
-    public GameListViewCell(@NonNull final GameProvider gameProvider, @NonNull final UserProvider userProvider, @NonNull final SceneManager sceneManager, @NonNull final JoinGameManager joinGameManager){
+    public GameListViewCell(
+            @Nonnull final GameProvider gameProvider,
+            @Nonnull final UserProvider userProvider,
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final JoinGameManager joinGameManager
+    ){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -146,5 +151,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
         joinButton.graphicProperty().bind(Bindings.when(joinButton.hoverProperty())
                 .then(joinImageViewHover)
                 .otherwise(joinImageViewNonHover));
+
+
     }
 }
