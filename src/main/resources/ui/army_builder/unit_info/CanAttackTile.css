@@ -1,0 +1,12 @@
+@import url("/ui/darkTheme.css");
+
+.canAttackTile {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-background-color: black;
+}
+
+.canAttackTile #imagePane {
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+}
