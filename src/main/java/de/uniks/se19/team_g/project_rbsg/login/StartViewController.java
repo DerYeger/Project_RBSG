@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ import java.io.IOException;
  */
 @Controller
 @Scope("prototype")
-public class StartViewController {
+public class StartViewController implements RootController {
 
     public AnchorPane root;
     public Button musicButton;
@@ -43,7 +44,7 @@ public class StartViewController {
         this.musicManager = musicManager.init();
     }
 
-    public void init() throws IOException {
+    public void initialize() throws IOException {
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
         loginAndTitleBox.getChildren().addAll(titleViewBuilder.getTitleForm(), loginFormBuilder.getLoginForm());
         musicManager.initButtonIcons(musicButton);

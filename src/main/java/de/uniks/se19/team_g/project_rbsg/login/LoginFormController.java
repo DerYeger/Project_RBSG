@@ -41,7 +41,7 @@ import java.util.concurrent.ExecutionException;
  */
 @Controller
 @Scope("prototype")
-public class LoginFormController implements RootController, Rincled
+public class LoginFormController implements Rincled
 {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -99,16 +99,10 @@ public class LoginFormController implements RootController, Rincled
         this.appStateInitializer = appStateInitializer;
     }
 
-    @Override
-    public void setAsRootController() {
-        sceneManager.withRootController(this);
-    }
-
     public void init() {
         addEventListeners();
         addLoadingIndicator();
         addErrorFlag();
-        setAsRootController();
         loginButton.setDefaultButton(true);
         updateLabels();
     }
@@ -209,7 +203,7 @@ public class LoginFormController implements RootController, Rincled
             logger.debug("unexpected initializer error", e);
             handleErrorMessage(getResources().getString("unexpectedInitializerError"));
         }
-        Platform.runLater(() -> sceneManager.setLobbyScene(false, null));
+        Platform.runLater(() -> sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null));
     }
 
     private void setErrorFlag(boolean flag) {

@@ -135,7 +135,7 @@ public class GameListViewCell extends ListCell<Game>
         if(game != null) {
             gameProvider.set(game);
             joinGameManager.joinGame(userProvider.get(), game);
-            sceneManager.setWaitingRoomScene();
+            sceneManager.setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
         }
     }
 

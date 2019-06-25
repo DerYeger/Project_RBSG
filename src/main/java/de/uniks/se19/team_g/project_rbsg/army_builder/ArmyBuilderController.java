@@ -176,7 +176,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         if (sceneManager == null) {
             return;
         }
-        sceneManager.setLobbyScene(true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
     public void showInfo(ActionEvent actionEvent) {
@@ -186,11 +186,5 @@ public class ArmyBuilderController implements Initializable, RootController {
             StackPane.setAlignment(infoView, Pos.CENTER);
         }
         infoView.setVisible(true);
-    }
-
-    @Override
-    public void setAsRootController() {
-//        if (sceneManager == null) return;
-//        sceneManager.withRootController(this);
     }
 }
