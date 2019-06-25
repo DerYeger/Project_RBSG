@@ -82,6 +82,12 @@ public class ArmyBuilderController implements Initializable, RootController {
     private Node infoView;
     private UnitPropertyInfoListBuilder unitPropertyInfoListBuilder;
 
+    /*
+     * do NOT. i repeat. do NOT inline the army selector. We need the reference so that the selected listener won't get removed.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private ArmySelectorController armySelectorController;
+
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
@@ -130,8 +136,9 @@ public class ArmyBuilderController implements Initializable, RootController {
         unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
 
         if (armySelectorComponent != null) {
-            armySelectorComponent.apply(armySelectorRoot).setSelection(
-                appState.armies
+            armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+            armySelectorController.setSelection(
+                appState.armies, appState.selectedArmy
             );
         }
 

@@ -103,6 +103,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
 
+
+    /*
+     * do NOT. i repeat. do NOT inline the army selector. We need the reference so that the selected listener won't get removed.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private ArmySelectorController armySelectorController;
+
     @Autowired
     public LobbyViewController(
             @NonNull final GameProvider gameProvider,
@@ -213,9 +220,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         if (appState != null) {
             if (armySelectorComponent != null) {
-                armySelectorComponent.apply(armySelectorRoot)
-                    .setSelection(appState.armies.filtered(a -> a.units.size() == Army.ARMY_MAX_SIZE))
-                ;
+                armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+                armySelectorController.setSelection(appState.armies.filtered(a -> a.units.size() == Army.ARMY_MAX_SIZE), appState.selectedArmy);
             }
         }
 
