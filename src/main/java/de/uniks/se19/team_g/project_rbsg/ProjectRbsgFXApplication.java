@@ -36,9 +36,6 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
     private ConfigurableApplicationContext context;
 
-    @Autowired
-    private Property<Locale> selectedLocale;
-
     public static void main(final String[] args) {
         launch(args);
     }
@@ -69,6 +66,7 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
 
+        @SuppressWarnings("unchecked") final Property<Locale> selectedLocale = (Property<Locale>) context.getBean("selectedLocale");
         Objects.requireNonNull(selectedLocale).setValue(Locale.ENGLISH);
 
         context.getBean(SceneManager.class)

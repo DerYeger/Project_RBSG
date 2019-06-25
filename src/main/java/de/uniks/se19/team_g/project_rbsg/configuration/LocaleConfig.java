@@ -16,8 +16,8 @@ public class LocaleConfig {
     {
         final SimpleObjectProperty<Locale> selectedLocale = new SimpleObjectProperty<>();
 
-        selectedLocale.addListener((observable, oldValue, newValue) -> {
-            Rincl.setLocale(newValue);
+        selectedLocale.addListener(observable -> {
+            Rincl.setLocale(selectedLocale.get());
         });
 
         return selectedLocale;

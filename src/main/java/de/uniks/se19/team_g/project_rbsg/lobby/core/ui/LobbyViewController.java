@@ -215,6 +215,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         Font.loadFont(getClass().getResource("/assets/fonts/robotoRegular.ttf").toExternalForm(), 16);
         Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
+        bindI18n();
         updateLabels(null);
 
         if (appState != null) {
@@ -226,6 +227,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
 
         setAsRootController();
+    }
+
+    private void bindI18n() {
+        armyBuilderLink.textProperty().bind(
+            Bindings.createStringBinding(() -> Rincl.getResources(ProjectRbsgFXApplication.class).getString("ArmyBuilderLink"), selectedLocale)
+        );
     }
 
     private void onLobbyOpen() {
