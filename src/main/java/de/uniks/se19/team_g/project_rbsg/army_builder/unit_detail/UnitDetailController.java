@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.property.Property;
@@ -9,23 +10,21 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Component
 public class UnitDetailController implements Initializable {
@@ -42,6 +41,8 @@ public class UnitDetailController implements Initializable {
     @Nonnull
     private final Property<Locale> selectedLocale;
     @Nonnull
+    private final ApplicationState appState;
+    @Nonnull
     private final ArmyBuilderState state;
     @Nullable
     private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
@@ -51,11 +52,13 @@ public class UnitDetailController implements Initializable {
     public UnitDetailController(
         @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory,
         @Nonnull Property<Locale> selectedLocale,
-        @Nonnull ArmyBuilderState state
+        @Nonnull ApplicationState appState,
+        @Nonnull ArmyBuilderState sceneState
     ) {
         this.propertyViewComponentFactory = propertyViewComponentFactory;
         this.selectedLocale = selectedLocale;
-        this.state = state;
+        this.appState = appState;
+        this.state = sceneState;
     }
 
 
@@ -74,11 +77,7 @@ public class UnitDetailController implements Initializable {
         if (propertyViewComponentFactory != null) {
             statsContainer.getChildren().clear();
             addPropertyDetail(unit.health, new Image(UnitDetailController.ATTACK_ICON_URL));
-            addPropertyDetail(unit.physicalResistance, new Image(UnitDetailController.ATTACK_ICON_URL));
-            addPropertyDetail(unit.magicResistance, new Image(UnitDetailController.ATTACK_ICON_URL));
             addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL));
-            addPropertyDetail(unit.attack, new Image(UnitDetailController.ATTACK_ICON_URL));
-            addPropertyDetail(unit.spellPower, new Image(UnitDetailController.ATTACK_ICON_URL));
         }
 
     }
@@ -89,6 +88,10 @@ public class UnitDetailController implements Initializable {
         imageView.imageProperty().unbind();
         imageView.setImage(null);
         statsContainer.getChildren().clear();
+        if (propertyViewComponentFactory != null) {
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL));
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL));
+        }
     }
 
     private void addPropertyDetail(SimpleIntegerProperty property, Image icon) {
@@ -110,5 +113,46 @@ public class UnitDetailController implements Initializable {
         canAttackLabel.textProperty().bind(
             JavaFXUtils.bindTranslation(selectedLocale, "UnitCanAttack")
         );
+
+        setupCanAttackBoxes();
+
+    }
+
+    private void setupCanAttackBoxes() {
+        final int unitCount = appState.unitDefinitions.size();
+        final int columnCount = unitCount - (unitCount / 2);
+
+        ArrayList<ColumnConstraints> columns = new ArrayList<>();
+        for (int i = 0; i < columnCount; i++) {
+            ColumnConstraints column = new ColumnConstraints();
+            column.setHgrow(Priority.ALWAYS);
+            column.setHalignment(HPos.CENTER);
+            column.setMinWidth(GridPane.USE_COMPUTED_SIZE);
+            column.setPrefWidth(GridPane.USE_COMPUTED_SIZE);
+            column.setMaxWidth(Double.MAX_VALUE);
+
+            columns.add(column);
+        }
+
+        canAttackGrid.getColumnConstraints().setAll(columns);
+
+        Map<String, Node> canAttackNodes = new HashMap<>();
+
+        int i = 0;
+        for (Unit unitDefinition : appState.unitDefinitions) {
+            int row = (i % 2);
+            int column = (i / 2);
+
+            final Pane pane = new Pane();
+            GridPane.setColumnIndex(pane, column);
+            GridPane.setRowIndex(pane, row);
+            pane.getStyleClass().setAll("unitPropertyContainer");
+
+            canAttackNodes.put(unitDefinition.id.get(), pane);
+
+            i++;
+        }
+
+        canAttackGrid.getChildren().setAll(canAttackNodes.values());
     }
 }
