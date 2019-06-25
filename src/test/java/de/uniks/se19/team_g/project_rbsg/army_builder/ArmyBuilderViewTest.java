@@ -3,10 +3,12 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
@@ -40,7 +42,9 @@ import java.util.concurrent.CompletableFuture;
         UnitListEntryFactory.class,
         UnitListEntryController.class,
         ArmyBuilderViewTest.ContextConfiguration.class,
-        ApplicationState.class
+        ApplicationState.class,
+        LocaleConfig.class,
+        UnitPropertyController.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
 

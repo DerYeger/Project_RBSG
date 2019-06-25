@@ -40,7 +40,7 @@
                     </TilePane.margin>
                 </Pane>
             </TilePane>
-            <VBox HBox.hgrow="ALWAYS">
+            <VBox styleClass="unitPropertyContainer" HBox.hgrow="ALWAYS">
                  <HBox>
                      <Label fx:id="canAttackLabel" styleClass="default" text="Can attack">
                          <HBox.margin>

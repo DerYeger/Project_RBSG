@@ -37,6 +37,7 @@ public class LobbyViewControllerTest {
                 mock(MusicManager.class),
                 mock(DefaultLogoutManager.class),
                 null,
+                null,
                 null
         );
 

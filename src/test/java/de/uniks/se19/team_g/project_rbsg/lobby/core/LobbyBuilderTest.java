@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
@@ -23,6 +24,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import javafx.beans.property.Property;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -47,6 +49,8 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import javax.annotation.Nonnull;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -64,6 +68,7 @@ import static org.junit.Assert.assertNotNull;
         JoinGameManager.class,
         LobbyViewBuilder.class,
         ApplicationState.class,
+        LocaleConfig.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -117,6 +122,7 @@ public class LobbyBuilderTest extends ApplicationTest
                 UserProvider userProvider,
                 SceneManager sceneManager,
                 JoinGameManager joinGameManager,
+                Property<Locale> selectedLocale,
                 @Nullable ArmyManager armyManager
         )
         {
@@ -133,6 +139,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new CreateGameFormBuilder(new FXMLLoader()),
                     new MusicManager(),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())),
+                    selectedLocale,
                     null,
                     null
             ) {
