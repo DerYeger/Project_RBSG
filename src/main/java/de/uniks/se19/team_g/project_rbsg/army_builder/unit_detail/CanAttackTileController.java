@@ -18,9 +18,15 @@ public class CanAttackTileController implements Initializable {
 
     public void setDefinition(Unit unitDefinition) {
         this.unitDefinition = unitDefinition;
+        setActive(false);
+    }
 
-
-        imagePane.setStyle("-fx-background-image: url("+unitDefinition.iconUrl.get()+")");
+    private void setActive(boolean active) {
+        if (active) {
+            imagePane.setStyle("-fx-background-image: url("+unitDefinition.iconUrl.get()+")");
+        } else {
+            imagePane.setStyle("-fx-background-color: transparent");
+        }
     }
 
     @Override
