@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import javax.annotation.Nonnull;
@@ -22,6 +23,8 @@ public class Unit implements Cloneable {
     public final SimpleStringProperty name = new SimpleStringProperty();
     public final SimpleStringProperty description = new SimpleStringProperty();
     public final SimpleStringProperty id = new SimpleStringProperty();
+
+    public final SimpleListProperty<String> canAttack = new SimpleListProperty<>();
 
     public static Unit unknownType(String id) {
         final Unit unit = new Unit();

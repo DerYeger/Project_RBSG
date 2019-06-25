@@ -20,6 +20,8 @@ public class UnitTypeAdapter {
         unit.health.set(unitType.hp);
         unit.id.set(unitType.id);
 
+        unit.canAttack.setAll(unitType.canAttack);
+
         unit.description.set(mapDescription(unitType));
 
         return unit;
@@ -37,10 +39,8 @@ public class UnitTypeAdapter {
 
     private String mapDescription(UnitType unitType) {
         return String.format(
-            "id: %s\n"+
-            "Can attack %s",
-            unitType.id,
-            String.join(", ", unitType.canAttack)
+            "id: %s\n",
+            unitType.id
         );
     }
 }
