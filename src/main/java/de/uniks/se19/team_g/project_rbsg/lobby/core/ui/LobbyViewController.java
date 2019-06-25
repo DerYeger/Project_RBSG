@@ -29,6 +29,7 @@ import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -44,6 +45,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
@@ -75,6 +77,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     @NonNull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
+    @Nonnull
+    private final Property<Locale> selectedLocale;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
@@ -117,11 +121,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @NonNull final CreateGameFormBuilder createGameFormBuilder,
             @NonNull final MusicManager musicManager,
             @NonNull final LogoutManager logoutManager,
+            @Nonnull final Property<Locale> selectedLocale,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable final ApplicationState appState
             ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
+        this.selectedLocale = selectedLocale;
         this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
 
@@ -312,7 +318,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             return;
         }
         if(locale != null) {
-            Rincl.setLocale(locale);
+            selectedLocale.setValue(locale);
         }
 
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
