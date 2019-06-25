@@ -72,6 +72,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public VBox sideBarLeft;
     public Button soundButton;
     public Button leaveButton;
+    public Button deleteArmyButton;
 
     public Button showInfoButton;
 
@@ -146,6 +147,12 @@ public class ArmyBuilderController implements Initializable, RootController {
                 showInfoButton,
                 getClass().getResource("/assets/icons/navigation/infoWhite.png"),
                 getClass().getResource("/assets/icons/navigation/infoBlack.png"),
+                JavaConfig.ICON_SIZE
+        );
+        JavaFXUtils.setButtonIcons(
+                deleteArmyButton,
+                getClass().getResource("/assets/icons/operation/baseline_delete_white.png"),
+                getClass().getResource("/assets/icons/navigation/baseline_delete_black.png"),
                 JavaConfig.ICON_SIZE
         );
 
