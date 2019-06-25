@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.*;
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -17,18 +18,26 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Juri Lozowoj
  * @edited Georg Siebert
+ * @author Jan Müller
  */
 @Controller
 public class CreateGameController implements Rincled
 {
+    //TODO use correct icons
+    private URL createBlack = getClass().getResource("/assets/icons/navigation/arrowBackBlack.png");
+    private URL createWhite = getClass().getResource("/assets/icons/navigation/arrowBackWhite.png");
+    private URL cancelBlack = getClass().getResource("/assets/icons/navigation/exitBlack.png");
+    private URL cancelWhite = getClass().getResource("/assets/icons/navigation/exitWhite.png");
 
-    public Label titelLabel;
+    public Label titleLabel;
+
     @FXML
     private TextField gameName;
 
@@ -62,7 +71,7 @@ public class CreateGameController implements Rincled
     private final GameProvider gameProvider;
 
     @Autowired
-    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager, @Nullable GameProvider gameProvider, @NonNull UserProvider userProvider){
+    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager, @Nullable GameProvider gameProvider, @NonNull UserProvider userProvider) {
         this.gameCreator = gameCreator;
         this.joinGameManager = joinGameManager;
         this.gameProvider = gameProvider;
@@ -74,20 +83,24 @@ public class CreateGameController implements Rincled
         create.setOnAction(this::createGame);
         create.setDefaultButton(true);
 
-        this.twoPlayers.selectedProperty().addListener(event -> setTwoPlayerGame(event));
-        this.fourPlayers.selectedProperty().addListener(event -> setFourPlayerGame(event));
+        JavaFXUtils.setButtonIcons(create, createWhite, createBlack, 40);
+        JavaFXUtils.setButtonIcons(cancel, cancelWhite, cancelBlack, 40);
+
+        this.twoPlayers.selectedProperty().addListener(this::setTwoPlayerGame);
+        this.fourPlayers.selectedProperty().addListener(this::setFourPlayerGame);
 
         number.selectedToggleProperty().addListener((event, oldValue, newValue) -> {
             if (newValue == null){
                 oldValue.setSelected(true);
             }
         });
+
         updateLabels();
     }
 
     public void updateLabels()
     {
-        titelLabel.textProperty().setValue(getResources().getString("title"));
+        titleLabel.textProperty().setValue(getResources().getString("title"));
         gameName.setPromptText(getResources().getString("gameName_promptText"));
         twoPlayers.textProperty().setValue(getResources().getString("twoPlayersButton"));
         fourPlayers.textProperty().setValue(getResources().getString("fourPlayersButton"));
@@ -104,9 +117,10 @@ public class CreateGameController implements Rincled
         return this.root;
     }
 
-    public void createGame(@NonNull final ActionEvent event){
+    public void createGame(@NonNull final ActionEvent event) {
         if(this.gameName.getText() != null && (!this.gameName.getText().equals("")) && this.numberOfPlayers != 0){
             this.game = new Game(gameName.getText(), this.numberOfPlayers);
+            @SuppressWarnings("unchecked")
             final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.userProvider.get(), game);
             gameRequestAnswerPromise
                     .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
@@ -123,7 +137,8 @@ public class CreateGameController implements Rincled
         final String gameId;
         if (answer != null){
             if(answer.get("status").equals("succes")){
-                HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
+                @SuppressWarnings("unchecked")
+                final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
                 this.game.setId(gameId);
                 this.joinGameManager.joinGame(userProvider.get(), game);
@@ -145,13 +160,13 @@ public class CreateGameController implements Rincled
         this.numberOfPlayers = NUMBER_OF_PLAYERS_FOUR;
     }
 
-    public void closeCreateGameWindow(@NonNull final ActionEvent event){
+    public void closeCreateGameWindow(@NonNull final ActionEvent event) {
         if (root != null){
             root.setVisible(false);
         }
     }
 
-    public void handleGameRequestErrors(String title, String headerText, String errorMessage){
+    public void handleGameRequestErrors(String title, String headerText, String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
