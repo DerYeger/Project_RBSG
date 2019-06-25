@@ -151,8 +151,8 @@ public class ArmyBuilderController implements Initializable, RootController {
         );
         JavaFXUtils.setButtonIcons(
                 deleteArmyButton,
-                getClass().getResource("/assets/icons/operation/baseline_delete_white.png"),
-                getClass().getResource("/assets/icons/navigation/baseline_delete_black.png"),
+                getClass().getResource("/assets/icons/operation/deletion/baseline_delete_white.png"),
+                getClass().getResource("/assets/icons/operation/deletion/baseline_delete_black.png"),
                 JavaConfig.ICON_SIZE
         );
 
@@ -193,6 +193,10 @@ public class ArmyBuilderController implements Initializable, RootController {
             StackPane.setAlignment(infoView, Pos.CENTER);
         }
         infoView.setVisible(true);
+    }
+
+    public void deleteArmy(ActionEvent actionEvent){
+
     }
 
     @Override
