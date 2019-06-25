@@ -12,9 +12,11 @@ import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import org.springframework.beans.factory.ObjectFactory;
@@ -29,12 +31,19 @@ import java.util.ResourceBundle;
 public class UnitDetailController implements Initializable {
 
     public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magicDefense.png").toString();
-    @Nonnull private final ArmyBuilderState state;
+
     public StackPane imageStackPane;
     public ImageView imageView;
     public TilePane statsContainer;
     public TextArea unitDescription;
-    @Nullable private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
+    public GridPane canAttackGrid;
+    public Label canAttackLabel;
+
+    @Nonnull
+    private final ArmyBuilderState state;
+    @Nullable
+    private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
+
     private ChangeListener<Unit> listener;
 
     public UnitDetailController(
