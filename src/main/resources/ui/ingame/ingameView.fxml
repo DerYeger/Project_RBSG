@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <!--
  @author Keanu Stückrad
  !-->
 
-<HBox xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController">
+<VBox stylesheets="@../darkTheme.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController">
    <children>
+      <HBox alignment="CENTER_LEFT" styleClass="root-background-color">
+         <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button">
+            <HBox.margin>
+               <Insets bottom="10.0" left="10.0" top="10.0" />
+            </HBox.margin>
+         </Button>
+      </HBox>
       <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER">
          <content>
             <Canvas fx:id="canvas" />
          </content>
       </ScrollPane>
    </children>
-</HBox>
+</VBox>
