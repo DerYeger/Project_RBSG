@@ -1,15 +1,22 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -27,6 +34,7 @@ public class IngameViewController {
     private double columnRowSize;
     private double canvasColumnRowSize;
 
+    public Button leaveButton;
     public Canvas canvas;
 
     private Game game;
@@ -36,13 +44,25 @@ public class IngameViewController {
     private Image grass;
 
     private final IngameGameProvider ingameGameProvider;
+    private final GameProvider gameProvider;
+    private final SceneManager sceneManager;
 
     @Autowired
-    public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider) {
+    public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
+                                @NonNull final GameProvider gameProvider,
+                                @NonNull final SceneManager sceneManager) {
         this.ingameGameProvider = ingameGameProvider;
+        this.gameProvider = gameProvider;
+        this.sceneManager = sceneManager;
     }
 
     public void init() {
+        JavaFXUtils.setButtonIcons(
+                leaveButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                40
+        );
         game = ingameGameProvider.get();
         if(game == null) {
             // exception
@@ -180,4 +200,17 @@ public class IngameViewController {
         return size;
     }
 
+    public void leaveGame(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Leave Game");
+        alert.setHeaderText("Are you sure you want to exit?");
+        alert.showAndWait();
+        if (alert.getResult().equals(ButtonType.OK)) {
+            sceneManager.setLobbyScene(false, null);
+            gameProvider.clear();
+            ingameGameProvider.clear();
+        } else {
+            actionEvent.consume();
+        }
+    }
 }
