@@ -53,6 +53,7 @@ import static org.junit.Assert.*;
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
+        SceneManagerConfig.class
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {

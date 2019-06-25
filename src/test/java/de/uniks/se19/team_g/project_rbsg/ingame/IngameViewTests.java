@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
@@ -17,7 +16,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -35,6 +33,7 @@ import org.testfx.framework.junit.ApplicationTest;
         FXMLLoaderFactory.class,
         IngameViewTests.ContextConfiguration.class,
         IngameViewController.class,
+        SceneManagerConfig.class
 })
 public class IngameViewTests extends ApplicationTest implements ApplicationContextAware {  // TODO Online Test ? for better coverage
 

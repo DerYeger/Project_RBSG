@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -76,6 +77,7 @@ import static org.junit.Assert.*;
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
+        SceneManagerConfig.class
 })
 public class GameListTest extends ApplicationTest
 {

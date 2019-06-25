@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -46,7 +47,8 @@ import org.testfx.framework.junit.ApplicationTest;
         FXMLLoaderFactory.class,
         MusicManager.class,
         IngameGameProvider.class,
-        ChatBuilder.class
+        ChatBuilder.class,
+        SceneManagerConfig.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
