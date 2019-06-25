@@ -10,7 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyUnitAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverResponses.DeleteArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import org.junit.Assert;
@@ -25,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,7 +47,6 @@ import java.util.concurrent.ExecutionException;
 
 public class DeleteArmyTest {
 
-
     @Autowired
     GetArmiesService getArmiesService;
     @Autowired
@@ -60,7 +61,8 @@ public class DeleteArmyTest {
     RestTemplate rbsgTemplate;
 
     @Test
-    public void deleteArmy() throws ExecutionException, InterruptedException {
+    public void deleteArmyOnline() throws ExecutionException, InterruptedException {
+
         User user = new User("test123", "test123");
         user.setUserKey(
                 loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
@@ -71,6 +73,10 @@ public class DeleteArmyTest {
         ArrayList<Army> armyList = null;
         try {
             armyList = (ArrayList<Army>) armyFuture.get();
+            if (armyList.size() == 0) {
+                System.out.println("No Army on the server to test.");
+                Assert.assertTrue(false);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -78,8 +84,37 @@ public class DeleteArmyTest {
         }
 
         deleteArmyService.deleteArmy(armyList.get(0));
-        //CompletableFuture<DeleteArmyResponse> deletionResponse =
-        //DeleteArmyResponse response = deletionResponse.get();
-        //System.out.println(response.message);
+
+        CompletableFuture<List<Army>> newArmyFuture = getArmiesService.queryArmies();
+        ArrayList<Army> newArmyList = null;
+        try {
+            newArmyList = (ArrayList<Army>) newArmyFuture.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertTrue(newArmyList.size() == armyList.size() - 1);
+        Assert.assertTrue(!newArmyList.contains(armyList.get(0)));
+
+        for (Army army : newArmyList) {
+            Assert.assertTrue(army.id.get() != armyList.get(0).id.get());
+        }
+    }
+
+    @Test
+    public void deleteArmyLocal() {
+        RestTemplate restMock = mock(RestTemplate.class);
+        DeleteArmyService deleteArmyService = new DeleteArmyService(restMock);
+        ArrayList<Army> armyList = new ArrayList<>();
+        Army army = new Army();
+        army.name.set("ggArmy");
+        army.id.set("5d12111f2c945100017665d4");
+        armyList.add(army);
+
+        deleteArmyService.deleteArmy(army);
+
+        doNothing().when(restMock).delete("/army/5d12111f2c945100017665d4");
     }
 }

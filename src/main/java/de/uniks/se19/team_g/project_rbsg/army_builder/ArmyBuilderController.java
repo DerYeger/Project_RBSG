@@ -107,8 +107,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(appState.unitDefinitions);
 
@@ -134,7 +133,7 @@ public class ArmyBuilderController implements Initializable, RootController {
 
         if (armySelectorComponent != null) {
             armySelectorComponent.apply(armySelectorRoot).setSelection(
-                appState.armies
+                    appState.armies
             );
         }
 
@@ -160,8 +159,7 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     }
 
-    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue)
-    {
+    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue) {
         final Unit selection;
         if (newValue == null) {
             selection = null;
@@ -177,7 +175,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void toggleSound(ActionEvent actionEvent) {
-        if(musicManager == null) return;
+        if (musicManager == null) {
+            return;
+        }
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
@@ -189,7 +189,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void showInfo(ActionEvent actionEvent) {
-        if(infoView == null) {
+        if (infoView == null) {
             infoView = unitPropertyInfoListBuilder.buildInfoView();
             root.getChildren().add(infoView);
             StackPane.setAlignment(infoView, Pos.CENTER);
@@ -197,10 +197,10 @@ public class ArmyBuilderController implements Initializable, RootController {
         infoView.setVisible(true);
     }
 
-    public void deleteArmy(ActionEvent actionEvent){
+    public void deleteArmy(ActionEvent actionEvent) {
         ListView<ObservableList<Army>> armyList; //= (ListView<ObservableList<Army>>) armySelectorRoot.getChildren().get(0);
-        for(Node node : armySelectorRoot.getChildren()){
-            if(node.getId().equals("listView")){
+        for (Node node : armySelectorRoot.getChildren()) {
+            if (node.getId().equals("listView")) {
                 armyList = (ListView<ObservableList<Army>>) node;
                 armyList.getItems().remove(appState.selectedArmy.getValue());
                 armyList.refresh();
