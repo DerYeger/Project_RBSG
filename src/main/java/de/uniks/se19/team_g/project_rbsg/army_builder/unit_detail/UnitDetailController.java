@@ -52,6 +52,7 @@ public class UnitDetailController implements Initializable {
     private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
 
     private ChangeListener<Unit> listener;
+    private Map<String, ViewComponent<CanAttackTileController>> canAttackComponents;
 
     public UnitDetailController(
         @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory,
@@ -86,6 +87,21 @@ public class UnitDetailController implements Initializable {
             addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL));
         }
 
+        updateCanAttackTiles(unit);
+
+    }
+
+    private void updateCanAttackTiles(Unit unit) {
+        Objects.requireNonNull(canAttackComponents);
+        canAttackComponents.values().stream()
+            .map(ViewComponent::getController)
+            .forEach(controller -> controller.setActive(false));
+
+        for (String id : unit.canAttack) {
+            if(canAttackComponents.containsKey(id)) {
+                canAttackComponents.get(id).getController().setActive(true);
+            }
+        }
     }
 
     private void unbind() {
@@ -142,7 +158,7 @@ public class UnitDetailController implements Initializable {
 
         canAttackGrid.getColumnConstraints().setAll(columns);
 
-        Map<String, ViewComponent<CanAttackTileController>> canAttackNodes = new HashMap<>();
+        canAttackComponents = new HashMap<>();
 
         int i = 0;
         for (Unit unitDefinition : appState.unitDefinitions) {
@@ -156,13 +172,13 @@ public class UnitDetailController implements Initializable {
             GridPane.setRowIndex(node, row);
             GridPane.setMargin(node, new Insets(5));
 
-            canAttackNodes.put(unitDefinition.id.get(), component);
+            canAttackComponents.put(unitDefinition.id.get(), component);
 
             i++;
         }
 
         canAttackGrid.getChildren().setAll(
-                canAttackNodes.values().stream()
+                canAttackComponents.values().stream()
                 .<Node>map(ViewComponent::getRoot)
                 .collect(Collectors.toList())
         );

@@ -21,7 +21,7 @@ public class CanAttackTileController implements Initializable {
         setActive(false);
     }
 
-    private void setActive(boolean active) {
+    public void setActive(boolean active) {
         if (active) {
             imagePane.setStyle("-fx-background-image: url("+unitDefinition.iconUrl.get()+")");
         } else {
