@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
@@ -8,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -62,6 +66,19 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
                 }
             };
         }
+        @Bean
+        public GameProvider gameProvider(){
+            return new GameProvider();
+        }
+        @Bean
+        public SceneManager sceneManager(){
+            return new SceneManager() {
+                @Override
+                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
+
+                }
+            };
+        }
     }
 
     @Autowired
@@ -83,6 +100,10 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
         clickOn("#canvas");
+        Button leave = lookup("#leaveButton").query();
+        Assert.assertNotNull(leave);
+        clickOn("#leaveButton");
+        clickOn("OK");
     }
 
 }
