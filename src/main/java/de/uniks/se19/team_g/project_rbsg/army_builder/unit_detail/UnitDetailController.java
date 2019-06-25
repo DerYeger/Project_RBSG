@@ -4,8 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
@@ -25,6 +24,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 @Component
@@ -40,6 +40,8 @@ public class UnitDetailController implements Initializable {
     public Label canAttackLabel;
 
     @Nonnull
+    private final Property<Locale> selectedLocale;
+    @Nonnull
     private final ArmyBuilderState state;
     @Nullable
     private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
@@ -48,9 +50,11 @@ public class UnitDetailController implements Initializable {
 
     public UnitDetailController(
         @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory,
-        @Nonnull  ArmyBuilderState state
+        @Nonnull Property<Locale> selectedLocale,
+        @Nonnull ArmyBuilderState state
     ) {
         this.propertyViewComponentFactory = propertyViewComponentFactory;
+        this.selectedLocale = selectedLocale;
         this.state = state;
     }
 
@@ -102,5 +106,9 @@ public class UnitDetailController implements Initializable {
         listener = (observable, oldValue, newValue) -> bind(newValue);
         state.selectedUnit.addListener(new WeakChangeListener<>(listener));
         bind(state.selectedUnit.get());
+
+        canAttackLabel.textProperty().bind(
+            JavaFXUtils.bindTranslation(selectedLocale, "UnitCanAttack")
+        );
     }
 }

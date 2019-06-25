@@ -231,7 +231,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private void bindI18n() {
         armyBuilderLink.textProperty().bind(
-            Bindings.createStringBinding(() -> Rincl.getResources(ProjectRbsgFXApplication.class).getString("ArmyBuilderLink"), selectedLocale)
+                JavaFXUtils.bindTranslation(selectedLocale, "ArmyBuilderLink")
         );
     }
 
