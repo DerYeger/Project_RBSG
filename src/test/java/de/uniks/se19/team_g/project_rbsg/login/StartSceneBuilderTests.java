@@ -2,10 +2,12 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +40,6 @@ import java.io.IOException;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        StartViewBuilder.class,
         StartViewController.class,
         UserProvider.class,
         LoginManager.class,
@@ -100,15 +101,14 @@ public class StartSceneBuilderTests extends ApplicationTest {
     private ApplicationContext context;
 
     @Test
-    public void testGetStartScene() throws IOException {
+    public void testGetStartScene() {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        final StartViewBuilder startViewBuilder = context.getBean(StartViewBuilder.class);
-        final Scene scene = new StartSceneBuilder(startViewBuilder).getStartScene();
+        @SuppressWarnings("unchecked")
+        final Scene scene = new Scene(((ViewComponent<RootController>) context.getBean("loginScene")).getRoot());
+
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertNotNull(scene);
         Assert.assertNotNull(scene.getRoot());
-        Assert.assertEquals(scene.getRoot(), startViewBuilder.getStartView());
-
     }
 }

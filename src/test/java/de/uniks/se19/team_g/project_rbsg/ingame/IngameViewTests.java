@@ -1,7 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
@@ -12,8 +16,11 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
@@ -28,10 +35,10 @@ import org.testfx.framework.junit.ApplicationTest;
         FXMLLoaderFactory.class,
         IngameViewTests.ContextConfiguration.class,
         IngameViewController.class,
-        IngameSceneBuilder.class,
-        IngameViewBuilder.class
 })
-public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for better coverage
+public class IngameViewTests extends ApplicationTest implements ApplicationContextAware {  // TODO Online Test ? for better coverage
+
+
 
     @TestConfiguration
     static class ContextConfiguration {
@@ -64,20 +71,28 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
         }
     }
 
-    @Autowired
-    private IngameSceneBuilder ingameSceneBuilder;
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
+        this.applicationContext = applicationContext;
+    }
+
 
     private Scene scene;
 
     @Override
-    public void start(@NonNull final Stage stage) throws Exception {
-        scene = ingameSceneBuilder.getIngameScene();
+    public void start(@NonNull final Stage stage) {
+        @SuppressWarnings("unchecked")
+        final Scene buffer = new Scene(((ViewComponent<RootController>)applicationContext.getBean("ingameScene")).getRoot());
+        scene = buffer;
         stage.setScene(scene);
         stage.show();
     }
 
     @Test
-    public void testBuildIngameView() throws Exception {
+    public void testBuildIngameView() {
         Node ingameView = scene.getRoot();
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();

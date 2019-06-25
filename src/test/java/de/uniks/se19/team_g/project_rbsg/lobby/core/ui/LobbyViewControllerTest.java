@@ -42,7 +42,7 @@ public class LobbyViewControllerTest {
 
         sut.goToArmyBuilder(null);
 
-        verify(sceneManager).setArmyBuilderScene(true, SceneManager.SceneIdentifier.LOBBY);
+        verify(sceneManager).setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
         verifyNoMoreInteractions(sceneManager);
     }
 

@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -11,7 +12,6 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -62,7 +62,6 @@ import static org.junit.Assert.assertNotNull;
         GameProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        LobbyViewBuilder.class,
         ApplicationState.class,
 })
 public class LobbyBuilderTest extends ApplicationTest
@@ -76,8 +75,10 @@ public class LobbyBuilderTest extends ApplicationTest
     @Override
     public void start(@NonNull final Stage stage)
     {
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        lobbyView = lobbyViewBuilder.buildLobbyScene();
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
+        lobbyView = components.getRoot();
+
 
         final Scene scene = new Scene((Parent) lobbyView,1280 ,720);
         stage.setScene(scene);
@@ -137,7 +138,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     null
             ) {
                 @Override
-                public void init()
+                public void initialize()
                 {
 
                 }

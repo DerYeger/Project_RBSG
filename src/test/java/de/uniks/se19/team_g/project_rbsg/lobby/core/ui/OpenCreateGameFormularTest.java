@@ -50,7 +50,6 @@ import static org.junit.Assert.*;
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
@@ -146,9 +145,10 @@ public class OpenCreateGameFormularTest extends ApplicationTest
     @Override
     public void start(Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
+        final Scene scene = new Scene(components.getRoot(),1200 ,840);
 
         stage.setScene(scene);
         stage.show();

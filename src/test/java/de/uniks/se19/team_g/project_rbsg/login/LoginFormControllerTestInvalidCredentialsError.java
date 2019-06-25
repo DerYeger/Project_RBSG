@@ -54,8 +54,6 @@ import java.io.IOException;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        StartSceneBuilder.class,
-        StartViewBuilder.class,
         SceneManager.class,
         UserProvider.class,
         LoginFormControllerTestInvalidCredentialsError.ContextConfiguration.class,
@@ -130,8 +128,8 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
-                    switchedToLobby = true;
+                public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+                    switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);
                 }
             };
         }
