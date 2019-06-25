@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion;
 
-import com.globalmentor.net.HTTP;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.requests.DeleteArmyRequest;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverResponses.DeleteArmyResponse;
@@ -18,26 +17,28 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class DeleteArmyService {
 
-    private final RestTemplate restTemplate;
+    private final RestTemplate rbsgTemplate;
     private final String URL = "/army";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public DeleteArmyService(@NonNull RestTemplate restTemplate){
 
-        this.restTemplate = restTemplate;
+        this.rbsgTemplate = restTemplate;
     }
 
-    public CompletableFuture<DeleteArmyResponse> deleteArmy(Army army){
+    public void deleteArmy(Army army){
 
-        String deleteArmyUrl = URL + "/" +army.id.get();
+        String deleteArmyUrl = "/army/" + army.id.get();
         DeleteArmyRequest deleteArmyRequest = new DeleteArmyRequest();
 
-        return CompletableFuture.supplyAsync(() -> restTemplate.exchange(
+        rbsgTemplate.delete(deleteArmyUrl);
+
+        /**return CompletableFuture.supplyAsync(() -> rbsgTemplate.exchange(
                 deleteArmyUrl,
                 HttpMethod.DELETE,
                 new HttpEntity<>(deleteArmyRequest),
                 DeleteArmyResponse.class))
-                .thenApply(deleteArmyResponse -> onDeletionResponseReturned(deleteArmyResponse));
+                .thenApply(deleteArmyResponse -> onDeletionResponseReturned(deleteArmyResponse));**/
     }
 
     private DeleteArmyResponse onDeletionResponseReturned(ResponseEntity<DeleteArmyResponse> responseEntity) {
