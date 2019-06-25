@@ -202,10 +202,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         for(Node node : armySelectorRoot.getChildren()){
             if(node.getId().equals("listView")){
                 armyList = (ListView<ObservableList<Army>>) node;
-                if(appState.selectedArmy!=null) {
-                    armyList.getItems().remove(appState.selectedArmy.getValue());
-                }
-                System.out.println("I was called");
+                armyList.getItems().remove(appState.selectedArmy.getValue());
                 armyList.refresh();
             }
         }
