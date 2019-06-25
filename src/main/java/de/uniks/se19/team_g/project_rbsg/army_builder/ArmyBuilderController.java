@@ -198,10 +198,17 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void deleteArmy(ActionEvent actionEvent){
-        ListView<ObservableList<Army>> armyList = (ListView<ObservableList<Army>>) armySelectorRoot.getChildren().get(0);
-        armyList.getItems().remove(appState.selectedArmy.getValue());
-        System.out.println("I was called");
-        armyList.refresh();
+        ListView<ObservableList<Army>> armyList; //= (ListView<ObservableList<Army>>) armySelectorRoot.getChildren().get(0);
+        for(Node node : armySelectorRoot.getChildren()){
+            if(node.getId().equals("listView")){
+                armyList = (ListView<ObservableList<Army>>) node;
+                if(appState.selectedArmy!=null) {
+                    armyList.getItems().remove(appState.selectedArmy.getValue());
+                }
+                System.out.println("I was called");
+                armyList.refresh();
+            }
+        }
     }
 
     @Override

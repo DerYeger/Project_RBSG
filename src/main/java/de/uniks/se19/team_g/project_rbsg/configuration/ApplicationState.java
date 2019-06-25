@@ -22,7 +22,9 @@ public class ApplicationState {
     private void onArmyUpdate(ListChangeListener.Change<? extends Army> change) {
         change.next();
         if (selectedArmy.get() == null || change.getRemoved().contains(selectedArmy.get())) {
-            selectedArmy.set(change.getList().get(0));
+            if(change.getList().size()>0) {
+                selectedArmy.set(change.getList().get(0));
+            }
         }
     }
 }
