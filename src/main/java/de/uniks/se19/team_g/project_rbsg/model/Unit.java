@@ -11,8 +11,13 @@ public class Unit implements Cloneable {
 
     public static final String UNKNOWN = "UNKNOWN";
 
+    public final SimpleStringProperty type = new SimpleStringProperty();
+    public final SimpleStringProperty id = new SimpleStringProperty();
+
+    public final SimpleStringProperty name = new SimpleStringProperty();
     public final SimpleStringProperty imageUrl = new SimpleStringProperty();
     public final SimpleStringProperty iconUrl = new SimpleStringProperty();
+    public final SimpleStringProperty description = new SimpleStringProperty();
 
     public final SimpleIntegerProperty health = new SimpleIntegerProperty();
     public final SimpleIntegerProperty physicalResistance = new SimpleIntegerProperty();
@@ -20,10 +25,6 @@ public class Unit implements Cloneable {
     public final SimpleIntegerProperty speed = new SimpleIntegerProperty();
     public final SimpleIntegerProperty attack = new SimpleIntegerProperty();
     public final SimpleIntegerProperty spellPower = new SimpleIntegerProperty();
-
-    public final SimpleStringProperty name = new SimpleStringProperty();
-    public final SimpleStringProperty description = new SimpleStringProperty();
-    public final SimpleStringProperty id = new SimpleStringProperty();
 
     public final SimpleListProperty<String> canAttack = new SimpleListProperty<>(FXCollections.observableArrayList());
 

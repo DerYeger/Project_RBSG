@@ -12,13 +12,16 @@ public class UnitTypeAdapter {
 
         UnitTypeMetaData metaData = getMetaDataForType(unitType.type);
 
+        unit.id.set(unitType.id);
+        unit.type.set(unitType.type);
+
+        unit.name.set(unitType.type);
         unit.iconUrl.set(metaData.getIcon().toString());
         unit.imageUrl.set(metaData.getImage().toString());
-        unit.name.set(unitType.type);
+
         unit.description.set(unitType.id);
         unit.speed.set(unitType.mp);
         unit.health.set(unitType.hp);
-        unit.id.set(unitType.id);
 
         unit.canAttack.setAll(unitType.canAttack);
 

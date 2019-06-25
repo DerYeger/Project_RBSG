@@ -172,7 +172,7 @@ public class UnitDetailController implements Initializable {
             GridPane.setRowIndex(node, row);
             GridPane.setMargin(node, new Insets(5));
 
-            canAttackComponents.put(unitDefinition.id.get(), component);
+            canAttackComponents.put(unitDefinition.type.get(), component);
 
             i++;
         }
