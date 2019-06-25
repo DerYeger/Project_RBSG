@@ -56,19 +56,19 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         return this;
     }
 
-    public void withRootController(@NonNull final RootController rootController) {
-        rootControllers.add(rootController);
-    }
+
 
     public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
         if (stage == null) {
             logger.error("Stage not initialised");
             return;
         }
-
+        
         handleCaching(useCaching, cacheIdentifier);
 
         if (!useCaching) clear();
+
+        logger.debug("Setting scene " + sceneIdentifier.name() + " with" + (useCaching ? " " : "out ") + "caching");
 
         if (cachedScenes.containsKey(sceneIdentifier)) {
             setSceneFromCache(sceneIdentifier);
@@ -78,6 +78,13 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         @SuppressWarnings("unchecked")
         final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
         showSceneFromViewComponent(viewComponent);
+    }
+
+    private void handleCaching(@NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+        if (useCaching && cacheIdentifier != null) {
+            cachedScenes.put(cacheIdentifier, stage.getScene());
+            logger.debug("Cached scene " + stage.getScene() + " with identifier " + cacheIdentifier.name());
+        }
     }
 
     private void doSetScene(@NonNull final Scene scene) {
@@ -92,31 +99,24 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         }
     }
 
-    private void handleCaching(@NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
-        if (useCaching && cacheIdentifier != null) {
-            cachedScenes.put(cacheIdentifier, stage.getScene());
-            logger.debug("Cached scene " + stage.getScene() + " with identifier " + cacheIdentifier.name());
-        }
-    }
-
     private void showSceneFromViewComponent(@NonNull final ViewComponent<RootController> component) {
         doSetScene(sceneFromParent(component.getRoot()));
         withRootController(component.getController());
     }
 
-    public Scene sceneFromParent(@NonNull final Parent parent)
+    private Scene sceneFromParent(@NonNull final Parent parent)
     {
         return new Scene(parent);
     }
 
-    @Override
-    public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
-        this.context = applicationContext;
+    public void withRootController(@NonNull final RootController rootController) {
+        rootControllers.add(rootController);
     }
 
     private void clear() {
         terminateRootControllers();
         cachedScenes.clear();
+        logger.debug("Cleared");
     }
 
     private void terminateRootControllers() {
@@ -126,10 +126,16 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
             }
         }
         rootControllers.clear();
+        logger.debug("RootControllers terminated");
     }
 
     @Override
     public void terminate() {
         terminateRootControllers();
+    }
+
+    @Override
+    public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
     }
 }
