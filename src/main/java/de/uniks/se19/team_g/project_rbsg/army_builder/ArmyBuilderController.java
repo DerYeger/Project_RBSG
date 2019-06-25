@@ -10,12 +10,14 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPro
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -196,7 +198,10 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void deleteArmy(ActionEvent actionEvent){
-
+        ListView<ObservableList<Army>> armyList = (ListView<ObservableList<Army>>) armySelectorRoot.getChildren().get(0);
+        armyList.getItems().remove(appState.selectedArmy.getValue());
+        System.out.println("I was called");
+        armyList.refresh();
     }
 
     @Override
