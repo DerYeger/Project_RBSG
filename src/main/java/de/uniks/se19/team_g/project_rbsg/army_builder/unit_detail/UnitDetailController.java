@@ -25,6 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Component
 public class UnitDetailController implements Initializable {
@@ -44,6 +46,8 @@ public class UnitDetailController implements Initializable {
     private final ApplicationState appState;
     @Nonnull
     private final ArmyBuilderState state;
+    @Nonnull
+    private final Supplier<ViewComponent<CanAttackTileController>> canAttackTileFactory;
     @Nullable
     private ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory;
 
@@ -53,12 +57,14 @@ public class UnitDetailController implements Initializable {
         @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory,
         @Nonnull Property<Locale> selectedLocale,
         @Nonnull ApplicationState appState,
-        @Nonnull ArmyBuilderState sceneState
+        @Nonnull ArmyBuilderState sceneState,
+        @Nonnull Supplier<ViewComponent<CanAttackTileController>> canAttackTileFactory
     ) {
         this.propertyViewComponentFactory = propertyViewComponentFactory;
         this.selectedLocale = selectedLocale;
         this.appState = appState;
         this.state = sceneState;
+        this.canAttackTileFactory = canAttackTileFactory;
     }
 
 
@@ -136,23 +142,29 @@ public class UnitDetailController implements Initializable {
 
         canAttackGrid.getColumnConstraints().setAll(columns);
 
-        Map<String, Node> canAttackNodes = new HashMap<>();
+        Map<String, ViewComponent<CanAttackTileController>> canAttackNodes = new HashMap<>();
 
         int i = 0;
         for (Unit unitDefinition : appState.unitDefinitions) {
             int row = (i % 2);
             int column = (i / 2);
 
-            final Pane pane = new Pane();
-            GridPane.setColumnIndex(pane, column);
-            GridPane.setRowIndex(pane, row);
-            pane.getStyleClass().setAll("unitPropertyContainer");
+            final ViewComponent<CanAttackTileController> component = canAttackTileFactory.get();
+            component.getController().setDefinition(unitDefinition);
+            final Node node = component.getRoot();
+            GridPane.setColumnIndex(node, column);
+            GridPane.setRowIndex(node, row);
+            GridPane.setMargin(node, new Insets(5));
 
-            canAttackNodes.put(unitDefinition.id.get(), pane);
+            canAttackNodes.put(unitDefinition.id.get(), component);
 
             i++;
         }
 
-        canAttackGrid.getChildren().setAll(canAttackNodes.values());
+        canAttackGrid.getChildren().setAll(
+                canAttackNodes.values().stream()
+                .<Node>map(ViewComponent::getRoot)
+                .collect(Collectors.toList())
+        );
     }
 }
