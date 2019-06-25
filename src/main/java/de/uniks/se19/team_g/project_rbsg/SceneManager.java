@@ -56,14 +56,12 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         return this;
     }
 
-
-
     public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
         if (stage == null) {
             logger.error("Stage not initialised");
             return;
         }
-        
+
         handleCaching(useCaching, cacheIdentifier);
 
         if (!useCaching) clear();
