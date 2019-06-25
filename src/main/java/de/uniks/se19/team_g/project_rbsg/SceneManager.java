@@ -64,7 +64,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
         handleCaching(useCaching, cacheIdentifier);
 
-        if (!useCaching) clear();
+        if (!useCaching) clearCache();
 
         logger.debug("Setting scene " + sceneIdentifier.name() + " with" + (useCaching ? " " : "out ") + "caching");
 
@@ -111,10 +111,10 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         rootControllers.add(rootController);
     }
 
-    private void clear() {
+    private void clearCache() {
         terminateRootControllers();
         cachedScenes.clear();
-        logger.debug("Cleared");
+        logger.debug("Cache cleared");
     }
 
     private void terminateRootControllers() {
