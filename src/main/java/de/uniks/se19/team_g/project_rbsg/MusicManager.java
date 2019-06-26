@@ -21,7 +21,7 @@ public class MusicManager {
 
     private AudioClip audioClip = new AudioClip(music.toString());
     private static final int ICON_SIZE = 40;
-    public boolean musicRunning = true;
+    private boolean musicRunning = true;
 
     public MusicManager init() {
         audioClip.setCycleCount(AudioClip.INDEFINITE);
