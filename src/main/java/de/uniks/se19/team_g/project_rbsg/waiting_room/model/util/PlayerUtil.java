@@ -26,9 +26,9 @@ public class PlayerUtil {
                                      @NonNull final boolean logging) {
         final Player player = modelManager.playerWithId(identifier);
 
-        if (data.has(CURRENT_GAME)) player.setGame(modelManager.gameWithId(data.get(CURRENT_GAME).asText()));
         if (data.has(NAME)) player.setName(data.get(NAME).asText());
         if (data.has(COLOR)) player.setColor(data.get(COLOR).asText());
+        if (data.has(CURRENT_GAME)) player.setGame(modelManager.gameWithId(data.get(CURRENT_GAME).asText()));
 
         if (data.has(ARMY)) {
             final JsonNode army = data.get(ARMY);
