@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
@@ -46,14 +47,17 @@ public class IngameViewController {
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
+    private final ModelManager modelManager;
 
     @Autowired
     public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
                                 @NonNull final GameProvider gameProvider,
-                                @NonNull final SceneManager sceneManager) {
+                                @NonNull final SceneManager sceneManager,
+                                @NonNull final ModelManager modelManager) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
+        this.modelManager = modelManager;
     }
 
     public void init() {
@@ -209,6 +213,7 @@ public class IngameViewController {
             sceneManager.setLobbyScene(false, null);
             gameProvider.clear();
             ingameGameProvider.clear();
+            modelManager.getGame().remove();
         } else {
             actionEvent.consume();
         }

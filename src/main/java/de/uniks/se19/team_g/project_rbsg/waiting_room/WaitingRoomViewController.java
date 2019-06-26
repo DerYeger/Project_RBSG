@@ -85,7 +85,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final SplashImageBuilder splashImageBuilder,
                                      @NonNull final ApplicationState applicationState,
                                      @NonNull final IngameGameProvider ingameGameProvider,
-                                     @NonNull final ChatBuilder chatBuilder) {
+                                     @NonNull final ChatBuilder chatBuilder,
+                                     @NonNull final ModelManager modelManager) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -95,7 +96,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.applicationState = applicationState;
         this.ingameGameProvider = ingameGameProvider;
         this.chatBuilder = chatBuilder;
-        modelManager = new ModelManager();
+        this.modelManager = modelManager;
     }
 
     public void init() {
@@ -189,9 +190,10 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         alert.setHeaderText("Are you sure you want to exit?");
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.OK)) {
-            // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
             sceneManager.setLobbyScene(false, null);
             gameProvider.clear();
+            ingameGameProvider.clear();
+            modelManager.getGame().remove();
         } else {
             actionEvent.consume();
         }

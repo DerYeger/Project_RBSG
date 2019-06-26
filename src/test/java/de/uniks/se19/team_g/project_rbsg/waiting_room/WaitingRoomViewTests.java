@@ -13,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -100,6 +101,15 @@ public class WaitingRoomViewTests extends ApplicationTest {
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
             this.context = applicationContext;
+        }
+        @Bean
+        public ModelManager modelManager(){
+            return new ModelManager(){
+                @Override
+                public de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game getGame(){
+                    return new de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game("");
+                }
+            };
         }
     }
 

@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -76,6 +77,15 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
                 @Override
                 public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
 
+                }
+            };
+        }
+        @Bean
+        public ModelManager modelManager(){
+            return new ModelManager(){
+                @Override
+                public Game getGame(){
+                    return new Game("");
                 }
             };
         }
