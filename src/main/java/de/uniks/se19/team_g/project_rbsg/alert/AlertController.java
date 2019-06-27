@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.alert;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import org.springframework.lang.NonNull;
@@ -22,11 +23,11 @@ public abstract class AlertController {
 
     public void show() {
         if (!target.getChildren().contains(alert)) {
-            target.getChildren().add(alert);
+            Platform.runLater(() -> target.getChildren().add(alert));
         }
     }
 
     public void hide() {
-        target.getChildren().remove(alert);
+        Platform.runLater(() -> target.getChildren().remove(alert));
     }
 }
