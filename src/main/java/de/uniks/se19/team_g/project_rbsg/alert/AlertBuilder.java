@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 public class AlertBuilder implements ApplicationContextAware {
 
     public enum Type {
-        EXIT("exitAlert");
+        EXIT("exitAlert"),
+        LOGOUT("logoutAlert");
 
         @NonNull
         private final String beanName;

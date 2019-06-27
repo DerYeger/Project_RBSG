@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -340,6 +341,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void logoutUser(ActionEvent event)
     {
         logoutManager.logout(userProvider);
+        sceneManager.showAlert(AlertBuilder.Type.LOGOUT);
         sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
     }
 
