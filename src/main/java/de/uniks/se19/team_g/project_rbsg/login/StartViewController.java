@@ -1,11 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,8 +22,9 @@ import java.io.IOException;
  */
 @Controller
 @Scope("prototype")
-public class StartViewController {
+public class StartViewController implements RootController {
 
+    public StackPane mainPane;
     public AnchorPane root;
     public Button musicButton;
     public VBox loginAndTitleBox;
@@ -53,4 +56,18 @@ public class StartViewController {
         musicManager.updateMusicButtonIcons(musicButton);
     }
 
+    @Override
+    public void setAsRootController() {
+       //this Method has to be removed with the merge of the SceneManager rework
+    }
+
+    @Override
+    public void showAlert() {
+
+    }
+
+    @Override
+    public void hideAlert() {
+
+    }
 }

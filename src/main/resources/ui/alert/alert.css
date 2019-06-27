@@ -1,0 +1,10 @@
+* {
+    -fx-background-radius: 0;
+}
+
+.container {
+    -fx-background-color: -root-background-color;
+    -fx-padding: 10;
+    -fx-pref-width: 300;
+    -fx-pref-height: 150;
+}

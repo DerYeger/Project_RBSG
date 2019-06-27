@@ -41,7 +41,7 @@ import java.util.concurrent.ExecutionException;
  */
 @Controller
 @Scope("prototype")
-public class LoginFormController implements RootController, Rincled
+public class LoginFormController implements Rincled
 {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -97,11 +97,6 @@ public class LoginFormController implements RootController, Rincled
         this.registrationManager = registrationManager;
         this.sceneManager = sceneManager;
         this.appStateInitializer = appStateInitializer;
-    }
-
-    @Override
-    public void setAsRootController() {
-        sceneManager.withRootController(this);
     }
 
     public void init() {
