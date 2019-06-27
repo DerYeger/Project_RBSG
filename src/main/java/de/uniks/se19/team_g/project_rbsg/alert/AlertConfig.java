@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 
+/**
+ * @author Jan Müller
+ */
 @Configuration
 public class AlertConfig {
     @Bean

@@ -4,6 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import org.springframework.lang.NonNull;
 
+/**
+ * @author Jan Müller
+ */
 public abstract class AlertController {
 
     protected StackPane target;

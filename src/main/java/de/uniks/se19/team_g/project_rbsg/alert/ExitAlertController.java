@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 
+/**
+ * @author Jan Müller
+ */
 @Controller
 @Scope("prototype")
 public class ExitAlertController extends AlertController {
