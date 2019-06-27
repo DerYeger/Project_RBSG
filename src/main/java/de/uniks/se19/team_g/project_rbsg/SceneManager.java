@@ -130,6 +130,12 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
         try {
             final StackPane root = (StackPane) stage.getScene().getRoot();
+
+            if (root.getChildren().size() > 1) {
+                logger.debug("An Alert is already active");
+                return;
+            }
+
             alertBuilder.build(type, root).show();
         } catch (final ClassCastException e) {
             e.printStackTrace();
