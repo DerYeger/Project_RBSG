@@ -87,18 +87,4 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
                 .terminate();
         this.context.close();
     }
-
-    //TODO add stylesheet
-    private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(alertTitle);
-        alert.setHeaderText(getResources().getString("closeDialoge"));
-        alert.showAndWait();
-
-        if (alert.getResult().equals(ButtonType.OK)) {
-            //let event propagate and close
-        } else {
-            event.consume();
-        }
-    }
 }
