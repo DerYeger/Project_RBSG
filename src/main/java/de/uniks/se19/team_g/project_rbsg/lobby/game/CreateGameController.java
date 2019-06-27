@@ -31,8 +31,8 @@ import java.util.concurrent.CompletableFuture;
 public class CreateGameController implements Rincled
 {
     //TODO use correct icons
-    private URL createBlack = getClass().getResource("/assets/icons/navigation/arrowBackBlack.png");
-    private URL createWhite = getClass().getResource("/assets/icons/navigation/arrowBackWhite.png");
+    private URL createBlack = getClass().getResource("/assets/icons/navigation/checkBlack.png");
+    private URL createWhite = getClass().getResource("/assets/icons/navigation/checkWhite.png");
     private URL cancelBlack = getClass().getResource("/assets/icons/navigation/exitBlack.png");
     private URL cancelWhite = getClass().getResource("/assets/icons/navigation/exitWhite.png");
 
@@ -104,8 +104,6 @@ public class CreateGameController implements Rincled
         gameName.setPromptText(getResources().getString("gameName_promptText"));
         twoPlayers.textProperty().setValue(getResources().getString("twoPlayersButton"));
         fourPlayers.textProperty().setValue(getResources().getString("fourPlayersButton"));
-        create.setText(getResources().getString("createGameButton"));
-        cancel.setText(getResources().getString("cancelGameButton"));
     }
 
 
