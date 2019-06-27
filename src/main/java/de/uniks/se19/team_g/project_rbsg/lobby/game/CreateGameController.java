@@ -33,8 +33,8 @@ public class CreateGameController implements Rincled
     //TODO use correct icons
     private URL createBlack = getClass().getResource("/assets/icons/navigation/checkBlack.png");
     private URL createWhite = getClass().getResource("/assets/icons/navigation/checkWhite.png");
-    private URL cancelBlack = getClass().getResource("/assets/icons/navigation/exitBlack.png");
-    private URL cancelWhite = getClass().getResource("/assets/icons/navigation/exitWhite.png");
+    private URL cancelBlack = getClass().getResource("/assets/icons/navigation/crossBlack.png");
+    private URL cancelWhite = getClass().getResource("/assets/icons/navigation/crossWhite.png");
 
     public Label titleLabel;
 
