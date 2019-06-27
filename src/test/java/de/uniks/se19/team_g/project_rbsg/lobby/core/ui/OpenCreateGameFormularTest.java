@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -53,7 +54,6 @@ import static org.junit.Assert.*;
         LobbyViewBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
-        ApplicationState.class,
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {
@@ -65,6 +65,16 @@ public class OpenCreateGameFormularTest extends ApplicationTest
     public static class ContextConfiguration implements ApplicationContextAware {
 
         private ApplicationContext context;
+
+        @Bean
+        public ApplicationState appState()
+        {
+            final ApplicationState appState = new ApplicationState();
+            // must be valid for createGame to be selectable
+            appState.validArmySelected.set(true);
+
+            return appState;
+        }
 
         @Bean
         @Scope("prototype")

@@ -19,14 +19,14 @@
         <Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#showInfo" styleClass="icon-button" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="10.0" />
         <Pane fx:id="player1Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0" />
         <Pane fx:id="player2Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="11.0" />
-        <Pane fx:id="player3Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="240.0" />
-        <Pane fx:id="player4Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0" />
+        <Pane fx:id="player3Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="258.0" />
+        <Pane fx:id="player4Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="258.0" />
         <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
             <children>
                 <Pane fx:id="miniGamePane" styleClass="mini-game-pane" StackPane.alignment="CENTER" />
             </children>
         </StackPane>
-        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0">
             <children>
                 <Pane fx:id="mapPreviewPane" styleClass="map-preview-pane" StackPane.alignment="TOP_CENTER" />
             </children>
