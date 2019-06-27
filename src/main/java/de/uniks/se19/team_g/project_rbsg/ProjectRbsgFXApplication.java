@@ -86,7 +86,6 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
         context.getBean(Terminator.class)
                 .terminate();
         this.context.close();
-        Platform.exit();
     }
 
     //TODO add stylesheet
