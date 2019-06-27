@@ -9,7 +9,7 @@
     -fx-max-height: 150;
 }
 
-.info-label {
+.label {
     -fx-font-size: 16pt;
     -fx-font-family: Roboto-Regular;
     -fx-font-weight: bold;
