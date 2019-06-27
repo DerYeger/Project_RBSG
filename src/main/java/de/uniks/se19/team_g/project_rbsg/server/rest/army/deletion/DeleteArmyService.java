@@ -2,8 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverResponses.DeleteArmyResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +16,8 @@ public class DeleteArmyService {
 
     private final RestTemplate rbsgTemplate;
     private final String URL = "/army/";
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public DeleteArmyService(@NonNull RestTemplate restTemplate) {
-
         this.rbsgTemplate = restTemplate;
     }
 
@@ -29,7 +25,6 @@ public class DeleteArmyService {
 
         String deleteArmyUrl = URL + army.id.get();
 
-        //rbsgTemplate.delete(deleteArmyUrl);
         return CompletableFuture.supplyAsync(() -> rbsgTemplate.exchange(
                 deleteArmyUrl,
                 HttpMethod.DELETE,
@@ -41,6 +36,7 @@ public class DeleteArmyService {
     }
 
     private DeleteArmyResponse onDeletionResponseReturned(ResponseEntity<DeleteArmyResponse> response) {
+
         DeleteArmyResponse deleteArmyResponse = new DeleteArmyResponse();
 
         deleteArmyResponse.status = response.getBody().status;

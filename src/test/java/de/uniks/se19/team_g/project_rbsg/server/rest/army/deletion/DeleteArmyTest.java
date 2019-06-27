@@ -60,43 +60,56 @@ public class DeleteArmyTest {
     LoginManager loginManager;
     @Autowired
     UserProvider userProvider;
-    @Autowired
-    ArmyAdapter armyAdapter;
-    @Autowired
-    RestTemplate rbsgTemplate;
 
     @Test
     public void deleteArmyOnline() throws ExecutionException, InterruptedException {
+
+        ArrayList<Army> armyList = null;
+        ArrayList<Army> newArmyList = null;
+        CompletableFuture<List<Army>> armyFuture;
+        CompletableFuture<List<Army>> newArmyFuture;
+        CompletableFuture<DeleteArmyResponse> response;
+
 
         User user = new User("test123", "test123");
         user.setUserKey(
                 loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
         );
-        userProvider.set(user);
 
-        CompletableFuture<List<Army>> armyFuture = getArmiesService.queryArmies();
-        ArrayList<Army> armyList = null;
+
+        userProvider.set(user);
+        armyFuture = getArmiesService.queryArmies();
+
         try {
+
             armyList = (ArrayList<Army>) armyFuture.get();
+
             if (armyList.size() == 0) {
                 System.out.println("No Army on the server to test.");
                 Assert.assertTrue(false);
             }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        CompletableFuture<DeleteArmyResponse> response = deleteArmyService.deleteArmy(armyList.get(0));
+
+        response = deleteArmyService.deleteArmy(armyList.get(0));
+
+
         while (!response.isDone()) {
             sleep(100);
         }
+
+
         Assert.assertTrue(response.get().status.equals("success"));
 
 
-        CompletableFuture<List<Army>> newArmyFuture = getArmiesService.queryArmies();
-        ArrayList<Army> newArmyList = null;
+        newArmyFuture = getArmiesService.queryArmies();
+
+
         try {
             newArmyList = (ArrayList<Army>) newArmyFuture.get();
         } catch (InterruptedException e) {
@@ -105,8 +118,10 @@ public class DeleteArmyTest {
             e.printStackTrace();
         }
 
+
         Assert.assertTrue(newArmyList.size() == armyList.size() - 1);
         Assert.assertTrue(!newArmyList.contains(armyList.get(0)));
+
 
         for (Army army : newArmyList) {
             Assert.assertTrue(army.id.get() != armyList.get(0).id.get());
@@ -115,29 +130,41 @@ public class DeleteArmyTest {
 
     @Test
     public void deleteArmyLocal() throws InterruptedException, ExecutionException {
+
         RestTemplate restMock = mock(RestTemplate.class);
         DeleteArmyService deleteArmyService = new DeleteArmyService(restMock);
-        DeleteArmyResponse deleteArmyResponse = new DeleteArmyResponse();
-        ArrayList<Army> armyList = new ArrayList<>();
         HttpEntity httpEntity = new HttpEntity(null);
-
+        DeleteArmyResponse deleteArmyResponse = new DeleteArmyResponse();
         ResponseEntity onDeleteResponseEntity = new ResponseEntity(deleteArmyResponse, HttpStatus.ACCEPTED);
+        CompletableFuture<DeleteArmyResponse> response;
+
+
+        ArrayList<Army> armyList = new ArrayList<>();
         Army army = new Army();
         army.name.set("ggArmy");
         army.id.set("5d12111f2c945100017665d4");
         armyList.add(army);
 
+
         deleteArmyResponse.message = "Army deleted";
         deleteArmyResponse.status = "success";
         deleteArmyResponse.data = new DeleteArmyResponse.DeleteArmyResponseData();
 
-        when(restMock.exchange(eq("/army/5d12111f2c945100017665d4"), eq(HttpMethod.DELETE), eq(httpEntity), eq(DeleteArmyResponse.class)))
+
+        when(restMock.exchange(eq("/army/5d12111f2c945100017665d4"),
+                eq(HttpMethod.DELETE),
+                eq(httpEntity),
+                eq(DeleteArmyResponse.class)))
                 .thenReturn(onDeleteResponseEntity);
 
-        CompletableFuture<DeleteArmyResponse> response = deleteArmyService.deleteArmy(army);
+
+        response = deleteArmyService.deleteArmy(army);
+
+
         while (!response.isDone()) {
             sleep(100);
         }
+
 
         Assert.assertTrue(response.get().status.equals("success"));
         Assert.assertTrue(response.get().message.contains("Army deleted"));
