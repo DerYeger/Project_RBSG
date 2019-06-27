@@ -8,11 +8,15 @@
 
 <VBox fx:id="container" alignment="BOTTOM_RIGHT" prefHeight="400.0" prefWidth="600.0" styleClass="container" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.alert.ExitAlertController">
    <children>
-      <Label fx:id="label" alignment="TOP_LEFT" text="Label" />
-      <HBox alignment="CENTER_RIGHT" styleClass="button-container">
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="default">
          <children>
-            <Button fx:id="accept" mnemonicParsing="false" text="Button" />
-            <Button fx:id="cancel" mnemonicParsing="false" text="Button" />
+            <Label fx:id="label" alignment="TOP_LEFT" text="Label" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="button-container">
+         <children>
+            <Button fx:id="accept" mnemonicParsing="false" styleClass="icon-button" text="Button" />
+            <Button fx:id="cancel" mnemonicParsing="false" styleClass="icon-button" text="Button" />
          </children>
       </HBox>
    </children>
