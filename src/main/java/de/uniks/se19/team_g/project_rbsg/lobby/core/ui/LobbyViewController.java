@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertCreationException;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -365,13 +366,17 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void logoutUser(ActionEvent event)
     {
-        alertBuilder
-                .confirm(AlertBuilder.Type.LOGOUT)
-                .andThen(() -> {
-                    sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
-                    logoutManager.logout(userProvider);
-                })
-                .show();
+        try {
+            alertBuilder
+                    .confirm(AlertBuilder.Type.LOGOUT)
+                    .andThen(() -> {
+                        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+                        logoutManager.logout(userProvider);
+                    })
+                    .show();
+        } catch (final AlertCreationException e) {
+            logger.debug(e.getMessage());
+        }
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent)

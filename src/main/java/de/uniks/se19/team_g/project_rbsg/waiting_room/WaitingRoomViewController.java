@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertCreationException;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
@@ -195,13 +196,17 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
-        alertBuilder
-                .confirm(AlertBuilder.Type.EXIT)
-                .andThen(() -> {
-                    gameProvider.clear();
-                    sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
-                })
-                .show();
+        try {
+            alertBuilder
+                    .confirm(AlertBuilder.Type.EXIT)
+                    .andThen(() -> {
+                        gameProvider.clear();
+                        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+                    })
+                    .show();
+        } catch (final AlertCreationException e) {
+            logger.debug(e.getMessage());
+        }
     }
 
     public void toggleSound(ActionEvent actionEvent) {

@@ -40,16 +40,20 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     private ApplicationContext context;
 
-    public ConfirmationAlertController confirm(@NonNull final Type type) {
+    public ConfirmationAlertController confirm(@NonNull final Type type) throws AlertCreationException {
         return (ConfirmationAlertController) build(type);
     }
 
-    public AlertController build(@NonNull final Type type) {
+    public AlertController build(@NonNull final Type type) throws AlertCreationException {
         final StackPane target = sceneManager.getAlertTarget();
 
-        if (target == null) return null;
+        if (target == null) {
+            throw new AlertCreationException("No target");
+        }
 
-        if (target.getChildren().size() > 1) return null;
+        if (target.getChildren().size() > 1) {
+            throw new AlertCreationException("An alert is already active");
+        }
 
         @SuppressWarnings("unchecked")
         final ViewComponent<AlertController> components = (ViewComponent<AlertController>) context.getBean(type.bean);

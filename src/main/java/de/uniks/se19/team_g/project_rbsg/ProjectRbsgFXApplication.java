@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg;
 
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertCreationException;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -60,7 +61,7 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
 
     @Override
-    public void start(@NotNull final Stage primaryStage) throws IOException {
+    public void start(@NotNull final Stage primaryStage) {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
 
@@ -76,10 +77,12 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
-            alertBuilder
-                    .confirm(AlertBuilder.Type.EXIT)
-                    .andThen(Platform::exit)
-                    .show();
+            try {
+                alertBuilder
+                        .confirm(AlertBuilder.Type.EXIT)
+                        .andThen(Platform::exit)
+                        .show();
+            } catch (final AlertCreationException ignored) {}
         });
 
         primaryStage.show();
