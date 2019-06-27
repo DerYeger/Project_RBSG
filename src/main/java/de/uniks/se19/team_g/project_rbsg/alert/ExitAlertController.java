@@ -25,16 +25,16 @@ public class ExitAlertController extends AlertController {
     @FXML
     private Label label;
     @FXML
-    private Button accept;
+    private Button confirm;
     @FXML
     private Button cancel;
 
     public void initialize() {
         label.textProperty().setValue(text);
-        accept.setOnAction(event -> Platform.exit());
+        confirm.setOnAction(event -> Platform.exit());
         cancel.setOnAction(event -> hide());
 
-        JavaFXUtils.setButtonIcons(accept, acceptWhite, acceptBlack, 40);
+        JavaFXUtils.setButtonIcons(confirm, acceptWhite, acceptBlack, 40);
         JavaFXUtils.setButtonIcons(cancel, cancelWhite, cancelBlack, 40);
     }
 }

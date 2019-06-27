@@ -13,6 +13,7 @@ public class AlertConfig {
     @Scope("prototype")
     public ViewComponent<ExitAlertController> exitAlert(@NonNull final FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/alert/confirmationAlert.fxml"));
+        fxmlLoader.setController(new ExitAlertController());
         return ViewComponent.fromLoader(fxmlLoader);
     }
 }
