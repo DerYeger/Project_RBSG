@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
@@ -142,9 +143,9 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     private void withChatSupport() {
-        final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(gameEventManager);
-        chatContainer.getChildren().add(chatComponents.first);
-        chatController = chatComponents.second;
+        final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(gameEventManager);
+        chatContainer.getChildren().add(chatComponents.getRoot());
+        chatController = chatComponents.getController();
     }
 
     private void initPlayerCardBuilders() {
@@ -218,9 +219,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public boolean accepts(@NonNull final ObjectNode message) {
         if (!message.has("action")) return false;
 
-        if (!message.get("action").asText().equals("gameInitFinished")) return false;
-
-        return true;
+        return message.get("action").asText().equals("gameInitFinished");
     }
 
     @Override

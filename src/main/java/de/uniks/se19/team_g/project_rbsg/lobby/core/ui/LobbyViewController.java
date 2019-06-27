@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -24,7 +25,6 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
@@ -290,9 +290,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if (chatBuilder != null)
         {
-            final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(lobbyChatClient);
-            chatContainer.getChildren().add(chatComponents.first);
-            chatController = chatComponents.second;
+            final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(lobbyChatClient);
+            chatContainer.getChildren().add(chatComponents.getRoot());
+            chatController = chatComponents.getController();
         }
     }
 
