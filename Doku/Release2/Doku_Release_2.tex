@@ -519,6 +519,8 @@
 		\paragraph{Verlauf der Entwicklung} 
 		Die Entwicklung daurte 1 Stunde und 58 Minuten. Der Entwickler war schneller fertig als erwartet. Dies lag daran, dass andere Tasks bereits Grundlagen für die Task gaben und somit die Implementierung schneller möglich war.
 		
+		\newpage
+		
 		\subsection{Zeitübersicht}
 		\begin{center}
 				\begin{longtable}{p{6cm} c c c c }
@@ -567,7 +569,43 @@
 				\end{longtable}
 		\end{center}
 			
-	%	\subsection{Analyse des Sprintverlaufs}
+		\subsection{Analyse des 3. Sprint}
+		Sprint 3 wurde am 24.06.2019 abgeschlossen. Es wurden insgesamt 89 von 110 Story Points abgeschlossen. Damit wurden die Verpflichtung nicht erfüllt. Die aufgetretenen Probleme werden dabei im Folgenden erläutert.
+		
+		\subsubsection{Burndown-Diagramm}
+		Betrachtet man zunächst das Burndown-Diagramm für den Sprint 3, so nimmt in der ersten Woche die Anzahl der abgeschlossenen Story Points kaum zu. Ab der Mitte der zweiten Woche des Sprints beginnt der Graph schnell zu fallen und es endet mit den übrig gebliebenen 21 Story Points. Ein Grund für diesen Verlauf ist die Fehleinschätzung des Teams der zu erledigenden Arbeit, so wurde zum Beispiel das Erstellen der Karte auf 3 Story Points geschätzt. Am Ende wurde für diese Task insgesamt 7,5 Stunden benötigt. Dieses Problem trat diesen Sprint häufiger auf, da die Tasks vor Veröffentlichung der Serverdokumentation des 2. Releases geschätzt wurden. Ein weiteres Problem ,welches am Anfang des Sprints auftrat, waren die unklaren Anforderung an den Sprint, so wurden Features geplant welche mit dem damaligen Serverstand nicht möglich waren. Darauf konnten wir jedoch gut reagieren, indem wir den Entwicklern erst Tasks zuwiesen, welche Sie bereits gut abarbeiten konnten. Während dessen arbeiten wir die restlichen Tasks auf und passten Sie an den Serverstand an. Insgesamt können wir hier jedoch von einem guten Abarbeitung der Tasks sprechen, da die geforderten 80 Story Points erfüllt wurden, und einige Tasks sich im Nachhinein als noch aufwändiger heraus stellten. 
+		
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{BurndownChart_Sprint3.PNG}
+			\caption{Burndown-Diagramm des Sprint 3}
+			\label{BurndownSprint3}
+		\end{figure}
+		
+		\subsection{Abgeschlossene Vorgänge}
+		
+		In \Abb{AbgeschlosseneVorgaengeSprint3} sind die Abgeschlossenen Vorgänge für den 3. Sprint zu sehen. Insgesamt wurden bereits ein Großteil der geforderten Features für de zweiten Release abgearbeitet. So sind bereits folgende Features vorhanden:
+		
+		\paragraph{Initiales Spielgeschehen anzeigen} Bei betreten des Waiting Rooms werden alle Nachrichten für das initiale Spielgeschehen verarbeitet. So erstellen wir basierend auf den erhaltenden Nachrichten ein Datenmodel. Aus diesem generieren wir die Spielkarte, mit Graphiken für die entsprechenden Felder.
+		
+		\paragraph{Ingame Chat}
+		Im Waiting Room ist bereits ein Chat vorhanden, in welchem man über einen General-Chat mit allen Spielern Chatten kann und auch in einem Privat-Chat mit anderen kommunizieren kann.
+		
+		\paragraph{Von Spiel zurück in die Lobby}
+		Dieses Feature wurde auch bereits Implementiert, ein Verlassen des Spiel ist über einen entsprechenden Button bereits möglich.
+		
+		\paragraph{Erstellen und konfigurieren der eigenen Armeen}
+		Eine Konfiguration der Armeen ist bereits vollständig möglich. Dabei ist wird das Limit von 10 Einheiten pro Armee eingehalten. Ein Speichern der Armeen ist bereits Lokal und auf dem Server möglich.
+		
+		
+		
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{Abschlossene_Vorgaenge_Sprint_3.png}
+			\caption{Abgeschlossene Vorgänge vom 3. Sprint}
+			\label{AbgeschlosseneVorgaengeSprint3}
+		\end{figure}
+	
 	\section{Sprint \RN{4}}
 		\subsection{Sprintziel}
 		\subsection{User Stories}
