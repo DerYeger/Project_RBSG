@@ -52,7 +52,8 @@ import static org.junit.Assert.*;
         FXMLLoaderFactory.class,
         MusicManager.class,
         ApplicationState.class,
-        SceneManagerConfig.class
+        SceneManagerConfig.class,
+        GameListViewCell.class
 })
 public class PlayerLeftGameListTest extends ApplicationTest
 {

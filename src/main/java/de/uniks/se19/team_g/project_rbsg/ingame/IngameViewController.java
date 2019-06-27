@@ -1,18 +1,26 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
@@ -26,25 +34,49 @@ import org.springframework.stereotype.Controller;
 public class IngameViewController implements RootController {
 
     private static final double CELL_SIZE = 64;
+    private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH/2;
+    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 60)/2;
+    private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
     private double columnRowSize;
     private double canvasColumnRowSize;
 
-    public Canvas canvas;
+    public Button zoomOutButton;
+    public Button zoomInButton;
+    public VBox root;
+
+    private Canvas canvas;
+    private ZoomableScrollPane zoomableScrollPane;
 
     private Game game;
     private ObservableList<Cell> cells;
     private GraphicsContext gc;
 
     private Image grass;
+    private int zoomFactor = 1;
 
     private final IngameGameProvider ingameGameProvider;
+    private final GameProvider gameProvider;
 
     @Autowired
-    public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider) {
+    public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
+                                @NonNull final GameProvider gameProvider) {
+        this.gameProvider = gameProvider;
         this.ingameGameProvider = ingameGameProvider;
     }
 
     public void initialize() {
+        JavaFXUtils.setButtonIcons(
+                zoomInButton,
+                getClass().getResource("/assets/icons/navigation/zoomInWhite.png"),
+                getClass().getResource("/assets/icons/navigation/zoomInBlack.png"),
+                40
+        );
+        JavaFXUtils.setButtonIcons(
+                zoomOutButton,
+                getClass().getResource("/assets/icons/navigation/zoomOutWhite.png"),
+                getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
+                40
+        );
         game = ingameGameProvider.get();
         if(game == null) {
             // exception
@@ -58,7 +90,10 @@ public class IngameViewController implements RootController {
     }
 
     private void initCanvas() {
-        System.out.println(columnRowSize); // debugging
+        canvas = new Canvas();
+        canvas.setId("canvas");
+        zoomableScrollPane = new ZoomableScrollPane(canvas);
+        root.getChildren().add(zoomableScrollPane);
         canvas.setHeight(canvasColumnRowSize);
         canvas.setWidth(canvasColumnRowSize);
         gc = canvas.getGraphicsContext2D();
@@ -181,4 +216,31 @@ public class IngameViewController implements RootController {
         }
         return size;
     }
+
+    public void zoomIn(ActionEvent actionEvent) {
+        if(zoomFactor == 1) {
+            zoomableScrollPane.onScroll(20.0, ZOOMPANE_CENTER);
+            zoomFactor++;
+        } else if(zoomFactor == 0) {
+            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
+            zoomFactor++;
+        } else if(zoomFactor == -1 && gameProvider.get().getNeededPlayer() == 4) {
+            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
+            zoomFactor++;
+        }
+    }
+
+    public void zoomOut(ActionEvent actionEvent) {
+        if(zoomFactor == 2) {
+            zoomableScrollPane.onScroll(-20.0, ZOOMPANE_CENTER);
+            zoomFactor--;
+        } else if(zoomFactor == 1) {
+            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
+            zoomFactor--;
+        } else if(zoomFactor == 0 && gameProvider.get().getNeededPlayer() == 4) {
+            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
+            zoomFactor--;
+        }
+    }
+
 }

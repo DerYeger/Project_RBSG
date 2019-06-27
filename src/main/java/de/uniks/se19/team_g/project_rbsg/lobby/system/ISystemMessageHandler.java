@@ -5,5 +5,5 @@ package de.uniks.se19.team_g.project_rbsg.lobby.system;
  */
 public interface ISystemMessageHandler
 {
-    public void handleSystemMessage(String message);
+    void handleSystemMessage(String message);
 }

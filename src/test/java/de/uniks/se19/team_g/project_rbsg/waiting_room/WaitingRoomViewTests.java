@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -47,6 +48,7 @@ import org.testfx.framework.junit.ApplicationTest;
         FXMLLoaderFactory.class,
         MusicManager.class,
         IngameGameProvider.class,
+        PreviewMapBuilder.class,
         ChatBuilder.class,
         SceneManagerConfig.class
 })

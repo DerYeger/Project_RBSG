@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -38,7 +40,9 @@ import org.testfx.util.WaitForAsyncUtils;
         UnitListEntryController.class,
         ArmyBuilderViewTest.ContextConfiguration.class,
         ApplicationState.class,
-        SceneManagerConfig.class
+        SceneManagerConfig.class,
+        PersistentArmyManager.class,
+        RestTemplate.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
 

@@ -77,7 +77,8 @@ import static org.junit.Assert.*;
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
-        SceneManagerConfig.class
+        SceneManagerConfig.class,
+        GameListViewCell.class
 })
 public class GameListTest extends ApplicationTest
 {

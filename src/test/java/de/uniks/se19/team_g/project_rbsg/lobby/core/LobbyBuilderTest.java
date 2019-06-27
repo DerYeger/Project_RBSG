@@ -13,6 +13,8 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -33,6 +35,7 @@ import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -64,7 +67,8 @@ import static org.junit.Assert.assertNotNull;
         SceneManager.class,
         JoinGameManager.class,
         ApplicationState.class,
-        SceneManagerConfig.class
+        SceneManagerConfig.class,
+        GameListViewCell.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -120,6 +124,7 @@ public class LobbyBuilderTest extends ApplicationTest
                 UserProvider userProvider,
                 SceneManager sceneManager,
                 JoinGameManager joinGameManager,
+                ObjectFactory<GameListViewCell> cellFactory,
                 @Nullable ArmyManager armyManager
         )
         {
@@ -136,6 +141,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new CreateGameFormBuilder(new FXMLLoader()),
                     new MusicManager(),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())),
+                    cellFactory,
                     null,
                     null
             ) {
