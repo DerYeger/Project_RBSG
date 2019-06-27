@@ -76,6 +76,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     @NonNull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
+    @NonNull
+    private final AlertBuilder alertBuilder;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
@@ -118,11 +120,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @NonNull final CreateGameFormBuilder createGameFormBuilder,
             @NonNull final MusicManager musicManager,
             @NonNull final LogoutManager logoutManager,
+            @NonNull final AlertBuilder alertBuilder,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable final ApplicationState appState
             ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
+        this.alertBuilder = alertBuilder;
         this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
 
@@ -340,9 +344,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void logoutUser(ActionEvent event)
     {
-        logoutManager.logout(userProvider);
-        sceneManager.showAlert(AlertBuilder.Type.LOGOUT);
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+        alertBuilder
+                .confirm(AlertBuilder.Type.LOGOUT)
+                .andThen(() -> {
+                    logoutManager.logout(userProvider);
+                    sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+                })
+                .show();
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent)

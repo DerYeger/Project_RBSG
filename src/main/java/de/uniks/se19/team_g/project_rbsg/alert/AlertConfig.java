@@ -38,9 +38,7 @@ public class AlertConfig implements ApplicationContextAware {
     public ViewComponent<ExitAlertController> logoutAlert(@NonNull final FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/alert/confirmationAlert.fxml"));
         fxmlLoader.setController(
-                new LogoutAlertController(
-                        context.getBean(UserProvider.class),
-                        context.getBean(LogoutManager.class)));
+                new LogoutAlertController());
         return ViewComponent.fromLoader(fxmlLoader);
     }
 

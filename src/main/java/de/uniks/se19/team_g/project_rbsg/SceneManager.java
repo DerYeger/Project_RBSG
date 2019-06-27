@@ -26,13 +26,6 @@ import java.util.HashMap;
 @Component
 public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
 
-    @Nullable
-    private final AlertBuilder alertBuilder;
-
-    public SceneManager(@Nullable final AlertBuilder alertBuilder) {
-        this.alertBuilder = alertBuilder;
-    }
-
     public enum SceneIdentifier {
         LOGIN("loginScene"),
         LOBBY("lobbyScene"),
@@ -55,8 +48,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private HashMap<SceneIdentifier, Scene> cachedScenes = new HashMap<>();
     private HashMap<SceneIdentifier, RootController> rootControllers = new HashMap<>();
-
-    private RootController activeController;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
@@ -100,7 +91,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private void setSceneFromCache(@NonNull final SceneIdentifier identifier) {
         if (cachedScenes.containsKey(identifier)) {
-            activeController = rootControllers.get(identifier);
             doSetScene(cachedScenes.get(identifier));
         } else {
             logger.error("No cached Scene with identifier " + identifier.name());
@@ -117,36 +107,22 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         return new Scene(parent);
     }
 
-    public void showAlert(@NonNull final AlertBuilder.Type type) {
-        if (alertBuilder == null) {
-            logger.error("SceneManager was created without an AlertBuilder");
-            return;
-        }
-
-        if (activeController == null) {
-            logger.error("No active root controller present to handle the alert");
-            return;
+    public StackPane getAlertTarget() {
+        if (stage == null) {
+            logger.error("Stage not initialised");
+            return null;
         }
 
         try {
-            final StackPane root = (StackPane) stage.getScene().getRoot();
-
-            if (root.getChildren().size() > 1) {
-                logger.debug("An Alert is already active");
-                return;
-            }
-
-            alertBuilder
-                    .build(type, root)
-                    .show();
+            return (StackPane) stage.getScene().getRoot();
         } catch (final ClassCastException e) {
             e.printStackTrace();
             logger.error("Root of Scene " + stage.getScene() + " is not a StackPane");
         }
+        return null;
     }
 
     public void withRootController(@NonNull final RootController rootController, @Nullable final SceneIdentifier identifier) {
-        activeController = rootController;
         if (identifier != null) rootControllers.put(identifier, rootController);
     }
 

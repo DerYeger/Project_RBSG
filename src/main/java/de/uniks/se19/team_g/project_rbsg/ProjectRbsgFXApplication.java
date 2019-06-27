@@ -66,16 +66,20 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
         Rincl.setLocale(Locale.ENGLISH);
 
-        final SceneManager sceneManager = context.getBean(SceneManager.class);
-
-        sceneManager.init(primaryStage)
+        context.getBean(SceneManager.class)
+                .init(primaryStage)
                 .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
 
         context.getBean(MusicManager.class).initMusic();
 
+        final AlertBuilder alertBuilder = context.getBean(AlertBuilder.class);
+
         primaryStage.setOnCloseRequest(event -> {
-            sceneManager.showAlert(AlertBuilder.Type.EXIT);
             event.consume();
+            alertBuilder
+                    .confirm(AlertBuilder.Type.EXIT)
+                    .andThen(Platform::exit)
+                    .show();
         });
 
         primaryStage.show();
