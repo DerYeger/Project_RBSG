@@ -28,7 +28,7 @@ import java.util.function.Function;
     ArmySelectorCellFactory.class,
     FXMLLoaderFactory.class,
     ArmySelectorController.class,
-    ArmySelectorEntryController.class,
+    ArmySelectorCellController.class,
 })
 public class ArmySelectorControllerTest extends ApplicationTest {
 
@@ -61,7 +61,7 @@ public class ArmySelectorControllerTest extends ApplicationTest {
         final Army army3 = new Army();
         final ObservableList<Army> armies = FXCollections.observableArrayList(army1, army2, army3);
 
-        Platform.runLater(() -> controller.setSelection(armies));
+        Platform.runLater(() -> controller.setSelection(armies, null));
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(3, lookup(".list-cell #imageView").queryAll().size());

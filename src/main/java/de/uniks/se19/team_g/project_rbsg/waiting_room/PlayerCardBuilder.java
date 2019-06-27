@@ -9,14 +9,14 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -32,6 +32,10 @@ public class PlayerCardBuilder {
     public ProgressIndicator progressIndicator;
     public ColumnConstraints column0;
     public ColumnConstraints column1;
+    public ColumnConstraints column00;
+    public ColumnConstraints column11;
+    public GridPane playerLabelColorPane;
+    public Pane colorPane;
 
     private FXMLLoader fxmlLoader;
     private Node playerCardView;
@@ -81,17 +85,19 @@ public class PlayerCardBuilder {
             buildPlayerCard();
         } else {
             setEmpty();
+            deleteColor();
         }
         return playerCardView;
     }
 
-    public Node setPlayer(Player player){
+    public Node setPlayer(Player player, Color color){
         this.player = player;
         if(fxmlLoader == null) {
             buildPlayerCard();
         }
         Platform.runLater(()-> playerListCellLabel.setText(player.getName()));
         setReady();
+        setColor(color);
         return playerCardView;
     }
 
@@ -111,9 +117,19 @@ public class PlayerCardBuilder {
         );
     }
 
+    private void setColor(Color color){
+        Platform.runLater(()-> colorPane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY))));
+    }
+
+    private void deleteColor() {
+        Platform.runLater(()-> colorPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY))));
+    }
+
     public void switchColumns() {
         GridPane.setColumnIndex(playerStackPane, 1);
-        GridPane.setColumnIndex(playerListCellLabel, 0);
+        GridPane.setColumnIndex(playerLabelColorPane, 0);
+        GridPane.setColumnIndex(playerListCellLabel, 1);
+        GridPane.setColumnIndex(colorPane, 0);
         GridPane.setHalignment(playerListCellLabel, HPos.RIGHT);
         column0.setPrefWidth(250);
         column0.setMinWidth(250);
@@ -121,6 +137,12 @@ public class PlayerCardBuilder {
         column1.setPrefWidth(100);
         column1.setMinWidth(100);
         column1.setMaxWidth(100);
+        column00.setPrefWidth(210);
+        column00.setMinWidth(210);
+        column00.setMaxWidth(210);
+        column11.setPrefWidth(40);
+        column11.setMinWidth(40);
+        column11.setMaxWidth(40);
     }
 
     public Player getPlayer() {

@@ -15,6 +15,7 @@ import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -50,8 +51,9 @@ import org.testfx.framework.junit.ApplicationTest;
         WaitingRoomViewTests.ContextConfiguration.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
-        IngameGameProvider.class,
-        ChatBuilder.class
+        ChatBuilder.class,
+        PreviewMapBuilder.class,
+        IngameGameProvider.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -127,8 +129,8 @@ public class WaitingRoomViewTests extends ApplicationTest {
             return new ModelManager() {
                 @Override
                 public de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game getGame(){
-                    Player p1 = new Player("").setName("P1");
-                    Player p2 = new Player("").setName("P2");
+                    Player p1 = new Player("").setName("P1").setColor("BLACK");
+                    Player p2 = new Player("").setName("P2").setColor("RED");
                     de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game = new de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game("");
                     game.withPlayers(p1, p2);
                     return game;
@@ -178,13 +180,13 @@ public class WaitingRoomViewTests extends ApplicationTest {
         Label label = lookup("Waiting for\nplayer...").query();
         Assert.assertNotNull(label);
         waitingRoomViewBuilder.waitingRoomViewController.handle(null);
-        Player p1 = new Player("123").setName("P1");
+        Player p1 = new Player("123").setName("P1").setColor("GREEN");
         de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game = new de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game("");
         game.withPlayer(p1);
         waitingRoomViewBuilder.waitingRoomViewController.setPlayerCards(game);
-        Player p2 = new Player("456").setName("P2");
+        Player p2 = new Player("456").setName("P2").setColor("BLUE");
         game.withPlayer(p2);
-        Player p3 = new Player("123").setName("P3");
+        Player p3 = new Player("123").setName("P3").setColor("YELLOW");
         game.withPlayer(p3);
         game.withoutPlayer(p2);
     }

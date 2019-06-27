@@ -56,7 +56,7 @@ public class PlayerUtil {
         switch (fieldName) {
             case PLAYERS:
                 final Game game = modelManager.gameWithId(from);
-                if (player.getGame().equals(game)) player.setGame(null);
+                if (player.getGame() != null && player.getGame().equals(game)) player.setGame(null);
                 break;
             default:
                 LOGGER.error("Unknown fieldName for " + from + ": " + fieldName);

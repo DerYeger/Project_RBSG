@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,7 +20,7 @@ public class ChatChannelBuilder {
     }
 
     @NonNull
-    public Node buildChatChannel(@NonNull final String channel) throws IOException {
+    public ViewComponent<ChatChannelController> buildChatChannel(@NonNull final String channel) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(ChatChannelBuilder.class.getResource("/ui/chat/chat.fxml"));
 
@@ -28,6 +29,6 @@ public class ChatChannelBuilder {
         final ChatChannelController chatChannelController = fxmlLoader.getController();
         chatChannelController.init(chatController, channel);
 
-        return chatTabContent;
+        return new ViewComponent<>(chatTabContent, chatChannelController);
     }
 }

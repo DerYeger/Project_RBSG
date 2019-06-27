@@ -56,8 +56,13 @@
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
          </VBox.margin>
-      </VBox>
    </VBox>
+             <Button fx:id="saveArmiesButton" mnemonicParsing="false" onAction="#saveArmies" styleClass="icon-button">
+                 <VBox.margin>
+                     <Insets bottom="10.0" left="10.0" right="10.0" />
+                 </VBox.margin>
+             </Button>
+  </VBox>
 </HBox>
    <stylesheets>
       <URL value="@unitPropertyInfoListView.css" />
