@@ -25,7 +25,7 @@
         <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label fx:id="titleLabel" style="-fx-font-weight: bold;" text="Neues Spiel" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label fx:id="titleLabel" style="-fx-font-weight: bold;" text="Create Game" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <font>
                 <Font name="System Bold" size="26.0" />
             </font>
@@ -42,7 +42,7 @@
          <children>
             <ToggleButton fx:id="twoPlayers" mnemonicParsing="false" selected="true" text="2-Spieler">
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets />
                </HBox.margin>
                <toggleGroup>
                   <ToggleGroup fx:id="number" />
@@ -50,7 +50,7 @@
             </ToggleButton>
             <ToggleButton fx:id="fourPlayers" mnemonicParsing="false" text="4-Spieler" toggleGroup="$number">
                <HBox.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </HBox.margin>
             </ToggleButton>
          </children>
@@ -62,7 +62,7 @@
             <children>
                 <Button fx:id="create" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="icon-button" text="Y" textFill="WHITE">
                     <HBox.margin>
-                        <Insets left="10.0" right="5.0" />
+                        <Insets />
                     </HBox.margin>
                     <font>
                         <Font name="System Bold" size="16.0" />
@@ -70,7 +70,7 @@
                 </Button>
                 <Button fx:id="cancel" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="icon-button" text="N" textFill="WHITE">
                     <HBox.margin>
-                        <Insets left="5.0" right="10.0" />
+                        <Insets />
                     </HBox.margin>
                     <font>
                         <Font name="System Bold" size="16.0" />
@@ -82,4 +82,7 @@
          </GridPane.margin>
         </HBox>
     </children>
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
 </GridPane>
