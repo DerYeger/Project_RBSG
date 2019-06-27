@@ -12,6 +12,7 @@ import org.springframework.lang.NonNull;
  */
 @Configuration
 public class AlertConfig {
+
     @Bean
     @Scope("prototype")
     public ViewComponent<ExitAlertController> exitAlert(@NonNull final FXMLLoader fxmlLoader) {

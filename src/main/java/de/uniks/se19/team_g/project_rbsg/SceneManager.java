@@ -136,7 +136,9 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
                 return;
             }
 
-            alertBuilder.build(type, root).show();
+            alertBuilder
+                    .build(type, root)
+                    .show();
         } catch (final ClassCastException e) {
             e.printStackTrace();
             logger.error("Root of Scene " + stage.getScene() + " is not a StackPane");
