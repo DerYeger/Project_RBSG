@@ -63,19 +63,6 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Pane fx:id="createGameButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                           <children>
-                              <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="iconWithText" />
-                           </children>
-                        </Pane>
-                        <Button fx:id="armyBuilderLink" mnemonicParsing="false" onAction="#goToArmyBuilder" text="Armies">
-                           <styleClass>
-                              <String fx:value="rally-troops" />
-                              <String fx:value="iconWithText" />
-                           </styleClass></Button>
                      </children>
                   </VBox>
                   <VBox alignment="TOP_RIGHT" styleClass="gameListHbox" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
@@ -86,11 +73,14 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="iconWithText">
+                              <Pane fx:id="createGameButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
-                              </Button>
+                                 <children>
+                                    <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="iconWithText" />
+                                 </children>
+                              </Pane>
                               <Button fx:id="armyBuilderLink" mnemonicParsing="false" onAction="#goToArmyBuilder" text="Armies">
                                  <styleClass>
                                     <String fx:value="rally-troops" />

@@ -33,7 +33,6 @@ import org.springframework.web.client.*;
 import org.testfx.framework.junit.*;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.*;
 import java.util.*;
 
 import static org.junit.Assert.*;
