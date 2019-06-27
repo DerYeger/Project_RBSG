@@ -106,7 +106,6 @@ public class CreateGameController implements Rincled
         fourPlayers.textProperty().setValue(getResources().getString("fourPlayersButton"));
     }
 
-
     public void setRootNode(Node root){
         this.root = root;
     }
@@ -134,7 +133,7 @@ public class CreateGameController implements Rincled
     private void onGameRequestReturned(@Nullable HashMap<String, Object> answer) {
         final String gameId;
         if (answer != null) {
-            if(answer.get("status").equals("succes")){
+            if(answer.get("status").equals("succes")) { //TODO fix autojoin
                 @SuppressWarnings("unchecked")
                 final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
