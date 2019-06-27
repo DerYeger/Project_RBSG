@@ -3,40 +3,45 @@
 }
 
 .createGame {
-    -fx-pref-width: 350;
-    -fx-pref-height: 300;
     -fx-background-color: -root-background-color;
     -fx-border-width: 2;
     -fx-border-color: white;
+    -fx-pref-width: 350;
+    -fx-pref-height: 300;
 }
 
 .label {
-    -fx-text-fill: white;
     -fx-font-size: 26;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
+    -fx-text-fill: white;
 }
 
 .text-field {
-    -fx-pref-width: 330;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-border-color: -primary-lighter-background-color;
+    -fx-border-width: 2;
     -fx-font-size: 16;
+    -fx-pref-width: 330;
+    -fx-text-fill: -on-secondary-fill;
+}
+
+.text-field:focused {
+    -fx-background-color: black;
     -fx-font-weight: bold;
     -fx-text-fill: -on-primary-fill;
-    -fx-background-color:-surface-elevation-8-color;
-    -fx-border-color: -primary-lighter-background-color;
-    -fx-border-width: 2px;
-    -fx-alignment: center;
 }
 
 .toggle-button {
-    -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: -primary-background-color;
+    -fx-border-width: 0;
     -fx-font-weight: bold;
     -fx-font-size: 16;
-    -fx-text-fill: -on-primary-fill;
     -fx-pref-width: 160;
     -fx-pref-height: 40;
+    -fx-text-fill: -on-primary-fill;
 }
 
 .toggle-button:selected {
