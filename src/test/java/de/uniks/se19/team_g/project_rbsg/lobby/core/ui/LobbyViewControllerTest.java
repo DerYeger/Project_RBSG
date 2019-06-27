@@ -13,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import org.junit.Test;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.lang.NonNull;
 
 import static org.mockito.Mockito.*;
@@ -23,6 +24,7 @@ public class LobbyViewControllerTest {
     public void testArmyBuilderRouting()
     {
         final SceneManager sceneManager = mock(SceneManager.class);
+        @SuppressWarnings("unchecked") final ObjectFactory<GameListViewCell> mock = mock(ObjectFactory.class);
         LobbyViewController sut = new LobbyViewController(
                 mock(GameProvider.class),
                 mock(UserProvider.class),
@@ -36,6 +38,7 @@ public class LobbyViewControllerTest {
                 mock(CreateGameFormBuilder.class),
                 mock(MusicManager.class),
                 mock(DefaultLogoutManager.class),
+                mock,
                 null,
                 null
         );

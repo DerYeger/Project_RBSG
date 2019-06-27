@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.chat.ui;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -30,6 +31,8 @@ public class ChatChannelController {
 
     private boolean displayTimestamps;
 
+    private ChatTabController tabController;
+
     public void init(@NonNull final ChatController chatController, @NonNull final String channel) {
         init(chatController, channel, true);
     }
@@ -53,7 +56,12 @@ public class ChatChannelController {
         });
     }
 
+    public void registerTabController(@NonNull final ChatTabController tabController) {
+        this.tabController = tabController;
+    }
+
     public void displayMessage(@NonNull final String from, @NonNull final String content) {
+        tabController.markUnread();
         Platform.runLater(() -> messageArea.appendText(buildMessage(from, content)));
     }
 

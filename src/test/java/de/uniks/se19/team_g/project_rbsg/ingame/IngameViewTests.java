@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
@@ -8,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,6 +37,7 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
 
     @TestConfiguration
     static class ContextConfiguration {
+
         @Bean
         public IngameGameProvider ingameGameProvider() {
             return new IngameGameProvider(){
@@ -62,6 +65,18 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
                 }
             };
         }
+
+        @Bean
+        public GameProvider gameProvider() {
+            return new GameProvider(){
+                @Override
+                public de.uniks.se19.team_g.project_rbsg.model.Game get(){
+                    de.uniks.se19.team_g.project_rbsg.model.Game game = new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4);
+                    return game;
+                }
+            };
+        }
+
     }
 
     @Autowired
@@ -82,7 +97,16 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
-        clickOn("#canvas");
+        Button zoomOut = lookup("#zoomOutButton").query();
+        Assert.assertNotNull(zoomOut);
+        clickOn("#zoomOutButton");
+        clickOn("#zoomOutButton");
+        Button zoomIn = lookup("#zoomInButton").query();
+        Assert.assertNotNull(zoomIn);
+        clickOn("#zoomInButton");
+        clickOn("#zoomInButton");
+        clickOn("#zoomInButton");
+        clickOn("#zoomOutButton");
     }
 
 }
