@@ -126,6 +126,7 @@ public class CreateGameController implements Rincled
                         handleGameRequestErrors("Fehler", "Fehler: Keine Verbindung zum Server moeglich", exception.getMessage());
                         return null;
                     });
+            closeCreateGameWindow(null);
         } else if((this.gameName.getText() == null) || this.gameName.getText().equals("")){
             handleGameRequestErrors("Fehler", "Fehler: Fehler bei Eingabeinformation", "Fehler: Fehler bei Eingabeinformation");
         }
@@ -158,8 +159,8 @@ public class CreateGameController implements Rincled
         this.numberOfPlayers = NUMBER_OF_PLAYERS_FOUR;
     }
 
-    public void closeCreateGameWindow(@NonNull final ActionEvent event) {
-        if (root != null){
+    public void closeCreateGameWindow(@Nullable final ActionEvent event) {
+        if (root != null) {
             root.setVisible(false);
         }
     }
