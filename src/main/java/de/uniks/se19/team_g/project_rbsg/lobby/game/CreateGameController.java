@@ -30,7 +30,6 @@ import java.util.concurrent.CompletableFuture;
 @Controller
 public class CreateGameController implements Rincled
 {
-    //TODO use correct icons
     private URL createBlack = getClass().getResource("/assets/icons/navigation/checkBlack.png");
     private URL createWhite = getClass().getResource("/assets/icons/navigation/checkWhite.png");
     private URL cancelBlack = getClass().getResource("/assets/icons/navigation/crossBlack.png");
