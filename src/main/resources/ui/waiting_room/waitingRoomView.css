@@ -32,10 +32,10 @@
 }
 
 .map-preview-pane {
-    -fx-max-width: 290;
-    -fx-max-height: 290;
-    -fx-min-width: 290;
-    -fx-min-height: 290;
+    -fx-max-width: 256;
+    -fx-max-height: 256;
+    -fx-min-width: 256;
+    -fx-min-height: 256;
     -fx-effect: -shadow;
     -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Kartenvorschau-Einbund*/
 }

@@ -40,6 +40,7 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
 
     @TestConfiguration
     static class ContextConfiguration {
+
         @Bean
         public IngameGameProvider ingameGameProvider() {
             return new IngameGameProvider(){
@@ -68,10 +69,6 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
             };
         }
         @Bean
-        public GameProvider gameProvider(){
-            return new GameProvider();
-        }
-        @Bean
         public SceneManager sceneManager(){
             return new SceneManager() {
                 @Override
@@ -86,6 +83,16 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
                 @Override
                 public Game getGame(){
                     return new Game("");
+                }
+            };
+        }
+        @Bean
+        public GameProvider gameProvider() {
+            return new GameProvider(){
+                @Override
+                public de.uniks.se19.team_g.project_rbsg.model.Game get(){
+                    de.uniks.se19.team_g.project_rbsg.model.Game game = new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4);
+                    return game;
                 }
             };
         }
@@ -109,11 +116,20 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
-        clickOn("#canvas");
         Button leave = lookup("#leaveButton").query();
         Assert.assertNotNull(leave);
         clickOn("#leaveButton");
         clickOn("OK");
+        Button zoomOut = lookup("#zoomOutButton").query();
+        Assert.assertNotNull(zoomOut);
+        clickOn("#zoomOutButton");
+        clickOn("#zoomOutButton");
+        Button zoomIn = lookup("#zoomInButton").query();
+        Assert.assertNotNull(zoomIn);
+        clickOn("#zoomInButton");
+        clickOn("#zoomInButton");
+        clickOn("#zoomInButton");
+        clickOn("#zoomOutButton");
     }
 
 }

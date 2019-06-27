@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -45,8 +46,9 @@ import org.testfx.framework.junit.ApplicationTest;
         WaitingRoomViewTests.ContextConfiguration.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
-        IngameGameProvider.class,
-        ChatBuilder.class
+        ChatBuilder.class,
+        PreviewMapBuilder.class,
+        IngameGameProvider.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
