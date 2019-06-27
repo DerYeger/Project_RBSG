@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.*;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
@@ -53,7 +54,8 @@ import static org.junit.Assert.*;
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        GameListViewCell.class
+        GameListViewCell.class,
+        AlertBuilder.class
 })
 public class PlayerLeftGameListTest extends ApplicationTest
 {

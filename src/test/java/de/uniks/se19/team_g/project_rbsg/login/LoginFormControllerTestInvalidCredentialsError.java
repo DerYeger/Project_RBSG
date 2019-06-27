@@ -127,7 +127,7 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
 
         @Bean
         public SceneManager sceneManager() {
-            return new SceneManager(null) {
+            return new SceneManager() {
                 @Override
                 public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
                     switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);
