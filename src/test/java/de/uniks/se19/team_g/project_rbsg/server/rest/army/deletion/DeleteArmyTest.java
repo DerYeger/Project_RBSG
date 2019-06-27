@@ -10,12 +10,17 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyUnitAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverResponses.DeleteArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -25,8 +30,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
+import static java.lang.Thread.sleep;
+import static org.mockito.Mockito.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -83,7 +88,12 @@ public class DeleteArmyTest {
             e.printStackTrace();
         }
 
-        deleteArmyService.deleteArmy(armyList.get(0));
+        CompletableFuture<DeleteArmyResponse> response = deleteArmyService.deleteArmy(armyList.get(0));
+        while (!response.isDone()) {
+            sleep(100);
+        }
+        Assert.assertTrue(response.get().status.equals("success"));
+
 
         CompletableFuture<List<Army>> newArmyFuture = getArmiesService.queryArmies();
         ArrayList<Army> newArmyList = null;
@@ -104,17 +114,32 @@ public class DeleteArmyTest {
     }
 
     @Test
-    public void deleteArmyLocal() {
+    public void deleteArmyLocal() throws InterruptedException, ExecutionException {
         RestTemplate restMock = mock(RestTemplate.class);
         DeleteArmyService deleteArmyService = new DeleteArmyService(restMock);
+        DeleteArmyResponse deleteArmyResponse = new DeleteArmyResponse();
         ArrayList<Army> armyList = new ArrayList<>();
+        HttpEntity httpEntity = new HttpEntity(null);
+
+        ResponseEntity onDeleteResponseEntity = new ResponseEntity(deleteArmyResponse, HttpStatus.ACCEPTED);
         Army army = new Army();
         army.name.set("ggArmy");
         army.id.set("5d12111f2c945100017665d4");
         armyList.add(army);
 
-        deleteArmyService.deleteArmy(army);
+        deleteArmyResponse.message = "Army deleted";
+        deleteArmyResponse.status = "success";
+        deleteArmyResponse.data = new DeleteArmyResponse.DeleteArmyResponseData();
 
-        doNothing().when(restMock).delete("/army/5d12111f2c945100017665d4");
+        when(restMock.exchange(eq("/army/5d12111f2c945100017665d4"), eq(HttpMethod.DELETE), eq(httpEntity), eq(DeleteArmyResponse.class)))
+                .thenReturn(onDeleteResponseEntity);
+
+        CompletableFuture<DeleteArmyResponse> response = deleteArmyService.deleteArmy(army);
+        while (!response.isDone()) {
+            sleep(100);
+        }
+
+        Assert.assertTrue(response.get().status.equals("success"));
+        Assert.assertTrue(response.get().message.contains("Army deleted"));
     }
 }
