@@ -5,7 +5,7 @@
 .createGame {
     -fx-pref-width: 350;
     -fx-pref-height: 300;
-    -fx-background-color: rgba(18,18,18, 0.9);
+    -fx-background-color: -root-background-color;
     -fx-border-width: 2;
     -fx-border-color: white;
 }
