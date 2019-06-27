@@ -15,7 +15,6 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import org.junit.Test;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.lang.NonNull;
 
 import static org.mockito.Mockito.*;
 
