@@ -126,7 +126,6 @@ public class CreateGameController implements Rincled
                         handleGameRequestErrors("Fehler", "Fehler: Keine Verbindung zum Server moeglich", exception.getMessage());
                         return null;
                     });
-            closeCreateGameWindow(null);
         } else if((this.gameName.getText() == null) || this.gameName.getText().equals("")){
             handleGameRequestErrors("Fehler", "Fehler: Fehler bei Eingabeinformation", "Fehler: Fehler bei Eingabeinformation");
         }
@@ -134,7 +133,7 @@ public class CreateGameController implements Rincled
 
     private void onGameRequestReturned(@Nullable HashMap<String, Object> answer) {
         final String gameId;
-        if (answer != null){
+        if (answer != null) {
             if(answer.get("status").equals("succes")){
                 @SuppressWarnings("unchecked")
                 final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
@@ -147,6 +146,7 @@ public class CreateGameController implements Rincled
 
             }
         }
+        closeCreateGameWindow(null);
     }
 
 
