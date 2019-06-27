@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
@@ -63,6 +64,8 @@ public class ArmyBuilderController implements Initializable, RootController {
     private final SceneManager sceneManager;
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
+    @Nonnull
+    PersistentArmyManager persistantArmyManager;
 
     public StackPane root;
     public VBox content;
@@ -75,6 +78,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button soundButton;
     public Button leaveButton;
     public Button deleteArmyButton;
+    public Button saveArmiesButton;
 
     public Button showInfoButton;
 
@@ -85,6 +89,12 @@ public class ArmyBuilderController implements Initializable, RootController {
     private Node infoView;
     private UnitPropertyInfoListBuilder unitPropertyInfoListBuilder;
 
+    /*
+     * do NOT. i repeat. do NOT inline the army selector. We need the reference so that the selected listener won't get removed.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private ArmySelectorController armySelectorController;
+
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
@@ -94,7 +104,8 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
             @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
-            @Nullable SceneManager sceneManager
+            @Nullable SceneManager sceneManager,
+            @Nonnull PersistentArmyManager persistantArmyManager
     ) {
         this.appState = appState;
         this.viewState = viewState;
@@ -104,10 +115,12 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
+        this.persistantArmyManager=persistantArmyManager;
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(appState.unitDefinitions);
 
@@ -132,8 +145,9 @@ public class ArmyBuilderController implements Initializable, RootController {
         unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
 
         if (armySelectorComponent != null) {
-            armySelectorComponent.apply(armySelectorRoot).setSelection(
-                    appState.armies
+            armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+            armySelectorController.setSelection(
+                appState.armies, appState.selectedArmy
             );
         }
 
@@ -157,9 +171,17 @@ public class ArmyBuilderController implements Initializable, RootController {
                 JavaConfig.ICON_SIZE
         );
 
+        JavaFXUtils.setButtonIcons(
+                saveArmiesButton,
+                getClass().getResource("/assets/icons/operation/baseline_save_white_48dp.png"),
+                getClass().getResource("/assets/icons/operation/baseline_save_black_48dp.png"),
+                JavaConfig.ICON_SIZE
+        );
+
     }
 
-    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue) {
+    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue)
+    {
         final Unit selection;
         if (newValue == null) {
             selection = null;
@@ -175,9 +197,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void toggleSound(ActionEvent actionEvent) {
-        if (musicManager == null) {
-            return;
-        }
+        if(musicManager == null) return;
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
@@ -188,8 +208,12 @@ public class ArmyBuilderController implements Initializable, RootController {
         sceneManager.setLobbyScene(true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
+    public void saveArmies() throws InterruptedException {
+        persistantArmyManager.saveArmies(appState.armies);
+    }
+
     public void showInfo(ActionEvent actionEvent) {
-        if (infoView == null) {
+        if(infoView == null) {
             infoView = unitPropertyInfoListBuilder.buildInfoView();
             root.getChildren().add(infoView);
             StackPane.setAlignment(infoView, Pos.CENTER);

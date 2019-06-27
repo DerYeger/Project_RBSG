@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.chat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -11,9 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.command.LeaveCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.command.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
@@ -32,7 +31,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
 import javax.websocket.Session;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -69,14 +67,14 @@ public class ChatControllerTests extends ApplicationTest {
                 }
 
                 @Override
-                public void onMessage(final String message, final Session session) throws IOException {
+                public void onMessage(final String message, final Session session) {
                     if (callback != null) {
                         callback.handle(message);
                     }
                 }
 
                 @Override
-                public void onOpen(final Session session) throws IOException {
+                public void onOpen(final Session session) {
 
                 }
 
@@ -106,15 +104,15 @@ public class ChatControllerTests extends ApplicationTest {
     @Override
     public void start(@NonNull final Stage stage) {
         userProvider.get()
-                .setName("chattest1");
+                .setName("username");
 
-        final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(chatClient);
+        final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(chatClient);
 
         Assert.assertNotNull(chatComponents);
-        Assert.assertNotNull(chatComponents.first);
-        Assert.assertNotNull(chatComponents.second);
+        Assert.assertNotNull(chatComponents.getRoot());
+        Assert.assertNotNull(chatComponents.getController());
 
-        final Scene scene = new Scene((Parent) chatComponents.first, 400, 300);
+        final Scene scene = new Scene(chatComponents.getRoot(), 400, 300);
         stage.setScene(scene);
         stage.show();
     }

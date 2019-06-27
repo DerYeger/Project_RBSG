@@ -14,7 +14,7 @@
  @author Keanu Stückrad
  !-->
 
-<StackPane fx:id="root" styleClass="root-background-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController">
+<StackPane fx:id="root" styleClass="root-background-color" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController">
       <HBox alignment="CENTER" StackPane.alignment="CENTER">
          <VBox fx:id="sideBarLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
              <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button">
@@ -51,9 +51,10 @@
       </VBox>
    </VBox>
    <VBox fx:id="sideBarRight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-      <VBox fx:id="armySelectorRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+      <VBox fx:id="armySelectorRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity">
          <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
          </VBox.margin>
       </VBox>
          <Button fx:id="deleteArmyButton" mnemonicParsing="false" onAction="#deleteArmy" styleClass="icon-button">
@@ -62,6 +63,13 @@
             </VBox.margin>
          </Button>
    </VBox>
+   <VBox>
+             <Button fx:id="saveArmiesButton" mnemonicParsing="false" onAction="#saveArmies" styleClass="icon-button">
+                 <VBox.margin>
+                     <Insets bottom="10.0" left="10.0" right="10.0" />
+                 </VBox.margin>
+             </Button>
+  </VBox>
 </HBox>
    <stylesheets>
       <URL value="@unitPropertyInfoListView.css" />

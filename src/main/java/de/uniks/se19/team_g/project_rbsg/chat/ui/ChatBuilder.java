@@ -1,10 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import org.springframework.beans.BeansException;
@@ -25,7 +24,7 @@ public class ChatBuilder implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @NonNull
-    public Tuple<Node, ChatController> buildChat(@NonNull final ChatClient chatClient) {
+    public ViewComponent<ChatController> buildChat(@NonNull final ChatClient chatClient) {
         final TabPane tabPane = new TabPane();
         tabPane.setSide(Side.BOTTOM);
         tabPane.getStylesheets().add(this.getClass().getResource("/ui/chat/chat.css").toExternalForm());
@@ -36,7 +35,7 @@ public class ChatBuilder implements ApplicationContextAware {
 
         chatController.init(tabPane, chatClient);
 
-        return new Tuple<>(tabPane, chatController);
+        return new ViewComponent<>(tabPane, chatController);
     }
 
     @Override
