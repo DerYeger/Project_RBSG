@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -112,7 +113,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         }
         @Bean
         public SceneManager sceneManager() {
-            return new SceneManager() {
+            return new SceneManager(null) {
                 @Override
                 public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
                     switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);

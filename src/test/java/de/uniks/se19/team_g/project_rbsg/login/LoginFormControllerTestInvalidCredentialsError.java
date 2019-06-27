@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -126,7 +127,7 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
 
         @Bean
         public SceneManager sceneManager() {
-            return new SceneManager() {
+            return new SceneManager(null) {
                 @Override
                 public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
                     switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);
