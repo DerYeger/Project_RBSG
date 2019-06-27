@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.termination;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import javafx.collections.ObservableSet;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,26 +9,6 @@ import org.springframework.lang.NonNull;
  * @author Jan Müller
  */
 public class TerminatorTests {
-
-    static class TestTerminableRootController implements RootController, Terminable {
-        boolean hasBeenTerminated = false;
-
-        @NonNull
-        private final SceneManager sceneManager;
-
-        TestTerminableRootController(@NonNull final SceneManager sceneManager) {
-            this.sceneManager = sceneManager;
-        }
-        @Override
-        public void setAsRootController() {
-            sceneManager.withRootController(this);
-        }
-
-        @Override
-        public void terminate() {
-            hasBeenTerminated = true;
-        }
-    }
 
     static class TestTerminable implements Terminable {
         private Terminator terminator;

@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -72,10 +74,10 @@ import static org.junit.Assert.*;
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
+        SceneManagerConfig.class
 })
 public class GameListTest extends ApplicationTest
 {
@@ -91,15 +93,16 @@ public class GameListTest extends ApplicationTest
     public void start(Stage stage)
     {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
+        final Scene scene = new Scene(components.getRoot(),1200 ,840);
 
         stage.setScene(scene);
         stage.show();
         stage.toFront();
 
-        lobbyViewController = lobbyViewBuilder.getLobbyViewController();
+        lobbyViewController = components.getController();
     }
 
     @Override

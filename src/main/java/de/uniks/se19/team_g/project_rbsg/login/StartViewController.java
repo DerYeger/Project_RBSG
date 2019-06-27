@@ -46,7 +46,7 @@ public class StartViewController implements RootController {
         this.musicManager = musicManager.init();
     }
 
-    public void init() throws IOException {
+    public void initialize() throws IOException {
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
         loginAndTitleBox.getChildren().addAll(titleViewBuilder.getTitleForm(), loginFormBuilder.getLoginForm());
         musicManager.initButtonIcons(musicButton);

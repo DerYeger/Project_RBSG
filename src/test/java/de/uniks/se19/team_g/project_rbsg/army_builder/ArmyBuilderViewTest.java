@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -8,7 +9,6 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -25,9 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Goatfryed
  */
@@ -40,7 +37,8 @@ import java.util.concurrent.CompletableFuture;
         UnitListEntryFactory.class,
         UnitListEntryController.class,
         ArmyBuilderViewTest.ContextConfiguration.class,
-        ApplicationState.class
+        ApplicationState.class,
+        SceneManagerConfig.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
 
@@ -68,7 +66,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     public void testSceneCreation()
     {
         @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderScene
-                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyScene");
         final ArmyBuilderController controller = armyBuilderScene.getController();
 
         Assert.assertNotNull(controller.root);
@@ -91,7 +89,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
         @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
-                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyScene");
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));

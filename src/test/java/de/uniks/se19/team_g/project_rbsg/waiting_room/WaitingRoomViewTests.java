@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -10,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
@@ -32,20 +35,20 @@ import org.testfx.framework.junit.ApplicationTest;
 
 /**
  * @author  Keanu Stückrad
+ * @author Jan Müller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         SceneManager.class,
-        WaitingRoomSceneBuilder.class,
         SplashImageBuilder.class,
-        WaitingRoomViewBuilder.class,
         WaitingRoomViewController.class,
         UserProvider.class,
         WaitingRoomViewTests.ContextConfiguration.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
         IngameGameProvider.class,
-        ChatBuilder.class
+        ChatBuilder.class,
+        SceneManagerConfig.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -105,7 +108,8 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testBuildWaitingRoomView() throws Exception {
-        final Node waitingRoomView = context.getBean(WaitingRoomViewBuilder.class).buildWaitingRoomView();
+        @SuppressWarnings("unchecked")
+        final Node waitingRoomView = ((ViewComponent<RootController>) context.getBean("waitingRoomScene")).getRoot();
         Assert.assertNotNull(waitingRoomView);
     }
 }

@@ -153,7 +153,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.chatBuilder = chatBuilder;
     }
 
-    public void init()
+    public void initialize()
     {
         //Gives the cells of the ListViews a fixed height
         //Needed for cells which are empty to fit them to the height of filled cells
@@ -218,8 +218,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                 ;
             }
         }
-
-        setAsRootController();
     }
 
     private void onLobbyOpen() {
@@ -301,10 +299,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         logger.debug("Terminated " + this);
     }
 
-    public void setAsRootController() {
-        sceneManager.withRootController(this);
-    }
-
     private void updateLabels(Locale locale)
     {
         if(Locale.getDefault().equals(locale))
@@ -346,10 +340,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void logoutUser(ActionEvent event)
     {
         logoutManager.logout(userProvider);
-        sceneManager.setStartScene();
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
     }
 
-    public void goToArmyBuilder(ActionEvent actionEvent) {
-        sceneManager.setArmyBuilderScene(true, SceneManager.SceneIdentifier.LOBBY);
+    public void goToArmyBuilder(ActionEvent actionEvent)
+    {
+        sceneManager.setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
     }
 }

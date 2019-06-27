@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import javafx.collections.ObservableList;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Controller;
  */
 @Scope("prototype")
 @Controller
-public class IngameViewController {
+public class IngameViewController implements RootController {
 
     private static final double CELL_SIZE = 64;
     private double columnRowSize;
@@ -42,7 +43,7 @@ public class IngameViewController {
         this.ingameGameProvider = ingameGameProvider;
     }
 
-    public void init() {
+    public void initialize() {
         game = ingameGameProvider.get();
         if(game == null) {
             // exception

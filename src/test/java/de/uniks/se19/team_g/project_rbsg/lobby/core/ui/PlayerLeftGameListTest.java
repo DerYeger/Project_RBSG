@@ -48,13 +48,12 @@ import static org.junit.Assert.*;
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
         ApplicationState.class,
-        }
-)
+        SceneManagerConfig.class
+})
 public class PlayerLeftGameListTest extends ApplicationTest
 {
     @Autowired
@@ -148,15 +147,17 @@ public class PlayerLeftGameListTest extends ApplicationTest
     @Override
     public void start(Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        Parent parent = (Parent) lobbyViewBuilder.buildLobbyScene();
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
+
+        Parent parent = components.getRoot();
         Scene scene = new Scene(parent, 1200, 840);
         stage.setScene(scene);
         stage.show();
         stage.toFront();
 
-        lobby = lobbyViewBuilder.getLobbyViewController().getLobby();
+        lobby = components.getController().getLobby();
     }
 
     @Test

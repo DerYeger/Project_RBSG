@@ -98,11 +98,10 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         modelManager = new ModelManager();
     }
 
-    public void init() {
+    public void initialize() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
 
-        setAsRootController();
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -170,17 +169,12 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     @Override
-    public void setAsRootController() {
-        sceneManager.withRootController(this);
-    }
-
-    @Override
     public void terminate() {
         gameEventManager.terminate();
     }
 
     public void showInfo(ActionEvent actionEvent) {
-        sceneManager.setIngameScene(); // for testing
+        sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, true, SceneManager.SceneIdentifier.WAITING_ROOM); // for testing
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
@@ -189,8 +183,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         alert.setHeaderText("Are you sure you want to exit?");
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.OK)) {
-            // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-            sceneManager.setLobbyScene(false, null);
+            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
             gameProvider.clear();
         } else {
             actionEvent.consume();

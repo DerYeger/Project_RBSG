@@ -103,7 +103,6 @@ public class LoginFormController implements Rincled
         addEventListeners();
         addLoadingIndicator();
         addErrorFlag();
-        setAsRootController();
         loginButton.setDefaultButton(true);
         updateLabels();
     }
@@ -204,7 +203,7 @@ public class LoginFormController implements Rincled
             logger.debug("unexpected initializer error", e);
             handleErrorMessage(getResources().getString("unexpectedInitializerError"));
         }
-        Platform.runLater(() -> sceneManager.setLobbyScene(false, null));
+        Platform.runLater(() -> sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null));
     }
 
     private void setErrorFlag(boolean flag) {

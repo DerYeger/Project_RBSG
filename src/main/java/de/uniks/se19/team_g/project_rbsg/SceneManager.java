@@ -1,10 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import io.rincl.*;
 import javafx.application.Platform;
@@ -21,7 +17,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -32,10 +27,17 @@ import java.util.HashSet;
 public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
 
     public enum SceneIdentifier {
-        LOGIN,
-        LOBBY,
-        ARMY_BUILDER,
-        WAITING_ROOM
+        LOGIN("loginScene"),
+        LOBBY("lobbyScene"),
+        ARMY_BUILDER("armyScene"),
+        WAITING_ROOM("waitingRoomScene"),
+        INGAME("ingameScene");
+
+        public final String builder;
+
+        SceneIdentifier(@NonNull final String builder) {
+            this.builder = builder;
+        }
     }
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -54,133 +56,65 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         return this;
     }
 
-    public void withRootController(@NonNull final RootController rootController) {
-        rootControllers.add(rootController);
+    public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+        if (stage == null) {
+            logger.error("Stage not initialised");
+            return;
+        }
+
+        handleCaching(useCaching, cacheIdentifier);
+
+        if (!useCaching) clearCache();
+
+        logger.debug("Setting scene " + sceneIdentifier.name() + " with" + (useCaching ? " " : "out ") + "caching");
+
+        if (cachedScenes.containsKey(sceneIdentifier)) {
+            setSceneFromCache(sceneIdentifier);
+            return;
+        }
+
+        @SuppressWarnings("unchecked")
+        final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
+        showSceneFromViewComponent(viewComponent);
     }
 
-    public HashSet<RootController> getRootControllers() {
-        return rootControllers;
+    private void handleCaching(@NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+        if (useCaching && cacheIdentifier != null) {
+            cachedScenes.put(cacheIdentifier, stage.getScene());
+            logger.debug("Cached scene " + stage.getScene() + " with identifier " + cacheIdentifier.name());
+        }
     }
 
-    private void setScene(@NonNull final Scene scene) {
+    private void doSetScene(@NonNull final Scene scene) {
         Platform.runLater(() -> stage.setScene(scene));
     }
 
     private void setSceneFromCache(@NonNull final SceneIdentifier identifier) {
         if (cachedScenes.containsKey(identifier)) {
-            setScene(cachedScenes.get(identifier));
+            doSetScene(cachedScenes.get(identifier));
         } else {
             logger.error("No cached Scene with identifier " + identifier.name());
         }
     }
 
-    public void setStartScene() {
-        if (stage == null) {
-            logger.error("Stage not initialised");
-            return;
-        }
-        try {
-            clear();
-            final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
-            setScene(startScene);
-        } catch (IOException e) {
-            logger.error("Unable to set start scene");
-            e.printStackTrace();
-        }
-    }
-
-    public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
-        if (stage == null) {
-            logger.error("Stage not initialised");
-            return;
-        }
-        try {
-            handleCaching(useCache, cacheIdentifier);
-
-            if (!useCache) clear();
-
-            if (cachedScenes.containsKey(SceneIdentifier.LOBBY)) {
-                setSceneFromCache(SceneIdentifier.LOBBY);
-                return;
-            }
-
-            final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
-            setScene(lobbyScene);
-        } catch (Exception e) {
-            System.out.println("Unable to set lobby scene");
-            e.printStackTrace();
-        }
-    }
-
-    public void setWaitingRoomScene() {
-        if (stage == null) {
-            logger.error("Stage not initialised");
-            return;
-        }
-        try {
-            clear();
-            final Scene waitingRoomScene = context.getBean(WaitingRoomSceneBuilder.class).getWaitingRoomScene();
-            setScene(waitingRoomScene);
-        } catch (Exception e) {
-            System.out.println("Unable to set waiting_room scene");
-            e.printStackTrace();
-        }
-    }
-
-    public void setIngameScene() {
-        if (stage == null) {
-            System.out.println("Not yet initialised");
-            return;
-        }
-        try {
-            final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
-            stage.setResizable(false);
-            setScene(ingameScene);
-        } catch (Exception e) {
-            System.out.println("Unable to set ingame scene");
-            e.printStackTrace();
-        }
-    }
-
-    public void setArmyBuilderScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
-        handleCaching(useCache, cacheIdentifier);
-
-        if (!useCache) clear();
-
-        if (cachedScenes.containsKey(SceneIdentifier.ARMY_BUILDER)) {
-            setSceneFromCache(SceneIdentifier.ARMY_BUILDER);
-            return;
-        }
-
-        @SuppressWarnings("unchecked") ViewComponent<RootController> component
-                = (ViewComponent<RootController>) context.getBean("armyBuilderScene");
-        showSceneFromViewComponent(component);
-    }
-
-    private void handleCaching(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
-        if (useCache && cacheIdentifier != null) {
-            cachedScenes.put(cacheIdentifier, stage.getScene());
-        }
-    }
-
     private void showSceneFromViewComponent(@NonNull final ViewComponent<RootController> component) {
-        setScene(sceneFromParent(component.getRoot()));
+        doSetScene(sceneFromParent(component.getRoot()));
         withRootController(component.getController());
     }
 
-    public Scene sceneFromParent(@NonNull final Parent parent)
+    private Scene sceneFromParent(@NonNull final Parent parent)
     {
         return new Scene(parent);
     }
 
-    @Override
-    public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
-        this.context = applicationContext;
+    public void withRootController(@NonNull final RootController rootController) {
+        rootControllers.add(rootController);
     }
 
-    private void clear() {
+    private void clearCache() {
         terminateRootControllers();
         cachedScenes.clear();
+        logger.debug("Cache cleared");
     }
 
     private void terminateRootControllers() {
@@ -190,10 +124,16 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
             }
         }
         rootControllers.clear();
+        logger.debug("RootControllers terminated");
     }
 
     @Override
     public void terminate() {
         terminateRootControllers();
+    }
+
+    @Override
+    public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
     }
 }
