@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.alert;
 
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,7 +9,10 @@ import org.springframework.lang.NonNull;
 
 import java.net.URL;
 
-public abstract class ConfirmationAlertController extends AlertController {
+/**
+ * @author Jan Müller
+ */
+public class ConfirmationAlertController extends AlertController {
 
     @FXML
     private Label label;
@@ -25,8 +29,8 @@ public abstract class ConfirmationAlertController extends AlertController {
     private Runnable onConfirmRunnable;
     private Runnable onCancelRunnable;
 
-    public void initialize() {
-        label.textProperty().setValue(getText());
+    public void init() {
+        label.textProperty().setValue(text);
 
         confirm.setOnAction(event -> {
             if (onConfirmRunnable != null) {
@@ -45,8 +49,6 @@ public abstract class ConfirmationAlertController extends AlertController {
         JavaFXUtils.setButtonIcons(confirm, acceptWhite, acceptBlack, 40);
         JavaFXUtils.setButtonIcons(cancel, cancelWhite, cancelBlack, 40);
     }
-
-    protected abstract String getText();
 
     public ConfirmationAlertController andThen(@NonNull final Runnable onConfirmRunnable) {
         this.onConfirmRunnable = onConfirmRunnable;

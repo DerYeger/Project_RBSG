@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
@@ -73,6 +74,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final ApplicationState applicationState;
     @NonNull
     private final ChatBuilder chatBuilder;
+    @NonNull
+    private final AlertBuilder alertBuilder;
     private final ModelManager modelManager;
     private final IngameGameProvider ingameGameProvider;
 
@@ -85,7 +88,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final SplashImageBuilder splashImageBuilder,
                                      @NonNull final ApplicationState applicationState,
                                      @NonNull final IngameGameProvider ingameGameProvider,
-                                     @NonNull final ChatBuilder chatBuilder) {
+                                     @NonNull final ChatBuilder chatBuilder,
+                                     @NonNull final AlertBuilder alertBuilder) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -95,6 +99,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.applicationState = applicationState;
         this.ingameGameProvider = ingameGameProvider;
         this.chatBuilder = chatBuilder;
+        this.alertBuilder = alertBuilder;
         modelManager = new ModelManager();
     }
 
@@ -178,16 +183,13 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave Game");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
-            gameProvider.clear();
-        } else {
-            actionEvent.consume();
-        }
+        alertBuilder
+                .confirm(AlertBuilder.Type.EXIT)
+                .andThen(() -> {
+                    gameProvider.clear();
+                    sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+                })
+                .show();
     }
 
     public void toggleSound(ActionEvent actionEvent) {

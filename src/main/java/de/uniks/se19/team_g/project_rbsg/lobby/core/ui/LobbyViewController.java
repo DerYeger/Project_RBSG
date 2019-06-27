@@ -347,8 +347,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         alertBuilder
                 .confirm(AlertBuilder.Type.LOGOUT)
                 .andThen(() -> {
-                    logoutManager.logout(userProvider);
                     sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+                    logoutManager.logout(userProvider);
                 })
                 .show();
     }

@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.alert;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import io.rincl.Rincled;
 import javafx.scene.layout.StackPane;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -13,20 +14,23 @@ import org.springframework.stereotype.Component;
  * @author Jan Müller
  */
 @Component
-public class AlertBuilder implements ApplicationContextAware {
+public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     @NonNull
     private final SceneManager sceneManager;
 
     public enum Type {
-        EXIT("exitAlert"),
-        LOGOUT("logoutAlert");
+        EXIT("exit", "confirmationAlert"),
+        LOGOUT("logout", "confirmationAlert");
 
         @NonNull
-        private final String beanName;
+        private final String text;
+        @NonNull
+        private final String bean;
 
-        Type(@NonNull final String beanName) {
-            this.beanName = beanName;
+        Type(@NonNull final String text, @NonNull final String bean) {
+            this.text = text;
+            this.bean = bean;
         }
     }
 
@@ -48,9 +52,12 @@ public class AlertBuilder implements ApplicationContextAware {
         if (target.getChildren().size() > 1) return null;
 
         @SuppressWarnings("unchecked")
-        final ViewComponent<AlertController> components = (ViewComponent<AlertController>) context.getBean(type.beanName);
+        final ViewComponent<AlertController> components = (ViewComponent<AlertController>) context.getBean(type.bean);
         final AlertController controller = components.getController();
-        controller.initialize(components.getRoot(), target);
+        controller.initialize(
+                getResources().getString(type.text),
+                components.getRoot(),
+                target);
         return controller;
     }
 

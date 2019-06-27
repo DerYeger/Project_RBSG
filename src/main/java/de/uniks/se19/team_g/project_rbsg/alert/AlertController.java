@@ -10,16 +10,18 @@ import org.springframework.lang.NonNull;
  */
 public abstract class AlertController {
 
+    protected String text;
+    protected Node alert;
     protected StackPane target;
 
-    protected Node alert;
-
-    public void initialize(@NonNull final Node alert, @NonNull final StackPane target) {
+    public void initialize(@NonNull final String text, @NonNull final Node alert, @NonNull final StackPane target) {
+        this.text = text;
         this.alert = alert;
         this.target = target;
+        init();
     }
 
-    public abstract void initialize();
+    public abstract void init();
 
     public void show() {
         if (!target.getChildren().contains(alert)) {
