@@ -1,12 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import io.rincl.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +19,19 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * @author Jan Müller
  */
 @Component
 public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
+
+    @Nullable
+    private final AlertBuilder alertBuilder;
+
+    public SceneManager(@Nullable final AlertBuilder alertBuilder) {
+        this.alertBuilder = alertBuilder;
+    }
 
     public enum SceneIdentifier {
         LOGIN("loginScene"),
@@ -47,7 +54,9 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     private Stage stage;
 
     private HashMap<SceneIdentifier, Scene> cachedScenes = new HashMap<>();
-    private HashSet<RootController> rootControllers = new HashSet<>();
+    private HashMap<SceneIdentifier, RootController> rootControllers = new HashMap<>();
+
+    private RootController activeController;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
@@ -75,7 +84,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
         @SuppressWarnings("unchecked")
         final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
-        showSceneFromViewComponent(viewComponent);
+        showSceneFromViewComponent(viewComponent, sceneIdentifier);
     }
 
     private void handleCaching(@NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
@@ -91,15 +100,16 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private void setSceneFromCache(@NonNull final SceneIdentifier identifier) {
         if (cachedScenes.containsKey(identifier)) {
+            activeController = rootControllers.get(identifier);
             doSetScene(cachedScenes.get(identifier));
         } else {
             logger.error("No cached Scene with identifier " + identifier.name());
         }
     }
 
-    private void showSceneFromViewComponent(@NonNull final ViewComponent<RootController> component) {
+    private void showSceneFromViewComponent(@NonNull final ViewComponent<RootController> component, @Nullable final SceneIdentifier identifier) {
         doSetScene(sceneFromParent(component.getRoot()));
-        withRootController(component.getController());
+        withRootController(component.getController(), identifier);
     }
 
     private Scene sceneFromParent(@NonNull final Parent parent)
@@ -107,8 +117,29 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         return new Scene(parent);
     }
 
-    public void withRootController(@NonNull final RootController rootController) {
-        rootControllers.add(rootController);
+    public void showAlert(@NonNull final AlertBuilder.Type type) {
+        if (alertBuilder == null) {
+            logger.error("SceneManager was created without an AlertBuilder");
+            return;
+        }
+
+        if (activeController == null) {
+            logger.error("No active root controller present to handle the alert");
+            return;
+        }
+
+        try {
+            final StackPane root = (StackPane) stage.getScene().getRoot();
+            alertBuilder.build(type, root).show();
+        } catch (final ClassCastException e) {
+            e.printStackTrace();
+            logger.error("Root of Scene " + stage.getScene() + " is not a StackPane");
+        }
+    }
+
+    public void withRootController(@NonNull final RootController rootController, @Nullable final SceneIdentifier identifier) {
+        activeController = rootController;
+        if (identifier != null) rootControllers.put(identifier, rootController);
     }
 
     private void clearCache() {
@@ -118,11 +149,11 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     }
 
     private void terminateRootControllers() {
-        for (final RootController controller : rootControllers) {
+        rootControllers.forEach((scene, controller) -> {
             if (controller instanceof Terminable) {
                 ((Terminable) controller).terminate();
             }
-        }
+        });
         rootControllers.clear();
         logger.debug("RootControllers terminated");
     }

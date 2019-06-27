@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="container" alignment="BOTTOM_RIGHT" prefHeight="400.0" prefWidth="600.0" styleClass="container" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.alert.ConfirmationAlertController">
+<VBox fx:id="container" alignment="BOTTOM_RIGHT" prefHeight="400.0" prefWidth="600.0" styleClass="container" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.alert.ExitAlertController">
    <children>
       <Label fx:id="label" alignment="TOP_LEFT" text="Label" />
       <HBox alignment="CENTER_RIGHT" styleClass="button-container">

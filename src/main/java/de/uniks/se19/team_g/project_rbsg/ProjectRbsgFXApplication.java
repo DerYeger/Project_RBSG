@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -65,13 +66,17 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
         Rincl.setLocale(Locale.ENGLISH);
 
-        context.getBean(SceneManager.class)
-                .init(primaryStage)
+        final SceneManager sceneManager = context.getBean(SceneManager.class);
+
+        sceneManager.init(primaryStage)
                 .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
 
         context.getBean(MusicManager.class).initMusic();
 
-        primaryStage.setOnCloseRequest(event -> showCloseDialog(event, primaryStage.getTitle()));
+        primaryStage.setOnCloseRequest(event -> {
+            sceneManager.showAlert(AlertBuilder.Type.EXIT);
+            event.consume();
+        });
 
         primaryStage.show();
     }

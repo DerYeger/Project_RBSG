@@ -1,8 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
-import javafx.beans.property.SimpleBooleanProperty;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -54,20 +53,5 @@ public class StartViewController implements RootController {
 
     public void toggleSound(ActionEvent actionEvent) {
         musicManager.updateMusicButtonIcons(musicButton);
-    }
-
-    @Override
-    public void setAsRootController() {
-       //this Method has to be removed with the merge of the SceneManager rework
-    }
-
-    @Override
-    public void showAlert() {
-
-    }
-
-    @Override
-    public void hideAlert() {
-
     }
 }

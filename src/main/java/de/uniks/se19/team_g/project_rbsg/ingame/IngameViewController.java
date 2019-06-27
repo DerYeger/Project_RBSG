@@ -5,13 +5,14 @@ import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
@@ -180,5 +181,4 @@ public class IngameViewController implements RootController {
         }
         return size;
     }
-
 }
