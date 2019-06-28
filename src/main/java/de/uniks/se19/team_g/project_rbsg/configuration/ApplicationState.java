@@ -39,10 +39,7 @@ public class ApplicationState {
                 validArmySelected.unbind();
                 validArmySelected.setValue(false);
             } else {
-                final Army army = selectedArmy.get();
-                final BooleanBinding validArmySizeBinding = new SimpleListProperty<>(army.units).sizeProperty().isEqualTo(ApplicationState.ARMY_MAX_UNIT_COUNT);
-                final BooleanBinding validArmyBinding = army.id.isNotNull().and(validArmySizeBinding);
-                validArmySelected.bind(validArmyBinding);
+                validArmySelected.bind(newValue.isPlayable);
             }
         });
     }
