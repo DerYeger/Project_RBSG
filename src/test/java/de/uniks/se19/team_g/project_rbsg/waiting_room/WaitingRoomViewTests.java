@@ -13,7 +13,6 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +37,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 /**
  * @author  Keanu Stückrad
@@ -124,20 +124,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
         }
 
         @Bean
-        public ModelManager modelManager(){
-            return new ModelManager() {
-                @Override
-                public de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game getGame(){
-                    Player p1 = new Player("").setName("P1").setColor("BLACK");
-                    Player p2 = new Player("").setName("P2").setColor("RED");
-                    de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game = new de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game("");
-                    game.withPlayers(p1, p2);
-                    return game;
-                }
-            };
-        }
-
-        @Bean
         public UserProvider userProvider(){
             return new UserProvider(){
                 @Override
@@ -155,10 +141,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Autowired
     WaitingRoomSceneBuilder waitingRoomSceneBuilder;
-
-    @Autowired
-    ModelManager modelManager;
-
 
     private WaitingRoomViewBuilder waitingRoomViewBuilder;
     private Scene scene;
@@ -178,16 +160,17 @@ public class WaitingRoomViewTests extends ApplicationTest {
     public void testBuildPlayerCard() throws Exception {
         Label label = lookup("Waiting for\nplayer...").query();
         Assert.assertNotNull(label);
-        waitingRoomViewBuilder.waitingRoomViewController.handle(null);
-        Player p1 = new Player("123").setName("P1").setColor("GREEN");
         de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game = new de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game("");
-        game.withPlayer(p1);
-        waitingRoomViewBuilder.waitingRoomViewController.setPlayerCards(game);
+        Player p1 = new Player("123").setName("P1").setColor("GREEN");
         Player p2 = new Player("456").setName("P2").setColor("BLUE");
-        game.withPlayer(p2);
+        game.withPlayers(p1, p2);
+        waitingRoomViewBuilder.waitingRoomViewController.setPlayerCards(game);
         Player p3 = new Player("123").setName("P3").setColor("YELLOW");
         game.withPlayer(p3);
         game.withoutPlayer(p2);
+        WaitForAsyncUtils.waitForFxEvents();
+        Label label2 = lookup("P1").query();
+        Assert.assertNotNull(label2);
     }
 
     @Autowired

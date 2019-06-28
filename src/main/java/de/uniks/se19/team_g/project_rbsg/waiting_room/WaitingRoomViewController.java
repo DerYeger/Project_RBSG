@@ -80,7 +80,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final ApplicationState applicationState;
     private final ChatBuilder chatBuilder;
     private final PreviewMapBuilder previewMapBuilder;
-    private final ModelManager modelManager;
+    public ModelManager modelManager;
     private final IngameGameProvider ingameGameProvider;
     private static boolean skipped;
 
@@ -94,8 +94,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final ApplicationState applicationState,
                                      @NonNull final PreviewMapBuilder previewMapBuilder,
                                      @NonNull final ChatBuilder chatBuilder,
-                                     @NonNull final IngameGameProvider ingameGameProvider,
-                                     @NonNull final ModelManager modelManager) {
+                                     @NonNull final IngameGameProvider ingameGameProvider) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -104,7 +103,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
         this.chatBuilder = chatBuilder;
-        this.modelManager = modelManager;
+        this.modelManager = new ModelManager();
         this.previewMapBuilder = previewMapBuilder;
         this.ingameGameProvider = ingameGameProvider;
     }
@@ -205,7 +204,6 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
             sceneManager.setLobbyScene(false, null);
             gameProvider.clear();
             ingameGameProvider.clear();
-            modelManager.getGame().remove();
         } else {
             actionEvent.consume();
         }
@@ -232,13 +230,13 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         final Game game = modelManager.getGame();
         //game SHOULD (no guarantee) be ready now
         ingameGameProvider.set(game);
-        skipped = false;
         setPlayerCards(ingameGameProvider.get());
         showMapPreview(ingameGameProvider.get().getCells());
     }
 
     public void setPlayerCards(Game game) {
         // init PlayerCards
+        skipped = false;
         Player user = null;
         for(Player p: game.getPlayers()) {
             if(p.getName().equals(userProvider.get().getName())) {

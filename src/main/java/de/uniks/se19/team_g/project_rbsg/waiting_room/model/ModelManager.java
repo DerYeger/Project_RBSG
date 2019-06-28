@@ -8,14 +8,12 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
 /**
  * @author Jan Müller
  */
-@Component
 public class ModelManager implements GameEventHandler {
 
     private static final String GAME_INIT_OBJECT = "gameInitObject";
