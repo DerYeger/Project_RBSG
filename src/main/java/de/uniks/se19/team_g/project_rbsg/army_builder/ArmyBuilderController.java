@@ -64,9 +64,6 @@ public class ArmyBuilderController implements Initializable, RootController {
     private final SceneManager sceneManager;
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
-    @Nonnull
-    PersistentArmyManager persistantArmyManager;
-
     public StackPane root;
     public VBox content;
     public HBox topContentContainer;
@@ -79,11 +76,10 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button leaveButton;
     public Button deleteArmyButton;
     public Button saveArmiesButton;
-
     public Button showInfoButton;
-
     public Pane armySelectorRoot;
-
+    @Nonnull
+    PersistentArmyManager persistantArmyManager;
     private ChangeListener<Unit> onSelectionUpdated;
 
     private Node infoView;
@@ -115,12 +111,11 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.musicManager = musicManager;
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
-        this.persistantArmyManager=persistantArmyManager;
+        this.persistantArmyManager = persistantArmyManager;
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
         unitListView.setCellFactory(unitCellFactory);
         unitListView.setItems(appState.unitDefinitions);
 
@@ -147,7 +142,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         if (armySelectorComponent != null) {
             armySelectorController = armySelectorComponent.apply(armySelectorRoot);
             armySelectorController.setSelection(
-                appState.armies, appState.selectedArmy
+                    appState.armies, appState.selectedArmy
             );
         }
 
@@ -180,8 +175,7 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     }
 
-    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue)
-    {
+    public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue) {
         final Unit selection;
         if (newValue == null) {
             selection = null;
@@ -197,7 +191,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void toggleSound(ActionEvent actionEvent) {
-        if(musicManager == null) return;
+        if (musicManager == null) {
+            return;
+        }
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
@@ -213,7 +209,8 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void showInfo(ActionEvent actionEvent) {
-        if(infoView == null) {
+
+        if (infoView == null) {
             infoView = unitPropertyInfoListBuilder.buildInfoView();
             root.getChildren().add(infoView);
             StackPane.setAlignment(infoView, Pos.CENTER);
@@ -222,11 +219,16 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void deleteArmy(ActionEvent actionEvent) {
+
+        //For clean-deletion
+        Army army = appState.selectedArmy.get();
+        army.units.removeAll(army.units);
+
         ListView<ObservableList<Army>> armyList; //= (ListView<ObservableList<Army>>) armySelectorRoot.getChildren().get(0);
         for (Node node : armySelectorRoot.getChildren()) {
             if (node.getId().equals("listView")) {
                 armyList = (ListView<ObservableList<Army>>) node;
-                armyList.getItems().remove(appState.selectedArmy.getValue());
+                //For list element deletion: armyList.getItems().remove(appState.selectedArmy.getValue());
                 armyList.refresh();
             }
         }
