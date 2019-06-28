@@ -17,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -28,8 +29,11 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -239,12 +243,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         updateLabels(null);
 
-        if (appState != null) {
-            if (armySelectorComponent != null) {
-                armySelectorController = armySelectorComponent.apply(armySelectorRoot);
-                armySelectorController.setSelection(appState.armies.filtered(a -> a.units.size() == ApplicationState.ARMY_MAX_UNIT_COUNT), appState.selectedArmy);
-            }
+        mountArmySelector();
 
+        if (appState != null) {
             JavaFXUtils.bindButtonDisableWithTooltip(
                     createGameButton,
                     createGameButtonContainer,
@@ -258,6 +259,25 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if (Objects.nonNull(appState) && appState.notifications.size() > 0) {
             showNotifications();
         }
+    }
+
+    protected void mountArmySelector() {
+        if (armySelectorComponent == null || appState == null) {
+            return;
+        }
+
+        armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+
+        /*
+         * normally, an observable list is only aware of items added and removed
+         * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
+         */
+        final ObservableList<Army> playableAwareArmies = FXCollections.observableArrayList(
+            army -> new Observable[] {army.isPlayable}
+        );
+        Bindings.bindContent( playableAwareArmies, appState.armies);
+
+        armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), appState.selectedArmy);
     }
 
     private void showNotifications() {
