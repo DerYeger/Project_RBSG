@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -29,25 +30,33 @@ public class ChatTabManager {
     @NonNull
     private ChatTabBuilder chatTabBuilder;
 
-    private HashMap<String, Tab> chatTabs;
+    private HashMap<String, Tab> tabs;
+    private HashMap<Tab, ChatTabController> tabControllers;
 
     public void init(@NonNull final ChatController chatController, @NonNull final TabPane tabPane, @NonNull final ChatTabBuilder chatTabBuilder) {
         this.chatController = chatController;
         this.tabPane = tabPane;
         this.chatTabBuilder = chatTabBuilder;
 
-        chatTabs = new HashMap<>();
+        tabs = new HashMap<>();
+        tabControllers = new HashMap<>();
 
         addPublicTab();
     }
 
     private Tab addTab(@NonNull final String channel, @NonNull final boolean isClosable) {
-        if (!chatTabs.containsKey(channel)) {
+        if (!tabs.containsKey(channel)) {
             try {
-                final Tab tab = chatTabBuilder.buildChatTab(channel);
+                final Tuple<Tab, ChatTabController> tabComponents = chatTabBuilder.buildChatTab(channel);
+                final Tab tab = tabComponents.first;
+
                 tab.setClosable(isClosable);
-                chatTabs.put(channel, tab);
+
+                tabs.put(channel, tab);
+                tabControllers.put(tab, tabComponents.second);
+
                 Platform.runLater(() -> tabPane.getTabs().add(tab));
+
                 return tab;
             } catch (final IOException e) {
                 e.printStackTrace();
@@ -65,10 +74,10 @@ public class ChatTabManager {
     }
 
     public void openTab(@NonNull final String channel) {
-        Tab tab = null;
+        Tab tab;
 
-        if (chatTabs.containsKey(channel)) {
-            tab = chatTabs.get(channel);
+        if (tabs.containsKey(channel)) {
+            tab = tabs.get(channel);
         } else {
             tab = addPrivateTab(channel);
         }
@@ -79,19 +88,21 @@ public class ChatTabManager {
     }
 
     public void selectTab(@NonNull final String channel) {
-        selectTab(chatTabs.get(channel));
+        selectTab(tabs.get(channel));
     }
 
     public void selectTab(@NonNull final Tab tab) {
+        tabControllers.get(tab).markRead();
         Platform.runLater(() -> tabPane.getSelectionModel().select(tab));
     }
 
     public boolean closeTab(@NonNull final String channel) {
         if (channel.equals(PUBLIC_CHANNEL_NAME)) {
             return false;
-        } else if (chatTabs.containsKey(channel)) {
-            tabPane.getTabs().remove(chatTabs.get(channel));
-            chatTabs.remove(channel);
+        } else if (tabs.containsKey(channel)) {
+            tabPane.getTabs().remove(tabs.get(channel));
+            tabControllers.remove(tabs.get(channel));
+            tabs.remove(channel);
             return true;
         }
         return false;

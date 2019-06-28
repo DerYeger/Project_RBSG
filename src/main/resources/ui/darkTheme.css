@@ -259,28 +259,44 @@
     -fx-background-color: transparent;
 }
 
+.scroll-pane.invisible,
+.scroll-pane.invisible * {
+    -fx-fit-to-width: true;
+    -fx-background-color: -root-background-color;
+}
+
 .scroll-pane.default .thumb {
     -fx-background-color: -surface-elevation-color;
     -fx-opacity: 13%;
 }
 
-.scroll-pane.default .scroll-bar {
+.scroll-pane.invisible .thumb {
     -fx-background-color: transparent;
 }
 
-.scroll-pane.default .track {
+.scroll-pane.default .scroll-bar,
+.scroll-pane.invisible .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane.default .track,
+.scroll-pane.invisible .track {
 
 }
 
 /*------------------ScrollPane-De/Increment------------------*/
 
 .scroll-pane.default .scroll-bar .increment-button,
-.scroll-pane.default .scroll-bar .decrement-button {
+.scroll-pane.default .scroll-bar .decrement-button,
+.scroll-pane.invisible .scroll-bar .increment-button,
+.scroll-pane.invisible .scroll-bar .decrement-button {
     -fx-background-color: transparent;
 }
 
 .scroll-pane.default .scroll-bar .increment-button:hover,
-.scroll-pane.default .scroll-bar .decrement-button:hover {
+.scroll-pane.default .scroll-bar .decrement-button:hover,
+.scroll-pane.invisible .scroll-bar .increment-button:hover,
+.scroll-pane.invisible .scroll-bar .decrement-button:hover{
     -fx-background-color: transparent;
 }
 
@@ -345,4 +361,25 @@
 .modal .notification {
     -fx-min-width: 150;
     -fx-max-width: 300;
+}
+
+.scroll-pane.invisible .scroll-bar .increment-button:hover .increment-arrow,
+.scroll-pane.invisible .scroll-bar .decrement-button:hover .decrement-arrow {
+    -fx-stroke: 3px;
+    -fx-background-color: transparent;
+    -fx-effect: none;
+}
+
+.scroll-pane.invisible  .scroll-bar .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: transparent;
+    -fx-effect: none;
+}
+.scroll-pane.invisible  .scroll-bar .decrement-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-stroke: 3px;
+    -fx-background-color: transparent;
+    -fx-effect: none;
+    -fx-rotate: -180;
 }

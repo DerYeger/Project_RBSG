@@ -53,7 +53,8 @@ import static org.junit.Assert.*;
         FXMLLoaderFactory.class,
         MusicManager.class,
         ApplicationState.class,
-        }
+        GameListViewCell.class
+    }
 )
 public class PlayerJoinedGameListTest extends ApplicationTest
 {

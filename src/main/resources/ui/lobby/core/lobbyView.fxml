@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -69,11 +70,14 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="iconWithText">
+                        <Pane fx:id="createGameButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
-                        </Button>
+                           <children>
+                              <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="iconWithText" />
+                           </children>
+                        </Pane>
                         <Button fx:id="armyBuilderLink" mnemonicParsing="false" onAction="#goToArmyBuilder" text="Armies">
                            <styleClass>
                               <String fx:value="rally-troops" />
