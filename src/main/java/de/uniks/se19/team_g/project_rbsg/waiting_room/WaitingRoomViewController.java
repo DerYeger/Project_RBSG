@@ -10,7 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -19,6 +18,9 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,14 +32,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
-
-import java.awt.*;
 
 import java.util.List;
 
@@ -52,14 +50,12 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
 
     private static final int ICON_SIZE = 40;
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     public Pane player1Pane;
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
-    public Pane chatContainer; // TODO @DerYeger
-    public Pane mapPreviewPane; // TODO @DerYeger
+    public Pane chatContainer;
+    public Pane mapPreviewPane;
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public Pane armyBar; // TODO has to be filled later
     public Button soundButton;
@@ -73,6 +69,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private PlayerCardBuilder playerCard2;
     private PlayerCardBuilder playerCard3;
     private PlayerCardBuilder playerCard4;
+    private ObservableList<PlayerCardBuilder> playerCardBuilders;
 
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
@@ -83,8 +80,9 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final ApplicationState applicationState;
     private final ChatBuilder chatBuilder;
     private final PreviewMapBuilder previewMapBuilder;
-    private final ModelManager modelManager;
+    public ModelManager modelManager;
     private final IngameGameProvider ingameGameProvider;
+    private static boolean skipped;
 
     @Autowired
     public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
@@ -94,8 +92,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final MusicManager musicManager,
                                      @NonNull final SplashImageBuilder splashImageBuilder,
                                      @NonNull final ApplicationState applicationState,
-                                     @NonNull final ChatBuilder chatBuilder,
                                      @NonNull final PreviewMapBuilder previewMapBuilder,
+                                     @NonNull final ChatBuilder chatBuilder,
                                      @NonNull final IngameGameProvider ingameGameProvider) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
@@ -105,16 +103,14 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
         this.chatBuilder = chatBuilder;
+        this.modelManager = new ModelManager();
         this.previewMapBuilder = previewMapBuilder;
         this.ingameGameProvider = ingameGameProvider;
-
-        modelManager = new ModelManager();
     }
 
     public void init() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
-
         setAsRootController();
         JavaFXUtils.setButtonIcons(
                 leaveButton,
@@ -130,7 +126,6 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
-
         initSocket();
     }
 
@@ -155,9 +150,13 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private void initPlayerCardBuilders() {
         playerCard = new PlayerCardBuilder();
         playerCard2 = new PlayerCardBuilder();
+        playerCardBuilders = FXCollections.observableArrayList();
+        playerCardBuilders.add(playerCard2);
         if(gameProvider.get().getNeededPlayer() == 4) {
             playerCard3 = new PlayerCardBuilder();
             playerCard4 = new PlayerCardBuilder();
+            playerCardBuilders.add(playerCard3);
+            playerCardBuilders.add(playerCard4);
         }
     }
 
@@ -202,9 +201,9 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         alert.setHeaderText("Are you sure you want to exit?");
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.OK)) {
-            // WebSocketConfigurator.userKey = userProvider.get().getUserKey();
             sceneManager.setLobbyScene(false, null);
             gameProvider.clear();
+            ingameGameProvider.clear();
         } else {
             actionEvent.consume();
         }
@@ -229,17 +228,65 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     @Override
     public void handle(@NonNull final ObjectNode message) {
         final Game game = modelManager.getGame();
+        //game SHOULD (no guarantee) be ready now
         ingameGameProvider.set(game);
-        String color = "";
+        setPlayerCards(ingameGameProvider.get());
+        showMapPreview(ingameGameProvider.get().getCells());
+    }
+
+    public void setPlayerCards(Game game) {
+        // init PlayerCards
+        skipped = false;
+        Player user = null;
         for(Player p: game.getPlayers()) {
             if(p.getName().equals(userProvider.get().getName())) {
-                color = p.getColor();
+                user = p;
             }
         }
-        playerCard.setPlayer(new de.uniks.se19.team_g.project_rbsg.lobby.model.Player(userProvider.get().getName()), Color.valueOf(color));
-        logger.debug("Game set to IngameGameProvider");
-        //game SHOULD (no guarantee) be ready now
-        showMapPreview(game.getCells());
+        if (user == null) {
+            // Exception
+            return;
+        }
+        playerCard.setPlayer(user, Color.valueOf(user.getColor()));
+        for (Player p : game.getPlayers()) {
+            if(p.equals(user) && !skipped){
+                skipped = true;
+                continue;
+            }
+            for(PlayerCardBuilder playerC: playerCardBuilders){
+                if(playerC.isEmpty) {
+                    playerC.setPlayer(p, Color.valueOf(p.getColor()));
+                    break;
+                }
+            }
+        }
+        // ListChangeListener for Player (+ PlayerCards)
+        game.getPlayers().addListener((ListChangeListener<Player>) c -> {
+            while (c.next()) {
+                if (c.wasAdded()) {
+                    for (Player p : c.getAddedSubList()) {
+                        for(PlayerCardBuilder playerC: playerCardBuilders){
+                            if(playerC.isEmpty) {
+                                playerC.setPlayer(p, Color.valueOf(p.getColor()));
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (c.wasRemoved()) {
+                    for (Player p : c.getRemoved()) {
+                        for(PlayerCardBuilder playerC: playerCardBuilders){
+                            if(!playerC.isEmpty) {
+                                if(playerC.getPlayer().equals(p)) {
+                                    playerC.playerLeft();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
 }

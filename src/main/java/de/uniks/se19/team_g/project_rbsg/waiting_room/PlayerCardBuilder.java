@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -41,6 +41,9 @@ public class PlayerCardBuilder {
     private Node playerCardView;
     private SimpleDoubleProperty progress;
 
+    public boolean isEmpty;
+    private Player player;
+
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
             fxmlLoader = new FXMLLoader(getClass().getResource("/ui/waiting_room/playerCard.fxml"));
@@ -69,6 +72,7 @@ public class PlayerCardBuilder {
     }
 
     private void setEmpty() {
+        isEmpty = true;
         Platform.runLater(()-> playerListCellLabel.setText("Waiting for\nplayer..."));
         Platform.runLater(()-> progressIndicator.setVisible(true));
         Platform.runLater(()-> playerListCellImageView.setVisible(false));
@@ -87,6 +91,7 @@ public class PlayerCardBuilder {
     }
 
     public Node setPlayer(Player player, Color color){
+        this.player = player;
         if(fxmlLoader == null) {
             buildPlayerCard();
         }
@@ -97,6 +102,7 @@ public class PlayerCardBuilder {
     }
 
     private void setReady() {
+        isEmpty = false;
         Platform.runLater(()-> progressIndicator.setVisible(false));
         Platform.runLater(()-> playerListCellImageView.setVisible(true));
         playerListCellLabel.getStyleClass().remove("waiting");
@@ -137,6 +143,10 @@ public class PlayerCardBuilder {
         column11.setPrefWidth(40);
         column11.setMinWidth(40);
         column11.setMaxWidth(40);
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 
 }

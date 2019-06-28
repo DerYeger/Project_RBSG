@@ -14,7 +14,7 @@ import java.io.IOException;
 @Component
 public class WaitingRoomViewBuilder {
 
-    private WaitingRoomViewController waitingRoomViewController;
+    public WaitingRoomViewController waitingRoomViewController;
     private FXMLLoaderFactory fxmlLoaderFactory;
     private Node waitingRoomView;
 

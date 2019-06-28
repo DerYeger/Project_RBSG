@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
@@ -11,12 +12,15 @@ import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +42,7 @@ public class IngameViewController {
     private double columnRowSize;
     private double canvasColumnRowSize;
 
+    public Button leaveButton;
     public Button zoomOutButton;
     public Button zoomInButton;
     public VBox root;
@@ -54,15 +59,24 @@ public class IngameViewController {
 
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
+    private final SceneManager sceneManager;
 
     @Autowired
     public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
-                                @NonNull final GameProvider gameProvider) {
-        this.gameProvider = gameProvider;
+                                @NonNull final GameProvider gameProvider,
+                                @NonNull final SceneManager sceneManager) {
         this.ingameGameProvider = ingameGameProvider;
+        this.gameProvider = gameProvider;
+        this.sceneManager = sceneManager;
     }
 
     public void init() {
+        JavaFXUtils.setButtonIcons(
+                leaveButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                40
+        );
         JavaFXUtils.setButtonIcons(
                 zoomInButton,
                 getClass().getResource("/assets/icons/navigation/zoomInWhite.png"),
@@ -213,6 +227,21 @@ public class IngameViewController {
             size += biome.equals(BiomUrls.getTopRightBiom(cell)) ? 1 : 0;
         }
         return size;
+    }
+
+
+    public void leaveGame(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Leave Game");
+        alert.setHeaderText("Are you sure you want to exit?");
+        alert.showAndWait();
+        if (alert.getResult().equals(ButtonType.OK)) {
+            sceneManager.setLobbyScene(false, null);
+            gameProvider.clear();
+            ingameGameProvider.clear();
+        } else {
+            actionEvent.consume();
+        }
     }
 
     public void zoomIn(ActionEvent actionEvent) {
