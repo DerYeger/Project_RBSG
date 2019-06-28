@@ -109,7 +109,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
             this.context = applicationContext;
         }
-
         @Bean
         public SceneManager sceneManager() {
             return new SceneManager() {

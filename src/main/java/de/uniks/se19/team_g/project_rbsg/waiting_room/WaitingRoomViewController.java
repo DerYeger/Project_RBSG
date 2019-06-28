@@ -54,8 +54,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
-    public Pane chatContainer; // TODO @DerYeger
-    public Pane mapPreviewPane; // TODO @DerYeger
+    public Pane chatContainer;
+    public Pane mapPreviewPane;
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public Pane armyBar; // TODO has to be filled later
     public Button soundButton;
@@ -92,10 +92,10 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final MusicManager musicManager,
                                      @NonNull final SplashImageBuilder splashImageBuilder,
                                      @NonNull final ApplicationState applicationState,
-                                     @NonNull final ModelManager modelManager,
-                                     @NonNull final ChatBuilder chatBuilder,
                                      @NonNull final PreviewMapBuilder previewMapBuilder,
-                                     @NonNull final IngameGameProvider ingameGameProvider) {
+                                     @NonNull final ChatBuilder chatBuilder,
+                                     @NonNull final IngameGameProvider ingameGameProvider,
+                                     @NonNull final ModelManager modelManager) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;

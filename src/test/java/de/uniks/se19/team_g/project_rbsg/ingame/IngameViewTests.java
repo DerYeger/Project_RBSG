@@ -1,11 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -65,7 +68,24 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
                 }
             };
         }
+        @Bean
+        public SceneManager sceneManager(){
+            return new SceneManager() {
+                @Override
+                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
 
+                }
+            };
+        }
+        @Bean
+        public ModelManager modelManager(){
+            return new ModelManager(){
+                @Override
+                public Game getGame(){
+                    return new Game("");
+                }
+            };
+        }
         @Bean
         public GameProvider gameProvider() {
             return new GameProvider(){
@@ -76,7 +96,6 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
                 }
             };
         }
-
     }
 
     @Autowired
@@ -97,6 +116,10 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
+        Button leave = lookup("#leaveButton").query();
+        Assert.assertNotNull(leave);
+        clickOn("#leaveButton");
+        clickOn("OK");
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
         clickOn("#zoomOutButton");
