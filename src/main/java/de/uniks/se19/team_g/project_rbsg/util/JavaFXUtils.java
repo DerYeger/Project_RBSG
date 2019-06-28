@@ -5,8 +5,11 @@ import io.rincl.Rincl;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -16,6 +19,7 @@ import javafx.util.Duration;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
+import java.util.Locale;
 
 public class JavaFXUtils {
     public static void setButtonIcons(Button button, URL defaultIconName, URL hoverIconName, int iconSize) {
@@ -64,5 +68,12 @@ public class JavaFXUtils {
         tooltip.textProperty().bind(tooltipText);
         tooltip.setShowDelay(Duration.millis(500));
         return tooltip;
+    }
+
+    public static ObservableValue<? extends String> bindTranslation(Property<Locale> selectedLocale, String key) {
+        return Bindings.createStringBinding(
+                () -> Rincl.getResources(ProjectRbsgFXApplication.class).getString(key),
+                selectedLocale
+        );
     }
 }

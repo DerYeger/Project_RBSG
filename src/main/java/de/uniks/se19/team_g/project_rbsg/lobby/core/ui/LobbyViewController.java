@@ -6,9 +6,10 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -28,19 +29,20 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
@@ -52,6 +54,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -89,10 +92,17 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final LogoutManager logoutManager;
     @Nonnull
     private final ObjectFactory<GameListViewCell> gameListCellFactory;
+    @Nonnull
+    private final Property<Locale> selectedLocale;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
     private final ApplicationState appState;
+    @Nullable
+    private final Function<VBox, NotificationModalController> notificationRenderer;
+
+    public VBox modal;
+    public Pane modalBackground;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -139,14 +149,18 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
             @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
+            @Nonnull final Property<Locale> selectedLocale,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
-            @Nullable final ApplicationState appState
+            @Nullable final ApplicationState appState,
+            @Nullable final Function<VBox, NotificationModalController> notificationRenderer
     ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
         this.gameListCellFactory = gameListCellFactory;
+        this.selectedLocale = selectedLocale;
         this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
+        this.notificationRenderer = notificationRenderer;
 
         this.lobby = new Lobby();
 
@@ -232,14 +246,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         Font.loadFont(getClass().getResource("/assets/fonts/robotoRegular.ttf").toExternalForm(), 16);
         Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
+        bindI18n();
         updateLabels(null);
 
-        if (appState != null) {
-            if (armySelectorComponent != null) {
-                armySelectorController = armySelectorComponent.apply(armySelectorRoot);
-                armySelectorController.setSelection(appState.armies.filtered(a -> a.units.size() == Army.ARMY_MAX_SIZE), appState.selectedArmy);
-            }
+        mountArmySelector();
 
+        if (appState != null) {
             JavaFXUtils.bindButtonDisableWithTooltip(
                     createGameButton,
                     createGameButtonContainer,
@@ -249,6 +261,49 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
 
         setAsRootController();
+
+        if (Objects.nonNull(appState) && appState.notifications.size() > 0) {
+            showNotifications();
+        }
+    }
+
+    protected void mountArmySelector() {
+        if (armySelectorComponent == null || appState == null) {
+            return;
+        }
+
+        armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+
+        /*
+         * normally, an observable list is only aware of items added and removed
+         * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
+         */
+        final ObservableList<Army> playableAwareArmies = FXCollections.observableArrayList(
+            army -> new Observable[] {army.isPlayable}
+        );
+        Bindings.bindContent( playableAwareArmies, appState.armies);
+
+        armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), appState.selectedArmy);
+    }
+
+    private void showNotifications() {
+        Objects.requireNonNull(appState);
+        if (notificationRenderer == null) return;
+
+        modalBackground.setVisible(true);
+        final NotificationModalController modal = notificationRenderer.apply(this.modal);
+        modal.setOnDismiss((e, c) -> {
+            modalBackground.setVisible(false);
+            appState.notifications.clear();
+            this.modal.getChildren().clear();
+        });
+        modal.setNotifications(appState.notifications);
+    }
+
+    private void bindI18n() {
+        armyBuilderLink.textProperty().bind(
+                JavaFXUtils.bindTranslation(selectedLocale, "ArmyBuilderLink")
+        );
     }
 
     private void onLobbyOpen() {
@@ -341,7 +396,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             return;
         }
         if(locale != null) {
-            Rincl.setLocale(locale);
+            selectedLocale.setValue(locale);
         }
 
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));

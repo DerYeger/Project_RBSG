@@ -1,7 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 
 import javax.annotation.Nonnull;
 
@@ -9,8 +11,13 @@ public class Unit implements Cloneable {
 
     public static final String UNKNOWN = "UNKNOWN";
 
+    public final SimpleStringProperty type = new SimpleStringProperty();
+    public final SimpleStringProperty id = new SimpleStringProperty();
+
+    public final SimpleStringProperty name = new SimpleStringProperty();
     public final SimpleStringProperty imageUrl = new SimpleStringProperty();
     public final SimpleStringProperty iconUrl = new SimpleStringProperty();
+    public final SimpleStringProperty description = new SimpleStringProperty();
 
     public final SimpleIntegerProperty health = new SimpleIntegerProperty();
     public final SimpleIntegerProperty physicalResistance = new SimpleIntegerProperty();
@@ -19,9 +26,7 @@ public class Unit implements Cloneable {
     public final SimpleIntegerProperty attack = new SimpleIntegerProperty();
     public final SimpleIntegerProperty spellPower = new SimpleIntegerProperty();
 
-    public final SimpleStringProperty name = new SimpleStringProperty();
-    public final SimpleStringProperty description = new SimpleStringProperty();
-    public final SimpleStringProperty id = new SimpleStringProperty();
+    public final SimpleListProperty<String> canAttack = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public static Unit unknownType(String id) {
         final Unit unit = new Unit();

@@ -5,7 +5,9 @@ import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.WeakListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import org.springframework.context.annotation.Scope;
@@ -30,6 +32,11 @@ public class ArmySelectorController implements Initializable {
     @Nullable
     private ChangeListener<Army> onSelectionChanged;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    @Nullable
+    private ListChangeListener<? super Army> fixSelectionOnSelectedRemoved;
+    private Army lastSelectedArmy;
+
     public ArmySelectorController(
             ArmySelectorCellFactory cellFactory
 
@@ -40,6 +47,16 @@ public class ArmySelectorController implements Initializable {
     public void setSelection(ObservableList<Army> armies, Property<Army> selection)
     {
         listView.setItems(armies);
+
+        fixSelectionOnSelectedRemoved = (ListChangeListener<Army>) c -> {
+            while (c.next()) {
+                if (c.getRemoved().contains(lastSelectedArmy)) {
+                    listView.getSelectionModel().clearSelection();
+                }
+            }
+        };
+
+        armies.addListener(new WeakListChangeListener<>(fixSelectionOnSelectedRemoved));
 
         if (selection != null) {
             // save a new method reference to our method so that old WeakChangeListener can be invalidated
@@ -55,6 +72,7 @@ public class ArmySelectorController implements Initializable {
     }
 
     private void onSelectionChanged(ObservableValue<? extends Army> observableValue, Army prev, Army next) {
+        lastSelectedArmy = next;
         listView.getSelectionModel().select(next);
     }
 

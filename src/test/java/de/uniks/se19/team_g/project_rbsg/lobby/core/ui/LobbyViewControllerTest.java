@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -14,7 +15,6 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import org.junit.Test;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.lang.NonNull;
 
 import static org.mockito.Mockito.*;
 
@@ -39,6 +39,8 @@ public class LobbyViewControllerTest {
                 mock(MusicManager.class),
                 mock(DefaultLogoutManager.class),
                 mock,
+                null,
+                null,
                 null,
                 null
         );

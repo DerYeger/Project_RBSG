@@ -80,7 +80,7 @@ public class ArmyDetailController implements Initializable {
             Bindings.format(
                 "%d/%d",
                 Bindings.size(army.units),
-                Army.ARMY_MAX_SIZE
+                ApplicationState.ARMY_MAX_UNIT_COUNT
             )
         );
 
@@ -145,7 +145,7 @@ public class ArmyDetailController implements Initializable {
     {
         final Army army = appState.selectedArmy.get();
         final Unit unit = armyBuilderState.selectedUnit.get();
-        if (Objects.nonNull(army) && Objects.nonNull(unit) && army.units.size() < Army.ARMY_MAX_SIZE) {
+        if (Objects.nonNull(army) && Objects.nonNull(unit) && army.units.size() < ApplicationState.ARMY_MAX_UNIT_COUNT) {
             army.units.add(unit.clone());
         }
     }
