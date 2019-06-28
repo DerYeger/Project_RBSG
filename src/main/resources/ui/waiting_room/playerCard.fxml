@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -23,7 +24,19 @@
         <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
     </rowConstraints>
    <children>
-       <Label fx:id="playerListCellLabel" styleClass="default-medium" text="Label" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+       <GridPane fx:id="playerLabelColorPane" GridPane.columnIndex="1">
+           <children>
+               <Label fx:id="playerListCellLabel" styleClass="default-medium" text="Label" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+               <Pane fx:id="colorPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+           </children>
+           <columnConstraints>
+               <ColumnConstraints fx:id="column11" halignment="LEFT" hgrow="ALWAYS" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" />
+               <ColumnConstraints fx:id="column00" halignment="CENTER" hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+       </GridPane>
        <StackPane fx:id="playerStackPane" GridPane.columnIndex="0">
            <children>
                <ImageView fx:id="playerListCellImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />

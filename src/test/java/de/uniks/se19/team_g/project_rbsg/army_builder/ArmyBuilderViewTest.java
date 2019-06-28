@@ -10,7 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,11 +24,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
-
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Goatfryed
@@ -43,6 +41,8 @@ import java.util.concurrent.CompletableFuture;
         UnitListEntryController.class,
         ArmyBuilderViewTest.ContextConfiguration.class,
         ApplicationState.class,
+        PersistentArmyManager.class,
+        RestTemplate.class,
         LocaleConfig.class,
         UnitPropertyController.class
 })

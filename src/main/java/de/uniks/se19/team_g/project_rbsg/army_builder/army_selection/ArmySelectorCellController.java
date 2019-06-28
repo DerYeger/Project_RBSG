@@ -18,9 +18,9 @@ import java.util.ResourceBundle;
 
 @Component
 @Scope("prototype")
-public class ArmySelectorEntryController extends ListCell<Army> implements Initializable {
+public class ArmySelectorCellController extends ListCell<Army> implements Initializable {
 
-    public static final String DUMMY_ICON_PATH = ArmySelectorEntryController.class.getResource("/assets/icons/army/dragon-head.white.png").toString();
+    public static final String DUMMY_ICON_PATH = ArmySelectorCellController.class.getResource("/assets/icons/army/dragon-head.white.png").toString();
 
     public Node root;
     public ImageView imageView;
@@ -30,7 +30,7 @@ public class ArmySelectorEntryController extends ListCell<Army> implements Initi
     @Nullable
     private final ApplicationState appState;
 
-    public ArmySelectorEntryController(
+    public ArmySelectorCellController(
         @Nullable ApplicationState appState
     ) {
         this.appState = appState;
@@ -57,6 +57,8 @@ public class ArmySelectorEntryController extends ListCell<Army> implements Initi
         setText(null);
         setGraphic(null);
     }
+
+
 
     public void onItemClicked(MouseEvent mouseEvent) {
         if (appState == null) {

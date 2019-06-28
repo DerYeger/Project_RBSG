@@ -3,15 +3,21 @@ package de.uniks.se19.team_g.project_rbsg.util;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import io.rincl.Rincl;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
+import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.Locale;
 
@@ -38,6 +44,30 @@ public class JavaFXUtils {
         final ObjectBinding<Image> imageBinding = Bindings.createObjectBinding(() -> new Image(imgUrlProperty.get()), imgUrlProperty);
         imageProperty.bind(imageBinding);
 
+    }
+
+
+    public static void bindButtonDisableWithTooltip(Button button, Pane container, StringProperty tooltip, BooleanProperty flag)
+    {
+        BooleanBinding tooltipBinding = Bindings.createBooleanBinding(
+                () -> {
+                    if (flag.get()) return false;
+
+                    Tooltip.install(container, createInvalidArmyTooltip(tooltip));
+                    return true;
+                },
+                flag
+        );
+
+        button.disableProperty().bind(tooltipBinding);
+    }
+
+    @Nonnull
+    protected static Tooltip createInvalidArmyTooltip(StringProperty tooltipText) {
+        final Tooltip tooltip = new Tooltip();
+        tooltip.textProperty().bind(tooltipText);
+        tooltip.setShowDelay(Duration.millis(500));
+        return tooltip;
     }
 
     public static ObservableValue<? extends String> bindTranslation(Property<Locale> selectedLocale, String key) {

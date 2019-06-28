@@ -3,11 +3,13 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -24,11 +26,14 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -40,15 +45,16 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -64,25 +70,39 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private static final int ICON_SIZE = 30;
 
-    private final Lobby lobby;
-    private final PlayerManager playerManager;
-    private final GameManager gameManager;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private final Lobby lobby;
+    @Nonnull
+    private final PlayerManager playerManager;
+    @Nonnull
+    private final GameManager gameManager;
+    @Nonnull
     private final SceneManager sceneManager;
+    @Nonnull
     private final GameProvider gameProvider;
+    @Nonnull
     private final UserProvider userProvider;
+    @Nonnull
     private final JoinGameManager joinGameManager;
-    @NonNull
+    @Nonnull
     private final LobbyChatClient lobbyChatClient;
-    @NonNull
+    @Nonnull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
+    @Nonnull
+    private final ObjectFactory<GameListViewCell> gameListCellFactory;
     @Nonnull
     private final Property<Locale> selectedLocale;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
     private final ApplicationState appState;
+    @Nullable
+    private final Function<VBox, NotificationModalController> notificationRenderer;
+
+    public VBox modal;
+    public Pane modalBackground;
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
@@ -98,6 +118,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Pane createGameButtonContainer;
     public Button armyBuilderLink;
     public GridPane mainGridPane;
     public HBox headerHBox;
@@ -107,29 +128,39 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
 
+    /*
+     * do NOT. i repeat. do NOT inline the army selector. We need the reference so that the selected listener won't get removed.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private ArmySelectorController armySelectorController;
+
     @Autowired
     public LobbyViewController(
-            @NonNull final GameProvider gameProvider,
-            @NonNull final UserProvider userProvider,
-            @NonNull final SceneManager sceneManager,
-            @NonNull final JoinGameManager joinGameManager,
-            @NonNull final PlayerManager playerManager,
-            @NonNull final GameManager gameManager,
-            @NonNull final SystemMessageManager systemMessageManager,
-            @NonNull final ChatController chatController,
-            @NonNull final LobbyChatClient lobbyChatClient,
-            @NonNull final CreateGameFormBuilder createGameFormBuilder,
-            @NonNull final MusicManager musicManager,
-            @NonNull final LogoutManager logoutManager,
+            @Nonnull final GameProvider gameProvider,
+            @Nonnull final UserProvider userProvider,
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final JoinGameManager joinGameManager,
+            @Nonnull final PlayerManager playerManager,
+            @Nonnull final GameManager gameManager,
+            @Nonnull final SystemMessageManager systemMessageManager,
+            @Nonnull final ChatController chatController,
+            @Nonnull final LobbyChatClient lobbyChatClient,
+            @Nonnull final CreateGameFormBuilder createGameFormBuilder,
+            @Nonnull final MusicManager musicManager,
+            @Nonnull final LogoutManager logoutManager,
+            @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
             @Nonnull final Property<Locale> selectedLocale,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
-            @Nullable final ApplicationState appState
-            ) {
+            @Nullable final ApplicationState appState,
+            @Nullable final Function<VBox, NotificationModalController> notificationRenderer
+    ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
+        this.gameListCellFactory = gameListCellFactory;
         this.selectedLocale = selectedLocale;
         this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
+        this.notificationRenderer = notificationRenderer;
 
         this.lobby = new Lobby();
 
@@ -154,7 +185,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     @Autowired
-    public void setChatBuilder(@NonNull final ChatBuilder chatBuilder)
+    public void setChatBuilder(@Nonnull final ChatBuilder chatBuilder)
     {
         this.chatBuilder = chatBuilder;
     }
@@ -176,7 +207,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         onLobbyOpen();
 
         lobbyPlayerListView.setCellFactory(lobbyPlayerListViewListView -> new PlayerListViewCell(chatController, userProvider.get().getName()));
-        lobbyGamesListView.setCellFactory(lobbyGamesListView -> new GameListViewCell(gameProvider, userProvider, sceneManager, joinGameManager));
+        lobbyGamesListView.setCellFactory(lobbyGamesListView -> gameListCellFactory.getObject());
 
         configureSystemMessageManager();
 
@@ -218,15 +249,55 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         bindI18n();
         updateLabels(null);
 
+        mountArmySelector();
+
         if (appState != null) {
-            if (armySelectorComponent != null) {
-                armySelectorComponent.apply(armySelectorRoot)
-                    .setSelection(appState.armies.filtered(a -> a.units.size() == Army.ARMY_MAX_SIZE))
-                ;
-            }
+            JavaFXUtils.bindButtonDisableWithTooltip(
+                    createGameButton,
+                    createGameButtonContainer,
+                    new SimpleStringProperty(Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired")),
+                    appState.validArmySelected
+            );
         }
 
         setAsRootController();
+
+        if (Objects.nonNull(appState) && appState.notifications.size() > 0) {
+            showNotifications();
+        }
+    }
+
+    protected void mountArmySelector() {
+        if (armySelectorComponent == null || appState == null) {
+            return;
+        }
+
+        armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+
+        /*
+         * normally, an observable list is only aware of items added and removed
+         * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
+         */
+        final ObservableList<Army> playableAwareArmies = FXCollections.observableArrayList(
+            army -> new Observable[] {army.isPlayable}
+        );
+        Bindings.bindContent( playableAwareArmies, appState.armies);
+
+        armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), appState.selectedArmy);
+    }
+
+    private void showNotifications() {
+        Objects.requireNonNull(appState);
+        if (notificationRenderer == null) return;
+
+        modalBackground.setVisible(true);
+        final NotificationModalController modal = notificationRenderer.apply(this.modal);
+        modal.setOnDismiss((e, c) -> {
+            modalBackground.setVisible(false);
+            appState.notifications.clear();
+            this.modal.getChildren().clear();
+        });
+        modal.setNotifications(appState.notifications);
     }
 
     private void bindI18n() {
@@ -280,9 +351,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         if (chatBuilder != null)
         {
-            final Tuple<Node, ChatController> chatComponents = chatBuilder.buildChat(lobbyChatClient);
-            chatContainer.getChildren().add(chatComponents.first);
-            chatController = chatComponents.second;
+            final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(lobbyChatClient);
+            chatContainer.getChildren().add(chatComponents.getRoot());
+            chatController = chatComponents.getController();
         }
     }
 
