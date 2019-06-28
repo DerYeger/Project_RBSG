@@ -7,6 +7,8 @@
     -fx-padding: 10;
     -fx-max-width: 350;
     -fx-max-height: 150;
+    -fx-border-color: white;
+    -fx-border-width: 2;
 }
 
 .label {
