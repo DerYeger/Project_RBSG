@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import io.rincl.*;
@@ -28,7 +30,7 @@ import java.io.IOException;
         CreateGameFormBuilder.class,
         CreateGameController.class,
         GameCreator.class,
-        UserProvider.class
+        UserProvider.class,
 })
 public class CreateGameFormBuilderTest extends ApplicationTest {
 
@@ -44,6 +46,11 @@ public class CreateGameFormBuilderTest extends ApplicationTest {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
+        }
+
+        @Bean
+        public AlertBuilder alertBuilder() {
+            return new AlertBuilder(new SceneManager());
         }
 
         @Override
