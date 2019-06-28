@@ -1,17 +1,20 @@
 package de.uniks.se19.team_g.project_rbsg.alert;
 
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 
 /**
  * @author Jan Müller
  */
+@Controller
+@Scope("prototype")
 public class ConfirmationAlertController extends AlertController {
 
     @FXML
@@ -21,10 +24,10 @@ public class ConfirmationAlertController extends AlertController {
     @FXML
     private Button cancel;
 
-    private URL acceptBlack = getClass().getResource("/assets/icons/navigation/checkBlack.png");
-    private URL acceptWhite = getClass().getResource("/assets/icons/navigation/checkWhite.png");
-    private URL cancelBlack = getClass().getResource("/assets/icons/navigation/crossBlack.png");
-    private URL cancelWhite = getClass().getResource("/assets/icons/navigation/crossWhite.png");
+    private static final URL CONFIRM_WHITE = ConfirmationAlertController.class.getResource("/assets/icons/navigation/checkWhite.png");
+    private static final URL CONFIRM_BLACK = ConfirmationAlertController.class.getResource("/assets/icons/navigation/checkBlack.png");
+    private static final URL CANCEL_WHITE = ConfirmationAlertController.class.getResource("/assets/icons/navigation/crossWhite.png");
+    private static final URL CANCEL_BLACK = ConfirmationAlertController.class.getResource("/assets/icons/navigation/crossBlack.png");
 
     private Runnable onConfirmRunnable;
     private Runnable onCancelRunnable;
@@ -41,13 +44,12 @@ public class ConfirmationAlertController extends AlertController {
         cancel.setOnAction(event ->{
             if (onCancelRunnable != null) {
                 onCancelRunnable.run();
-            } else {
-                hide();
             }
+            hide();
         });
 
-        JavaFXUtils.setButtonIcons(confirm, acceptWhite, acceptBlack, 40);
-        JavaFXUtils.setButtonIcons(cancel, cancelWhite, cancelBlack, 40);
+        JavaFXUtils.setButtonIcons(confirm, CONFIRM_WHITE, CONFIRM_BLACK, 40);
+        JavaFXUtils.setButtonIcons(cancel, CANCEL_WHITE, CANCEL_BLACK, 40);
     }
 
     public ConfirmationAlertController andThen(@NonNull final Runnable onConfirmRunnable) {

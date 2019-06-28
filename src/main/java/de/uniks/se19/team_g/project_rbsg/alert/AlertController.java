@@ -21,7 +21,7 @@ public abstract class AlertController {
         init();
     }
 
-    public abstract void init();
+    protected abstract void init();
 
     public void show() {
         if (!target.getChildren().contains(alert)) {

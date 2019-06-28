@@ -21,7 +21,11 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     public enum Type {
         EXIT("exit", "confirmationAlert"),
-        LOGOUT("logout", "confirmationAlert");
+        LOGOUT("logout", "confirmationAlert"),
+        NO_CONNECTION("noConnection", "infoAlert"),
+        INPUT_ERROR("inputError", "infoAlert"),
+        GAME_CREATION_ERROR("createGameError", "infoAlert"),
+        UNKOWN_ERROR("unknown", "infoAlert");
 
         @NonNull
         private final String text;
@@ -42,6 +46,10 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     public ConfirmationAlertController confirm(@NonNull final Type type) throws AlertCreationException {
         return (ConfirmationAlertController) build(type);
+    }
+
+    public InfoAlertController inform(@NonNull final Type type) throws AlertCreationException {
+        return (InfoAlertController) build(type);
     }
 
     public AlertController build(@NonNull final Type type) throws AlertCreationException {

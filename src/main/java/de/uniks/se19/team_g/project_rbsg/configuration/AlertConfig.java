@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.ConfirmationAlertController;
+import de.uniks.se19.team_g.project_rbsg.alert.InfoAlertController;
 import javafx.fxml.FXMLLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,13 @@ public class AlertConfig {
     @Scope("prototype")
     public ViewComponent<ConfirmationAlertController> confirmationAlert(@NonNull final FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/alert/confirmationAlert.fxml"));
-        fxmlLoader.setController(new ConfirmationAlertController());
+        return ViewComponent.fromLoader(fxmlLoader);
+    }
+
+    @Bean
+    @Scope("prototype")
+    public ViewComponent<InfoAlertController> infoAlert(@NonNull final FXMLLoader fxmlLoader) {
+        fxmlLoader.setLocation(getClass().getResource("/ui/alert/infoAlert.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 }
