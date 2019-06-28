@@ -177,7 +177,8 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         clickOn("#createGameButton");
         StackPane stackPane = lookup("#mainStackPane").query();
 
-        assertEquals(2, stackPane.getChildren().size());
+        // TODO: maybe mount modal root, only if required, and remove it from the scenegraph otherwise.
+        assertEquals(3, stackPane.getChildren().size());
     }
 
 }

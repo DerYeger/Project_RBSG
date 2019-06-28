@@ -120,10 +120,8 @@ public class LobbyBuilderTest extends ApplicationTest
                 UserProvider userProvider,
                 SceneManager sceneManager,
                 JoinGameManager joinGameManager,
-                ObjectFactory<GameListViewCell> cellFactory,
-                @Nullable ArmyManager armyManager
-        )
-        {
+                ObjectFactory<GameListViewCell> cellFactory
+        ) {
             return new LobbyViewController(
                     gameProvider,
                     userProvider,
@@ -139,6 +137,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())),
                     cellFactory,
                     null,
+                    appState,
                     null
             ) {
                 @Override
