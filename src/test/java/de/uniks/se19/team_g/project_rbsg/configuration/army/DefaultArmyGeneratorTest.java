@@ -18,10 +18,11 @@ public class DefaultArmyGeneratorTest {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         Rincl.setLocale(Locale.ENGLISH);
         final ApplicationState appState = new ApplicationState();
-        final Unit u1 = new Unit();
-        final Unit u2 = new Unit();
-        final Unit u3 = new Unit();
+        final Unit u1 = Unit.unknownType("1");
+        final Unit u2 = Unit.unknownType("2");
+        final Unit u3 = Unit.unknownType("3");
         appState.unitDefinitions.addAll(u1, u2, u3);
+        final int definitionCount = appState.unitDefinitions.size();
 
         DefaultArmyGenerator sut = new DefaultArmyGenerator(appState);
 
@@ -30,7 +31,8 @@ public class DefaultArmyGeneratorTest {
         Assert.assertEquals("My Army", army.name.get());
         Assert.assertNull(army.id.get());
         Assert.assertEquals(ApplicationState.ARMY_MAX_UNIT_COUNT, army.units.size());
-        Assert.assertEquals(ApplicationState.ARMY_MAX_UNIT_COUNT / 3, army.units.filtered(unit -> unit == u1).size());
+        Assert.assertEquals(ApplicationState.ARMY_MAX_UNIT_COUNT / definitionCount + ApplicationState.ARMY_MAX_UNIT_COUNT % definitionCount, army.units.filtered(u1::equals).size());
+        Assert.assertEquals(ApplicationState.ARMY_MAX_UNIT_COUNT / definitionCount, army.units.filtered(u3::equals).size());
         Assert.assertEquals(ApplicationState.ARMY_MAX_UNIT_COUNT, army.units.size());
     }
 
