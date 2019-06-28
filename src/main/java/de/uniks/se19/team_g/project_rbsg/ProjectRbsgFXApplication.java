@@ -6,10 +6,12 @@ import io.rincl.resourcebundle.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.beans.property.Property;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Jan Müller
@@ -63,7 +66,8 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
 
-        Rincl.setLocale(Locale.ENGLISH);
+        @SuppressWarnings("unchecked") final Property<Locale> selectedLocale = (Property<Locale>) context.getBean("selectedLocale");
+        Objects.requireNonNull(selectedLocale).setValue(Locale.ENGLISH);
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)

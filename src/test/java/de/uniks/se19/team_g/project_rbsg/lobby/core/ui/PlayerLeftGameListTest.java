@@ -53,9 +53,9 @@ import static org.junit.Assert.*;
         FXMLLoaderFactory.class,
         MusicManager.class,
         ApplicationState.class,
+        LocaleConfig.class,
         GameListViewCell.class
-        }
-)
+})
 public class PlayerLeftGameListTest extends ApplicationTest
 {
     @Autowired

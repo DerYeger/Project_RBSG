@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="canAttackTile" stylesheets="@CanAttackTile.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.CanAttackTileController">
+   <children>
+      <Pane fx:id="imagePane" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="50.0">
+
+</Pane>
+   </children>
+</StackPane>

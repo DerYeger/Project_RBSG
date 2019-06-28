@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
@@ -76,7 +77,8 @@ import static org.junit.Assert.*;
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
-        GameListViewCell.class
+        GameListViewCell.class,
+        LocaleConfig.class
 })
 public class GameListTest extends ApplicationTest
 {

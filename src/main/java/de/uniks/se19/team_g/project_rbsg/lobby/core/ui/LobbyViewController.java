@@ -34,6 +34,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -91,6 +92,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final LogoutManager logoutManager;
     @Nonnull
     private final ObjectFactory<GameListViewCell> gameListCellFactory;
+    @Nonnull
+    private final Property<Locale> selectedLocale;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
@@ -146,6 +149,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
             @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
+            @Nonnull final Property<Locale> selectedLocale,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable final ApplicationState appState,
             @Nullable final Function<VBox, NotificationModalController> notificationRenderer
@@ -153,6 +157,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
         this.gameListCellFactory = gameListCellFactory;
+        this.selectedLocale = selectedLocale;
         this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
         this.notificationRenderer = notificationRenderer;
@@ -241,6 +246,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         Font.loadFont(getClass().getResource("/assets/fonts/robotoRegular.ttf").toExternalForm(), 16);
         Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
+        bindI18n();
         updateLabels(null);
 
         mountArmySelector();
@@ -292,6 +298,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             this.modal.getChildren().clear();
         });
         modal.setNotifications(appState.notifications);
+    }
+
+    private void bindI18n() {
+        armyBuilderLink.textProperty().bind(
+                JavaFXUtils.bindTranslation(selectedLocale, "ArmyBuilderLink")
+        );
     }
 
     private void onLobbyOpen() {
@@ -384,7 +396,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             return;
         }
         if(locale != null) {
-            Rincl.setLocale(locale);
+            selectedLocale.setValue(locale);
         }
 
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));

@@ -16,7 +16,11 @@ public class UnitPropertyController {
 
 
     public void bindTo(SimpleIntegerProperty prop, Image image) {
-        propertyValue.textProperty().bind(prop.asString());
+        if (prop == null) {
+            propertyValue.setText("?");
+        } else {
+            propertyValue.textProperty().bind(prop.asString());
+                    }
 
         propertyIcon.setImage(image);
     }
