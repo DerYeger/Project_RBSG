@@ -1,27 +1,21 @@
 package de.uniks.se19.team_g.project_rbsg;
 
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertCreationException;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -78,7 +72,7 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
             alertBuilder
-                    .confirm(
+                    .confirmation(
                             AlertBuilder.Text.EXIT,
                             Platform::exit,
                             null);

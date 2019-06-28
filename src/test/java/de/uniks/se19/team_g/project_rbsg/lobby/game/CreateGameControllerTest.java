@@ -100,7 +100,7 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
         public AlertBuilder alertBuilder() {
             return new AlertBuilder(null) {
                 @Override
-                public void inform(@NonNull final Text text) {
+                public void information(@NonNull final Text text) {
                     lastError = text;
                 }
             };

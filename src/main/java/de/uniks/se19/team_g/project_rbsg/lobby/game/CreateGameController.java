@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertCreationException;
-import de.uniks.se19.team_g.project_rbsg.alert.ConfirmationAlertController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
@@ -171,6 +169,6 @@ public class CreateGameController implements Rincled
     }
 
     public void handleGameRequestErrors(@NonNull final AlertBuilder.Text text) {
-        alertBuilder.inform(text);
+        alertBuilder.information(text);
     }
 }

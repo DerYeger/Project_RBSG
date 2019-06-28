@@ -5,7 +5,6 @@ import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertCreationException;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -31,18 +30,15 @@ import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
@@ -367,13 +363,16 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void logoutUser(ActionEvent event)
     {
         alertBuilder
-                .confirm(
+                .confirmation(
                         AlertBuilder.Text.LOGOUT,
-                        () -> {
-                            sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
-                            logoutManager.logout(userProvider);
-                            },
+                        this::handleLogout,
                         null);
+    }
+
+    private void handleLogout()
+    {
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+        logoutManager.logout(userProvider);
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent)

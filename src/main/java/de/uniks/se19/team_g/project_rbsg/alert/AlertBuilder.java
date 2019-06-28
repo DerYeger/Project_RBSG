@@ -58,18 +58,18 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     private ApplicationContext context;
 
-    public void confirm(@NonNull final Text text, @NonNull final Runnable onConfirm, @Nullable final Runnable onCancel) {
+    public void confirmation(@NonNull final Text text, @NonNull final Runnable onConfirm, @Nullable final Runnable onCancel) {
         try {
             ((ConfirmationAlertController) build(text, Type.CONFIRMATION))
                     .andThen(onConfirm)
                     .orElse(onCancel)
                     .show();
         } catch (final AlertCreationException e) {
-            logger.debug("Unable to create alert");
+            logger.debug("Unable to create alert: " + e.getMessage());
         }
     }
 
-    public void inform(@NonNull final Text text) {
+    public void information(@NonNull final Text text) {
         try {
             build(text, Type.INFO).show();
         } catch (final AlertCreationException e) {

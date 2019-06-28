@@ -5,14 +5,12 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertCreationException;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -27,9 +25,7 @@ import javafx.event.ActionEvent;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import org.slf4j.Logger;
@@ -38,8 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
-
-import java.awt.*;
 
 import java.util.List;
 
@@ -197,13 +191,15 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
 
     public void leaveRoom(ActionEvent actionEvent) {
         alertBuilder
-                .confirm(
+                .confirmation(
                         AlertBuilder.Text.EXIT,
-                        () -> {
-                            gameProvider.clear();
-                            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
-                            },
+                        this::leaveWaitingRoom,
                         null);
+    }
+
+    private void leaveWaitingRoom() {
+        gameProvider.clear();
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
     public void toggleSound(ActionEvent actionEvent) {
