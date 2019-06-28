@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverRespons
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,7 @@ public class DeleteArmyTest {
     @Autowired
     UserProvider userProvider;
 
+    @Ignore
     @Test
     public void deleteArmyOnline() throws ExecutionException, InterruptedException {
 
