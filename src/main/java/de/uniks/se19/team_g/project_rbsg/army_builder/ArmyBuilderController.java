@@ -18,7 +18,6 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -219,19 +218,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void deleteArmy(ActionEvent actionEvent) {
-
         //For clean-deletion
         Army army = appState.selectedArmy.get();
         army.units.removeAll(army.units);
-
-        ListView<ObservableList<Army>> armyList; //= (ListView<ObservableList<Army>>) armySelectorRoot.getChildren().get(0);
-        for (Node node : armySelectorRoot.getChildren()) {
-            if (node.getId().equals("listView")) {
-                armyList = (ListView<ObservableList<Army>>) node;
-                //For list element deletion: armyList.getItems().remove(appState.selectedArmy.getValue());
-                armyList.refresh();
-            }
-        }
     }
 
     @Override
