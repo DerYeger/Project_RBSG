@@ -27,10 +27,10 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
     public enum Text {
         EXIT("exit"),
         CREATE_GAME_ERROR("createGameError"),
-        INPUT_ERROR("inputError"),
+        INVALID_INPUT("invalidInput"),
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
-        UNKOWN_ERROR("unknown");
+        UNKNOWN_ERROR("unknownError");
 
         @NonNull
         private final String text;
