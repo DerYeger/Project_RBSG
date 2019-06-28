@@ -130,11 +130,11 @@ public class CreateGameController implements Rincled
             gameRequestAnswerPromise
                     .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
                     .exceptionally(exception -> {
-                        handleGameRequestErrors(AlertBuilder.Type.UNKOWN_ERROR);
+                        handleGameRequestErrors(AlertBuilder.Text.UNKOWN_ERROR);
                         return null;
                     });
         } else if((this.gameName.getText() == null) || this.gameName.getText().equals("")){
-            handleGameRequestErrors(AlertBuilder.Type.INPUT_ERROR);
+            handleGameRequestErrors(AlertBuilder.Text.INPUT_ERROR);
         }
     }
 
@@ -149,7 +149,7 @@ public class CreateGameController implements Rincled
                 this.joinGameManager.joinGame(userProvider.get(), game);
                 gameProvider.set(game);
             } else if (answer.get("status").equals("failure")){
-                handleGameRequestErrors(AlertBuilder.Type.GAME_CREATION_ERROR);
+                handleGameRequestErrors(AlertBuilder.Text.CREATE_GAME_ERROR);
 
             }
         }
@@ -172,13 +172,7 @@ public class CreateGameController implements Rincled
         }
     }
 
-    public void handleGameRequestErrors(@NonNull final AlertBuilder.Type type) {
-        try {
-            alertBuilder
-                    .inform(type)
-                    .show();
-        } catch (AlertCreationException e) {
-            e.printStackTrace();
-        }
+    public void handleGameRequestErrors(@NonNull final AlertBuilder.Text text) {
+        alertBuilder.inform(text);
     }
 }

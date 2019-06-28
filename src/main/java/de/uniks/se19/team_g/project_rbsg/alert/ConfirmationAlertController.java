@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
@@ -57,7 +58,7 @@ public class ConfirmationAlertController extends AlertController {
         return this;
     }
 
-    public ConfirmationAlertController orElse(@NonNull final Runnable onCancelRunnable) {
+    public ConfirmationAlertController orElse(@Nullable final Runnable onCancelRunnable) {
         this.onCancelRunnable = onCancelRunnable;
         return this;
     }

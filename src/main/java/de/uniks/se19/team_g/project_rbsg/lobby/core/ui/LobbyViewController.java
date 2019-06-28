@@ -366,17 +366,14 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void logoutUser(ActionEvent event)
     {
-        try {
-            alertBuilder
-                    .confirm(AlertBuilder.Type.LOGOUT)
-                    .andThen(() -> {
-                        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
-                        logoutManager.logout(userProvider);
-                    })
-                    .show();
-        } catch (final AlertCreationException e) {
-            logger.debug(e.getMessage());
-        }
+        alertBuilder
+                .confirm(
+                        AlertBuilder.Text.LOGOUT,
+                        () -> {
+                            sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+                            logoutManager.logout(userProvider);
+                            },
+                        null);
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent)

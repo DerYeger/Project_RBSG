@@ -196,17 +196,14 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
-        try {
-            alertBuilder
-                    .confirm(AlertBuilder.Type.EXIT)
-                    .andThen(() -> {
-                        gameProvider.clear();
-                        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
-                    })
-                    .show();
-        } catch (final AlertCreationException e) {
-            logger.debug(e.getMessage());
-        }
+        alertBuilder
+                .confirm(
+                        AlertBuilder.Text.EXIT,
+                        () -> {
+                            gameProvider.clear();
+                            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+                            },
+                        null);
     }
 
     public void toggleSound(ActionEvent actionEvent) {

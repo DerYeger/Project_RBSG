@@ -77,12 +77,11 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
-            try {
-                alertBuilder
-                        .confirm(AlertBuilder.Type.EXIT)
-                        .andThen(Platform::exit)
-                        .show();
-            } catch (final AlertCreationException ignored) {}
+            alertBuilder
+                    .confirm(
+                            AlertBuilder.Text.EXIT,
+                            Platform::exit,
+                            null);
         });
 
         primaryStage.show();
