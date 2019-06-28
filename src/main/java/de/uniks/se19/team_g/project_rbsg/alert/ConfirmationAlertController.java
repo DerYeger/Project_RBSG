@@ -33,7 +33,8 @@ public class ConfirmationAlertController extends AlertController {
     private Runnable onConfirmRunnable;
     private Runnable onCancelRunnable;
 
-    public void init() {
+    @Override
+    protected void init() {
         label.textProperty().setValue(text);
 
         confirm.setOnAction(event -> {

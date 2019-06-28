@@ -25,7 +25,7 @@ public class InfoAlertController extends AlertController {
     private Button confirm;
 
     @Override
-    public void init() {
+    protected void init() {
         label.textProperty().setValue(text);
 
         confirm.setOnAction(event -> hide());
