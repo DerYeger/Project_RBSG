@@ -91,7 +91,7 @@ public class CreateGameController implements Rincled
         create.setOnAction(this::createGame);
         create.setDefaultButton(true);
 
-        JavaFXUtils.setButtonIcons(create, CONFIRM_WHITE, CONFIRM_WHITE, 40);
+        JavaFXUtils.setButtonIcons(create, CONFIRM_WHITE, CONFIRM_BLACK, 40);
         JavaFXUtils.setButtonIcons(cancel, CANCEL_WHITE, CANCEL_BLACK, 40);
 
         this.twoPlayers.selectedProperty().addListener(this::setTwoPlayerGame);
@@ -155,8 +155,6 @@ public class CreateGameController implements Rincled
         }
         closeCreateGameWindow(null);
     }
-
-
 
     private void setTwoPlayerGame(Observable event) {
         this.numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
