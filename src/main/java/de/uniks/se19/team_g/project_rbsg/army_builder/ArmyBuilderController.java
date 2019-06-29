@@ -160,15 +160,15 @@ public class ArmyBuilderController implements Initializable, RootController {
         );
         JavaFXUtils.setButtonIcons(
                 deleteArmyButton,
-                getClass().getResource("/assets/icons/operation/deletion/baseline_delete_white.png"),
-                getClass().getResource("/assets/icons/operation/deletion/baseline_delete_black.png"),
+                getClass().getResource("/assets/icons/operation/deleteWhite.png"),
+                getClass().getResource("/assets/icons/operation/deleteBlack.png"),
                 JavaConfig.ICON_SIZE
         );
 
         JavaFXUtils.setButtonIcons(
                 saveArmiesButton,
-                getClass().getResource("/assets/icons/operation/baseline_save_white_48dp.png"),
-                getClass().getResource("/assets/icons/operation/baseline_save_black_48dp.png"),
+                getClass().getResource("/assets/icons/operation/saveWhite.png"),
+                getClass().getResource("/assets/icons/operation/saveBlack.png"),
                 JavaConfig.ICON_SIZE
         );
 

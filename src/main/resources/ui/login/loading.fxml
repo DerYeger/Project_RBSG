@@ -24,7 +24,7 @@
    <children>
       <Label fx:id="progressLabel" text="Waiting for server...">
          <styleClass>
-            <String fx:value="default" />
+            <String fx:value="default-medium" />
             <String fx:value="progress" />
          </styleClass></Label>
       <ProgressIndicator fx:id="progressIndicator" progress="0.0" styleClass="default" GridPane.columnIndex="1">

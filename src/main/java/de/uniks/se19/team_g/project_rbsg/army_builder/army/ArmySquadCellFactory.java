@@ -24,7 +24,7 @@ public class ArmySquadCellFactory implements Callback<ListView<SquadViewModel>, 
     @Override
     public ListCell<SquadViewModel> call(ListView<SquadViewModel> param) {
         final FXMLLoader loader = loaderFactory.getObject();
-        loader.setLocation(getClass().getResource("/ui/army_builder/ArmySquad.fxml"));
+        loader.setLocation(getClass().getResource("/ui/army_builder/armySquad.fxml"));
         try {
             loader.load();
         } catch (IOException e) {
