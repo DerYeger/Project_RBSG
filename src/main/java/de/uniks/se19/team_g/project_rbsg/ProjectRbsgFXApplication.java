@@ -65,6 +65,7 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
     public void start(@NotNull final Stage primaryStage) throws IOException {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
+        primaryStage.setResizable(false);
 
         @SuppressWarnings("unchecked") final Property<Locale> selectedLocale = (Property<Locale>) context.getBean("selectedLocale");
         Objects.requireNonNull(selectedLocale).setValue(Locale.ENGLISH);

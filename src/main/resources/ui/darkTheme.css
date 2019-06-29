@@ -118,6 +118,12 @@
     -fx-text-fill: -on-hovered-fill;
 }
 
+.button.icon-with-text:disabled {
+    -fx-background-color: -disabled-background-color;
+    -fx-opacity: 100;
+    -fx-text-fill: -on-primary-fill;
+}
+
 .button.icon-button {
     -fx-min-height: 40px;
     -fx-min-width: 40px;
@@ -132,6 +138,28 @@
 }
 
 .button.icon-button:hover {
+    -fx-background-color: -primary-lighter-background-color;
+}
+
+.button.icon-button:disabled {
+    -fx-background-color: -disabled-background-color;
+    -fx-opacity: 100;
+}
+
+.button.icon-button-big {
+    -fx-min-height: 80px;
+    -fx-min-width: 80px;
+    -fx-max-width: 80px;
+    -fx-max-height: 80px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+}
+
+.button.icon-button-big:hover {
     -fx-background-color: -primary-lighter-background-color;
 }
 
@@ -207,6 +235,12 @@
     -fx-font-family: Roboto-Medium;
 }
 
+.label.army {
+    -fx-font-size: 26pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
+}
+
 .label.title {
     -fx-font-family: Retronoid;
     -fx-opacity: 100;
@@ -235,7 +269,8 @@
 
 /*------------------ListView------------------*/
 
-.list-view.default {
+.list-view.default,
+.list-view.default-horizontal {
     -fx-background-color: transparent;
     -fx-effect: -shadow;
     -fx-border-color: -default-border-color;
@@ -249,8 +284,7 @@
     -fx-border-width: 0;
 }
 
-.list-view.default:focused,
-.list-view.transparent:focused {
+.list-view:focused {
     -fx-background-radius: 0;
     -fx-border-width: 0;
     -fx-effect: -shadow;
@@ -260,28 +294,52 @@
 
 .list-view.default .list-cell,
 .list-view.transparent .list-cell {
-    -fx-background-color: transparent;
     -fx-border-width: 0;
     -fx-opacity: 0.8;
+    -fx-padding: 5 0 5 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px, 5px ;
+}
+
+.list-view.default-horizontal .list-cell {
+    -fx-border-width: 0;
+    -fx-opacity: 0.8;
+    -fx-padding: 0 5 0 5;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px, 5px ;
 }
 
 .list-view.default .list-cell:empty:hover,
-.list-view.transparent .list-cell:empty:hover {
+.list-view.transparent .list-cell:empty:hover,
+.list-view.default-horizontal .list-cell:empty:hover {
     -fx-background-color: transparent;
 }
 
 .list-view.default .list-cell:hover {
-    -fx-background-color: -primary-lighter-background-color;
+    -fx-background-color: transparent, -primary-lighter-background-color;
+    -fx-background-insets: 0px, 5 0 5 0 ;
     -fx-opacity: 1;
-}
-
-.list-view.default  .list-cell:selected {
-    -fx-background-color: -selected-background-color;
 }
 
 .list-view.transparent .list-cell:hover {
     -fx-background-color: transparent;
     -fx-opacity: 1;
+}
+
+.list-view.default-horizontal .list-cell:hover {
+    -fx-background-color: transparent, -primary-lighter-background-color;
+    -fx-background-insets: 0px, 0 5 0 5 ;
+    -fx-opacity: 1;
+}
+
+.list-view.default  .list-cell:selected {
+    -fx-background-color: transparent, -selected-background-color;
+    -fx-background-insets: 0px, 5 0 5 0 ;
+}
+
+.list-view.default-horizontal  .list-cell:selected {
+    -fx-background-color: transparent, -selected-background-color;
+    -fx-background-insets: 0px, 0 5 0 5 ;
 }
 
 .list-view.transparent  .list-cell:selected {
@@ -290,24 +348,19 @@
 
 /*------------------ListView-ScrollBar------------------*/
 
-.list-view.default .scroll-bar,
-.list-view.transparent .scroll-bar {
+.list-view .scroll-bar {
     -fx-background-color: transparent;
 }
 
 /*------------------ListView-De/Increment------------------*/
 
-.list-view.default .scroll-bar .increment-button,
-.list-view.default .scroll-bar .decrement-button,
-.list-view.transparent .scroll-bar .increment-button,
-.list-view.transparent .scroll-bar .decrement-button {
+.list-view .scroll-bar .increment-button,
+.list-view .scroll-bar .decrement-button {
     -fx-background-color: transparent;
 }
 
-.list-view.default .scroll-bar .increment-button:hover,
-.list-view.default .scroll-bar .decrement-button:hover,
-.list-view.transparent .scroll-bar .increment-button:hover,
-.list-view.transparent .scroll-bar .decrement-button:hover {
+.list-view .scroll-bar .increment-button:hover,
+.list-view .scroll-bar .decrement-button:hover {
     -fx-background-color: transparent;
 }
 
@@ -319,18 +372,12 @@
     -fx-effect: none;
 }
 
-.list-view  .scroll-bar .increment-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-stroke: 3px;
-    -fx-background-color: -default-border-color;
-    -fx-effect: none;
-}
+.list-view  .scroll-bar .increment-arrow,
 .list-view  .scroll-bar .decrement-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-stroke: 3px;
     -fx-background-color: -default-border-color;
     -fx-effect: none;
-    -fx-rotate: -180;
+
 }
 
 /*------------------ListView-Additionals------------------*/

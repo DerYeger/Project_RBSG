@@ -36,7 +36,7 @@ public class UnitTypeAdapter {
         try {
             return UnitTypeMetaData.valueOf(asCamelCaseType);
         } catch (IllegalArgumentException e) {
-            return UnitTypeMetaData.UNKNOWN;
+            return UnitTypeMetaData.Infantry;
         }
     }
 

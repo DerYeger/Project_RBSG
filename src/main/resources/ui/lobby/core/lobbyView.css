@@ -21,7 +21,6 @@
 
 .game-cell {
     -fx-hgap: 10;
-    -fx-padding: 4;
 }
 
 .player-cell {
