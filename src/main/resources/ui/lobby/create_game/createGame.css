@@ -47,7 +47,7 @@
 }
 
 .toggle-button:selected {
-    -fx-background-color: -selected-background-color;
+    -fx-background-color: -primary-lighter-background-color;
     -fx-text-fill: -on-hovered-fill;
 }
 

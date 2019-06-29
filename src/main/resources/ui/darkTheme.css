@@ -209,6 +209,7 @@
 
 .label.title {
     -fx-font-family: Retronoid;
+    -fx-opacity: 100;
     -fx-font-size: 160px;
     -fx-effect: -shadow;
 }
