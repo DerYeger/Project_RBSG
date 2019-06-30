@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.login.StartViewController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController;
@@ -48,7 +49,7 @@ public class SceneManagerConfig {
 
     @Bean
     @Scope("prototype")
-    public ViewComponent<WaitingRoomViewController> ingameScene(@NonNull final FXMLLoader fxmlLoader) {
+    public ViewComponent<IngameViewController> ingameScene(@NonNull final FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/ingame/ingameView.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
