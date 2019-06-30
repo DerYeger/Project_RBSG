@@ -125,6 +125,7 @@ public class GameEventManager implements ChatClient {
     public void terminate() {
         sendLeaveCommand();
         logger.debug("Terminated " + this);
+        webSocketClient.stop();
     }
 
     private void sendLeaveCommand() {
