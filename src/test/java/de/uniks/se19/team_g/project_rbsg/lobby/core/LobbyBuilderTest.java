@@ -6,14 +6,14 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -26,6 +26,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import javafx.beans.property.Property;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -42,14 +43,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -68,7 +68,8 @@ import static org.junit.Assert.assertNotNull;
         JoinGameManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        GameListViewCell.class
+        GameListViewCell.class,
+        LocaleConfig.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -79,7 +80,7 @@ public class LobbyBuilderTest extends ApplicationTest
     private Node lobbyView;
 
     @Override
-    public void start(@NonNull final Stage stage)
+    public void start(@Nonnull final Stage stage)
     {
         @SuppressWarnings("unchecked")
         ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
@@ -125,9 +126,8 @@ public class LobbyBuilderTest extends ApplicationTest
                 SceneManager sceneManager,
                 JoinGameManager joinGameManager,
                 ObjectFactory<GameListViewCell> cellFactory,
-                @Nullable ArmyManager armyManager
-        )
-        {
+                Property<Locale> selectedLocale
+        ) {
             return new LobbyViewController(
                     gameProvider,
                     userProvider,
@@ -143,7 +143,9 @@ public class LobbyBuilderTest extends ApplicationTest
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())),
                     new AlertBuilder(sceneManager),
                     cellFactory,
+                    selectedLocale,
                     null,
+                    appState,
                     null
             ) {
                 @Override
@@ -171,7 +173,7 @@ public class LobbyBuilderTest extends ApplicationTest
         public ChatController chatController() {
             return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
-                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
+                public void init(@Nonnull final TabPane chatPane, @Nonnull final ChatClient chatClient)
                 {
                 }
             };

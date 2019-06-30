@@ -53,6 +53,7 @@ import static org.junit.Assert.*;
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
+        LocaleConfig.class,
         GameListViewCell.class,
         AlertBuilder.class
     }

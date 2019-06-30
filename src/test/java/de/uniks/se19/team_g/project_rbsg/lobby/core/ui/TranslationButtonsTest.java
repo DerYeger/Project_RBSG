@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
@@ -56,7 +57,8 @@ import static org.junit.Assert.*;
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        AlertBuilder.class
+        AlertBuilder.class,
+        LocaleConfig.class
 })
 public class TranslationButtonsTest extends ApplicationTest
 {

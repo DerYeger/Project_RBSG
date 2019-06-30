@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -71,7 +72,15 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
                 }
             };
         }
+        @Bean
+        public SceneManager sceneManager(){
+            return new SceneManager() {
+                @Override
+                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
 
+                }
+            };
+        }
         @Bean
         public GameProvider gameProvider() {
             return new GameProvider(){
@@ -82,7 +91,6 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
                 }
             };
         }
-
     }
 
     private ApplicationContext applicationContext;
@@ -111,6 +119,10 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
+        Button leave = lookup("#leaveButton").query();
+        Assert.assertNotNull(leave);
+        clickOn("#leaveButton");
+        clickOn("OK");
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
         clickOn("#zoomOutButton");

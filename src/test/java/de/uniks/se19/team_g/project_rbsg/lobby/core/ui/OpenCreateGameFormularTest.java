@@ -3,6 +3,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
@@ -19,27 +21,31 @@ import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.*;
-import org.junit.*;
-import org.junit.runner.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.context.*;
-import org.springframework.context.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.test.context.*;
-import org.springframework.test.context.junit4.*;
-import org.springframework.web.client.*;
-import org.testfx.api.*;
-import org.testfx.framework.junit.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -56,7 +62,8 @@ import static org.junit.Assert.*;
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        AlertBuilder.class
+        AlertBuilder.class,
+        LocaleConfig.class
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {
@@ -114,7 +121,7 @@ public class OpenCreateGameFormularTest extends ApplicationTest
                 @Override
                 public Collection<Player> getPlayers()
                 {
-                    return new ArrayList<Player>();
+                    return new ArrayList<>();
                 }
             };
         }
@@ -181,7 +188,8 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         clickOn("#createGameButton");
         StackPane stackPane = lookup("#mainStackPane").query();
 
-        assertEquals(2, stackPane.getChildren().size());
+        // TODO: maybe mount modal root, only if required, and remove it from the scenegraph otherwise.
+        assertEquals(3, stackPane.getChildren().size());
     }
 
 }

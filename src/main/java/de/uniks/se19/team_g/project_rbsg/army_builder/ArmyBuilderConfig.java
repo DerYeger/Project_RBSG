@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.CanAttackTileController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Scope;
 
 import java.io.IOException;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author Goatfryed
@@ -38,6 +40,19 @@ public class ArmyBuilderConfig {
     public ViewComponent<UnitDetailController> unitDetail(FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/unitDetailView.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
+    }
+
+    @Bean
+    @Scope("prototype")
+    public ViewComponent<CanAttackTileController> canAttackTile(FXMLLoader fxmlLoader) {
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/unit_info/CanAttackTile.fxml"));
+        return ViewComponent.fromLoader(fxmlLoader);
+    }
+
+    @Bean
+    public Supplier<ViewComponent<CanAttackTileController>> canAttackTileFactory(ObjectFactory<FXMLLoader> fxmLoader)
+    {
+        return () -> canAttackTile(fxmLoader.getObject());
     }
 
     @Bean

@@ -56,6 +56,8 @@ import static org.junit.Assert.*;
         SceneManagerConfig.class,
         GameListViewCell.class,
         AlertBuilder.class
+        LocaleConfig.class,
+        GameListViewCell.class
 })
 public class PlayerLeftGameListTest extends ApplicationTest
 {
