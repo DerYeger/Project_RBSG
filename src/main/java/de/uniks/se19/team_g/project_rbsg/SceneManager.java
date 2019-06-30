@@ -50,6 +50,7 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+        stage.setResizable(false);
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
         return this;
