@@ -30,6 +30,9 @@ import java.util.Locale;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Jan Müller
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         AlertTests.ContextConfiguration.class,
