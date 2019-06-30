@@ -80,7 +80,7 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
         Rincl.setLocale(Locale.ENGLISH);
         sceneManager = context.getBean(SceneManager.class);
         sceneManager.init(stage);
-        scene = new Scene(new StackPane(), 400, 400);
+        scene = new Scene(new StackPane(new Pane()), 350, 150);
         stage.setScene(scene);
         stage.show();
     }
@@ -98,7 +98,7 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
         clickOn(confirm);
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertTrue(sceneManager.getAlertTarget().getChildren().isEmpty());
+        assertEquals(1, sceneManager.getAlertTarget().getChildren().size());
     }
 
     @Test
@@ -126,7 +126,8 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
         clickOn(cancel);
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertTrue(sceneManager.getAlertTarget().getChildren().isEmpty());
+        assertEquals(1, sceneManager.getAlertTarget().getChildren().size());
+        assertTrue(confirmedAndCanceled[0]);
         assertTrue(confirmedAndCanceled[1]);
     }
 
@@ -137,5 +138,30 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
         alertBuilder.information(AlertBuilder.Text.INVALID_INPUT);
         WaitForAsyncUtils.waitForFxEvents();
         assertTrue(scene.getRoot().getChildrenUnmodifiable().isEmpty());
+    }
+
+    @Test
+    public void testAlreadyActiveException() {
+        final int[] wrapper = new int[1];
+        final AlertBuilder alertBuilder = context.getBean(AlertBuilder.class);
+        alertBuilder.confirmation(AlertBuilder.Text.INVALID_INPUT,
+                () -> wrapper[0] = 1,
+                null);
+        WaitForAsyncUtils.waitForFxEvents();
+
+        final Button confirm = lookup("#confirm").queryButton();
+        assertNotNull(confirm);
+        assertNotNull(lookup("Invalid input"));
+
+        alertBuilder.confirmation(AlertBuilder.Text.EXIT,
+                () -> wrapper[0] = 2,
+                null);
+        WaitForAsyncUtils.waitForFxEvents();
+
+        clickOn(lookup("#confirm").queryButton());
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(1, wrapper[0]);
     }
 }
