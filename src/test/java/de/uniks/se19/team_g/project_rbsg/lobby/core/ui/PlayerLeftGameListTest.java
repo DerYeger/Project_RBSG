@@ -55,7 +55,7 @@ import static org.junit.Assert.*;
         ApplicationState.class,
         SceneManagerConfig.class,
         GameListViewCell.class,
-        AlertBuilder.class
+        AlertBuilder.class,
         LocaleConfig.class,
         GameListViewCell.class
 })

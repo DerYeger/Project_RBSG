@@ -80,7 +80,7 @@ import static org.junit.Assert.assertNotNull;
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        AlertBuilder.class
+        AlertBuilder.class,
         LocaleConfig.class
 })
 public class PlayerListTest extends ApplicationTest

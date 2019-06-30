@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
@@ -36,7 +38,8 @@ import org.testfx.framework.junit.ApplicationTest;
         FXMLLoaderFactory.class,
         IngameViewTests.ContextConfiguration.class,
         IngameViewController.class,
-        SceneManagerConfig.class
+        SceneManagerConfig.class,
+        AlertBuilder.class
 })
 public class IngameViewTests extends ApplicationTest implements ApplicationContextAware {  // TODO Online Test ? for better coverage
 
@@ -75,10 +78,10 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         @Bean
         public SceneManager sceneManager(){
             return new SceneManager() {
-                @Override
-                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
-
-                }
+//                @Override
+//                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
+//
+//                }
             };
         }
         @Bean
@@ -107,7 +110,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
     @Override
     public void start(@NonNull final Stage stage) {
         @SuppressWarnings("unchecked")
-        final Scene buffer = new Scene(((ViewComponent<RootController>)applicationContext.getBean("ingameScene")).getRoot());
+        final Scene buffer = new Scene(((ViewComponent<RootController>) applicationContext.getBean("ingameScene")).getRoot());
         scene = buffer;
         stage.setScene(scene);
         stage.show();
@@ -122,7 +125,6 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         Button leave = lookup("#leaveButton").query();
         Assert.assertNotNull(leave);
         clickOn("#leaveButton");
-        clickOn("OK");
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
         clickOn("#zoomOutButton");

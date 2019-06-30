@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
@@ -62,14 +63,17 @@ public class IngameViewController implements RootController {
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
+    private final AlertBuilder alertBuilder;
 
     @Autowired
     public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
                                 @NonNull final GameProvider gameProvider,
-                                @NonNull final SceneManager sceneManager) {
+                                @NonNull final SceneManager sceneManager,
+                                @NonNull final AlertBuilder alertBuilder) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
+        this.alertBuilder = alertBuilder;
     }
 
     public void initialize() {
@@ -233,17 +237,17 @@ public class IngameViewController implements RootController {
 
 
     public void leaveGame(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave Game");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setLobbyScene(false, null);
-            gameProvider.clear();
-            ingameGameProvider.clear();
-        } else {
-            actionEvent.consume();
-        }
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.EXIT,
+                        this::doLeaveGame,
+                        null);
+    }
+
+    private void doLeaveGame() {
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+        gameProvider.clear();
+        ingameGameProvider.clear();
     }
 
     public void zoomIn(ActionEvent actionEvent) {

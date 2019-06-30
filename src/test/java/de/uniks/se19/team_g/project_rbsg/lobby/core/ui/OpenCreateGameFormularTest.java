@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
