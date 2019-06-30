@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Georg Siebert
@@ -152,9 +153,14 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
     private void joinButtonClicked(ActionEvent event)
     {
         if(game != null) {
-            gameProvider.set(game);
-            joinGameManager.joinGame(userProvider.get(), game);
-            sceneManager.setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
+            try {
+                gameProvider.set(game);
+                joinGameManager.joinGame(userProvider.get(), game).get();
+                sceneManager.setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                gameProvider.clear();
+            }
         }
     }
 
