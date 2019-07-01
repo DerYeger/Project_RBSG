@@ -69,13 +69,13 @@ public class EditArmyController implements Initializable {
                 submitButton,
                 getClass().getResource("/assets/icons/operation/saveWhite.png"),
                 getClass().getResource("/assets/icons/operation/saveBlack.png"),
-                80
+                40
         );
         JavaFXUtils.setButtonIcons(
                 cancelButton,
                 getClass().getResource("/assets/icons/navigation/crossWhite.png"),
                 getClass().getResource("/assets/icons/navigation/crossBlack.png"),
-                80
+                40
         );
     }
 }
