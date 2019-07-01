@@ -83,7 +83,7 @@
          <Insets />
       </StackPane.margin>
     </HBox>
-   <HBox fx:id="modalContainer" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="modal-background" visible="false" StackPane.alignment="CENTER" />
+   <HBox fx:id="modalContainer" alignment="CENTER" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="modal-background" visible="false" StackPane.alignment="CENTER" />
     <stylesheets>
         <URL value="@unitPropertyInfoListView.css" />
         <URL value="@../darkTheme.css" />

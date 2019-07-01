@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController">
+<VBox styleClass="modal" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController">
    <children>
       <HBox alignment="CENTER_LEFT">
          <children>
@@ -33,7 +33,7 @@
          <children>
             <Label fx:id="nameLabel" styleClass="default" text="Name:" />
             <Label fx:id="symbolLabel" styleClass="default" text="Symbol:" GridPane.rowIndex="1" />
-            <TextField fx:id="nameInput" prefWidth="250.0" GridPane.columnIndex="1" />
+            <TextField fx:id="nameInput" prefWidth="250.0" styleClass="default" GridPane.columnIndex="1" />
              <VBox alignment="CENTER" minHeight="60.0" minWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
                  <ImageView fx:id="selectedIcon" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
              </VBox>

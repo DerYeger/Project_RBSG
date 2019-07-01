@@ -67,6 +67,7 @@
     -root-background-color: rgb(18, 18, 18); /* == #121212 */
     -surface-elevation-color: #ffffff; /* only for elevation 2 und 8 used with opacity! */
     -surface-elevation-2-color: rgba(255, 255, 255, 0.07);
+    -surface-elevation-2-color-abs: rgb(45, 45, 45);
     -surface-elevation-8-color: rgba(255, 255, 255, 0.13);
     -primary-background-color: #88588c; /* Button non-hover */
     -primary-lighter-background-color: #bb86fc; /* Button hover */
@@ -476,8 +477,7 @@
 
 .modal {
     -fx-padding: 10 10 10 10;
-    -fx-pref-width: 400;
-    -fx-background-color: -surface-elevation-2-color;
+    -fx-background-color: -surface-elevation-2-color-abs;
     -fx-border-width: 2;
     -fx-border-color: -default-border-color;
 }
