@@ -241,6 +241,12 @@
     -fx-font-family: Roboto-Medium;
 }
 
+.label.header-2 {
+    -fx-font-size: 32pt;
+    -fx-text-fill: bold;
+    -fx-font-family: Roboto-Medium;
+}
+
 .label.title {
     -fx-font-family: Retronoid;
     -fx-opacity: 100;
@@ -528,4 +534,17 @@
     -fx-background-color: transparent;
     -fx-effect: none;
     -fx-rotate: -180;
+}
+
+.default.text-field {
+    -fx-padding: 5 5 5 5;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-alignment: center;
+    -fx-background-color: -surface-elevation-8-color;
+    -fx-font-size: 16;
+    -fx-pref-width: 330;
+    -fx-text-fill: -on-secondary-fill;
 }
