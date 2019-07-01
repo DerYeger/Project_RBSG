@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPropertyInfoListBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
@@ -50,6 +51,8 @@ public class ArmyBuilderController implements Initializable, RootController {
     private final ApplicationState appState;
     @Nonnull
     private final ArmyBuilderState viewState;
+    @Nonnull
+    private final ViewComponent<EditArmyController> editArmyComponent;
     @Nullable
     private final Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory;
     @Nonnull
@@ -101,6 +104,7 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nonnull ApplicationState appState,
             @Nonnull ArmyBuilderState viewState,
             @Nonnull UnitListEntryFactory unitCellFactory,
+            @Nonnull ViewComponent<EditArmyController> editArmyComponent,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
             @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
@@ -110,6 +114,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     ) {
         this.appState = appState;
         this.viewState = viewState;
+        this.editArmyComponent = editArmyComponent;
         this.armyDetaiLFactory = armyDetaiLFactory;
         this.unitCellFactory = unitCellFactory;
         this.armySelectorComponent = armySelectorComponent;
@@ -242,9 +247,11 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void editArmy() {
+        modalContainer.getChildren().setAll(editArmyComponent.getRoot());
         modalContainer.setVisible(true);
-        final Button modal = new Button("stub");
-        modal.setOnAction(event -> modalContainer.setVisible(false));
-        modalContainer.getChildren().setAll(modal);
+
+        editArmyComponent.getController().setOnClose(() -> {
+           modalContainer.setVisible(false);
+        });
     }
 }

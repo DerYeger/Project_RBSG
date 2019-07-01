@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.CanAttackTileController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
@@ -72,5 +73,11 @@ public class ArmyBuilderConfig {
     public ArmyBuilderState armyBuilderState()
     {
         return new ArmyBuilderState();
+    }
+
+    @Bean
+    public ViewComponent<EditArmyController> editArmyComponent(FXMLLoader fxmlLoader) {
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/edit_army/editArmyModal.fxml"));
+        return ViewComponent.fromLoader(fxmlLoader);
     }
 }
