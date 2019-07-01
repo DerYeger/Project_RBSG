@@ -97,11 +97,36 @@
 
 /*------------------Button------------------*/
 
+.button.icon-with-text {
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-max-height: 50px;
+    -fx-min-height: 50px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: -on-primary-fill;
+}
+
+.button.icon-with-text:hover {
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.button.icon-with-text:disabled {
+    -fx-background-color: -disabled-background-color;
+    -fx-opacity: 100;
+    -fx-text-fill: -on-primary-fill;
+}
+
 .button.icon-button {
     -fx-min-height: 40px;
     -fx-min-width: 40px;
-    -fx-pref-width: 40px;
-    -fx-pref-height: 40px;
     -fx-max-width: 40px;
     -fx-max-height: 40px;
     -fx-padding: 0;
@@ -114,6 +139,69 @@
 
 .button.icon-button:hover {
     -fx-background-color: -primary-lighter-background-color;
+}
+
+.button.icon-button:disabled {
+    -fx-background-color: -disabled-background-color;
+    -fx-opacity: 100;
+}
+
+.button.icon-button-big {
+    -fx-min-height: 80px;
+    -fx-min-width: 80px;
+    -fx-max-width: 80px;
+    -fx-max-height: 80px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+}
+
+.button.icon-button-big:hover {
+    -fx-background-color: -primary-lighter-background-color;
+}
+
+.button.disable-button {
+    -fx-min-height: 40px;
+    -fx-min-width: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+    -fx-text-fill: -on-primary-fill;
+}
+
+.button.disable-button:hover {
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.button.disable-button:disabled {
+    -fx-effect: -shadow;
+    -fx-background-color: -selected-background-color;
+    -fx-opacity: 100;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.button.default-button:hover{
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.button.default-button {
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+    -fx-text-fill: -on-primary-fill;
 }
 
 .button.rally-troops {
@@ -139,8 +227,23 @@
     -fx-font-family: Roboto-Medium;
 }
 
+.label.error {
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: -error-background-color;
+    -fx-font-family: Roboto-Medium;
+}
+
+.label.army {
+    -fx-font-size: 26pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
+}
+
 .label.title {
     -fx-font-family: Retronoid;
+    -fx-opacity: 100;
     -fx-font-size: 160px;
     -fx-effect: -shadow;
 }
@@ -166,14 +269,22 @@
 
 /*------------------ListView------------------*/
 
-.list-view.default {
+.list-view.default,
+.list-view.default-horizontal {
     -fx-background-color: transparent;
     -fx-effect: -shadow;
     -fx-border-color: -default-border-color;
     -fx-border-width: 0;
 }
 
-.list-view.default:focused {
+.list-view.transparent {
+    -fx-background-color: -root-background-color;
+    -fx-effect: -shadow;
+    -fx-border-color: -default-border-color;
+    -fx-border-width: 0;
+}
+
+.list-view:focused {
     -fx-background-radius: 0;
     -fx-border-width: 0;
     -fx-effect: -shadow;
@@ -181,40 +292,75 @@
 
 /*------------------ListCell------------------*/
 
-.list-view.default .list-cell {
-    -fx-background-color: transparent;
+.list-view.default .list-cell,
+.list-view.transparent .list-cell {
     -fx-border-width: 0;
     -fx-opacity: 0.8;
+    -fx-padding: 5 0 5 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px, 5px ;
 }
 
-.list-view.default .list-cell:empty:hover{
+.list-view.default-horizontal .list-cell {
+    -fx-border-width: 0;
+    -fx-opacity: 0.8;
+    -fx-padding: 0 5 0 5;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px, 5px ;
+}
+
+.list-view.default .list-cell:empty:hover,
+.list-view.transparent .list-cell:empty:hover,
+.list-view.default-horizontal .list-cell:empty:hover {
     -fx-background-color: transparent;
 }
 
 .list-view.default .list-cell:hover {
-    -fx-background-color: -primary-lighter-background-color;
+    -fx-background-color: transparent, -primary-lighter-background-color;
+    -fx-background-insets: 0px, 5 0 5 0 ;
     -fx-opacity: 1;
 }
 
-.list-view.default .list-cell:selected {
-    -fx-background-color: -selected-background-color;
+.list-view.transparent .list-cell:hover {
+    -fx-background-color: transparent;
+    -fx-opacity: 1;
+}
+
+.list-view.default-horizontal .list-cell:hover {
+    -fx-background-color: transparent, -primary-lighter-background-color;
+    -fx-background-insets: 0px, 0 5 0 5 ;
+    -fx-opacity: 1;
+}
+
+.list-view.default  .list-cell:selected {
+    -fx-background-color: transparent, -selected-background-color;
+    -fx-background-insets: 0px, 5 0 5 0 ;
+}
+
+.list-view.default-horizontal  .list-cell:selected {
+    -fx-background-color: transparent, -selected-background-color;
+    -fx-background-insets: 0px, 0 5 0 5 ;
+}
+
+.list-view.transparent  .list-cell:selected {
+    -fx-background-color: transparent;
 }
 
 /*------------------ListView-ScrollBar------------------*/
 
-.list-view.default .scroll-bar {
+.list-view .scroll-bar {
     -fx-background-color: transparent;
 }
 
 /*------------------ListView-De/Increment------------------*/
 
-.list-view.default .scroll-bar .increment-button,
-.list-view.default .scroll-bar .decrement-button {
+.list-view .scroll-bar .increment-button,
+.list-view .scroll-bar .decrement-button {
     -fx-background-color: transparent;
 }
 
-.list-view.default .scroll-bar .increment-button:hover,
-.list-view.default .scroll-bar .decrement-button:hover {
+.list-view .scroll-bar .increment-button:hover,
+.list-view .scroll-bar .decrement-button:hover {
     -fx-background-color: transparent;
 }
 
@@ -226,18 +372,12 @@
     -fx-effect: none;
 }
 
-.list-view  .scroll-bar .increment-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-stroke: 3px;
-    -fx-background-color: -default-border-color;
-    -fx-effect: none;
-}
+.list-view  .scroll-bar .increment-arrow,
 .list-view  .scroll-bar .decrement-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-stroke: 3px;
     -fx-background-color: -default-border-color;
     -fx-effect: none;
-    -fx-rotate: -180;
+
 }
 
 /*------------------ListView-Additionals------------------*/
@@ -325,36 +465,42 @@
 /*----------------Modals--------------------*/
 
 .modal-background {
-    -fx-background-color: rgba(0,0,0,0.8);
+    -fx-background-color: -root-background-color;
 }
 
 .modal {
+    -fx-padding: 10 10 10 10;
     -fx-pref-width: 400;
-    -fx-background-color: rgba(18,18,18, 0.9);
+    -fx-background-color: -surface-elevation-2-color;
     -fx-border-width: 2;
-    -fx-border-color: white;
+    -fx-border-color: -default-border-color;
 }
 
-.modal .confirm{
-    -fx-background-color: #089000;
-    -fx-border-color: black;
-    -fx-border-width: 2;
+.modal .cancel,
+.modal .confirm {
+    -fx-background-color: -primary-background-color;
     -fx-pref-width: 115;
     -fx-pref-height: 40;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: -on-primary-fill;
 }
 
-.modal .cancel{
-    -fx-background-color: #ff0000;
-    -fx-border-color: black;
-    -fx-border-width: 2;
-    -fx-pref-width: 115;
-    -fx-pref-height: 40;
+.modal .cancel:hover,
+.modal .confirm:hover {
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
 }
 
 .modal .content {
-    -fx-font-size: 16;
+    -fx-font-size: 16pt;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: -on-primary-fill;
     -fx-alignment: center;
 }
 

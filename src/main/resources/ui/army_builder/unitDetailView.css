@@ -7,20 +7,23 @@
     -fx-border-width: 2px;
 }
 
-.unitPropertyContainer > .box {
-    -fx-padding: 2px;
+.army-scene-content {
+    -fx-border-color: -default-border-color;
 }
 
-.unitPropertyContainer .label {
-    -fx-text-fill: -default-border-color;
+.list-view.armies-list .scroll-bar .increment-arrow,
+.list-view.armies-list .scroll-bar .decrement-arrow,
+.list-view.armies-list .scroll-bar .increment-button,
+.list-view.armies-list .scroll-bar .decrement-button {
+    -fx-padding:0;
+}
+
+.unitPropertyContainer .label.property {
+    -fx-text-fill: -on-primary-fill;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
-    -fx-font-size: 24;
+    -fx-font-size: 26pt;
     -fx-text-alignment: center;
-}
-
-.unitPropertyContainer #propertyIcon {
-    -fx-padding: 5;
 }
 
 .unitPropertyContainer.text-area {
@@ -31,3 +34,5 @@
 .unitPropertyContainer.text-area .content {
     -fx-background-color: -root-background-color;
 }
+
+

@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
 @Scope("prototype")
 public class ArmySquadController extends ListCell<SquadViewModel> implements Initializable {
 
-    public Label typeLabel;
     public Label countLabel;
     public Pane root;
     public ImageView imageView;
@@ -49,10 +48,8 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
 
         prefHeightProperty().bindBidirectional(prefWidthProperty());
 
-
-        typeLabel.textProperty().bind(squad.members.get(0).name);
         countLabel.textProperty().bind(
-            Bindings.size(squad.members).asString()
+            Bindings.size(squad.members).asString().concat("x")
         );
         JavaFXUtils.bindImage(imageView.imageProperty(), squad.members.get(0).imageUrl);
 

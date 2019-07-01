@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
 import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,7 +10,10 @@ import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.WeakListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -19,11 +24,13 @@ import java.util.ResourceBundle;
 
 @Component
 @Scope("prototype")
-public class ArmySelectorController implements Initializable {
+public class ArmySelectorController implements Initializable, Rincled {
 
     public ListView<Army> listView;
 
     private final ArmySelectorCellFactory cellFactory;
+    public Button editArmyButton;
+    public Label armiesLabel;
 
     /*
         save a reference to method reference and provide WeakChangeListener as Listener
@@ -78,6 +85,11 @@ public class ArmySelectorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        updateLabel();
         listView.setCellFactory(cellFactory);
+    }
+
+    private void updateLabel() {
+        armiesLabel.setText(getResources().getString("army"));
     }
 }

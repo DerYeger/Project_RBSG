@@ -28,7 +28,7 @@
     <children>
         <Label fx:id="titleLabel" style="-fx-font-weight: bold;" text="Create Game" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <font>
-                <Font name="System Bold" size="26.0" />
+                <Font name="Roboto-Medium" size="26.0" />
             </font>
         </Label>
         <TextField fx:id="gameName" alignment="CENTER" promptText="Spielname" GridPane.columnSpan="3" GridPane.rowIndex="1">
@@ -42,18 +42,11 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="332.0" spacing="10.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <children>
             <ToggleButton fx:id="twoPlayers" mnemonicParsing="false" selected="true" text="2-Spieler">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
                <toggleGroup>
                   <ToggleGroup fx:id="number" />
                </toggleGroup>
             </ToggleButton>
-            <ToggleButton fx:id="fourPlayers" mnemonicParsing="false" text="4-Spieler" toggleGroup="$number">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ToggleButton>
+            <ToggleButton fx:id="fourPlayers" mnemonicParsing="false" text="4-Spieler" toggleGroup="$number"/>
          </children>
          <GridPane.margin>
             <Insets left="10.0" right="10.0" />
@@ -61,22 +54,8 @@
       </HBox>
         <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="3" GridPane.rowIndex="3">
             <children>
-                <Button fx:id="create" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="icon-button" text="Y" textFill="WHITE">
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
-                <Button fx:id="cancel" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="icon-button" text="N" textFill="WHITE">
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
+                <Button fx:id="create" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="icon-button" text="Y"/>
+                <Button fx:id="cancel" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="icon-button" text="N"/>
             </children>
          <GridPane.margin>
             <Insets right="10.0" />

@@ -77,6 +77,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button saveArmiesButton;
     public Button showInfoButton;
     public Pane armySelectorRoot;
+    public Button editArmyButton;
     @Nonnull
     PersistentArmyManager persistantArmyManager;
     private ChangeListener<Unit> onSelectionUpdated;
@@ -160,16 +161,21 @@ public class ArmyBuilderController implements Initializable, RootController {
         );
         JavaFXUtils.setButtonIcons(
                 deleteArmyButton,
-                getClass().getResource("/assets/icons/operation/deletion/baseline_delete_white.png"),
-                getClass().getResource("/assets/icons/operation/deletion/baseline_delete_black.png"),
-                JavaConfig.ICON_SIZE
+                getClass().getResource("/assets/icons/operation/deleteWhite.png"),
+                getClass().getResource("/assets/icons/operation/deleteBlack.png"),
+                80
         );
-
         JavaFXUtils.setButtonIcons(
                 saveArmiesButton,
-                getClass().getResource("/assets/icons/operation/baseline_save_white_48dp.png"),
-                getClass().getResource("/assets/icons/operation/baseline_save_black_48dp.png"),
-                JavaConfig.ICON_SIZE
+                getClass().getResource("/assets/icons/operation/saveWhite.png"),
+                getClass().getResource("/assets/icons/operation/saveBlack.png"),
+                80
+        );
+        JavaFXUtils.setButtonIcons(
+                editArmyButton,
+                getClass().getResource("/assets/icons/operation/editWhite.png"),
+                getClass().getResource("/assets/icons/operation/editBlack.png"),
+                80
         );
 
     }
@@ -227,5 +233,8 @@ public class ArmyBuilderController implements Initializable, RootController {
     public void setAsRootController() {
 //        if (sceneManager == null) return;
 //        sceneManager.withRootController(this);
+    }
+
+    public void editArmy(ActionEvent actionEvent) {
     }
 }

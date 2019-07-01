@@ -12,11 +12,11 @@ public enum UnitTypeMetaData {
             UnitTypeMetaData.class.getResource("/assets/icons/army/unknown-type.png")
     ),
     Infantry(
-            UnitTypeMetaData.class.getResource("/assets/sprites/soldier.png"),
+            UnitTypeMetaData.class.getResource("/assets/sprites/soldier.gif"),
             UnitTypeMetaData.class.getResource("/assets/icons/army/crossed-swords white.png")
     ),
     BazookaTrooper(
-            UnitTypeMetaData.class.getResource("/assets/sprites/soldier.png"),
+            UnitTypeMetaData.class.getResource("/assets/sprites/soldier.gif"),
             UnitTypeMetaData.class.getResource("/assets/icons/army/crossbow-white.png")
     ),
     ;
