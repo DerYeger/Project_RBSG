@@ -247,11 +247,13 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void editArmy() {
+        final EditArmyController controller = editArmyComponent.getController();
+        controller.setOnClose(() -> {
+            modalContainer.setVisible(false);
+        });
+        controller.setArmy(appState.selectedArmy.get());
+
         modalContainer.getChildren().setAll( editArmyComponent.<Node>getRoot());
         modalContainer.setVisible(true);
-
-        editArmyComponent.getController().setOnClose(() -> {
-           modalContainer.setVisible(false);
-        });
     }
 }
