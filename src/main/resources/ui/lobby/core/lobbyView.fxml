@@ -14,55 +14,75 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
+<StackPane fx:id="mainStackPane" prefHeight="3000.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
    <children>
-      <StackPane fx:id="mainStackPane" prefHeight="3000.0" styleClass="body">
+      <GridPane fx:id="mainGridPane" styleClass="main-grid-pane" StackPane.alignment="TOP_LEFT">
          <children>
-            <GridPane fx:id="mainGridPane" styleClass="mainGridPane" StackPane.alignment="TOP_LEFT">
+            <Label fx:id="lobbyTitle" alignment="CENTER" styleClass="game-title" text="Advanced WASP Wars" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="lobbyTitle" alignment="CENTER" styleClass="gameTitle" text="Advanced WASP Wars" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                  <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                  <ListView fx:id="lobbyPlayerListView">
+                     <styleClass>
+                        <String fx:value="default" />
+                        <String fx:value="transparent" />
+                     </styleClass></ListView>
+                  <VBox fx:id="armySelectorRoot" maxHeight="-Infinity" maxWidth="-Infinity" />
+               </children>
+            </HBox>
+            <VBox fx:id="chatContainer" styleClass="chat-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+            <VBox alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="lobbyPlayerListView" />
-                        <VBox fx:id="armySelectorRoot" maxHeight="-Infinity" maxWidth="-Infinity" />
+                        <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="enButton" mnemonicParsing="false" onAction="#changeLangToEN" styleClass="disable-button">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="deButton" mnemonicParsing="false" onAction="#changeLangToDE" styleClass="disable-button">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutUser" styleClass="icon-button">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                   </HBox>
-                  <VBox fx:id="chatContainer" styleClass="chatContainer" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
-                  <VBox alignment="TOP_CENTER" styleClass="optionsContainer" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+               </children>
+            </VBox>
+            <VBox alignment="TOP_RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+               <children>
+                  <ListView fx:id="lobbyGamesListView" styleClass="transparent" VBox.vgrow="ALWAYS" />
+                  <HBox nodeOrientation="RIGHT_TO_LEFT" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                      <children>
-                        <HBox alignment="CENTER_RIGHT" styleClass="optionsHboxContainer" VBox.vgrow="ALWAYS">
+                        <Pane fx:id="createGameButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity">
+                           <HBox.margin>
+                              <Insets right="10.0" top="7.5" />
+                           </HBox.margin>
                            <children>
-                              <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="iconButton">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="enButton" mnemonicParsing="false" onAction="#changeLangToEN">
-                                 <styleClass>
-                                    <String fx:value="iconButton" />
-                                    <String fx:value="languageButton" />
-                                 </styleClass>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="deButton" mnemonicParsing="false" onAction="#changeLangToDE">
-                                 <styleClass>
-                                    <String fx:value="iconButton" />
-                                    <String fx:value="languageButton" />
-                                 </styleClass>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutUser" styleClass="iconButton">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Button>
+                              <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#createGameButtonClicked" styleClass="icon-with-text" />
                            </children>
-                        </HBox>
+                        </Pane>
+                        <Button fx:id="armyBuilderLink" mnemonicParsing="false" onAction="#goToArmyBuilder" text="Armies">
+                           <styleClass>
+                              <String fx:value="rally-troops" />
+                              <String fx:value="icon-with-text" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets top="7.5" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                   <VBox alignment="TOP_RIGHT" styleClass="gameListHbox" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">

@@ -22,7 +22,7 @@ public class ArmySelectorCellFactory implements Callback<ListView<Army>, ListCel
     @Override
     public ListCell<Army> call(ListView<Army> param) {
         final FXMLLoader loader = fxmlLoader.getObject();
-        loader.setLocation(getClass().getResource("/ui/army_builder/ArmySelectorCell.fxml"));
+        loader.setLocation(getClass().getResource("/ui/army_builder/armySelectorCell.fxml"));
         try {
             loader.load();
         } catch (IOException e) {

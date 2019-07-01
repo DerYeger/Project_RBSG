@@ -37,7 +37,6 @@
     -fx-min-width: 256;
     -fx-min-height: 256;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Kartenvorschau-Einbund*/
 }
 
 .army-pane {
@@ -46,7 +45,6 @@
     -fx-min-width: 80;
     -fx-min-height: 700;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter muesste spaeter geloescht werden nach einfuegen der aktiven Army*/
 }
 
 .label.player {

@@ -110,6 +110,8 @@ public class LoginFormController implements Rincled
     {
         loginButton.setText(getResources().getString("loginButton"));
         registerButton.setText(getResources().getString("registerButton"));
+        nameField.setPromptText(getResources().getString("name_promptText"));
+        passwordField.setPromptText(getResources().getString("password_promptText"));
     }
 
     private void addErrorFlag() {

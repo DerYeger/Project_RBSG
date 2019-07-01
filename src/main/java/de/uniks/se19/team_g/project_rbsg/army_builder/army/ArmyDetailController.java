@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +14,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.WeakListChangeListener;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -43,6 +45,9 @@ public class ArmyDetailController implements Initializable {
     private final Callback<ListView<SquadViewModel>, ListCell<SquadViewModel>> cellFactory;
     private ChangeListener<Army> selectedArmyListener;
 
+    public Button incrementButton;
+    public Button decrementButton;
+
     // we want to hold a reference to our change listener so that we can add a weak list change listener and not get garbage collected to early
     @SuppressWarnings("FieldCanBeLocal")
     private ListChangeListener<? super Unit> armyUnitChangeListener;
@@ -60,6 +65,18 @@ public class ArmyDetailController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        JavaFXUtils.setButtonIcons(
+                incrementButton,
+                getClass().getResource("/assets/icons/operation/addWhite.png"),
+                getClass().getResource("/assets/icons/operation/addBlack.png"),
+                80
+        );
+        JavaFXUtils.setButtonIcons(
+                decrementButton,
+                getClass().getResource("/assets/icons/operation/removeWhite.png"),
+                getClass().getResource("/assets/icons/operation/removeBlack.png"),
+                80
+        );
         appState.selectedArmy.addListener(new WeakChangeListener<>(selectedArmyListener));
         final Army selectedArmy = appState.selectedArmy.get();
         if (selectedArmy != null) {

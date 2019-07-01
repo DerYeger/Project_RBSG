@@ -36,6 +36,7 @@ public class UnitDetailController implements Initializable {
     public StackPane imageStackPane;
     public ImageView imageView;
     public TilePane statsContainer;
+    public TilePane statsContainer2;
     public TextArea unitDescription;
     public GridPane canAttackGrid;
     public Label canAttackLabel;
@@ -83,8 +84,13 @@ public class UnitDetailController implements Initializable {
 
         if (propertyViewComponentFactory != null) {
             statsContainer.getChildren().clear();
-            addPropertyDetail(unit.health, new Image(UnitDetailController.ATTACK_ICON_URL));
-            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL));
+            statsContainer2.getChildren().clear();
+            addPropertyDetail(unit.health, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
+            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
+            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
+            addPropertyDetail(unit.health, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
+            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
+            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
         }
 
         updateCanAttackTiles(unit);
@@ -110,20 +116,29 @@ public class UnitDetailController implements Initializable {
         imageView.imageProperty().unbind();
         imageView.setImage(null);
         statsContainer.getChildren().clear();
+        statsContainer2.getChildren().clear();
         if (propertyViewComponentFactory != null) {
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL));
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL));
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
+            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
         }
     }
 
-    private void addPropertyDetail(SimpleIntegerProperty property, Image icon) {
+    private void addPropertyDetail(SimpleIntegerProperty property, Image icon, TilePane tile) {
         assert propertyViewComponentFactory != null;
         ViewComponent<UnitPropertyController> viewComponent;
         viewComponent = propertyViewComponentFactory.getObject();
         viewComponent.getController().bindTo(property, icon);
         final Node node = viewComponent.getRoot();
-        statsContainer.getChildren().add(node);
-        TilePane.setMargin(node, new Insets(10, 10, 0, 10));
+        tile.getChildren().add(node);
+        if(tile.equals(statsContainer)){
+            TilePane.setMargin(node, new Insets(0, 10, 10, 0));
+        } else {
+            TilePane.setMargin(node, new Insets(0, 0, 10, 0));
+        }
     }
 
     @Override

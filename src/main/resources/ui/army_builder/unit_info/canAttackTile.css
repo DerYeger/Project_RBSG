@@ -1,9 +1,7 @@
-@import url("/ui/darkTheme.css");
-
 .canAttackTile {
-    -fx-border-color: white;
+    -fx-border-color: -default-border-color;
     -fx-border-width: 2;
-    -fx-background-color: black;
+    -fx-background-color: -root-background-color;
 }
 
 .canAttackTile #imagePane {

@@ -1,61 +1,42 @@
 
-.loginForm{
-    -fx-pref-width: 400;
-    -fx-max-width: 350;
+.loginForm {
+    -fx-min-width: 400;
+    -fx-max-width: 400;
     -fx-pref-height: 300;
-    -fx-max-height: 250;
-    -fx-background-color: rgba(18,18,18, 0.9);
+    -fx-max-height: 300;
+    -fx-background-color: -root-background-color;
+    -fx-effect: -shadow;
 }
 
-.loginForm > .label{
-    -fx-font-size: 12;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-.errorLabel{
-    -fx-font-size: 24;
-    -fx-font-weight: bold;
-    -fx-text-alignment: center;
-    -fx-text-fill: #CF6679;
-}
-
-.loginForm > .text-field{
-    -fx-font-size: 16;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-background-color: #404040;
+.loginForm > .password-field,
+.loginForm > .text-field {
+    -fx-min-height: 35;
+    -fx-max-height: 35;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -surface-elevation-8-color;
     -fx-alignment: center;
+    -fx-font-size: 16pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
+    -fx-prompt-text-fill: -on-disabled-fill;
 }
 
-.loginForm > .password-field{
-    -fx-font-size: 16;
+.loginForm > .text-field:focused {
     -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-background-color: #404040;
-    -fx-alignment: center;
+    -fx-text-fill: -on-primary-fill;
+    -fx-prompt-text-fill: transparent;
 }
 
-.loginForm .button{
-    -fx-background-color: #8858c8;
-    -fx-text-fill: white;
+.loginForm .button {
+    -fx-font-size: 16pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
     -fx-pref-height: 40;
-    -fx-pref-width: 100;
-    -fx-font-size: 14;
-}
-
-.loginForm .registerButton{
-    -fx-background-color: #8858c8;
-    -fx-text-fill: white;
-    -fx-pref-height: 40;
-    -fx-pref-width: 100;
-    -fx-font-size: 18;
-    -fx-font-weight: bold;
-}
-
-.loginForm .button:hover{
-    -fx-background-color: #bb86fc;
-    -fx-text-fill: black;
+    -fx-pref-width: 140;
 }
 
 

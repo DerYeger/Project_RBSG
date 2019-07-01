@@ -40,7 +40,7 @@ public class Unit implements Cloneable {
         unit.description.set(UNKNOWN);
         unit.id.set(id);
 
-        UnitTypeMetaData metaData = UnitTypeMetaData.UNKNOWN;
+        UnitTypeMetaData metaData = UnitTypeMetaData.Infantry;
 
         unit.iconUrl.set(
             metaData.getIcon().toString()
