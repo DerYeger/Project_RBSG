@@ -18,7 +18,6 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -78,6 +77,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button showInfoButton;
     public Pane armySelectorRoot;
     public Button editArmyButton;
+
+    public HBox modalContainer;
+
     @Nonnull
     PersistentArmyManager persistantArmyManager;
 
@@ -240,5 +242,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void editArmy() {
+        modalContainer.setVisible(true);
+        final Button modal = new Button("stub");
+        modal.setOnAction(event -> modalContainer.setVisible(false));
+        modalContainer.getChildren().setAll(modal);
     }
 }

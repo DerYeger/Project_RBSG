@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="root" styleClass="root-background-color" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController">
+<StackPane fx:id="root" styleClass="root-background-color" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController">
     <HBox alignment="CENTER" maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" StackPane.alignment="CENTER">
         <VBox fx:id="sideBarLeft" alignment="TOP_CENTER" maxHeight="820.0" maxWidth="60.0" minHeight="820.0" minWidth="60.0">
             <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button">
@@ -83,6 +83,7 @@
          <Insets />
       </StackPane.margin>
     </HBox>
+   <HBox fx:id="modalContainer" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="modal-background" visible="false" StackPane.alignment="CENTER" />
     <stylesheets>
         <URL value="@unitPropertyInfoListView.css" />
         <URL value="@../darkTheme.css" />
