@@ -80,6 +80,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button editArmyButton;
     @Nonnull
     PersistentArmyManager persistantArmyManager;
+
+
+    @SuppressWarnings("FieldCanBeLocal")
     private ChangeListener<Unit> onSelectionUpdated;
 
     private Node infoView;
@@ -180,6 +183,7 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     }
 
+    @SuppressWarnings("unused")
     public void onSelectionUpdated(ObservableValue<? extends Unit> observable, Unit oldValue, Unit newValue) {
         final Unit selection;
         if (newValue == null) {
@@ -195,25 +199,25 @@ public class ArmyBuilderController implements Initializable, RootController {
         unitListView.getSelectionModel().select(selection);
     }
 
-    public void toggleSound(ActionEvent actionEvent) {
+    public void toggleSound() {
         if (musicManager == null) {
             return;
         }
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
-    public void leaveRoom(ActionEvent actionEvent) {
+    public void leaveRoom() {
         if (sceneManager == null) {
             return;
         }
         sceneManager.setLobbyScene(true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
-    public void saveArmies() throws InterruptedException {
+    public void saveArmies() {
         persistantArmyManager.saveArmies(appState.armies);
     }
 
-    public void showInfo(ActionEvent actionEvent) {
+    public void showInfo() {
 
         if (infoView == null) {
             infoView = unitPropertyInfoListBuilder.buildInfoView();
@@ -223,10 +227,10 @@ public class ArmyBuilderController implements Initializable, RootController {
         infoView.setVisible(true);
     }
 
-    public void deleteArmy(ActionEvent actionEvent) {
+    public void deleteArmy() {
         //For clean-deletion
         Army army = appState.selectedArmy.get();
-        army.units.removeAll(army.units);
+        army.units.clear();
     }
 
     @Override
@@ -235,6 +239,6 @@ public class ArmyBuilderController implements Initializable, RootController {
 //        sceneManager.withRootController(this);
     }
 
-    public void editArmy(ActionEvent actionEvent) {
+    public void editArmy() {
     }
 }
