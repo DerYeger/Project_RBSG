@@ -161,6 +161,8 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
     public void start(@NonNull final Stage stage) throws Exception {
         scene = ingameSceneBuilder.getIngameScene();
         stage.setScene(scene);
+        stage.setX(0);
+        stage.setY(0);
         stage.show();
     }
 
@@ -186,4 +188,8 @@ public class IngameViewTests extends ApplicationTest { // TODO Online Test ? for
         clickOn("#zoomOutButton");
     }
 
+    @Override
+    public void stop() throws Exception {
+        scene.getWindow().centerOnScreen();
+    }
 }
