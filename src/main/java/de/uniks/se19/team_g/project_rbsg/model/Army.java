@@ -13,9 +13,9 @@ public class Army {
     public final SimpleStringProperty name = new SimpleStringProperty();
     public final ObservableList<Unit> units = FXCollections.observableArrayList();
     public final SimpleListProperty<Unit> simpleUnits = new SimpleListProperty<>(units);
-    public final ReadOnlyBooleanProperty isPlayable;
+    public final BooleanProperty hasUnsavedUpdates = new SimpleBooleanProperty(false);
 
-    public final BooleanProperty hasUnsavedUpdates = new SimpleBooleanProperty();
+    public final ReadOnlyBooleanProperty isPlayable;
 
     public final SimpleObjectProperty<ArmyIcon> iconType = new SimpleObjectProperty<>(ArmyIcon.DRAGON_HEAD);
 
