@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -35,8 +36,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Goatfryed
@@ -222,7 +225,17 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void saveArmies() {
-        persistantArmyManager.saveArmies(appState.armies);
+
+        appState.armies.forEach(army -> army.setUnsavedUpdates(false));
+        final List<Army> dirtyArmies = appState.armies.stream().filter(Army::hasUnsavedUpdates).collect(Collectors.toList());
+
+        persistantArmyManager.saveArmies(appState.armies)
+            // if the save doesn't work, reset the dirty flags to allow new tries
+            .exceptionally(throwable -> {
+                Platform.runLater( () -> dirtyArmies.forEach(army -> army.setUnsavedUpdates(true)));
+                return null;
+            })
+        ;
     }
 
     public void showInfo() {
