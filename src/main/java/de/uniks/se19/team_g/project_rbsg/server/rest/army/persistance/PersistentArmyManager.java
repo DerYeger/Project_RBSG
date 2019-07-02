@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import javafx.collections.ObservableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,9 +138,12 @@ public class PersistentArmyManager {
 
         for (Army army : armyList) {
             LinkedList<String> idList = new LinkedList<>();
-            DeserializableArmy deserializableArmy = new DeserializableArmy(army.id.get(),
-                    army.name.get(),
-                    new ArrayList<Unit>());
+            DeserializableArmy deserializableArmy = new DeserializableArmy(
+                army.id.get(),
+                army.name.get(),
+                new ArrayList<>(),
+                army.iconType.get().name()
+            );
 
             for (Unit unit : army.units) {
                 idList.add(unit.id.get());
@@ -148,7 +151,7 @@ public class PersistentArmyManager {
             }
 
             if (army.id.isEmpty().get()) {
-                deserializableArmy.id = "";;
+                deserializableArmy.id = "";
             }
 
             armyWrapper.armies.add(deserializableArmy);
@@ -206,14 +209,26 @@ public class PersistentArmyManager {
 
     public static class DeserializableArmy{
         @JsonCreator
-        public DeserializableArmy(@JsonProperty("id") String id, @JsonProperty("name")String name, @JsonProperty("units")ArrayList<Unit> units){
+        public DeserializableArmy(
+                @JsonProperty("id") String id,
+                @JsonProperty("name")String name,
+                @JsonProperty("units")ArrayList<Unit> units,
+                String armyIcon
+        ){
             this.id=id;
             this.name=name;
             this.units=units;
+            this.armyIcon = armyIcon;
         }
         public String id;
         public String name;
         public ArrayList<Unit>units;
+
+        /**
+         * Maps the identifier of the ArmyIcon Enum to later restore the proper icon or set another default
+         * @See ArmyIcon::valueOf()
+         */
+        public String armyIcon;
     }
 
     public static class ArmyWrapper{
