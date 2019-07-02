@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -57,28 +58,34 @@ public class CreateGameController implements Rincled
     @FXML
     private ToggleGroup number;
 
-    private GameCreator gameCreator;
-    private JoinGameManager joinGameManager;
     private Game game;
 
     private Node root;
+
+    @Nonnull
     private UserProvider userProvider;
+    @Nonnull
     private final AlertBuilder alertBuilder;
+    @Nonnull
+    private GameCreator gameCreator;
     @Nullable
     private final SceneManager sceneManager;
+    @Nullable
+    private final GameProvider gameProvider;
+    @Nullable
+    private JoinGameManager joinGameManager;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
 
     private int numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
 
-    private final GameProvider gameProvider;
 
     @Autowired
     public CreateGameController(
             @Nonnull UserProvider userProvider,
             @Nonnull AlertBuilder alertBuilder,
-            @Nullable GameCreator gameCreator,
+            @Nonnull GameCreator gameCreator,
             @Nullable JoinGameManager joinGameManager,
             @Nullable GameProvider gameProvider,
             @Nullable SceneManager sceneManager
@@ -128,7 +135,11 @@ public class CreateGameController implements Rincled
     }
 
     public void createGame(@Nonnull final ActionEvent event) {
-        if(this.gameName.getText() != null && (!this.gameName.getText().equals("")) && this.numberOfPlayers != 0){
+        if(
+            this.gameName.getText() != null
+            && (!this.gameName.getText().equals(""))
+            && this.numberOfPlayers != 0
+        ){
             this.game = new Game(gameName.getText(), this.numberOfPlayers);
             @SuppressWarnings("unchecked")
             final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.userProvider.get(), game);
@@ -143,12 +154,12 @@ public class CreateGameController implements Rincled
         }
     }
 
-    private void onGameRequestReturned(@Nullable HashMap<String, Object> answer) {
+    public void onGameRequestReturned(@Nullable Map<String, Object> answer) {
         final String gameId;
-        if (answer != null && gameProvider != null && sceneManager != null) {
+        if (answer != null && gameProvider != null && sceneManager != null && joinGameManager != null) {
             if(answer.get("status").equals("success")) { //TODO fix autojoin
                 @SuppressWarnings("unchecked")
-                final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
+                final Map<String, Object> data = (Map<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
                 this.game.setId(gameId);
                 this.joinGameManager.joinGame(userProvider.get(), game)
