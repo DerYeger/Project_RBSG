@@ -43,11 +43,6 @@ public class ArmyDetailControllerTest extends ApplicationTest {
 
     private Army selectedArmy;
 
-    /**
-     * it appears, the ArmyIcon class must be used before the start method is called for some thread concurrency reasons
-     */
-    private ArmyIcon placeholder;
-
     @Override
     public void start(Stage stage) {
 
