@@ -188,6 +188,7 @@ public class ArmyBuilderController implements Initializable, RootController {
                 80
         );
 
+        saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
 
     @SuppressWarnings("unused")
@@ -242,9 +243,7 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     public void editArmy() {
         final EditArmyController controller = editArmyComponent.getController();
-        controller.setOnClose(() -> {
-            modalContainer.setVisible(false);
-        });
+        controller.setOnClose(() -> modalContainer.setVisible(false));
         controller.setArmy(appState.selectedArmy.get());
 
         modalContainer.getChildren().setAll( editArmyComponent.<Node>getRoot());
