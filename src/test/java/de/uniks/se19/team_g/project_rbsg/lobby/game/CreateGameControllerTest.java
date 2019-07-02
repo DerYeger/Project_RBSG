@@ -2,13 +2,13 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
-import io.rincl.*;
-import io.rincl.resourcebundle.*;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,18 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientResponseException;
-import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 import static de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder.Text.INVALID_INPUT;
 import static de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder.Text.NO_CONNECTION;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes ={
@@ -61,6 +66,12 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
 
     @Autowired
     public SceneManager sceneManager;
+
+    @Autowired
+    public JoinGameManager joinGameManager;
+
+    @Autowired
+    public GameCreator gameCreator;
 
     private ApplicationContext context;
 
@@ -86,25 +97,19 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
         }
 
         @Bean
-        public SceneManager sceneManager() {
-            return Mockito.mock(SceneManager.class);
+        public GameCreator gameCreator()
+        {
+            return Mockito.mock(GameCreator.class);
         }
 
         @Bean
-        public GameCreator gameCreator() {
-            return new GameCreator(new RestTemplate()) {
-                @Override
-                public CompletableFuture sendGameRequest(User user, Game game) {
-                    return CompletableFuture.failedFuture(
-                            new RestClientResponseException(
-                                    "Invalid Credentials",
-                                    HttpStatus.UNAUTHORIZED.value(),
-                                    "Unauthorized",
-                                    null, null, null
-                            )
-                    );
-                }
-            };
+        public JoinGameManager joinGameManager() {
+            return Mockito.mock(JoinGameManager.class);
+        }
+
+        @Bean
+        public SceneManager sceneManager() {
+            return Mockito.mock(SceneManager.class);
         }
 
         @Bean
@@ -136,6 +141,18 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
 
     @Test
     public void testRejectedFutureHandling(){
+
+        Mockito.when(gameCreator.sendGameRequest(any(), any())).thenReturn(
+            CompletableFuture.failedFuture(
+                    new RestClientResponseException(
+                            "Invalid Credentials",
+                            HttpStatus.UNAUTHORIZED.value(),
+                            "Unauthorized",
+                            null, null, null
+                    )
+            )
+        );
+
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final ToggleButton fourPlayerButton = lookup("#fourPlayers").query();
@@ -151,6 +168,20 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
 
     @Test
     public void testFormInputGameName(){
+
+        Mockito.when(
+                joinGameManager.joinGame(any(), any())
+        ).thenReturn(CompletableFuture.completedFuture(null));
+
+        Mockito.when(gameCreator.sendGameRequest(any(), any())).thenReturn(
+                CompletableFuture.completedFuture(
+                        new HashMap<>() {{
+                            put("status", "success");
+                            put("data", Collections.singletonMap("gameId", "nine-nine!!"));
+                        }}
+                )
+        );
+
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();
@@ -165,7 +196,17 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
 
         Assert.assertEquals(INVALID_INPUT, lastError);
 
+        clickOn(createGameButton);
 
+        Platform.runLater(gameNameInput::requestFocus);
+        WaitForAsyncUtils.waitForFxEvents();
+        write("gg");
+
+        clickOn(createGameButton);
+
+        Mockito.verify(gameCreator).sendGameRequest(any(), any());
+        Mockito.verify(joinGameManager).joinGame(any(), any());
+        Mockito.verify(sceneManager).setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
     }
 
 }
