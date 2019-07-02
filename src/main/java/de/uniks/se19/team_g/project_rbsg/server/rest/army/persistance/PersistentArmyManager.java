@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -191,20 +192,25 @@ public class PersistentArmyManager {
         }
     }
 
-    public void saveArmies(ObservableList<Army> armies) {
+    public CompletableFuture<Void> saveArmies(ObservableList<Army> armies) {
 
         ArrayList<Army> armyList = new ArrayList<>();
+
+        List<CompletableFuture<SaveArmyResponse>> feedbacks = new ArrayList<>();
 
         for (Army army : armies) {
             if (army.units.size() == 10) {
                 //army is complete
-                this.saveArmyOnline(army);
+                feedbacks.add(this.saveArmyOnline(army));
             }
             armyList.add(army);
         }
         if (!armyList.isEmpty()) {
             this.saveArmiesLocal(armyList);
         }
+
+        //noinspection unchecked,SuspiciousToArrayCall
+        return CompletableFuture.allOf((CompletableFuture<SaveArmyResponse>[]) feedbacks.toArray(Object[]::new));
     }
 
     public static class DeserializableArmy{
