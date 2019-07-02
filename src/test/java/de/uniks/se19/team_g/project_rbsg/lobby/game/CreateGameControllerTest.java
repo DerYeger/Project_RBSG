@@ -1,7 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
@@ -19,6 +21,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -46,7 +49,8 @@ import static de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder.Text.NO_CONNE
         CreateGameController.class,
         CreateGameFormBuilder.class,
         UserProvider.class,
-        CreateGameControllerTest.ContextConfiguration.class
+        CreateGameControllerTest.ContextConfiguration.class,
+        GameProvider.class,
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest implements ApplicationContextAware {
@@ -54,6 +58,9 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
 
     @Autowired
     private CreateGameFormBuilder createGameFormBuilder;
+
+    @Autowired
+    public SceneManager sceneManager;
 
     private ApplicationContext context;
 
@@ -76,6 +83,11 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
+        }
+
+        @Bean
+        public SceneManager sceneManager() {
+            return Mockito.mock(SceneManager.class);
         }
 
         @Bean
@@ -145,13 +157,15 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
         Assert.assertNotNull(twoPlayerButton);
         final Button createGameButton = lookup("#create").queryButton();
         Assert.assertNotNull(createGameButton);
-        final Button cancelButton = lookup("#create").queryButton();
+        final Button cancelButton = lookup("#cancel").queryButton();
         Assert.assertNotNull(cancelButton);
 
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 
         Assert.assertEquals(INVALID_INPUT, lastError);
+
+
     }
 
 }
