@@ -6,7 +6,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-@SuppressWarnings("unused")
 public class Army {
 
     public final SimpleStringProperty id = new SimpleStringProperty();
