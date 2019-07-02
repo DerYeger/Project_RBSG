@@ -79,7 +79,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             @Nonnull final SceneManager sceneManager,
             @Nonnull final JoinGameManager joinGameManager,
             @Nonnull final ApplicationState appState
-            ){
+        ){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
