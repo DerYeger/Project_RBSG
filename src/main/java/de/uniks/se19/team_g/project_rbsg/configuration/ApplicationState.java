@@ -27,6 +27,9 @@ import org.springframework.stereotype.Component;
  * There is no benchmark and proof of significance, and it can be ignored currently, but the effort is rather small as well.
  * If you decide to use a WeakListener, be sure, that the listener and its object graph are referenceable as long as required.
  * Be aware of the trade off.
+ *
+ * Please note, that if you create a Binding, e.g. via Bindings.create{}, Observable{}.bind() ..., the references are weak by default.
+ * If these are bound to Scene Graph Nodes, one doesn't need to care about the listener topic at all.
  */
 @Component
 public class ApplicationState {
