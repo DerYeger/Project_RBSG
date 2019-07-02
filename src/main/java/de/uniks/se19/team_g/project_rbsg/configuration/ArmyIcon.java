@@ -15,13 +15,19 @@ public enum ArmyIcon {
     )
     ;
 
-    private final Image image;
+    private final URL imageUrl;
 
-    ArmyIcon(URL resource) {
-        this.image = new Image(resource.toExternalForm());
+    private Image image;
+
+
+    ArmyIcon(URL imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Image getImage() {
+        if (image == null) {
+            this.image = new Image(imageUrl.toExternalForm());
+        }
         return image;
     }
 }
