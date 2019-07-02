@@ -45,13 +45,12 @@ public class EditArmyController implements Initializable {
     public void setArmy(Army army) {
         this.army = army;
 
-        iconList.getSelectionModel().select(army.iconType.get());
-
         resetFormFields();
     }
 
     private void resetFormFields() {
         nameInput.setText(army.name.get());
+        iconList.getSelectionModel().select(army.iconType.get());
     }
 
     public void onConfirm() {
