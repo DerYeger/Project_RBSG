@@ -47,11 +47,7 @@ public class ApplicationStateInitializer {
                     Platform::runLater
                 ).thenApply(
                     nothing -> {
-                        try {
-                            return armyManager.getArmies().get();
-                        } catch (InterruptedException | ExecutionException e) {
-                            throw new RuntimeException(e);
-                        }
+                        return armyManager.getArmies();
                     }
                 ).thenApply(this::fillArmies)
                 .thenAcceptAsync(

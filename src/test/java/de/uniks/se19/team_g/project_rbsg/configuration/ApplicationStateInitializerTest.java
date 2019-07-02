@@ -30,7 +30,7 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
 
         final ArmyManager armyManager = mock(ArmyManager.class);
         final List<Army> armies = new ArrayList<>();
-        when(armyManager.getArmies()).thenReturn(CompletableFuture.completedFuture(armies));
+        when(armyManager.getArmies()).thenReturn(armies);
 
         final ArmyGeneratorStrategy armyGenerator = mock(ArmyGeneratorStrategy.class);
 

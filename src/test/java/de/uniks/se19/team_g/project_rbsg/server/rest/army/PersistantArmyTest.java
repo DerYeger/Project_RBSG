@@ -269,7 +269,9 @@ public class PersistantArmyTest {
             Army newArmy = new Army();
             newArmy.id.set(deserializableArmy.id);
             newArmy.name.set(deserializableArmy.name);
-            for(Unit unit : deserializableArmy.units){
+            for(String unitId : deserializableArmy.units){
+                Unit unit = new Unit();
+                unit.id.set(unitId);
                 newArmy.units.add(unit);
             }
             armies.add(newArmy);

@@ -137,14 +137,12 @@ public class PersistentArmyManager {
         armyWrapper.armies = new ArrayList<DeserializableArmy>();
 
         for (Army army : armyList) {
-            LinkedList<String> idList = new LinkedList<>();
             DeserializableArmy deserializableArmy = new DeserializableArmy(army.id.get(),
                     army.name.get(),
-                    new ArrayList<Unit>());
+                    new ArrayList<String>());
 
             for (Unit unit : army.units) {
-                idList.add(unit.id.get());
-                deserializableArmy.units.add(unit);
+                deserializableArmy.units.add(unit.id.get());
             }
 
             if (army.id.isEmpty().get()) {
@@ -206,14 +204,14 @@ public class PersistentArmyManager {
 
     public static class DeserializableArmy{
         @JsonCreator
-        public DeserializableArmy(@JsonProperty("id") String id, @JsonProperty("name")String name, @JsonProperty("units")ArrayList<Unit> units){
+        public DeserializableArmy(@JsonProperty("id") String id, @JsonProperty("name")String name, @JsonProperty("units")ArrayList<String> units){
             this.id=id;
             this.name=name;
             this.units=units;
         }
         public String id;
         public String name;
-        public ArrayList<Unit>units;
+        public ArrayList<String>units;
     }
 
     public static class ArmyWrapper{
