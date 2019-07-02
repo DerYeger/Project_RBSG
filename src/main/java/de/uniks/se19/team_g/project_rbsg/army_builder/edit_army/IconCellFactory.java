@@ -1,9 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
+package de.uniks.se19.team_g.project_rbsg.army_builder.edit_army;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.util.Callback;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Component;
@@ -11,23 +12,23 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class ArmySelectorCellFactory implements Callback<ListView<Army>, ListCell<Army>> {
+public class IconCellFactory implements Callback<ListView<Image>, ListCell<Image>> {
 
     private final ObjectFactory<FXMLLoader> fxmlLoader;
-    private final ObjectFactory<ArmySelectorCellController> armySelectorCellController;
+    private final ObjectFactory<IconCellController> iconCellController;
 
-    public ArmySelectorCellFactory(
-            ObjectFactory<FXMLLoader> fxmlLoader,
-            ObjectFactory<ArmySelectorCellController> armySelectorCellController
+    public IconCellFactory(
+        ObjectFactory<FXMLLoader> fxmlLoader,
+        ObjectFactory<IconCellController> iconCellController
     ) {
         this.fxmlLoader = fxmlLoader;
-        this.armySelectorCellController = armySelectorCellController;
+        this.iconCellController = iconCellController;
     }
 
     @Override
-    public ListCell<Army> call(ListView<Army> param) {
+    public ListCell<Image> call(ListView<Image> param) {
         final FXMLLoader loader = fxmlLoader.getObject();
-        loader.setController(armySelectorCellController.getObject());
+        loader.setController(iconCellController.getObject());
         loader.setLocation(getClass().getResource("/ui/army_builder/armySelectorCell.fxml"));
         try {
             loader.load();
