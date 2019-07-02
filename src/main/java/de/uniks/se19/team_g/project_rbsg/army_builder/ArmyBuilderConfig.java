@@ -8,8 +8,10 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailCont
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.ObjectFactory;
@@ -70,12 +72,15 @@ public class ArmyBuilderConfig {
     {
         final ArmyBuilderState state = new ArmyBuilderState();
 
-        SimpleListProperty<Army> armies = new SimpleListProperty<>(appState.armies);
+        final ObservableList<Army> dirtyAwareArmies = FXCollections.observableArrayList(
+                army -> new Observable[] {army.hasUnsavedUpdates}
+        );
+        Bindings.bindContent(dirtyAwareArmies, appState.armies);
 
         state.unsavedUpdates.bind(
             Bindings.createBooleanBinding(
-                () -> armies.stream().anyMatch(Army::hasUnsavedUpdates),
-                armies
+                () -> dirtyAwareArmies.stream().anyMatch(Army::hasUnsavedUpdates),
+                dirtyAwareArmies
             )
         );
 

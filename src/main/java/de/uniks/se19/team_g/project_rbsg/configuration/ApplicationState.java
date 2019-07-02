@@ -67,7 +67,10 @@ public class ApplicationState {
     private void onArmyUpdate(ListChangeListener.Change<? extends Army> change) {
         while (change.next()) {
             if (selectedArmy.get() == null || change.getRemoved().contains(selectedArmy.get())) {
-                selectedArmy.set(change.getList().get(0));
+                final ObservableList<? extends Army> list = change.getList();
+                if (!list.isEmpty()) {
+                    selectedArmy.set(list.get(0));
+                }
                 if (selectedArmy.get() != null) {
                     break;
                 }
