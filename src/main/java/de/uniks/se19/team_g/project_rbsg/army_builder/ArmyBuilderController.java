@@ -136,28 +136,13 @@ public class ArmyBuilderController implements Initializable, RootController {
         onSelectionUpdated = this::onSelectionUpdated;
         viewState.selectedUnit.addListener(new WeakChangeListener<>(onSelectionUpdated));
 
-        if (armyDetaiLFactory != null) {
-            armyDetaiLFactory.apply(armyDetailsContainer);
-        }
-
-        if (unitDetailViewFactory != null) {
-            final ViewComponent<UnitDetailController> viewComponent = unitDetailViewFactory.getObject();
-            unitDetailView.getChildren().add(viewComponent.getRoot());
-        }
-
-        if (musicManager != null) {
-            musicManager.initButtonIcons(soundButton);
-        }
-
+        configureArmyDetail();
+        configureUnitDetail();
+        configureMusicManager();
+        configureArmySelector();
 
         unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
 
-        if (armySelectorComponent != null) {
-            armySelectorController = armySelectorComponent.apply(armySelectorRoot);
-            armySelectorController.setSelection(
-                    appState.armies, appState.selectedArmy
-            );
-        }
 
 
         JavaFXUtils.setButtonIcons(
@@ -192,6 +177,34 @@ public class ArmyBuilderController implements Initializable, RootController {
         );
 
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
+    }
+
+    protected void configureArmyDetail() {
+        if (armyDetaiLFactory != null) {
+            armyDetaiLFactory.apply(armyDetailsContainer);
+        }
+    }
+
+    protected void configureUnitDetail() {
+        if (unitDetailViewFactory != null) {
+            final ViewComponent<UnitDetailController> viewComponent = unitDetailViewFactory.getObject();
+            unitDetailView.getChildren().add(viewComponent.getRoot());
+        }
+    }
+
+    protected void configureMusicManager() {
+        if (musicManager != null) {
+            musicManager.initButtonIcons(soundButton);
+        }
+    }
+
+    protected void configureArmySelector() {
+        if (armySelectorComponent != null) {
+            armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+            armySelectorController.setSelection(
+                    appState.armies, appState.selectedArmy
+            );
+        }
     }
 
     @SuppressWarnings("unused")
