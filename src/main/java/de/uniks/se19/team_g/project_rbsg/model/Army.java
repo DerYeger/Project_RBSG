@@ -14,6 +14,8 @@ public class Army {
     public final SimpleListProperty<Unit> simpleUnits = new SimpleListProperty<>(units);
     public final ReadOnlyBooleanProperty isPlayable;
 
+    private final BooleanProperty hasUnsavedUpdates = new SimpleBooleanProperty();
+
     public final SimpleObjectProperty<ArmyIcon> iconType = new SimpleObjectProperty<>(ArmyIcon.DRAGON_HEAD);
 
 
@@ -21,5 +23,17 @@ public class Army {
         SimpleBooleanProperty isPlayable = new SimpleBooleanProperty();
         isPlayable.bind(id.isNotNull().and(simpleUnits.sizeProperty().isEqualTo(ApplicationState.ARMY_MAX_UNIT_COUNT)));
         this.isPlayable = isPlayable;
+    }
+
+    public ReadOnlyBooleanProperty hasUnsavedUpdatesProperty() {
+        return hasUnsavedUpdates;
+    }
+
+    public boolean hasUnsavedUpdates() {
+        return hasUnsavedUpdates.get();
+    }
+
+    public void setHasUnsavedUpdates(boolean hasUnsavedUpdates) {
+        this.hasUnsavedUpdates.set(hasUnsavedUpdates);
     }
 }
