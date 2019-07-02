@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -12,8 +13,8 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,6 +31,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -206,7 +208,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         if (sceneManager == null) {
             return;
         }
-        sceneManager.setLobbyScene(true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
     public void saveArmies() throws InterruptedException {
@@ -227,12 +229,6 @@ public class ArmyBuilderController implements Initializable, RootController {
         //For clean-deletion
         Army army = appState.selectedArmy.get();
         army.units.removeAll(army.units);
-    }
-
-    @Override
-    public void setAsRootController() {
-//        if (sceneManager == null) return;
-//        sceneManager.withRootController(this);
     }
 
     public void editArmy(ActionEvent actionEvent) {

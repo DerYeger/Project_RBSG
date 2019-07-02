@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
@@ -30,10 +31,10 @@ import java.util.concurrent.CompletableFuture;
 @Controller
 public class CreateGameController implements Rincled
 {
-    private URL createBlack = getClass().getResource("/assets/icons/navigation/checkBlack.png");
-    private URL createWhite = getClass().getResource("/assets/icons/navigation/checkWhite.png");
-    private URL cancelBlack = getClass().getResource("/assets/icons/navigation/crossBlack.png");
-    private URL cancelWhite = getClass().getResource("/assets/icons/navigation/crossWhite.png");
+    private static final URL CONFIRM_WHITE = CreateGameController.class.getResource("/assets/icons/navigation/checkWhite.png");
+    private static final URL CONFIRM_BLACK = CreateGameController.class.getResource("/assets/icons/navigation/checkBlack.png");
+    private static final URL CANCEL_WHITE = CreateGameController.class.getResource("/assets/icons/navigation/crossWhite.png");
+    private static final URL CANCEL_BLACK = CreateGameController.class.getResource("/assets/icons/navigation/crossBlack.png");
 
     public Label titleLabel;
 
@@ -61,6 +62,7 @@ public class CreateGameController implements Rincled
 
     private Node root;
     private UserProvider userProvider;
+    private final AlertBuilder alertBuilder;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
@@ -70,11 +72,16 @@ public class CreateGameController implements Rincled
     private final GameProvider gameProvider;
 
     @Autowired
-    public CreateGameController(@Nullable GameCreator gameCreator, @Nullable JoinGameManager joinGameManager, @Nullable GameProvider gameProvider, @NonNull UserProvider userProvider) {
+    public CreateGameController(@Nullable GameCreator gameCreator,
+                                @Nullable JoinGameManager joinGameManager,
+                                @Nullable GameProvider gameProvider,
+                                @NonNull UserProvider userProvider,
+                                @NonNull final AlertBuilder alertBuilder) {
         this.gameCreator = gameCreator;
         this.joinGameManager = joinGameManager;
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
+        this.alertBuilder = alertBuilder;
     }
 
     public void init(){
@@ -82,8 +89,8 @@ public class CreateGameController implements Rincled
         create.setOnAction(this::createGame);
         create.setDefaultButton(true);
 
-        JavaFXUtils.setButtonIcons(create, createWhite, createBlack, 40);
-        JavaFXUtils.setButtonIcons(cancel, cancelWhite, cancelBlack, 40);
+        JavaFXUtils.setButtonIcons(create, CONFIRM_WHITE, CONFIRM_BLACK, 40);
+        JavaFXUtils.setButtonIcons(cancel, CANCEL_WHITE, CANCEL_BLACK, 40);
 
         this.twoPlayers.selectedProperty().addListener(this::setTwoPlayerGame);
         this.fourPlayers.selectedProperty().addListener(this::setFourPlayerGame);
@@ -121,11 +128,11 @@ public class CreateGameController implements Rincled
             gameRequestAnswerPromise
                     .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
                     .exceptionally(exception -> {
-                        handleGameRequestErrors("Fehler", "Fehler: Keine Verbindung zum Server moeglich", exception.getMessage());
+                        handleGameRequestErrors(AlertBuilder.Text.NO_CONNECTION);
                         return null;
                     });
         } else if((this.gameName.getText() == null) || this.gameName.getText().equals("")){
-            handleGameRequestErrors("Fehler", "Fehler: Fehler bei Eingabeinformation", "Fehler: Fehler bei Eingabeinformation");
+            handleGameRequestErrors(AlertBuilder.Text.INVALID_INPUT);
         }
     }
 
@@ -140,14 +147,12 @@ public class CreateGameController implements Rincled
                 this.joinGameManager.joinGame(userProvider.get(), game);
                 gameProvider.set(game);
             } else if (answer.get("status").equals("failure")){
-                handleGameRequestErrors((String)answer.get("status"), "Fehler beim Erstellen des Spiels", (String)answer.get("message"));
+                handleGameRequestErrors(AlertBuilder.Text.CREATE_GAME_ERROR);
 
             }
         }
         closeCreateGameWindow(null);
     }
-
-
 
     private void setTwoPlayerGame(Observable event) {
         this.numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
@@ -163,13 +168,7 @@ public class CreateGameController implements Rincled
         }
     }
 
-    public void handleGameRequestErrors(String title, String headerText, String errorMessage) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(errorMessage);
-        alert.showAndWait();
+    public void handleGameRequestErrors(@NonNull final AlertBuilder.Text text) {
+        alertBuilder.information(text);
     }
-
-
 }

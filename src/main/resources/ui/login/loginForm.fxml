@@ -15,17 +15,17 @@
 <?import javafx.scene.layout.StackPane?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="loginForm" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.login.LoginFormController">
-  <columnConstraints>
+   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
       <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints percentHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints percentHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+      <RowConstraints percentHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints percentHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
       <StackPane fx:id="errorMessageBox" prefHeight="80.0" prefWidth="180.0" GridPane.columnSpan="3">
          <children>

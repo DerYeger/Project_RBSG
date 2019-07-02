@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -23,7 +24,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
@@ -48,6 +49,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
@@ -73,30 +75,23 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final Lobby lobby;
-    @Nonnull
     private final PlayerManager playerManager;
-    @Nonnull
     private final GameManager gameManager;
-    @Nonnull
     private final SceneManager sceneManager;
-    @Nonnull
     private final GameProvider gameProvider;
-    @Nonnull
     private final UserProvider userProvider;
-    @Nonnull
     private final JoinGameManager joinGameManager;
-    @Nonnull
     private final LobbyChatClient lobbyChatClient;
-    @Nonnull
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
-    @Nonnull
+    private final AlertBuilder alertBuilder;
+
     private final ObjectFactory<GameListViewCell> gameListCellFactory;
     @Nonnull
     private final Property<Locale> selectedLocale;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
-    @Nullable
+
     private final ApplicationState appState;
     @Nullable
     private final Function<VBox, NotificationModalController> notificationRenderer;
@@ -148,6 +143,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
             @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
+            @NonNull final AlertBuilder alertBuilder,
             @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
             @Nonnull final Property<Locale> selectedLocale,
             @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
@@ -156,6 +152,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     ) {
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
+        this.alertBuilder = alertBuilder;
         this.gameListCellFactory = gameListCellFactory;
         this.selectedLocale = selectedLocale;
         this.armySelectorComponent = armySelectorComponent;
@@ -190,7 +187,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.chatBuilder = chatBuilder;
     }
 
-    public void init()
+    public void initialize()
     {
         //Gives the cells of the ListViews a fixed height
         //Needed for cells which are empty to fit them to the height of filled cells
@@ -259,8 +256,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                     appState.validArmySelected
             );
         }
-
-        setAsRootController();
 
         if (Objects.nonNull(appState) && appState.notifications.size() > 0) {
             showNotifications();
@@ -385,10 +380,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         logger.debug("Terminated " + this);
     }
 
-    public void setAsRootController() {
-        sceneManager.withRootController(this);
-    }
-
     private void updateLabels(Locale locale)
     {
         if(Locale.getDefault().equals(locale))
@@ -429,11 +420,21 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void logoutUser(ActionEvent event)
     {
-        logoutManager.logout(userProvider);
-        sceneManager.setStartScene();
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.LOGOUT,
+                        this::handleLogout,
+                        null);
     }
 
-    public void goToArmyBuilder(ActionEvent actionEvent) {
-        sceneManager.setArmyBuilderScene(true, SceneManager.SceneIdentifier.LOBBY);
+    private void handleLogout()
+    {
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+        logoutManager.logout(userProvider);
+    }
+
+    public void goToArmyBuilder(ActionEvent actionEvent)
+    {
+        sceneManager.setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
     }
 }

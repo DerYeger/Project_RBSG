@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -41,6 +42,7 @@ import org.testfx.util.WaitForAsyncUtils;
         UnitListEntryController.class,
         ArmyBuilderViewTest.ContextConfiguration.class,
         ApplicationState.class,
+        SceneManagerConfig.class,
         PersistentArmyManager.class,
         RestTemplate.class,
         LocaleConfig.class,
@@ -72,7 +74,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     public void testSceneCreation()
     {
         @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderScene
-                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyScene");
         final ArmyBuilderController controller = armyBuilderScene.getController();
 
         Assert.assertNotNull(controller.root);
@@ -95,7 +97,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
         @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
-                = (ViewComponent<ArmyBuilderController>) context.getBean("armyBuilderScene");
+                = (ViewComponent<ArmyBuilderController>) context.getBean("armyScene");
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));

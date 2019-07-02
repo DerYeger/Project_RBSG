@@ -2,6 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -31,7 +34,6 @@ import io.rincl.resourcebundle.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -74,10 +76,11 @@ import static org.junit.Assert.assertNotNull;
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
+        SceneManagerConfig.class,
+        AlertBuilder.class,
         LocaleConfig.class
 })
 public class PlayerListTest extends ApplicationTest
@@ -93,14 +96,17 @@ public class PlayerListTest extends ApplicationTest
     @Override
     public void start(final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
+
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
+
+        final Scene scene = new Scene(components.getRoot(), 1200 ,840);
 
         stage.setScene(scene);
         stage.show();
         stage.toFront();
 
-        lobbyViewController = lobbyViewBuilder.getLobbyViewController();
+        lobbyViewController = components.getController();
     }
 
     @TestConfiguration

@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -24,12 +25,10 @@ import javafx.collections.ObservableList;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +78,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final SplashImageBuilder splashImageBuilder;
     private final ApplicationState applicationState;
     private final ChatBuilder chatBuilder;
+    private final AlertBuilder alertBuilder;
     private final PreviewMapBuilder previewMapBuilder;
     public ModelManager modelManager;
     private final IngameGameProvider ingameGameProvider;
@@ -92,9 +92,10 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                                      @NonNull final MusicManager musicManager,
                                      @NonNull final SplashImageBuilder splashImageBuilder,
                                      @NonNull final ApplicationState applicationState,
-                                     @NonNull final PreviewMapBuilder previewMapBuilder,
+                                     @NonNull final IngameGameProvider ingameGameProvider,
                                      @NonNull final ChatBuilder chatBuilder,
-                                     @NonNull final IngameGameProvider ingameGameProvider) {
+                                     @NonNull final PreviewMapBuilder previewMapBuilder,
+                                     @NonNull final AlertBuilder alertBuilder) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -103,15 +104,15 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
         this.chatBuilder = chatBuilder;
+        this.alertBuilder = alertBuilder;
         this.modelManager = new ModelManager();
         this.previewMapBuilder = previewMapBuilder;
         this.ingameGameProvider = ingameGameProvider;
     }
 
-    public void init() {
+    public void initialize() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
-        setAsRootController();
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -182,31 +183,25 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     @Override
-    public void setAsRootController() {
-        sceneManager.withRootController(this);
-    }
-
-    @Override
     public void terminate() {
         gameEventManager.terminate();
     }
 
     public void showInfo(ActionEvent actionEvent) {
-        sceneManager.setIngameScene(); // for testing
+        sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, true, SceneManager.SceneIdentifier.WAITING_ROOM); // for testing
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave Game");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setLobbyScene(false, null);
-            gameProvider.clear();
-            ingameGameProvider.clear();
-        } else {
-            actionEvent.consume();
-        }
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.EXIT,
+                        this::leaveWaitingRoom,
+                        null);
+    }
+
+    private void leaveWaitingRoom() {
+        gameProvider.clear();
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
     public void toggleSound(ActionEvent actionEvent) {

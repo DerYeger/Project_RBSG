@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
@@ -9,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
@@ -22,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,7 +36,7 @@ import org.springframework.stereotype.Controller;
  */
 @Scope("prototype")
 @Controller
-public class IngameViewController {
+public class IngameViewController implements RootController {
 
     private static final double CELL_SIZE = 64;
     private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH/2;
@@ -60,17 +63,20 @@ public class IngameViewController {
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
+    private final AlertBuilder alertBuilder;
 
     @Autowired
     public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
                                 @NonNull final GameProvider gameProvider,
-                                @NonNull final SceneManager sceneManager) {
+                                @NonNull final SceneManager sceneManager,
+                                @NonNull final AlertBuilder alertBuilder) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
+        this.alertBuilder = alertBuilder;
     }
 
-    public void init() {
+    public void initialize() {
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -231,17 +237,17 @@ public class IngameViewController {
 
 
     public void leaveGame(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Leave Game");
-        alert.setHeaderText("Are you sure you want to exit?");
-        alert.showAndWait();
-        if (alert.getResult().equals(ButtonType.OK)) {
-            sceneManager.setLobbyScene(false, null);
-            gameProvider.clear();
-            ingameGameProvider.clear();
-        } else {
-            actionEvent.consume();
-        }
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.EXIT,
+                        this::doLeaveGame,
+                        null);
+    }
+
+    private void doLeaveGame() {
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+        gameProvider.clear();
+        ingameGameProvider.clear();
     }
 
     public void zoomIn(ActionEvent actionEvent) {

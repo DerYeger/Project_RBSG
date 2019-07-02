@@ -46,6 +46,13 @@ public class GameEventManagerTests {
                 }
 
                 @Override
+                public void sendMessage(@NonNull final Object message) {
+                    if (message.equals(CommandBuilder.leaveGameCommand())) {
+                        stop();
+                    }
+                }
+
+                @Override
                 public void stop() {
                     socketStopped = true;
                 }

@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class ViewComponent<T> {
         this.controller = controller;
     }
 
-    public static <T> ViewComponent<T> fromLoader(FXMLLoader loader)
+    public static <T> ViewComponent<T> fromLoader(@NonNull final FXMLLoader loader)
     {
         try {
             loader.load();

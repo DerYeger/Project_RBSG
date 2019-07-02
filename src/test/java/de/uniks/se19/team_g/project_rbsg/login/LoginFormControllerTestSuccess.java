@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -57,8 +58,6 @@ import java.util.concurrent.CompletableFuture;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        StartSceneBuilder.class,
-        StartViewBuilder.class,
         UserProvider.class,
         TitleViewBuilder.class,
         TitleViewController.class,
@@ -135,8 +134,8 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
-                    switchedToLobby = true;
+                public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+                    switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);
                 }
             };
         }

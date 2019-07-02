@@ -2,6 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -10,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
@@ -41,19 +45,21 @@ import org.testfx.util.WaitForAsyncUtils;
 
 /**
  * @author  Keanu Stückrad
+ * @author Jan Müller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        WaitingRoomSceneBuilder.class,
+        SceneManager.class,
         SplashImageBuilder.class,
-        WaitingRoomViewBuilder.class,
         WaitingRoomViewController.class,
         WaitingRoomViewTests.ContextConfiguration.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
-        ChatBuilder.class,
+        IngameGameProvider.class,
         PreviewMapBuilder.class,
-        IngameGameProvider.class
+        ChatBuilder.class,
+        SceneManagerConfig.class,
+        AlertBuilder.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -112,14 +118,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
         @Bean
         public SceneManager sceneManager() {
             return new SceneManager() {
-                @Override
-                public void setIngameScene(){
 
-                }
-                @Override
-                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier){
-
-                }
             };
         }
 
@@ -139,32 +138,35 @@ public class WaitingRoomViewTests extends ApplicationTest {
         }
     }
 
-    @Autowired
-    WaitingRoomSceneBuilder waitingRoomSceneBuilder;
-
-    private WaitingRoomViewBuilder waitingRoomViewBuilder;
     private Scene scene;
 
+    private ViewComponent<WaitingRoomViewController> viewComponent;
+
     @Override
-    public void start(@NonNull final Stage stage) throws Exception {
-        scene = waitingRoomSceneBuilder.getWaitingRoomScene();
-        Assert.assertNotNull(scene);
-        waitingRoomViewBuilder = context.getBean(WaitingRoomViewBuilder.class);
-        Node waitingRoomNode = waitingRoomViewBuilder.buildWaitingRoomView();
-        Assert.assertNotNull(waitingRoomNode);
-        stage.setScene(new Scene((Parent) waitingRoomNode, 1200, 840));
+    public void start(@NonNull final Stage stage) {
+        @SuppressWarnings("unchecked")
+        final ViewComponent<WaitingRoomViewController> buffer = (ViewComponent<WaitingRoomViewController>) context.getBean("waitingRoomScene");
+        viewComponent = buffer;
+        scene = new Scene(buffer.getRoot(), 1200, 840);
+        stage.setScene(scene);
         stage.show();
     }
 
     @Test
-    public void testBuildPlayerCard() throws Exception {
+    public void testBuildWaitingRoomView() {
+        @SuppressWarnings("unchecked")
+        final Node waitingRoomView = ((ViewComponent<RootController>) context.getBean("waitingRoomScene")).getRoot();
+        Assert.assertNotNull(waitingRoomView);
+    }
+    
+    public void testBuildPlayerCard() {
         Label label = lookup("Waiting for\nplayer...").query();
         Assert.assertNotNull(label);
         de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game = new de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game("");
         Player p1 = new Player("123").setName("P1").setColor("GREEN");
         Player p2 = new Player("456").setName("P2").setColor("BLUE");
         game.withPlayers(p1, p2);
-        waitingRoomViewBuilder.waitingRoomViewController.setPlayerCards(game);
+        viewComponent.getController().setPlayerCards(game);
         Player p3 = new Player("123").setName("P3").setColor("YELLOW");
         game.withPlayer(p3);
         game.withoutPlayer(p2);
@@ -190,7 +192,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
         Button leaveButton = lookup("#leaveButton").query();
         Assert.assertNotNull(leaveButton);
         clickOn("#leaveButton");
-        clickOn("OK");
     }
 
 }
