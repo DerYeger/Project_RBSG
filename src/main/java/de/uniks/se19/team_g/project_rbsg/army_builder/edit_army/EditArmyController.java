@@ -72,7 +72,7 @@ public class EditArmyController implements Initializable {
         }
 
         final ArmyIcon nextIcon = iconList.getSelectionModel().getSelectedItem();
-        if (nextIcon == army.iconType.get()) {
+        if (nextIcon != army.iconType.get()) {
             army.iconType.set(nextIcon);
             dirty = true;
         }
