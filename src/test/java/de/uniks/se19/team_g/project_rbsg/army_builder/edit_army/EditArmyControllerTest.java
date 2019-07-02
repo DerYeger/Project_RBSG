@@ -102,6 +102,15 @@ public class EditArmyControllerTest extends ApplicationTest {
                 army.iconType.get()
         );
 
+        clickOn("#submitButton");
+
+        Assert.assertEquals(
+                initialIcon,
+                army.iconType.get()
+        );
+        Assert.assertFalse( army.hasUnsavedUpdates());
+
+
         clickOn(nextIconCell);
 
         onCloseWasCalled.set(false);
@@ -112,5 +121,6 @@ public class EditArmyControllerTest extends ApplicationTest {
                 nextIcon,
                 army.iconType.get()
         );
+        Assert.assertTrue( army.hasUnsavedUpdates());
     }
 }
