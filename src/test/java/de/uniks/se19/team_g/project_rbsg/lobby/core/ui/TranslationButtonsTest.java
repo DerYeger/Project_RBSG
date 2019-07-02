@@ -1,11 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
@@ -50,10 +53,11 @@ import static org.junit.Assert.*;
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
+        SceneManagerConfig.class,
+        AlertBuilder.class,
         LocaleConfig.class
 })
 public class TranslationButtonsTest extends ApplicationTest
@@ -64,9 +68,9 @@ public class TranslationButtonsTest extends ApplicationTest
     @Override
     public void start(final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
+        @SuppressWarnings("unchecked")
+        final Scene scene = new Scene(((ViewComponent<RootController>) context.getBean("lobbyScene")).getRoot(), 1200 ,840);
 
         stage.setScene(scene);
         stage.show();

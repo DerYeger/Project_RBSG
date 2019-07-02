@@ -1,32 +1,26 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import io.rincl.Rincl;
-import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.server.rest.*;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -65,9 +59,11 @@ import static org.junit.Assert.assertEquals;
         JoinGameManager.class,
         CreateGameFormBuilder.class,
         CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
+        ApplicationState.class,
+        SceneManagerConfig.class,
+        AlertBuilder.class,
         LocaleConfig.class
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
@@ -171,9 +167,10 @@ public class OpenCreateGameFormularTest extends ApplicationTest
     @Override
     public void start(Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
 
-        final Scene scene = new Scene((Parent) lobbyViewBuilder.buildLobbyScene(),1200 ,840);
+        final Scene scene = new Scene(components.getRoot(),1200 ,840);
 
         stage.setScene(scene);
         stage.show();

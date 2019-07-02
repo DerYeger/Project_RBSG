@@ -2,6 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -12,7 +15,6 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -64,8 +66,8 @@ import static org.junit.Assert.assertNotNull;
         GameProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        LobbyViewBuilder.class,
         ApplicationState.class,
+        SceneManagerConfig.class,
         GameListViewCell.class,
         LocaleConfig.class
 })
@@ -80,8 +82,10 @@ public class LobbyBuilderTest extends ApplicationTest
     @Override
     public void start(@Nonnull final Stage stage)
     {
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        lobbyView = lobbyViewBuilder.buildLobbyScene();
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
+        lobbyView = components.getRoot();
+
 
         final Scene scene = new Scene((Parent) lobbyView,1280 ,720);
         stage.setScene(scene);
@@ -137,6 +141,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new CreateGameFormBuilder(new FXMLLoader()),
                     new MusicManager(),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())),
+                    new AlertBuilder(sceneManager),
                     cellFactory,
                     selectedLocale,
                     null,
@@ -144,7 +149,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     null
             ) {
                 @Override
-                public void init()
+                public void initialize()
                 {
 
                 }

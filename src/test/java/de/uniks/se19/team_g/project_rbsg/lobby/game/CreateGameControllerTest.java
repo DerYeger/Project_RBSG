@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -37,6 +38,9 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
+import static de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder.Text.INVALID_INPUT;
+import static de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder.Text.NO_CONNECTION;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes ={
         CreateGameController.class,
@@ -45,47 +49,68 @@ import java.util.concurrent.CompletableFuture;
         CreateGameControllerTest.ContextConfiguration.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CreateGameControllerTest extends ApplicationTest {
+public class CreateGameControllerTest extends ApplicationTest implements ApplicationContextAware {
 
-        @Autowired
-        private CreateGameFormBuilder createGameFormBuilder;
 
-        @TestConfiguration
-        static class ContextConfiguration implements ApplicationContextAware {
+    @Autowired
+    private CreateGameFormBuilder createGameFormBuilder;
 
-            private ApplicationContext context;
+    private ApplicationContext context;
 
-            @Bean
-            @Scope("prototype")
-            public FXMLLoader fxmlLoader()
-            {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setControllerFactory(this.context::getBean);
-                return fxmlLoader;
-            }
+    private static AlertBuilder.Text lastError;
 
-            @Bean
-            public GameCreator gameCreator() {
-                return new GameCreator(new RestTemplate()) {
-                    @Override
-                    public CompletableFuture sendGameRequest(User user, Game game) {
-                        return CompletableFuture.failedFuture(
-                                new RestClientResponseException(
-                                        "Invalid Credentials",
-                                        HttpStatus.UNAUTHORIZED.value(),
-                                        "Unauthorized",
-                                        null, null, null
-                                )
-                        );
-                    }
-                };
-            }
+    @Override
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        this.context = context;
+    }
 
-            @Override
-            public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-                this.context = applicationContext;
-            }
+    @TestConfiguration
+    static class ContextConfiguration implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
         }
+
+        @Bean
+        public GameCreator gameCreator() {
+            return new GameCreator(new RestTemplate()) {
+                @Override
+                public CompletableFuture sendGameRequest(User user, Game game) {
+                    return CompletableFuture.failedFuture(
+                            new RestClientResponseException(
+                                    "Invalid Credentials",
+                                    HttpStatus.UNAUTHORIZED.value(),
+                                    "Unauthorized",
+                                    null, null, null
+                            )
+                    );
+                }
+            };
+        }
+
+        @Bean
+        public AlertBuilder alertBuilder() {
+            return new AlertBuilder(null) {
+                @Override
+                public void information(@NonNull final Text text) {
+                    lastError = text;
+                }
+            };
+        }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
+        }
+    }
+
     private Scene scene;
 
     @Override
@@ -109,8 +134,7 @@ public class CreateGameControllerTest extends ApplicationTest {
         write(newGameName);
         clickOn(fourPlayerButton);
         clickOn(createGameButton);
-        final Node alert = lookup("Fehler: Keine Verbindung zum Server moeglich").query();
-        Assert.assertNotNull(alert);
+        Assert.assertEquals(NO_CONNECTION, lastError);
     }
 
     @Test
@@ -127,8 +151,7 @@ public class CreateGameControllerTest extends ApplicationTest {
         press(KeyCode.ENTER);
         release(KeyCode.ENTER);
 
-        final Node alert = lookup("Fehler: Fehler bei Eingabeinformation").query();
-        Assert.assertNotNull(alert);
+        Assert.assertEquals(INVALID_INPUT, lastError);
     }
 
 }
