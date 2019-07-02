@@ -16,10 +16,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
@@ -76,11 +76,11 @@ public class CreateGameController implements Rincled
 
     @Autowired
     public CreateGameController(
+            @Nonnull UserProvider userProvider,
+            @Nonnull AlertBuilder alertBuilder,
             @Nullable GameCreator gameCreator,
             @Nullable JoinGameManager joinGameManager,
             @Nullable GameProvider gameProvider,
-            @NonNull UserProvider userProvider,
-            @NonNull final AlertBuilder alertBuilder,
             @Nullable SceneManager sceneManager
     ) {
         this.gameCreator = gameCreator;
@@ -127,7 +127,7 @@ public class CreateGameController implements Rincled
         return this.root;
     }
 
-    public void createGame(@NonNull final ActionEvent event) {
+    public void createGame(@Nonnull final ActionEvent event) {
         if(this.gameName.getText() != null && (!this.gameName.getText().equals("")) && this.numberOfPlayers != 0){
             this.game = new Game(gameName.getText(), this.numberOfPlayers);
             @SuppressWarnings("unchecked")
@@ -181,7 +181,7 @@ public class CreateGameController implements Rincled
         }
     }
 
-    public void handleGameRequestErrors(@NonNull final AlertBuilder.Text text) {
+    public void handleGameRequestErrors(@Nonnull final AlertBuilder.Text text) {
         alertBuilder.information(text);
     }
 }
