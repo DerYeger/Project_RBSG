@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryController;
@@ -9,8 +10,11 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEnt
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -53,7 +57,15 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     static class ContextConfiguration {
         @Bean
         public ArmyDetailController armyDetailController() { return Mockito.mock(ArmyDetailController.class);}
+
+        @Bean
+        public EditArmyController editArmyController() {
+            return Mockito.mock(EditArmyController.class);
+        }
     }
+
+    @Autowired
+    EditArmyController editArmyController;
 
     @Autowired
     public ApplicationContext context;
@@ -90,6 +102,9 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     @Test
     public void testUnitList()
     {
+        Army army = new Army();
+        state.selectedArmy.set(army);
+
         Unit unit = new Unit();
         unit.name.set("Archer");
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
@@ -114,9 +129,11 @@ public class ArmyBuilderViewTest extends ApplicationTest {
 
         Assert.assertEquals(0, lookup(".list-cell .label").queryAll().size());
 
+        clickOn("#editArmyButton");
+
+        Mockito.verify(editArmyController, Mockito.times(1)).setArmy(army);
+
         Platform.runLater(() -> stage.hide());
         WaitForAsyncUtils.waitForFxEvents();
     }
-
-
 }
