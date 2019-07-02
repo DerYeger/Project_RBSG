@@ -29,6 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.Nullable;
@@ -199,12 +200,20 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     protected void configureArmySelector() {
-        if (armySelectorComponent != null) {
-            armySelectorController = armySelectorComponent.apply(armySelectorRoot);
-            armySelectorController.setSelection(
-                    appState.armies, appState.selectedArmy
-            );
+        if (armySelectorComponent == null) {
+            return;
         }
+
+        armySelectorController = armySelectorComponent.apply(armySelectorRoot);
+        armySelectorController.setSelection(
+                appState.armies, appState.selectedArmy
+        );
+
+        final Circle statusIndicator = new Circle(7.5d);
+        statusIndicator.disableProperty().bind(viewState.unsavedUpdates.not());
+        statusIndicator.getStyleClass().add("status-indicator");
+
+        armySelectorController.header.getChildren().add( statusIndicator);
     }
 
     @SuppressWarnings("unused")
