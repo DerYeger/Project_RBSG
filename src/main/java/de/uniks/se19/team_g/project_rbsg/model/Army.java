@@ -14,7 +14,7 @@ public class Army {
     public final SimpleListProperty<Unit> simpleUnits = new SimpleListProperty<>(units);
     public final ReadOnlyBooleanProperty isPlayable;
 
-    public final SimpleObjectProperty<ArmyIcon> iconType = new SimpleObjectProperty<>();
+    public final SimpleObjectProperty<ArmyIcon> iconType = new SimpleObjectProperty<>(ArmyIcon.DRAGON_HEAD);
 
 
     public Army() {
