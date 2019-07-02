@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -63,6 +64,8 @@ public class CreateGameController implements Rincled
     private Node root;
     private UserProvider userProvider;
     private final AlertBuilder alertBuilder;
+    @Nullable
+    private final SceneManager sceneManager;
 
     private final int NUMBER_OF_PLAYERS_TWO = 2;
     private final int NUMBER_OF_PLAYERS_FOUR = 4;
@@ -72,16 +75,20 @@ public class CreateGameController implements Rincled
     private final GameProvider gameProvider;
 
     @Autowired
-    public CreateGameController(@Nullable GameCreator gameCreator,
-                                @Nullable JoinGameManager joinGameManager,
-                                @Nullable GameProvider gameProvider,
-                                @NonNull UserProvider userProvider,
-                                @NonNull final AlertBuilder alertBuilder) {
+    public CreateGameController(
+            @Nullable GameCreator gameCreator,
+            @Nullable JoinGameManager joinGameManager,
+            @Nullable GameProvider gameProvider,
+            @NonNull UserProvider userProvider,
+            @NonNull final AlertBuilder alertBuilder,
+            @Nullable SceneManager sceneManager
+    ) {
         this.gameCreator = gameCreator;
         this.joinGameManager = joinGameManager;
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.alertBuilder = alertBuilder;
+        this.sceneManager = sceneManager;
     }
 
     public void init(){
@@ -138,14 +145,20 @@ public class CreateGameController implements Rincled
 
     private void onGameRequestReturned(@Nullable HashMap<String, Object> answer) {
         final String gameId;
-        if (answer != null) {
-            if(answer.get("status").equals("succes")) { //TODO fix autojoin
+        if (answer != null && gameProvider != null && sceneManager != null) {
+            if(answer.get("status").equals("success")) { //TODO fix autojoin
                 @SuppressWarnings("unchecked")
                 final HashMap<String, Object> data = (HashMap<String, Object>) answer.get("data");
                 gameId = (String) data.get("gameId");
                 this.game.setId(gameId);
-                this.joinGameManager.joinGame(userProvider.get(), game);
-                gameProvider.set(game);
+                this.joinGameManager.joinGame(userProvider.get(), game)
+                    .thenRunAsync(
+                        () -> {
+                            gameProvider.set(game);
+                            sceneManager.setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
+                        },
+                        Platform::runLater
+                    );
             } else if (answer.get("status").equals("failure")){
                 handleGameRequestErrors(AlertBuilder.Text.CREATE_GAME_ERROR);
 
