@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
 import javafx.collections.ObservableList;
@@ -33,10 +34,14 @@ public class PersistentArmyManager {
     final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private String fileName = "armies.json";
+    @NonNull
+    private DeleteArmyService deleteArmyService;
 
-    public PersistentArmyManager(@NonNull RestTemplate restTemplate) {
+    public PersistentArmyManager(@NonNull RestTemplate restTemplate,
+                                 @NonNull DeleteArmyService deleteArmyService) {
 
         this.restTemplate = restTemplate;
+        this.deleteArmyService = deleteArmyService;
     }
 
     public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) {
@@ -199,6 +204,16 @@ public class PersistentArmyManager {
                 try {
                     saveArmyResponse=this.saveArmyOnline(army).get();
                     army.id.set(saveArmyResponse.data.id);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                //army is malformed and has to be deleted on the server
+                try {
+                    deleteArmyService.deleteArmy(army).get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

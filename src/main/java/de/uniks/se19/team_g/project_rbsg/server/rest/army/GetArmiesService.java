@@ -133,17 +133,16 @@ public class GetArmiesService {
             return localArmies;
         }
 
+        mergedArmies.addAll(remoteArmies);
         for (Army remoteArmy : remoteArmies) {
-            mergedArmies.add(remoteArmy);
             for (Army localArmy : localArmies) {
-                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy)) {
+                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<7) {
                     mergedArmies.add(localArmy);
                     break;
                 }
                 if (remoteArmy.id.equals(localArmy.id) && !mergedArmies.contains(localArmy)) {
                     //Accept remote units but use image from localArmy
                     //ToDo: Image-attribute not implemented yet
-                    mergedArmies.add(remoteArmy);
                 }
             }
         }
