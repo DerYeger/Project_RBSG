@@ -62,8 +62,24 @@ public class EditArmyController implements Initializable {
     }
 
     public void onConfirm() {
-        army.name.set(nameInput.getText());
-        army.iconType.set(iconList.getSelectionModel().getSelectedItem());
+
+        boolean dirty = false;
+
+        final String nextName = nameInput.getText();
+        if (!nextName.equals(army.name.get())) {
+            army.name.set(nextName);
+            dirty = true;
+        }
+
+        final ArmyIcon nextIcon = iconList.getSelectionModel().getSelectedItem();
+        if (nextIcon == army.iconType.get()) {
+            army.iconType.set(nextIcon);
+            dirty = true;
+        }
+
+        if (dirty) {
+            army.setUnsavedUpdates(true);
+        }
 
         close();
     }
