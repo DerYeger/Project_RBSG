@@ -109,7 +109,10 @@ public class GetArmiesService {
             for (String unitId : deserializableArmy.units) {
                 newArmy.units.add(armyUnitAdapter.mapServerUnit(unitId));
             }
-            armies.add(newArmy);
+            //Ensure army-size in case of malformed file.
+            if(armies.size()<7){
+                armies.add(newArmy);
+            }
         }
         return armies;
     }

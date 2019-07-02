@@ -139,6 +139,7 @@ public class LoadArmiesTest {
 
         for(int j = 0; j < 7; j++) {
             Army army = new Army();
+            army.name.set("TestArmeeZumLaden");
             for (int i = 0; i < 10; i++) {
                 Unit unit = new Unit();
                 unit.id.set("5cc051bd62083600017db3b7");
