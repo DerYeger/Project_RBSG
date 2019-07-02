@@ -548,3 +548,11 @@
     -fx-pref-width: 330;
     -fx-text-fill: -on-secondary-fill;
 }
+
+.status-indicator {
+    -fx-fill: -secondary-background-color;
+}
+
+.status-indicator:disabled {
+    -fx-fill: -on-disabled-fill;
+}
