@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -42,7 +43,14 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </GridPane>
-      <ListView fx:id="iconList" orientation="HORIZONTAL" styleClass="default-horizontal" />
+      <ListView fx:id="iconList" maxHeight="65.0" orientation="HORIZONTAL" prefHeight="65.0">
+         <styleClass>
+            <String fx:value="default-horizontal" />
+            <String fx:value="armies-list" />
+         </styleClass>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin></ListView>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">
          <children>
             <Button fx:id="submitButton" mnemonicParsing="false" onAction="#onConfirm" styleClass="icon-button" text="Confirm" />

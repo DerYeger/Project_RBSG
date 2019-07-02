@@ -94,5 +94,7 @@ public class EditArmyController implements Initializable {
         iconList.getItems().setAll(
             Arrays.stream(ArmyIcon.values()).map(ArmyIcon::getImage).toArray(Image[]::new)
         );
+
+        selectedIcon.imageProperty().bind(iconList.getSelectionModel().selectedItemProperty());
     }
 }
