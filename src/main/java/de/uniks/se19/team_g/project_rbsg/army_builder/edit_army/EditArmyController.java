@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 @Component
@@ -37,9 +39,15 @@ public class EditArmyController implements Initializable {
 
     @Nonnull
     private final IconCellFactory iconCellFactory;
+    @Nonnull
+    private final Property<Locale> selectedLocale;
 
-    public EditArmyController(@Nonnull IconCellFactory iconCellFactory) {
+    public EditArmyController(
+        @Nonnull IconCellFactory iconCellFactory,
+        @Nonnull Property<Locale> selectedLocale
+    ) {
         this.iconCellFactory = iconCellFactory;
+        this.selectedLocale = selectedLocale;
     }
 
     public void setArmy(Army army) {
@@ -102,5 +110,9 @@ public class EditArmyController implements Initializable {
             if (selected == null) return null;
             return selectionProperty.get().getImage();
         }, selectionProperty));
+
+        formTitle.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "armyBuilder.editArmy.title"));
+        nameLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "armyBuilder.editArmy.nameField"));
+        symbolLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "armyBuilder.editArmy.symbolField"));
     }
 }

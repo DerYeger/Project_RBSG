@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -30,6 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
         IconCellFactory.class,
         ArmyBuilderConfig.class,
         FXMLLoaderFactory.class,
+        LocaleConfig.class,
 })
 public class EditArmyControllerTest extends ApplicationTest {
 
@@ -48,12 +50,11 @@ public class EditArmyControllerTest extends ApplicationTest {
         army.name.set("Cool army");
         army.iconType.set(initialIcon);
 
-        final Stage stage = WaitForAsyncUtils.asyncFx(() -> {
+        WaitForAsyncUtils.asyncFx(() -> {
             Stage nextStage = new Stage();
             nextStage.setScene(new Scene(sut.getRoot()));
             nextStage.show();
             sut.getController().setArmy(army);
-            return nextStage;
         }).get();
 
         AtomicBoolean onCloseWasCalled = new AtomicBoolean(false);
