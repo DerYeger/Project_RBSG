@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
@@ -41,6 +42,11 @@ public class ArmyDetailControllerTest extends ApplicationTest {
     private ApplicationState state;
 
     private Army selectedArmy;
+
+    /**
+     * it appears, the ArmyIcon class must be used before the start method is called for some thread concurrency reasons
+     */
+    private ArmyIcon placeholder;
 
     @Override
     public void start(Stage stage) {
