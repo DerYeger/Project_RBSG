@@ -4,14 +4,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="CENTER" fillWidth="false" maxHeight="540.0" maxWidth="100.0" minHeight="540.0" minWidth="100.0" styleClass="root-background-color" stylesheets="@unitDetailView.css" type="VBox" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController">
+<fx:root alignment="CENTER" fillWidth="false" maxHeight="540.0" maxWidth="100.0" minHeight="540.0" minWidth="100.0" styleClass="root-background-color" stylesheets="@unitDetailView.css" type="VBox" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController">
    <children>
-      <Label fx:id="armiesLabel" styleClass="default" stylesheets="@../darkTheme.css" text="Label" />
+      <HBox fx:id="header" alignment="CENTER" spacing="10.0">
+         <children>
+            <Label fx:id="armiesLabel" styleClass="default" stylesheets="@../darkTheme.css" text="Label" />
+         </children>
+      </HBox>
       <VBox maxHeight="505.0" maxWidth="80.0" minHeight="505.0" minWidth="80.0" styleClass="army-scene-content" VBox.vgrow="NEVER">
          <children>
-             <ListView fx:id="listView" maxHeight="495.0" maxWidth="65.0" minHeight="495.0" minWidth="-Infinity" styleClass="default" prefWidth="65.0">
+             <ListView fx:id="listView" maxHeight="495.0" maxWidth="65.0" minHeight="495.0" minWidth="-Infinity" prefWidth="65.0" styleClass="default">
                <VBox.margin>
                   <Insets left="7.5" top="5.0" />
                </VBox.margin>
