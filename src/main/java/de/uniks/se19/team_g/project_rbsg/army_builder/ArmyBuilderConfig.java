@@ -76,6 +76,7 @@ public class ArmyBuilderConfig {
     }
 
     @Bean
+    @Scope("prototype")
     public ViewComponent<EditArmyController> editArmyComponent(FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/edit_army/editArmyModal.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
