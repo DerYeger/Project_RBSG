@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Component
 public class GetArmiesService {
 
-    private final String SAVE_ARMY_PATH = "src/main/resources/persistant/armies.json";
+    private String fileName="armies.json";
 
     @Nonnull
     private final RestTemplate rbsgTemplate;
@@ -41,6 +42,23 @@ public class GetArmiesService {
         this.rbsgTemplate = rbsgTemplate;
         this.armyAdapter = armyAdapter;
         this.armyUnitAdapter = armyUnitAdapter;
+    }
+
+    public List<Army> loadArmies(){
+        List<Army> remoteArmies = null;
+        List<Army> localArmies = null;
+        try {
+            remoteArmies = queryArmies().get();
+            localArmies = loadLocalArmies();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return mergeArmies(remoteArmies, localArmies);
     }
 
     public CompletableFuture<List<Army>> queryArmies() {
@@ -63,7 +81,7 @@ public class GetArmiesService {
 
         if (operatingSystem.equals("Windows")) {
             //Windows
-            file = new File(System.getProperty("user.home") + "\\.rbsg\\armies.json");
+            file = new File(System.getProperty("user.home") + "\\.rbsg\\"+fileName);
             if (file.exists()) {
                 armyString = Files.readString(Paths.get(file.getPath()));
             } else {
@@ -71,7 +89,7 @@ public class GetArmiesService {
             }
         } else {
             //Unix
-            file = new File(System.getProperty("user.home") + "/.local/rbsg/armies.json");
+            file = new File(System.getProperty("user.home") + "/.local/rbsg/"+fileName);
             if (file.exists()) {
                 armyString = Files.readString(Paths.get(file.getPath()));
             } else {
@@ -99,6 +117,34 @@ public class GetArmiesService {
     private String checkOs() {
         String os = System.getProperty("os.name");
         return os;
+    }
+
+    public void setTestFileName(String fileName){
+        this.fileName=fileName;
+    }
+
+    private List<Army> mergeArmies(List<Army> remoteArmies, List<Army> localArmies) {
+
+        ArrayList<Army> mergedArmies = new ArrayList<>();
+        if(remoteArmies.isEmpty()){
+            return localArmies;
+        }
+
+        for (Army remoteArmy : remoteArmies) {
+            mergedArmies.add(remoteArmy);
+            for (Army localArmy : localArmies) {
+                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy)) {
+                    mergedArmies.add(localArmy);
+                    break;
+                }
+                if (remoteArmy.id.equals(localArmy.id) && !mergedArmies.contains(localArmy)) {
+                    //Accept remote units but use image from localArmy
+                    //ToDo: Image-attribute not implemented yet
+                    mergedArmies.add(remoteArmy);
+                }
+            }
+        }
+        return mergedArmies;
     }
 
     public static class Response extends RBSGDataResponse<List<Response.Army>> {

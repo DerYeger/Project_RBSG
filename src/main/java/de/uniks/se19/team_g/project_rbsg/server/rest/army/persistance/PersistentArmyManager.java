@@ -25,12 +25,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Component
 public class PersistentArmyManager {
     private final String url = "/army";
     final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private String fileName = "armies.json";
 
     public PersistentArmyManager(@NonNull RestTemplate restTemplate) {
 
@@ -163,14 +165,14 @@ public class PersistentArmyManager {
                 logger.debug("Windows Operating System detected.");
                 directory = new File(System.getProperty("user.home") + "/rbsg/");
                 directory.mkdirs();
-                file = new File(directory, "armies.json");
+                file = new File(directory, fileName);
                 Files.setAttribute(Paths.get(file.getPath()), "dos:hidden", true);
             } else {
                 //Unix System
                 logger.debug("Unix System detected.");
                 directory = new File(System.getProperty("user.home") + "/.local/rbsg/");
                 directory.mkdirs();
-                file = new File(directory, "armies.json");
+                file = new File(directory, fileName);
             }
             if (file.exists()) {
                 file.delete();
@@ -189,17 +191,29 @@ public class PersistentArmyManager {
     public void saveArmies(ObservableList<Army> armies) {
 
         ArrayList<Army> armyList = new ArrayList<>();
+        SaveArmyResponse saveArmyResponse;
 
         for (Army army : armies) {
             if (army.units.size() == 10) {
                 //army is complete
-                this.saveArmyOnline(army);
+                try {
+                    saveArmyResponse=this.saveArmyOnline(army).get();
+                    army.id.set(saveArmyResponse.data.id);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
             armyList.add(army);
         }
         if (!armyList.isEmpty()) {
             this.saveArmiesLocal(armyList);
         }
+    }
+
+    public void setTestFileName(String fileName){
+        this.fileName=fileName;
     }
 
     public static class DeserializableArmy{
