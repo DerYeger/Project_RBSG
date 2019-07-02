@@ -6,6 +6,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+@SuppressWarnings("unused")
 public class Army {
 
     public final SimpleStringProperty id = new SimpleStringProperty();
@@ -14,7 +15,7 @@ public class Army {
     public final SimpleListProperty<Unit> simpleUnits = new SimpleListProperty<>(units);
     public final ReadOnlyBooleanProperty isPlayable;
 
-    private final BooleanProperty hasUnsavedUpdates = new SimpleBooleanProperty();
+    public final BooleanProperty hasUnsavedUpdates = new SimpleBooleanProperty();
 
     public final SimpleObjectProperty<ArmyIcon> iconType = new SimpleObjectProperty<>(ArmyIcon.DRAGON_HEAD);
 
@@ -25,15 +26,11 @@ public class Army {
         this.isPlayable = isPlayable;
     }
 
-    public ReadOnlyBooleanProperty hasUnsavedUpdatesProperty() {
-        return hasUnsavedUpdates;
-    }
-
     public boolean hasUnsavedUpdates() {
         return hasUnsavedUpdates.get();
     }
 
-    public void setHasUnsavedUpdates(boolean hasUnsavedUpdates) {
+    public void setUnsavedUpdates(boolean hasUnsavedUpdates) {
         this.hasUnsavedUpdates.set(hasUnsavedUpdates);
     }
 }
