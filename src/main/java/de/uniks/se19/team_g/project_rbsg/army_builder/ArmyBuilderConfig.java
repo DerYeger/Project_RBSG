@@ -6,6 +6,10 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyControll
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.CanAttackTileController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.ObjectFactory;
@@ -62,9 +66,20 @@ public class ArmyBuilderConfig {
     }
 
     @Bean
-    public ArmyBuilderState armyBuilderState()
+    public ArmyBuilderState armyBuilderState(ApplicationState appState)
     {
-        return new ArmyBuilderState();
+        final ArmyBuilderState state = new ArmyBuilderState();
+
+        SimpleListProperty<Army> armies = new SimpleListProperty<>(appState.armies);
+
+        state.unsavedUpdates.bind(
+            Bindings.createBooleanBinding(
+                () -> armies.stream().anyMatch(Army::hasUnsavedUpdates),
+                armies
+            )
+        );
+
+        return state;
     }
 
     @Bean
