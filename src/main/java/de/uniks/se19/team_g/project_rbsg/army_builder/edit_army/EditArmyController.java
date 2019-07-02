@@ -3,26 +3,26 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.edit_army;
 import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 @Component
 @Scope("prototype")
 public class EditArmyController implements Initializable {
 
-    public ListView<Image> iconList;
+    public ListView<ArmyIcon> iconList;
     public ImageView selectedIcon;
     public TextField nameInput;
     public Label symbolLabel;
@@ -45,6 +45,8 @@ public class EditArmyController implements Initializable {
     public void setArmy(Army army) {
         this.army = army;
 
+        iconList.getSelectionModel().select(army.iconType.get());
+
         resetFormFields();
     }
 
@@ -54,6 +56,7 @@ public class EditArmyController implements Initializable {
 
     public void onConfirm() {
         army.name.set(nameInput.getText());
+        army.iconType.set(iconList.getSelectionModel().getSelectedItem());
 
         close();
     }
@@ -91,10 +94,14 @@ public class EditArmyController implements Initializable {
 
         iconList.setCellFactory(iconCellFactory);
 
-        iconList.getItems().setAll(
-            Arrays.stream(ArmyIcon.values()).map(ArmyIcon::getImage).toArray(Image[]::new)
-        );
+        iconList.getItems().setAll( ArmyIcon.values());
 
-        selectedIcon.imageProperty().bind(iconList.getSelectionModel().selectedItemProperty());
+        final ReadOnlyObjectProperty<ArmyIcon> selectionProperty = iconList.getSelectionModel().selectedItemProperty();
+
+        selectedIcon.imageProperty().bind(Bindings.createObjectBinding(() -> {
+            final ArmyIcon selected = selectionProperty.get();
+            if (selected == null) return null;
+            return selectionProperty.get().getImage();
+        }, selectionProperty));
     }
 }

@@ -1,10 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
+import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,6 +13,8 @@ public class Army {
     public final ObservableList<Unit> units = FXCollections.observableArrayList();
     public final SimpleListProperty<Unit> simpleUnits = new SimpleListProperty<>(units);
     public final ReadOnlyBooleanProperty isPlayable;
+
+    public final SimpleObjectProperty<ArmyIcon> iconType = new SimpleObjectProperty<>();
 
 
     public Army() {
