@@ -2,10 +2,14 @@ package de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
@@ -44,11 +48,18 @@ public class PersistentArmyManager {
         this.deleteArmyService = deleteArmyService;
     }
 
-    public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) {
+    public SaveArmyResponse saveArmyOnline(@NonNull Army army) throws ExecutionException,
+            InterruptedException,
+            IOException {
         if (army.id.isEmpty().get()) {
-            return createArmy(army);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            SaveArmyResponse response = createArmy(army).get();
+            String message = response.message;
+            return response;
         }
-        return updateArmy(army);
+        return updateArmy(army).get();
     }
 
     private CompletableFuture<SaveArmyResponse> updateArmy(@NonNull Army army) {
@@ -197,16 +208,24 @@ public class PersistentArmyManager {
 
         ArrayList<Army> armyList = new ArrayList<>();
         SaveArmyResponse saveArmyResponse;
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         for (Army army : armies) {
             if (army.units.size() == 10) {
                 //army is complete
                 try {
-                    saveArmyResponse=this.saveArmyOnline(army).get();
+                    saveArmyResponse = saveArmyOnline(army);
                     army.id.set(saveArmyResponse.data.id);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JsonParseException e) {
+                    e.printStackTrace();
+                } catch (JsonMappingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

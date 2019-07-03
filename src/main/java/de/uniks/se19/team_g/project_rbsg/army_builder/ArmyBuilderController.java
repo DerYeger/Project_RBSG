@@ -211,7 +211,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
-    public void saveArmies() throws InterruptedException {
+    public void saveArmies(){
         persistantArmyManager.saveArmies(appState.armies);
     }
 
