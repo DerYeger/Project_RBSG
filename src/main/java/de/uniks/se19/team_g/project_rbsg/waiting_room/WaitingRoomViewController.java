@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketCloseHandler;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
@@ -139,6 +140,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
             System.out.println("ABORTING GAMESOCKET INIT");
             return;
         }
+        gameEventManager.setSceneController(this);
         gameEventManager.startSocket(gameProvider.get().getId(), applicationState.selectedArmy.get().id.get());
     }
 
@@ -189,6 +191,10 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
 
     public void showInfo(ActionEvent actionEvent) {
         sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, true, SceneManager.SceneIdentifier.WAITING_ROOM); // for testing
+    }
+
+    public void onConnectionClosed() {
+        alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leaveWaitingRoom);
     }
 
     public void leaveRoom(ActionEvent actionEvent) {
@@ -283,5 +289,4 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
             }
         });
     }
-
 }

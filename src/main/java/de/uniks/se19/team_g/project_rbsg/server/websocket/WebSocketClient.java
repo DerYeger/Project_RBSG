@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.util.TimerTask;
 
 /**
  * @author Georg Siebert
+ * @author Jan Müller
  */
 
 @Component
@@ -30,6 +32,7 @@ public class WebSocketClient
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private IWebSocketCallback wsCallback;
+    private WebSocketCloseHandler webSocketCloseHandler;
     private Session session;
     private Timer noopTimer;
 
@@ -54,8 +57,8 @@ public class WebSocketClient
         }
     };
 
-    public void setWsCallback(IWebSocketCallback callback) {
-        this.wsCallback = callback;
+    public void setCloseHandler(@Nullable final WebSocketCloseHandler webSocketCloseHandler) {
+        this.webSocketCloseHandler = webSocketCloseHandler;
     }
 
     public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback)
@@ -76,7 +79,7 @@ public class WebSocketClient
     }
 
     @OnOpen
-    public void onOpen(final Session session) throws IOException
+    public void onOpen(final Session session)
     {
         this.session = session;
         logger.debug("WS connected to " + session.getRequestURI());
@@ -112,11 +115,11 @@ public class WebSocketClient
     }
 
     @OnClose
-    public void onClose(final Session session, final CloseReason reason) throws IOException
+    public void onClose(final Session session, final CloseReason reason)
     {
         this.session = null;
         logger.debug("WS" + session.getRequestURI() + " closed, " + reason.getReasonPhrase());
-
+        if (webSocketCloseHandler != null) webSocketCloseHandler.onSocketClosed(reason);
         this.noopTimer.cancel();
     }
 
