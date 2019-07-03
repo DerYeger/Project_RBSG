@@ -65,7 +65,7 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         return gameEventHandlers;
     }
 
-    public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
+    public void startSocket(@NonNull final String gameID, @NonNull final String armyID) throws Exception {
         webSocketClient.start(ENDPOINT + getGameIDParam(gameID) + '&' + getArmyIDParam(armyID), this);
     }
 
@@ -142,21 +142,23 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
     public void onSocketClosed(@NonNull CloseReason reason) {
         if (reason.getReasonPhrase().equals("Left game")) {
             terminateLatch.countDown();
-        } else {
+        } else if (!reason.getReasonPhrase().equals("Tschau")) {
             waitingRoomViewController.onConnectionClosed();
         }
     }
 
     @Override
     public void terminate() {
-        try {
-            sendLeaveCommand();
-            if (!terminateLatch.await(5, TimeUnit.SECONDS)) {
-                webSocketClient.stop();
-                logger.debug("Terminated manually. Server did not respond in time");
+        if (!webSocketClient.isClosed()) {
+            try {
+                sendLeaveCommand();
+                if (!terminateLatch.await(5, TimeUnit.SECONDS)) {
+                    webSocketClient.stop();
+                    logger.debug("Terminated manually. Server did not respond in time");
+                }
+            } catch (final InterruptedException e) {
+                logger.error(e.getMessage());
             }
-        } catch (final InterruptedException e) {
-            logger.error(e.getMessage());
         }
         logger.debug("Terminated " + this);
     }

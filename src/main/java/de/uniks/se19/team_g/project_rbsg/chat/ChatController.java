@@ -49,7 +49,7 @@ public class ChatController {
         this.chatTabManager = chatTabManager;
     }
 
-    public void init(@NonNull final TabPane tabPane, @NonNull final ChatClient chatClient) {
+    public void init(@NonNull final TabPane tabPane, @NonNull final ChatClient chatClient) throws Exception {
         this.chatClient = chatClient;
 
         chatChannelControllers = new HashMap<>();

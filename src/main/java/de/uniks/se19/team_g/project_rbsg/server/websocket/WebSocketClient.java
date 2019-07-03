@@ -1,8 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.server.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.uniks.se19.team_g.project_rbsg.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -11,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.websocket.*;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,6 +36,8 @@ public class WebSocketClient
     private WebSocketCloseHandler webSocketCloseHandler;
     private Session session;
     private Timer noopTimer;
+
+    private boolean isClosed = false;
 
     private TimerTask timerTask = new TimerTask()
     {
@@ -61,21 +64,13 @@ public class WebSocketClient
         this.webSocketCloseHandler = webSocketCloseHandler;
     }
 
-    public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback)
-    {
+    public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws Exception {
         this.noopTimer = new Timer();
 
         this.wsCallback = wsCallback;
-        try
-        {
-            URI uri = new URI(BASE_URL + endpoint);
-            ContainerProvider.getWebSocketContainer().connectToServer(this, uri);
-        }
-        catch (DeploymentException | IOException | URISyntaxException e)
-        {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
+
+        URI uri = new URI(BASE_URL + endpoint);
+        ContainerProvider.getWebSocketContainer().connectToServer(this, uri);
     }
 
     @OnOpen
@@ -119,8 +114,10 @@ public class WebSocketClient
     {
         this.session = null;
         logger.debug("WS" + session.getRequestURI() + " closed, " + reason.getReasonPhrase());
-        if (webSocketCloseHandler != null) webSocketCloseHandler.onSocketClosed(reason);
         this.noopTimer.cancel();
+        isClosed = true;
+        if (webSocketCloseHandler != null) webSocketCloseHandler.onSocketClosed(reason);
+
     }
 
     public void stop()
@@ -135,8 +132,12 @@ public class WebSocketClient
             {
                 e.printStackTrace();
             }
-
+            isClosed = true;
             noopTimer.cancel();
         }
+    }
+
+    public boolean isClosed() {
+        return isClosed;
     }
 }

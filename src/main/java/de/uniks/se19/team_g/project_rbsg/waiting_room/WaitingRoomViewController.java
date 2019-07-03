@@ -111,7 +111,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.ingameGameProvider = ingameGameProvider;
     }
 
-    public void initialize() {
+    public void initialize() throws Exception {
         initPlayerCardBuilders();
         setPlayerCardNodes();
         JavaFXUtils.setButtonIcons(
@@ -131,7 +131,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         initSocket();
     }
 
-    private void initSocket() {
+    private void initSocket() throws Exception {
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this);
         withChatSupport();
@@ -144,7 +144,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         gameEventManager.startSocket(gameProvider.get().getId(), applicationState.selectedArmy.get().id.get());
     }
 
-    private void withChatSupport() {
+    private void withChatSupport() throws Exception {
         final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(gameEventManager);
         chatContainer.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();

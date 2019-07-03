@@ -17,6 +17,6 @@ public interface ChatClient extends IWebSocketCallback, Terminable {
     String SERVER_PUBLIC_CHANNEL = "all";
     String SERVER_PRIVATE_CHANNEL = "private";
 
-    void startChatClient(@NonNull final ChatController chatController);
+    void startChatClient(@NonNull final ChatController chatController) throws Exception;
     void sendMessage(@NonNull final String channel, @Nullable final String to, @NonNull final String message);
 }

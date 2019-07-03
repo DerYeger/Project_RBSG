@@ -187,8 +187,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.chatBuilder = chatBuilder;
     }
 
-    public void initialize()
-    {
+    public void initialize() throws Exception {
         //Gives the cells of the ListViews a fixed height
         //Needed for cells which are empty to fit them to the height of filled cells
         lobbyGamesListView.setFixedCellSize(50);
@@ -322,8 +321,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     }
 
-    private void configureSystemMessageManager()
-    {
+    private void configureSystemMessageManager() throws Exception {
         UserLeftMessageHandler userLeftMessageHandler = new UserLeftMessageHandler(this.lobby);
 
         UserJoinedMessageHandler userJoinedMessageHandler = new UserJoinedMessageHandler(this.lobby);
@@ -342,8 +340,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.getSystemMessageManager().startSocket();
     }
 
-    private void withChatSupport()
-    {
+    private void withChatSupport() throws Exception {
         if (chatBuilder != null)
         {
             final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(lobbyChatClient);
