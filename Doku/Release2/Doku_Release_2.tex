@@ -652,16 +652,18 @@
 			\end{figure}
 	\section{Sprint \RN{4}}
 		\subsection{Sprintziel}
+			Im 4. und letzten Sprint des zweiten Releases haben wir uns 3 Ziele gesetzt. Als erstes sollen natürlich die aus Sprint \RN{3} übernommenen Aufgaben abgeschlossen werden. Der zweite Punkt ist das Einarbeiten der restlichen Features für das zweite Release. Ein Großteil der geforderten Features ist bereits eingearbeitet. Es fehlen jedoch noch Punkte wie das Visualisieren des Beitreten eines Spielers im Warteraum. Zu guter Letzt wollen wir noch die Oberfläche überarbeiten und die Nutzererfahrung der Anwendung verbessern.
+		
 		\subsection{User Stories}
 			Der Aufbau der User Stories wird in Abschnitt \ref{UserStoriesSprint3} erläutert.
 			
-			\subsubsection{Core - ArmyBuilder - Laden der Armeen}
-			\paragraph{Ziel} Die Aufgabe besteht darin das Laden der gespeicherten Armeen lokal und serverseitig zu realisieren.
-			\paragraph{Story} Albert befindet sich im Login Bereich. Albert loggt sich erfolgreich beim Spiel ein. Die Lokal/auf dem Server gespeicherten Armeen werden geladen. Albert befindet sich in der Lobby, die geladenen Armeen werden in der Armeenliste angezeigt.
-			\paragraph{Zugeteilter Entwickler} Als Entwickler wurde Tobias Klipp eingeteilt, da dieser auch das Speichern der Armeen übernimmt.
+				\subsubsection{Core - ArmyBuilder - Speichern der Armeen}
+			\paragraph{Ziel} Der Entwickler soll das Speichern von Armeen loakl und serverseitig implementieren.
+			\paragraph{Story} Albert befindet sich in dem ArmyBuilder. Albert hat eine Armee eine konfiguriert. Albert klickt auf den Speichern Button. Die Armeen werden Lokal und auf dem Server gespeichert.
+			\paragraph{Zugeteilter Entwickler} Diese Story bearbeitet Tobias Klipp, um sich in mit der REST Kommunikation vertraut zu machen.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
-			\paragraph{Verlauf der Entwicklung} 
+			Da das Feature von den Entwicklern als komplex eingeschätzt wurde, erhielt es 15 Story Points.
+			\paragraph{Verlauf der Entwicklung} Dieser Task wurde in Sprint 4 erneut eröffnet, da es noch Erweiterung gab, welche nicht zum Ende von Sprint 3 in die Quellcodebasis gezogen wurden.
 			
 			\subsubsection{Core - ArmyBuilder - Löschen der Armee (Clear)}
 			\paragraph{Ziel} Im ArmyBuilder soll ein Button vorhanden sein mit dem man eine Armee komplett leeren kann.
@@ -670,7 +672,7 @@
 			\paragraph{Schätzung}
 			Das Feature wurde auf 1 Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
-			
+			Dieses Feature wurde mit einem Story Point stark unterschätzt. Es wurden 6h und 45min für die Vollendung der Story benötigt. Das implementieren der Serverkommunikation und das Löschen der Armeen. Die Anforderungen für das Löschen waren hier spezieller, da die Armee auf dem Server gelöscht werden sollte, jedoch lokal noch vorhanden sein soll. Als weitere Faktor zogen auch das erstellen von Tests den Task in die Länge.
 			
 			\subsubsection{Appearance - ArmyBuilder}
 			\paragraph{Ziel} Es soll der AmryBuilder an das Dark Theme angepasst werden.
@@ -679,6 +681,7 @@
 			\paragraph{Schätzung}
 			Das Feature wurde auf 8 Story Point geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
+			Der Entwickler benötigte insgesamt 14h für die Bearbeitung der Story. In der Story wurde noch der Style des \glqq Dark Themes\grqq global angewandt, was zusätzliche Arbeitszeit kostete. Des weiteren mussten Tests und Mergekonflikte behoben werden, was die Bearbeitungszeit weiter in die Länge zog.
 			 
 			\subsubsection{Optional - Ingame - Zoomen auf dem Spielfeld}
 			\paragraph{Ziel} Des soll ein Vergrößern und Verkleinern der Spielkarte möglich sein.
@@ -696,7 +699,7 @@
 			\paragraph{Schätzung}
 			Das Feature wurde auf 3 Story Points geschätzt
 			\paragraph{Verlauf der Entwicklung} 
-			Es wurde insgesamt eine Arbeitszeit von 0,5h für diese Story benötigt. Es wurden 3h für für diese Task angesetzt. Der Entwickler konnte diese schneller Abschließen, da bereits auf vorhanden Lösungen aufgebaut werden konnte. Die Schätzung auf 3h wurde auf der Grundlage getroffen, das nicht klar was man alles beim \glqq Aufräumen\grqq beachten muss.
+			Es wurde insgesamt eine Arbeitszeit von 1h für diese Story benötigt. Es wurden 3h für für diese Task angesetzt. Der Entwickler konnte diese schneller Abschließen, da bereits auf vorhanden Lösungen aufgebaut werden konnte. Die Schätzung auf 3h wurde auf der Grundlage getroffen, das nicht klar was man alles beim \glqq Aufräumen\grqq beachten muss.
 			
 			\subsubsection{Optional - Waiting Room - Anzeigen der Karte (Preview)}
 			\paragraph{Ziel} Im Warteraum soll es eine Vorschau für die Karte des kommenden Spiels geben.
@@ -715,7 +718,105 @@
 			Das Feature wurde auf 3 Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Diese Aufgabe wurde von den Entwicklern korrekt eingeschätzt, da wir hierfür 2h und 50 min benötigten.
+			
+			\subsubsection{Core - Lobby - Deaktivieren der JoinGame-Buttons und des Create-Game-Buttons bei keiner ausgewählten Armee}
+			\paragraph{Ziel} Es soll nicht möglich sein einem Spiel beizutreten, wenn man keine valide Armee ausgewählt hat.
+			\paragraph{Story} Albert befindet sich in der Lobby. Albert hat keine Armee ausgewählt/ es ist keine vollständige Armee vorhanden. Die "JoinGame"-Buttons der Spielliste und der Create-Game Button sind deaktiviert. Albert klick auf einen der JoinGame-Buttons. Albert bekommt einen Dialog, welcher ihm erklärt das er eine vollständige Armee braucht, um einem Spiel beizutreten.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 3 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Der Entwickler schloss die Aufgabe eine Stunde schneller ab als geplant.
+			
+			\subsubsection{Optional - ArmyBuilder - Bearbeiten der Armeeinformationen}
+			\paragraph{Ziel} Im ArmyBuilder solle es die Möglichkeit geben, das Icon und den Namen der Armee zu bearbeiten.
+			\paragraph{Story}Albert befindet sich im ArmyBuider. Unter der Armeeliste befindet sich ein Bearbeiten-Button. Albert hat eine Armee ausgewählt und klick auf den Bearbeiten-Button. Es öffnet sich ein Dialog zum Bearbeiten der Armeeinformationen. Es ist möglich den Namen der Armee zu bearbeiten. Es ist möglich das Icon der Armee aus einer Liste vordefinierter Icons zu bearbeiten. Armeen werden mit einem Default Name und einem Default Icon erstellt, falls nichts näher spezifiziert ist. Wird die auf den Speichern Button geklickt, so wird die Armee gespeichert. Wird auf den Cancel Button geklickt, so wird die View geschlossen. Es wird nichts gespeichert.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 5 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Der Aufwand wurde von den Entwicklern gut eingeschätzt, da eine Arbeitszeit von 4h und 24min benötigt wurde.
 		
+			\subsubsection{Optional - ArmyBuilder - Armeeauswahl aus der Lobby übernehmen}
+			\paragraph{Ziel} Als Komfortfunktion soll es möglich sein die ausgewählt Armee mit in den ArmyBuilder zu übernehmen.
+			\paragraph{Story} Albert befindet sich in der Lobby. Es ist eine Armee in der Lobby ausgewählt. Albert klickt auf den Armies-Button. Albert kommt in den ArmyBuilder. Im ArmyBuilder ist die Armee ausgewählt, welche bereits in der Lobby ausgewählt war.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 1 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Der Aufwand wurde von den Entwicklern gut eingeschätzt. Mit 1h und 18min liegen wir leicht über der geschätzten Stunde.
+			
+			\subsubsection{Optional - Create Game - Auto Join}
+			\paragraph{Ziel} Als Komfortfunktion soll es möglich sein, nach dem ein Spiel erstellt wurde diesem direkt beizutreten.
+			\paragraph{Story} Albert befindet sich im Create Game Dialog. Albert hat eine Spielerzahl ausgewählt und einen Namen für die Armee eingegeben. Albert klickt auf "Spiel erstellen". Albert tritt dem eben erstellten Spiel automatisch bei und befindet sich jetzt im Waiting Room für das Spiel.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 1 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Der Aufwand wurde von den Entwicklern perfekt eingeschätzt. Es gab ein Punktlandung mit 1h. 
+			
+			\subsubsection{Appearance - Create Game - Anpassen des Style's des Create-Game-Formulars}
+			\paragraph{Ziel} Das \glqq Create Game\grqq Formular soll an den aktuellen Style angepasst werden.
+			\paragraph{Story} Albert befindet sich in der Lobby. Albert klickt auf den Create-Game-Button. Es öffnet sich das CreateGame Formular. Die Buttons für Create Game erstrahlen im Glanze unseres Styles. (MockUps)
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Jan Müller bearbeitet.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 3 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Der Aufwand wurde von den Entwicklern gut eingeschätzt. Der Entwickler war mit 2h und 38min schneller fertig als geschätzt. 
+			
+			\subsubsection{Core - Waiting Room - Ein Spieler tritt dem Spiel bei}
+			\paragraph{Ziel} Wenn ein Spieler das Spiel im Waitingroom beitritt, wird dies Visuell dargestellt.
+			\paragraph{Story} Albert befindet sich im Waiting Room eines Spiels. Es befindet sich noch kein weiterer Mitspieler im Spiel. Carlie tritt dem Spiel bei. Carlie wird in einem der "Player-Kasten" angezeigt.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Keanu Stückrad bearbeitet. Keanu hat bereits im letzten Release an den \glqq Boxen\grqq der Spieler gearbeitet hat.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 3 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Der Entwickler liegt mit 3,5h leicht über der Schätzung. Dies liegt aber noch im Rahmen.
+			
+			\subsubsection{Core - Waiting Room - Ein Spieler verlässt das Spiel}
+			\paragraph{Ziel} Wenn ein Spieler das Spiel im Waitingroom verlässt, wird dies Visuell dargestellt.
+			\paragraph{Story} Albert befindet sich im Waiting Room von Albert's Spiel. Carlie befindet sich ebenfalls in Albert's Spiel. Carlie hat noch ein Date und kann deshalb nicht mitspielen. Carlie verlässt das Spiel. Carlie wird aus seinem "Player-Kasten" entfernt. Alle anderen Mitspieler bleiben in Ihren "Player-Kasten".
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Keanu Stückrad bearbeitet. Keanu hat bereits im letzten Release an den \glqq Boxen\grqq der Spieler gearbeitet und den auch das Beitreten eines Spielers bearbeitet, war er die beste Wahl für diese Aufgabe.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 2 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Da der Entwickler bereits Erfahrung mit der Problematik hatte, wurde diese Aufgabe mit 1h schneller als geschätzt abgeschlossen.
+			
+			\subsubsection{Optional - Waiting Room - "Player-Kasten" wird mit der Spielerfarbe dargestellt}
+			\paragraph{Ziel} Spieler im Waiting Room werden mit ihren entsprechenden Farben dargestellt.
+			\paragraph{Story} Albert befindet sich in der Lobby. Albert tritt Carlie's Game bei. Albert befindet sich nun in Carlie's Game Waiting Room. Die "Player-Kasten" werden mit den Farben des jeweiligen Spielers dargestellt.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Keanu Stückrad bearbeitet. Keanu hat bereits im letzten Release an den \glqq Boxen\grqq der Spieler gearbeitet und auch das Beitreten und Verlassen bearbeitet.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 2 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Da der Entwickler bereits Erfahrung mit der Problematik hatte, wurde diese Aufgabe mit 1h schneller als geschätzt abgeschlossen.
+			
+			\subsubsection{Appearance - Alerts}
+			\paragraph{Ziel} Die Popup-Meldungen sollten dem \glqq Dark Theme\grqq angepasst werden.
+			\paragraph{Story} Albert befindet sich in der Lobby. Albert klickt auf Logout. Es öffnet sich ein Overlay, was die Alerts ersetzt. Das Overlay erstrahlt im Glanze unseres Styles. Es sollen alle Alerts durch die Overlays erstezt werden.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Jan Müller bearbeitet. 
+			\paragraph{Schätzung}
+			Das Feature wurde auf 3 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Für Bearbeitung dieser Aufgabe wurden ca. 9h benötigt. Der Entwickler realisierte eine entsprechende Funktion um einfach und individuell Meldungen generieren zu können. Dies wurde durch den Scrum Master bestätigt, da wir dadurch im späteren Entwicklungsverlauf Zeit und Ressourcen sparen können.
+			
+			\subsubsection{Core - ArmyBuilder - "CanAttack" Übersicht}
+			\paragraph{Ziel} Die Detailansicht soll in um eine \glqq Can Attack\grqq-Ansicht erweitert werden.
+			\paragraph{Story} Albert befindet sich im ArmyBuilder. Albert wählt eine Einheit aus der "Unit Selection" aus. Es wird die Detail View zur Einheit angezeigt. In der Detail View ist eine Übersicht zu "Can Attack" vorhanden.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet. Die Aufgabe wurde Omar zugeteilt, da dieser die Detailansicht schon in einer vorhergehen Story realisiert hat.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 5 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Da der Entwickler bereits Erfahrungen mit der Detailansicht hat konnte die Aufgabe mit 3h und 49min schneller abgeschlossen werden.
+			
+			\subsubsection{Optional - ArmyBuilder- Indikator ob Speichern nötig ist und Aktivieren des Save Buttons}
+			\paragraph{Ziel} Die Detailansicht soll in um eine \glqq Can Attack\grqq-Ansicht erweitert werden.
+			\paragraph{Story} Albert befindet sich in der Lobby. Albert hat noch keine Änderungen an den Armeen vorgenommen. Der Indikator zum Speichern ist Grau. Der Save-Button ist Disabled. Albert fügt eine Einheit seiner Armee hinzu. Der Indikator zum Speicher hat die Farbe von Primary Two. Der Save-Button ist Enabled.
+			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet. Die Aufgabe wurde Omar zugeteilt, da dieser schon viel im ArmyBuilder implementiert hat.
+			\paragraph{Schätzung}
+			Das Feature wurde auf 5 Story Points geschätzt.
+			\paragraph{Verlauf der Entwicklung} 
+			Der Entwickler war mit 2h und 42min doppelt so schnell wie geschätzt. Die Story wurde im positiven Sinne von den Entwicklern überschätzt.
 		
 	%	\subsection{Analyse des Sprintverlaufs}
 	\newpage
