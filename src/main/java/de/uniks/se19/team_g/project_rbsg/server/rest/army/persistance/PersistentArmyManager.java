@@ -18,9 +18,11 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -159,37 +161,61 @@ public class PersistentArmyManager {
         }
 
         try {
-            String osType = System.getProperty("os.name");
-            System.out.println(osType);
-            File file;
-            File directory;
+            File file = getSaveFile();
 
-            if (osType.contains("Windows")) {
-                //Windows System
-                logger.debug("Windows Operating System detected.");
-                directory = new File(System.getProperty("user.home") + "/rbsg/");
-                directory.mkdirs();
-                file = new File(directory, "armies.json");
-                Files.setAttribute(Paths.get(file.getPath()), "dos:hidden", true);
-            } else {
-                //Unix System
-                logger.debug("Unix System detected.");
-                directory = new File(System.getProperty("user.home") + "/.local/rbsg/");
-                directory.mkdirs();
-                file = new File(directory, "armies.json");
-            }
-            if (file.exists()) {
-                file.delete();
-                file.createNewFile();
-            } else {
-                file.createNewFile();
-            }
+            //noinspection ResultOfMethodCallIgnored
+            file.getParentFile().mkdirs();
+            //noinspection ResultOfMethodCallIgnored
+            file.createNewFile();
+
             objectMapper.writeValue(file, armyWrapper);
             logger.debug("Local saving was successful.");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Nonnull
+    public File getSaveFile() throws IOException {
+        String osType = System.getProperty("os.name");
+        logger.debug("We are on " + osType);
+
+        File file;
+
+        if (osType.contains("Windows")) {
+            file = getSaveFileInAppdata();
+        } else {
+            file = getSaveFileInHome();
+        }
+
+        return file;
+    }
+
+    @Nonnull
+    private File getSaveFileInHome() {
+        logger.debug("Return file in home path");
+        return new File(System.getProperty("user.home") + "/.local/" + getRelativeFileName());
+    }
+
+    private File getSaveFileInAppdata() throws IOException {
+        String appData = System.getenv("APPDATA");
+        if ( appData == null) {
+            logger.debug("No app data found");
+            return getSaveFileInHome();
+            // do we need to hide the folder in this case?
+            // Files.setAttribute(Paths.get(file.getPath()), "dos:hidden", true);
+        }
+        logger.debug("Return file in appdata path");
+        return Path.of(appData, getRelativeFileName()).toFile();
+    }
+
+    /**
+     * maybe prefix the save file per user so that the save game of one user doesn't overwrite the savegame of another
+     * @return
+     */
+    private String getRelativeFileName() {
+        return "rbsg/armies.json";
     }
 
     public CompletableFuture<Void> saveArmies(ObservableList<Army> armies) {
