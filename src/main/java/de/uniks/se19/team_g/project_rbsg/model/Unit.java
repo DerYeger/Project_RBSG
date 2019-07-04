@@ -1,7 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 
@@ -26,6 +28,8 @@ public class Unit implements Cloneable {
     public final SimpleIntegerProperty attack = new SimpleIntegerProperty();
     public final SimpleIntegerProperty spellPower = new SimpleIntegerProperty();
 
+    private UnitTypeInfo typeInfo = UnitTypeInfo.UNKNOWN;
+
     public final SimpleListProperty<String> canAttack = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public static Unit unknownType(String id) {
@@ -40,7 +44,7 @@ public class Unit implements Cloneable {
         unit.description.set(UNKNOWN);
         unit.id.set(id);
 
-        UnitTypeMetaData metaData = UnitTypeMetaData.Infantry;
+        UnitTypeInfo metaData = UnitTypeInfo.UNKNOWN;
 
         unit.iconUrl.set(
             metaData.getIcon().toString()
@@ -68,5 +72,21 @@ public class Unit implements Cloneable {
                 && id.get() != null
                 && id.get().equals(((Unit) obj).id.get())
         ;
+    }
+
+    public UnitTypeInfo getTypeInfo() {
+        return typeInfo;
+    }
+
+    public void setTypeInfo(UnitTypeInfo typeInfo) {
+        this.typeInfo = typeInfo;
+    }
+
+    public String getNameKey() {
+        return typeInfo.getNameKey();
+    }
+
+    public String getDescriptionKey() {
+        return typeInfo.getDescriptionKey();
     }
 }

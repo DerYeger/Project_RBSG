@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
+import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
@@ -51,7 +52,9 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
         countLabel.textProperty().bind(
             Bindings.size(squad.members).asString().concat("x")
         );
-        JavaFXUtils.bindImage(imageView.imageProperty(), squad.members.get(0).imageUrl);
+
+        final Unit deputy = squad.members.get(0);
+        imageView.setImage(deputy.getTypeInfo().getPreview());
 
         setGraphic(root);
     }

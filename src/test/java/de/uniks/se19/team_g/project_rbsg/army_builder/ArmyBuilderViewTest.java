@@ -6,16 +6,14 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
-import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryController;
-import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
-import io.rincl.Rincl;
-import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -42,8 +40,8 @@ import org.testfx.util.WaitForAsyncUtils;
         FXMLLoaderFactory.class,
         ArmyBuilderController.class,
         UnitDetailController.class,
-        UnitListEntryFactory.class,
-        UnitListEntryController.class,
+        UnitListCellFactory.class,
+        UnitListCellController.class,
         ArmyBuilderViewTest.ContextConfiguration.class,
         ApplicationState.class,
         SceneManagerConfig.class,
