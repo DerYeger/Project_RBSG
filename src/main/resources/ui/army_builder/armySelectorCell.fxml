@@ -4,6 +4,6 @@
 <?import javafx.scene.layout.Pane?>
 
 <Pane fx:id="root" minHeight="60.0" minWidth="60.0" onMouseClicked="#onItemClicked"
-      xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorCellController">
+      xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
     <ImageView fx:id="imageView" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
 </Pane>

@@ -2,9 +2,16 @@ package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.CanAttackTileController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.ObjectFactory;
@@ -61,8 +68,29 @@ public class ArmyBuilderConfig {
     }
 
     @Bean
-    public ArmyBuilderState armyBuilderState()
+    public ArmyBuilderState armyBuilderState(ApplicationState appState)
     {
-        return new ArmyBuilderState();
+        final ArmyBuilderState state = new ArmyBuilderState();
+
+        final ObservableList<Army> dirtyAwareArmies = FXCollections.observableArrayList(
+                army -> new Observable[] {army.hasUnsavedUpdates}
+        );
+        Bindings.bindContent(dirtyAwareArmies, appState.armies);
+
+        state.unsavedUpdates.bind(
+            Bindings.createBooleanBinding(
+                () -> dirtyAwareArmies.stream().anyMatch(Army::hasUnsavedUpdates),
+                dirtyAwareArmies
+            )
+        );
+
+        return state;
+    }
+
+    @Bean
+    @Scope("prototype")
+    public ViewComponent<EditArmyController> editArmyComponent(FXMLLoader fxmlLoader) {
+        fxmlLoader.setLocation(getClass().getResource("/ui/army_builder/edit_army/editArmyModal.fxml"));
+        return ViewComponent.fromLoader(fxmlLoader);
     }
 }

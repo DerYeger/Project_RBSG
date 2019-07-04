@@ -68,6 +68,7 @@
     -surface-elevation-color: #ffffff; /* only for elevation 2 und 8 used with opacity! */
     -surface-elevation-2-color: rgba(255, 255, 255, 0.07);
     -surface-elevation-8-color: rgba(255, 255, 255, 0.13);
+    -surface-elevation-8-color-abs: rgb(45, 45, 45);
     -primary-background-color: #88588c; /* Button non-hover */
     -primary-lighter-background-color: #bb86fc; /* Button hover */
     -secondary-background-color: #03dac5;
@@ -238,6 +239,12 @@
 .label.army {
     -fx-font-size: 26pt;
     -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
+}
+
+.label.header-2 {
+    -fx-font-size: 32pt;
+    -fx-text-fill: bold;
     -fx-font-family: Roboto-Medium;
 }
 
@@ -465,13 +472,12 @@
 /*----------------Modals--------------------*/
 
 .modal-background {
-    -fx-background-color: -root-background-color;
+    -fx-background-color: rgba(0,0,0,0.8);
 }
 
 .modal {
     -fx-padding: 10 10 10 10;
-    -fx-pref-width: 400;
-    -fx-background-color: -surface-elevation-2-color;
+    -fx-background-color: -surface-elevation-8-color-abs;
     -fx-border-width: 2;
     -fx-border-color: -default-border-color;
 }
@@ -528,4 +534,25 @@
     -fx-background-color: transparent;
     -fx-effect: none;
     -fx-rotate: -180;
+}
+
+.default.text-field {
+    -fx-padding: 5 5 5 5;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-alignment: center;
+    -fx-background-color: -surface-elevation-8-color;
+    -fx-font-size: 16;
+    -fx-pref-width: 330;
+    -fx-text-fill: -on-secondary-fill;
+}
+
+.status-indicator {
+    -fx-fill: -secondary-background-color;
+}
+
+.status-indicator:disabled {
+    -fx-fill: -on-disabled-fill;
 }

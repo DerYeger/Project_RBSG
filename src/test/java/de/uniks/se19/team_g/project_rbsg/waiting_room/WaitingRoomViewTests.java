@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -54,12 +55,12 @@ import org.testfx.util.WaitForAsyncUtils;
         WaitingRoomViewController.class,
         WaitingRoomViewTests.ContextConfiguration.class,
         FXMLLoaderFactory.class,
-        MusicManager.class,
         IngameGameProvider.class,
         PreviewMapBuilder.class,
         ChatBuilder.class,
         SceneManagerConfig.class,
-        AlertBuilder.class
+        AlertBuilder.class,
+        FXMLLoaderFactory.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -67,18 +68,14 @@ public class WaitingRoomViewTests extends ApplicationTest {
     private ApplicationContext context;
 
     @TestConfiguration
-    static class ContextConfiguration implements ApplicationContextAware {
-
-        private ApplicationContext context;
+    static class ContextConfiguration {
 
         @Bean
-        @Scope("prototype")
-        public FXMLLoader fxmlLoader()
+        public MusicManager musicManager()
         {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(this.context::getBean);
-            return fxmlLoader;
+            return Mockito.mock(MusicManager.class, Mockito.RETURNS_SELF);
         }
+
         @Bean
         public GameProvider gameProvider() {
             return new GameProvider() {
@@ -111,10 +108,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
             return applicationState;
         }
 
-        @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-            this.context = applicationContext;
-        }
         @Bean
         public SceneManager sceneManager() {
             return new SceneManager() {
@@ -183,9 +176,9 @@ public class WaitingRoomViewTests extends ApplicationTest {
         Button musicButton = lookup("#soundButton").query();
         Assert.assertNotNull(musicButton);
         clickOn("#soundButton");
-        Assert.assertFalse(musicManager.musicRunning);
+        Mockito.verify(musicManager, Mockito.times(1)).updateMusicButtonIcons(musicButton);
         clickOn("#soundButton");
-        Assert.assertTrue(musicManager.musicRunning);
+        Mockito.verify(musicManager, Mockito.times(2)).updateMusicButtonIcons(musicButton);
         Button infoButton = lookup("#showInfoButton").query();
         Assert.assertNotNull(infoButton);
         clickOn("#showInfoButton");
