@@ -257,7 +257,7 @@ public class PersistantArmyTest {
 
         persistentArmyManager.saveArmiesLocal(armyList);
 
-        File file = new File(System.getProperty("user.home") + "/.local/rbsg/armies.json");
+        File file = new File(persistentArmyManager.getSaveFile().getAbsolutePath());
         System.out.println(file.getAbsoluteFile());
         Assert.assertTrue(file.exists());
         Assert.assertTrue(file.canRead());
