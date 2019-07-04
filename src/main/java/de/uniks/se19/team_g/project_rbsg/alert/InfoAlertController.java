@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
@@ -24,12 +25,25 @@ public class InfoAlertController extends AlertController {
     @FXML
     private Button confirm;
 
+    private Runnable onConfirmRunnable;
+
     @Override
     protected void init() {
         label.textProperty().setValue(text);
 
-        confirm.setOnAction(event -> hide());
+        confirm.setOnAction(event -> {
+            if (onConfirmRunnable != null) {
+                onConfirmRunnable.run();
+            } else {
+                hide();
+            }
+        });
 
         JavaFXUtils.setButtonIcons(confirm, CONFIRM_WHITE, CONFIRM_BLACK, 40);
+    }
+
+    public InfoAlertController andThen(@Nullable final Runnable onConfirmRunnable) {
+        this.onConfirmRunnable = onConfirmRunnable;
+        return this;
     }
 }

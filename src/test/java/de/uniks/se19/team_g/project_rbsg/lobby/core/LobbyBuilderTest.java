@@ -129,10 +129,8 @@ public class LobbyBuilderTest extends ApplicationTest
                 Property<Locale> selectedLocale
         ) {
             return new LobbyViewController(
-                    gameProvider,
                     userProvider,
                     sceneManager,
-                    joinGameManager,
                     new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
                     new GameManager(new RESTClient(new RestTemplate()), userProvider()),
                     new SystemMessageManager(new WebSocketClient()),

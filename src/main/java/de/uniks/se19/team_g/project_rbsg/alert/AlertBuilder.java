@@ -27,9 +27,11 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
     public enum Text {
         EXIT("exit"),
         CREATE_GAME_ERROR("createGameError"),
+        CONNECTION_CLOSED("connectionClosed"),
         INVALID_INPUT("invalidInput"),
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
+        PERMISSION_ERROR("permissionError"),
         UNKNOWN_ERROR("unknownError");
 
         @NonNull
@@ -72,6 +74,16 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
     public void information(@NonNull final Text text) {
         try {
             build(text, Type.INFO).show();
+        } catch (final AlertCreationException e) {
+            logger.debug("Unable to create alert:" + e.getMessage());
+        }
+    }
+
+    public void error(@NonNull final Text text, @Nullable final Runnable runnable) {
+        try {
+            ((InfoAlertController) build(text, Type.INFO))
+                    .andThen(runnable)
+                    .show();
         } catch (final AlertCreationException e) {
             logger.debug("Unable to create alert:" + e.getMessage());
         }

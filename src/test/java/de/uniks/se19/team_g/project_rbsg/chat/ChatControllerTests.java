@@ -102,7 +102,7 @@ public class ChatControllerTests extends ApplicationTest {
     private ChatClient chatClient;
 
     @Override
-    public void start(@NonNull final Stage stage) {
+    public void start(@NonNull final Stage stage) throws Exception {
         userProvider.get()
                 .setName("username");
 

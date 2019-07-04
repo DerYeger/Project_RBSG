@@ -14,14 +14,20 @@ import java.io.IOException;
 public class ArmySelectorCellFactory implements Callback<ListView<Army>, ListCell<Army>> {
 
     private final ObjectFactory<FXMLLoader> fxmlLoader;
+    private final ObjectFactory<ArmySelectorCellController> armySelectorCellController;
 
-    public ArmySelectorCellFactory(ObjectFactory<FXMLLoader> fxmlLoader) {
+    public ArmySelectorCellFactory(
+            ObjectFactory<FXMLLoader> fxmlLoader,
+            ObjectFactory<ArmySelectorCellController> armySelectorCellController
+    ) {
         this.fxmlLoader = fxmlLoader;
+        this.armySelectorCellController = armySelectorCellController;
     }
 
     @Override
     public ListCell<Army> call(ListView<Army> param) {
         final FXMLLoader loader = fxmlLoader.getObject();
+        loader.setController(armySelectorCellController.getObject());
         loader.setLocation(getClass().getResource("/ui/army_builder/armySelectorCell.fxml"));
         try {
             loader.load();

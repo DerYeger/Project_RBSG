@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketCloseHandler;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -12,8 +14,11 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import javax.websocket.CloseReason;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import static de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilder.leaveGameCommand;
 
@@ -22,7 +27,7 @@ import static de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilde
  */
 @Component
 @Scope("prototype")
-public class GameEventManager implements ChatClient {
+public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
     private static final String ENDPOINT = "/game?";
 
@@ -33,13 +38,17 @@ public class GameEventManager implements ChatClient {
     private WebSocketClient webSocketClient;
 
     private ChatController chatController;
+    private WaitingRoomViewController waitingRoomViewController;
+
+    private final CountDownLatch terminateLatch = new CountDownLatch(1);
 
     public GameEventManager(@NonNull final WebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
 
         gameEventHandlers = new ArrayList<>();
-
         gameEventHandlers.add(new DefaultGameEventHandler());
+
+        webSocketClient.setCloseHandler(this);
     }
 
     @Override
@@ -56,7 +65,7 @@ public class GameEventManager implements ChatClient {
         return gameEventHandlers;
     }
 
-    public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
+    public void startSocket(@NonNull final String gameID, @NonNull final String armyID) throws Exception {
         webSocketClient.start(ENDPOINT + getGameIDParam(gameID) + '&' + getArmyIDParam(armyID), this);
     }
 
@@ -121,14 +130,36 @@ public class GameEventManager implements ChatClient {
         return message.has("msg");
     }
 
-    @Override
-    public void terminate() {
-        sendLeaveCommand();
-        logger.debug("Terminated " + this);
-        webSocketClient.stop();
-    }
-
     private void sendLeaveCommand() {
         webSocketClient.sendMessage(leaveGameCommand());
+    }
+
+    public void setSceneController(@NonNull final WaitingRoomViewController waitingRoomViewController) {
+        this.waitingRoomViewController = waitingRoomViewController;
+    }
+
+    @Override
+    public void onSocketClosed(@NonNull CloseReason reason) {
+        if (reason.getReasonPhrase().equals("Left game")) {
+            terminateLatch.countDown();
+        } else if (!reason.getReasonPhrase().equals("Tschau")) {
+            waitingRoomViewController.onConnectionClosed();
+        }
+    }
+
+    @Override
+    public void terminate() {
+        if (!webSocketClient.isClosed()) {
+            try {
+                sendLeaveCommand();
+                if (!terminateLatch.await(5, TimeUnit.SECONDS)) {
+                    webSocketClient.stop();
+                    logger.debug("Terminated manually. Server did not respond in time");
+                }
+            } catch (final InterruptedException e) {
+                logger.error(e.getMessage());
+            }
+        }
+        logger.debug("Terminated " + this);
     }
 }

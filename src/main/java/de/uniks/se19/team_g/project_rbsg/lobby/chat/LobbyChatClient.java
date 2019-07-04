@@ -46,13 +46,9 @@ public class LobbyChatClient implements ChatClient {
     }
 
     @Override
-    public void startChatClient(@NonNull final ChatController chatController) {
+    public void startChatClient(@NonNull final ChatController chatController) throws Exception {
         this.chatController = chatController;
-        try {
-            webSocketClient.start(ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), this);
-        } catch (final UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        webSocketClient.start(ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), this);
     }
 
     @Override
