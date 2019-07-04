@@ -16,13 +16,12 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
-import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
 import org.junit.*;
 import org.junit.runner.*;
-import org.springframework.beans.*;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.context.*;
@@ -46,8 +45,6 @@ import static org.junit.Assert.*;
         UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        CreateGameFormBuilder.class,
-        CreateGameController.class,
         LobbyViewController.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
@@ -66,20 +63,16 @@ public class PlayerJoinedGameListTest extends ApplicationTest
     private Lobby lobby;
 
     @TestConfiguration
-    public static class ContextConfiguration implements ApplicationContextAware{
-        private ApplicationContext context;
-
-        @Bean
-        @Scope("prototype")
-        public FXMLLoader fxmlLoader() {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setControllerFactory(this.context::getBean);
-            return loader;
-        }
-
+    public static class ContextConfiguration {
         @Bean
         public LogoutManager logoutManager() {
             return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
+        }
+
+        @Bean
+        public CreateGameFormBuilder createGameController()
+        {
+            return Mockito.mock(CreateGameFormBuilder.class);
         }
 
         @Bean
@@ -139,12 +132,6 @@ public class PlayerJoinedGameListTest extends ApplicationTest
                 public void startChatClient(@NonNull final ChatController chatController) {
                 }
             };
-        }
-
-        @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
-        {
-            this.context = applicationContext;
         }
     }
 

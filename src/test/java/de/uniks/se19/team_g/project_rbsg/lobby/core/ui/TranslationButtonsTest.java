@@ -1,46 +1,57 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
-import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.server.rest.*;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
-import io.rincl.*;
-import io.rincl.resourcebundle.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.stage.*;
-import org.junit.*;
-import org.junit.runner.*;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.context.*;
-import org.springframework.context.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.test.context.*;
-import org.springframework.test.context.junit4.*;
-import org.springframework.web.client.*;
-import org.testfx.framework.junit.*;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.lang.NonNull;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
+import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -51,14 +62,13 @@ import static org.junit.Assert.*;
         UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        CreateGameFormBuilder.class,
-        CreateGameController.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
         AlertBuilder.class,
-        LocaleConfig.class
+        LocaleConfig.class,
+        FXMLLoaderFactory.class
 })
 public class TranslationButtonsTest extends ApplicationTest
 {
@@ -78,17 +88,12 @@ public class TranslationButtonsTest extends ApplicationTest
     }
 
     @TestConfiguration
-    static class ContextConfiguration implements ApplicationContextAware {
-
-        private ApplicationContext context;
+    static class ContextConfiguration {
 
         @Bean
-        @Scope("prototype")
-        public FXMLLoader fxmlLoader()
+        public CreateGameFormBuilder createGameController()
         {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(this.context::getBean);
-            return fxmlLoader;
+            return Mockito.mock(CreateGameFormBuilder.class);
         }
 
         @Bean
@@ -151,11 +156,6 @@ public class TranslationButtonsTest extends ApplicationTest
                 public void startChatClient(@NonNull final ChatController chatController) {
                 }
             };
-        }
-
-        @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-            this.context = applicationContext;
         }
     }
 
