@@ -219,7 +219,7 @@ public class PersistentArmyManager {
                 @JsonProperty("id") String id,
                 @JsonProperty("name")String name,
                 @JsonProperty("units")ArrayList<Unit> units,
-                String armyIcon
+                @JsonProperty("armyIcon") String armyIcon
         ){
             this.id=id;
             this.name=name;
