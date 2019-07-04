@@ -75,7 +75,7 @@ public class GameEventManagerTests {
     }
 
     @Test
-    public void testStartSocket() {
+    public void testStartSocket() throws Exception {
         gameEventManager.startSocket(gameId, armyID);
         Assert.assertTrue(socketStarted);
     }

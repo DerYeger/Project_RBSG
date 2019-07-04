@@ -72,6 +72,7 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
+                .withExceptionHandler(context.getBean(ExceptionHandler.class))
                 .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
 
         context.getBean(MusicManager.class).initMusic();

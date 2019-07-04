@@ -1,13 +1,15 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
  * @author  Keanu Stückrad
+ * @author Jan Müller
  */
 @Component
-public class GameProvider {
+public class GameProvider implements Terminable {
 
     private Game game;
 
@@ -26,5 +28,10 @@ public class GameProvider {
     public GameProvider clear() {
         game = null;
         return this;
+    }
+
+    @Override
+    public void terminate() {
+        clear();
     }
 }

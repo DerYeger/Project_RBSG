@@ -48,11 +48,18 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     private HashMap<SceneIdentifier, Scene> cachedScenes = new HashMap<>();
     private HashMap<SceneIdentifier, RootController> rootControllers = new HashMap<>();
 
+    private ExceptionHandler exceptionHandler;
+
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setResizable(false);
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
+        return this;
+    }
+
+    public SceneManager withExceptionHandler(@Nullable final ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
         return this;
     }
 
@@ -73,9 +80,14 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
             return;
         }
 
-        @SuppressWarnings("unchecked")
-        final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
-        showSceneFromViewComponent(viewComponent, sceneIdentifier);
+        try {
+            @SuppressWarnings("unchecked")
+            final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
+            showSceneFromViewComponent(viewComponent, sceneIdentifier);
+        } catch (final Exception e) {
+            logger.error(e.getMessage());
+            if (exceptionHandler != null) exceptionHandler.handleException(this);
+        }
     }
 
     private void handleCaching(@NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
