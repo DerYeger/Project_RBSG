@@ -72,11 +72,6 @@ public class EditArmyControllerTest extends ApplicationTest {
             lookup("#selectedIcon").<ImageView>query().getImage()
         );
 
-        Assert.assertEquals(
-            ArmyIcon.values().length,
-            lookup(".list-cell #imageView").queryAll().size()
-        );
-
         final Node nextIconCell = lookup(".list-cell #imageView").nth(1).query();
 
         clickOn(nextIconCell);
