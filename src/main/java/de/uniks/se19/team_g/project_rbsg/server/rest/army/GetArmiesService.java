@@ -127,27 +127,41 @@ public class GetArmiesService {
     }
 
     private List<Army> mergeArmies(List<Army> remoteArmies, List<Army> localArmies) {
+        int playableArmyCounter=0;
 
         ArrayList<Army> mergedArmies = new ArrayList<>();
         if(remoteArmies.isEmpty()){
             System.out.println("Online armies are empty. Returning local armies.");
+            for(Army army : localArmies){
+                playableArmyCounter+=(army.units.size()==10) ? 1:0;
+            }
+            if(playableArmyCounter==0 && localArmies.size()==7){
+                //ToDiscuss: Ensure that the application state will generate at least one playable army.
+                localArmies.remove(0);
+            }
             return localArmies;
         }
 
         mergedArmies.addAll(remoteArmies);
+        playableArmyCounter+=remoteArmies.size();
         System.out.println("Got " + remoteArmies.size() + "armies from the server.");
         for (Army remoteArmy : remoteArmies) {
             for (Army localArmy : localArmies) {
                 if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<=7) {
                     System.out.println("Added local army with " + localArmy.units.size() + "units");
                     mergedArmies.add(localArmy);
-                    break;
+                    if(localArmy.units.size()==10){
+                        playableArmyCounter++;
+                    }
                 }
                 if (remoteArmy.id.equals(localArmy.id) && !mergedArmies.contains(localArmy)) {
                     //Accept remote units but use image from localArmy
                     //ToDo: Image-attribute not implemented yet
                 }
             }
+        }
+        if(playableArmyCounter==0){
+            return null;
         }
         return mergedArmies;
     }
