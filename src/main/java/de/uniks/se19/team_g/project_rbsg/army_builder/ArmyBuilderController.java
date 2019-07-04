@@ -32,6 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +40,7 @@ import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -243,6 +245,15 @@ public class ArmyBuilderController implements Initializable, RootController {
         if (sceneManager == null) {
             return;
         }
+        if(viewState.unsavedUpdates.get()==true){
+            try {
+                persistantArmyManager.saveArmies(appState.armies);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
@@ -251,13 +262,19 @@ public class ArmyBuilderController implements Initializable, RootController {
         appState.armies.forEach(army -> army.setUnsavedUpdates(false));
         final List<Army> dirtyArmies = appState.armies.stream().filter(Army::hasUnsavedUpdates).collect(Collectors.toList());
 
-        persistantArmyManager.saveArmies(appState.armies)
-            // if the save doesn't work, reset the dirty flags to allow new tries
-            .exceptionally(throwable -> {
-                Platform.runLater( () -> dirtyArmies.forEach(army -> army.setUnsavedUpdates(true)));
-                return null;
-            })
-        ;
+        try {
+            persistantArmyManager.saveArmies(appState.armies)
+                // if the save doesn't work, reset the dirty flags to allow new tries
+                .exceptionally(throwable -> {
+                    Platform.runLater( () -> dirtyArmies.forEach(army -> army.setUnsavedUpdates(true)));
+                    return null;
+                })
+            ;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showInfo() {
@@ -273,6 +290,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public void deleteArmy() {
         //For clean-deletion
         Army army = appState.selectedArmy.get();
+        army.setUnsavedUpdates(true);
         army.units.clear();
     }
 
