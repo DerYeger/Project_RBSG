@@ -72,6 +72,7 @@
     -primary-background-color: #88588c; /* Button non-hover */
     -primary-lighter-background-color: #bb86fc; /* Button hover */
     -secondary-background-color: #03dac5;
+    -secondary-color-darker: #039b86;
     -selected-background-color: #868cfc;
     -error-background-color: #cf6679;
     -disabled-background-color: #d3d3d3;
@@ -323,7 +324,7 @@
 }
 
 .list-view.default .list-cell:hover {
-    -fx-background-color: transparent, -primary-lighter-background-color;
+    -fx-background-color: transparent, rgba(189, 189, 189, 0.51);
     -fx-background-insets: 0px, 5 0 5 0 ;
     -fx-opacity: 1;
 }
@@ -334,18 +335,18 @@
 }
 
 .list-view.default-horizontal .list-cell:hover {
-    -fx-background-color: transparent, -primary-lighter-background-color;
+    -fx-background-color: transparent, rgba(189, 189, 189, 0.51);
     -fx-background-insets: 0px, 0 5 0 5 ;
     -fx-opacity: 1;
 }
 
 .list-view.default  .list-cell:selected {
-    -fx-background-color: transparent, -selected-background-color;
+    -fx-background-color: transparent, rgba(115, 115, 115, 0.51);
     -fx-background-insets: 0px, 5 0 5 0 ;
 }
 
 .list-view.default-horizontal  .list-cell:selected {
-    -fx-background-color: transparent, -selected-background-color;
+    -fx-background-color: transparent, rgba(115, 115, 115, 0.51);
     -fx-background-insets: 0px, 0 5 0 5 ;
 }
 
