@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
@@ -29,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -40,26 +42,30 @@ public class PersistentArmyManager {
     private String fileName = "armies.json";
     @NonNull
     private DeleteArmyService deleteArmyService;
+    private GetArmiesService getArmiesService;
 
     public PersistentArmyManager(@NonNull RestTemplate restTemplate,
-                                 @NonNull DeleteArmyService deleteArmyService) {
+                                 @NonNull DeleteArmyService deleteArmyService,
+                                 @NonNull GetArmiesService getArmiesService) {
 
         this.restTemplate = restTemplate;
         this.deleteArmyService = deleteArmyService;
+        this.getArmiesService = getArmiesService;
     }
 
     public SaveArmyResponse saveArmyOnline(@NonNull Army army) throws ExecutionException,
             InterruptedException,
             IOException {
-        if (army.id.isEmpty().get()) {
+        //if (army.id.isEmpty().get()) {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
             SaveArmyResponse response = createArmy(army).get();
             String message = response.message;
+            System.out.println("save online status: " + response.status);
             return response;
-        }
-        return updateArmy(army).get();
+        //}
+        //return updateArmy(army).get();
     }
 
     private CompletableFuture<SaveArmyResponse> updateArmy(@NonNull Army army) {
@@ -205,11 +211,23 @@ public class PersistentArmyManager {
     }
 
     public void saveArmies(ObservableList<Army> armies) {
-
+        try {
+            //Generate clean state
+            List<Army> armyState = getArmiesService.queryArmies().get();
+            armyState.stream().forEach(army -> deleteArmyService.deleteArmy(army));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         ArrayList<Army> armyList = new ArrayList<>();
         SaveArmyResponse saveArmyResponse;
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        if (!armyList.isEmpty()) {
+            this.saveArmiesLocal(armyList);
+        }
 
         for (Army army : armies) {
             if (army.units.size() == 10) {
@@ -230,20 +248,14 @@ public class PersistentArmyManager {
                 }
             }
             else{
-                //army is malformed and has to be deleted on the server
-                try {
-                    deleteArmyService.deleteArmy(army).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+                army.id.set("");
             }
             armyList.add(army);
+            if (!armyList.isEmpty()) {
+                this.saveArmiesLocal(armyList);
+            }
         }
-        if (!armyList.isEmpty()) {
-            this.saveArmiesLocal(armyList);
-        }
+
     }
 
     public void setTestFileName(String fileName){

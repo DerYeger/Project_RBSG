@@ -130,13 +130,16 @@ public class GetArmiesService {
 
         ArrayList<Army> mergedArmies = new ArrayList<>();
         if(remoteArmies.isEmpty()){
+            System.out.println("Online armies are empty. Returning local armies.");
             return localArmies;
         }
 
         mergedArmies.addAll(remoteArmies);
+        System.out.println("Got " + remoteArmies.size() + "armies from the server.");
         for (Army remoteArmy : remoteArmies) {
             for (Army localArmy : localArmies) {
-                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<7) {
+                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<=7) {
+                    System.out.println("Added local army with " + localArmy.units.size() + "units");
                     mergedArmies.add(localArmy);
                     break;
                 }
