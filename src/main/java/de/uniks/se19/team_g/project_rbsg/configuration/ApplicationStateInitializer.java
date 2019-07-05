@@ -2,8 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
@@ -24,17 +26,21 @@ public class ApplicationStateInitializer {
     @Nullable
     private ArmyGeneratorStrategy armyGeneratorStrategy;
     private boolean createdDefaultArmies;
+    @NonNull
+    private PersistentArmyManager persistentArmyManager;
 
     public ApplicationStateInitializer(
             @Nonnull ApplicationState appState,
             @Nonnull ArmyManager armyManager,
             @Nonnull GetUnitTypesService getUnitTypesService,
-            @Nullable ArmyGeneratorStrategy armyGeneratorStrategy
+            @Nullable ArmyGeneratorStrategy armyGeneratorStrategy,
+            @Nonnull PersistentArmyManager persistentArmyManager
     ) {
         this.appState = appState;
         this.armyManager = armyManager;
         this.getUnitTypesService = getUnitTypesService;
         this.armyGeneratorStrategy = armyGeneratorStrategy;
+        this.persistentArmyManager = persistentArmyManager;
     }
 
     public CompletableFuture<Void> initialize() {
@@ -53,6 +59,13 @@ public class ApplicationStateInitializer {
                 .thenAcceptAsync(
                     armies -> {
                         appState.armies.setAll(armies);
+                        try {
+                            persistentArmyManager.saveArmies(appState.armies);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
                         if (createdDefaultArmies) {
                             Platform.runLater(() -> appState.notifications.add("army.newDefaultArmies"));
                         }
@@ -69,7 +82,6 @@ public class ApplicationStateInitializer {
                 createdDefaultArmies = true;
             }
         }
-
         return armies;
     }
 }

@@ -6,6 +6,8 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 public class GetArmiesService {
 
     private String fileName="armies.json";
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Nonnull
     private final RestTemplate rbsgTemplate;
@@ -82,6 +85,7 @@ public class GetArmiesService {
         if (operatingSystem.equals("Windows")) {
             //Windows
             file = new File(System.getProperty("user.home") + "\\.rbsg\\"+fileName);
+            logger.debug("Load armies from " + file.getAbsolutePath());
             if (file.exists()) {
                 armyString = Files.readString(Paths.get(file.getPath()));
             } else {
@@ -90,6 +94,7 @@ public class GetArmiesService {
         } else {
             //Unix
             file = new File(System.getProperty("user.home") + "/.local/rbsg/"+fileName);
+            logger.debug("Load armies from " + file.getAbsolutePath());
             if (file.exists()) {
                 armyString = Files.readString(Paths.get(file.getPath()));
             } else {
@@ -98,31 +103,42 @@ public class GetArmiesService {
         }
 
         if (armyString.equals("")) {
+            logger.debug("No local armies detected, return empty List.");
             return armies;
         }
         PersistentArmyManager.ArmyWrapper armyWrapper = objectMapper.readValue(armyString, PersistentArmyManager.ArmyWrapper.class);
 
         for (PersistentArmyManager.DeserializableArmy deserializableArmy : armyWrapper.armies) {
+
             Army newArmy = new Army();
             newArmy.id.set(deserializableArmy.id);
             newArmy.name.set(deserializableArmy.name);
+
             for (String unitId : deserializableArmy.units) {
                 newArmy.units.add(armyUnitAdapter.mapServerUnit(unitId));
             }
+
             //Ensure army-size in case of malformed file.
             if(armies.size()<7){
                 armies.add(newArmy);
+            }
+            else{
+                logger.debug(armies.size() + " armies have been detected. But only 7 can be progressed.");
             }
         }
         return armies;
     }
 
     private String checkOs() {
+
         String os = System.getProperty("os.name");
+        logger.debug(os + " detected.");
         return os;
+
     }
 
     public void setTestFileName(String fileName){
+
         this.fileName=fileName;
     }
 
@@ -130,38 +146,57 @@ public class GetArmiesService {
         int playableArmyCounter=0;
 
         ArrayList<Army> mergedArmies = new ArrayList<>();
+
         if(remoteArmies.isEmpty()){
-            System.out.println("Online armies are empty. Returning local armies.");
+
+            logger.debug("Remote armies are empty. Returning local armies.");
+
             for(Army army : localArmies){
                 playableArmyCounter+=(army.units.size()==10) ? 1:0;
             }
+
             if(playableArmyCounter==0 && localArmies.size()==7){
                 //ToDiscuss: Ensure that the application state will generate at least one playable army.
+                logger.debug("Every local army isnt playbale. " +
+                        "The first will be deleted, to ensure the creation on one playable army.");
                 localArmies.remove(0);
             }
+
             return localArmies;
         }
-
+        //Add all remoteArmies to
         mergedArmies.addAll(remoteArmies);
         playableArmyCounter+=remoteArmies.size();
-        System.out.println("Got " + remoteArmies.size() + "armies from the server.");
+
+        logger.debug(playableArmyCounter + " playable remote armies have been loaded.");
+
         for (Army remoteArmy : remoteArmies) {
             for (Army localArmy : localArmies) {
+
                 if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<=7) {
-                    System.out.println("Added local army with " + localArmy.units.size() + "units");
+
+                    logger.debug("Added local army with " + localArmy.units.size() + "units");
                     mergedArmies.add(localArmy);
                     if(localArmy.units.size()==10){
+
                         playableArmyCounter++;
+
                     }
                 }
                 if (remoteArmy.id.equals(localArmy.id) && !mergedArmies.contains(localArmy)) {
+
                     //Accept remote units but use image from localArmy
-                    //ToDo: Image-attribute not implemented yet
+                    logger.debug("Local and remote army represent identical object. Local picture has been used.");
+                    remoteArmy.iconType.set(localArmy.iconType.get());
+
                 }
             }
         }
         if(playableArmyCounter==0){
+
+            logger.debug("No playable army could be loaded.");
             return null;
+
         }
         return mergedArmies;
     }
