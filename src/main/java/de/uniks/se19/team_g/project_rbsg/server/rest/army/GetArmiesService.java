@@ -173,7 +173,7 @@ public class GetArmiesService {
         for (Army remoteArmy : remoteArmies) {
             for (Army localArmy : localArmies) {
 
-                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<=7) {
+                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<7) {
 
                     logger.debug("Added local army with " + localArmy.units.size() + "units");
                     mergedArmies.add(localArmy);

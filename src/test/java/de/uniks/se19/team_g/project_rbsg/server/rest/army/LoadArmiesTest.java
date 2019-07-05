@@ -127,6 +127,10 @@ public class LoadArmiesTest {
 
     @Test
     public void testLoading() throws ExecutionException, InterruptedException {
+        File localArmiesFile = new File(System.getProperty("user.home") + "/.local/rbsg/testArmies.json");
+        if(localArmiesFile.exists()){
+            localArmiesFile.delete();
+        }
         ObservableList<Army> armies = FXCollections.observableArrayList();
         persistantArmyManager.setTestFileName("testArmies.json");
         getArmiesService.setTestFileName("testArmies.json");
@@ -174,6 +178,10 @@ public class LoadArmiesTest {
 
     @Test
     public void testMergingOnline() throws ExecutionException, InterruptedException {
+        File localArmiesFile = new File(System.getProperty("user.home") + "/.local/rbsg/testArmies.json");
+        if(localArmiesFile.exists()){
+            localArmiesFile.delete();
+        }
         ObservableList<Army> armies = FXCollections.observableArrayList();
         persistantArmyManager.setTestFileName("testArmies.json");
         getArmiesService.setTestFileName("testArmies.json");

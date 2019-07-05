@@ -59,7 +59,6 @@ public class PersistentArmyManager {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
             CompletableFuture<SaveArmyResponse> response = createArmy(army);
-            System.out.println("save online status: " + response.get().status);
             return response;
 
     }
