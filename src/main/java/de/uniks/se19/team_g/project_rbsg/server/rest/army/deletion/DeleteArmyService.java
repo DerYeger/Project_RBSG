@@ -24,7 +24,7 @@ public class DeleteArmyService {
     public CompletableFuture<DeleteArmyResponse> deleteArmy(Army army) {
 
         String deleteArmyUrl = URL + army.id.get();
-
+        army.id.set("");
         return CompletableFuture.supplyAsync(() -> rbsgTemplate.exchange(
                 deleteArmyUrl,
                 HttpMethod.DELETE,

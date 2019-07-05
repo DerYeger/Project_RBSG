@@ -2,10 +2,13 @@ package de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import javafx.collections.ObservableList;
@@ -28,23 +31,36 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Component
 public class PersistentArmyManager {
     private final String url = "/army";
     final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private String fileName = "armies.json";
+    @NonNull
+    private DeleteArmyService deleteArmyService;
+    private GetArmiesService getArmiesService;
 
-    public PersistentArmyManager(@NonNull RestTemplate restTemplate) {
+    public PersistentArmyManager(@NonNull RestTemplate restTemplate,
+                                 @NonNull DeleteArmyService deleteArmyService,
+                                 @NonNull GetArmiesService getArmiesService) {
 
         this.restTemplate = restTemplate;
+        this.deleteArmyService = deleteArmyService;
+        this.getArmiesService = getArmiesService;
     }
 
-    public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) {
-        if (army.id.isEmpty().get()) {
-            return createArmy(army);
-        }
-        return updateArmy(army);
+    public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) throws
+            InterruptedException, ExecutionException {
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            CompletableFuture<SaveArmyResponse> response = createArmy(army);
+            return response;
+
     }
 
     private CompletableFuture<SaveArmyResponse> updateArmy(@NonNull Army army) {
@@ -149,8 +165,7 @@ public class PersistentArmyManager {
             );
 
             for (Unit unit : army.units) {
-                idList.add(unit.id.get());
-                deserializableArmy.units.add(unit);
+                deserializableArmy.units.add(unit.id.get());
             }
 
             if (army.id.isEmpty().get()) {
@@ -215,12 +230,23 @@ public class PersistentArmyManager {
      * @return
      */
     private String getRelativeFileName() {
-        return "rbsg/armies.json";
+        return "rbsg/" + fileName;
     }
 
-    public CompletableFuture<Void> saveArmies(ObservableList<Army> armies) {
-
+    public CompletableFuture<Void> saveArmies(ObservableList<Army> armies) throws InterruptedException, ExecutionException {
+        try {
+            //Generate clean state
+            List<Army> armyState = getArmiesService.queryArmies().get();
+            armyState.stream().forEach(army -> deleteArmyService.deleteArmy(army));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         ArrayList<Army> armyList = new ArrayList<>();
+        SaveArmyResponse saveArmyResponse;
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         List<CompletableFuture<SaveArmyResponse>> feedbacks = new ArrayList<>();
 
@@ -236,7 +262,13 @@ public class PersistentArmyManager {
         }
 
         //noinspection unchecked,SuspiciousToArrayCall
-        return CompletableFuture.allOf((CompletableFuture<SaveArmyResponse>[]) feedbacks.toArray(Object[]::new));
+        CompletableFuture<SaveArmyResponse>[] feedBackObjects = new CompletableFuture[feedbacks.size()];
+        feedBackObjects = feedbacks.toArray(feedBackObjects);
+        return CompletableFuture.allOf(feedBackObjects);
+    }
+
+    public void setTestFileName(String fileName){
+        this.fileName=fileName;
     }
 
     public static class DeserializableArmy{
@@ -244,7 +276,7 @@ public class PersistentArmyManager {
         public DeserializableArmy(
                 @JsonProperty("id") String id,
                 @JsonProperty("name")String name,
-                @JsonProperty("units")ArrayList<Unit> units,
+                @JsonProperty("units")ArrayList<String> units,
                 @JsonProperty("armyIcon") String armyIcon
         ){
             this.id=id;
@@ -254,7 +286,7 @@ public class PersistentArmyManager {
         }
         public String id;
         public String name;
-        public ArrayList<Unit>units;
+        public ArrayList<String>units;
 
         /**
          * Maps the identifier of the ArmyIcon Enum to later restore the proper icon or set another default
