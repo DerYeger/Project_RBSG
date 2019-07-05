@@ -11,10 +11,12 @@ import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.model.UnitTypeMetaData;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
@@ -55,6 +57,7 @@ public class IngameViewController implements RootController {
 
     private Game game;
     private ObservableList<Cell> cells;
+    private ObservableList<Unit> units;
     private GraphicsContext gc;
 
     private Image grass;
@@ -101,6 +104,7 @@ public class IngameViewController implements RootController {
         } else {
             grass = new Image("/assets/cells/grass.png");
             cells = game.getCells();
+            units = game.getUnits();
             columnRowSize = Math.sqrt(cells.size());
             canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
@@ -125,6 +129,14 @@ public class IngameViewController implements RootController {
                 continue;
             }
             gc.drawImage(getImage(cell), cell.getX() * CELL_SIZE, cell.getY() * CELL_SIZE);
+        }
+        String imagePath = UnitTypeMetaData.UNKNOWN.getImage().toExternalForm();
+        for(Unit unit: units) {
+            gc.drawImage(
+                    new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true),
+                    unit.getPosition().get().getX() * CELL_SIZE,
+                    unit.getPosition().get().getY() * CELL_SIZE
+            );
         }
     }
 
