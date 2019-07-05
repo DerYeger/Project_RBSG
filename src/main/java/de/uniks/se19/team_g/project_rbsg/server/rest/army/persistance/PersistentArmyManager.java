@@ -231,7 +231,7 @@ public class PersistentArmyManager {
      * @return
      */
     private String getRelativeFileName() {
-        return "rbsg/armies.json";
+        return "rbsg/" + fileName;
     }
 
     public CompletableFuture<Void> saveArmies(ObservableList<Army> armies) throws InterruptedException, ExecutionException {

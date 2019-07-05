@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
@@ -60,6 +61,11 @@ public class PersistantArmyTest {
     UserProvider userProvider;
     @Autowired
     RestTemplate rbsgTemplate;
+    @Autowired
+    DeleteArmyService deleteArmyService;
+    @Autowired
+    GetArmiesService getArmiesService;
+
 
     private String armyId;
 
@@ -121,7 +127,7 @@ public class PersistantArmyTest {
         when(restMock.postForObject(eq("/army"), isA(PersistArmyRequest.class), eq(SaveArmyResponse.class)))
                 .thenReturn(saveArmyResponse);
 
-        persistantArmyManager = new PersistentArmyManager(restMock);
+        persistantArmyManager = new PersistentArmyManager(restMock, deleteArmyService, getArmiesService);
 
         //Assess persistArmyManger
         try {
@@ -190,7 +196,7 @@ public class PersistantArmyTest {
     public void testUpdateArmyLocal() throws InterruptedException, ExecutionException {
         RestTemplate localUpdateMock = mock(RestTemplate.class);
         SaveArmyResponse onUpdateResponse = new SaveArmyResponse();
-        PersistentArmyManager armyManager = new PersistentArmyManager(localUpdateMock);
+        PersistentArmyManager armyManager = new PersistentArmyManager(localUpdateMock, deleteArmyService, getArmiesService);
         onUpdateResponse.status="success";
         onUpdateResponse.message="\"id\":\"5d07fc8577af9d0001476d90\",\"name\":\"ggArmyFromTest\",\"units\":[\"5cc051bd62083600017db3b7\"]}";
         onUpdateResponse.data=new SaveArmyResponse.SaveArmyResponseData();
@@ -230,7 +236,7 @@ public class PersistantArmyTest {
         ArrayList<Army> armyList=new ArrayList<>();
         ArrayList<Army> armies= new ArrayList<>();
         RestTemplate localTemplateMock = mock(RestTemplate.class);
-        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(localTemplateMock);
+        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(localTemplateMock, deleteArmyService, getArmiesService);
         String armyString;
 
         Unit unit1 = new Unit();

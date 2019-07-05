@@ -23,6 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,10 @@ public class LoadArmiesTest {
 
     @Test
     public void testEmptyLocalLoading(){
+        File localArmiesFile = new File(System.getProperty("user.home") + "/.local/rbsg/testArmies.json");
+        if(localArmiesFile.exists()){
+            localArmiesFile.delete();
+        }
         Army army = new Army();
         ArrayList<Army> armies = new ArrayList<>();
         armies.add(army);
