@@ -79,7 +79,7 @@ public class GetArmiesService {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         File file = null;
-        String armyString = null;
+        String armyString = "";
         String operatingSystem = checkOs();
 
         if (operatingSystem.equals("Windows")) {
@@ -94,9 +94,9 @@ public class GetArmiesService {
         } else {
             //Unix
             file = new File(System.getProperty("user.home") + "/.local/rbsg/"+fileName);
-            logger.debug("Load armies from " + file.getAbsolutePath());
             if (file.exists()) {
                 armyString = Files.readString(Paths.get(file.getPath()));
+                logger.debug("Load armies from " + file.getAbsolutePath());
             } else {
                 file.createNewFile();
             }
