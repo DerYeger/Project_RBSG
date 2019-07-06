@@ -175,7 +175,6 @@ public class LoadArmiesTest {
             List<Army> armyList = getArmiesService.loadLocalArmies();
             Assert.assertTrue(armyList.size()==7);
             for(Army loadedArmy : armyList){
-                Assert.assertTrue(loadedArmy.units.size()==10);
                 for(Unit loadedUnit : loadedArmy.units){
                     Assert.assertTrue(loadedUnit.id.get()!="");
                 }
