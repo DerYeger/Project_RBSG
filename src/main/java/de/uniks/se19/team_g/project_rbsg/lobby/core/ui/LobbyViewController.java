@@ -160,7 +160,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
-        this.musicManager = musicManager.init();
+        this.musicManager = musicManager;
     }
 
     public Lobby getLobby()

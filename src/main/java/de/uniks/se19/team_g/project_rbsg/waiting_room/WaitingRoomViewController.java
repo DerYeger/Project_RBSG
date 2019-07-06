@@ -101,7 +101,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.gameEventManager = gameEventManager;
-        this.musicManager = musicManager.init();
+        this.musicManager = musicManager;
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
         this.chatBuilder = chatBuilder;

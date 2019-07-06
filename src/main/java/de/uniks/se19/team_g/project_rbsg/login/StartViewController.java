@@ -42,7 +42,7 @@ public class StartViewController implements RootController {
         this.splashImageBuilder = splashImageBuilder;
         this.loginFormBuilder = loginFormBuilder;
         this.titleViewBuilder = titleViewBuilder;
-        this.musicManager = musicManager.init();
+        this.musicManager = musicManager;
     }
 
     public void initialize() throws IOException {
