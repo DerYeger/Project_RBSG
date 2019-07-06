@@ -15,6 +15,8 @@ import java.net.URL;
 @Component
 public class MusicManager {
 
+    // https://opengameart.org/content/theme-song-8-bit
+
     private URL musicNoteBlack = getClass().getResource("/assets/icons/navigation/musicNoteBlack.png");
     private URL musicNoteWhite = getClass().getResource("/assets/icons/navigation/musicNoteWhite.png");
     private URL musicNoteBlackOff = getClass().getResource("/assets/icons/navigation/musicOffBlack.png");
