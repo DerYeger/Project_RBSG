@@ -11,6 +11,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyUnitAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverResponses.DeleteArmyResponse;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import org.junit.Assert;
@@ -47,7 +48,8 @@ import static org.mockito.Mockito.*;
         ArmyUnitAdapter.class,
         ApplicationState.class,
         GetArmiesService.class,
-        DeleteArmyService.class
+        DeleteArmyService.class,
+        SaveFileStrategy.class
 })
 
 

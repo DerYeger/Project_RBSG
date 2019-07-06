@@ -16,20 +16,12 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.P
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
-import javafx.application.Application;
-import javafx.collections.ObservableList;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -56,10 +48,6 @@ import static org.mockito.Mockito.*;
         UserKeyInterceptor.class,
         ApiClientErrorInterceptor.class,
         ObjectMapper.class,
-        DeleteArmyService.class,
-        GetArmiesService.class,
-        ArmyAdapter.class,
-        ArmyUnitAdapter.class,
         ApplicationState.class
 })
 
@@ -75,14 +63,10 @@ public class PersistantArmyTest {
     UserProvider userProvider;
     @Autowired
     RestTemplate rbsgTemplate;
-    @Autowired
+    @MockBean
     DeleteArmyService deleteArmyService;
-    @Autowired
+    @MockBean
     GetArmiesService getArmiesService;
-    @Autowired
-    ArmyAdapter armyAdapter;
-    @Autowired
-    ArmyUnitAdapter armyUnitAdapter;
     @Autowired
     ApplicationState applicationState;
 
