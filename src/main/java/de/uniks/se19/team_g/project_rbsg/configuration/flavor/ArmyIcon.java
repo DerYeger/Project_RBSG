@@ -47,4 +47,12 @@ public enum ArmyIcon {
         }
         return image;
     }
+
+    public static ArmyIcon resolveValue(String name) {
+        try {
+            return valueOf(name);
+        } catch (IllegalArgumentException e) {
+            return DRAGON_HEAD;
+        }
+    }
 }

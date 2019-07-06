@@ -2,8 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.server.rest.army;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -99,6 +98,7 @@ public class GetArmiesService {
             Army newArmy = new Army();
             newArmy.id.set(deserializableArmy.id);
             newArmy.name.set(deserializableArmy.name);
+            newArmy.iconType.set(ArmyIcon.resolveValue(deserializableArmy.armyIcon));
 
             for (String unitId : deserializableArmy.units) {
                 newArmy.units.add(armyUnitAdapter.mapServerUnit(unitId));
@@ -137,6 +137,7 @@ public class GetArmiesService {
 
             return localArmies;
         }
+
         //Add all remoteArmies to
         mergedArmies.addAll(remoteArmies);
         playableArmyCounter+=remoteArmies.size();
@@ -146,7 +147,7 @@ public class GetArmiesService {
         for (Army remoteArmy : remoteArmies) {
             for (Army localArmy : localArmies) {
 
-                if (localArmy.id.get()=="" && !mergedArmies.contains(localArmy) && mergedArmies.size()<7) {
+                if (localId != null && !localId.isBlank() && !mergedArmies.contains(localArmy) && mergedArmies.size()<7) {
 
                     logger.debug("Added local army with " + localArmy.units.size() + "units");
                     mergedArmies.add(localArmy);
