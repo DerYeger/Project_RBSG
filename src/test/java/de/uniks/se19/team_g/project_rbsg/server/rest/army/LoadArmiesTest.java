@@ -48,7 +48,8 @@ import java.util.concurrent.ExecutionException;
         ArmyUnitAdapter.class,
         ApplicationState.class,
         DeleteArmyService.class,
-        ArmyManager.class
+        ArmyManager.class,
+        PersistentArmyManager.class
 })
 public class LoadArmiesTest {
 
@@ -56,8 +57,10 @@ public class LoadArmiesTest {
     static class ContextConfiguration {
 
         @Bean
-        public PersistentArmyManager saveFileStrategy() {
-            return Mockito.mock(PersistentArmyManager.class);
+        public SaveFileStrategy saveFileStrategy() {
+            final SaveFileStrategy fileStrategy = new SaveFileStrategy();
+            fileStrategy.setFilename(".testArmies.json");
+            return fileStrategy;
         }
     }
 
@@ -92,9 +95,7 @@ public class LoadArmiesTest {
         Army army = new Army();
         ArrayList<Army> armies = new ArrayList<>();
         armies.add(army);
-        persistantArmyManager.setTestFileName("testArmies.json");
         persistantArmyManager.saveArmiesLocal(armies);
-        getArmiesService.setTestFileName("testArmies.json");
 
         try {
             List<Army> armyList = getArmiesService.loadLocalArmies();
@@ -109,8 +110,6 @@ public class LoadArmiesTest {
     @Test
     public void loadArmiesLocal(){
         ArrayList<Army> armies = new ArrayList<>();
-        persistantArmyManager.setTestFileName("testArmies.json");
-        getArmiesService.setTestFileName("testArmies.json");
 
         for(int j = 0; j < 7; j++) {
             Army army = new Army();
@@ -144,8 +143,6 @@ public class LoadArmiesTest {
             localArmiesFile.delete();
         }
         ObservableList<Army> armies = FXCollections.observableArrayList();
-        persistantArmyManager.setTestFileName("testArmies.json");
-        getArmiesService.setTestFileName("testArmies.json");
 
         User user = new User("test123", "test123");
         user.setUserKey(
@@ -194,9 +191,8 @@ public class LoadArmiesTest {
         if(localArmiesFile.exists()){
             localArmiesFile.delete();
         }
+
         ObservableList<Army> armies = FXCollections.observableArrayList();
-        persistantArmyManager.setTestFileName("testArmies.json");
-        getArmiesService.setTestFileName("testArmies.json");
 
         User user = new User("test123", "test123");
         user.setUserKey(

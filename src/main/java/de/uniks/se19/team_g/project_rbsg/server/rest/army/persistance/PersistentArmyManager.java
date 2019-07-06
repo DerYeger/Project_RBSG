@@ -231,10 +231,6 @@ public class PersistentArmyManager {
         return CompletableFuture.allOf(feedBackObjects);
     }
 
-    public void setTestFileName(String s) {
-
-    }
-
     public static class DeserializableArmy{
         @JsonCreator
         public DeserializableArmy(
