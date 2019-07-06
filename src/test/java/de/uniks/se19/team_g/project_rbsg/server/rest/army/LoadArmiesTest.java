@@ -11,14 +11,19 @@ import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -31,10 +36,10 @@ import java.util.concurrent.ExecutionException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        LoadArmiesTest.ContextConfiguration.class,
         ServerConfig.class,
         LoginManager.class,
         UserProvider.class,
-        PersistentArmyManager.class,
         UserKeyInterceptor.class,
         ApiClientErrorInterceptor.class,
         ObjectMapper.class,
@@ -45,9 +50,16 @@ import java.util.concurrent.ExecutionException;
         DeleteArmyService.class,
         ArmyManager.class
 })
-
 public class LoadArmiesTest {
 
+    @TestConfiguration
+    static class ContextConfiguration {
+
+        @Bean
+        public PersistentArmyManager saveFileStrategy() {
+            return Mockito.mock(PersistentArmyManager.class);
+        }
+    }
 
     @Autowired
     PersistentArmyManager persistantArmyManager;

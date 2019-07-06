@@ -11,6 +11,7 @@ import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
@@ -21,11 +22,15 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -48,7 +53,6 @@ import static org.mockito.Mockito.*;
         ServerConfig.class,
         LoginManager.class,
         UserProvider.class,
-        PersistentArmyManager.class,
         UserKeyInterceptor.class,
         ApiClientErrorInterceptor.class,
         ObjectMapper.class,
@@ -61,8 +65,10 @@ import static org.mockito.Mockito.*;
 
 public class PersistantArmyTest {
 
+    @Nullable
     @Autowired
     PersistentArmyManager persistantArmyManager;
+
     @Autowired
     LoginManager loginManager;
     @Autowired
@@ -114,7 +120,7 @@ public class PersistantArmyTest {
     }
 
     @Test
-    public void testCreateArmyLocal(){
+    public void testCreateArmyLocal() throws ExecutionException, InterruptedException {
         RestTemplate restMock = mock(RestTemplate.class);
         PersistentArmyManager persistantArmyManager;
         SaveArmyResponse saveArmyResponse = new SaveArmyResponse();
@@ -139,25 +145,26 @@ public class PersistantArmyTest {
 
         when(restMock.postForObject(eq("/army"), isA(PersistArmyRequest.class), eq(SaveArmyResponse.class)))
                 .thenReturn(saveArmyResponse);
+        final SaveFileStrategy fileStrategy = mock(SaveFileStrategy.class);
 
-        persistantArmyManager = new PersistentArmyManager(restMock, deleteArmyService, getArmiesService);
+        persistantArmyManager = new PersistentArmyManager(
+                restMock,
+                deleteArmyService,
+                getArmiesService,
+                fileStrategy
+        );
 
         //Assess persistArmyManger
-        try {
 
-            CompletableFuture<SaveArmyResponse> response = persistantArmyManager.saveArmyOnline(army);
-            //will fail otherwise
-            sleep(2000);
-            verify(restMock).postForObject(eq("/army"), isA(PersistArmyRequest.class), eq(SaveArmyResponse.class));
-            Assert.assertNotNull(army.id.get());
-            Assert.assertEquals("200", response.get().status);
-            Assert.assertNotNull(response.get().data.id);
-            Assert.assertFalse(response.get().data.units.isEmpty());
-            Assert.assertEquals(10, response.get().data.units.size());
+        SaveArmyResponse response = persistantArmyManager.saveArmyOnline(army).get();
+        verify(restMock).postForObject(eq("/army"), isA(PersistArmyRequest.class), eq(SaveArmyResponse.class));
+        Assert.assertNotNull(army.id.get());
+        Assert.assertEquals("200", response.status);
+        Assert.assertNotNull(response.data.id);
+        Assert.assertFalse(response.data.units.isEmpty());
+        Assert.assertEquals(10, response.data.units.size());
 
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        verifyZeroInteractions(fileStrategy);
     }
 
     //Deprecated
@@ -214,7 +221,15 @@ public class PersistantArmyTest {
         ArrayList<Army> armyList=new ArrayList<>();
         ArrayList<Army> armies= new ArrayList<>();
         RestTemplate localTemplateMock = mock(RestTemplate.class);
-        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(localTemplateMock, deleteArmyService, getArmiesService);
+
+        SaveFileStrategy fileStrategy = new SaveFileStrategy();
+        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(
+            localTemplateMock,
+            deleteArmyService,
+            getArmiesService,
+            fileStrategy
+        );
+
         String armyString;
 
         Unit unit1 = new Unit();

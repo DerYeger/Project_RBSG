@@ -8,16 +8,15 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Component
 public class SaveFileStrategy {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final PersistentArmyManager persistentArmyManager;
     String fileName = "armies.json";
 
-    public SaveFileStrategy(PersistentArmyManager persistentArmyManager) {
-        this.persistentArmyManager = persistentArmyManager;
+    public SaveFileStrategy() {
     }
 
     @Nonnull
@@ -60,10 +59,10 @@ public class SaveFileStrategy {
      * @return
      */
     String getRelativeFileName() {
-        return "rbsg/" + fileName;
+        return Paths.get("rbsg/", fileName).toString();
     }
 
-    public void setTestFileName(String fileName) {
+    public void setFilename(String fileName) {
         this.fileName = fileName;
     }
 }

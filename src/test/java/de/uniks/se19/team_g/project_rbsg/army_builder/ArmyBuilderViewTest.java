@@ -49,7 +49,6 @@ import org.testfx.util.WaitForAsyncUtils;
         ArmyBuilderViewTest.ContextConfiguration.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        PersistentArmyManager.class,
         RestTemplate.class,
         LocaleConfig.class,
         UnitPropertyController.class,
@@ -63,6 +62,9 @@ public class ArmyBuilderViewTest extends ApplicationTest {
 
     @TestConfiguration
     static class ContextConfiguration {
+        @Bean
+        public PersistentArmyManager persistentArmyManager() {return Mockito.mock(PersistentArmyManager.class);}
+
         @Bean
         public ArmyDetailController armyDetailController() { return Mockito.mock(ArmyDetailController.class);}
 
