@@ -217,18 +217,28 @@ public class PersistentArmyManager {
         for (Army army : armies) {
             if (army.units.size() == 10) {
                 //army is complete
-                feedbacks.add(this.saveArmyOnline(army));
+                feedbacks.add(
+                    this.saveArmyOnline(army).thenApply(
+                        response -> {
+                            army.id.set(response.data.id);
+                            return response;
+                        }
+                    )
+                );
             }
             armyList.add(army);
         }
-        if (!armyList.isEmpty()) {
-            this.saveArmiesLocal(armyList);
-        }
 
-        //noinspection unchecked,SuspiciousToArrayCall
+        // noinspection unchecked
         CompletableFuture<SaveArmyResponse>[] feedBackObjects = new CompletableFuture[feedbacks.size()];
         feedBackObjects = feedbacks.toArray(feedBackObjects);
-        return CompletableFuture.allOf(feedBackObjects);
+        return CompletableFuture.allOf(feedBackObjects).thenRun(
+            () -> {
+                if (!armyList.isEmpty()) {
+                    this.saveArmiesLocal(armyList);
+                }
+            }
+        );
     }
 
     public static class DeserializableArmy{
