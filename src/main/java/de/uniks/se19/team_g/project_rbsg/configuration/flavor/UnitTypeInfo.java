@@ -24,7 +24,7 @@ public enum UnitTypeInfo {
     _5cc051bd62083600017db3b7(
             "flavor.unit.bazookaTrooper.name",
             "flavor.unit.bazookaTrooper.description",
-            UnitTypeInfo.class.getResource("/assets/unit/portrait/khorneberzerker.pNG"),
+            UnitTypeInfo.class.getResource("/assets/unit/portrait/khorneberzerker.png"),
             UnitTypeInfo.class.getResource("/assets/unit/icon/overlord-helm.png")
     ),
     _5cc051bd62083600017db3b8(
