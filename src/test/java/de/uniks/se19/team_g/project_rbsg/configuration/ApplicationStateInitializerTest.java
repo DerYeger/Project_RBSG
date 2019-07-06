@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.configuration;
 import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,15 +31,17 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
 
         final ArmyManager armyManager = mock(ArmyManager.class);
         final List<Army> armies = new ArrayList<>();
-        when(armyManager.getArmies()).thenReturn(CompletableFuture.completedFuture(armies));
+        when(armyManager.getArmies()).thenReturn(armies);
 
         final ArmyGeneratorStrategy armyGenerator = mock(ArmyGeneratorStrategy.class);
+        final PersistentArmyManager persistentArmyManager = mock(PersistentArmyManager.class);
 
         ApplicationStateInitializer sut = new ApplicationStateInitializer(
                 appState,
                 armyManager,
                 typesService,
-                armyGenerator
+                armyGenerator,
+                persistentArmyManager
         );
 
         final InOrder inOrder = inOrder(typesService, armyManager, armyGenerator);
@@ -59,12 +62,14 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
         final GetUnitTypesService typesService = mock(GetUnitTypesService.class);
         final ArmyManager armyManager = mock(ArmyManager.class);
         final ArmyGeneratorStrategy armyGenerator = mock(ArmyGeneratorStrategy.class);
+        final PersistentArmyManager persistentArmyManager = mock(PersistentArmyManager.class);
 
         ApplicationStateInitializer sut = new ApplicationStateInitializer(
                 appState,
                 armyManager,
                 typesService,
-                armyGenerator
+                armyGenerator,
+                persistentArmyManager
         );
 
         List<Army> armies = new ArrayList<>();

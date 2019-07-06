@@ -13,6 +13,10 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyAdapter;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyUnitAdapter;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -48,7 +52,11 @@ import org.testfx.util.WaitForAsyncUtils;
         PersistentArmyManager.class,
         RestTemplate.class,
         LocaleConfig.class,
-        UnitPropertyController.class
+        UnitPropertyController.class,
+        DeleteArmyService.class,
+        GetArmiesService.class,
+        ArmyAdapter.class,
+        ArmyUnitAdapter.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
 
@@ -66,6 +74,18 @@ public class ArmyBuilderViewTest extends ApplicationTest {
 
     @Autowired
     EditArmyController editArmyController;
+
+    @Autowired
+    DeleteArmyService deleteArmyService;
+
+    @Autowired
+    ArmyAdapter armyAdapter;
+
+    @Autowired
+    ArmyUnitAdapter armyUnitAdapter;
+
+    @Autowired
+    GetArmiesService getArmiesService;
 
     @Autowired
     public ApplicationContext context;
