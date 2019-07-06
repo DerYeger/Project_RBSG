@@ -223,7 +223,7 @@ public class LoadArmiesTest {
 
         List<Army> mergedArmies = getArmiesService.loadArmies();
 
-        Assert.assertTrue(mergedArmies.size()==7);
+        Assert.assertEquals(7, mergedArmies.size());
 
         try {
             List<Army> armyList = getArmiesService.loadLocalArmies();

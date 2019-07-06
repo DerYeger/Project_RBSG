@@ -146,6 +146,8 @@ public class GetArmiesService {
 
         for (Army remoteArmy : remoteArmies) {
             for (Army localArmy : localArmies) {
+                final String remoteId = remoteArmy.id.get();
+                final String localId = localArmy.id.get();
 
                 if (localId != null && !localId.isBlank() && !mergedArmies.contains(localArmy) && mergedArmies.size()<7) {
 
@@ -157,7 +159,7 @@ public class GetArmiesService {
 
                     }
                 }
-                if (remoteArmy.id.equals(localArmy.id) && !mergedArmies.contains(localArmy)) {
+                if (remoteId.equals(localId) && !mergedArmies.contains(localArmy)) {
 
                     //Accept remote units but use image from localArmy
                     logger.debug("Local and remote army represent identical object. Local picture has been used.");
