@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RBSGDataResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -27,7 +28,6 @@ import java.util.stream.Collectors;
 @Component
 public class GetArmiesService {
 
-    private String fileName="armies.json";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Nonnull
@@ -36,15 +36,19 @@ public class GetArmiesService {
     private final ArmyAdapter armyAdapter;
     @NonNull
     private final ArmyUnitAdapter armyUnitAdapter;
+    @Nonnull
+    private final SaveFileStrategy saveFileStrategy;
 
     public GetArmiesService(
             @Nonnull RestTemplate rbsgTemplate,
             @Nonnull ArmyAdapter armyAdapter,
-            @NonNull ArmyUnitAdapter armyUnitAdapter
+            @Nonnull ArmyUnitAdapter armyUnitAdapter,
+            @Nonnull SaveFileStrategy saveFileStrategy
     ) {
         this.rbsgTemplate = rbsgTemplate;
         this.armyAdapter = armyAdapter;
         this.armyUnitAdapter = armyUnitAdapter;
+        this.saveFileStrategy = saveFileStrategy;
     }
 
     public List<Army> loadArmies(){
@@ -78,29 +82,9 @@ public class GetArmiesService {
         List<Army> armies = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        File file = null;
-        String armyString = "";
-        String operatingSystem = checkOs();
 
-        if (operatingSystem.equals("Windows")) {
-            //Windows
-            file = new File(System.getProperty("user.home") + "\\.rbsg\\"+fileName);
-            logger.debug("Load armies from " + file.getAbsolutePath());
-            if (file.exists()) {
-                armyString = Files.readString(Paths.get(file.getPath()));
-            } else {
-                file.createNewFile();
-            }
-        } else {
-            //Unix
-            file = new File(System.getProperty("user.home") + "/.local/rbsg/"+fileName);
-            if (file.exists()) {
-                armyString = Files.readString(Paths.get(file.getPath()));
-                logger.debug("Load armies from " + file.getAbsolutePath());
-            } else {
-                file.createNewFile();
-            }
-        }
+        File file = saveFileStrategy.getSaveFile();
+        String armyString = Files.readString(file.toPath());
 
         if (armyString.equals("")) {
             logger.debug("No local armies detected, return empty List.");
@@ -127,19 +111,6 @@ public class GetArmiesService {
             }
         }
         return armies;
-    }
-
-    private String checkOs() {
-
-        String os = System.getProperty("os.name");
-        logger.debug(os + " detected.");
-        return os;
-
-    }
-
-    public void setTestFileName(String fileName){
-
-        this.fileName=fileName;
     }
 
     private List<Army> mergeArmies(List<Army> remoteArmies, List<Army> localArmies) {
