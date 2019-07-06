@@ -116,7 +116,6 @@ public class GetArmiesService {
     }
 
     private List<Army> mergeArmies(List<Army> remoteArmies, List<Army> localArmies) {
-        int playableArmyCounter=0;
 
         ArrayList<Army> mergedArmies = new ArrayList<>();
 
@@ -124,25 +123,11 @@ public class GetArmiesService {
 
             logger.debug("Remote armies are empty. Returning local armies.");
 
-            for(Army army : localArmies){
-                playableArmyCounter+=(army.units.size()==10) ? 1:0;
-            }
-
-            if(playableArmyCounter==0 && localArmies.size()==7){
-                //ToDiscuss: Ensure that the application state will generate at least one playable army.
-                logger.debug("Every local army isnt playbale. " +
-                        "The first will be deleted, to ensure the creation on one playable army.");
-                localArmies.remove(0);
-            }
-
             return localArmies;
         }
 
         //Add all remoteArmies to
         mergedArmies.addAll(remoteArmies);
-        playableArmyCounter+=remoteArmies.size();
-
-        logger.debug(playableArmyCounter + " playable remote armies have been loaded.");
 
         for (Army remoteArmy : remoteArmies) {
             for (Army localArmy : localArmies) {
@@ -153,11 +138,6 @@ public class GetArmiesService {
 
                     logger.debug("Added local army with " + localArmy.units.size() + "units");
                     mergedArmies.add(localArmy);
-                    if(localArmy.units.size()==10){
-
-                        playableArmyCounter++;
-
-                    }
                 }
                 if (remoteId.equals(localId) && !mergedArmies.contains(localArmy)) {
 
@@ -168,12 +148,7 @@ public class GetArmiesService {
                 }
             }
         }
-        if(playableArmyCounter==0){
 
-            logger.debug("No playable army could be loaded.");
-            return null;
-
-        }
         return mergedArmies;
     }
 
