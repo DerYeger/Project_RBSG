@@ -84,10 +84,12 @@ public class GetArmiesService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         File file = saveFileStrategy.getSaveFile();
+        if (!file.exists()) {
+            return armies;
+        }
         String armyString = Files.readString(file.toPath());
 
         if (armyString.equals("")) {
-            logger.debug("No local armies detected, return empty List.");
             return armies;
         }
         PersistentArmyManager.ArmyWrapper armyWrapper = objectMapper.readValue(armyString, PersistentArmyManager.ArmyWrapper.class);
