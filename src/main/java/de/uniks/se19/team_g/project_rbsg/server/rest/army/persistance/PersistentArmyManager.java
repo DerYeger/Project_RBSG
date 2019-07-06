@@ -229,10 +229,7 @@ public class PersistentArmyManager {
             armyList.add(army);
         }
 
-        // noinspection unchecked
-        CompletableFuture<SaveArmyResponse>[] feedBackObjects = new CompletableFuture[feedbacks.size()];
-        feedBackObjects = feedbacks.toArray(feedBackObjects);
-        return CompletableFuture.allOf(feedBackObjects).thenRun(
+        return CompletableFuture.allOf(feedbacks.toArray(CompletableFuture[]::new)).thenRun(
             () -> {
                 if (!armyList.isEmpty()) {
                     this.saveArmiesLocal(armyList);
