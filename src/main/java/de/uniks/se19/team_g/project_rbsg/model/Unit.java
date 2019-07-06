@@ -47,10 +47,10 @@ public class Unit implements Cloneable {
         UnitTypeInfo metaData = UnitTypeInfo.UNKNOWN;
 
         unit.iconUrl.set(
-            metaData.getIcon().toString()
+            metaData.getIcon().toExternalForm()
         );
         unit.imageUrl.set(
-            metaData.getImage().toString()
+            metaData.getImage().toExternalForm()
         );
 
         return unit;

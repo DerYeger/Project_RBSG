@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
+
 @Component
 public class UnitTypeAdapter {
 
@@ -18,8 +20,10 @@ public class UnitTypeAdapter {
         unit.setTypeInfo(typeInfo);
 
         unit.name.set(unitType.type);
-        unit.iconUrl.set(typeInfo.getIcon().toString());
-        unit.imageUrl.set(typeInfo.getImage().toString());
+        unit.iconUrl.set(typeInfo.getIcon().toExternalForm());
+        final URL image = typeInfo.getImage();
+        final String newValue = image.toExternalForm();
+        unit.imageUrl.set(newValue);
 
         unit.description.set(typeInfo.getDescriptionKey());
         unit.speed.set(unitType.mp);
