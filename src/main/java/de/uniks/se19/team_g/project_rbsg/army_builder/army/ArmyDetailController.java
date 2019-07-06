@@ -49,6 +49,7 @@ public class ArmyDetailController implements Initializable {
     public Button decrementButton;
 
     // we want to hold a reference to our change listener so that we can add a weak list change listener and not get garbage collected to early
+    // @See ApplicationState
     @SuppressWarnings("FieldCanBeLocal")
     private ListChangeListener<? super Unit> armyUnitChangeListener;
 
@@ -164,6 +165,7 @@ public class ArmyDetailController implements Initializable {
         final Unit unit = armyBuilderState.selectedUnit.get();
         if (Objects.nonNull(army) && Objects.nonNull(unit) && army.units.size() < ApplicationState.ARMY_MAX_UNIT_COUNT) {
             army.units.add(unit.clone());
+            army.setUnsavedUpdates(true);
         }
     }
 
@@ -173,9 +175,7 @@ public class ArmyDetailController implements Initializable {
         final Unit unit = armyBuilderState.selectedUnit.get();
         if (Objects.nonNull(army) && Objects.nonNull(unit)) {
             army.units.remove(unit);
+            army.setUnsavedUpdates(true);
         }
-    }
-
-    private class Sqaud {
     }
 }

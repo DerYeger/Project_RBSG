@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
 import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
@@ -10,11 +9,10 @@ import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.WeakListChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +27,10 @@ public class ArmySelectorController implements Initializable, Rincled {
     public ListView<Army> listView;
 
     private final ArmySelectorCellFactory cellFactory;
-    public Button editArmyButton;
+
     public Label armiesLabel;
+
+    public HBox header;
 
     /*
         save a reference to method reference and provide WeakChangeListener as Listener

@@ -2,14 +2,21 @@ package de.uniks.se19.team_g.project_rbsg.server.rest.army;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
+import javafx.application.Application;
+import javafx.collections.ObservableList;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -23,12 +30,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -43,7 +51,12 @@ import static org.mockito.Mockito.*;
         PersistentArmyManager.class,
         UserKeyInterceptor.class,
         ApiClientErrorInterceptor.class,
-        ObjectMapper.class
+        ObjectMapper.class,
+        DeleteArmyService.class,
+        GetArmiesService.class,
+        ArmyAdapter.class,
+        ArmyUnitAdapter.class,
+        ApplicationState.class
 })
 
 public class PersistantArmyTest {
@@ -56,6 +69,16 @@ public class PersistantArmyTest {
     UserProvider userProvider;
     @Autowired
     RestTemplate rbsgTemplate;
+    @Autowired
+    DeleteArmyService deleteArmyService;
+    @Autowired
+    GetArmiesService getArmiesService;
+    @Autowired
+    ArmyAdapter armyAdapter;
+    @Autowired
+    ArmyUnitAdapter armyUnitAdapter;
+    @Autowired
+    ApplicationState applicationState;
 
     private String armyId;
 
@@ -65,7 +88,7 @@ public class PersistantArmyTest {
         Army army = new Army();
         User user = new User("test123", "test123");
         user.setUserKey(
-                loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
+                Objects.requireNonNull(loginManager.onLogin(user).get().getBody()).get("data").get("userKey").asText()
         );
         userProvider.set(user);
 
@@ -76,17 +99,16 @@ public class PersistantArmyTest {
         }
 
         army.name.set("ggArmyFromTest");
-        System.out.println(user.getUserKey());;
 
         CompletableFuture<SaveArmyResponse> saveArmyResponse = persistantArmyManager.saveArmyOnline(army);
 
         sleep(2000);
 
-        Assert.assertTrue(army.id.get()!=null);
-        Assert.assertTrue(saveArmyResponse.get().status.equals("success"));
-        Assert.assertTrue(saveArmyResponse.get().data.id!=null);
+        Assert.assertNotNull(army.id.get());
+        Assert.assertEquals("success", saveArmyResponse.get().status);
+        Assert.assertNotNull(saveArmyResponse.get().data.id);
         Assert.assertFalse(saveArmyResponse.get().data.units.isEmpty());
-        Assert.assertTrue(saveArmyResponse.get().data.units.size()==10);
+        Assert.assertEquals(10, saveArmyResponse.get().data.units.size());
 
         armyId=army.id.get();
     }
@@ -118,7 +140,7 @@ public class PersistantArmyTest {
         when(restMock.postForObject(eq("/army"), isA(PersistArmyRequest.class), eq(SaveArmyResponse.class)))
                 .thenReturn(saveArmyResponse);
 
-        persistantArmyManager = new PersistentArmyManager(restMock);
+        persistantArmyManager = new PersistentArmyManager(restMock, deleteArmyService, getArmiesService);
 
         //Assess persistArmyManger
         try {
@@ -127,19 +149,18 @@ public class PersistantArmyTest {
             //will fail otherwise
             sleep(2000);
             verify(restMock).postForObject(eq("/army"), isA(PersistArmyRequest.class), eq(SaveArmyResponse.class));
-            Assert.assertTrue(army.id.get()!=null);
-            Assert.assertTrue(response.get().status.equals("200"));
-            Assert.assertTrue(response.get().data.id!=null);
+            Assert.assertNotNull(army.id.get());
+            Assert.assertEquals("200", response.get().status);
+            Assert.assertNotNull(response.get().data.id);
             Assert.assertFalse(response.get().data.units.isEmpty());
-            Assert.assertTrue(response.get().data.units.size()==10);
+            Assert.assertEquals(10, response.get().data.units.size());
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
 
+    //Deprecated
     @Ignore
     @Test
     public void testUpdateArmyRemote() throws ExecutionException, InterruptedException{
@@ -149,7 +170,7 @@ public class PersistantArmyTest {
         Army myArmy=new Army();
         User user = new User("test123", "test123");
         user.setUserKey(
-                loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
+                Objects.requireNonNull(loginManager.onLogin(user).get().getBody()).get("data").get("userKey").asText()
         );
 
         userProvider.set(user);
@@ -167,14 +188,14 @@ public class PersistantArmyTest {
 
         sleep(2000);
 
-        Assert.assertTrue(myArmy.id.get()!=null);
-        Assert.assertTrue(saveArmyResponse.get().status.equals("success"));
+        Assert.assertNotNull(myArmy.id.get());
+        Assert.assertEquals("success", saveArmyResponse.get().status);
         Assert.assertTrue(saveArmyResponse.get().message.contains("5cc051bd62083600017db3b7"));
         Assert.assertFalse(saveArmyResponse.get().message.contains("5cc051bd62083600017db3b6")); //The updated army doesnt contain any of the old units
         Assert.assertTrue(saveArmyResponse.get().message.contains(myArmy.id.get()));
         Assert.assertTrue(saveArmyResponse.get().message.contains(myArmy.name.get()));
 
-        /** Server Response on success : 18.06.2019
+        /* Server Response on success : 18.06.2019
          *
          * "{"status":"success","message":"{\"id\":\"5d07fc8577af9d0001476d90\",\"name\":\"ggArmyFromTest\",\
          * "units\":[\"5cc051bd62083600017db3b7\",\"5cc051bd62083600017db3b7\",\"5cc051bd62083600017db3b7\",
@@ -182,43 +203,7 @@ public class PersistantArmyTest {
          * \"5cc051bd62083600017db3b7\",\"5cc051bd62083600017db3b7\",\"5cc051bd62083600017db3b7\",
          * \"5cc051bd62083600017db3b7\"]}","data":{}}"
          *
-         * **/
-    }
-
-    @Test
-    public void testUpdateArmyLocal() throws InterruptedException, ExecutionException, MalformedURLException, URISyntaxException {
-        RestTemplate localUpdateMock = mock(RestTemplate.class);
-        SaveArmyResponse onUpdateResponse = new SaveArmyResponse();
-        PersistentArmyManager armyManager = new PersistentArmyManager(localUpdateMock);
-        onUpdateResponse.status="success";
-        onUpdateResponse.message="\"id\":\"5d07fc8577af9d0001476d90\",\"name\":\"ggArmyFromTest\",\"units\":[\"5cc051bd62083600017db3b7\"]}";
-        onUpdateResponse.data=new SaveArmyResponse.SaveArmyResponseData();
-        ResponseEntity onUpdateResponseEntity = new ResponseEntity(onUpdateResponse, HttpStatus.ACCEPTED);
-
-        Army myArmy = new Army();
-        String armyId="5d07fc8577af9d0001476d90";
-
-        myArmy.name.set("ggArmy");
-        myArmy.id.set(armyId);
-
-        for(int i=0; i<10; i++){
-            Unit unit = new Unit();
-            unit.id.set("5cc051bd62083600017db3b7");
-            myArmy.units.add(unit);
-        }
-        when(localUpdateMock.exchange(eq("/army/"+myArmy.id.get()), eq(HttpMethod.PUT), isA(HttpEntity.class), eq(SaveArmyResponse.class)))
-                .thenReturn(onUpdateResponseEntity);
-
-        CompletableFuture<SaveArmyResponse> saveArmyResponse = armyManager.saveArmyOnline(myArmy);
-
-        sleep(2000);
-
-        verify(localUpdateMock).exchange(eq("/army/"+myArmy.id.get()), eq(HttpMethod.PUT), isA(HttpEntity.class), eq(SaveArmyResponse.class));
-        Assert.assertTrue(myArmy.id.get()!=null);
-        Assert.assertTrue(saveArmyResponse.get().status.equals("success"));
-        Assert.assertTrue(saveArmyResponse.get().message.contains("5cc051bd62083600017db3b7"));
-        Assert.assertTrue(saveArmyResponse.get().message.contains(myArmy.id.get()));
-        Assert.assertTrue(saveArmyResponse.get().message.contains(myArmy.name.get()));
+         * */
     }
 
     @Test
@@ -229,7 +214,7 @@ public class PersistantArmyTest {
         ArrayList<Army> armyList=new ArrayList<>();
         ArrayList<Army> armies= new ArrayList<>();
         RestTemplate localTemplateMock = mock(RestTemplate.class);
-        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(localTemplateMock);
+        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(localTemplateMock, deleteArmyService, getArmiesService);
         String armyString;
 
         Unit unit1 = new Unit();
@@ -257,8 +242,7 @@ public class PersistantArmyTest {
 
         persistentArmyManager.saveArmiesLocal(armyList);
 
-        File file = new File(System.getProperty("user.home") + "/.local/rbsg/armies.json");
-        System.out.println(file.getAbsoluteFile());
+        File file = new File(persistentArmyManager.getSaveFile().getAbsolutePath());
         Assert.assertTrue(file.exists());
         Assert.assertTrue(file.canRead());
         Assert.assertTrue(file.isFile());
@@ -269,18 +253,20 @@ public class PersistantArmyTest {
             Army newArmy = new Army();
             newArmy.id.set(deserializableArmy.id);
             newArmy.name.set(deserializableArmy.name);
-            for(Unit unit : deserializableArmy.units){
+            for(String unitId : deserializableArmy.units){
+                Unit unit = new Unit();
+                unit.id.set(unitId);
                 newArmy.units.add(unit);
             }
             armies.add(newArmy);
         }
 
-        Assert.assertTrue(armies.size()==3);
-        Assert.assertTrue(armies.get(0).name.get().equals("ggArmyFromLocalTest"));
-        Assert.assertTrue(armies.get(0).units.size()==2);
-        Assert.assertTrue(armies.get(1).name.get().equals("ggArmyFromLocalTest2"));
-        Assert.assertTrue(armies.get(1).units.size()==1);
-        Assert.assertTrue(armies.get(2).name.get().equals("ggArmyFromLocalTest3"));
-        Assert.assertTrue(armies.get(2).units.size()==0);
+        Assert.assertEquals(3, armies.size());
+        Assert.assertEquals("ggArmyFromLocalTest", armies.get(0).name.get());
+        Assert.assertEquals(2, armies.get(0).units.size());
+        Assert.assertEquals("ggArmyFromLocalTest2", armies.get(1).name.get());
+        Assert.assertEquals(1, armies.get(1).units.size());
+        Assert.assertEquals("ggArmyFromLocalTest3", armies.get(2).name.get());
+        Assert.assertEquals(0, armies.get(2).units.size());
     }
 }

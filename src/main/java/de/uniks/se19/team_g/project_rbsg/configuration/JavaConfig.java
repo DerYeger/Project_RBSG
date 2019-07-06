@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserManager;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import org.springframework.beans.BeansException;
@@ -27,7 +29,9 @@ public class JavaConfig implements ApplicationContextAware {
     public Terminator terminator() {
         return new Terminator()
                 .register(context.getBean(SceneManager.class))
-                .register(context.getBean(UserManager.class));
+                .register(context.getBean(UserManager.class))
+                .register(context.getBean(GameProvider.class))
+                .register(context.getBean(IngameGameProvider.class));
     }
 
     @Bean

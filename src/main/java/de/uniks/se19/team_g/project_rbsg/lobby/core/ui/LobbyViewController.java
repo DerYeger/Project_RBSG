@@ -1,10 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -20,11 +17,8 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
-import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
@@ -32,10 +26,10 @@ import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -78,9 +72,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final PlayerManager playerManager;
     private final GameManager gameManager;
     private final SceneManager sceneManager;
-    private final GameProvider gameProvider;
     private final UserProvider userProvider;
-    private final JoinGameManager joinGameManager;
     private final LobbyChatClient lobbyChatClient;
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
@@ -101,7 +93,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private ChatBuilder chatBuilder;
     private ChatController chatController;
-    private boolean musicRunning;
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
@@ -131,10 +122,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     @Autowired
     public LobbyViewController(
-            @Nonnull final GameProvider gameProvider,
             @Nonnull final UserProvider userProvider,
             @Nonnull final SceneManager sceneManager,
-            @Nonnull final JoinGameManager joinGameManager,
             @Nonnull final PlayerManager playerManager,
             @Nonnull final GameManager gameManager,
             @Nonnull final SystemMessageManager systemMessageManager,
@@ -169,10 +158,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
 
-        this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
-        this.joinGameManager = joinGameManager;
         this.musicManager = musicManager.init();
     }
 
@@ -187,8 +174,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.chatBuilder = chatBuilder;
     }
 
-    public void initialize()
-    {
+    public void initialize() throws Exception {
         //Gives the cells of the ListViews a fixed height
         //Needed for cells which are empty to fit them to the height of filled cells
         lobbyGamesListView.setFixedCellSize(50);
@@ -322,8 +308,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     }
 
-    private void configureSystemMessageManager()
-    {
+    private void configureSystemMessageManager() throws Exception {
         UserLeftMessageHandler userLeftMessageHandler = new UserLeftMessageHandler(this.lobby);
 
         UserJoinedMessageHandler userJoinedMessageHandler = new UserJoinedMessageHandler(this.lobby);
@@ -342,8 +327,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobby.getSystemMessageManager().startSocket();
     }
 
-    private void withChatSupport()
-    {
+    private void withChatSupport() throws Exception {
         if (chatBuilder != null)
         {
             final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(lobbyChatClient);

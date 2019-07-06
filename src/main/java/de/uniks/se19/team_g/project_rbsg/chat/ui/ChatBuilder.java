@@ -24,7 +24,7 @@ public class ChatBuilder implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @NonNull
-    public ViewComponent<ChatController> buildChat(@NonNull final ChatClient chatClient) {
+    public ViewComponent<ChatController> buildChat(@NonNull final ChatClient chatClient) throws Exception {
         final TabPane tabPane = new TabPane();
         tabPane.setSide(Side.BOTTOM);
         tabPane.getStylesheets().add(this.getClass().getResource("/ui/chat/chat.css").toExternalForm());

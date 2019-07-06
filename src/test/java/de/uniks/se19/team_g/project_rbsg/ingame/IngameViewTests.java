@@ -177,6 +177,8 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         final Scene buffer = new Scene(((ViewComponent<RootController>) applicationContext.getBean("ingameScene")).getRoot());
         scene = buffer;
         stage.setScene(scene);
+        stage.setX(0);
+        stage.setY(0);
         stage.show();
     }
 
@@ -201,4 +203,8 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn("#zoomOutButton");
     }
 
+    @Override
+    public void stop() throws Exception {
+        scene.getWindow().centerOnScreen();
+    }
 }

@@ -5,8 +5,10 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 
 @Component
 public class ArmyManager {
@@ -18,7 +20,8 @@ public class ArmyManager {
     }
 
     @Nonnull
-    public CompletableFuture<List<Army>> getArmies() {
-        return getArmiesService.queryArmies();
+    public List<Army> getArmies() {
+        return getArmiesService.loadArmies();
     }
 }
+

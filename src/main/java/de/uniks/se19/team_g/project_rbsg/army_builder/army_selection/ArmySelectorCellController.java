@@ -2,8 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -20,12 +19,8 @@ import java.util.ResourceBundle;
 @Scope("prototype")
 public class ArmySelectorCellController extends ListCell<Army> implements Initializable {
 
-    public static final String DUMMY_ICON_PATH = ArmySelectorCellController.class.getResource("/assets/icons/army/dragon-head.white.png").toString();
-
     public Node root;
     public ImageView imageView;
-
-    private SimpleStringProperty dummyIcon = new SimpleStringProperty(DUMMY_ICON_PATH);
 
     @Nullable
     private final ApplicationState appState;
@@ -46,9 +41,8 @@ public class ArmySelectorCellController extends ListCell<Army> implements Initia
         }
 
         setGraphic(root);
-        JavaFXUtils.bindImage(
-            imageView.imageProperty(),
-            dummyIcon
+        imageView.imageProperty().bind(
+            Bindings.createObjectBinding(() -> item.iconType.get().getImage(), item.iconType)
         );
     }
 

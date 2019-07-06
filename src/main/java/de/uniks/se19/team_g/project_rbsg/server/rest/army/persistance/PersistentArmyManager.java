@@ -2,12 +2,15 @@ package de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.requests.PersistArmyRequest;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
 import javafx.collections.ObservableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,30 +21,46 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Component
 public class PersistentArmyManager {
     private final String url = "/army";
     final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private String fileName = "armies.json";
+    @NonNull
+    private DeleteArmyService deleteArmyService;
+    private GetArmiesService getArmiesService;
 
-    public PersistentArmyManager(@NonNull RestTemplate restTemplate) {
+    public PersistentArmyManager(@NonNull RestTemplate restTemplate,
+                                 @NonNull DeleteArmyService deleteArmyService,
+                                 @NonNull GetArmiesService getArmiesService) {
 
         this.restTemplate = restTemplate;
+        this.deleteArmyService = deleteArmyService;
+        this.getArmiesService = getArmiesService;
     }
 
-    public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) {
-        if (army.id.isEmpty().get()) {
-            return createArmy(army);
-        }
-        return updateArmy(army);
+    public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) throws
+            InterruptedException, ExecutionException {
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            CompletableFuture<SaveArmyResponse> response = createArmy(army);
+            return response;
+
     }
 
     private CompletableFuture<SaveArmyResponse> updateArmy(@NonNull Army army) {
@@ -138,48 +157,32 @@ public class PersistentArmyManager {
 
         for (Army army : armyList) {
             LinkedList<String> idList = new LinkedList<>();
-            DeserializableArmy deserializableArmy = new DeserializableArmy(army.id.get(),
-                    army.name.get(),
-                    new ArrayList<Unit>());
+            DeserializableArmy deserializableArmy = new DeserializableArmy(
+                army.id.get(),
+                army.name.get(),
+                new ArrayList<>(),
+                army.iconType.get().name()
+            );
 
             for (Unit unit : army.units) {
-                idList.add(unit.id.get());
-                deserializableArmy.units.add(unit);
+                deserializableArmy.units.add(unit.id.get());
             }
 
             if (army.id.isEmpty().get()) {
-                deserializableArmy.id = "";;
+                deserializableArmy.id = "";
             }
 
             armyWrapper.armies.add(deserializableArmy);
         }
 
         try {
-            String osType = System.getProperty("os.name");
-            System.out.println(osType);
-            File file;
-            File directory;
+            File file = getSaveFile();
 
-            if (osType.contains("Windows")) {
-                //Windows System
-                logger.debug("Windows Operating System detected.");
-                directory = new File(System.getProperty("user.home") + "/rbsg/");
-                directory.mkdirs();
-                file = new File(directory, "armies.json");
-                Files.setAttribute(Paths.get(file.getPath()), "dos:hidden", true);
-            } else {
-                //Unix System
-                logger.debug("Unix System detected.");
-                directory = new File(System.getProperty("user.home") + "/.local/rbsg/");
-                directory.mkdirs();
-                file = new File(directory, "armies.json");
-            }
-            if (file.exists()) {
-                file.delete();
-                file.createNewFile();
-            } else {
-                file.createNewFile();
-            }
+            //noinspection ResultOfMethodCallIgnored
+            file.getParentFile().mkdirs();
+            //noinspection ResultOfMethodCallIgnored
+            file.createNewFile();
+
             objectMapper.writeValue(file, armyWrapper);
             logger.debug("Local saving was successful.");
 
@@ -188,32 +191,108 @@ public class PersistentArmyManager {
         }
     }
 
-    public void saveArmies(ObservableList<Army> armies) {
+    @Nonnull
+    public File getSaveFile() throws IOException {
+        String osType = System.getProperty("os.name");
+        logger.debug("We are on " + osType);
 
+        File file;
+
+        if (osType.contains("Windows")) {
+            file = getSaveFileInAppdata();
+        } else {
+            file = getSaveFileInHome();
+        }
+
+        return file;
+    }
+
+    @Nonnull
+    private File getSaveFileInHome() {
+        logger.debug("Return file in home path");
+        return new File(System.getProperty("user.home") + "/.local/" + getRelativeFileName());
+    }
+
+    private File getSaveFileInAppdata() throws IOException {
+        String appData = System.getenv("APPDATA");
+        if ( appData == null) {
+            logger.debug("No app data found");
+            return getSaveFileInHome();
+            // do we need to hide the folder in this case?
+            // Files.setAttribute(Paths.get(file.getPath()), "dos:hidden", true);
+        }
+        logger.debug("Return file in appdata path");
+        return Path.of(appData, getRelativeFileName()).toFile();
+    }
+
+    /**
+     * maybe prefix the save file per user so that the save game of one user doesn't overwrite the savegame of another
+     * @return
+     */
+    private String getRelativeFileName() {
+        return "rbsg/" + fileName;
+    }
+
+    public CompletableFuture<Void> saveArmies(ObservableList<Army> armies) throws InterruptedException, ExecutionException {
+        try {
+            //Generate clean state
+            List<Army> armyState = getArmiesService.queryArmies().get();
+            armyState.stream().forEach(army -> deleteArmyService.deleteArmy(army));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         ArrayList<Army> armyList = new ArrayList<>();
+        SaveArmyResponse saveArmyResponse;
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        List<CompletableFuture<SaveArmyResponse>> feedbacks = new ArrayList<>();
 
         for (Army army : armies) {
             if (army.units.size() == 10) {
                 //army is complete
-                this.saveArmyOnline(army);
+                feedbacks.add(this.saveArmyOnline(army));
             }
             armyList.add(army);
         }
         if (!armyList.isEmpty()) {
             this.saveArmiesLocal(armyList);
         }
+
+        //noinspection unchecked,SuspiciousToArrayCall
+        CompletableFuture<SaveArmyResponse>[] feedBackObjects = new CompletableFuture[feedbacks.size()];
+        feedBackObjects = feedbacks.toArray(feedBackObjects);
+        return CompletableFuture.allOf(feedBackObjects);
+    }
+
+    public void setTestFileName(String fileName){
+        this.fileName=fileName;
     }
 
     public static class DeserializableArmy{
         @JsonCreator
-        public DeserializableArmy(@JsonProperty("id") String id, @JsonProperty("name")String name, @JsonProperty("units")ArrayList<Unit> units){
+        public DeserializableArmy(
+                @JsonProperty("id") String id,
+                @JsonProperty("name")String name,
+                @JsonProperty("units")ArrayList<String> units,
+                @JsonProperty("armyIcon") String armyIcon
+        ){
             this.id=id;
             this.name=name;
             this.units=units;
+            this.armyIcon = armyIcon;
         }
         public String id;
         public String name;
-        public ArrayList<Unit>units;
+        public ArrayList<String>units;
+
+        /**
+         * Maps the identifier of the ArmyIcon Enum to later restore the proper icon or set another default
+         * @See ArmyIcon::valueOf()
+         */
+        public String armyIcon;
     }
 
     public static class ArmyWrapper{

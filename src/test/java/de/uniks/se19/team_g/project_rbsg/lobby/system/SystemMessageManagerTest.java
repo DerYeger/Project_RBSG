@@ -64,7 +64,7 @@ public class SystemMessageManagerTest
         }
 
     @Test
-    public void messageArrived() throws IOException
+    public void messageArrived() throws Exception
     {
         WebSocketConfigurator.userKey = "aUserKey";
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
@@ -78,7 +78,7 @@ public class SystemMessageManagerTest
     }
 
     @Test
-    public void startWebSocket() {
+    public void startWebSocket() throws Exception {
         WebSocketConfigurator.userKey = "";
 
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);

@@ -38,7 +38,7 @@ public class SystemMessageManager implements IWebSocketCallback
         this.webSocketClient = webSocketClient;
     }
 
-    public void startSocket() {
+    public void startSocket() throws Exception {
         if (WebSocketConfigurator.userKey.equals("") || webSocketClient == null) {
             return;
         }
