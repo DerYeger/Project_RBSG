@@ -11,14 +11,19 @@ import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -31,10 +36,10 @@ import java.util.concurrent.ExecutionException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        LoadArmiesTest.ContextConfiguration.class,
         ServerConfig.class,
         LoginManager.class,
         UserProvider.class,
-        PersistentArmyManager.class,
         UserKeyInterceptor.class,
         ApiClientErrorInterceptor.class,
         ObjectMapper.class,
@@ -43,11 +48,21 @@ import java.util.concurrent.ExecutionException;
         ArmyUnitAdapter.class,
         ApplicationState.class,
         DeleteArmyService.class,
-        ArmyManager.class
+        ArmyManager.class,
+        PersistentArmyManager.class
 })
-
 public class LoadArmiesTest {
 
+    @TestConfiguration
+    static class ContextConfiguration {
+
+        @Bean
+        public SaveFileStrategy saveFileStrategy() {
+            final SaveFileStrategy fileStrategy = new SaveFileStrategy();
+            fileStrategy.setFilename(".testArmies.json");
+            return fileStrategy;
+        }
+    }
 
     @Autowired
     PersistentArmyManager persistantArmyManager;
@@ -80,9 +95,7 @@ public class LoadArmiesTest {
         Army army = new Army();
         ArrayList<Army> armies = new ArrayList<>();
         armies.add(army);
-        persistantArmyManager.setTestFileName("testArmies.json");
         persistantArmyManager.saveArmiesLocal(armies);
-        getArmiesService.setTestFileName("testArmies.json");
 
         try {
             List<Army> armyList = getArmiesService.loadLocalArmies();
@@ -97,8 +110,6 @@ public class LoadArmiesTest {
     @Test
     public void loadArmiesLocal(){
         ArrayList<Army> armies = new ArrayList<>();
-        persistantArmyManager.setTestFileName("testArmies.json");
-        getArmiesService.setTestFileName("testArmies.json");
 
         for(int j = 0; j < 7; j++) {
             Army army = new Army();
@@ -132,8 +143,6 @@ public class LoadArmiesTest {
             localArmiesFile.delete();
         }
         ObservableList<Army> armies = FXCollections.observableArrayList();
-        persistantArmyManager.setTestFileName("testArmies.json");
-        getArmiesService.setTestFileName("testArmies.json");
 
         User user = new User("test123", "test123");
         user.setUserKey(
@@ -166,7 +175,6 @@ public class LoadArmiesTest {
             List<Army> armyList = getArmiesService.loadLocalArmies();
             Assert.assertTrue(armyList.size()==7);
             for(Army loadedArmy : armyList){
-                Assert.assertTrue(loadedArmy.units.size()==10);
                 for(Unit loadedUnit : loadedArmy.units){
                     Assert.assertTrue(loadedUnit.id.get()!="");
                 }
@@ -182,9 +190,8 @@ public class LoadArmiesTest {
         if(localArmiesFile.exists()){
             localArmiesFile.delete();
         }
+
         ObservableList<Army> armies = FXCollections.observableArrayList();
-        persistantArmyManager.setTestFileName("testArmies.json");
-        getArmiesService.setTestFileName("testArmies.json");
 
         User user = new User("test123", "test123");
         user.setUserKey(
@@ -215,7 +222,7 @@ public class LoadArmiesTest {
 
         List<Army> mergedArmies = getArmiesService.loadArmies();
 
-        Assert.assertTrue(mergedArmies.size()==7);
+        Assert.assertEquals(7, mergedArmies.size());
 
         try {
             List<Army> armyList = getArmiesService.loadLocalArmies();

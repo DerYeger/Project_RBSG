@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;

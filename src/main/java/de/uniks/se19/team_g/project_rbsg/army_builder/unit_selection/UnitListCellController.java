@@ -1,11 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -20,11 +22,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 @Component
 @Scope("prototype")
-public class UnitListEntryController extends ListCell<Unit> implements Initializable {
+public class UnitListCellController extends ListCell<Unit> implements Initializable {
     public static final String SELECTED_CLASS = "selected";
     private final ChangeListener<Unit> unitChangeListener = this::onSelectedUnitChanged;
     public Label unitName;
@@ -34,9 +37,15 @@ public class UnitListEntryController extends ListCell<Unit> implements Initializ
     private Unit unit;
 
     private final ArmyBuilderState armyBuilderState;
+    private final Property<Locale> selectedLocale;
 
-    public UnitListEntryController(ArmyBuilderState armyBuilderState) {
+    public UnitListCellController(
+        ArmyBuilderState armyBuilderState,
+        Property<Locale> selectedLocale
+    ) {
         this.armyBuilderState = armyBuilderState;
+
+        this.selectedLocale = selectedLocale;
     }
 
     @Override
@@ -50,7 +59,9 @@ public class UnitListEntryController extends ListCell<Unit> implements Initializ
             return;
         }
 
-        unitName.textProperty().bind(unit.name);
+        unitName.textProperty()
+            .bind( JavaFXUtils.bindTranslation(selectedLocale, unit.getNameKey())
+        );
 
         final ObjectProperty<Image> imageObjectProperty = imageView.imageProperty();
         JavaFXUtils.bindImage(imageObjectProperty, unit.iconUrl);

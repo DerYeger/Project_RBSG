@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.edit_army;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
@@ -70,11 +70,6 @@ public class EditArmyControllerTest extends ApplicationTest {
         Assert.assertEquals(
             army.iconType.get().getImage(),
             lookup("#selectedIcon").<ImageView>query().getImage()
-        );
-
-        Assert.assertEquals(
-            ArmyIcon.values().length,
-            lookup(".list-cell #imageView").queryAll().size()
         );
 
         final Node nextIconCell = lookup(".list-cell #imageView").nth(1).query();

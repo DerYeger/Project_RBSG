@@ -56,11 +56,11 @@ public class UnitDetailController implements Initializable {
     private Map<String, ViewComponent<CanAttackTileController>> canAttackComponents;
 
     public UnitDetailController(
-        @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory,
-        @Nonnull Property<Locale> selectedLocale,
-        @Nonnull ApplicationState appState,
-        @Nonnull ArmyBuilderState sceneState,
-        @Nonnull Supplier<ViewComponent<CanAttackTileController>> canAttackTileFactory
+            @Nonnull Property<Locale> selectedLocale,
+            @Nonnull ApplicationState appState,
+            @Nonnull ArmyBuilderState sceneState,
+            @Nonnull Supplier<ViewComponent<CanAttackTileController>> canAttackTileFactory,
+            @Nullable ObjectFactory<ViewComponent<UnitPropertyController>> propertyViewComponentFactory
     ) {
         this.propertyViewComponentFactory = propertyViewComponentFactory;
         this.selectedLocale = selectedLocale;
@@ -78,7 +78,9 @@ public class UnitDetailController implements Initializable {
             return;
         }
 
-        unitDescription.textProperty().bind(unit.description);
+        unitDescription.textProperty().bind(
+            JavaFXUtils.bindTranslation(selectedLocale, unit.getDescriptionKey())
+        );
 
         JavaFXUtils.bindImage(imageView.imageProperty(), unit.imageUrl);
 
