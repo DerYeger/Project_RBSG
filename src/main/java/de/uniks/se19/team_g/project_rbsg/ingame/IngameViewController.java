@@ -11,25 +11,26 @@ import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
+
+import static de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType.*;
 
 /**
  * @author  Keanu Stückrad
@@ -55,6 +56,7 @@ public class IngameViewController implements RootController {
 
     private Game game;
     private ObservableList<Cell> cells;
+    private ObservableList<Unit> units;
     private GraphicsContext gc;
 
     private Image grass;
@@ -101,6 +103,7 @@ public class IngameViewController implements RootController {
         } else {
             grass = new Image("/assets/cells/grass.png");
             cells = game.getCells();
+            units = game.getUnits();
             columnRowSize = Math.sqrt(cells.size());
             canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
@@ -125,6 +128,22 @@ public class IngameViewController implements RootController {
                 continue;
             }
             gc.drawImage(getImage(cell), cell.getX() * CELL_SIZE, cell.getY() * CELL_SIZE);
+        }
+        String imagePath = "";
+        for(Unit unit: units) {
+            UnitType unitType = unit.getUnitType();
+            if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
+            else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
+            else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
+            else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
+            else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
+            else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
+            else imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
+            gc.drawImage(
+                    new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true),
+                    unit.getPosition().get().getX() * CELL_SIZE,
+                    unit.getPosition().get().getY() * CELL_SIZE
+            );
         }
     }
 

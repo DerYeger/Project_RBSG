@@ -27,11 +27,13 @@ public class MusicManager {
     private static final int ICON_SIZE = 40;
     public boolean musicRunning = true;
 
-    private MediaPlayer intro = new MediaPlayer(new Media(opening.toExternalForm()));
-    private MediaPlayer loop = new MediaPlayer(new Media(looping.toExternalForm()));
+    private MediaPlayer intro;
+    private MediaPlayer loop;
     private boolean play = false;
 
     public MusicManager init() {
+        intro = new MediaPlayer(new Media(opening.toExternalForm()));
+        loop = new MediaPlayer(new Media(looping.toExternalForm()));
         intro.setCycleCount(1);
         loop.setCycleCount(AudioClip.INDEFINITE);
         intro.setOnEndOfMedia( ()-> {
