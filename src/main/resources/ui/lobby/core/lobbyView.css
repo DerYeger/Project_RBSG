@@ -1,0 +1,32 @@
+
+.game-title {
+    -fx-font-family: Cinzel;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-background-color: -root-background-color;
+    -fx-text-fill: -on-primary-fill;
+    -fx-effect: -shadow;
+}
+
+.body {
+    -fx-start-margin: 10px;
+    -fx-end-margin: 10px;
+}
+
+.main-grid-pane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.game-cell {
+    -fx-hgap: 10;
+}
+
+.player-cell {
+    -fx-hgap: 10;
+}
+
+.chat-container {
+    -fx-effect: -shadow;
+}

@@ -1,26 +1,29 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.stage.Stage;
+import javafx.beans.property.Property;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Jan Müller
@@ -59,17 +62,31 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
 
     @Override
-    public void start(@NotNull final Stage primaryStage) throws IOException {
+    public void start(@NotNull final Stage primaryStage) {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
+        primaryStage.setResizable(false);
 
-        Rincl.setLocale(Locale.ENGLISH);
+        @SuppressWarnings("unchecked") final Property<Locale> selectedLocale = (Property<Locale>) context.getBean("selectedLocale");
+        Objects.requireNonNull(selectedLocale).setValue(Locale.ENGLISH);
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
-                .setStartScene();
+                .withExceptionHandler(context.getBean(ExceptionHandler.class))
+                .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
 
-        primaryStage.setOnCloseRequest(event -> showCloseDialog(event, primaryStage.getTitle()));
+        context.getBean(MusicManager.class).init().initMusic();
+
+        final AlertBuilder alertBuilder = context.getBean(AlertBuilder.class);
+
+        primaryStage.setOnCloseRequest(event -> {
+            event.consume();
+            alertBuilder
+                    .confirmation(
+                            AlertBuilder.Text.EXIT,
+                            Platform::exit,
+                            null);
+        });
 
         primaryStage.show();
     }
@@ -79,20 +96,5 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
         context.getBean(Terminator.class)
                 .terminate();
         this.context.close();
-        Platform.exit();
-    }
-
-    //TODO add stylesheet
-    private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(alertTitle);
-        alert.setHeaderText(getResources().getString("closeDialoge"));
-        alert.showAndWait();
-
-        if (alert.getResult().equals(ButtonType.OK)) {
-            //let event propagate and close
-        } else {
-            event.consume();
-        }
     }
 }

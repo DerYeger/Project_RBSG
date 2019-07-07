@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -18,6 +20,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -29,6 +32,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -36,6 +40,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
@@ -51,8 +56,6 @@ import java.util.concurrent.CompletableFuture;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        StartSceneBuilder.class,
-        StartViewBuilder.class,
         SceneManager.class,
         UserProvider.class,
         TitleViewBuilder.class,
@@ -66,6 +69,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
     private LoginFormBuilder loginFormBuilder;
 
     private static boolean switchedToLobby = false;
+    private static ApplicationStateInitializer initializer;
 
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
@@ -111,27 +115,20 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void setLobbyScene() {
-                    switchedToLobby = true;
+                public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+                    switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);
                 }
             };
         }
 
         @Bean
-        public RestTemplate restTemplate(){
-            return new RestTemplate(getClientHttpRequestFactory());
-        }
-
-        private ClientHttpRequestFactory getClientHttpRequestFactory() {
-            int timeOut = 10000;
-            HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-            clientHttpRequestFactory.setConnectTimeout(timeOut);
-            clientHttpRequestFactory.setReadTimeout(timeOut);
-            return clientHttpRequestFactory;
+        public ApplicationStateInitializer stateInitializer() {
+            initializer = Mockito.mock(ApplicationStateInitializer.class);
+            return initializer;
         }
 
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
 
             this.context = applicationContext;
         }
@@ -158,6 +155,8 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         final String expectedErrorMessage = "Service Unavailable";
         Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
         Assert.assertFalse(switchedToLobby);
+
+        Mockito.verify(initializer, Mockito.never()).initialize();
     }
 
     @Test

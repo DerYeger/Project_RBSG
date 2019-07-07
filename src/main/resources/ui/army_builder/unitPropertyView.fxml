@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+
+<TilePane alignment="CENTER_LEFT" maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" prefColumns="2" prefRows="1" tileAlignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController">
+    <stylesheets>
+        <URL value="@unitDetailView.css" />
+        <URL value="@../darkTheme.css" />
+    </stylesheets>
+    <styleClass>
+        <String fx:value="root-background-color" />
+        <String fx:value="unitPropertyContainer" />
+    </styleClass>
+    <VBox alignment="CENTER" prefHeight="40.0" prefWidth="40.0" styleClass="box">
+        <Label fx:id="propertyValue" styleClass="property" text="20" />
+    </VBox>
+    <VBox alignment="CENTER">
+        <ImageView fx:id="propertyIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../assets/icons/army/magicDefense.png" />
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+        </ImageView>
+      <TilePane.margin>
+         <Insets left="10.0" />
+      </TilePane.margin>
+    </VBox>
+</TilePane>

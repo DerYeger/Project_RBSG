@@ -1,0 +1,75 @@
+* {
+    -fx-text-fill: -on-primary-fill;
+}
+
+.tab-pane {
+    -fx-background-color: -root-background-color;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-tab-min-width: 100;
+}
+
+.tab-pane * {
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-color: -surface-elevation-8-color;
+    -fx-border-width: 3 0 0 0;
+    -fx-focus-traversable: false;
+    -fx-padding: 4;
+}
+
+.tab:selected {
+    -fx-border-color: -primary-lighter-background-color;
+}
+
+.tab .tab-close-button {
+    -fx-background-color: -error-background-color;
+}
+
+.tab .tab-close-button:hover {
+    -fx-background-color: -primary-lighter-background-color;
+}
+
+.tab-label {
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+.messageArea,
+.messageArea * {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 2;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -surface-elevation-8-color;
+}
+
+.inputField {
+    -fx-background-color: -surface-elevation-8-color;
+    -fx-background-radius: 0;
+    -fx-padding: 6;
+}
+
+.inputField:disabled {
+    -fx-background-color: -disabled-background-color;
+}
+
+.chatChannelContainer {
+    -fx-background-color: transparent;
+}

@@ -1,0 +1,42 @@
+
+.loginForm {
+    -fx-min-width: 400;
+    -fx-max-width: 400;
+    -fx-pref-height: 300;
+    -fx-max-height: 300;
+    -fx-background-color: -root-background-color;
+    -fx-effect: -shadow;
+}
+
+.loginForm > .password-field,
+.loginForm > .text-field {
+    -fx-min-height: 35;
+    -fx-max-height: 35;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -surface-elevation-8-color;
+    -fx-alignment: center;
+    -fx-font-size: 16pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
+    -fx-prompt-text-fill: -on-disabled-fill;
+}
+
+.loginForm > .text-field:focused {
+    -fx-font-weight: bold;
+    -fx-text-fill: -on-primary-fill;
+    -fx-prompt-text-fill: transparent;
+}
+
+.loginForm .button {
+    -fx-font-size: 16pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Medium;
+    -fx-pref-height: 40;
+    -fx-pref-width: 140;
+}
+
+

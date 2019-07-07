@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import io.rincl.*;
 import javafx.application.Platform;
@@ -20,23 +20,27 @@ import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.HttpClientErrorException;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Jan Müller
  * @author Juri Lozowoj
  * @author Keanu Stückrad
- * @edited Georg Siebert
+ * @author  Georg Siebert
  */
 @Controller
-public class LoginFormController implements RootController, Rincled
+@Scope("prototype")
+public class LoginFormController implements Rincled
 {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -59,35 +63,46 @@ public class LoginFormController implements RootController, Rincled
     @FXML
     private Label errorMessage;
 
+    @FXML
+    private Label progressLabel;
+
     private Node loading;
     private LoadingIndicatorCardBuilder loadingIndicatorCardBuilder;
-    private SimpleBooleanProperty loadingFlag;
+    public SimpleBooleanProperty loadingFlag;
     private SimpleBooleanProperty errorFlag;
     private User user;
+
+    @Nonnull
     private final LoginManager loginManager;
+    @Nonnull
     private final RegistrationManager registrationManager;
+    @Nonnull
     private final SceneManager sceneManager;
+    @Nonnull
+    private final ApplicationStateInitializer appStateInitializer;
+    @Nonnull
     private final UserProvider userProvider;
 
     @Autowired
-    public LoginFormController(@NonNull final UserProvider userProvider, @NonNull final LoginManager loginManager, @NonNull final RegistrationManager registrationManager, @NonNull final SceneManager sceneManager) {
+    public LoginFormController(
+            @Nonnull final UserProvider userProvider,
+            @Nonnull final LoginManager loginManager,
+            @Nonnull final RegistrationManager registrationManager,
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final ApplicationStateInitializer appStateInitializer
+        ) {
         this.userProvider = userProvider;
         this.loginManager = loginManager;
         this.registrationManager = registrationManager;
         this.sceneManager = sceneManager;
-    }
-
-    @Override
-    public void setAsRootController() {
-        sceneManager.setRootController(this);
+        this.appStateInitializer = appStateInitializer;
     }
 
     public void init() {
         addEventListeners();
         addLoadingIndicator();
         addErrorFlag();
-        setAsRootController();
-
+        loginButton.setDefaultButton(true);
         updateLabels();
     }
 
@@ -95,6 +110,8 @@ public class LoginFormController implements RootController, Rincled
     {
         loginButton.setText(getResources().getString("loginButton"));
         registerButton.setText(getResources().getString("registerButton"));
+        nameField.setPromptText(getResources().getString("name_promptText"));
+        passwordField.setPromptText(getResources().getString("password_promptText"));
     }
 
     private void addErrorFlag() {
@@ -180,7 +197,14 @@ public class LoginFormController implements RootController, Rincled
     private void onLogin(@NonNull final User user) {
         userProvider.set(user);
         WebSocketConfigurator.userKey = userProvider.get().getUserKey();
-        Platform.runLater(sceneManager::setLobbyScene);
+
+        try {
+            appStateInitializer.initialize().get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.debug("unexpected initializer error", e);
+            handleErrorMessage(getResources().getString("unexpectedInitializerError"));
+        }
+        Platform.runLater(() -> sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null));
     }
 
     private void setErrorFlag(boolean flag) {

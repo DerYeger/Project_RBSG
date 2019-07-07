@@ -1,0 +1,13 @@
+/*
+ * @author Keanu Stückrad
+ */
+
+.unit-property-list-info-box {
+    -fx-max-height: 320;
+    -fx-max-width: 600;
+    -fx-effect: -shadow;
+    -fx-background-color: -root-background-color;
+    -fx-border-color: -default-border-color;
+    -fx-border-width: 2px;
+}
+

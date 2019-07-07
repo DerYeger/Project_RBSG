@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" maxHeight="320.0" maxWidth="790.0" minHeight="320.0" minWidth="790.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController">
+    <StackPane fx:id="imageStackPane" maxHeight="300.0" minWidth="300.0" HBox.hgrow="NEVER">
+        <HBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </HBox.margin>
+      <Pane styleClass="elevation-2" />
+        <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../assets/sprites/soldier.gif" />
+        </ImageView>
+    </StackPane>
+    <VBox maxHeight="470.0" maxWidth="300.0" minHeight="300.0" minWidth="470.0" HBox.hgrow="ALWAYS">
+        <HBox maxHeight="180.0" maxWidth="470.0" minHeight="180.0" minWidth="470.0" VBox.vgrow="ALWAYS">
+            <TilePane fx:id="statsContainer" maxHeight="1.7976931348623157E308" maxWidth="120.0" minWidth="120.0" orientation="VERTICAL" prefColumns="3" prefRows="2" tileAlignment="TOP_LEFT">
+                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
+                    <TilePane.margin>
+                        <Insets />
+                    </TilePane.margin>
+                </Pane>
+                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
+                    <TilePane.margin>
+                        <Insets />
+                    </TilePane.margin>
+                </Pane>
+                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
+                    <TilePane.margin>
+                        <Insets />
+                    </TilePane.margin>
+                </Pane>
+            </TilePane>
+            <TilePane fx:id="statsContainer2" maxHeight="1.7976931348623157E308" maxWidth="120.0" minWidth="120.0" orientation="VERTICAL" prefColumns="3" prefRows="2" tileAlignment="TOP_LEFT">
+                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
+                    <TilePane.margin>
+                        <Insets />
+                    </TilePane.margin>
+                </Pane>
+                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
+                    <TilePane.margin>
+                        <Insets />
+                    </TilePane.margin>
+                </Pane>
+                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
+                    <TilePane.margin>
+                        <Insets />
+                    </TilePane.margin>
+                </Pane>
+            </TilePane>
+            <VBox maxHeight="170.0" minHeight="170.0" styleClass="unitPropertyContainer" HBox.hgrow="ALWAYS">
+                 <HBox>
+                     <Label fx:id="canAttackLabel" styleClass="default" text="Can attack">
+                         <HBox.margin>
+                             <Insets bottom="2.0" left="10.0" right="5.0" top="5.0" />
+                         </HBox.margin>
+                     </Label>
+                 </HBox>
+                <GridPane fx:id="canAttackGrid" alignment="CENTER" VBox.vgrow="ALWAYS">
+                   <columnConstraints>
+                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+                   </columnConstraints>
+                   <rowConstraints>
+                       <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                       <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                   </rowConstraints>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+                </GridPane>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            </VBox>
+        </HBox>
+      <TextArea fx:id="unitDescription" editable="false" maxHeight="120.0" maxWidth="470.0" minHeight="120.0" minWidth="470.0" style="-fx-padding: 0;" text="No Unit selected" wrapText="true">
+         <styleClass>
+            <String fx:value="root-background-color" />
+            <String fx:value="unitPropertyContainer" />
+         </styleClass>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TextArea>
+      <HBox.margin>
+         <Insets bottom="10.0" top="10.0" />
+      </HBox.margin>
+    </VBox>
+   <stylesheets>
+      <URL value="@../darkTheme.css" />
+      <URL value="@unitDetailView.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="root-background-color" />
+   </styleClass>
+</HBox>

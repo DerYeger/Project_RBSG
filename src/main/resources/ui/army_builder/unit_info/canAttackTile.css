@@ -1,0 +1,11 @@
+.canAttackTile {
+    -fx-border-color: -default-border-color;
+    -fx-border-width: 2;
+    -fx-background-color: -root-background-color;
+}
+
+.canAttackTile #imagePane {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center center;
+}

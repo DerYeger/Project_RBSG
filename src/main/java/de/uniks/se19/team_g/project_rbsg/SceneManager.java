@@ -1,15 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.LobbySceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.StartSceneBuilder;
-import de.uniks.se19.team_g.project_rbsg.termination.RootController;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import io.rincl.*;
 import javafx.application.Platform;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +14,30 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable, Rincled
-{
+public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
+
+    public enum SceneIdentifier {
+        LOGIN("loginScene"),
+        LOBBY("lobbyScene"),
+        ARMY_BUILDER("armyScene"),
+        WAITING_ROOM("waitingRoomScene"),
+        INGAME("ingameScene");
+
+        public final String builder;
+
+        SceneIdentifier(@NonNull final String builder) {
+            this.builder = builder;
+        }
+    }
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -34,109 +45,122 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private Stage stage;
 
-    private RootController rootController;
+    private HashMap<SceneIdentifier, Scene> cachedScenes = new HashMap<>();
+    private HashMap<SceneIdentifier, RootController> rootControllers = new HashMap<>();
 
-    private AudioClip audioClip;
-    public boolean audioPlayed = true;
+    private ExceptionHandler exceptionHandler;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+        stage.setResizable(false);
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
-        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("icon.png")));
-        audioClip = new AudioClip(getClass().getResource("/de/uniks/se19/team_g/project_rbsg/login/Music/simple8BitLoop.mp3").toString());
-        audioClip.setCycleCount(AudioClip.INDEFINITE);
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
         return this;
     }
 
-    private void setScene(@NonNull final Scene scene) {
+    public SceneManager withExceptionHandler(@Nullable final ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
+        return this;
+    }
+
+    public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+        if (stage == null) {
+            logger.error("Stage not initialised");
+            return;
+        }
+
+        handleCaching(useCaching, cacheIdentifier);
+
+        if (!useCaching) clearCache();
+
+        logger.debug("Setting scene " + sceneIdentifier.name() + " with" + (useCaching ? " " : "out ") + "caching");
+
+        if (cachedScenes.containsKey(sceneIdentifier)) {
+            setSceneFromCache(sceneIdentifier);
+            return;
+        }
+
+        try {
+            @SuppressWarnings("unchecked")
+            final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
+            showSceneFromViewComponent(viewComponent, sceneIdentifier);
+        } catch (final Exception e) {
+            logger.error(e.getMessage());
+            if (exceptionHandler != null) exceptionHandler.handleException(this);
+        }
+    }
+
+    private void handleCaching(@NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+        if (useCaching && cacheIdentifier != null) {
+            cachedScenes.put(cacheIdentifier, stage.getScene());
+            logger.debug("Cached scene " + stage.getScene() + " with identifier " + cacheIdentifier.name());
+        }
+    }
+
+    private void doSetScene(@NonNull final Scene scene) {
         Platform.runLater(() -> stage.setScene(scene));
     }
 
-    public void setStartScene() {
+    private void setSceneFromCache(@NonNull final SceneIdentifier identifier) {
+        if (cachedScenes.containsKey(identifier)) {
+            doSetScene(cachedScenes.get(identifier));
+        } else {
+            logger.error("No cached Scene with identifier " + identifier.name());
+        }
+    }
+
+    private void showSceneFromViewComponent(@NonNull final ViewComponent<RootController> component, @Nullable final SceneIdentifier identifier) {
+        doSetScene(sceneFromParent(component.getRoot()));
+        withRootController(component.getController(), identifier);
+    }
+
+    private Scene sceneFromParent(@NonNull final Parent parent)
+    {
+        return new Scene(parent);
+    }
+
+    public StackPane getAlertTarget() {
         if (stage == null) {
-            logger.debug("Stage not initialised");
-            return;
+            logger.error("Stage not initialised");
+            return null;
         }
-        terminateRootController();
+
         try {
-            final Scene startScene = context.getBean(StartSceneBuilder.class).getStartScene();
-            stage.setResizable(false);
-            setScene(startScene);
-            playAudio();
-        } catch (IOException e) {
-            logger.error("Unable to set start scene");
+            return (StackPane) stage.getScene().getRoot();
+        } catch (final ClassCastException e) {
             e.printStackTrace();
+            logger.error("Root of Scene " + stage.getScene() + " is not a StackPane");
         }
+        return null;
     }
 
-    public void setLobbyScene() {
-        if (stage == null) {
-            logger.debug("Stage not initialised");
-            return;
-        }
-        terminateRootController();
-        try {
-            final Scene lobbyScene = context.getBean(LobbySceneBuilder.class).getLobbyScene();
-            stage.setResizable(false);
-            setScene(lobbyScene);
-        } catch (Exception e) {
-            System.out.println("Unable to set lobby scene");
-            e.printStackTrace();
-        }
+    public void withRootController(@NonNull final RootController rootController, @Nullable final SceneIdentifier identifier) {
+        if (identifier != null) rootControllers.put(identifier, rootController);
     }
 
-    public void setIngameScene() {
-        if (stage == null) {
-            System.out.println("Not yet initialised");
-            return;
-        }
-        try {
-            final Scene ingameScene = context.getBean(IngameSceneBuilder.class).getIngameScene();
-            stage.setMinHeight(670);
-            stage.setMinWidth(900);
-            stage.setResizable(false);
-            setScene(ingameScene);
-        } catch (Exception e) {
-            System.out.println("Unable to set ingame scene");
-            e.printStackTrace();
-        }
+    private void clearCache() {
+        terminateRootControllers();
+        cachedScenes.clear();
+        logger.debug("Cache cleared");
     }
 
-    public void terminateRootController() {
-        if (rootController != null && rootController instanceof Terminable) {
-            ((Terminable) rootController).terminate();
-            rootController = null;
-        }
+    private void terminateRootControllers() {
+        rootControllers.forEach((scene, controller) -> {
+            if (controller instanceof Terminable) {
+                ((Terminable) controller).terminate();
+            }
+        });
+        rootControllers.clear();
+        logger.debug("RootControllers terminated");
     }
 
-    public RootController getRootController() {
-        return rootController;
-    }
-
-    public void setRootController(@NonNull final RootController rootController) {
-        if (this.rootController != null) {
-            terminateRootController();
-        }
-        this.rootController = rootController;
+    @Override
+    public void terminate() {
+        terminateRootControllers();
     }
 
     @Override
     public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
-    }
-
-    @Override
-    public void terminate() {
-        terminateRootController();
-    }
-
-    public void playAudio() {
-        audioClip.play();
-        audioPlayed = true;
-    }
-
-    public void stopAudio() {
-        audioClip.stop();
-        audioPlayed = false;
     }
 }

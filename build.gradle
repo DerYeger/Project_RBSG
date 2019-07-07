@@ -7,7 +7,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 group = 'de.uniks.se19.team_g'
-version = '1.1.1'
+version = '2.0'
 sourceCompatibility = 11
 targetCompatibility = 11
 mainClassName = 'de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication'
@@ -27,6 +27,8 @@ dependencies {
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation "org.mockito:mockito-core:2.+"
 
 	//javafx 11 components for multiplatform deployment
 	runtimeOnly 'org.openjfx:javafx-graphics:$javafx.version:win'

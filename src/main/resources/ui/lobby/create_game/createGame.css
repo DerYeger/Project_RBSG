@@ -1,0 +1,57 @@
+* {
+    -fx-border-radius: 0;
+}
+
+.createGame {
+    -fx-background-color: -root-background-color;
+    -fx-border-width: 2;
+    -fx-border-color: -default-border-color;
+    -fx-pref-width: 350;
+    -fx-pref-height: 300;
+}
+
+.label {
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: -on-primary-fill;
+}
+
+.text-field {
+    -fx-padding: 5 5 5 5;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-alignment: center;
+    -fx-background-color: -surface-elevation-8-color;
+    -fx-font-size: 16;
+    -fx-pref-width: 330;
+    -fx-text-fill: -on-secondary-fill;
+}
+
+.text-field:focused {
+    -fx-font-weight: bold;
+    -fx-text-fill: -on-primary-fill;
+}
+
+.toggle-button {
+    -fx-background-radius: 0;
+    -fx-background-color: -primary-background-color;
+    -fx-border-width: 0;
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-pref-width: 160;
+    -fx-pref-height: 40;
+    -fx-text-fill: -on-primary-fill;
+}
+
+.toggle-button:selected {
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.toggle-button:hover {
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}

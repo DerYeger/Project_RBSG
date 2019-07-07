@@ -1,9 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
@@ -13,13 +16,12 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
-import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
 import org.junit.*;
 import org.junit.runner.*;
-import org.springframework.beans.*;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.context.*;
@@ -29,8 +31,8 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.web.client.*;
 import org.testfx.framework.junit.*;
+import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.*;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -43,12 +45,15 @@ import static org.junit.Assert.*;
         UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        CreateGameFormBuilder.class,
-        CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
-        FXMLLoaderFactory.class
-        }
+        FXMLLoaderFactory.class,
+        MusicManager.class,
+        ApplicationState.class,
+        SceneManagerConfig.class,
+        LocaleConfig.class,
+        GameListViewCell.class,
+        AlertBuilder.class
+    }
 )
 public class PlayerJoinedGameListTest extends ApplicationTest
 {
@@ -58,15 +63,16 @@ public class PlayerJoinedGameListTest extends ApplicationTest
     private Lobby lobby;
 
     @TestConfiguration
-    public static class ContextConfiguration implements ApplicationContextAware{
-        private ApplicationContext context;
+    public static class ContextConfiguration {
+        @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
+        }
 
         @Bean
-        @Scope("prototype")
-        public FXMLLoader fxmlLoader() {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setControllerFactory(this.context::getBean);
-            return loader;
+        public CreateGameFormBuilder createGameController()
+        {
+            return Mockito.mock(CreateGameFormBuilder.class);
         }
 
         @Bean
@@ -110,41 +116,42 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         }
 
         @Bean
-        public ChatController chatController()
-        {
-            return new ChatController(new UserProvider(), new WebSocketClient(), new ChatWebSocketCallback())
-            {
+        public ChatController chatController() {
+            return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
-                public void init(@NonNull final TabPane chatPane)
+                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
                 {
                 }
-
             };
         }
 
-        @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
-        {
-            this.context = applicationContext;
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void startChatClient(@NonNull final ChatController chatController) {
+                }
+            };
         }
     }
 
     @Override
     public void start(Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
 
-        Parent parent = (Parent) lobbyViewBuilder.buildLobbyScene();
+        Parent parent = components.getRoot();
         Scene scene = new Scene(parent, 1200, 840);
         stage.setScene(scene);
         stage.show();
         stage.toFront();
 
-        lobby = lobbyViewBuilder.getLobbyViewController().getLobby();
+        lobby = components.getController().getLobby();
     }
 
     @Test
-    public void TestGameList() throws IOException
+    public void TestGameList()
     {
         Label playersLabel = lookup("#gameCellPlayersLabelgame1").query();
         assertEquals("0/2", playersLabel.textProperty().get());
@@ -155,8 +162,7 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         assertNotNull(gameOne);
 
         gameOne.setJoinedPlayer(1);
-
-        sleep(100);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals("1/2", playersLabel.textProperty().get());
 

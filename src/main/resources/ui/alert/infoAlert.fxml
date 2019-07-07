@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.alert.InfoAlertController">
+   <children>
+      <VBox fx:id="container" alignment="BOTTOM_RIGHT" prefHeight="400.0" prefWidth="600.0" styleClass="container">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="label" alignment="TOP_LEFT" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Button fx:id="confirm" mnemonicParsing="false" styleClass="icon-button" text="Button" />
+               </children>
+            </HBox>
+         </children>
+         <stylesheets>
+            <URL value="@../darkTheme.css" />
+            <URL value="@alert.css" />
+         </stylesheets>
+      </VBox>
+   </children>
+</StackPane>
