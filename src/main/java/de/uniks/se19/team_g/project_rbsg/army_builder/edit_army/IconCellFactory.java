@@ -1,11 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.edit_army;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.ArmyIcon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.util.Callback;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Component;

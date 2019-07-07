@@ -1,25 +1,19 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
-import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryController;
-import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellController;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyAdapter;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyUnitAdapter;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
-import io.rincl.Rincl;
-import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,9 +21,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -42,29 +37,30 @@ import org.testfx.util.WaitForAsyncUtils;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
+        ArmyBuilderViewTest.ContextConfiguration.class,
         ArmyBuilderConfig.class,
         FXMLLoaderFactory.class,
         ArmyBuilderController.class,
         UnitDetailController.class,
-        UnitListEntryFactory.class,
-        UnitListEntryController.class,
-        ArmyBuilderViewTest.ContextConfiguration.class,
+        UnitListCellFactory.class,
+        UnitListCellController.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        PersistentArmyManager.class,
         RestTemplate.class,
         LocaleConfig.class,
         UnitPropertyController.class,
-        DeleteArmyService.class,
-        GetArmiesService.class,
-        ArmyAdapter.class,
-        ArmyUnitAdapter.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
+
+    @MockBean
+    private PersistentArmyManager persistentArmyManager;
 
 
     @TestConfiguration
     static class ContextConfiguration {
+        @Bean
+        public PersistentArmyManager persistentArmyManager() {return Mockito.mock(PersistentArmyManager.class);}
+
         @Bean
         public ArmyDetailController armyDetailController() { return Mockito.mock(ArmyDetailController.class);}
 
@@ -78,19 +74,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     EditArmyController editArmyController;
 
     @Autowired
-    DeleteArmyService deleteArmyService;
-
-    @Autowired
-    ArmyAdapter armyAdapter;
-
-    @Autowired
-    ArmyUnitAdapter armyUnitAdapter;
-
-    @Autowired
-    GetArmiesService getArmiesService;
-
-    @Autowired
-    public ApplicationContext context;
+    public ObjectFactory<ViewComponent<ArmyBuilderController>> sceneBuilder;
 
     @Autowired
     public ApplicationState state;
@@ -105,8 +89,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     @Test
     public void testSceneCreation()
     {
-        @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderScene
-                = (ViewComponent<ArmyBuilderController>) context.getBean("armyScene");
+        ViewComponent<ArmyBuilderController> armyBuilderScene= sceneBuilder.getObject();
         final ArmyBuilderController controller = armyBuilderScene.getController();
 
         Assert.assertNotNull(controller.root);
@@ -131,8 +114,7 @@ public class ArmyBuilderViewTest extends ApplicationTest {
         unit.name.set("Archer");
         unit.iconUrl.set(getClass().getResource("/assets/icons/army/magicDefense.png").toString());
 
-        @SuppressWarnings("unchecked") ViewComponent<ArmyBuilderController> armyBuilderComponent
-                = (ViewComponent<ArmyBuilderController>) context.getBean("armyScene");
+        ViewComponent<ArmyBuilderController> armyBuilderComponent = sceneBuilder.getObject();
 
         Platform.runLater(() -> {
             stage.setScene(new Scene(armyBuilderComponent.getRoot()));

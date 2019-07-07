@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class UnitListEntryFactory implements Callback<ListView<Unit>, ListCell<Unit>> {
+public class UnitListCellFactory implements Callback<ListView<Unit>, ListCell<Unit>> {
 
     final FXMLLoaderFactory fxmlLoaderFactory;
 
-    public UnitListEntryFactory(final FXMLLoaderFactory fxmlLoaderFactory) {
+    public UnitListCellFactory(final FXMLLoaderFactory fxmlLoaderFactory) {
         this.fxmlLoaderFactory = fxmlLoaderFactory;
     }
 

@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.edit_army;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.ArmyIcon;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;

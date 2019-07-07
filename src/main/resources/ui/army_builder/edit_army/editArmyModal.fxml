@@ -43,7 +43,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </GridPane>
-      <ListView fx:id="iconList" maxHeight="65.0" orientation="HORIZONTAL" prefHeight="65.0">
+      <ListView fx:id="iconList" maxHeight="75.0" minHeight="65.0" orientation="HORIZONTAL" prefHeight="70.0">
          <styleClass>
             <String fx:value="default-horizontal" />
             <String fx:value="armies-list" />

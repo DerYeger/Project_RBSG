@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyIcon;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.ArmyIcon;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

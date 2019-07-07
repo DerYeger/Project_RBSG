@@ -24,9 +24,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,18 +35,21 @@ public class PersistentArmyManager {
     private final String url = "/army";
     final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private String fileName = "armies.json";
+    private final SaveFileStrategy saveFileStrategy;
     @NonNull
     private DeleteArmyService deleteArmyService;
     private GetArmiesService getArmiesService;
 
-    public PersistentArmyManager(@NonNull RestTemplate restTemplate,
-                                 @NonNull DeleteArmyService deleteArmyService,
-                                 @NonNull GetArmiesService getArmiesService) {
-
+    public PersistentArmyManager(
+            @NonNull RestTemplate restTemplate,
+            @NonNull DeleteArmyService deleteArmyService,
+            @NonNull GetArmiesService getArmiesService,
+            @Nonnull SaveFileStrategy saveFileStrategy
+    ) {
         this.restTemplate = restTemplate;
         this.deleteArmyService = deleteArmyService;
         this.getArmiesService = getArmiesService;
+        this.saveFileStrategy = saveFileStrategy;
     }
 
     public CompletableFuture<SaveArmyResponse> saveArmyOnline(@NonNull Army army) throws
@@ -176,7 +176,7 @@ public class PersistentArmyManager {
         }
 
         try {
-            File file = getSaveFile();
+            File file = saveFileStrategy.getSaveFile();
 
             //noinspection ResultOfMethodCallIgnored
             file.getParentFile().mkdirs();
@@ -193,44 +193,8 @@ public class PersistentArmyManager {
 
     @Nonnull
     public File getSaveFile() throws IOException {
-        String osType = System.getProperty("os.name");
-        logger.debug("We are on " + osType);
 
-        File file;
-
-        if (osType.contains("Windows")) {
-            file = getSaveFileInAppdata();
-        } else {
-            file = getSaveFileInHome();
-        }
-
-        return file;
-    }
-
-    @Nonnull
-    private File getSaveFileInHome() {
-        logger.debug("Return file in home path");
-        return new File(System.getProperty("user.home") + "/.local/" + getRelativeFileName());
-    }
-
-    private File getSaveFileInAppdata() throws IOException {
-        String appData = System.getenv("APPDATA");
-        if ( appData == null) {
-            logger.debug("No app data found");
-            return getSaveFileInHome();
-            // do we need to hide the folder in this case?
-            // Files.setAttribute(Paths.get(file.getPath()), "dos:hidden", true);
-        }
-        logger.debug("Return file in appdata path");
-        return Path.of(appData, getRelativeFileName()).toFile();
-    }
-
-    /**
-     * maybe prefix the save file per user so that the save game of one user doesn't overwrite the savegame of another
-     * @return
-     */
-    private String getRelativeFileName() {
-        return "rbsg/" + fileName;
+        return saveFileStrategy.getSaveFile();
     }
 
     public CompletableFuture<Void> saveArmies(ObservableList<Army> armies) throws InterruptedException, ExecutionException {
@@ -253,22 +217,25 @@ public class PersistentArmyManager {
         for (Army army : armies) {
             if (army.units.size() == 10) {
                 //army is complete
-                feedbacks.add(this.saveArmyOnline(army));
+                feedbacks.add(
+                    this.saveArmyOnline(army).thenApply(
+                        response -> {
+                            army.id.set(response.data.id);
+                            return response;
+                        }
+                    )
+                );
             }
             armyList.add(army);
         }
-        if (!armyList.isEmpty()) {
-            this.saveArmiesLocal(armyList);
-        }
 
-        //noinspection unchecked,SuspiciousToArrayCall
-        CompletableFuture<SaveArmyResponse>[] feedBackObjects = new CompletableFuture[feedbacks.size()];
-        feedBackObjects = feedbacks.toArray(feedBackObjects);
-        return CompletableFuture.allOf(feedBackObjects);
-    }
-
-    public void setTestFileName(String fileName){
-        this.fileName=fileName;
+        return CompletableFuture.allOf(feedbacks.toArray(CompletableFuture[]::new)).thenRun(
+            () -> {
+                if (!armyList.isEmpty()) {
+                    this.saveArmiesLocal(armyList);
+                }
+            }
+        );
     }
 
     public static class DeserializableArmy{

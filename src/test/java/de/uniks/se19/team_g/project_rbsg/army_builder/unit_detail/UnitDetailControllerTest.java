@@ -99,10 +99,6 @@ public class UnitDetailControllerTest extends ApplicationTest {
                 String.valueOf(unit2.speed.get()),
                 lookup(".unitPropertyContainer").nth(1).lookup(".label").<Label>query().getText()
         );
-        Assert.assertEquals(
-                unit2.description.get(),
-                lookup(".unitPropertyContainer.text-area").<TextArea>query().getText()
-        );
 
         final String noCake = "there is no cake";
         Platform.runLater(() -> {
@@ -115,10 +111,6 @@ public class UnitDetailControllerTest extends ApplicationTest {
         Assert.assertEquals(
                 String.valueOf(unit2.speed.get()),
                 lookup(".unitPropertyContainer").nth(1).lookup(".label").<Label>query().getText()
-        );
-        Assert.assertEquals(
-                noCake,
-                lookup(".unitPropertyContainer.text-area").<TextArea>query().getText()
         );
 
 

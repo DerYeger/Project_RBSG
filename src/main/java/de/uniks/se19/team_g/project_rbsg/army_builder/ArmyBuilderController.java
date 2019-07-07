@@ -9,7 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelecto
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPropertyInfoListBuilder;
-import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListEntryFactory;
+import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
@@ -62,7 +62,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     @Nullable
     private final Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory;
     @Nonnull
-    private final UnitListEntryFactory unitCellFactory;
+    private final UnitListCellFactory unitCellFactory;
     @Nullable
     private final Function<Pane, ArmySelectorController> armySelectorComponent;
     @Nullable
@@ -109,7 +109,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
             @Nonnull ArmyBuilderState viewState,
-            @Nonnull UnitListEntryFactory unitCellFactory,
+            @Nonnull UnitListCellFactory unitCellFactory,
             @Nonnull ViewComponent<EditArmyController> editArmyComponent,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
