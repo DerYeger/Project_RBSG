@@ -86,17 +86,19 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private static boolean skipped;
 
     @Autowired
-    public WaitingRoomViewController(@NonNull final GameProvider gameProvider,
-                                     @NonNull final UserProvider userProvider,
-                                     @NonNull final SceneManager sceneManager,
-                                     @NonNull final GameEventManager gameEventManager,
-                                     @NonNull final MusicManager musicManager,
-                                     @NonNull final SplashImageBuilder splashImageBuilder,
-                                     @NonNull final ApplicationState applicationState,
-                                     @NonNull final IngameGameProvider ingameGameProvider,
-                                     @NonNull final ChatBuilder chatBuilder,
-                                     @NonNull final PreviewMapBuilder previewMapBuilder,
-                                     @NonNull final AlertBuilder alertBuilder) {
+    public WaitingRoomViewController(
+            @NonNull final GameProvider gameProvider,
+            @NonNull final UserProvider userProvider,
+            @NonNull final SceneManager sceneManager,
+            @NonNull final GameEventManager gameEventManager,
+            @NonNull final MusicManager musicManager,
+            @NonNull final SplashImageBuilder splashImageBuilder,
+            @NonNull final ApplicationState applicationState,
+            @NonNull final IngameGameProvider ingameGameProvider,
+            @NonNull final ChatBuilder chatBuilder,
+            @NonNull final PreviewMapBuilder previewMapBuilder,
+            @NonNull final AlertBuilder alertBuilder
+    ) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
