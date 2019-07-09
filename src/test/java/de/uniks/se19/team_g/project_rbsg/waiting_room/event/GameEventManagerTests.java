@@ -1,14 +1,15 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.event;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,47 +19,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        GameEventManagerTests.ContextConfiguration.class,
         GameEventManager.class
 })
 public class GameEventManagerTests {
 
-    private static boolean socketStarted = false;
-    private static boolean socketStopped = false;
-
-    private final String gameId = "12345";
-    private final String armyID = "54321";
-
     @Autowired
     private GameEventManager gameEventManager;
 
-    @TestConfiguration
-    public static class ContextConfiguration {
-        @Bean
-        public WebSocketClient webSocketClient() {
-            return new WebSocketClient() {
-                @Override
-                public void start(String endpoint, IWebSocketCallback webSocketCallback)
-                {
-                    if (endpoint.equals("/game?gameId=12345&armyId=54321")) {
-                        socketStarted = true;
-                    }
-                }
-
-                @Override
-                public void sendMessage(@NonNull final Object message) {
-                    if (message.equals(CommandBuilder.leaveGameCommand())) {
-                        stop();
-                    }
-                }
-
-                @Override
-                public void stop() {
-                    socketStopped = true;
-                }
-            };
-        }
-    }
+    @MockBean
+    private WebSocketClient webSocketClient;
 
     private static class TestGameEventHandler implements GameEventHandler {
         public ObjectNode handledMessage;
@@ -76,14 +45,21 @@ public class GameEventManagerTests {
 
     @Test
     public void testStartSocket() throws Exception {
+        String gameId = "12345";
+        String armyID = "54321";
         gameEventManager.startSocket(gameId, armyID);
-        Assert.assertTrue(socketStarted);
+        Mockito.verify(webSocketClient).start("/game?gameId=12345&armyId=54321", gameEventManager);
     }
 
     @Test
     public void testTerminate() {
         gameEventManager.terminate();
-        Assert.assertTrue(socketStopped);
+        InOrder inOrder = Mockito.inOrder(webSocketClient);
+        inOrder.verify(webSocketClient).setCloseHandler(gameEventManager);
+        inOrder.verify(webSocketClient).isClosed();
+        inOrder.verify(webSocketClient).sendMessage(ArgumentMatchers.eq(CommandBuilder.leaveGameCommand()));
+        inOrder.verify(webSocketClient).stop();
+        inOrder.verifyNoMoreInteractions();
     }
 
     @Test
