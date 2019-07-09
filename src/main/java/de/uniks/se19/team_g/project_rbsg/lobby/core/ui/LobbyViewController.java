@@ -219,7 +219,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                     createGameButton,
                     createGameButtonContainer,
                     new SimpleStringProperty(Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired")),
-                    appState.validArmySelected
+                    appState.hasPlayableArmies
             );
         }
 

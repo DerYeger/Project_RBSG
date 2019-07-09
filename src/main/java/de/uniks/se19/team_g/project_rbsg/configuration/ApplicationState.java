@@ -40,7 +40,7 @@ public class ApplicationState {
     public final SimpleObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
     public final ObservableList<Army> armies =  FXCollections.observableArrayList();
     public final ObservableList<Unit> unitDefinitions = FXCollections.observableArrayList();
-    public final SimpleBooleanProperty validArmySelected = new SimpleBooleanProperty();
+    public final SimpleBooleanProperty hasPlayableArmies = new SimpleBooleanProperty();
 
     public final ObservableList<String> notifications = FXCollections.observableArrayList();
 
