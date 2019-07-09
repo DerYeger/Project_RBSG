@@ -11,6 +11,6 @@
     -text-align: center;
     -fx-font-weight: bold;
     -fx-font-family: Roboto-Medium;
-    -fx-color: white;
+    -fx-text-fill: -on-primary-fill;
     -fx-background-color: -surface-elevation-8-color;
 }
