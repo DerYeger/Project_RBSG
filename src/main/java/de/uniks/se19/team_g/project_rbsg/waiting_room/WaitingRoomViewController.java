@@ -2,38 +2,40 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.AutoReadyOnInit;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.event.AutoReadyOnInit;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -60,7 +62,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Pane chatContainer;
     public Pane mapPreviewPane;
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
-    public Pane armyBar; // TODO has to be filled later
+    public Pane armySelector;
     public Button soundButton;
     public Button leaveButton;
     public Button showInfoButton;
@@ -162,13 +164,9 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         gameEventManager.addHandler(ready);
         gameEventManager.addHandler(this);
         withChatSupport();
-        if (applicationState.selectedArmy.get() == null) {
-            System.out.println("USER HAS NO ARMY");
-            System.out.println("ABORTING GAMESOCKET INIT");
-            return;
-        }
+
         gameEventManager.setSceneController(this);
-        gameEventManager.startSocket(gameProvider.get().getId(), applicationState.selectedArmy.get().id.get());
+        gameEventManager.startSocket(gameProvider.get().getId(), null);
     }
 
     private void withChatSupport() throws Exception {
@@ -315,5 +313,22 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                 }
             }
         });
+    }
+
+    protected void mountArmySelector() {
+        /*
+        if (armySelectorComponent == null || appState == null) {
+            return;
+        }
+
+         * normally, an observable list is only aware of items added and removed
+         * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
+        final ObservableList<Army> playableAwareArmies = FXCollections.observableArrayList(
+            army -> new Observable[] {army.isPlayable}
+        );
+        Bindings.bindContent( playableAwareArmies, appState.armies);
+
+        armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), appState.selectedArmy);
+         */
     }
 }

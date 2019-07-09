@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketCloseHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController;
+import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +15,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import javax.websocket.CloseReason;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import static de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilde
 @Scope("prototype")
 public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
-    private static final String ENDPOINT = "/game?";
+    private static final String ENDPOINT = "/game";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -65,8 +67,13 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         return gameEventHandlers;
     }
 
-    public void startSocket(@NonNull final String gameID, @NonNull final String armyID) throws Exception {
-        webSocketClient.start(ENDPOINT + getGameIDParam(gameID) + '&' + getArmyIDParam(armyID), this);
+    public void startSocket(@Nonnull final String gameID, @Nullable final String armyID) throws Exception {
+        final URIBuilder uriBuilder = new URIBuilder("/game");
+        uriBuilder.addParameter("gameId", gameID);
+        if (armyID != null) {
+            uriBuilder.addParameter("armyId", armyID);
+        }
+        webSocketClient.start(uriBuilder.build().toString(), this);
     }
 
     private String getGameIDParam(@NonNull final String gameID) {
