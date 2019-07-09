@@ -17,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
@@ -46,13 +47,16 @@ public class IngameViewController implements RootController {
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
     private double columnRowSize;
     private double canvasColumnRowSize;
+    public Label roundTextLabel;
+    public Label roundCountLabel;
+    public Label phaseLabel;
+    public SimpleIntegerProperty roundCount;
 
     public Button leaveButton;
     public Button zoomOutButton;
     public Button zoomInButton;
     public VBox root;
     public Button ingameInformationsButton;
-    public Label roundCounter;
 
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
@@ -79,7 +83,6 @@ public class IngameViewController implements RootController {
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
-
     }
 
     public void initialize() {
@@ -118,6 +121,9 @@ public class IngameViewController implements RootController {
             canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
         }
+        //roundCount.set(0);
+        roundTextLabel.setText("Runde");
+        //roundCountLabel.textProperty().bind(roundCount.asString());
     }
 
     private void initCanvas() {

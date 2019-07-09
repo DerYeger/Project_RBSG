@@ -36,7 +36,16 @@
             </HBox>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="roundCounter" alignment="CENTER" text="Round">
+                  <Label fx:id="roundTextLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="default-medium" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="roundCountLabel" contentDisplay="CENTER" styleClass="default-medium" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin></Label>
+                  <Label fx:id="phaseLabel" contentDisplay="CENTER" styleClass="default-medium" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
