@@ -2,11 +2,16 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.util.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.BeansException;
 import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
@@ -19,6 +24,7 @@ public class ModelManager implements GameEventHandler {
     private static final String GAME_INIT_OBJECT = "gameInitObject";
     private static final String GAME_NEW_OBJECT = "gameNewObject";
     private static final String GAME_REMOVE_OBJECT = "gameRemoveObject";
+    public static final String GAME_CHANGE_OBJECT = "gameChangeObject";
 
     @NonNull
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -26,14 +32,18 @@ public class ModelManager implements GameEventHandler {
     @NonNull
     private final HashMap<String, Object> objectMap;
 
-    private de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game;
+    private ObjectProperty<Game> gameProperty = new SimpleObjectProperty<>();
 
     public ModelManager() {
         objectMap = new HashMap<>();
     }
 
+    public ReadOnlyObjectProperty<Game> gameProperty() {
+        return gameProperty;
+    }
+
     public Game getGame() {
-        return game;
+        return gameProperty.get();
     }
 
     @Override
@@ -54,9 +64,57 @@ public class ModelManager implements GameEventHandler {
             case GAME_REMOVE_OBJECT:
                 handleRemove(node);
                 break;
+            case GAME_CHANGE_OBJECT:
+                handleChange(node.get("data"));
+                break;
             default:
                 logger.error("Unknown model message: " + node);
         }
+    }
+
+    private void handleChange(JsonNode data) {
+        final String id = data.get("id").asText();
+
+        final Object entity = objectMap.get(id);
+
+        if (entity == null) {
+            logger.error("unknown identity {} changed", id);
+            return;
+        }
+
+        String changedProperty = data.get("fieldName").asText();
+        final JsonNode newValue = data.get("newValue");
+
+        if (entity instanceof Game) {
+            if (handleSpecialGameFields((Game) entity, changedProperty, newValue)) {
+                return;
+            }
+        }
+
+        if (newValue.isValueNode()) {
+            try {
+                String nextValue = newValue.textValue();
+                final BeanWrapperImpl beanWrapper = new BeanWrapperImpl(entity);
+                beanWrapper.setPropertyValue(changedProperty, nextValue);
+                return;
+            } catch (BeansException e) {
+                logger.error("entity update failed", e);
+            }
+        }
+
+        logger.error("can't update entity of type {}", entity.getClass());
+    }
+
+    private boolean handleSpecialGameFields(Game entity, String changedProperty, JsonNode newValue) {
+
+        if (changedProperty.equals("currentPlayer")) {
+            final Player player = (Player) objectMap.get(newValue.asText());
+            entity.setCurrentPlayer(player);
+
+            return true;
+        }
+
+        return false;
     }
 
     private void handleInit(@NonNull final ObjectNode node) {
@@ -68,7 +126,7 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Game":
-                game = GameUtil.buildGame(this, identifier, data, true);
+                gameProperty.set(GameUtil.buildGame(this, identifier, data, true));
                 break;
             case "Player":
                 PlayerUtil.buildPlayer(this, identifier, data, true);
