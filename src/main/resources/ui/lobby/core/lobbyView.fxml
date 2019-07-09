@@ -21,9 +21,9 @@
             <GridPane fx:id="mainGridPane" styleClass="main-grid-pane" StackPane.alignment="TOP_LEFT">
                <children>
                   <Label fx:id="lobbyTitle" alignment="CENTER" styleClass="game-title" text="Advanced WASP Wars" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                  <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="lobbyPlayerListView">
+                        <ListView fx:id="lobbyPlayerListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="500.0">
                            <styleClass>
                               <String fx:value="default" />
                               <String fx:value="transparent" />
