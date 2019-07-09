@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
    <children>
       <StackPane fx:id="mainStackPane" prefHeight="3000.0" styleClass="body">
@@ -30,7 +29,6 @@
                               <String fx:value="transparent" />
                            </styleClass>
                         </ListView>
-                        <VBox fx:id="armySelectorRoot" maxHeight="-Infinity" maxWidth="-Infinity" />
                      </children>
                   </HBox>
                   <VBox fx:id="chatContainer" styleClass="chat-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />

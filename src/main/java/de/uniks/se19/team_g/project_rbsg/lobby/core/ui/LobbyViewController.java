@@ -2,7 +2,6 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
@@ -15,7 +14,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
@@ -24,12 +22,9 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -81,8 +76,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final ObjectFactory<GameListViewCell> gameListCellFactory;
     @Nonnull
     private final Property<Locale> selectedLocale;
-    @Nullable
-    private final Function<Pane, ArmySelectorController> armySelectorComponent;
 
     private final ApplicationState appState;
     @Nullable
@@ -97,7 +90,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     private Node gameForm;
 
-    public VBox armySelectorRoot;
     public StackPane mainStackPane;
     public Button soundButton;
     public Button logoutButton;
@@ -107,18 +99,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Pane createGameButtonContainer;
     public Button armyBuilderLink;
     public GridPane mainGridPane;
-    public HBox headerHBox;
     public Label lobbyTitle;
     public ListView<Player> lobbyPlayerListView;
-    public VBox gameListContainer;
     public ListView<Game> lobbyGamesListView;
     public VBox chatContainer;
-
-    /*
-     * do NOT. i repeat. do NOT inline the army selector. We need the reference so that the selected listener won't get removed.
-     */
-    @SuppressWarnings("FieldCanBeLocal")
-    private ArmySelectorController armySelectorController;
 
     @Autowired
     public LobbyViewController(
@@ -135,7 +119,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @NonNull final AlertBuilder alertBuilder,
             @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
             @Nonnull final Property<Locale> selectedLocale,
-            @Nullable final Function<Pane, ArmySelectorController> armySelectorComponent,
             @Nullable final ApplicationState appState,
             @Nullable final Function<VBox, NotificationModalController> notificationRenderer
     ) {
@@ -144,7 +127,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.alertBuilder = alertBuilder;
         this.gameListCellFactory = gameListCellFactory;
         this.selectedLocale = selectedLocale;
-        this.armySelectorComponent = armySelectorComponent;
         this.appState = appState;
         this.notificationRenderer = notificationRenderer;
 
@@ -232,8 +214,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         bindI18n();
         updateLabels(null);
 
-        mountArmySelector();
-
         if (appState != null) {
             JavaFXUtils.bindButtonDisableWithTooltip(
                     createGameButton,
@@ -246,25 +226,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if (Objects.nonNull(appState) && appState.notifications.size() > 0) {
             showNotifications();
         }
-    }
-
-    protected void mountArmySelector() {
-        if (armySelectorComponent == null || appState == null) {
-            return;
-        }
-
-        armySelectorController = armySelectorComponent.apply(armySelectorRoot);
-
-        /*
-         * normally, an observable list is only aware of items added and removed
-         * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
-         */
-        final ObservableList<Army> playableAwareArmies = FXCollections.observableArrayList(
-            army -> new Observable[] {army.isPlayable}
-        );
-        Bindings.bindContent( playableAwareArmies, appState.armies);
-
-        armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), appState.selectedArmy);
     }
 
     private void showNotifications() {
@@ -336,7 +297,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
     }
 
-    public void createGameButtonClicked(ActionEvent event)
+    public void createGameButtonClicked()
     {
         if(mainStackPane == null) {
             return;
@@ -384,25 +345,25 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
     }
 
-    public void changeLangToDE(ActionEvent event)
+    public void changeLangToDE()
     {
         deButton.disableProperty().setValue(true);
         updateLabels(Locale.GERMAN);
     }
 
-    public void changeLangToEN(ActionEvent event)
+    public void changeLangToEN()
     {
         deButton.disableProperty().setValue(false);
         updateLabels(Locale.ENGLISH);
     }
 
-    public void toggleSound(ActionEvent event)
+    public void toggleSound()
     {
         logger.debug("Pressed the toggleSound button");
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
-    public void logoutUser(ActionEvent event)
+    public void logoutUser()
     {
         alertBuilder
                 .confirmation(
