@@ -23,6 +23,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class IngameViewController implements RootController {
     public Button zoomOutButton;
     public Button zoomInButton;
     public VBox root;
+    public Button ingameInformationsButton;
+    public Label roundCounter;
 
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
@@ -95,6 +98,12 @@ public class IngameViewController implements RootController {
                 zoomOutButton,
                 getClass().getResource("/assets/icons/navigation/zoomOutWhite.png"),
                 getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
+                40
+        );
+        JavaFXUtils.setButtonIcons(
+                ingameInformationsButton,
+                getClass().getResource("/assets/icons/operation/accountWhite.png"),
+                getClass().getResource("/assets/icons/operation/accountBlack.png"),
                 40
         );
         game = ingameGameProvider.get();
