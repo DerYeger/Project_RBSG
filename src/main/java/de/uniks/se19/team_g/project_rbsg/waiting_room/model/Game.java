@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
@@ -18,11 +20,15 @@ public class Game {
     @NonNull
     private final String id;
 
+    private StringProperty phase = new SimpleStringProperty();
+
     private ObservableList<Player> players;
 
     private ObservableList<Unit> units;
 
     private ObservableList<Cell> cells;
+
+    private ObjectProperty<Player> currentPlayerProperty = new SimpleObjectProperty<>();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -208,5 +214,31 @@ public class Game {
     @Override
     public String toString() {
         return "(" + id + ", " + players.size() + " players, " + units.size() + " units)";
+    }
+
+    public String getPhase() {
+        return phase.get();
+    }
+
+    public ReadOnlyStringProperty phaseProperty() {
+        return phase;
+    }
+
+    public void setPhase(String phase) {
+        this.phase.set(phase);
+    }
+
+    public Game setCurrentPlayer(Player player) {
+        currentPlayerProperty.set(player);
+
+        return this;
+    }
+
+    public Player getCurrentPlayerProperty() {
+        return currentPlayerProperty.get();
+    }
+
+    public ObjectProperty<Player> currentPlayerPropertyProperty() {
+        return currentPlayerProperty;
     }
 }
