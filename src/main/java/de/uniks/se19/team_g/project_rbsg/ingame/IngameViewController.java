@@ -79,6 +79,7 @@ public class IngameViewController implements RootController {
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+
     }
 
     public void initialize() {

@@ -14,24 +14,44 @@
 <StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController">
    <children>
       <VBox fx:id="root" stylesheets="@../darkTheme.css">
-         <HBox alignment="CENTER_LEFT" styleClass="root-background-color">
-            <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button">
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button">
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button">
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Label fx:id="roundCounter" />
-            <Button fx:id="ingameInformationsButton" mnemonicParsing="false" />
+         <HBox fx:id="menueBar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="root-background-color" VBox.vgrow="ALWAYS">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="roundCounter" alignment="CENTER" text="Round">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="ingameInformationsButton" alignment="CENTER_RIGHT" mnemonicParsing="false" styleClass="icon-button">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </HBox>
       </VBox>
    </children>
