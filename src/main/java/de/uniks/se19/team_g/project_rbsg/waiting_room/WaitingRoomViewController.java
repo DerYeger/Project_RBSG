@@ -10,16 +10,19 @@ import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketCloseHandler;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.AutoReadyOnInit;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -131,10 +134,32 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
         initSocket();
+
+        ObservableList<Player> readyPlayers = FXCollections.observableArrayList(
+            player -> new Observable[] {player.isReadyProperty()}
+        );
+
+        modelManager.gameProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                Bindings.bindContent(readyPlayers, newValue.getPlayers());
+            }
+        );
+
+        Bindings.createBooleanBinding(
+            () -> readyPlayers.stream().allMatch(Player::getIsReady),
+            readyPlayers
+        ).addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                gameEventManager.sendMessage(CommandBuilder.startGame());
+            }
+        });
     }
 
     private void initSocket() throws Exception {
         gameEventManager.addHandler(modelManager);
+        final AutoReadyOnInit ready = new AutoReadyOnInit();
+        ready.setGameEventManager(gameEventManager);
+        gameEventManager.addHandler(ready);
         gameEventManager.addHandler(this);
         withChatSupport();
         if (applicationState.selectedArmy.get() == null) {
