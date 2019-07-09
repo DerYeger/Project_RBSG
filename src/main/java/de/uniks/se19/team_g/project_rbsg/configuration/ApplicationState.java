@@ -2,14 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import org.springframework.stereotype.Component;
 
 /**
  * The application State in its current form is designed as a singleton accessible from everywhere in the application.
@@ -30,8 +26,10 @@ import org.springframework.stereotype.Component;
  *
  * Please note, that if you create a Binding, e.g. via Bindings.create{}, Observable{}.bind() ..., the references are weak by default.
  * If these are bound to Scene Graph Nodes, one doesn't need to care about the listener topic at all.
+ *
+ * While the binding configuration is closely coupled to the ApplicationState for valid behaviour, we moved the bindings configuration out to
+ * AppStateConfig, so that we have more freedom with ApplicationState under test, if specific behaviour shall be enforced without to much trouble.
  */
-@Component
 public class ApplicationState {
 
     public static final int MAX_ARMY_COUNT = 7;
@@ -43,38 +41,4 @@ public class ApplicationState {
     public final SimpleBooleanProperty hasPlayableArmies = new SimpleBooleanProperty();
 
     public final ObservableList<String> notifications = FXCollections.observableArrayList();
-
-    public ApplicationState () {
-
-        setupValidArmySelected();
-
-        armies.addListener(this::onArmyUpdate);
-
-    }
-
-    protected void setupValidArmySelected() {
-        validArmySelected.set(false);
-        selectedArmy.addListener((observable, oldValue, newValue) ->{
-            if (newValue == null) {
-                validArmySelected.unbind();
-                validArmySelected.setValue(false);
-            } else {
-                validArmySelected.bind(newValue.isPlayable);
-            }
-        });
-    }
-
-    private void onArmyUpdate(ListChangeListener.Change<? extends Army> change) {
-        while (change.next()) {
-            if (selectedArmy.get() == null || change.getRemoved().contains(selectedArmy.get())) {
-                final ObservableList<? extends Army> list = change.getList();
-                if (!list.isEmpty()) {
-                    selectedArmy.set(list.get(0));
-                }
-                if (selectedArmy.get() != null) {
-                    break;
-                }
-            }
-        }
-    }
 }
