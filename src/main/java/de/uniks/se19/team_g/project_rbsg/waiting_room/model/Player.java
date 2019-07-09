@@ -1,5 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
@@ -24,6 +27,8 @@ public class Player {
     private String color;
 
     private ObservableList<Unit> units;
+
+    final private BooleanProperty isReady = new SimpleBooleanProperty(false);
 
     public Player(@NonNull final String id) {
         this.id = id;
@@ -131,5 +136,18 @@ public class Player {
     @Override
     public String toString() {
         return "(" + name + ", " + color + ")";
+    }
+
+    public boolean getIsReady() {
+        return isReady.get();
+    }
+
+    public ReadOnlyBooleanProperty isReadyProperty() {
+        return isReady;
+    }
+
+    public Player setIsReady(boolean isReady) {
+        this.isReady.set(isReady);
+        return this;
     }
 }
