@@ -120,6 +120,10 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         }
     }
 
+    public void sendMessage(Object message) {
+        webSocketClient.sendMessage(message);
+    }
+
     private boolean isChatMessage(@NonNull final ObjectNode message) {
         return message.has("action")
                 && message.get("action").asText().equals("gameChat")
