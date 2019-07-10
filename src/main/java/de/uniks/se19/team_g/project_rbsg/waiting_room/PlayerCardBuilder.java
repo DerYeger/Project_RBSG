@@ -7,6 +7,9 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -43,6 +46,10 @@ public class PlayerCardBuilder {
 
     public boolean isEmpty;
     private Player player;
+    private ChangeListener<Boolean> onPlayerChangedReadyState;
+    private Image whiteAccountImage;
+    private Image blackAccountImage;
+
 
     public Node buildPlayerCard(){
         if(fxmlLoader == null) {
@@ -63,8 +70,8 @@ public class PlayerCardBuilder {
         progressTimeline.setCycleCount(Animation.INDEFINITE);
         progressTimeline.play();
 
-        Image image = new Image(String.valueOf(getClass().getResource("/assets/icons/navigation/accountWhite.png")));
-        playerListCellImageView.setImage(image);
+        whiteAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountWhite.png").toExternalForm());
+        blackAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountBlack.png").toExternalForm());
 
         setEmpty();
 
@@ -78,6 +85,7 @@ public class PlayerCardBuilder {
         Platform.runLater(()-> playerListCellImageView.setVisible(false));
         playerListCellLabel.getStyleClass().remove("player");
         playerListCellLabel.getStyleClass().add("waiting");
+        onPlayerChangedReadyState = null;
     }
 
     public Node playerLeft() {
@@ -91,6 +99,7 @@ public class PlayerCardBuilder {
     }
 
     public Node setPlayer(Player player, Color color){
+
         this.player = player;
         if(fxmlLoader == null) {
             buildPlayerCard();
@@ -98,7 +107,15 @@ public class PlayerCardBuilder {
         Platform.runLater(()-> playerListCellLabel.setText(player.getName()));
         setReady();
         setColor(color);
+
+        // doing it like this saves us from the trouble of removing the old listener, if the old player would be updated
+        // also, when we switch to ingame, the listener is removed as well.
+        onPlayerChangedReadyState = this::onPlayerChangedReadyState;
+        player.isReadyProperty().addListener(new WeakChangeListener<>(onPlayerChangedReadyState));
+        onPlayerChangedReadyState(player.isReadyProperty(), player.getIsReady(), player.getIsReady());
+
         return playerCardView;
+
     }
 
     private void setReady() {
@@ -149,4 +166,13 @@ public class PlayerCardBuilder {
         return this.player;
     }
 
+    private void onPlayerChangedReadyState(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+        if (newValue) {
+            playerCardView.getStyleClass().add("ready");
+            playerListCellImageView.setImage(blackAccountImage);
+        } else {
+            playerCardView.getStyleClass().remove("ready");
+            playerListCellImageView.setImage(whiteAccountImage);
+        }
+    }
 }
