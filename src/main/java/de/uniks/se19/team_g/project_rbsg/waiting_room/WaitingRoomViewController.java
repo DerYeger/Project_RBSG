@@ -69,6 +69,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private PlayerCardBuilder playerCard2;
     private PlayerCardBuilder playerCard3;
     private PlayerCardBuilder playerCard4;
+
     private ObservableList<PlayerCardBuilder> playerCardBuilders;
 
     private final GameProvider gameProvider;
@@ -288,5 +289,9 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                 }
             }
         });
+    }
+
+    public ObservableList<PlayerCardBuilder> getPlayerCardBuilders() {
+        return playerCardBuilders;
     }
 }

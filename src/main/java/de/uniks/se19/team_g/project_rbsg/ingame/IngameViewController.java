@@ -13,6 +13,8 @@ import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.PlayerCardBuilder;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
@@ -20,17 +22,21 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
+
+import javax.annotation.Nonnull;
 
 import static de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType.*;
 
@@ -57,6 +63,7 @@ public class IngameViewController implements RootController {
     public Button zoomInButton;
     public VBox root;
     public Button ingameInformationsButton;
+    public HBox playerBar;
 
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
@@ -73,16 +80,24 @@ public class IngameViewController implements RootController {
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+    private ObservableList<PlayerCardBuilder> playerCards;
+
+    private WaitingRoomViewController waitingRoomViewController;
 
     @Autowired
     public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
                                 @NonNull final GameProvider gameProvider,
                                 @NonNull final SceneManager sceneManager,
-                                @NonNull final AlertBuilder alertBuilder) {
+                                @NonNull final AlertBuilder alertBuilder,
+                                @Nonnull final WaitingRoomViewController waitingRoomViewController) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+        this.waitingRoomViewController=waitingRoomViewController;
+        if(waitingRoomViewController!=null && waitingRoomViewController.getPlayerCardBuilders()!=null) {
+            playerCards = waitingRoomViewController.getPlayerCardBuilders();
+        }
     }
 
     public void initialize() {
@@ -124,6 +139,8 @@ public class IngameViewController implements RootController {
         //roundCount.set(0);
         roundTextLabel.setText("Runde");
         //roundCountLabel.textProperty().bind(roundCount.asString());
+        playerCards.iterator().forEachRemaining(card -> playerBar.getChildren().add(card.buildPlayerCard()));
+        playerBar.setVisible(false);
     }
 
     private void initCanvas() {
@@ -309,6 +326,10 @@ public class IngameViewController implements RootController {
             zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
             zoomFactor--;
         }
+    }
+
+    public void openPlayerBar(ActionEvent actionEvent){
+        playerBar.setVisible(true);
     }
 
 }
