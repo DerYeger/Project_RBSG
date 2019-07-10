@@ -41,6 +41,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
@@ -58,6 +60,8 @@ import java.util.function.Function;
 @Scope("prototype")
 @Controller
 public class WaitingRoomViewController implements RootController, Terminable, GameEventHandler {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final int ICON_SIZE = 40;
 
@@ -166,10 +170,11 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         );
 
         Bindings.createBooleanBinding(
-            () -> readyPlayers.stream().allMatch(Player::getIsReady),
+            () -> readyPlayers.stream().filter(Player::getIsReady).count() == gameProvider.get().getNeededPlayer(),
             readyPlayers
         ).addListener((observable, oldValue, newValue) -> {
             if (newValue) {
+                logger.debug("trigger game start");
                 gameEventManager.sendMessage(CommandBuilder.startGame());
             }
         });
