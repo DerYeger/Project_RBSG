@@ -123,7 +123,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final PreviewMapBuilder previewMapBuilder,
             @Nonnull final AlertBuilder alertBuilder,
-            @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent
+            @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent,
+            @Nonnull final ModelManager modelManager
     ) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
@@ -135,7 +136,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.chatBuilder = chatBuilder;
         this.alertBuilder = alertBuilder;
         this.armySelectorComponent = armySelectorComponent;
-        this.modelManager = new ModelManager();
+        this.modelManager = modelManager;
         this.previewMapBuilder = previewMapBuilder;
         this.ingameGameProvider = ingameGameProvider;
     }
@@ -173,8 +174,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
             () -> readyPlayers.stream().filter(Player::getIsReady).count() == gameProvider.get().getNeededPlayer(),
             readyPlayers
         ).addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                logger.debug("trigger game start");
+            if (newValue && gameProvider.get().getCreator() == userProvider.get()) {
+                logger.debug("trigger game start of our own game");
                 gameEventManager.sendMessage(CommandBuilder.startGame());
             }
         });

@@ -141,6 +141,8 @@ public class CreateGameController implements Rincled
             && this.numberOfPlayers != 0
         ){
             this.game = new Game(gameName.getText(), this.numberOfPlayers);
+            this.game.setCreator(userProvider.get());
+
             @SuppressWarnings("unchecked")
             final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.userProvider.get(), game);
             gameRequestAnswerPromise

@@ -12,13 +12,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
 /**
  * @author Jan Müller
  */
+@Component
+@Scope("prototype")
 public class ModelManager implements GameEventHandler {
 
     private static final String GAME_INIT_OBJECT = "gameInitObject";
@@ -38,6 +42,9 @@ public class ModelManager implements GameEventHandler {
         objectMap = new HashMap<>();
     }
 
+    /**
+     * we need to know somehow, when the game is initialized and ready. why don't we start with a game, though?
+     */
     public ReadOnlyObjectProperty<Game> gameProperty() {
         return gameProperty;
     }
