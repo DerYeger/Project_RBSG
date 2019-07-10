@@ -18,8 +18,8 @@
 \contentsline {paragraph}{\nonumberline Anzeige der Mitspieler}{11}% 
 \contentsline {paragraph}{\nonumberline Anzeige des Spielfelds}{11}% 
 \contentsline {paragraph}{\nonumberline Anzeige der gew\"ahlten Armee}{12}% 
-\contentsline {paragraph}{\nonumberline MockUps mit m\"oglichen Zusatzfeatures}{12}% 
-\contentsline {paragraph}{\nonumberline Nicht umsetzbare MockUps}{12}% 
+\contentsline {paragraph}{\nonumberline Mockups mit m\"oglichen Zusatzfeatures}{12}% 
+\contentsline {paragraph}{\nonumberline Nicht umsetzbare Mockups}{12}% 
 \contentsline {subsection}{\numberline {3.5}Domain Stories}{14}% 
 \contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{14}% 
 \contentsline {subsection}{\numberline {4.1}Sprintziel}{14}% 
@@ -273,3 +273,56 @@
 \contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{33}% 
 \contentsline {paragraph}{\nonumberline Sch\"atzung}{33}% 
 \contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{34}% 
+\contentsline {subsubsection}{\numberline {5.2.19}Core - ArmyBuilder - Laden der Armeen}{34}% 
+\contentsline {paragraph}{\nonumberline Ziel}{34}% 
+\contentsline {paragraph}{\nonumberline Story}{34}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{34}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{34}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{34}% 
+\contentsline {subsubsection}{\numberline {5.2.20}Optional - Chat - Anzeigen das eine Nachricht angekommen ist}{34}% 
+\contentsline {paragraph}{\nonumberline Ziel}{34}% 
+\contentsline {paragraph}{\nonumberline Story}{34}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{34}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{34}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{34}% 
+\contentsline {subsubsection}{\numberline {5.2.21}Optional - ArmyBuilder - Bearbeiten der Armeeinformationen}{34}% 
+\contentsline {paragraph}{\nonumberline Ziel}{34}% 
+\contentsline {paragraph}{\nonumberline Story}{35}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{35}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{35}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{35}% 
+\contentsline {subsubsection}{\numberline {5.2.22}Core - ArmyBuilder - Autosave der Armeen bei verlassen des ArmyBuilders}{35}% 
+\contentsline {paragraph}{\nonumberline Ziel}{35}% 
+\contentsline {paragraph}{\nonumberline Story}{35}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{35}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{35}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{35}% 
+\contentsline {subsubsection}{\numberline {5.2.23}Core - ArmyBuilder - \glqq CanAttack\grqq \"Ubersicht}{35}% 
+\contentsline {paragraph}{\nonumberline Ziel}{35}% 
+\contentsline {paragraph}{\nonumberline Story}{35}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{35}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{35}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{35}% 
+\contentsline {subsubsection}{\numberline {5.2.24}Optional - ArmyBuilder- Indikator ob Speichern n\"otig ist und Aktivieren des Save Buttons}{36}% 
+\contentsline {paragraph}{\nonumberline Ziel}{36}% 
+\contentsline {paragraph}{\nonumberline Story}{36}% 
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{36}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{36}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{36}% 
+\contentsline {subsubsection}{\numberline {5.2.25}Optional - Waiting Room - Anzeigen der Einheiten der ausgew\"ahlten Armee}{36}% 
+\contentsline {paragraph}{\nonumberline Story}{36}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{36}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{36}% 
+\contentsline {subsubsection}{\numberline {5.2.26}Optional - Lobby - Anzeigen der Einheiten einer Armee}{36}% 
+\contentsline {paragraph}{\nonumberline Story}{36}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{36}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{36}% 
+\contentsline {subsubsection}{\numberline {5.2.27}Optional - ArmyBuilder- Notifiaction f\"ur das Speichern der Armee und Waiting Animation.}{36}% 
+\contentsline {paragraph}{\nonumberline Story}{36}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{37}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{37}% 
+\contentsline {subsubsection}{\numberline {5.2.28}Core - ArmyBuilder - Lokaler Speicherort f\"ur Armeen}{37}% 
+\contentsline {paragraph}{\nonumberline Ziel}{37}% 
+\contentsline {paragraph}{\nonumberline Story}{37}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{37}% 
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{37}% 
