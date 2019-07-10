@@ -329,3 +329,10 @@
 \contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{37}% 
 \contentsline {subsection}{\numberline {5.3}Analyse des 4. Sprint}{37}% 
 \contentsline {subsubsection}{\numberline {5.3.1}Burndown-Diagramm}{37}% 
+\contentsline {subsubsection}{\numberline {5.3.2}Abgeschlossene Vorg\"ange}{38}% 
+\contentsline {subsubsection}{\numberline {5.3.3}Nicht abgeschlossene Vorg\"ange}{39}% 
+\contentsline {paragraph}{\nonumberline Optional - Waiting Room - Anzeigen der Einheiten der ausgew\"ahlten Armee}{39}% 
+\contentsline {paragraph}{\nonumberline Optional - Lobby- Anzeigen der Einheiten einer Armee}{39}% 
+\contentsline {paragraph}{\nonumberline Optional - ArmyBuilder - Notification f\"ur das Speichern der Armee und Waiting Animation}{39}% 
+\contentsline {paragraph}{\nonumberline Core - ArmyBuilder - Lokaler Speicherort f\"ur Armeen}{39}% 
+\contentsline {subsubsection}{\numberline {5.3.4}Fazit}{39}% 

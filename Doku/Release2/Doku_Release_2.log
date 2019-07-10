@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  10 JUL 2019 20:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  10 JUL 2019 21:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1045,23 +1045,55 @@ Package pdftex.def Info: BurndownChart_Sprint4.PNG  used on input line 905.
 (pdftex.def)             Requested size: 469.47049pt x 219.33769pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 911.
+Package pdftex.def Info: Logo.png  used on input line 912.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[37 <./BurndownChart_Sprint4.PNG>] (./Doku_Release_2.lof)
+[37 <./BurndownChart_Sprint4.PNG>]
+<Abschlossene_Vorgaenge_Sprint_4.png, id=209, 967.36406pt x 880.79062pt>
+File: Abschlossene_Vorgaenge_Sprint_4.png Graphic file (type png)
+<use Abschlossene_Vorgaenge_Sprint_4.png>
+Package pdftex.def Info: Abschlossene_Vorgaenge_Sprint_4.png  used on input lin
+e 922.
+(pdftex.def)             Requested size: 469.47049pt x 427.45174pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 929.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[38 <./Abschlossene_Vorgaenge_Sprint_4.png>]
+<Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG, id=214, 964.35281pt x 190.46156pt
+>
+File: Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG Graphic file (type png)
+<use Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG>
+Package pdftex.def Info: Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG  used on i
+nput line 946.
+(pdftex.def)             Requested size: 469.47049pt x 92.71957pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 957.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[39 <./Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG>] (./Doku_Release_2.lof)
 \tf@lof=\write4
 \openout4 = `Doku_Release_2.lof'.
 
- (./Doku_Release_2.lot)
+
+(./Doku_Release_2.lot)
 \tf@lot=\write5
 \openout5 = `Doku_Release_2.lot'.
 
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 916.
+Package pdftex.def Info: Logo.png  used on input line 962.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -1073,10 +1105,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6867 strings out of 492616
- 114942 string characters out of 6132768
- 316554 words of memory out of 5000000
- 10606 multiletter control sequences out of 15000+600000
+ 6880 strings out of 492616
+ 115470 string characters out of 6132768
+ 316587 words of memory out of 5000000
+ 10617 multiletter control sequences out of 15000+600000
  14644 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,15n,54p,9093b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1091,10 +1123,10 @@ nts/cm/cmr7.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/texlive
 /2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2018/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Doku_Release_2.pdf (42 pages, 6198186 bytes).
+Output written on Doku_Release_2.pdf (44 pages, 6295232 bytes).
 PDF statistics:
- 254 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
+ 265 PDF objects out of 1000 (max. 8388607)
+ 137 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 
