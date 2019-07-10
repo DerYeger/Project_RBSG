@@ -33,7 +33,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -78,6 +77,8 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Button showInfoButton;
     public AnchorPane root;
 
+    // TODO: Ask Jan, wether this can be removed
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private ChatController chatController;
 
     private PlayerCardBuilder playerCard;
@@ -100,7 +101,6 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final PreviewMapBuilder previewMapBuilder;
     public ModelManager modelManager;
     private final IngameGameProvider ingameGameProvider;
-    private static boolean skipped;
 
     private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
 
@@ -165,9 +165,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         );
 
         modelManager.gameProperty().addListener(
-            (observable, oldValue, newValue) -> {
-                Bindings.bindContent(readyPlayers, newValue.getPlayers());
-            }
+            (observable, oldValue, newValue) -> Bindings.bindContent(readyPlayers, newValue.getPlayers())
         );
 
         Bindings.createBooleanBinding(
@@ -237,7 +235,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         gameEventManager.terminate();
     }
 
-    public void showInfo(ActionEvent actionEvent) {
+    public void showInfo() {
         sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, true, SceneManager.SceneIdentifier.WAITING_ROOM); // for testing
     }
 
@@ -245,7 +243,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leaveWaitingRoom);
     }
 
-    public void leaveRoom(ActionEvent actionEvent) {
+    public void leaveRoom() {
         alertBuilder
                 .confirmation(
                         AlertBuilder.Text.EXIT,
@@ -258,7 +256,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
-    public void toggleSound(ActionEvent actionEvent) {
+    public void toggleSound() {
         musicManager.updateMusicButtonIcons(soundButton);
     }
 
@@ -285,7 +283,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
 
     public void setPlayerCards(Game game) {
         // init PlayerCards
-        skipped = false;
+        boolean skipped = false;
         Player user = null;
         for(Player p: game.getPlayers()) {
             if(p.getName().equals(userProvider.get().getName())) {

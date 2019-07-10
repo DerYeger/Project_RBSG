@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
@@ -210,7 +209,8 @@ public class WaitingRoomViewTests extends ApplicationTest {
             return null;
         }).when(armySelectorController).setSelection(any(), any());
 
-        final WaitingRoomViewController waitingRoomController = this.waitingRoomScene.getObject().getController();
+        //noinspection ResultOfMethodCallIgnored
+        this.waitingRoomScene.getObject().getController();
 
         // think about verifying correct filter as well
         verify(armySelectorController, times(1)).setSelection(any(), any());
@@ -228,7 +228,8 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testGameStart() throws IOException {
-        final WaitingRoomViewController waitingRoomController = this.waitingRoomScene.getObject().getController();
+        //noinspection ResultOfMethodCallIgnored
+        this.waitingRoomScene.getObject().getController();
         clearInvocations(gameEventManager);
 
         ObjectNode message = new ObjectMapper().readValue(
