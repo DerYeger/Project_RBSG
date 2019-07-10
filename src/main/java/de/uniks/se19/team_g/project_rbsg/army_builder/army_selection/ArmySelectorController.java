@@ -12,6 +12,7 @@ import javafx.collections.WeakListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.layout.HBox;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -32,17 +33,9 @@ public class ArmySelectorController implements Initializable, Rincled {
 
     public HBox header;
 
-    /*
-        save a reference to method reference and provide WeakChangeListener as Listener
-     */
-    @SuppressWarnings("FieldCanBeLocal")
-    @Nullable
-    private ChangeListener<Army> onSelectionChanged;
-
     @SuppressWarnings("FieldCanBeLocal")
     @Nullable
     private ListChangeListener<? super Army> fixSelectionOnSelectedRemoved;
-    private Army lastSelectedArmy;
 
     public ArmySelectorController(
             ArmySelectorCellFactory cellFactory
@@ -54,33 +47,25 @@ public class ArmySelectorController implements Initializable, Rincled {
     public void setSelection(ObservableList<Army> armies, Property<Army> selection)
     {
         listView.setItems(armies);
+        final MultipleSelectionModel<Army> selectionModel = listView.getSelectionModel();
+        selectionModel.select(selection.getValue());
 
         fixSelectionOnSelectedRemoved = (ListChangeListener<Army>) c -> {
+            final Army selectedItem = selectionModel.getSelectedItem();
             while (c.next()) {
-                if (c.getRemoved().contains(lastSelectedArmy)) {
-                    listView.getSelectionModel().clearSelection();
+                if (c.getRemoved().contains(selectedItem)) {
+                    selectionModel.clearSelection();
                 }
             }
         };
 
         armies.addListener(new WeakListChangeListener<>(fixSelectionOnSelectedRemoved));
 
-        if (selection != null) {
-            // save a new method reference to our method so that old WeakChangeListener can be invalidated
-            // don't ask me, why we need to keep strong references to the listener and the weak listener here
-            // usually, the strong listener should be enough, but for reasons, it won't get fired
-            onSelectionChanged = ArmySelectorController.this::onSelectionChanged;
-
-            selection.addListener(new WeakChangeListener<>(onSelectionChanged));
-            onSelectionChanged(selection, null, selection.getValue());
-        } else {
-            onSelectionChanged = null;
-        }
-    }
-
-    private void onSelectionChanged(ObservableValue<? extends Army> observableValue, Army prev, Army next) {
-        lastSelectedArmy = next;
-        listView.getSelectionModel().select(next);
+        selectionModel.selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    selection.setValue(newValue);
+                }
+        );
     }
 
     @Override
