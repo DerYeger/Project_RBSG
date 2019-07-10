@@ -6,16 +6,17 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.event.AutoReadyOnInit;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
@@ -27,6 +28,8 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuil
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -42,7 +45,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.function.Function;
 
 
 /**
@@ -85,24 +90,35 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final ApplicationState applicationState;
     private final ChatBuilder chatBuilder;
     private final AlertBuilder alertBuilder;
+    @Nonnull
+    private final Function<Pane, ArmySelectorController> armySelectorComponent;
     private final PreviewMapBuilder previewMapBuilder;
     public ModelManager modelManager;
     private final IngameGameProvider ingameGameProvider;
     private static boolean skipped;
 
+    private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
+
+    /**
+     * keep reference for WeakReferences further down the road
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private ArmySelectorController armySelectorController;
+
     @Autowired
     public WaitingRoomViewController(
-            @NonNull final GameProvider gameProvider,
-            @NonNull final UserProvider userProvider,
-            @NonNull final SceneManager sceneManager,
-            @NonNull final GameEventManager gameEventManager,
-            @NonNull final MusicManager musicManager,
-            @NonNull final SplashImageBuilder splashImageBuilder,
-            @NonNull final ApplicationState applicationState,
-            @NonNull final IngameGameProvider ingameGameProvider,
-            @NonNull final ChatBuilder chatBuilder,
-            @NonNull final PreviewMapBuilder previewMapBuilder,
-            @NonNull final AlertBuilder alertBuilder
+            @Nonnull final GameProvider gameProvider,
+            @Nonnull final UserProvider userProvider,
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final GameEventManager gameEventManager,
+            @Nonnull final MusicManager musicManager,
+            @Nonnull final SplashImageBuilder splashImageBuilder,
+            @Nonnull final ApplicationState applicationState,
+            @Nonnull final IngameGameProvider ingameGameProvider,
+            @Nonnull final ChatBuilder chatBuilder,
+            @Nonnull final PreviewMapBuilder previewMapBuilder,
+            @Nonnull final AlertBuilder alertBuilder,
+            @Nonnull final Function<Pane, ArmySelectorController> armySelectorComponent
     ) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
@@ -113,6 +129,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         this.applicationState = applicationState;
         this.chatBuilder = chatBuilder;
         this.alertBuilder = alertBuilder;
+        this.armySelectorComponent = armySelectorComponent;
         this.modelManager = new ModelManager();
         this.previewMapBuilder = previewMapBuilder;
         this.ingameGameProvider = ingameGameProvider;
@@ -155,13 +172,12 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
                 gameEventManager.sendMessage(CommandBuilder.startGame());
             }
         });
+
+        configureArmySelection();
     }
 
     private void initSocket() throws Exception {
         gameEventManager.addHandler(modelManager);
-        final AutoReadyOnInit ready = new AutoReadyOnInit();
-        ready.setGameEventManager(gameEventManager);
-        gameEventManager.addHandler(ready);
         gameEventManager.addHandler(this);
         withChatSupport();
 
@@ -315,20 +331,17 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         });
     }
 
-    protected void mountArmySelector() {
+    protected void configureArmySelection() {
+        armySelectorController = armySelectorComponent.apply(armySelector);
         /*
-        if (armySelectorComponent == null || appState == null) {
-            return;
-        }
-
          * normally, an observable list is only aware of items added and removed
          * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
+         */
         final ObservableList<Army> playableAwareArmies = FXCollections.observableArrayList(
             army -> new Observable[] {army.isPlayable}
         );
-        Bindings.bindContent( playableAwareArmies, appState.armies);
+        Bindings.bindContent( playableAwareArmies, applicationState.armies);
 
-        armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), appState.selectedArmy);
-         */
+        armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), selectedArmy);
     }
 }

@@ -11,6 +11,7 @@
  !-->
 
 
+<?import javafx.scene.layout.VBox?>
 <StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
    <children>
       <AnchorPane fx:id="root">
@@ -39,7 +40,7 @@
               </AnchorPane>
               <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
                   <children>
-                      <Pane fx:id="armySelector" styleClass="army-pane" StackPane.alignment="CENTER_RIGHT" />
+                      <VBox fx:id="armySelector" styleClass="army-pane" StackPane.alignment="CENTER_RIGHT" />
                   </children>
               </StackPane>
           </children>
