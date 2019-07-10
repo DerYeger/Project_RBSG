@@ -1,5 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
@@ -17,6 +20,7 @@ import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.beans.property.Property;
@@ -35,12 +39,14 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
@@ -69,17 +75,19 @@ import static org.mockito.Mockito.*;
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
-    @Autowired
-    private ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomScene;
+    @Autowired ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomScene;
 
-    @MockBean
-    private ArmySelectorController armySelectorController;
+    @MockBean ArmySelectorController armySelectorController;
 
-    @MockBean
-    private GameEventManager gameEventManager;
+    @MockBean GameEventManager gameEventManager;
 
-    @Autowired
-    private ApplicationState appState;
+    @Autowired ApplicationState appState;
+
+    @SpyBean ModelManager modelManager;
+
+    @Autowired GameProvider gameProvider;
+
+    @Autowired UserProvider userProvider;
 
 
     @TestConfiguration
@@ -98,12 +106,10 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         @Bean
         public GameProvider gameProvider() {
-            return new GameProvider() {
-                @Override
-                public Game get() {
-                    return new Game("id", "testGame", 4, 1);
-                }
-            };
+            final Game defaultGame = new Game("id", "testGame", 2, 1);
+            final GameProvider gameProvider = new GameProvider();
+            gameProvider.set(defaultGame);
+            return gameProvider;
         }
 
         @Bean
@@ -120,17 +126,10 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         @Bean
         public UserProvider userProvider(){
-            return new UserProvider(){
-                @Override
-                public User get(){
-                    return new User("P1",""){
-                        @Override
-                        public String getName(){
-                            return "P1";
-                        }
-                    };
-                }
-            };
+            final UserProvider userProvider = new UserProvider();
+            final User defaultUser =  new User("P1", "");
+            userProvider.set(defaultUser);
+            return userProvider;
         }
     }
 
@@ -225,5 +224,37 @@ public class WaitingRoomViewTests extends ApplicationTest {
         InOrder inOrder = inOrder(gameEventManager);
         inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.changeArmy(army)));
         inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.readyToPlay()));
+    }
+
+    @Test
+    public void testGameStart() throws IOException {
+        final WaitingRoomViewController waitingRoomController = this.waitingRoomScene.getObject().getController();
+        clearInvocations(gameEventManager);
+
+        ObjectNode message = new ObjectMapper().readValue(
+            "{ \"action\": \"gameInitObject\", \"data\": {\"id\": \"Game@1\"}}",
+                ObjectNode.class
+        );
+        Assert.assertNull(modelManager.getGame());
+        modelManager.handle(message);
+        final de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game = modelManager.getGame();
+        Assert.assertNotNull(game);
+
+        final Player bob = new Player("bob");
+        final Player alice = new Player("alice");
+        game.withPlayers(alice, bob);
+
+        verifyZeroInteractions(gameEventManager);
+        bob.setIsReady(true);
+        verifyZeroInteractions(gameEventManager);
+        alice.setIsReady(true);
+        verifyZeroInteractions(gameEventManager);
+        alice.setIsReady(false);
+        verifyZeroInteractions(gameEventManager);
+
+        gameProvider.get().setCreator(userProvider.get());
+
+        alice.setIsReady(true);
+        verify(gameEventManager).sendMessage(eq(CommandBuilder.startGame()));
     }
 }
