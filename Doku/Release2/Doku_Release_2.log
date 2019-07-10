@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  10 JUL 2019 20:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  10 JUL 2019 20:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -875,14 +875,14 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [23]
-<BurndownChart_Sprint3.PNG, id=153, 2865.95718pt x 589.4522pt>
+<BurndownChart_Sprint3.PNG, id=153, 933.4875pt x 435.12563pt>
 File: BurndownChart_Sprint3.PNG Graphic file (type png)
 <use BurndownChart_Sprint3.PNG>
 Package pdftex.def Info: BurndownChart_Sprint3.PNG  used on input line 582.
-(pdftex.def)             Requested size: 375.57782pt x 77.24309pt.
+(pdftex.def)             Requested size: 375.57782pt x 175.06964pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 601.
+Package pdftex.def Info: Logo.png  used on input line 595.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -900,22 +900,22 @@ File: Abschlossene_Vorgaenge_Sprint_3.png Graphic file (type png)
 Package pdftex.def Info: Abschlossene_Vorgaenge_Sprint_3.png  used on input lin
 e 613.
 (pdftex.def)             Requested size: 375.57782pt x 204.34073pt.
-<Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG, id=160, 1343.0175pt x 298.86656pt
->
-File: Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG Graphic file (type png)
-<use Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG>
-Package pdftex.def Info: Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG  used on i
-nput line 632.
-(pdftex.def)             Requested size: 375.57782pt x 83.57716pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 636.
+Package pdftex.def Info: Logo.png  used on input line 626.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [25 <./Coverage_Sprint_3.PNG> <./Abschlossene_Vorgaenge_Sprint_3.png>]
+<Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG, id=165, 1343.0175pt x 298.86656pt
+>
+File: Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG Graphic file (type png)
+<use Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG>
+Package pdftex.def Info: Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG  used on i
+nput line 632.
+(pdftex.def)             Requested size: 375.57782pt x 83.57716pt.
 <Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG, id=166, 1334.73656pt x 252.19
 218pt>
 File: Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG Graphic file (type png)
@@ -935,7 +935,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 _Vorgaenge_Sprint_3.PNG>]
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 676.
+Package pdftex.def Info: Logo.png  used on input line 675.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -951,21 +951,21 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [28]
-Overfull \hbox (6.85597pt too wide) in paragraph at lines 704--705
+Overfull \hbox (6.85597pt too wide) in paragraph at lines 705--706
 \OT1/cmr/m/n/12 3h wur-de auf der Grund-la-ge ge-trof-fen, das nicht klar was m
 an al-les beim []Aufr[]aumen\beachten
  []
 
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 724.
+Package pdftex.def Info: Logo.png  used on input line 720.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [29]
-Overfull \hbox (9.35503pt too wide) in paragraph at lines 735--736
+Overfull \hbox (9.35503pt too wide) in paragraph at lines 736--737
 [] \OT1/cmss/bx/n/12 Sto-ry[][] \OT1/cmr/m/n/12 Al-bert be-fin-det sich im Ar-m
 y-Bui-der. Un-ter der Ar-mee-lis-te be-fin-det sich ein Bearbeiten-
  []
@@ -990,7 +990,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 [31]
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 798.
+Package pdftex.def Info: Logo.png  used on input line 797.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -999,21 +999,21 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 [32]
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 822.
+Package pdftex.def Info: Logo.png  used on input line 821.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [33]
-Overfull \hbox (9.35503pt too wide) in paragraph at lines 840--841
+Overfull \hbox (9.35503pt too wide) in paragraph at lines 841--842
 [] \OT1/cmss/bx/n/12 Sto-ry[][] \OT1/cmr/m/n/12 Al-bert be-fin-det sich im Ar-m
 y-Bui-der. Un-ter der Ar-mee-lis-te be-fin-det sich ein Bearbeiten-
  []
 
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 841.
+Package pdftex.def Info: Logo.png  used on input line 842.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -1022,7 +1022,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 [34]
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 864.
+Package pdftex.def Info: Logo.png  used on input line 865.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -1031,22 +1031,27 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 [35]
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 888.
+Package pdftex.def Info: Logo.png  used on input line 889.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [36]
+<BurndownChart_Sprint4.PNG, id=204, 941.01563pt x 439.6425pt>
+File: BurndownChart_Sprint4.PNG Graphic file (type png)
+<use BurndownChart_Sprint4.PNG>
+Package pdftex.def Info: BurndownChart_Sprint4.PNG  used on input line 905.
+(pdftex.def)             Requested size: 469.47049pt x 219.33769pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 901.
+Package pdftex.def Info: Logo.png  used on input line 911.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[37] (./Doku_Release_2.lof)
+[37 <./BurndownChart_Sprint4.PNG>] (./Doku_Release_2.lof)
 \tf@lof=\write4
 \openout4 = `Doku_Release_2.lof'.
 
@@ -1056,7 +1061,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 906.
+Package pdftex.def Info: Logo.png  used on input line 916.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -1068,10 +1073,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6861 strings out of 492616
- 114781 string characters out of 6132768
- 316542 words of memory out of 5000000
- 10601 multiletter control sequences out of 15000+600000
+ 6867 strings out of 492616
+ 114942 string characters out of 6132768
+ 316554 words of memory out of 5000000
+ 10606 multiletter control sequences out of 15000+600000
  14644 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,15n,54p,9093b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1086,10 +1091,10 @@ nts/cm/cmr7.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/texlive
 /2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2018/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Doku_Release_2.pdf (42 pages, 6223928 bytes).
+Output written on Doku_Release_2.pdf (42 pages, 6198186 bytes).
 PDF statistics:
- 252 PDF objects out of 1000 (max. 8388607)
+ 254 PDF objects out of 1000 (max. 8388607)
  132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 156 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
