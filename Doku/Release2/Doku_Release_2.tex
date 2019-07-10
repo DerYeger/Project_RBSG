@@ -964,7 +964,70 @@
 			\section{Abschluss des 2. Releases}
 			Das zweite Release wurde am 07.07.2019 abgeschlossen. Im nachfolgenden Teil werden nun die Mockups mit der Implementierung verglichen. Dabei wir auf Unterschiede und nicht realisierte Features eingegangen und die Ursachen erläutert.
 			
+			\subsection{Der Armeemanager}
+			Zu Begin des Release wurde folgende Anforderungen an den Armeemanager gestellt:
+			\begin{itemize}
+				\item Erstellen und Konfigurieren von Armeen
+				\item Armeen dürfen maximal 10 Einheiten enthalten
+				\item Speichern soll Lokal und auf dem Server erfolgen
+				\item Speichern von mindestens 3 Armeen
+			\end{itemize}
+			Diese Anforderungen wurden zum Ende des zweiten Releases abgedeckt. Die Armeen werden automatisch erstellt und es werden dem Nutzer 7 zu Konfiguration zur Verfügung gestellt. Verändert werden können die Armeen über die \glqq +\grqq und \glqq -\grqq Buttons. Gespeichert werden kann über den Speichern Button. Die 7 Armeen werden dabei lokal und auf dem Server gespeichert. Die Umsetzung war dabei in 3 Kernbereiche aufgeteilt. Diese werden in \Abb{MockUpArmeemanager} gezeigt.
+			\begin{itemize}
+				\item Der Einheitenauswahl mit Detailansicht
+				\item Der Armeeübersicht
+				\item Der Armeeauswahl
+			\end{itemize} 
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{ArmyBuilderMockUp.png}
+				\caption{Mockup für den geplanten Armeemanager}
+				\label{MockUpArmeemanager}
+			\end{figure}
 			
+			\subsubsection{Implementaion} Die Umsetzung dieser Bereiche hat dabei fast 1:1 statt gefunden. Auf \Abb{ImplementierungArmeemanager} ist die abschließende Implemenation des Armeemangers zu sehen. Die Kernbereiche wurden wie geplant umgesetzt. Im Design und der Anordnung sind dabei leichte Unterschiede zu erkennen. Die Rahmen um die Einheitenauswahl und der Armeeauswahl sind entfallen, da dies zu einer übersichtlicheren Oberfläche beigetragen hat. Der \glqq Edit\grqq Button zum ändern der Armeeinformationen wurde aus der Armeeauswahl herausgezogen, um ihn in eine Reihe mit den anderen Buttons zu bringen. Der Detailansicht der Einheiten wurde eine \glqq Can Attack\grqq-Ansicht hinzugefügt, da sich durch die erhaltenen Servernachrichten eine solche Übersicht als sinnvoll erwies.
+			Es wurden noch die folgenden zusätzlichen Features implementiert:
+			\begin{itemize}
+				\item Lore und Flavour für alle Einheiten
+				\item Individuelle Armeeicons und Namen
+				\item \glqq Clear\grqq Button zum schnellen \glqq aufräumen\grqq von Armeen
+				\item Indikator für das Speichern von Armeen
+			\end{itemize}
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{ArmyBuilder_final.PNG}
+				\caption{Realisierung des Armeemanagers am Ende von Release 2}
+				\label{ImplementierungArmeemanager}
+			\end{figure}
+		
+			\subsection{Armee-Editor}
+			Im Kundengespräch zu Beginn des 2. Releases wurde vom Kunden noch die Anforderung gestellt die Icons der Armee individuell gestalten zu können. Dafür wurde das Mockup in \Abb{ArmyEditorMockUp} erstellt. Die Umsetzung ist in \Abb{ArmyEditorImplementation} zu sehen. Die Implementierung unterscheidet sich vom Mockup nur in den Farben und den Schließen-Button. Der Schließen-Button wurde im Mockup vergessen und wurde in der Realisierung nachgetragen. Der farbliche Unterschied ist der zeitlichen Begrenzung geschuldet. Die Funktionalitäten wurden vom Entwickler fertig gestellt, so ist es möglich den Armeenamen zu bearbeiten und auch das Icon individuell aus einer vorgefertigten Liste auszuwählen. Für den Design Aspekt fehlte am Ende des Releases die Zeit.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.5\textwidth]{ArmyEditor.png}
+				\caption{Mockup des Armee-Editor}
+				\label{ArmyEditorMockUp}
+			\end{figure}
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.5\textwidth]{ArmyEditor_final.PNG}
+				\caption{Implementierung des Armee-Editor}
+				\label{ArmyEditorImplementation}
+			\end{figure}
+		
+			\subsection{Info zu den Attributen}
+			Als zusätzliches Feature wurde noch die eine Übersicht zu den Attributen erstellt, welche die Einheit besitzt. Die umgesetzte Oberfläche ist in \Abb{AttributInfo} zu sehen.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.5\textwidth]{Attribute_Info_final.PNG}
+				\caption{Übersicht für die Attribute der Einheiten}
+				\label{AttributInfo}
+			\end{figure}
 		
 	%	\subsection{Analyse des Sprintverlaufs}
 	\newpage

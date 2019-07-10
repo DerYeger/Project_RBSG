@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  10 JUL 2019 21:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  11 JUL 2019 00:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -497,7 +497,16 @@ Package pdftex.def Info: Logo.png  used on input line 165.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[1])
+[1]
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 343.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[2])
 \tf@toc=\write3
 \openout3 = `Doku_Release_2.toc'.
 
@@ -509,39 +518,39 @@ Package pdftex.def Info: Logo.png  used on input line 68.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[2]
+[3]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 79.
  (c:/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 79.
-<georg_avatar.png, id=26, 90.3375pt x 90.3375pt>
+<georg_avatar.png, id=29, 90.3375pt x 90.3375pt>
 File: georg_avatar.png Graphic file (type png)
 <use georg_avatar.png>
 Package pdftex.def Info: georg_avatar.png  used on input line 84.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<juri_avatar.png, id=27, 90.3375pt x 90.3375pt>
+<juri_avatar.png, id=30, 90.3375pt x 90.3375pt>
 File: juri_avatar.png Graphic file (type png)
 <use juri_avatar.png>
 Package pdftex.def Info: juri_avatar.png  used on input line 85.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<omar_avatar.png, id=28, 90.3375pt x 90.3375pt>
+<omar_avatar.png, id=31, 90.3375pt x 90.3375pt>
 File: omar_avatar.png Graphic file (type png)
 <use omar_avatar.png>
 Package pdftex.def Info: omar_avatar.png  used on input line 88.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<tobias_avatar.png, id=29, 18.0675pt x 18.0675pt>
+<tobias_avatar.png, id=32, 18.0675pt x 18.0675pt>
 File: tobias_avatar.png Graphic file (type png)
 <use tobias_avatar.png>
 Package pdftex.def Info: tobias_avatar.png  used on input line 89.
 (pdftex.def)             Requested size: 23.47495pt x 23.47615pt.
-<jan_avatar.png, id=30, 90.3375pt x 90.3375pt>
+<jan_avatar.png, id=33, 90.3375pt x 90.3375pt>
 File: jan_avatar.png Graphic file (type png)
 <use jan_avatar.png>
 Package pdftex.def Info: jan_avatar.png  used on input line 90.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<keanu_avatar.png, id=31, 90.3375pt x 90.3375pt>
+<keanu_avatar.png, id=34, 90.3375pt x 90.3375pt>
 File: keanu_avatar.png Graphic file (type png)
 <use keanu_avatar.png>
 Package pdftex.def Info: keanu_avatar.png  used on input line 91.
@@ -556,7 +565,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 [1 <./georg_avatar.png> <./juri_avatar.png> <./omar_avatar.png> <./tobias_avata
 r.png> <./jan_avatar.png> <./keanu_avatar.png>]
-<Login_Release_One.PNG, id=42, 446.79422pt x 313.5464pt>
+<Login_Release_One.PNG, id=45, 446.79422pt x 313.5464pt>
 File: Login_Release_One.PNG Graphic file (type png)
 <use Login_Release_One.PNG>
 Package pdftex.def Info: Login_Release_One.PNG  used on input line 130.
@@ -570,12 +579,12 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [2]
-<Lobby_Release_One.PNG, id=49, 447.92343pt x 314.29922pt>
+<Lobby_Release_One.PNG, id=53, 447.92343pt x 314.29922pt>
 File: Lobby_Release_One.PNG Graphic file (type png)
 <use Lobby_Release_One.PNG>
 Package pdftex.def Info: Lobby_Release_One.PNG  used on input line 138.
 (pdftex.def)             Requested size: 375.57782pt x 263.54434pt.
-<CreateGame_Release_One.PNG, id=50, 447.54703pt x 314.29922pt>
+<CreateGame_Release_One.PNG, id=54, 447.54703pt x 314.29922pt>
 File: CreateGame_Release_One.PNG Graphic file (type png)
 <use CreateGame_Release_One.PNG>
 Package pdftex.def Info: CreateGame_Release_One.PNG  used on input line 146.
@@ -589,7 +598,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [3 <./Login_Release_One.PNG> <./Lobby_Release_One.PNG>]
-<WaitingRoom_Release_One.PNG, id=57, 447.54703pt x 314.67563pt>
+<WaitingRoom_Release_One.PNG, id=60, 447.54703pt x 314.67563pt>
 File: WaitingRoom_Release_One.PNG Graphic file (type png)
 <use WaitingRoom_Release_One.PNG>
 Package pdftex.def Info: WaitingRoom_Release_One.PNG  used on input line 154.
@@ -603,13 +612,13 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [4 <./CreateGame_Release_One.PNG>]
-<Internationalisierung_Release_One.PNG, id=62, 37.26422pt x 21.07875pt>
+<Internationalisierung_Release_One.PNG, id=65, 37.26422pt x 21.07875pt>
 File: Internationalisierung_Release_One.PNG Graphic file (type png)
 <use Internationalisierung_Release_One.PNG>
 Package pdftex.def Info: Internationalisierung_Release_One.PNG  used on input l
 ine 171.
 (pdftex.def)             Requested size: 93.89265pt x 53.11963pt.
-<Musik_Release_One.PNG, id=63, 19.19672pt x 20.70235pt>
+<Musik_Release_One.PNG, id=66, 19.19672pt x 20.70235pt>
 File: Musik_Release_One.PNG Graphic file (type png)
 <use Musik_Release_One.PNG>
 Package pdftex.def Info: Musik_Release_One.PNG  used on input line 177.
@@ -623,7 +632,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [5 <./WaitingRoom_Release_One.PNG> <./Internationalisierung_Release_One.PNG>]
-<ArmyBuilder_Design_One.png, id=69, 1341.01pt x 770.88pt>
+<ArmyBuilder_Design_One.png, id=72, 1341.01pt x 770.88pt>
 File: ArmyBuilder_Design_One.png Graphic file (type png)
 <use ArmyBuilder_Design_One.png>
 Package pdftex.def Info: ArmyBuilder_Design_One.png  used on input line 194.
@@ -633,7 +642,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 191--197
 
  []
 
-<ArmyBuilder_Design_Two.png, id=70, 1341.01pt x 770.88pt>
+<ArmyBuilder_Design_Two.png, id=73, 1341.01pt x 770.88pt>
 File: ArmyBuilder_Design_Two.png Graphic file (type png)
 <use ArmyBuilder_Design_Two.png>
 Package pdftex.def Info: ArmyBuilder_Design_Two.png  used on input line 200.
@@ -647,7 +656,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [6 <./Musik_Release_One.PNG>]
-<InfoView.png, id=75, 1204.5pt x 903.375pt>
+<InfoView.png, id=78, 1204.5pt x 903.375pt>
 File: InfoView.png Graphic file (type png)
 <use InfoView.png>
 Package pdftex.def Info: InfoView.png  used on input line 206.
@@ -661,12 +670,12 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [7 <./ArmyBuilder_Design_One.png> <./ArmyBuilder_Design_Two.png>]
-<ArmyBuilder_Save_Edit.png, id=81, 1341.01pt x 770.88pt>
+<ArmyBuilder_Save_Edit.png, id=84, 1341.01pt x 770.88pt>
 File: ArmyBuilder_Save_Edit.png Graphic file (type png)
 <use ArmyBuilder_Save_Edit.png>
 Package pdftex.def Info: ArmyBuilder_Save_Edit.png  used on input line 214.
 (pdftex.def)             Requested size: 375.57782pt x 215.89198pt.
-<ArmyEditor.png, id=82, 501.875pt x 501.875pt>
+<ArmyEditor.png, id=85, 501.875pt x 501.875pt>
 File: ArmyEditor.png Graphic file (type png)
 <use ArmyEditor.png>
 Package pdftex.def Info: ArmyEditor.png  used on input line 220.
@@ -680,12 +689,12 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [8 <./InfoView.png> <./ArmyBuilder_Save_Edit.png>]
-<Army_Builder_Add_Units.png, id=88, 1341.01pt x 770.88pt>
+<Army_Builder_Add_Units.png, id=92, 1341.01pt x 770.88pt>
 File: Army_Builder_Add_Units.png Graphic file (type png)
 <use Army_Builder_Add_Units.png>
 Package pdftex.def Info: Army_Builder_Add_Units.png  used on input line 231.
 (pdftex.def)             Requested size: 234.73524pt x 134.92955pt.
-<ArmyBuilder_Select_Unit.png, id=89, 1341.01pt x 770.88pt>
+<ArmyBuilder_Select_Unit.png, id=93, 1341.01pt x 770.88pt>
 File: ArmyBuilder_Select_Unit.png Graphic file (type png)
 <use ArmyBuilder_Select_Unit.png>
 Package pdftex.def Info: ArmyBuilder_Select_Unit.png  used on input line 237.
@@ -703,7 +712,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [9 <./ArmyEditor.png> <./Army_Builder_Add_Units.png>]
-<Lobby_mit_Army_Button_und_Armeeliste.png, id=96, 2682.02pt x 1531.7225pt>
+<Lobby_mit_Army_Button_und_Armeeliste.png, id=99, 2682.02pt x 1531.7225pt>
 File: Lobby_mit_Army_Button_und_Armeeliste.png Graphic file (type png)
 <use Lobby_mit_Army_Button_und_Armeeliste.png>
 Package pdftex.def Info: Lobby_mit_Army_Button_und_Armeeliste.png  used on inpu
@@ -718,7 +727,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [10 <./ArmyBuilder_Select_Unit.png>]
-<Waiting_Room_Game_mit_ArmyView.png, id=101, 2682.02pt x 1541.76pt>
+<Waiting_Room_Game_mit_ArmyView.png, id=104, 2682.02pt x 1541.76pt>
 File: Waiting_Room_Game_mit_ArmyView.png Graphic file (type png)
 <use Waiting_Room_Game_mit_ArmyView.png>
 Package pdftex.def Info: Waiting_Room_Game_mit_ArmyView.png  used on input line
@@ -733,19 +742,19 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [11 <./Lobby_mit_Army_Button_und_Armeeliste.png>]
-<Waiting_Room_Game_With_TTT.png, id=106, 1341.01pt x 770.88pt>
+<Waiting_Room_Game_With_TTT.png, id=109, 1341.01pt x 770.88pt>
 File: Waiting_Room_Game_With_TTT.png Graphic file (type png)
 <use Waiting_Room_Game_With_TTT.png>
 Package pdftex.def Info: Waiting_Room_Game_With_TTT.png  used on input line 287
 .
 (pdftex.def)             Requested size: 375.57782pt x 215.89198pt.
-<Waiting_Room_Game_Mit_Map_Ready_Button.png, id=107, 1341.01pt x 770.88pt>
+<Waiting_Room_Game_Mit_Map_Ready_Button.png, id=110, 1341.01pt x 770.88pt>
 File: Waiting_Room_Game_Mit_Map_Ready_Button.png Graphic file (type png)
 <use Waiting_Room_Game_Mit_Map_Ready_Button.png>
 Package pdftex.def Info: Waiting_Room_Game_Mit_Map_Ready_Button.png  used on in
 put line 297.
 (pdftex.def)             Requested size: 375.57782pt x 215.89198pt.
-<Waitin_Room_Game_Ohne_Map.png, id=108, 1341.01pt x 770.88pt>
+<Waitin_Room_Game_Ohne_Map.png, id=111, 1341.01pt x 770.88pt>
 File: Waitin_Room_Game_Ohne_Map.png Graphic file (type png)
 <use Waitin_Room_Game_Ohne_Map.png>
 Package pdftex.def Info: Waitin_Room_Game_Ohne_Map.png  used on input line 303.
@@ -760,7 +769,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [12 <./Waiting_Room_Game_mit_ArmyView.png> <./Waiting_Room_Game_With_TTT.png>]
-<Waiting_Room_Game_Mit_Map_Not_Ready.png, id=114, 1341.01pt x 770.88pt>
+<Waiting_Room_Game_Mit_Map_Not_Ready.png, id=117, 1341.01pt x 770.88pt>
 File: Waiting_Room_Game_Mit_Map_Not_Ready.png Graphic file (type png)
 <use Waiting_Room_Game_Mit_Map_Not_Ready.png>
 Package pdftex.def Info: Waiting_Room_Game_Mit_Map_Not_Ready.png  used on input
@@ -875,7 +884,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [23]
-<BurndownChart_Sprint3.PNG, id=153, 933.4875pt x 435.12563pt>
+<BurndownChart_Sprint3.PNG, id=156, 933.4875pt x 435.12563pt>
 File: BurndownChart_Sprint3.PNG Graphic file (type png)
 <use BurndownChart_Sprint3.PNG>
 Package pdftex.def Info: BurndownChart_Sprint3.PNG  used on input line 582.
@@ -889,12 +898,12 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [24 <./BurndownChart_Sprint3.PNG>]
-<Coverage_Sprint_3.PNG, id=158, 1429.59094pt x 113.67468pt>
+<Coverage_Sprint_3.PNG, id=161, 1429.59094pt x 113.67468pt>
 File: Coverage_Sprint_3.PNG Graphic file (type png)
 <use Coverage_Sprint_3.PNG>
 Package pdftex.def Info: Coverage_Sprint_3.PNG  used on input line 606.
 (pdftex.def)             Requested size: 375.57782pt x 29.86346pt.
-<Abschlossene_Vorgaenge_Sprint_3.png, id=159, 1340.75906pt x 729.47531pt>
+<Abschlossene_Vorgaenge_Sprint_3.png, id=162, 1340.75906pt x 729.47531pt>
 File: Abschlossene_Vorgaenge_Sprint_3.png Graphic file (type png)
 <use Abschlossene_Vorgaenge_Sprint_3.png>
 Package pdftex.def Info: Abschlossene_Vorgaenge_Sprint_3.png  used on input lin
@@ -909,14 +918,14 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [25 <./Coverage_Sprint_3.PNG> <./Abschlossene_Vorgaenge_Sprint_3.png>]
-<Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG, id=165, 1343.0175pt x 298.86656pt
+<Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG, id=168, 1343.0175pt x 298.86656pt
 >
 File: Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG Graphic file (type png)
 <use Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG>
 Package pdftex.def Info: Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG  used on i
 nput line 632.
 (pdftex.def)             Requested size: 375.57782pt x 83.57716pt.
-<Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG, id=166, 1334.73656pt x 252.19
+<Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG, id=169, 1334.73656pt x 252.19
 218pt>
 File: Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG Graphic file (type png)
 <use Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG>
@@ -1038,7 +1047,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [36]
-<BurndownChart_Sprint4.PNG, id=204, 941.01563pt x 439.6425pt>
+<BurndownChart_Sprint4.PNG, id=207, 941.01563pt x 439.6425pt>
 File: BurndownChart_Sprint4.PNG Graphic file (type png)
 <use BurndownChart_Sprint4.PNG>
 Package pdftex.def Info: BurndownChart_Sprint4.PNG  used on input line 905.
@@ -1052,7 +1061,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [37 <./BurndownChart_Sprint4.PNG>]
-<Abschlossene_Vorgaenge_Sprint_4.png, id=209, 967.36406pt x 880.79062pt>
+<Abschlossene_Vorgaenge_Sprint_4.png, id=212, 967.36406pt x 880.79062pt>
 File: Abschlossene_Vorgaenge_Sprint_4.png Graphic file (type png)
 <use Abschlossene_Vorgaenge_Sprint_4.png>
 Package pdftex.def Info: Abschlossene_Vorgaenge_Sprint_4.png  used on input lin
@@ -1067,30 +1076,18 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [38 <./Abschlossene_Vorgaenge_Sprint_4.png>]
-<Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG, id=214, 964.35281pt x 190.46156pt
+<Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG, id=218, 964.35281pt x 190.46156pt
 >
 File: Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG Graphic file (type png)
 <use Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG>
 Package pdftex.def Info: Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG  used on i
 nput line 946.
 (pdftex.def)             Requested size: 469.47049pt x 92.71957pt.
-File: Logo.png Graphic file (type png)
-<use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 957.
-(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
-
-Overfull \vbox (18.47517pt too high) has occurred while \output is active []
-
-
-[39 <./Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG>] (./Doku_Release_2.lof)
-\tf@lof=\write4
-\openout4 = `Doku_Release_2.lof'.
-
-
-(./Doku_Release_2.lot)
-\tf@lot=\write5
-\openout5 = `Doku_Release_2.lot'.
-
+<Coverage_Sprint_4.PNG, id=219, 1188.69093pt x 68.50594pt>
+File: Coverage_Sprint_4.PNG Graphic file (type png)
+<use Coverage_Sprint_4.PNG>
+Package pdftex.def Info: Coverage_Sprint_4.PNG  used on input line 959.
+(pdftex.def)             Requested size: 469.47049pt x 27.05588pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
 Package pdftex.def Info: Logo.png  used on input line 962.
@@ -1099,16 +1096,109 @@ Package pdftex.def Info: Logo.png  used on input line 962.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
+[39 <./Nicht_Abgeschlossene_Vorgaenge_Sprint_4.PNG>]
+<ArmyBuilderMockUp.png, id=224, 2682.02pt x 1541.76pt>
+File: ArmyBuilderMockUp.png Graphic file (type png)
+<use ArmyBuilderMockUp.png>
+Package pdftex.def Info: ArmyBuilderMockUp.png  used on input line 984.
+(pdftex.def)             Requested size: 328.6279pt x 188.90842pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 988.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[40 <./Coverage_Sprint_4.PNG>]
+<ArmyBuilder_final.PNG, id=229, 894.34125pt x 627.09282pt>
+File: ArmyBuilder_final.PNG Graphic file (type png)
+<use ArmyBuilder_final.PNG>
+Package pdftex.def Info: ArmyBuilder_final.PNG  used on input line 1000.
+(pdftex.def)             Requested size: 328.6279pt x 230.43231pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1004.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[41 <./ArmyBuilderMockUp.png>]
+File: ArmyEditor.png Graphic file (type png)
+<use ArmyEditor.png>
+Package pdftex.def Info: ArmyEditor.png  used on input line 1010.
+(pdftex.def)             Requested size: 234.73524pt x 234.74023pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1014.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[42 <./ArmyBuilder_final.PNG>]
+<ArmyEditor_final.PNG, id=238, 356.0803pt x 301.125pt>
+File: ArmyEditor_final.PNG Graphic file (type png)
+<use ArmyEditor_final.PNG>
+Package pdftex.def Info: ArmyEditor_final.PNG  used on input line 1017.
+(pdftex.def)             Requested size: 234.73524pt x 198.50417pt.
+
+
+LaTeX Warning: Reference `AttributInfo' on page 43 undefined on input line 1023
+.
+
+<Attribute_Info_final.PNG, id=239, 463.7325pt x 249.18094pt>
+File: Attribute_Info_final.PNG Graphic file (type png)
+<use Attribute_Info_final.PNG>
+Package pdftex.def Info: Attribute_Info_final.PNG  used on input line 1027.
+(pdftex.def)             Requested size: 234.73524pt x 126.13383pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1031.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[43 <./ArmyEditor_final.PNG>]
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1033.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[44 <./Attribute_Info_final.PNG>] (./Doku_Release_2.lof)
+\tf@lof=\write4
+\openout4 = `Doku_Release_2.lof'.
+
+ (./Doku_Release_2.lot)
+\tf@lot=\write5
+\openout5 = `Doku_Release_2.lot'.
+
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1038.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
 [1] (./Doku_Release_2.aux)
+
+LaTeX Warning: There were undefined references.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6880 strings out of 492616
- 115470 string characters out of 6132768
- 316587 words of memory out of 5000000
- 10617 multiletter control sequences out of 15000+600000
+ 6911 strings out of 492616
+ 116231 string characters out of 6132768
+ 316637 words of memory out of 5000000
+ 10643 multiletter control sequences out of 15000+600000
  14644 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,15n,54p,9093b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1123,10 +1213,10 @@ nts/cm/cmr7.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/texlive
 /2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2018/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Doku_Release_2.pdf (44 pages, 6295232 bytes).
+Output written on Doku_Release_2.pdf (50 pages, 6621743 bytes).
 PDF statistics:
- 265 PDF objects out of 1000 (max. 8388607)
- 137 compressed objects within 2 object streams
+ 294 PDF objects out of 1000 (max. 8388607)
+ 150 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 171 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 196 words of extra memory for PDF output out of 10000 (max. 10000000)
 

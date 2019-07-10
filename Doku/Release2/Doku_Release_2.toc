@@ -336,3 +336,9 @@
 \contentsline {paragraph}{\nonumberline Optional - ArmyBuilder - Notification f\"ur das Speichern der Armee und Waiting Animation}{39}% 
 \contentsline {paragraph}{\nonumberline Core - ArmyBuilder - Lokaler Speicherort f\"ur Armeen}{39}% 
 \contentsline {subsubsection}{\numberline {5.3.4}Fazit}{39}% 
+\contentsline {paragraph}{\nonumberline Code Coverage}{39}% 
+\contentsline {section}{\numberline {6}Abschluss des 2. Releases}{40}% 
+\contentsline {subsection}{\numberline {6.1}Der Armeemanager}{40}% 
+\contentsline {subsubsection}{\numberline {6.1.1}Implementaion}{41}% 
+\contentsline {subsection}{\numberline {6.2}Armee-Editor}{42}% 
+\contentsline {subsection}{\numberline {6.3}Info zu den Attributen}{43}% 
