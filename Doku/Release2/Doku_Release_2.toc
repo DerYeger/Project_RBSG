@@ -147,21 +147,22 @@
 \contentsline {subsection}{\numberline {4.3}Zeit\"ubersicht}{23}% 
 \contentsline {subsection}{\numberline {4.4}Analyse des 3. Sprint}{24}% 
 \contentsline {subsubsection}{\numberline {4.4.1}Burndown-Diagramm}{24}% 
-\contentsline {subsection}{\numberline {4.5}Abgeschlossene Vorg\"ange}{24}% 
+\contentsline {subsubsection}{\numberline {4.4.2}Abgeschlossene Vorg\"ange}{24}% 
 \contentsline {paragraph}{\nonumberline Initiales Spielgeschehen anzeigen}{24}% 
 \contentsline {paragraph}{\nonumberline Ingame Chat}{24}% 
 \contentsline {paragraph}{\nonumberline Vom Waiting Room zur\"uck in die Lobby}{24}% 
 \contentsline {paragraph}{\nonumberline Erstellen und konfigurieren der eigenen Armeen}{25}% 
 \contentsline {paragraph}{\nonumberline Ein C0 Abdeckung von 60\%}{25}% 
-\contentsline {subsection}{\numberline {4.6}Nicht abgeschlossene Vorg\"ange}{25}% 
+\contentsline {subsubsection}{\numberline {4.4.3}Nicht abgeschlossene Vorg\"ange}{25}% 
 \contentsline {paragraph}{\nonumberline Optional - Waiting Room - Anzeigen einer Karten Preview}{25}% 
 \contentsline {paragraph}{\nonumberline Optional - Ingame - Zoomen auf dem Spielfeld}{25}% 
 \contentsline {paragraph}{\nonumberline Core - Ingame - Spiel verlassen}{26}% 
-\contentsline {subsection}{\numberline {4.7}Entfernte Vorg\"ange}{26}% 
+\contentsline {subsubsection}{\numberline {4.4.4}Entfernte Vorg\"ange}{26}% 
 \contentsline {paragraph}{\nonumberline Core - ArmyBuilder - Laden der Armeen}{26}% 
 \contentsline {paragraph}{\nonumberline Core - ArmyBuilder - L\"oschen der Armeen}{26}% 
 \contentsline {paragraph}{\nonumberline Optional - Waiting Room - Anzeigen der ausgw\"ahlten Einheiten}{26}% 
 \contentsline {paragraph}{\nonumberline Appearance - Army Builder}{26}% 
+\contentsline {subsubsection}{\numberline {4.4.5}Fazit}{26}% 
 \contentsline {section}{\numberline {5}Sprint \textup {\uppercase {iv}}}{27}% 
 \contentsline {subsection}{\numberline {5.1}Sprintziel}{27}% 
 \contentsline {subsection}{\numberline {5.2}User Stories}{27}% 
@@ -175,7 +176,7 @@
 \contentsline {paragraph}{\nonumberline Ziel}{27}% 
 \contentsline {paragraph}{\nonumberline Story}{27}% 
 \contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{27}% 
-\contentsline {paragraph}{\nonumberline Sch\"atzung}{27}% 
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{28}% 
 \contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{28}% 
 \contentsline {subsubsection}{\numberline {5.2.3}Appearance - ArmyBuilder}{28}% 
 \contentsline {paragraph}{\nonumberline Ziel}{28}% 
@@ -326,3 +327,4 @@
 \contentsline {paragraph}{\nonumberline Story}{37}% 
 \contentsline {paragraph}{\nonumberline Sch\"atzung}{37}% 
 \contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{37}% 
+\contentsline {subsection}{\numberline {5.3}Analyse des 4. Sprint}{37}% 
