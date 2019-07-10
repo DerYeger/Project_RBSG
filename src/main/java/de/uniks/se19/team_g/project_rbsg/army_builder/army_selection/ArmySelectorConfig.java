@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import java.util.function.Function;
 public class ArmySelectorConfig {
 
     @Bean
-    public Function<Pane, ArmySelectorController> armySelectorComponent(ObjectFactory<FXMLLoader> fxmlLoader)
+    public Function<VBox, ArmySelectorController> armySelectorComponent(ObjectFactory<FXMLLoader> fxmlLoader)
     {
         return pane -> {
             final FXMLLoader loader = fxmlLoader.getObject();

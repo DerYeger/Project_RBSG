@@ -2,47 +2,51 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.AppStateConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.event.GameEventManager;
-import de.uniks.se19.team_g.project_rbsg.login.*;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.preview_map.PreviewMapBuilder;
-import javafx.fxml.FXMLLoader;
+import javafx.beans.property.Property;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
-import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * @author  Keanu Stückrad
@@ -60,15 +64,31 @@ import org.testfx.util.WaitForAsyncUtils;
         ChatBuilder.class,
         SceneManagerConfig.class,
         AlertBuilder.class,
-        FXMLLoaderFactory.class
+        FXMLLoaderFactory.class,
+        AppStateConfig.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
     @Autowired
-    private ApplicationContext context;
+    private ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomScene;
+
+    @MockBean
+    private ArmySelectorController armySelectorController;
+
+    @MockBean
+    private GameEventManager gameEventManager;
+
+    @Autowired
+    private ApplicationState appState;
+
 
     @TestConfiguration
     static class ContextConfiguration {
+
+        @Bean
+        public Function<VBox, ArmySelectorController> armySelectorComponent(ArmySelectorController armySelectorController) {
+            return vBox -> armySelectorController;
+        }
 
         @Bean
         public MusicManager musicManager()
@@ -87,25 +107,8 @@ public class WaitingRoomViewTests extends ApplicationTest {
         }
 
         @Bean
-        public GameEventManager gameEventManager() {
-            return new GameEventManager(new WebSocketClient()) {
-                @Override
-                public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
-                    //do nothing
-                }
-            };
-        }
-
-        @Bean
         public ChatController chatController() {
             return new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager());
-        }
-
-        @Bean
-        public ApplicationState applicationState() {
-            ApplicationState applicationState = new ApplicationState();
-            applicationState.selectedArmy.set(new Army());
-            return applicationState;
         }
 
         @Bean
@@ -135,24 +138,25 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     private ViewComponent<WaitingRoomViewController> viewComponent;
 
-    @Override
-    public void start(@NonNull final Stage stage) {
-        @SuppressWarnings("unchecked")
-        final ViewComponent<WaitingRoomViewController> buffer = (ViewComponent<WaitingRoomViewController>) context.getBean("waitingRoomScene");
-        viewComponent = buffer;
-        scene = new Scene(buffer.getRoot(), 1200, 840);
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @Test
     public void testBuildWaitingRoomView() {
-        @SuppressWarnings("unchecked")
-        final Node waitingRoomView = ((ViewComponent<RootController>) context.getBean("waitingRoomScene")).getRoot();
+        final Node waitingRoomView = waitingRoomScene.getObject().getRoot();
         Assert.assertNotNull(waitingRoomView);
     }
     
-    public void testBuildPlayerCard() {
+    public void testBuildPlayerCard() throws ExecutionException, InterruptedException {
+        WaitForAsyncUtils.asyncFx(
+                () -> {
+                    final ViewComponent<WaitingRoomViewController> buffer = waitingRoomScene.getObject();
+                    viewComponent = buffer;
+                    scene = new Scene(buffer.getRoot(), 1200, 840);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                }
+        ).get();
+
+
         Label label = lookup("Waiting for\nplayer...").query();
         Assert.assertNotNull(label);
         de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game game = new de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game("");
@@ -173,12 +177,23 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testButons() throws Exception {
+        WaitForAsyncUtils.asyncFx(
+            () -> {
+                final ViewComponent<WaitingRoomViewController> buffer = waitingRoomScene.getObject();
+                viewComponent = buffer;
+                scene = new Scene(buffer.getRoot(), 1200, 840);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            }
+        ).get();
+
         Button musicButton = lookup("#soundButton").query();
         Assert.assertNotNull(musicButton);
         clickOn("#soundButton");
-        Mockito.verify(musicManager, Mockito.times(1)).updateMusicButtonIcons(musicButton);
+        verify(musicManager, Mockito.times(1)).updateMusicButtonIcons(musicButton);
         clickOn("#soundButton");
-        Mockito.verify(musicManager, Mockito.times(2)).updateMusicButtonIcons(musicButton);
+        verify(musicManager, Mockito.times(2)).updateMusicButtonIcons(musicButton);
         Button infoButton = lookup("#showInfoButton").query();
         Assert.assertNotNull(infoButton);
         clickOn("#showInfoButton");
@@ -187,4 +202,28 @@ public class WaitingRoomViewTests extends ApplicationTest {
         clickOn("#leaveButton");
     }
 
+    @Test
+    public void testArmySelector()
+    {
+        AtomicReference<Property<Army>> selectedReference = new AtomicReference<>();
+        doAnswer(invocation -> {
+            selectedReference.set(invocation.getArgument(1));
+            return null;
+        }).when(armySelectorController).setSelection(any(), any());
+
+        final WaitingRoomViewController waitingRoomController = this.waitingRoomScene.getObject().getController();
+
+        // think about verifying correct filter as well
+        verify(armySelectorController, times(1)).setSelection(any(), any());
+        final Property<Army> selectedArmy = selectedReference.get();
+
+        Army army = new Army();
+        army.id.set("1");
+
+        selectedArmy.setValue(army);
+
+        InOrder inOrder = inOrder(gameEventManager);
+        inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.changeArmy(army)));
+        inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.readyToPlay()));
+    }
 }

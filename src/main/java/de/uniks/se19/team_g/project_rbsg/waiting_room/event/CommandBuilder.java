@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.waiting_room.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,5 +36,19 @@ public class CommandBuilder {
         command.put(MESSAGE_TYPE, COMMAND);
         command.put(ACTION, "startGame");
         return command;
+    }
+
+    public static Map<String, Object> changeArmy(Army army) {
+        final Map<String, Object> command = command("changeArmy");
+        command.put("data", army.id.get());
+        return command;
+    }
+
+    public static Map<String, Object> command(String action) {
+        final HashMap<String, Object> command = new HashMap<>();
+        command.put(MESSAGE_TYPE, COMMAND);
+        command.put(ACTION, action);
+        return command;
+
     }
 }

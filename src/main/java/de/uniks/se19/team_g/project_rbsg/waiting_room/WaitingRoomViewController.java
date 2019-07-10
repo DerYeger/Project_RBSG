@@ -39,6 +39,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -67,7 +68,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     public Pane chatContainer;
     public Pane mapPreviewPane;
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
-    public Pane armySelector;
+    public VBox armySelector;
     public Button soundButton;
     public Button leaveButton;
     public Button showInfoButton;
@@ -91,7 +92,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private final ChatBuilder chatBuilder;
     private final AlertBuilder alertBuilder;
     @Nonnull
-    private final Function<Pane, ArmySelectorController> armySelectorComponent;
+    private final Function<VBox, ArmySelectorController> armySelectorComponent;
     private final PreviewMapBuilder previewMapBuilder;
     public ModelManager modelManager;
     private final IngameGameProvider ingameGameProvider;
@@ -118,7 +119,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final PreviewMapBuilder previewMapBuilder,
             @Nonnull final AlertBuilder alertBuilder,
-            @Nonnull final Function<Pane, ArmySelectorController> armySelectorComponent
+            @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent
     ) {
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
@@ -333,6 +334,12 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
 
     protected void configureArmySelection() {
         armySelectorController = armySelectorComponent.apply(armySelector);
+
+        selectedArmy.addListener((observable, oldValue, newValue) -> {
+            gameEventManager.sendMessage(CommandBuilder.changeArmy(newValue));
+            gameEventManager.sendMessage(CommandBuilder.readyToPlay());
+        });
+
         /*
          * normally, an observable list is only aware of items added and removed
          * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
