@@ -1,10 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import javafx.application.Platform;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,14 +33,15 @@ import java.util.function.Function;
     FXMLLoaderFactory.class,
     ArmySelectorController.class,
     ArmySelectorCellController.class,
+    LocaleConfig.class
 })
 public class ArmySelectorControllerTest extends ApplicationTest {
 
 
     @Autowired
-    private Function<Pane, ArmySelectorController> armySelectionMounter;
+    private Function<VBox, ArmySelectorController> armySelectionMounter;
 
-    private Pane mountPoint;
+    private VBox mountPoint;
 
     @Override
     public void start(Stage stage) {
@@ -61,10 +66,15 @@ public class ArmySelectorControllerTest extends ApplicationTest {
         final Army army3 = new Army();
         final ObservableList<Army> armies = FXCollections.observableArrayList(army1, army2, army3);
 
-        Platform.runLater(() -> controller.setSelection(armies, null));
+        Property<Army> selected =  new SimpleObjectProperty<>();
+        Platform.runLater(() -> controller.setSelection(armies, selected));
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(3, lookup(".list-cell #imageView").queryAll().size());
+
+        clickOn(lookup(".list-cell #imageView").nth(1).<Node>query());
+
+        Assert.assertSame(army2, selected.getValue());
 
     }
 }
