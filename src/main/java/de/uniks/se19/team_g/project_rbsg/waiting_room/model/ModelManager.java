@@ -83,19 +83,20 @@ public class ModelManager implements GameEventHandler {
         }
 
         String changedProperty = data.get("fieldName").asText();
-        final JsonNode newValue = data.get("newValue");
+        final JsonNode newValueNode = data.get("newValue");
 
-        if (entity instanceof Game) {
-            if (handleSpecialGameFields((Game) entity, changedProperty, newValue)) {
-                return;
+        if (newValueNode.isValueNode()) {
+            final BeanWrapperImpl beanWrapper = new BeanWrapperImpl(entity);
+            String newValueDescriptor = newValueNode.textValue();
+
+            Object newValue = objectMap.get(newValueDescriptor);
+
+            if (newValue == null) {
+                newValue = newValueDescriptor;
             }
-        }
 
-        if (newValue.isValueNode()) {
             try {
-                String nextValue = newValue.textValue();
-                final BeanWrapperImpl beanWrapper = new BeanWrapperImpl(entity);
-                beanWrapper.setPropertyValue(changedProperty, nextValue);
+                beanWrapper.setPropertyValue(changedProperty, newValue);
                 return;
             } catch (BeansException e) {
                 logger.error("entity update failed", e);
@@ -103,18 +104,6 @@ public class ModelManager implements GameEventHandler {
         }
 
         logger.error("can't update entity of type {}", entity.getClass());
-    }
-
-    private boolean handleSpecialGameFields(Game entity, String changedProperty, JsonNode newValue) {
-
-        if (changedProperty.equals("currentPlayer")) {
-            final Player player = (Player) objectMap.get(newValue.asText());
-            entity.setCurrentPlayer(player);
-
-            return true;
-        }
-
-        return false;
     }
 
     private void handleInit(@NonNull final ObjectNode node) {
