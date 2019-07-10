@@ -30,6 +30,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -64,6 +65,14 @@ public class IngameViewController implements RootController {
     public VBox root;
     public Button ingameInformationsButton;
     public HBox playerBar;
+    public Pane player1;
+    public Pane player2;
+    public Pane player3;
+    public Pane player4;
+    public Pane empty1;
+    public Pane empty2;
+    public Pane empty3;
+    public Pane empty4;
 
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
@@ -80,24 +89,17 @@ public class IngameViewController implements RootController {
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
-    private ObservableList<PlayerCardBuilder> playerCards;
-
-    private WaitingRoomViewController waitingRoomViewController;
+    private PlayerListController playerListController;
 
     @Autowired
     public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
                                 @NonNull final GameProvider gameProvider,
                                 @NonNull final SceneManager sceneManager,
-                                @NonNull final AlertBuilder alertBuilder,
-                                @Nonnull final WaitingRoomViewController waitingRoomViewController) {
+                                @NonNull final AlertBuilder alertBuilder) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
-        this.waitingRoomViewController=waitingRoomViewController;
-        if(waitingRoomViewController!=null && waitingRoomViewController.getPlayerCardBuilders()!=null) {
-            playerCards = waitingRoomViewController.getPlayerCardBuilders();
-        }
     }
 
     public void initialize() {
@@ -137,10 +139,27 @@ public class IngameViewController implements RootController {
             initCanvas();
         }
         //roundCount.set(0);
-        roundTextLabel.setText("Runde");
-        //roundCountLabel.textProperty().bind(roundCount.asString());
-        playerCards.iterator().forEachRemaining(card -> playerBar.getChildren().add(card.buildPlayerCard()));
+        playerListController=new PlayerListController(game);
         playerBar.setVisible(false);
+        empty1.setOpacity(0.1);
+        empty2.setOpacity(0.1);
+        empty3.setOpacity(0.1);
+        empty4.setOpacity(0.1);
+
+        if(playerListController!=null && playerListController.getPlayerCards()!=null) {
+            playerBar.getChildren().addAll(playerListController.getPlayerCards());
+            if(playerListController.getPlayerCards().size()==2){
+                player1.setVisible(false);
+                player2.getChildren().add(playerListController.getPlayerCards().get(0));
+                player3.setVisible(false);
+                player4.getChildren().add(playerListController.getPlayerCards().get(0));
+            }
+        }
+        roundTextLabel.setText("Runde");
+
+        //roundCountLabel.textProperty().bind(roundCount.asString());
+        //playerCards.iterator().forEachRemaining(card -> playerBar.getChildren().add(card.buildPlayerCard()));
+        //playerBar.setVisible(false);
     }
 
     private void initCanvas() {
@@ -165,13 +184,13 @@ public class IngameViewController implements RootController {
         String imagePath = "";
         for(Unit unit: units) {
             UnitType unitType = unit.getUnitType();
-            if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
-            else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
-            else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
-            else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
-            else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
-            else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
-            else imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
+            if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe1.getImage().toExternalForm();
+            else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe2.getImage().toExternalForm();
+            else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe3.getImage().toExternalForm();
+            else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe4.getImage().toExternalForm();
+            else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe5.getImage().toExternalForm();
+            else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe6.getImage().toExternalForm();
+            else imagePath = UnitTypeInfo._5d25be843129f1000129ffe6.getImage().toExternalForm();
             gc.drawImage(
                     new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true),
                     unit.getPosition().get().getX() * CELL_SIZE,
