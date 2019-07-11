@@ -200,8 +200,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
-    public void showInfo() {
-        sceneManager.setScene(SceneManager.SceneIdentifier.BATTLEFIELD, true, SceneManager.SceneIdentifier.INGAME); // for testing
+    public void debugGoToBattlefield() {
+        // TODO: to consider
     }
 
     public void leaveRoom() {

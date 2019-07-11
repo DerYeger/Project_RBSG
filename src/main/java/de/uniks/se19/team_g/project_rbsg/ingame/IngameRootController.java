@@ -2,7 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventManager;
@@ -39,31 +41,34 @@ public class IngameRootController
     @Nonnull
     private final ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory;
     @Nonnull
-    private final ObjectFactory<ViewComponent<BattleFieldController>> ingameFactory;
+    private final ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
     @Nonnull
     private final ObjectFactory<IngameContext> contextFactory;
     @Nonnull
     private final GameEventManager gameEventManager;
     @Nonnull
     private final ModelManager modelManager;
+    @Nonnull
+    private final SceneManager sceneManager;
 
     private IngameContext ingameContext;
-
 
     private ViewComponent<? extends IngameViewController> activeComponent;
 
     public IngameRootController(
-        @Nonnull ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory,
-        @Nonnull ObjectFactory<ViewComponent<BattleFieldController>> ingameFactory,
-        @Nonnull ObjectFactory<IngameContext> contextFactory,
-        @Nonnull GameEventManager gameEventManager,
-        @Nonnull ModelManager modelManager
+            @Nonnull ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory,
+            @Nonnull ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory,
+            @Nonnull ObjectFactory<IngameContext> contextFactory,
+            @Nonnull GameEventManager gameEventManager,
+            @Nonnull ModelManager modelManager,
+            @Nonnull SceneManager sceneManager
     ) {
         this.waitingRoomFactory = waitingRoomFactory;
-        this.ingameFactory = ingameFactory;
+        this.battleFieldFactory = battleFieldFactory;
         this.contextFactory = contextFactory;
         this.gameEventManager = gameEventManager;
         this.modelManager = modelManager;
+        this.sceneManager = sceneManager;
     }
 
 
@@ -83,7 +88,7 @@ public class IngameRootController
 
         gameEventManager.setOnConnectionClosed(this::onConnectionClosed);
         gameEventManager.addHandler(modelManager);
-        gameEventManager.addHandler(this::handleGameInitFinished);
+        gameEventManager.addHandler(this::handleGameEvents);
 
         try {
             gameEventManager.startSocket(gameData.getId(), null);
@@ -96,6 +101,36 @@ public class IngameRootController
         ingameContext.setGameEventManager(gameEventManager);
     }
 
+    @Override
+    public void terminate() {
+        if (activeComponent.getController() instanceof Terminable) {
+            ((Terminable) activeComponent.getController()).terminate();
+        }
+
+        gameEventManager.terminate();
+        ingameContext.tearDown();
+    }
+
+    private void handleGameEvents(ObjectNode message) {
+        if (GameEventManager.isActionType(message, GameEventManager.GAME_INIT_FINISHED)) {
+            ingameContext.gameInitialized(modelManager.getGame());
+            return;
+        }
+
+        if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
+            mountBattleField();
+        }
+    }
+
+    public void onConnectionClosed() {
+        if (sceneManager.getAlertBuilder() != null) {
+            sceneManager.getAlertBuilder().error(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
+        }
+    }
+
+    private void mountBattleField() {
+    }
+
     protected void mountWaitingRoom() {
         activeComponent = waitingRoomFactory.getObject();
         activeComponent.getController().configure(ingameContext);
@@ -104,23 +139,8 @@ public class IngameRootController
         this.root.getChildren().add(root);
     }
 
-    @Override
-    public void terminate() {
-        if (activeComponent.getController() instanceof Terminable) {
-            ((Terminable) activeComponent.getController()).terminate();
-        }
-
-        gameEventManager.terminate();
-    }
-
-    private void handleGameInitFinished(ObjectNode message) {
-        if (GameEventManager.isActionType(message, GameEventManager.GAME_INIT_FINISHED)) {
-            ingameContext.gameInitialized(modelManager.getGame());
-        }
-    }
-
-    public void onConnectionClosed() {
-        // alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leaveWaitingRoom);
+    private void leave() {
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
 }

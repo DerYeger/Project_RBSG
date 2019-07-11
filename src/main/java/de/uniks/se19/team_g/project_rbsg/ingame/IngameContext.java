@@ -64,4 +64,9 @@ public class IngameContext {
     public void setGameEventManager(GameEventManager gameEventManager) {
         this.gameEventManager = gameEventManager;
     }
+
+    public void tearDown() {
+        gameDataProvider.clear();
+        gameStateProvider.clear();
+    }
 }
