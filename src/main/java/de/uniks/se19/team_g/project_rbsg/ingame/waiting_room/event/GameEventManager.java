@@ -31,6 +31,8 @@ import static de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.Comman
 @Scope("prototype")
 public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
+    public static final String GAME_INIT_FINISHED = "gameInitFinished";
+
     private static final String ENDPOINT = "/game";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -52,6 +54,10 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         gameEventHandlers.add(new DefaultGameEventHandler());
 
         webSocketClient.setCloseHandler(this);
+    }
+
+    public static boolean isActionType(ObjectNode message, String action) {
+        return message.get("action").asText().equals(action);
     }
 
     @Override

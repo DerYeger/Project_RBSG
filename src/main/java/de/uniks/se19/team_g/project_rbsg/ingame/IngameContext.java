@@ -40,7 +40,8 @@ public class IngameContext {
         return initialized;
     }
 
-    public void gameInitialized() {
+    public void gameInitialized(de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game game) {
+        gameStateProvider.set(game);
         initialized.set(true);
     }
 
