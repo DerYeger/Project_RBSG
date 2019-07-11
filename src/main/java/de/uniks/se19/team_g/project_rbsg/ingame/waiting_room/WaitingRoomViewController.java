@@ -12,20 +12,17 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameRootController;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.CommandBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -63,7 +60,7 @@ import java.util.function.Function;
  */
 @Scope("prototype")
 @Controller
-public class WaitingRoomViewController implements RootController, Terminable, IngameViewController {
+public class WaitingRoomViewController implements RootController, IngameViewController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -95,7 +92,6 @@ public class WaitingRoomViewController implements RootController, Terminable, In
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
-    private final GameEventManager gameEventManager;
     private final MusicManager musicManager;
     private final SplashImageBuilder splashImageBuilder;
     private final ApplicationState applicationState;
@@ -124,7 +120,6 @@ public class WaitingRoomViewController implements RootController, Terminable, In
             @Nonnull final GameProvider gameProvider,
             @Nonnull final UserProvider userProvider,
             @Nonnull final SceneManager sceneManager,
-            @Nonnull final GameEventManager gameEventManager,
             @Nonnull final MusicManager musicManager,
             @Nonnull final SplashImageBuilder splashImageBuilder,
             @Nonnull final ApplicationState applicationState,
@@ -137,7 +132,6 @@ public class WaitingRoomViewController implements RootController, Terminable, In
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
-        this.gameEventManager = gameEventManager;
         this.musicManager = musicManager;
         this.splashImageBuilder = splashImageBuilder;
         this.applicationState = applicationState;
@@ -168,7 +162,7 @@ public class WaitingRoomViewController implements RootController, Terminable, In
     }
 
     private void withChatSupport() throws Exception {
-        final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(gameEventManager);
+        final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
         chatContainer.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();
     }
@@ -205,11 +199,6 @@ public class WaitingRoomViewController implements RootController, Terminable, In
             player3Pane.setVisible(false);
             player4Pane.setVisible(false);
         }
-    }
-
-    @Override
-    public void terminate() {
-        gameEventManager.terminate();
     }
 
     public void showInfo() {
@@ -297,8 +286,8 @@ public class WaitingRoomViewController implements RootController, Terminable, In
         armySelectorController = armySelectorComponent.apply(armySelector);
 
         selectedArmy.addListener((observable, oldValue, newValue) -> {
-            gameEventManager.sendMessage(CommandBuilder.changeArmy(newValue));
-            gameEventManager.sendMessage(CommandBuilder.readyToPlay());
+            context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
+            context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
         });
 
         /*
@@ -376,7 +365,7 @@ public class WaitingRoomViewController implements RootController, Terminable, In
     private void mayStartGame() {
         if (context.getGameData().getCreator() == context.getUser()) {
             logger.debug("trigger game start of our own game");
-            gameEventManager.sendMessage(CommandBuilder.startGame());
+            context.getGameEventManager().sendMessage(CommandBuilder.startGame());
         }
     }
 }

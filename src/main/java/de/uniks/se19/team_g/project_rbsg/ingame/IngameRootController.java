@@ -108,6 +108,8 @@ public class IngameRootController
         if (activeComponent.getController() instanceof Terminable) {
             ((Terminable) activeComponent.getController()).terminate();
         }
+
+        gameEventManager.terminate();
     }
 
     private void handleGameInitFinished(ObjectNode message) {
@@ -120,7 +122,4 @@ public class IngameRootController
         // alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leaveWaitingRoom);
     }
 
-    public IngameContext getIngameContext() {
-        return ingameContext;
-    }
 }
