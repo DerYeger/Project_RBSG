@@ -12,7 +12,7 @@
 
 
 <?import javafx.scene.layout.VBox?>
-<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
+<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController">
    <children>
       <AnchorPane fx:id="root">
           <children>
