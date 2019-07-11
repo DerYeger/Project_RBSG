@@ -37,7 +37,7 @@ import static de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.UnitTy
  */
 @Scope("prototype")
 @Controller
-public class IngameViewController implements RootController {
+public class BattleFieldController implements RootController {
 
     private static final double CELL_SIZE = 64;
     private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH/2;
@@ -68,7 +68,7 @@ public class IngameViewController implements RootController {
     private final AlertBuilder alertBuilder;
 
     @Autowired
-    public IngameViewController(
+    public BattleFieldController(
             @NonNull final IngameGameProvider ingameGameProvider,
             @NonNull final GameProvider gameProvider,
             @NonNull final SceneManager sceneManager,

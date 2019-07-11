@@ -40,7 +40,7 @@ import java.io.IOException;
 @ContextConfiguration(classes = {
         FXMLLoaderFactory.class,
         IngameViewTests.ContextConfiguration.class,
-        IngameViewController.class,
+        BattleFieldController.class,
         SceneManagerConfig.class,
         AlertBuilder.class
 })

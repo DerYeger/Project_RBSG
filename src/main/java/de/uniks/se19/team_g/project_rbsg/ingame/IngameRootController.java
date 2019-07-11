@@ -3,7 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.ModelManager;
@@ -38,7 +38,7 @@ public class IngameRootController
     @Nonnull
     private final ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory;
     @Nonnull
-    private final ObjectFactory<ViewComponent<IngameViewController>> ingameFactory;
+    private final ObjectFactory<ViewComponent<BattleFieldController>> ingameFactory;
     @Nonnull
     private final ObjectFactory<IngameContext> contextFactory;
     @Nonnull
@@ -49,11 +49,11 @@ public class IngameRootController
     private IngameContext ingameContext;
 
 
-    private ViewComponent activeComponent;
+    private ViewComponent<? extends IngameViewController> activeComponent;
 
     public IngameRootController(
         @Nonnull ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory,
-        @Nonnull ObjectFactory<ViewComponent<IngameViewController>> ingameFactory,
+        @Nonnull ObjectFactory<ViewComponent<BattleFieldController>> ingameFactory,
         @Nonnull ObjectFactory<IngameContext> contextFactory,
         @Nonnull GameEventManager gameEventManager,
         @Nonnull ModelManager modelManager
@@ -97,6 +97,8 @@ public class IngameRootController
 
     protected void mountWaitingRoom() {
         activeComponent = waitingRoomFactory.getObject();
+        activeComponent.getController().configure(ingameContext, this);
+
         final Node root = activeComponent.getRoot();
         this.root.getChildren().add(root);
     }

@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
+package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameRootController;

@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
@@ -12,6 +11,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameRootController;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -20,7 +20,6 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.CommandBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game;
@@ -106,7 +105,6 @@ public class WaitingRoomViewController implements RootController, Terminable, In
     private final Function<VBox, ArmySelectorController> armySelectorComponent;
     private final PreviewMapBuilder previewMapBuilder;
     public ModelManager modelManager;
-    private final IngameGameProvider ingameGameProvider;
 
     private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
 
@@ -116,7 +114,9 @@ public class WaitingRoomViewController implements RootController, Terminable, In
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
     private IngameContext context;
-    private IngameRootController ingameRootController;
+
+    // weak ref binding
+    @SuppressWarnings("FieldCanBeLocal")
     private BooleanBinding startGameBinding;
 
     @Autowired
@@ -128,7 +128,6 @@ public class WaitingRoomViewController implements RootController, Terminable, In
             @Nonnull final MusicManager musicManager,
             @Nonnull final SplashImageBuilder splashImageBuilder,
             @Nonnull final ApplicationState applicationState,
-            @Nonnull final IngameGameProvider ingameGameProvider,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final PreviewMapBuilder previewMapBuilder,
             @Nonnull final AlertBuilder alertBuilder,
@@ -147,10 +146,9 @@ public class WaitingRoomViewController implements RootController, Terminable, In
         this.armySelectorComponent = armySelectorComponent;
         this.modelManager = modelManager;
         this.previewMapBuilder = previewMapBuilder;
-        this.ingameGameProvider = ingameGameProvider;
     }
 
-    public void initialize() throws Exception {
+    public void initialize() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
         JavaFXUtils.setButtonIcons(
@@ -319,8 +317,6 @@ public class WaitingRoomViewController implements RootController, Terminable, In
     public void configure(@Nonnull IngameContext context, @Nonnull IngameRootController rootController) {
 
         this.context = context;
-
-        this.ingameRootController = rootController;
 
         if (context.isInitialized()) {
             onInitialized();
