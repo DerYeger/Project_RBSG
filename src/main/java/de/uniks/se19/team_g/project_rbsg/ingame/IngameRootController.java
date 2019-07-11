@@ -107,7 +107,7 @@ public class IngameRootController
 
     @Override
     public void terminate() {
-        if (activeComponent.getController() instanceof Terminable) {
+        if (activeComponent != null && activeComponent.getController() instanceof Terminable) {
             ((Terminable) activeComponent.getController()).terminate();
         }
 
@@ -115,7 +115,8 @@ public class IngameRootController
         ingameContext.tearDown();
     }
 
-    private void handleGameEvents(ObjectNode message) {
+    // package-private for testability. i'm so sorry.
+    void handleGameEvents(ObjectNode message) {
         if (GameEventManager.isActionType(message, GameEventManager.GAME_INIT_FINISHED)) {
             Platform.runLater(() -> ingameContext.gameInitialized(modelManager.getGame()));
             return;
@@ -130,7 +131,7 @@ public class IngameRootController
         alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
     }
 
-    private void mountBattleField() {
+    protected void mountBattleField() {
         mountContent(battleFieldFactory.getObject());
     }
 
