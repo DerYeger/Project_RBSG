@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.3)  11 JUL 2019 23:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.3)  12 JUL 2019 00:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -856,11 +856,6 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [19 <./Chat2.png>]
-Overfull \hbox (10.1687pt too wide) in paragraph at lines 426--427
-\OT1/cmr/m/n/12 und To-bi-as Klipp auf-ge-teilt. To-bi-as ^^?^^P?`$[]$bernimmt 
-da-bei das La-den der Lo-ka-len Spei-cherst^^?^^P?`$[]$nde
- []
-
 File: Logo.png Graphic file (type png)
 <use Logo.png>
 Package pdftex.def Info: Logo.png  used on input line 442.
@@ -1382,7 +1377,7 @@ lic/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmti12.pfb>
-Output written on Doku_Release_2.pdf (60 pages, 9034064 bytes).
+Output written on Doku_Release_2.pdf (60 pages, 9033320 bytes).
 PDF statistics:
  351 PDF objects out of 1000 (max. 8388607)
  168 compressed objects within 2 object streams
