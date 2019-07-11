@@ -1002,7 +1002,7 @@
 				\label{ImplementierungArmeemanager}
 			\end{figure}
 		
-			\subsection{Armee-Editor}
+			\subsubsection{Armee-Editor}
 			Im Kundengespräch zu Beginn des 2. Releases wurde vom Kunden noch die Anforderung gestellt die Icons der Armee individuell gestalten zu können. Dafür wurde das Mockup in \Abb{ArmyEditorMockUp} erstellt. Die Umsetzung ist in \Abb{ArmyEditorImplementation} zu sehen. Die Implementierung unterscheidet sich vom Mockup nur in den Farben und den Schließen-Button. Der Schließen-Button wurde im Mockup vergessen und wurde in der Realisierung nachgetragen. Der farbliche Unterschied ist der zeitlichen Begrenzung geschuldet. Die Funktionalitäten wurden vom Entwickler fertig gestellt, so ist es möglich den Armeenamen zu bearbeiten und auch das Icon individuell aus einer vorgefertigten Liste auszuwählen. Für den Design Aspekt fehlte am Ende des Releases die Zeit.
 			
 			\begin{figure}[H] 
@@ -1019,7 +1019,7 @@
 				\label{ArmyEditorImplementation}
 			\end{figure}
 		
-			\subsection{Info zu den Attributen}
+			\subsubsection{Info zu den Attributen}
 			Als zusätzliches Feature wurde noch die eine Übersicht zu den Attributen erstellt, welche die Einheit besitzt. Die umgesetzte Oberfläche ist in \Abb{AttributInfo} zu sehen.
 			
 			\begin{figure}[H] 
@@ -1029,6 +1029,53 @@
 				\label{AttributInfo}
 			\end{figure}
 		
+			\subsection{Warteraum}
+			Zu Begin des zweiten Releases wurde ein Warteraum geplant, in welchen man nach Spielbeitritt kommt. Das Mockup ist in \Abb{MockupWaitingRoom} zu sehen. Es wurden fast alle geplanten Features im Warteraum umgesetzt, die Implementierung ist in \Abb{ImplementationWaitingRoom} zu sehen. Den Wartraum haben wir dabei in 3 Komponenten Unterteil:
+			\begin{itemize}
+				\item das Anzeigen der Spieler
+				\item den Chat
+				\item die Kartenvorschau
+			\end{itemize}
+			Diese Komponenten wurden auch wie geplant umgesetzt. Als Zusatz wird noch in den \glqq Spielerkästen\grqq die Farbe angezeigt, welcher ein Spieler für das kommende Spiel hat. Am rechten Rand sollte noch eine die Einheitenliste für die ausgewählte Armee angezeigt werden. Dieses Feature wurde nicht mehr umgesetzt, da es im nächsten Release wieder verworfen worden wäre und wir uns so auf andere Sachen konzentriert haben.
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{Waiting_Room_Game_mit_ArmyView.png}
+				\caption{Mockup des Warteraum}
+				\label{MockupWaitingRoom}
+			\end{figure}
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{WaitingRoom_final.PNG}
+				\caption{Umsetzung des Warteraums im 2. Release}
+				\label{ImplementationWaitingRoom}
+			\end{figure}
+			Damit sind auch folgende Anforderungen umgesetzt:
+			\begin{itemize}
+				\item Initiales Spielgeschehen anzeigen (indirekt über die Kartenvorschau)
+				\item Spieler, die ein Spiel beitreten
+				\item Von Spiel zurück in die Lobby gehen
+				\item Ingame Chat
+			\end{itemize}
+			
+			\subsection{Ingame}
+			Als das 2. Release geplant wurde, war den Product Owner nicht bewusst, dass auch die Implementierung einer Karte zu diesem Release dazu gehört. Deshalb wurde kein Mockup für diese Situation angefertigt. Trotzdem war es uns Möglich eine Ingameoberfläche zu erstellen. Diese ist in \Abb{Ingame} zu sehen. Umgesetzt wurde hier:
+			\begin{itemize}
+				\item das Zeichnen der Karte
+				\item das Zeichnen der Startpositionen der Einheiten
+				\item Zoomen auf dem Spielfeld
+				\item Verlassen des Ingames
+			\end{itemize}
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{Ingame_final.PNG}
+				\caption{Umsetzung der Ingameoberfläche im 2. Release}
+				\label{Ingame}
+			\end{figure}
+			Durch die Implementierung der Ingameoberfläche wird die Anforderung das initiale Spielgeschehen anzuzeigen erfüllt. Es sollte auch Möglich sein, vom Spiel zurück in die Lobby zu gehen. Dies ist über den Zurück-Button in der linken oberen Ecke möglich.
+			
+			\subsection{Lobby}
+			
 	%	\subsection{Analyse des Sprintverlaufs}
 	\newpage
 	\appendix
