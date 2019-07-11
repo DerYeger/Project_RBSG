@@ -19,7 +19,7 @@
 }
 
 \newcommand{\Abb}[1]{%
-	Abb.\ \ref{#1}%
+	Abbildung\ \ref{#1}%
 }
 
 \renewcommand{\arraystretch}{1.2}
@@ -1020,13 +1020,20 @@
 			\end{figure}
 		
 			\subsubsection{Info zu den Attributen}
-			Als zusätzliches Feature wurde noch die eine Übersicht zu den Attributen erstellt, welche die Einheit besitzt. Die umgesetzte Oberfläche ist in \Abb{AttributInfo} zu sehen.
+			Als zusätzliches Feature wurde noch die eine Übersicht zu den Attributen erstellt, welche die Einheit besitzt. Die umgesetzte Oberfläche ist in \Abb{AttributInfo} zu sehen. Geplant war die in \Abb{MockupAttribute} zu sehende Oberfläche. Diese wurde so umgesetzt.
 			
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.5\textwidth]{Attribute_Info_final.PNG}
 				\caption{Übersicht für die Attribute der Einheiten}
 				\label{AttributInfo}
+			\end{figure}
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.5\textwidth]{InfoView.png}
+				\caption{Mockup Übersicht über die Attribute}
+				\label{MockupAttribute}
 			\end{figure}
 		
 			\subsection{Warteraum}
@@ -1072,11 +1079,44 @@
 				\caption{Umsetzung der Ingameoberfläche im 2. Release}
 				\label{Ingame}
 			\end{figure}
-			Durch die Implementierung der Ingameoberfläche wird die Anforderung das initiale Spielgeschehen anzuzeigen erfüllt. Es sollte auch Möglich sein, vom Spiel zurück in die Lobby zu gehen. Dies ist über den Zurück-Button in der linken oberen Ecke möglich.
+			Durch die Implementierung der Ingameoberfläche wird die Anforderung das initiale Spielgeschehen anzuzeigen erfüllt. Es sollte auch Möglich sein, vom Spiel zurück in die Lobby zu gehen. Dies ist über den Zurück-Button in der linken oberen Ecke möglich. Das Zoomen wird über die zwei nebenliegenden Buttons realisiert. Bei einem Zwei-Spieler-Spiel ist ein 3-Stufiger Zoom möglich und bei einem Vier-Spieler-Spiel ein 4-Stufen Zoom. Die Einheiten werden auf Ihren Startpositionen auf der Karte dargestellt. Eine Besonderheit bei der Darstellung der Karte ist, dass die Übergänge zwischen Biomen flüssig ist. So werden bei Übergängen andere Graphiken gewählt, um diese flüssig darzustellen.
 			
 			\subsection{Lobby}
+			Die Lobby war von den Anforderungen dieses Releases nicht betroffen. Um jedoch ein angenehmeres Bedienverhalten zu gewährleisten, haben wir der Lobby noch eine Armeeauswahl hinzugefügt, da eine Armee benötigt wird um einem Spiel beizutreten. Zu sehen ist die Umsetzung auf \Abb{LobbyFinal}. Die Icons der Armee werden dabei ,je nach Konfiguration, individuell dargestellt. Die Oberfläche ist auch Responsive gehalten, so wird der ausgewählte Eintrag hervorgehoben. Ist keine Armee ausgewählt, so wird der \glqq Spiel erstellen\grqq-Button und auch die \glqq Spiel beitreten\grqq-Buttons deaktiviert.
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{Lobby_final.PNG}
+				\caption{Lobby mit Armeeauswahl am Ende des 2. Releases}
+				\label{LobbyFinal}
+			\end{figure}
 			
-	%	\subsection{Analyse des Sprintverlaufs}
+				\subsubsection{Spiel erstellen Formular}
+				In diesen Release wurde auch das Spiel erstellen Formular optisch aufgearbeitet, dies kann man in \Abb{CreateGameFormularReworked} sehen. Es ist nun an das Dark Theme angepasst wurden.
+				\begin{figure}[H] 
+					\centering
+					\includegraphics[width=0.7\textwidth]{Create_Game_final.PNG}
+					\caption{Optisch überarbeitetes \glqq Spiel erstellen\grqq Formular }
+					\label{CreateGameFormularReworked}
+				\end{figure}
+			
+			\subsection{Alerts}
+			Im Verlauf des zweiten Releases entschieden wir uns dazu die Alters optische an unsere Thema anzupassen. Anfangs wurden die von JavaFX generierten Alters genutzt, diese sind in \Abb{AlertsOld} zu sehen. Diese wurden dann von uns durch die in \Abb{AlertsNew} zu sehenden Alerts ersetzt. Diese werden nun mit dem von uns erstellten Dark Theme dargestellt.AlertsNewAlertsNew
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{Alert_Old.PNG}
+				\caption{Alerts von JavaFX}
+				\label{AlertsOld}
+			\end{figure}
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{Alerts_New_Style.PNG}
+				\caption{Überarbeitet Alerts im Dark Theme}
+				\label{AlertsNew}
+			\end{figure}
+		
+			\subsection{Fazit} 
+		
 	\newpage
 	\appendix
 	\pagenumbering{Roman} 

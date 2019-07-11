@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  11 JUL 2019 11:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.26)  11 JUL 2019 14:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1148,58 +1148,110 @@ File: Attribute_Info_final.PNG Graphic file (type png)
 <use Attribute_Info_final.PNG>
 Package pdftex.def Info: Attribute_Info_final.PNG  used on input line 1027.
 (pdftex.def)             Requested size: 234.73524pt x 126.13383pt.
-File: Waiting_Room_Game_mit_ArmyView.png Graphic file (type png)
-<use Waiting_Room_Game_mit_ArmyView.png>
-Package pdftex.def Info: Waiting_Room_Game_mit_ArmyView.png  used on input line
- 1042.
-(pdftex.def)             Requested size: 328.6279pt x 188.90842pt.
+File: InfoView.png Graphic file (type png)
+<use InfoView.png>
+Package pdftex.def Info: InfoView.png  used on input line 1034.
+(pdftex.def)             Requested size: 234.73524pt x 176.04025pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 1046.
+Package pdftex.def Info: Logo.png  used on input line 1038.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [43 <./ArmyEditor_final.PNG> <./Attribute_Info_final.PNG>]
+File: Waiting_Room_Game_mit_ArmyView.png Graphic file (type png)
+<use Waiting_Room_Game_mit_ArmyView.png>
+Package pdftex.def Info: Waiting_Room_Game_mit_ArmyView.png  used on input line
+ 1049.
+(pdftex.def)             Requested size: 328.6279pt x 188.90842pt.
 <WaitingRoom_final.PNG, id=245, 892.83563pt x 628.59843pt>
 File: WaitingRoom_final.PNG Graphic file (type png)
 <use WaitingRoom_final.PNG>
-Package pdftex.def Info: WaitingRoom_final.PNG  used on input line 1049.
+Package pdftex.def Info: WaitingRoom_final.PNG  used on input line 1056.
 (pdftex.def)             Requested size: 328.6279pt x 231.36923pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 1063.
+Package pdftex.def Info: Logo.png  used on input line 1060.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[44 <./WaitingRoom_final.PNG>]
-<Ingame_final.PNG, id=251, 893.58844pt x 627.09282pt>
+[44]
+<Ingame_final.PNG, id=250, 893.58844pt x 627.09282pt>
 File: Ingame_final.PNG Graphic file (type png)
 <use Ingame_final.PNG>
-Package pdftex.def Info: Ingame_final.PNG  used on input line 1071.
+Package pdftex.def Info: Ingame_final.PNG  used on input line 1078.
 (pdftex.def)             Requested size: 328.6279pt x 230.62369pt.
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 1080.
+Package pdftex.def Info: Logo.png  used on input line 1082.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[45 <./Ingame_final.PNG>] (./Doku_Release_2.lof)
+[45 <./WaitingRoom_final.PNG>]
+<Lobby_final.PNG, id=256, 893.58844pt x 627.84563pt>
+File: Lobby_final.PNG Graphic file (type png)
+<use Lobby_final.PNG>
+Package pdftex.def Info: Lobby_final.PNG  used on input line 1088.
+(pdftex.def)             Requested size: 328.6279pt x 230.90054pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1092.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[46 <./Ingame_final.PNG>]
+<Create_Game_final.PNG, id=261, 276.28218pt x 240.9pt>
+File: Create_Game_final.PNG Graphic file (type png)
+<use Create_Game_final.PNG>
+Package pdftex.def Info: Create_Game_final.PNG  used on input line 1097.
+(pdftex.def)             Requested size: 328.6279pt x 286.5422pt.
+<Alert_Old.PNG, id=262, 188.705pt x 95.85812pt>
+File: Alert_Old.PNG Graphic file (type png)
+<use Alert_Old.PNG>
+Package pdftex.def Info: Alert_Old.PNG  used on input line 1106.
+(pdftex.def)             Requested size: 328.6279pt x 166.94974pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1109.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[47 <./Lobby_final.PNG> <./Create_Game_final.PNG>]
+<Alerts_New_Style.PNG, id=268, 277.035pt x 127.97812pt>
+File: Alerts_New_Style.PNG Graphic file (type png)
+<use Alerts_New_Style.PNG>
+Package pdftex.def Info: Alerts_New_Style.PNG  used on input line 1113.
+(pdftex.def)             Requested size: 328.6279pt x 151.81155pt.
+File: Logo.png Graphic file (type png)
+<use Logo.png>
+Package pdftex.def Info: Logo.png  used on input line 1120.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[48 <./Alert_Old.PNG> <./Alerts_New_Style.PNG>] (./Doku_Release_2.lof)
 \tf@lof=\write4
 \openout4 = `Doku_Release_2.lof'.
 
- (./Doku_Release_2.lot)
+
+(./Doku_Release_2.lot)
 \tf@lot=\write5
 \openout5 = `Doku_Release_2.lot'.
 
 File: Logo.png Graphic file (type png)
 <use Logo.png>
-Package pdftex.def Info: Logo.png  used on input line 1085.
+Package pdftex.def Info: Logo.png  used on input line 1125.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -1211,10 +1263,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6924 strings out of 492616
- 116508 string characters out of 6132768
- 316677 words of memory out of 5000000
- 10654 multiletter control sequences out of 15000+600000
+ 6949 strings out of 492616
+ 117008 string characters out of 6132768
+ 316732 words of memory out of 5000000
+ 10675 multiletter control sequences out of 15000+600000
  14644 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,15n,54p,9093b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1229,10 +1281,10 @@ nts/cm/cmr7.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/texlive
 /2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2018/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Doku_Release_2.pdf (51 pages, 7558803 bytes).
+Output written on Doku_Release_2.pdf (54 pages, 7731545 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 152 compressed objects within 2 object streams
+ 318 PDF objects out of 1000 (max. 8388607)
+ 158 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 206 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 226 words of extra memory for PDF output out of 10000 (max. 10000000)
 
