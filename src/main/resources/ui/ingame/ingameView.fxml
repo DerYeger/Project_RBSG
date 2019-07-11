@@ -61,7 +61,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="ingameInformationsButton" alignment="CENTER_RIGHT" mnemonicParsing="false" styleClass="icon-button">
+                  <Button fx:id="ingameInformationsButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onMousePressed="#openPlayerBar" styleClass="icon-button">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
@@ -74,15 +74,10 @@
          </HBox>
          <HBox fx:id="playerBar" prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Pane fx:id="empty1" prefHeight="200.0" prefWidth="200.0" />
-               <Pane fx:id="player1" prefHeight="200.0" prefWidth="200.0" />
-               <Pane fx:id="empty2" prefHeight="200.0" prefWidth="200.0" />
-               <Pane fx:id="player2" prefHeight="200.0" prefWidth="200.0" />
-               <Pane fx:id="empty3" prefHeight="200.0" prefWidth="200.0" />
-               <Pane fx:id="player3" prefHeight="200.0" prefWidth="200.0" />
-               <Pane fx:id="empty4" prefHeight="200.0" prefWidth="200.0" />
+               <Pane fx:id="player1" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" />
+               <Pane fx:id="player2" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
+               <Pane fx:id="player3" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" />
                <Pane fx:id="player4" prefHeight="200.0" prefWidth="200.0" />
-               <Pane fx:id="empty4" prefHeight="200.0" prefWidth="200.0" />
             </children>
          </HBox>
       </VBox>

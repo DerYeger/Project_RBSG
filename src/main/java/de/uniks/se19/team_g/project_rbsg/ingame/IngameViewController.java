@@ -69,10 +69,6 @@ public class IngameViewController implements RootController {
     public Pane player2;
     public Pane player3;
     public Pane player4;
-    public Pane empty1;
-    public Pane empty2;
-    public Pane empty3;
-    public Pane empty4;
 
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
@@ -140,26 +136,17 @@ public class IngameViewController implements RootController {
         }
         //roundCount.set(0);
         playerListController=new PlayerListController(game);
-        playerBar.setVisible(false);
-        empty1.setOpacity(0.1);
-        empty2.setOpacity(0.1);
-        empty3.setOpacity(0.1);
-        empty4.setOpacity(0.1);
+        playerBar.setVisible(true);
 
-        if(playerListController!=null && playerListController.getPlayerCards()!=null) {
+        /*if(playerListController!=null && playerListController.getPlayerCards()!=null) {
             playerBar.getChildren().addAll(playerListController.getPlayerCards());
-            if(playerListController.getPlayerCards().size()==2){
-                player1.setVisible(false);
-                player2.getChildren().add(playerListController.getPlayerCards().get(0));
-                player3.setVisible(false);
-                player4.getChildren().add(playerListController.getPlayerCards().get(0));
-            }
-        }
-        roundTextLabel.setText("Runde");
+        }*/
+        player1.getChildren().add(playerListController.getPlayerCards().get(0));
+        player2.getChildren().add(playerListController.getPlayerCards().get(0));
+        player3.getChildren().add(playerListController.getPlayerCards().get(0));
+        player4.getChildren().add(playerListController.getPlayerCards().get(0));
 
-        //roundCountLabel.textProperty().bind(roundCount.asString());
-        //playerCards.iterator().forEachRemaining(card -> playerBar.getChildren().add(card.buildPlayerCard()));
-        //playerBar.setVisible(false);
+        roundTextLabel.setText("Runde");
     }
 
     private void initCanvas() {
