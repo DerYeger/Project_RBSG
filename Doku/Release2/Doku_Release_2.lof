@@ -1,43 +1,53 @@
 \babel@toc {ngerman}{}
-\contentsline {figure}{\numberline {1}{\ignorespaces Login Release \textup {\uppercase {i}}}}{3}% 
-\contentsline {figure}{\numberline {2}{\ignorespaces Lobby Release \textup {\uppercase {i}}}}{3}% 
-\contentsline {figure}{\numberline {3}{\ignorespaces Spiel erstellen Release \textup {\uppercase {i}}}}{4}% 
-\contentsline {figure}{\numberline {4}{\ignorespaces Warteraum eines Spiels Release \textup {\uppercase {i}}}}{5}% 
-\contentsline {figure}{\numberline {5}{\ignorespaces Button f\"ur die Internationalisierung Release \textup {\uppercase {i}}}}{5}% 
-\contentsline {figure}{\numberline {6}{\ignorespaces Button f\"ur Musik Release \textup {\uppercase {i}}}}{6}% 
-\contentsline {figure}{\numberline {7}{\ignorespaces Mockup ArmyBuilder Design \textup {\uppercase {i}} }}{7}% 
-\contentsline {figure}{\numberline {8}{\ignorespaces Mockup ArmyBuilder Design \textup {\uppercase {ii}} }}{7}% 
-\contentsline {figure}{\numberline {9}{\ignorespaces Mockup Informationsanzeige \textup {\uppercase {ii}} }}{8}% 
-\contentsline {figure}{\numberline {10}{\ignorespaces Mockup ArmyBuilder mit \glqq Bearbeitungs\grqq -Button f\"ur Armeeicons}}{8}% 
-\contentsline {figure}{\numberline {11}{\ignorespaces Mockup Armee Icon Bearbeitung}}{9}% 
-\contentsline {figure}{\numberline {12}{\ignorespaces Mockup ArmyBuilder eine Armee enth\"alt keine Einheiten}}{9}% 
-\contentsline {figure}{\numberline {13}{\ignorespaces Mockup ArmyBuilder es ist keine Einheit selektiert}}{10}% 
-\contentsline {figure}{\numberline {14}{\ignorespaces Mockup ArmyBuilder Design}}{10}% 
-\contentsline {figure}{\numberline {15}{\ignorespaces Mockup Lobby mit Armeeauswahl und Amree-Button}}{11}% 
-\contentsline {figure}{\numberline {16}{\ignorespaces Mockup Waiting Room mit Armeeanzeige}}{12}% 
-\contentsline {figure}{\numberline {17}{\ignorespaces Mockup Waiting Room mit Minispiel}}{12}% 
-\contentsline {figure}{\numberline {18}{\ignorespaces Mockup Waiting Room mit \glqq Ready\grqq -Button}}{13}% 
-\contentsline {figure}{\numberline {19}{\ignorespaces Mockup Waiting Room ohne Map und mit Armeeauswahl}}{13}% 
-\contentsline {figure}{\numberline {20}{\ignorespaces Mockup Waiting Room mit Map und mit \glqq Not Ready\grqq -Button}}{14}% 
-\contentsline {figure}{\numberline {21}{\ignorespaces Burndown-Diagramm des Sprint 3}}{24}% 
-\contentsline {figure}{\numberline {22}{\ignorespaces Code Coverage vom 3. Sprint}}{25}% 
-\contentsline {figure}{\numberline {23}{\ignorespaces Abgeschlossene Vorg\"ange vom 3. Sprint}}{25}% 
-\contentsline {figure}{\numberline {24}{\ignorespaces Nicht Abgeschlossene Vorg\"ange vom 3. Sprint}}{26}% 
-\contentsline {figure}{\numberline {25}{\ignorespaces Entfernte Vorg\"ange vom 3. Sprint}}{26}% 
-\contentsline {figure}{\numberline {26}{\ignorespaces Burndown-Diagramm des Sprint 4}}{37}% 
-\contentsline {figure}{\numberline {27}{\ignorespaces Abgeschlossene Vorg\"ange in Sprint 4}}{38}% 
-\contentsline {figure}{\numberline {28}{\ignorespaces Nicht Abgeschlossene Vorg\"ange in Sprint 4}}{39}% 
-\contentsline {figure}{\numberline {29}{\ignorespaces Quellcodeabdeckung Release 2}}{40}% 
-\contentsline {figure}{\numberline {30}{\ignorespaces Mockup f\"ur den geplanten Armeemanager}}{41}% 
-\contentsline {figure}{\numberline {31}{\ignorespaces Realisierung des Armeemanagers am Ende von Release 2}}{42}% 
-\contentsline {figure}{\numberline {32}{\ignorespaces Mockup des Armee-Editor}}{42}% 
-\contentsline {figure}{\numberline {33}{\ignorespaces Implementierung des Armee-Editor}}{43}% 
-\contentsline {figure}{\numberline {34}{\ignorespaces \"Ubersicht f\"ur die Attribute der Einheiten}}{43}% 
-\contentsline {figure}{\numberline {35}{\ignorespaces Mockup \"Ubersicht \"uber die Attribute}}{44}% 
-\contentsline {figure}{\numberline {36}{\ignorespaces Mockup des Warteraum}}{44}% 
-\contentsline {figure}{\numberline {37}{\ignorespaces Umsetzung des Warteraums im 2. Release}}{45}% 
-\contentsline {figure}{\numberline {38}{\ignorespaces Umsetzung der Ingameoberfl\"ache im 2. Release}}{46}% 
-\contentsline {figure}{\numberline {39}{\ignorespaces Lobby mit Armeeauswahl am Ende des 2. Releases}}{47}% 
-\contentsline {figure}{\numberline {40}{\ignorespaces Optisch \"uberarbeitetes \glqq Spiel erstellen\grqq Formular }}{47}% 
-\contentsline {figure}{\numberline {41}{\ignorespaces Alerts von JavaFX}}{48}% 
-\contentsline {figure}{\numberline {42}{\ignorespaces \"Uberarbeitet Alerts im Dark Theme}}{48}% 
+\contentsline {figure}{\numberline {1}{\ignorespaces Login Release \textup {\uppercase {i}}}}{3}
+\contentsline {figure}{\numberline {2}{\ignorespaces Lobby Release \textup {\uppercase {i}}}}{3}
+\contentsline {figure}{\numberline {3}{\ignorespaces Spiel erstellen Release \textup {\uppercase {i}}}}{4}
+\contentsline {figure}{\numberline {4}{\ignorespaces Warteraum eines Spiels Release \textup {\uppercase {i}}}}{5}
+\contentsline {figure}{\numberline {5}{\ignorespaces Button f\"ur die Internationalisierung Release \textup {\uppercase {i}}}}{5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Button f\"ur Musik Release \textup {\uppercase {i}}}}{6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Mockup ArmyBuilder Design \textup {\uppercase {i}} }}{7}
+\contentsline {figure}{\numberline {8}{\ignorespaces Mockup ArmyBuilder Design \textup {\uppercase {ii}} }}{7}
+\contentsline {figure}{\numberline {9}{\ignorespaces Mockup Informationsanzeige \textup {\uppercase {ii}} }}{8}
+\contentsline {figure}{\numberline {10}{\ignorespaces Mockup ArmyBuilder mit \glqq Bearbeitungs\grqq -Button f\"ur Armeeicons}}{8}
+\contentsline {figure}{\numberline {11}{\ignorespaces Mockup Armee Icon Bearbeitung}}{9}
+\contentsline {figure}{\numberline {12}{\ignorespaces Mockup ArmyBuilder eine Armee enth\"alt keine Einheiten}}{9}
+\contentsline {figure}{\numberline {13}{\ignorespaces Mockup ArmyBuilder es ist keine Einheit ausgew\"ahlt}}{10}
+\contentsline {figure}{\numberline {14}{\ignorespaces Mockup ArmyBuilder Design}}{10}
+\contentsline {figure}{\numberline {15}{\ignorespaces Mockup Lobby mit Armeeauswahl und Armee-Button}}{11}
+\contentsline {figure}{\numberline {16}{\ignorespaces Mockup Waiting Room mit Armeeanzeige}}{12}
+\contentsline {figure}{\numberline {17}{\ignorespaces Mockup Waiting Room mit Minispiel}}{12}
+\contentsline {figure}{\numberline {18}{\ignorespaces Mockup Waiting Room mit \glqq Ready\grqq -Button}}{13}
+\contentsline {figure}{\numberline {19}{\ignorespaces Mockup Waiting Room ohne Vorschaukarte und mit Armeeauswahl}}{13}
+\contentsline {figure}{\numberline {20}{\ignorespaces Mockup Waiting Room mit Map und mit \glqq Not Ready\grqq -Button}}{14}
+\contentsline {figure}{\numberline {21}{\ignorespaces Domain Story Zur\"uck in die Lobby}}{14}
+\contentsline {figure}{\numberline {22}{\ignorespaces Domain Story Benachrichtigung der Spielcontroller}}{15}
+\contentsline {figure}{\numberline {23}{\ignorespaces Domain Story DELETE Anfrage an den Server}}{15}
+\contentsline {figure}{\numberline {24}{\ignorespaces Domain Story Wechsel in den ArmyBuilder}}{16}
+\contentsline {figure}{\numberline {25}{\ignorespaces Domain Story Speichern einer Armee}}{16}
+\contentsline {figure}{\numberline {26}{\ignorespaces Domain Story Speichern der Armee auf dem Server und lokal}}{17}
+\contentsline {figure}{\numberline {27}{\ignorespaces Domain Story Eingehend Servernachrichten}}{17}
+\contentsline {figure}{\numberline {28}{\ignorespaces Domain Story System message handler}}{18}
+\contentsline {figure}{\numberline {29}{\ignorespaces Domain Story Eingehende Chatnachricht}}{18}
+\contentsline {figure}{\numberline {30}{\ignorespaces Domain Story Anzeigen der Chatnachricht}}{19}
+\contentsline {figure}{\numberline {31}{\ignorespaces Burndown-Diagramm des Sprint 3}}{29}
+\contentsline {figure}{\numberline {32}{\ignorespaces Code Coverage vom 3. Sprint}}{30}
+\contentsline {figure}{\numberline {33}{\ignorespaces Abgeschlossene Vorg\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }nge vom 3. Sprint}}{30}
+\contentsline {figure}{\numberline {34}{\ignorespaces Nicht Abgeschlossene Vorg\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }nge vom 3. Sprint}}{31}
+\contentsline {figure}{\numberline {35}{\ignorespaces Entfernte Vorg\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }nge vom 3. Sprint}}{31}
+\contentsline {figure}{\numberline {36}{\ignorespaces Burndown-Diagramm des Sprint 4}}{42}
+\contentsline {figure}{\numberline {37}{\ignorespaces Abgeschlossene Vorg\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }nge in Sprint 4}}{43}
+\contentsline {figure}{\numberline {38}{\ignorespaces Nicht Abgeschlossene Vorg\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }nge in Sprint 4}}{44}
+\contentsline {figure}{\numberline {39}{\ignorespaces Quellcodeabdeckung Release 2}}{45}
+\contentsline {figure}{\numberline {40}{\ignorespaces Mockup f\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }r den geplanten Armeemanager}}{46}
+\contentsline {figure}{\numberline {41}{\ignorespaces Realisierung des Armeemanagers am Ende von Release 2}}{47}
+\contentsline {figure}{\numberline {42}{\ignorespaces Mockup des Armee-Editor}}{48}
+\contentsline {figure}{\numberline {43}{\ignorespaces Implementierung des Armee-Editor}}{48}
+\contentsline {figure}{\numberline {44}{\ignorespaces \IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }bersicht f\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }r die Attribute der Einheiten}}{49}
+\contentsline {figure}{\numberline {45}{\ignorespaces Mockup \IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }bersicht \IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }ber die Attribute}}{49}
+\contentsline {figure}{\numberline {46}{\ignorespaces Mockup des Warteraum}}{50}
+\contentsline {figure}{\numberline {47}{\ignorespaces Umsetzung des Warteraums im 2. Release}}{50}
+\contentsline {figure}{\numberline {48}{\ignorespaces Umsetzung der Ingameoberfl\IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }che im 2. Release}}{51}
+\contentsline {figure}{\numberline {49}{\ignorespaces Lobby mit Armeeauswahl am Ende des 2. Releases}}{52}
+\contentsline {figure}{\numberline {50}{\ignorespaces Optisch \IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }berarbeitetes \glqq Spiel erstellen\grqq Formular }}{52}
+\contentsline {figure}{\numberline {51}{\ignorespaces Alerts von JavaFX}}{53}
+\contentsline {figure}{\numberline {52}{\ignorespaces \IeC {\"\i }\IeC {\textquestiondown }\IeC {\textonehalf }berarbeitet Alerts im Dark Theme}}{53}
