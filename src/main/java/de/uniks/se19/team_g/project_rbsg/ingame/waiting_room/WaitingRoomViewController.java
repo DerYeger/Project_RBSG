@@ -236,7 +236,7 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     }
 
     public void showInfo() {
-        sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, true, SceneManager.SceneIdentifier.WAITING_ROOM); // for testing
+        sceneManager.setScene(SceneManager.SceneIdentifier.BATTLEFIELD, true, SceneManager.SceneIdentifier.INGAME); // for testing
     }
 
     public void onConnectionClosed() {

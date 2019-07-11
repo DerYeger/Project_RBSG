@@ -29,8 +29,9 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         LOGIN("loginScene"),
         LOBBY("lobbyScene"),
         ARMY_BUILDER("armyScene"),
-        WAITING_ROOM("waitingRoomScene"),
-        INGAME("ingameScene");
+        INGAME("ingameScene"),
+        BATTLEFIELD("battleFieldScene"),
+        ;
 
         public final String builder;
 

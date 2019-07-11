@@ -173,7 +173,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
     @Override
     public void start(@NonNull final Stage stage) {
         @SuppressWarnings("unchecked")
-        final Scene buffer = new Scene(((ViewComponent<RootController>) applicationContext.getBean("ingameScene")).getRoot());
+        final Scene buffer = new Scene(((ViewComponent<RootController>) applicationContext.getBean("battleFieldScene")).getRoot());
         scene = buffer;
         stage.setScene(scene);
         stage.setX(0);

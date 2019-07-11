@@ -153,7 +153,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             try {
                 gameProvider.set(game);
                 joinGameManager.joinGame(userProvider.get(), game).get();
-                sceneManager.setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
+                sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 gameProvider.clear();

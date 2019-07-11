@@ -168,7 +168,7 @@ public class CreateGameController implements Rincled
                     .thenRunAsync(
                         () -> {
                             gameProvider.set(game);
-                            sceneManager.setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
+                            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
                         },
                         Platform::runLater
                     );

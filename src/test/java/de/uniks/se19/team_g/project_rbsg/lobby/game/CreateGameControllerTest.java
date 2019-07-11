@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,7 +205,7 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
 
         Mockito.verify(gameCreator).sendGameRequest(any(), any());
         Mockito.verify(joinGameManager).joinGame(any(), any());
-        Mockito.verify(sceneManager).setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
+        Mockito.verify(sceneManager).setScene(SceneManager.SceneIdentifier.INGAME, false, null);
     }
 
 }
