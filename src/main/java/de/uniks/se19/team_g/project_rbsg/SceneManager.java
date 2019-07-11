@@ -53,8 +53,6 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private ExceptionHandler exceptionHandler;
 
-    private AlertBuilder alertBuilder;
-
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setResizable(false);
@@ -167,15 +165,5 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     @Override
     public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
-    }
-
-    @Nullable
-    public  AlertBuilder getAlertBuilder() {
-        return alertBuilder;
-    }
-
-    @Autowired
-    public void setAlertBuilder(AlertBuilder alertBuilder) {
-        this.alertBuilder = alertBuilder;
     }
 }

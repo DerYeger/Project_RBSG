@@ -11,8 +11,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventMana
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +50,8 @@ public class IngameRootController
     private final ModelManager modelManager;
     @Nonnull
     private final SceneManager sceneManager;
+    @Nonnull
+    private final AlertBuilder alertBuilder;
 
     private IngameContext ingameContext;
 
@@ -61,7 +63,8 @@ public class IngameRootController
             @Nonnull ObjectFactory<IngameContext> contextFactory,
             @Nonnull GameEventManager gameEventManager,
             @Nonnull ModelManager modelManager,
-            @Nonnull SceneManager sceneManager
+            @Nonnull SceneManager sceneManager,
+            @Nonnull AlertBuilder alertBuilder
     ) {
         this.waitingRoomFactory = waitingRoomFactory;
         this.battleFieldFactory = battleFieldFactory;
@@ -69,6 +72,7 @@ public class IngameRootController
         this.gameEventManager = gameEventManager;
         this.modelManager = modelManager;
         this.sceneManager = sceneManager;
+        this.alertBuilder = alertBuilder;
     }
 
 
@@ -113,19 +117,17 @@ public class IngameRootController
 
     private void handleGameEvents(ObjectNode message) {
         if (GameEventManager.isActionType(message, GameEventManager.GAME_INIT_FINISHED)) {
-            ingameContext.gameInitialized(modelManager.getGame());
+            Platform.runLater(() -> ingameContext.gameInitialized(modelManager.getGame()));
             return;
         }
 
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
-            mountBattleField();
+            Platform.runLater(this::mountBattleField);
         }
     }
 
     public void onConnectionClosed() {
-        if (sceneManager.getAlertBuilder() != null) {
-            sceneManager.getAlertBuilder().error(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
-        }
+        alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
     }
 
     private void mountBattleField() {
@@ -148,6 +150,7 @@ public class IngameRootController
 
         root.getChildren().add(nextComponent.getRoot());
         nextComponent.getRoot().toBack();
+        nextComponent.getController().configure(ingameContext);
         activeComponent = nextComponent;
     }
 
