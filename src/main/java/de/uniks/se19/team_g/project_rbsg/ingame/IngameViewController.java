@@ -4,10 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
+import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.TileHighlighting;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
@@ -25,6 +23,8 @@ import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
@@ -53,9 +53,11 @@ public class IngameViewController implements RootController {
 
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
+    private int mapSize;
 
     private Game game;
     private ObservableList<Cell> cells;
+    private Tile[][] tileMap;
     private ObservableList<Unit> units;
     private GraphicsContext gc;
 
@@ -66,6 +68,8 @@ public class IngameViewController implements RootController {
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public IngameViewController(@NonNull final IngameGameProvider ingameGameProvider,
@@ -101,6 +105,18 @@ public class IngameViewController implements RootController {
         if(game == null) {
             // exception
         } else {
+
+            mapSize = (int) Math.sqrt(cells.size());
+            logger.debug("Actual map size:" + mapSize);
+            tileMap = new Tile[mapSize][mapSize];
+
+            for (Cell cell: cells)
+            {
+                tileMap[cell.getY()][cell.getX()] = new Tile(cell, TileHighlighting.NONE);
+            }
+
+
+
             grass = new Image("/assets/cells/grass.png");
             cells = game.getCells();
             units = game.getUnits();
@@ -108,6 +124,8 @@ public class IngameViewController implements RootController {
             canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
         }
+
+
     }
 
     private void initCanvas() {
@@ -127,7 +145,7 @@ public class IngameViewController implements RootController {
             if (cell.getBiome().toString().equals("Grass")){
                 continue;
             }
-            gc.drawImage(getImage(cell), cell.getX() * CELL_SIZE, cell.getY() * CELL_SIZE);
+            gc.drawImage(TileUtils.getBackgroundImage(cell), cell.getX() * CELL_SIZE, cell.getY() * CELL_SIZE);
         }
         String imagePath = "";
         for(Unit unit: units) {
@@ -147,112 +165,9 @@ public class IngameViewController implements RootController {
         }
     }
 
-    private Image getImage(Cell cell) {
-        String biome = cell.getBiome().toString().equals("Forest") ? "forest" :
-                cell.getBiome().toString().equals("Water") ? "water" : "mountain";
-        int neighborSize = countNeighbors(cell);
-        switch (neighborSize) {
-            case 0:
-                return getImageNeighborsZero(cell, biome);
-            case 1:
-                return getImageNeighborOne(cell, biome);
-            case 2:
-                return getImageNeighborsTwo(cell, biome);
-            case 3:
-                return getImageNeighborsThree(cell, biome);
-            case 4:
-                return getImageNeighborsFour(cell, biome);
-            case 5:
-                return getImageNeighborsFive(cell, biome);
-            case 6:
-                return getImageNeighborsSix(cell, biome);
-            case 7:
-                return getImageNeighborsSeven(cell, biome);
-            case 8:
-                return getImageNeighborsEight(cell, biome);
-            default:
-                return grass;
-        }
-    }
 
-    private Image getImageNeighborsEight(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getEight() :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getEight() : MountainUrls.getEight();
-        return new Image("/assets/cells/" + biome + "/" + png);
-    }
 
-    private Image getImageNeighborsSeven(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getSeven(cell) :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getSeven(cell) : MountainUrls.getSeven(cell);
-        return new Image("/assets/cells/" + biome + "/seven_neighbors/" + png);
-    }
 
-    private Image getImageNeighborsSix(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getSix(cell) :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getSix(cell) : MountainUrls.getSix(cell);
-        return new Image("/assets/cells/" + biome + "/six_neighbors/" + png);
-    }
-
-    private Image getImageNeighborsFive(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getFive(cell) :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getFive(cell) : MountainUrls.getFive(cell);
-        return new Image("/assets/cells/" + biome + "/five_neighbors/" + png);
-    }
-
-    private Image getImageNeighborsFour(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getFour(cell) :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getFour(cell) : MountainUrls.getFour(cell);
-        return new Image("/assets/cells/" + biome + "/four_neighbors/" + png);
-    }
-
-    private Image getImageNeighborsThree(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getThree(cell) :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getThree(cell) : MountainUrls.getThree(cell);
-        return new Image("/assets/cells/" + biome + "/three_neighbors/" + png);
-    }
-
-    private Image getImageNeighborsTwo(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getTwo(cell) :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getTwo(cell) : MountainUrls.getTwo(cell);
-        return new Image("/assets/cells/" + biome + "/two_neighbors/" + png);
-    }
-
-    private Image getImageNeighborOne(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getOne(cell) :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getOne(cell) : MountainUrls.getOne(cell);
-        return new Image("/assets/cells/" + biome + "/one_neighbor/" + png);
-    }
-
-    private Image getImageNeighborsZero(Cell cell, String biome) {
-        String png = cell.getBiome().toString().equals("Forest") ? ForestUrls.getZero() :
-                cell.getBiome().toString().equals("Water") ? WaterUrls.getZero() : MountainUrls.getZero();
-        return new Image("/assets/cells/" + biome + "/" + png);
-    }
-
-    private int countNeighbors(Cell cell) {
-        String biome = cell.getBiome().toString();
-        boolean isBiomeLeft = biome.equals(BiomUrls.getLeftBiom(cell));
-        boolean isBiomeRight = biome.equals(BiomUrls.getRightBiom(cell));
-        boolean isBiomeTop = biome.equals(BiomUrls.getTopBiom(cell));
-        boolean isBiomeBottom = biome.equals(BiomUrls.getBottomBiom(cell));
-        int size = isBiomeLeft ? 1 : 0;
-        size += isBiomeRight ? 1 : 0;
-        size += isBiomeTop ? 1 : 0;
-        size += isBiomeBottom ? 1 : 0;
-        if(isBiomeLeft && isBiomeBottom) {
-            size += biome.equals(BiomUrls.getBottomLeftBiom(cell)) ? 1 : 0;
-        }
-        if(isBiomeRight && isBiomeBottom) {
-            size += biome.equals(BiomUrls.getBottomRightBiom(cell)) ? 1 : 0;
-        }
-        if(isBiomeLeft && isBiomeTop) {
-            size += biome.equals(BiomUrls.getTopLeftBiom(cell)) ? 1 : 0;
-        }
-        if(isBiomeRight && isBiomeTop) {
-            size += biome.equals(BiomUrls.getTopRightBiom(cell)) ? 1 : 0;
-        }
-        return size;
-    }
 
 
     public void leaveGame(ActionEvent actionEvent) {
