@@ -32,6 +32,7 @@ import static de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.Comman
 public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
     public static final String GAME_INIT_FINISHED = "gameInitFinished";
+    public static final String GAME_STARTS = "gameStarts";
 
     private static final String ENDPOINT = "/game";
 

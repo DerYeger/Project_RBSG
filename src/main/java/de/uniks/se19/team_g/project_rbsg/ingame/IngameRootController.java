@@ -129,14 +129,26 @@ public class IngameRootController
     }
 
     private void mountBattleField() {
+        mountContent(battleFieldFactory.getObject());
     }
 
     protected void mountWaitingRoom() {
-        activeComponent = waitingRoomFactory.getObject();
-        activeComponent.getController().configure(ingameContext);
+        mountContent(waitingRoomFactory.getObject());
+    }
 
-        final Node root = activeComponent.getRoot();
-        this.root.getChildren().add(root);
+    protected void mountContent(ViewComponent<? extends IngameViewController> nextComponent) {
+
+        if (activeComponent != null) {
+            // might terminate old component?
+            if (activeComponent.getController() instanceof Terminable) {
+                ((Terminable) activeComponent.getController()).terminate();
+            }
+            root.getChildren().remove(activeComponent.getRoot());
+        }
+
+        root.getChildren().add(nextComponent.getRoot());
+        nextComponent.getRoot().toBack();
+        activeComponent = nextComponent;
     }
 
     private void leave() {

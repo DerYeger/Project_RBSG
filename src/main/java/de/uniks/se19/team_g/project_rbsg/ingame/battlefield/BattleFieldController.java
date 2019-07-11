@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.MountainUrls;
@@ -30,6 +32,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.Nonnull;
+
 import static de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.UnitType.*;
 
 /**
@@ -37,7 +41,7 @@ import static de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.UnitTy
  */
 @Scope("prototype")
 @Controller
-public class BattleFieldController implements RootController {
+public class BattleFieldController implements RootController, IngameViewController {
 
     private static final double CELL_SIZE = 64;
     private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH/2;
@@ -297,4 +301,8 @@ public class BattleFieldController implements RootController {
         }
     }
 
+    @Override
+    public void configure(@Nonnull IngameContext context) {
+
+    }
 }
