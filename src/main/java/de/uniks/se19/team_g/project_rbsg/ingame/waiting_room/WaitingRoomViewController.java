@@ -10,6 +10,8 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelecto
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameRootController;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -28,8 +30,12 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.Preview
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -58,7 +64,7 @@ import java.util.function.Function;
  */
 @Scope("prototype")
 @Controller
-public class WaitingRoomViewController implements RootController, Terminable, GameEventHandler {
+public class WaitingRoomViewController implements RootController, Terminable, IngameViewController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -109,6 +115,9 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
      */
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
+    private IngameContext context;
+    private IngameRootController ingameRootController;
+    private BooleanBinding startGameBinding;
 
     @Autowired
     public WaitingRoomViewController(
@@ -158,36 +167,6 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
-        initSocket();
-
-        ObservableList<Player> readyPlayers = FXCollections.observableArrayList(
-            player -> new Observable[] {player.isReadyProperty()}
-        );
-
-        modelManager.gameProperty().addListener(
-            (observable, oldValue, newValue) -> Bindings.bindContent(readyPlayers, newValue.getPlayers())
-        );
-
-        Bindings.createBooleanBinding(
-            () -> readyPlayers.stream().filter(Player::getIsReady).count() == gameProvider.get().getNeededPlayer(),
-            readyPlayers
-        ).addListener((observable, oldValue, newValue) -> {
-            if (newValue && gameProvider.get().getCreator() == userProvider.get()) {
-                logger.debug("trigger game start of our own game");
-                gameEventManager.sendMessage(CommandBuilder.startGame());
-            }
-        });
-
-        configureArmySelection();
-    }
-
-    private void initSocket() throws Exception {
-        gameEventManager.addHandler(modelManager);
-        gameEventManager.addHandler(this);
-        withChatSupport();
-
-        gameEventManager.setSceneController(this);
-        gameEventManager.startSocket(gameProvider.get().getId(), null);
     }
 
     private void withChatSupport() throws Exception {
@@ -239,10 +218,6 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         sceneManager.setScene(SceneManager.SceneIdentifier.BATTLEFIELD, true, SceneManager.SceneIdentifier.INGAME); // for testing
     }
 
-    public void onConnectionClosed() {
-        alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leaveWaitingRoom);
-    }
-
     public void leaveRoom() {
         alertBuilder
                 .confirmation(
@@ -263,22 +238,6 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
     private void showMapPreview(@NonNull final List<Cell> cells) {
         final Node previewMap = previewMapBuilder.buildPreviewMap(cells, mapPreviewPane.getWidth(), mapPreviewPane.getHeight());
         Platform.runLater(() -> mapPreviewPane.getChildren().add(previewMap));
-    }
-
-    @Override
-    public boolean accepts(@NonNull final ObjectNode message) {
-        if (!message.has("action")) return false;
-
-        return message.get("action").asText().equals("gameInitFinished");
-    }
-
-    @Override
-    public void handle(@NonNull final ObjectNode message) {
-        final Game game = modelManager.getGame();
-        //game SHOULD (no guarantee) be ready now
-        ingameGameProvider.set(game);
-        setPlayerCards(ingameGameProvider.get());
-        showMapPreview(ingameGameProvider.get().getCells());
     }
 
     public void setPlayerCards(Game game) {
@@ -354,5 +313,74 @@ public class WaitingRoomViewController implements RootController, Terminable, Ga
         Bindings.bindContent( playableAwareArmies, applicationState.armies);
 
         armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), selectedArmy);
+    }
+
+    @Override
+    public void configure(@Nonnull IngameContext context, @Nonnull IngameRootController rootController) {
+
+        this.context = context;
+
+        this.ingameRootController = rootController;
+
+        if (context.isInitialized()) {
+            onInitialized();
+        } else {
+            final ReadOnlyBooleanProperty initializedProperty = context.initializedProperty();
+
+            initializedProperty.addListener(
+                new ChangeListener<>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        WaitingRoomViewController.this.onInitialized();
+                        initializedProperty.removeListener(this);
+                    }
+                }
+            );
+        }
+
+        try {
+            withChatSupport();
+        } catch (Exception e) {
+            logger.error("couldn't setup chat", e);
+        }
+
+        configureArmySelection();
+    }
+
+    private void onInitialized() {
+
+        configureAutoStartHook();
+        setPlayerCards(context.getGameState());
+        showMapPreview(context.getGameState().getCells());
+    }
+
+    private void configureAutoStartHook() {
+        ObservableList<Player> readyPlayers = FXCollections.observableArrayList(
+                player -> new Observable[] {player.isReadyProperty()}
+        );
+
+        Bindings.bindContent(readyPlayers, context.getGameState().getPlayers());
+
+        startGameBinding = Bindings.createBooleanBinding(
+                () -> readyPlayers.stream().filter(Player::getIsReady).count() == gameProvider.get().getNeededPlayer(),
+                readyPlayers
+        );
+
+        if (startGameBinding.get()) {
+            mayStartGame();
+        } else {
+            startGameBinding.addListener((observable, oldValue, newValue) -> {
+                if (newValue) {
+                    mayStartGame();
+                }
+            });
+        }
+    }
+
+    private void mayStartGame() {
+        if (context.getGameData().getCreator() == context.getUser()) {
+            logger.debug("trigger game start of our own game");
+            gameEventManager.sendMessage(CommandBuilder.startGame());
+        }
     }
 }
