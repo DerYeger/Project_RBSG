@@ -40,7 +40,8 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
     private WebSocketClient webSocketClient;
 
     private ChatController chatController;
-    private WaitingRoomViewController waitingRoomViewController;
+
+    private Runnable onConnectionClosed;
 
     private final CountDownLatch terminateLatch = new CountDownLatch(1);
 
@@ -145,8 +146,8 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         webSocketClient.sendMessage(leaveGameCommand());
     }
 
-    public void setSceneController(@NonNull final WaitingRoomViewController waitingRoomViewController) {
-        this.waitingRoomViewController = waitingRoomViewController;
+    public void setOnConnectionClosed(@Nonnull Runnable onConnectionClosed) {
+        this.onConnectionClosed = onConnectionClosed;
     }
 
     @Override
@@ -154,7 +155,7 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         if (reason.getReasonPhrase().equals("Left game")) {
             terminateLatch.countDown();
         } else if (!reason.getReasonPhrase().equals("Tschau")) {
-            waitingRoomViewController.onConnectionClosed();
+            onConnectionClosed.run();
         }
     }
 
