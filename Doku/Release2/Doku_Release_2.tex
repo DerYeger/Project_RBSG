@@ -62,7 +62,7 @@
 	\end{titlepage}
 	\newpage
 	\begin{abstract}
-		Diese Dokumentation soll den Release \RN{2} des Projektes RBSG von Team G darstellen. Dies umfasst die Auflistung und Erläuterung MockUps und Domain Stories. Es werden die Sprints dokumentiert und analysiert. Zum Schluss wird noch das Resultat mit des Releases mit dem geplanten Verglichen und auf Probleme oder nicht erfüllte  Anforderungen eingegangen.
+		Diese Dokumentation beschreibt das zweite Release des Projektes RBSG von Team G. Dies umfasst die Auflistung und Erläuterung der Mockups und der Domain Stories. Beide Sprints werden dokumentiert und analysiert. Zum Schluss wird das Resultat des Releases mit den Zielen verglichen und es wird auf  Probleme oder nicht erfüllte Anforderungen eingegangen.
 	\end{abstract}
 	\pagenumbering{Roman}
 	\tableofcontents
@@ -70,17 +70,17 @@
 	\pagenumbering{arabic}
 	\setcounter{page}{1}
 	\section{Ziel der Dokumentation}
-		Die Dokumentation soll den Verlauf des Entwicklungsprozesses des Spiels RBSG für das Release \RN{2} veranschaulichen und analysieren. Dies umfasst die Entstehung der \glqq MockUps\grqq und Domain Stories, welche die Grundlagen für die Entwicklung bilden. Es werden für alle Sprints das Sprintziel, die \glqq User Stories\grqq, sowie eine Analyse des Sprintverlaufs erstellt. Zuletzt wird es noch einen Soll/Ist-Vergleich der erstelleten MockUps und des Endresultats des Sprints geben, in dem darauf eingegangen wird, wieso Features anders Umgesetzt oder weggelassen wurden.
+		Die Dokumentation soll den Verlauf des Entwicklungsprozesses des Spiels RBSG für das Release \RN{2} veranschaulichen und analysieren. Dies umfasst die Entstehung der Mockups und Domain Stories, welche die Grundlagen für die Entwicklung bilden. Es werden für alle Sprints das Sprintziel, die User Stories sowie eine Analyse des Sprintverlaufs erstellt. Abschließend werden die MockUps mit den Ergebnissen des Sprints verglichen. Dabei wird darauf eingegangen, wieso Features anders Umgesetzt oder weggelassen wurden.
 	\section{Das Projekt RBSG}
-			Das Projekt RBSG findet im Rahmen der Veranstaltung \glqq Software Engineering \RN{1}\grqq, vom Fachbereich \glqq Software Engineering\grqq, statt. Im Rahmen dieser Veranstaltung soll das Spiel RBSG in einzelnen Gruppen umgesetzt werden. Es handelt sich dabei um einen \glqq Advanced Wars\grqq Klon. Die Entwicklung ist dabei in 4 Releases eingeteilt, mit jeweils 2 Sprints. In einem Team gibt es einen \glqq Product Owner\grqq und einen \glqq Scrum Master\grqq. Die restlichen Teammitglieder sind Entwickler. Es soll dabei nach \glqq Scrum\grqq entwickelt werden. 
+			Das Projekt RBSG findet im Rahmen der Veranstaltung Software Engineering \RN{1} des Fachgebiets Software Engineering\ statt. Im Rahmen dieser Veranstaltung soll das Spiel RBSG in einzelnen Gruppen umgesetzt werden. Es basiert auf dem Spielprinzip des Nintendospiels Advanced Wars. Die Entwicklung ist dabei in 4 Releases eingeteilt. Ein Release besteht jeweils aus zwei Sprints. Die Teams arbeiten und organisieren sich im Rahmen der agilen Projektmanagementmethode Scrum. In jedem Team werden entsprechend die Rollen des Product Owner und des Scrum Masters besetzt. Die restlichen Teammitglieder sind Entwickler.
 		
 	\section{Das Release \RN{2}}
-		Das zweiten Release knüpft direkte an das Ende des ersten Releases an und hat am  10.06.2019 begonnen und läuft bis zum 09.07.2019. Der Entwicklungsprozess ist in zwei Sprints eingeteilt:
+		Das zweiten Release knüpfte direkte an das Ende des ersten Releases an. Es begann am  10.06.2019 und endete am 09.07.2019. Der Entwicklungsprozess ist in zwei Sprints eingeteilt:
 		\begin{itemize}
 			\item Sprint \RN{3} 10.06.2019 bis zum 25.06.2019
 			\item Sprint \RN{4} 26.06.2019 bis zum 09.07.2019
 		\end{itemize}
-		Für die zweite Phase des Projektes gab es folgende Teamkonstellation:
+		Im zweiten Release gab es folgende Rollenverteilung:
 		\begin{itemize}
 			\item Product Owner:  \ \ \includegraphics[width=0.05\textwidth]{georg_avatar.png} \ Georg Siebert
 			\item Scrum Master:  \ \ \ \ \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
@@ -125,7 +125,7 @@
 		\end{itemize}
 
 		\subsubsection{Login}
-			Der Login wurde so realisiert, das es möglich ist eine Nutzer zu registrieren und Anzumelden. Dies ist auf Abb.\ref{Login_Release_One} zu sehen. Loggt sich ein Nutzer ein wird ein animiertes Ladesymbol eingeschaltet. Der Untertitel \glqq Enhanced Wars\grqq \\ist animiert. Die Oberfläche ist internationalisiert.
+			Im Login konnte ein Nutzer sich registrieren und anmelden. Dies ist auf Abb.\ref{Login_Release_One} zu sehen. Loggt sich ein Nutzer ein wird ein animiertes Ladesymbol eingeschaltet. Der Untertitel \glqq Enhanced Wars\grqq ist animiert. Die Oberfläche ist internationalisiert.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{Login_Release_One.PNG}
@@ -133,7 +133,7 @@
 				\label{Login_Release_One}
 			\end{figure}
 		\subsubsection{Lobby}
-		In der Lobby werden die Spielerlisten und Spiellisten angezeigt. Diese aktualisieren sich, wenn der Server eine entsprechende Nachricht sendet. Es ist möglich über den \glqq Spiel erstellen\grqq ein Spiel zu erstellen. Das Abmelden eine Nutzers ist über den \glqq Logout\grqq-Knopf vorhanden.
+		Die Lobby zu Beginn des zweiten Releases wird in Abb.\ref{Lobby_Release_One} dargestellt. In der Lobby werden die Spielerlisten und Spiellisten angezeigt. Diese aktualisieren sich, wenn der Server eine entsprechende Nachricht sendet. Es ist möglich über den \glqq Spiel erstellen\grqq-Knopf ein Spiel zu erstellen. Über den \glqq Logout\grqq-Knopf kann ein Nutzer sich abmelden.
 		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.8\textwidth]{Lobby_Release_One.PNG}
@@ -141,7 +141,7 @@
 			\label{Lobby_Release_One}
 		\end{figure}
 		\subsubsection{Spiel erstellen}
-		Es lässt sich ein \glqq Spiel erstellen\grqq Dialog über den entsprechenden Button in der Lobby aufrufen. Im Spiel erstellen Fenster hat man die Möglichkeit, den Name des Spiels und die Anzahl der Spieler einzustellen.\footnote{2-Spieler und 4-Spieler} Das Spiel wird über den \glqq Erstellen\grqq-Button erstellt und über den \grqq Abbrechen\glqq-Button kann man den Dialog wieder verlassen.
+		Der in Abb.\ref{CreateGame_Release_One} dargestellte \glqq Spiel erstellen\grqq Dialog wird über den entsprechenden Button in der Lobby aufrufen. Im Spiel erstellen Fenster hat man die Möglichkeit, den Name des Spiels und die Anzahl der Spieler einzustellen.\footnote{2-Spieler und 4-Spieler} Das Spiel wird über den \glqq Erstellen\grqq-Button erzeugt und über den \glqq Abbrechen\grqq-Button kann man den Dialog wieder verlassen.
 		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.8\textwidth]{CreateGame_Release_One.PNG}
@@ -149,7 +149,7 @@
 			\label{CreateGame_Release_One}
 		\end{figure}
 		\subsubsection{Spiel beitreten}
-		Über den Knopf in der Spielerliste lassen sich bereits Spielen, auf Stand der Serverdoku für Release \RN{1} beitreten. Ist man einem Spiel beigetreten, zeigen wir einen Warteraum für das Spiel an.
+		Über den Knopf in der Spielliste kann man einem Spiel, entsprechend dem Serverstand des ersten Releases, beitreten. Nachdem man einem Spiel beigetreten ist, wechselt die Szene zum Warteraum des Spiels. Der Warteraum eines Spiels wird in Abb.\ref{WaitingRoom_Release_One} dargestellt.
 		 \begin{figure}[H] 
 		 	\centering
 		 	\includegraphics[width=0.8\textwidth]{WaitingRoom_Release_One.PNG}
@@ -157,16 +157,16 @@
 		 	\label{WaitingRoom_Release_One}
 		 \end{figure}
 	 	\subsubsection{Lobby Chat}
-	 	In der Lobby ist ein Chat vorhanden. Über diesen ist es möglich Nachrichten in den \glqq General\grqq-Chat und in Private-Chats zu versenden.
+	 	Die Lobby verfügte bereits über einen Chat. Mit diesem ist es möglich Nachrichten in den General-Chat und in Private-Chats zu versenden.
 	 	\subsubsection{Umgesetzte Optionale Features}
-	 	Im Release \RN{1} wurden bereits folgende optionale Features umgesetzt:
+	 	Im ersten Release wurden bereits folgende optionale Features umgesetzt:
 	 	\begin{itemize}
-	 		\item Internationalisierung, diese kann über Buttons in der Lobby eingestellt werden \Abb{Internationalisierung_Release_One}
-	 		\item Musik, diese kann über einen Button an- und ausgestellt werden \Abb{Musik_Release_One}
-	 		\item Ein \glqq Dark\grqq-Theme 
-	 		\item Chuck Norris Zitate über den Chat-Befehl \glqq \textbackslash chuckMe\grqq werden in den Chat gesendet
+	 		\item Internationalisierung, diese kann über Buttons, siehe \Abb{Internationalisierung_Release_One}, in der Lobby eingestellt werden 
+	 		\item Musik, diese kann über einen Button (\Abb{Musik_Release_One}) an- und ausgestellt werden 
+	 		\item Ein Dark-Theme 
+	 		\item über den Chat-Befehl \glqq \textbackslash chuckMe\grqq werden Chuck Norris Zitate an den Chat gesendet
 	 	\end{itemize}
- 		Es ist bereits eine Testabdeckung von $\sim$ 80\% vorhanden, womit die Anforderung für Release \RN{2} bereits grundlegend erfüllt ist. Das Team möchte die Abdeckung aufrecht erhalten und weiter ausbauen.
+ 		Die Testabdeckung (C0) lag bei $\sim$ 80 Prozent, womit die Anforderung für das zweite Release bereits grundlegend erfüllt ist. Das Ziel für das zweite Release war es, die Höhe der Testabdeckung aufrechtzuerhalten und weiter auszubauen.
  		\begin{figure}[H] 
  			\centering
  			\includegraphics[width=0.2\textwidth]{Internationalisierung_Release_One.PNG}
@@ -181,7 +181,7 @@
  		\end{figure}
  		
 	\subsection{Mockups}
-		Für das Kundentreffen am 27.05.2019 wurden MockUps für den Armenkonfigurator, im folgenden als \glqq ArmyBuilder\grqq bezeichnet, und dem einem \glqq Waiting Room\grqq vorbereitet. Eine Besonderheit der erstellten MockUps ist, dass diese bereits den Stil der bisherigen Applikation übernehmen und so dem Kunden schon einen Eindruck von dem aussehen des späteren Produktes gibt. Nach der Veröffentlichung der zweiten Serverdokumentation, wurden weiter MockUp Anpassungen durchgeführt, wie ein erweitertes Lobby MockUp.
+		Für das Kundentreffen am 27.05.2019 wurden Mockups für den Armenkonfigurator, im folgenden als ArmyBuilder bezeichnet, und dem Waiting Room vorbereitet. Eine Besonderheit der erstellten Mockups ist, dass diese den Stil der bisherigen Applikation übernehmen. Damit soll dem Kunden ein Eindruck vom späteren Produktes gegeben werden. Nach der Veröffentlichung der zweiten Serverdokumentation, wurden die Mockups daraufhin angepasst. Insbesondere das  Lobby MockUp wurde erweitert.
 		\subsubsection{ArmyBuilder}
 			Der ArmyBuilder besteht insgesamt aus 3 Komponenten:
 			\begin{enumerate}
@@ -189,7 +189,7 @@
 				\item der Armeeauswahl
 				\item der Armeeübersicht
 			\end{enumerate}
-		Das Kernstück des ArmyBuilders sind die konfigurierbaren Armeen. Diese werden auf der rechte Seite, insgesamt sieben Stück, in einer Liste angezeigt. Klick man auf eines der Armee Icons, so wird die Armee selektiert und es werden entsprechende Informationen über die Armee angezeigt. Darunter fallen zum einem der Armeename, sowie die Anzahl der Eineheiten, die sich in der Armee befinden. Es ist nun möglich eine Einheit aus der Einheitenauswahl zu selektieren. Ist eine Einheit ausgewählt so wird eine Detailansicht zu dieser Einheit angezeigt, mit Informationen, wie Attributen und einem Bild. Über den \glqq +\grqq Button ist es möglich eine Einheit der ausgewählten Armee hinzuzufügen. Die Einheit wird anschließen der Armeeübersicht hinzugefügt und entsprechende Informationen werden aktualisiert. Der Nutzer kann in der Armeeübersicht ebenfalls Einheiten auswählen. Der ausgewählte Einheitentyp wird dann in der Detailansicht angezeigt. Über den \glqq -\grqq kann die Einheit dann wieder aus der Armee entfernt werden. Ist die Armee fertig konfiguriert, so hat man die Möglichkeit über den \glqq Speichern\grqq-Button die Armee auf dem Server sowie lokal zu speichern. Über den \grqq Info\glqq-Button hat der Nutzer die Möglichkeit sich die angezeigten Symbole erläutern zu lassen. Dazu wurde eine entsprechendes MockUp erstellt, dieses ist in \Abb{InfoView} zu sehen.\\ \\ Für den ArmyBuilder wurden 2 Designs entworfen \Abb{ArmyBuilder_Design_One} und \Abb{ArmyBuilder_Design_Two}. Es wurde sich im Team bereits auf Design \RN{2} geeinigt. 
+		Das Kernstück des ArmyBuilders sind die konfigurierbaren Armeen. Auf der rechte Seite in einer Liste sieben Armeen, in Form ihrer Icons angezeigt. Mit einem Linksklick auf ein Armee Icon, wird die entsprechende Armee ausgewählt und die Detailinformationen dieser Armee werden angezeigt. Zu den Inforamtionen gehören der Armeename sowie die Einheiten, aus denen die Armee besteht. In der Einheitenauswahl werden alle verfügbaren Einheitentypen aufgelistet. Ist eine Einheit ausgewählt, wird eine Detailansicht zu dieser Einheit angezeigt, mit Informationen, wie Attributen und einem Bild. Über den \glqq +\grqq Button ist es möglich eine Einheit der ausgewählten Armee hinzuzufügen. Die Einheit wird anschließen der Armeeübersicht hinzugefügt und entsprechende Informationen werden aktualisiert. Der Nutzer kann in der Armeeübersicht ebenfalls Einheiten auswählen. Der ausgewählte Einheitentyp wird dann in der Detailansicht angezeigt. Über den \glqq -\grqq kann die Einheit dann wieder aus der Armee entfernt werden. Ist die Armee fertig konfiguriert, so hat man die Möglichkeit über den \glqq Speichern\grqq-Button die Armee auf dem Server sowie lokal zu speichern. Über den \grqq Info\glqq-Button hat der Nutzer die Möglichkeit sich die angezeigten Symbole erläutern zu lassen. Dazu wurde eine entsprechendes MockUp erstellt, dieses ist in \Abb{InfoView} zu sehen.\\ \\ Für den ArmyBuilder wurden 2 Designs entworfen \Abb{ArmyBuilder_Design_One} und \Abb{ArmyBuilder_Design_Two}. Es wurde sich im Team bereits auf Design \RN{2} geeinigt. 
 		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.8\textwidth]{ArmyBuilder_Design_One.png}
