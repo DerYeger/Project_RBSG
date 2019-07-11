@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 /**
  * @author  Keanu Stückrad
  * @author Jan Müller
+ *
+ * provides a .ingame.waiting_room.Game Model that holds the ingame game state with map, players etc
  */
 @Component
 public class IngameGameProvider implements Terminable {
