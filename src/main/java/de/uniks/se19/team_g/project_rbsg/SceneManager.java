@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import io.rincl.*;
 import javafx.application.Platform;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
@@ -50,6 +52,8 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     private HashMap<SceneIdentifier, RootController> rootControllers = new HashMap<>();
 
     private ExceptionHandler exceptionHandler;
+
+    private AlertBuilder alertBuilder;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
@@ -163,5 +167,15 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     @Override
     public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
+    }
+
+    @Nullable
+    public  AlertBuilder getAlertBuilder() {
+        return alertBuilder;
+    }
+
+    @Autowired
+    public void setAlertBuilder(AlertBuilder alertBuilder) {
+        this.alertBuilder = alertBuilder;
     }
 }
