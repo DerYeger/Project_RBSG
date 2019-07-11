@@ -8,6 +8,9 @@ import org.springframework.lang.NonNull;
  */
 public interface GameEventHandler {
 
-    boolean accepts(@NonNull final ObjectNode message);
+    default boolean accepts(@NonNull final ObjectNode message) {
+        return true;
+    }
+
     void handle(@NonNull final ObjectNode message);
 }
