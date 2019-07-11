@@ -1,11 +1,15 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
 import javafx.scene.image.Image;
+
+import static de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType.*;
 
 public class TileUtils
 {
@@ -13,6 +17,8 @@ public class TileUtils
     private static Image grass = new Image("/assets/cells/grass.png");
 
     public static Image getBackgroundImage(Cell cell) {
+        if(cell.getBiome().toString().equals("Grass")) return grass;
+
         String biome = cell.getBiome().toString().equals("Forest") ? "forest" :
                 cell.getBiome().toString().equals("Water") ? "water" : "mountain";
         int neighborSize = countNeighbors(cell);
@@ -118,4 +124,19 @@ public class TileUtils
         }
         return size;
     }
+
+    public static String getUnitImagePath(UnitType unitType) {
+        String imagePath;
+
+        if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
+                else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
+                else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
+                else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
+                else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
+                else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
+                else imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
+
+        return imagePath;
+    }
+
 }

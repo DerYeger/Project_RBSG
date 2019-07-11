@@ -9,12 +9,10 @@ import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.TileHighlighting;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
@@ -22,6 +20,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
-
-import static de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType.*;
 
 /**
  * @author  Keanu Stückrad
@@ -63,6 +60,7 @@ public class IngameViewController implements RootController {
 
     private Image grass;
     private int zoomFactor = 1;
+    private TileDrawer tileDrawer;
 
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
@@ -83,6 +81,7 @@ public class IngameViewController implements RootController {
     }
 
     public void initialize() {
+        this.tileDrawer = new TileDrawer();
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -105,27 +104,45 @@ public class IngameViewController implements RootController {
         if(game == null) {
             // exception
         } else {
+            cells = game.getCells();
+            units = game.getUnits();
 
             mapSize = (int) Math.sqrt(cells.size());
             logger.debug("Actual map size:" + mapSize);
             tileMap = new Tile[mapSize][mapSize];
 
-            for (Cell cell: cells)
+            for (Cell cell : cells)
             {
-                tileMap[cell.getY()][cell.getX()] = new Tile(cell, TileHighlighting.NONE);
+                tileMap[cell.getY()][cell.getX()] = new Tile(cell);
             }
 
-
+            for (Unit unit : units)
+            {
+                tileMap[unit.getPosition().get().getY()][unit.getPosition().get().getX()].setUnit(unit);
+            }
 
             grass = new Image("/assets/cells/grass.png");
-            cells = game.getCells();
-            units = game.getUnits();
             columnRowSize = Math.sqrt(cells.size());
             canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
         }
 
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
+    }
 
+    public void canvasHandleMouseMove(MouseEvent event) {
+        int xPos = (int) (event.getX()/CELL_SIZE);
+        int yPos = (int) (event.getY()/CELL_SIZE);
+        Tile hoveredTile = tileMap[yPos][xPos];
+        tileDrawer.drawTileHovered(hoveredTile);
+    }
+
+    public void canvasHandleMouseClicked(MouseEvent event) {
+        int xPos = (int) (event.getX()/CELL_SIZE);
+        int yPos = (int) (event.getY()/CELL_SIZE);
+        Tile selectedTile = tileMap[yPos][xPos];
+        tileDrawer.drawTileSelected(tileMap[yPos][xPos]);
     }
 
     private void initCanvas() {
@@ -135,34 +152,9 @@ public class IngameViewController implements RootController {
         root.getChildren().add(zoomableScrollPane);
         canvas.setHeight(canvasColumnRowSize);
         canvas.setWidth(canvasColumnRowSize);
-        gc = canvas.getGraphicsContext2D();
-        for (int row = 0; row < canvasColumnRowSize; row += CELL_SIZE) {
-            for (int column = 0; column < canvasColumnRowSize; column += CELL_SIZE) {
-                gc.drawImage(grass , row, column);
-            }
-        }
-        for(Cell cell: cells){
-            if (cell.getBiome().toString().equals("Grass")){
-                continue;
-            }
-            gc.drawImage(TileUtils.getBackgroundImage(cell), cell.getX() * CELL_SIZE, cell.getY() * CELL_SIZE);
-        }
-        String imagePath = "";
-        for(Unit unit: units) {
-            UnitType unitType = unit.getUnitType();
-            if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
-            else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
-            else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
-            else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
-            else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
-            else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
-            else imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
-            gc.drawImage(
-                    new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true),
-                    unit.getPosition().get().getX() * CELL_SIZE,
-                    unit.getPosition().get().getY() * CELL_SIZE
-            );
-        }
+
+        tileDrawer.setCanvas(canvas);
+        tileDrawer.drawMap(tileMap);
     }
 
 
