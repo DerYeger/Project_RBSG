@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -75,16 +76,14 @@ public class IngameRootController
     }
 
     protected void configureContext() {
+
         ingameContext = contextFactory.getObject();
 
+        final Game gameData = Objects.requireNonNull(ingameContext.getGameData());
 
-        final Game gameData = ingameContext.getGameData();
-        if (gameData != null) {
-
-            gameEventManager.setOnConnectionClosed(this::onConnectionClosed);
-            gameEventManager.addHandler(modelManager);
-            gameEventManager.addHandler(this::handleGameInitFinished);
-        }
+        gameEventManager.setOnConnectionClosed(this::onConnectionClosed);
+        gameEventManager.addHandler(modelManager);
+        gameEventManager.addHandler(this::handleGameInitFinished);
 
         try {
             gameEventManager.startSocket(gameData.getId(), null);
@@ -93,11 +92,13 @@ public class IngameRootController
             // TODO: how to handle socket start error? so far, it escalated to FXML loader as well
             throw new RuntimeException(e);
         }
+
+        ingameContext.setGameEventManager(gameEventManager);
     }
 
     protected void mountWaitingRoom() {
         activeComponent = waitingRoomFactory.getObject();
-        activeComponent.getController().configure(ingameContext, this);
+        activeComponent.getController().configure(ingameContext);
 
         final Node root = activeComponent.getRoot();
         this.root.getChildren().add(root);

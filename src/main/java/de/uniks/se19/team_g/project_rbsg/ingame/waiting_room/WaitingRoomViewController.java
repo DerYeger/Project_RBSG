@@ -10,7 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameRootController;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Cell;
@@ -303,7 +302,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     @Override
-    public void configure(@Nonnull IngameContext context, @Nonnull IngameRootController rootController) {
+    public void configure(@Nonnull IngameContext context) {
 
         this.context = context;
 
