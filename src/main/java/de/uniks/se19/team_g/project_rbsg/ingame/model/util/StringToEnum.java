@@ -1,7 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.util;
+package de.uniks.se19.team_g.project_rbsg.ingame.model.util;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Biome;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.UnitType;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
 import org.springframework.lang.NonNull;
 
 /**

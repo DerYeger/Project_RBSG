@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;

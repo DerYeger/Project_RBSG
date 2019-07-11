@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model;
+package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -26,7 +26,9 @@ public class Game {
 
     private ObservableList<Cell> cells;
 
-    private ObjectProperty<Player> currentPlayerProperty = new SimpleObjectProperty<>();
+    private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
+
+    private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -227,16 +229,28 @@ public class Game {
     }
 
     public Game setCurrentPlayer(Player player) {
-        currentPlayerProperty.set(player);
+        currentPlayer.set(player);
 
         return this;
     }
 
-    public Player getCurrentPlayerProperty() {
-        return currentPlayerProperty.get();
+    public Player getCurrentPlayer() {
+        return currentPlayer.get();
     }
 
-    public ObjectProperty<Player> currentPlayerPropertyProperty() {
-        return currentPlayerProperty;
+    public ObjectProperty<Player> currentPlayerProperty() {
+        return currentPlayer;
+    }
+
+    public Player getWinner() {
+        return winner.get();
+    }
+
+    public ObjectProperty<Player> winnerProperty() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner.set(winner);
     }
 }

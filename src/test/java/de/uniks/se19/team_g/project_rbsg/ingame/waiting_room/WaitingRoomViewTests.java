@@ -16,10 +16,10 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.CommandBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.ModelManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
 import javafx.beans.property.Property;
 import javafx.scene.Node;
@@ -156,7 +156,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         Label label = lookup("Waiting for\nplayer...").query();
         Assert.assertNotNull(label);
-        de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game game = new de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game("");
+        de.uniks.se19.team_g.project_rbsg.ingame.model.Game game = new de.uniks.se19.team_g.project_rbsg.ingame.model.Game("");
         Player p1 = new Player("123").setName("P1").setColor("GREEN");
         Player p2 = new Player("456").setName("P2").setColor("BLUE");
         game.withPlayers(p1, p2);
@@ -244,7 +244,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
         clearInvocations(gameEventManager);
 
 
-        final de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game gameState = new de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game("1");
+        final de.uniks.se19.team_g.project_rbsg.ingame.model.Game gameState = new de.uniks.se19.team_g.project_rbsg.ingame.model.Game("1");
 
         context.gameInitialized(gameState);
         final Player bob = new Player("bob");

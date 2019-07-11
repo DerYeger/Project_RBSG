@@ -2,8 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map;
 
 import static org.junit.Assert.*;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Biome;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

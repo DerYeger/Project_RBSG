@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model;
+package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;

@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -40,7 +40,7 @@ public class IngameContext {
         return initialized;
     }
 
-    public void gameInitialized(de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game game) {
+    public void gameInitialized(de.uniks.se19.team_g.project_rbsg.ingame.model.Game game) {
         gameStateProvider.set(game);
         initialized.set(true);
     }
@@ -53,7 +53,7 @@ public class IngameContext {
         return gameDataProvider.get();
     }
 
-    public de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game getGameState() {
+    public de.uniks.se19.team_g.project_rbsg.ingame.model.Game getGameState() {
         return gameStateProvider.get();
     }
 

@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 
 import java.util.Random;
 

@@ -1,10 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model;
+package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.GameEventHandler;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.util.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

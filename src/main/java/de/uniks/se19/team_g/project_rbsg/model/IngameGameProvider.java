@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.model;
 
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import org.springframework.lang.NonNull;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import org.springframework.stereotype.Component;
 
 /**

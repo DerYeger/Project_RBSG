@@ -1,9 +1,9 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.util;
+package de.uniks.se19.team_g.project_rbsg.ingame.model.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.ModelManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;

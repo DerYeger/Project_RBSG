@@ -15,10 +15,10 @@ import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.UnitType;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
@@ -34,7 +34,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
 
-import static de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.UnitType.*;
+import static de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType.*;
 
 /**
  * @author  Keanu Stückrad
