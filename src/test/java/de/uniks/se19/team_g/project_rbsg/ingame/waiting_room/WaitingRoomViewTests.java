@@ -15,6 +15,8 @@ import de.uniks.se19.team_g.project_rbsg.configuration.AppStateConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.event.CommandBuilder;
@@ -67,7 +69,7 @@ import static org.mockito.Mockito.*;
         IngameGameProvider.class,
         PreviewMapBuilder.class,
         ChatBuilder.class,
-        SceneManagerConfig.class,
+        IngameConfig.class,
         AlertBuilder.class,
         FXMLLoaderFactory.class,
         AppStateConfig.class
@@ -209,8 +211,11 @@ public class WaitingRoomViewTests extends ApplicationTest {
             return null;
         }).when(armySelectorController).setSelection(any(), any());
 
-        //noinspection ResultOfMethodCallIgnored
-        this.waitingRoomScene.getObject().getController();
+        final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
+
+        final IngameContext context = new IngameContext(userProvider, gameProvider, new IngameGameProvider());
+        context.setGameEventManager(gameEventManager);
+        controller.configure(context);
 
         // think about verifying correct filter as well
         verify(armySelectorController, times(1)).setSelection(any(), any());
@@ -228,22 +233,26 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testGameStart() throws IOException {
-        //noinspection ResultOfMethodCallIgnored
-        this.waitingRoomScene.getObject().getController();
+
+        final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
+
+        final User currentUser = new User();
+        final UserProvider userProvider = new UserProvider().set(currentUser);
+        final Game gameData = new Game("1", 2);
+        final GameProvider gameDataProvider = new GameProvider().set(gameData);
+
+        IngameContext context = new IngameContext(userProvider, gameDataProvider, new IngameGameProvider());
+        context.setGameEventManager(gameEventManager);
+        controller.configure(context);
         clearInvocations(gameEventManager);
 
-        ObjectNode message = new ObjectMapper().readValue(
-            "{ \"action\": \"gameInitObject\", \"data\": {\"id\": \"Game@1\"}}",
-                ObjectNode.class
-        );
-        Assert.assertNull(modelManager.getGame());
-        modelManager.handle(message);
-        final de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game game = modelManager.getGame();
-        Assert.assertNotNull(game);
 
+        final de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game gameState = new de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.model.Game("1");
+
+        context.gameInitialized(gameState);
         final Player bob = new Player("bob");
         final Player alice = new Player("alice");
-        game.withPlayers(alice, bob);
+        gameState.withPlayers(alice, bob);
 
         verifyZeroInteractions(gameEventManager);
         bob.setIsReady(true);
@@ -253,7 +262,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
         alice.setIsReady(false);
         verifyZeroInteractions(gameEventManager);
 
-        gameProvider.get().setCreator(userProvider.get());
+        gameData.setCreator(currentUser);
 
         alice.setIsReady(true);
         verify(gameEventManager).sendMessage(eq(CommandBuilder.startGame()));
