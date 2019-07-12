@@ -1,8 +1,8 @@
 .player-card {
     -fx-max-height: 100;
-    -fx-max-width: 350;
+    -fx-max-width: 250;
     -fx-min-height: 100;
-    -fx-min-width: 350;
+    -fx-min-width: 250;
     -fx-background-color: -root-background-color;
     -fx-effect: -shadow;
 }

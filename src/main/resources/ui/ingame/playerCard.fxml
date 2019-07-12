@@ -16,7 +16,7 @@
 <GridPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints fx:id="column0" halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-        <ColumnConstraints fx:id="column1" halignment="LEFT" hgrow="ALWAYS" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
+        <ColumnConstraints fx:id="column1" halignment="LEFT" hgrow="ALWAYS" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
@@ -24,11 +24,11 @@
    <children>
        <GridPane fx:id="playerLabelColorPane" GridPane.columnIndex="1">
            <children>
-               <Pane fx:id="colorPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+               <Pane fx:id="colorPane" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" />
                <Label fx:id="playerNameLabel" styleClass="default-medium" text="Label" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
            </children>
            <columnConstraints>
-               <ColumnConstraints fx:id="column11" halignment="LEFT" hgrow="ALWAYS" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" />
+               <ColumnConstraints fx:id="column11" halignment="LEFT" hgrow="ALWAYS" maxWidth="150" minWidth="150" prefWidth="150" />
                <ColumnConstraints fx:id="column00" halignment="CENTER" hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
            </columnConstraints>
            <rowConstraints>

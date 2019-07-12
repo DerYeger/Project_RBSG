@@ -7,10 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.io.File;
@@ -21,6 +18,7 @@ public class PlayerCardController {
     public Label playerNameLabel;
     public ImageView playerImage;
     public Pane colorPane;
+    public GridPane playerLabelColorPane;
 
 
     public PlayerCardController(){
@@ -35,7 +33,7 @@ public class PlayerCardController {
         try {
             playerCard=loader.load();
             playerNameLabel.setText(player.getName());
-            playerImage.setImage(new Image(String.valueOf(getClass().getResource("/assets/icons/operation/accountWhite.png"))));
+            playerImage.setImage(new Image((getClass().getResource("/assets/icons/operation/accountWhite.png")).toString()));
             colorPane.setBackground(new Background(new BackgroundFill(Color.valueOf(player.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
         } catch (IOException e) {
             e.printStackTrace();

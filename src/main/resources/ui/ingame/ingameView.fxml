@@ -74,10 +74,19 @@
          </HBox>
          <HBox fx:id="playerBar" prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Pane fx:id="player1" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" />
-               <Pane fx:id="player2" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
-               <Pane fx:id="player3" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" />
-               <Pane fx:id="player4" prefHeight="200.0" prefWidth="200.0" />
+               <Pane fx:id="player1" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css">
+                  <padding>
+                     <Insets right="10.0" />
+                  </padding></Pane>
+               <Pane fx:id="player2" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
+                  <padding>
+                     <Insets right="10.0" />
+                  </padding></Pane>
+               <Pane fx:id="player3" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css">
+                  <padding>
+                     <Insets right="10.0" />
+                  </padding></Pane>
+               <Pane fx:id="player4" prefHeight="200.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" />
             </children>
          </HBox>
       </VBox>
