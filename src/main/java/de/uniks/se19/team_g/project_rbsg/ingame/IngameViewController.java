@@ -340,7 +340,12 @@ public class IngameViewController implements RootController {
     }
 
     public void openPlayerBar(@Nonnull final ActionEvent event){
-        playerBar.visibleProperty().setValue(true);
+        if(playerBar.visibleProperty().get()==false){
+            playerBar.visibleProperty().setValue(true);
+        }else
+        {
+            playerBar.visibleProperty().setValue(false);
+        }
     }
 
 }
