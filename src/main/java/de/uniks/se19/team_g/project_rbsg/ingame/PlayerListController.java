@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
@@ -14,19 +15,22 @@ public class PlayerListController {
     private ObservableList<Node> cards;
     private Game game;
 
+
     public PlayerListController(Game game){
 
         this.playerCardBuilders = FXCollections.observableArrayList();
         this.cards = FXCollections.observableArrayList();
         this.game=game;
         initPlayerCards(game.getPlayers());
-        createCardNodes();
+        //createCardNodes();
     }
 
     private void initPlayerCards(ObservableList<Player> players){
         for(int i=0; i<game.getPlayers().size();i++){
-            PlayerCardBuilder card = new PlayerCardBuilder();
-            playerCardBuilders.add(card);
+            /*PlayerCardBuilder card = new PlayerCardBuilder();
+            playerCardBuilders.add(card);*/
+            PlayerCardController playerCardController = new PlayerCardController();
+            cards.add(playerCardController.createPlayerCard(players.get(0)));
         }
     }
 
