@@ -1,25 +1,24 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.TileHighlighting;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -40,8 +39,6 @@ public class IngameViewController implements RootController {
     private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH/2;
     private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 60)/2;
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
-    private double columnRowSize;
-    private double canvasColumnRowSize;
 
     public Button leaveButton;
     public Button zoomOutButton;
@@ -56,9 +53,7 @@ public class IngameViewController implements RootController {
     private ObservableList<Cell> cells;
     private Tile[][] tileMap;
     private ObservableList<Unit> units;
-    private GraphicsContext gc;
 
-    private Image grass;
     private int zoomFactor = 1;
     private TileDrawer tileDrawer;
 
@@ -108,7 +103,6 @@ public class IngameViewController implements RootController {
             units = game.getUnits();
 
             mapSize = (int) Math.sqrt(cells.size());
-            logger.debug("Actual map size:" + mapSize);
             tileMap = new Tile[mapSize][mapSize];
 
             for (Cell cell : cells)
@@ -119,17 +113,36 @@ public class IngameViewController implements RootController {
             for (Unit unit : units)
             {
                 tileMap[unit.getPosition().get().getY()][unit.getPosition().get().getX()].setUnit(unit);
+//                unit.getPosition().addListener(this::unitChangedPosition);
             }
 
-            grass = new Image("/assets/cells/grass.png");
-            columnRowSize = Math.sqrt(cells.size());
-            canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
         }
 
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
+//        units.addListener((ListChangeListener<Unit>) c -> {
+//            unitListChanged(c);
+//        });
+//
+//        Unit unit = new Unit("Cool Id");
+//        unit.setPosition(tileMap[0][0].getCell());
+//        units.add(unit);
+//        unit.getPosition().addListener(this::unitChangedPosition);
+//        unit.setPosition(tileMap[0][0].getCell());
     }
+
+//    private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
+//    {
+//        logger.debug("Hello");
+//    }
+//
+//    private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell object, Cell object1)
+//    {
+//        logger.debug("Hello");
+//    }
+
+
 
     public void canvasHandleMouseMove(MouseEvent event) {
         int xPos = (int) (event.getX()/CELL_SIZE);
@@ -142,7 +155,7 @@ public class IngameViewController implements RootController {
         int xPos = (int) (event.getX()/CELL_SIZE);
         int yPos = (int) (event.getY()/CELL_SIZE);
         Tile selectedTile = tileMap[yPos][xPos];
-        tileDrawer.drawTileSelected(tileMap[yPos][xPos]);
+        tileDrawer.drawTileSelected(selectedTile);
     }
 
     private void initCanvas() {
@@ -150,8 +163,8 @@ public class IngameViewController implements RootController {
         canvas.setId("canvas");
         zoomableScrollPane = new ZoomableScrollPane(canvas);
         root.getChildren().add(zoomableScrollPane);
-        canvas.setHeight(canvasColumnRowSize);
-        canvas.setWidth(canvasColumnRowSize);
+        canvas.setHeight(CELL_SIZE*mapSize);
+        canvas.setWidth(CELL_SIZE*mapSize);
 
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
