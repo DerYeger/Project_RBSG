@@ -21,6 +21,8 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,6 +62,7 @@ public class IngameViewController implements RootController {
     public Label roundCountLabel;
     public Label phaseLabel;
     public SimpleIntegerProperty roundCount;
+    public SimpleStringProperty phaseName;
 
     public Button leaveButton;
     public Button zoomOutButton;
@@ -152,6 +155,14 @@ public class IngameViewController implements RootController {
         player1.getChildren().add(playerListController.getPlayerCards().get(0));
 
         roundTextLabel.setText("Runde");
+        //ToDO bind values dynamically
+        //roundCount.setValue(0);
+        roundCountLabel.setText("0");
+        //phaseName.set("Phase1");
+        phaseLabel.setText("Phase1");
+
+
+
     }
 
     private void initCanvas() {

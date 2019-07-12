@@ -18,12 +18,9 @@ public class PlayerCardController {
     public Label playerNameLabel;
     public ImageView playerImage;
     public Pane colorPane;
-    public GridPane playerLabelColorPane;
 
 
     public PlayerCardController(){
-        File playerCardLayout = new File("/ui/ingame/playerCard.fxml");
-        boolean exists = playerCardLayout.exists();
         loader=new FXMLLoader(getClass().getResource("/ui/ingame/playerCard.fxml"));
         loader.setController(this);
     }

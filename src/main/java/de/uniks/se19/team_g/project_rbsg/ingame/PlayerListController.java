@@ -27,8 +27,6 @@ public class PlayerListController {
 
     private void initPlayerCards(ObservableList<Player> players){
         for(int i=0; i<game.getPlayers().size();i++){
-            /*PlayerCardBuilder card = new PlayerCardBuilder();
-            playerCardBuilders.add(card);*/
             PlayerCardController playerCardController = new PlayerCardController();
             cards.add(playerCardController.createPlayerCard(players.get(0)));
         }
