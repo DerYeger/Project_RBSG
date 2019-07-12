@@ -19,9 +19,11 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -63,11 +65,17 @@ public class IngameViewController implements RootController {
     public Button zoomOutButton;
     public Button zoomInButton;
     public VBox root;
+    @FXML
     public Button ingameInformationsButton;
+    @FXML
     public HBox playerBar;
+    @FXML
     public Pane player1;
+    @FXML
     public Pane player2;
+    @FXML
     public Pane player3;
+    @FXML
     public Pane player4;
 
     private Canvas canvas;
@@ -136,15 +144,12 @@ public class IngameViewController implements RootController {
         }
         //roundCount.set(0);
         playerListController=new PlayerListController(game);
-        playerBar.setVisible(true);
+        playerBar.setVisible(false);
 
         /*if(playerListController!=null && playerListController.getPlayerCards()!=null) {
             playerBar.getChildren().addAll(playerListController.getPlayerCards());
         }*/
         player1.getChildren().add(playerListController.getPlayerCards().get(0));
-        player2.getChildren().add(playerListController.getPlayerCards().get(0));
-        player3.getChildren().add(playerListController.getPlayerCards().get(0));
-        player4.getChildren().add(playerListController.getPlayerCards().get(0));
 
         roundTextLabel.setText("Runde");
     }
@@ -334,8 +339,8 @@ public class IngameViewController implements RootController {
         }
     }
 
-    public void openPlayerBar(ActionEvent actionEvent){
-        playerBar.setVisible(true);
+    public void openPlayerBar(@Nonnull final ActionEvent event){
+        playerBar.visibleProperty().setValue(true);
     }
 
 }
