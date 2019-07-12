@@ -639,7 +639,7 @@
 		Der dritte Sprint wurde am 24.06.2019 beendet. Es wurden insgesamt 89 von 130 Story Points abgeschlossen. Die Planung konnte dabei nicht eingehalten werden. Die aufgetretenen Probleme werden im den folgenden Abschnitten erlï¿½utert.
 		
 		\subsubsection{Burndown-Diagramm}
-		Betrachtet man zunï¿½chst das Burndown-Diagramm fï¿½r den dritten Sprint, so nimmt in der ersten Woche die Anzahl der abgeschlossenen Story Points kaum zu. Ab der Mitte der zweiten Woche des Sprints beginnt der Graph schnell zu fallen und es endet mit den ï¿½brig gebliebenen 21 Story Points. Ein Grund fï¿½r diesen Verlauf ist die FehleinSchï¿½tzung des Teams der zu erledigenden Arbeit, so wurde zum Beispiel das Erstellen der Karte auf drei Story Points geschï¿½tzt. Am Ende wurde fï¿½r diese Task insgesamt 7,5 Stunden benï¿½tigt. Dieses Problem trat diesen Sprint hï¿½ufiger auf, da die Tasks vor Verï¿½ffentlichung der Serverdokumentation des zweiten Releases geschï¿½tzt wurden. Ein weiteres Problem, welches am Anfang des Sprints auftrat, waren die unklaren Anforderung an den Sprint, so wurden Features geplant welche mit dem damaligen Serverstand nicht mï¿½glich waren. Darauf konnten wir jedoch gut reagieren, indem wir den Entwicklern erst Tasks zuwiesen, welche Sie bereits gut abarbeiten konnten. wï¿½hrend dessen arbeiten wir die restlichen Tasks auf und passten Sie an den Serverstand an. Insgesamt kï¿½nnen wir hier jedoch von einem guten Abarbeitung der Tasks sprechen, da die geforderten 80 Story Points erfï¿½llt wurden, und einige Tasks sich im Nachhinein als noch aufwï¿½ndiger heraus stellten. 
+		Betrachtet man zunï¿½chst das Burndown-Diagramm f�r den dritten Sprint, so nimmt in der ersten Woche die Anzahl der abgeschlossenen Story Points kaum zu. Ab der Mitte der zweiten Woche des Sprints beginnt der Graph schnell zu fallen und es endet mit den ï¿½brig gebliebenen 21 Story Points. Ein Grund fï¿½r diesen Verlauf ist die FehleinSchï¿½tzung des Teams der zu erledigenden Arbeit, so wurde zum Beispiel das Erstellen der Karte auf drei Story Points geschï¿½tzt. Am Ende wurde fï¿½r diese Task insgesamt 7,5 Stunden benï¿½tigt. Dieses Problem trat diesen Sprint hï¿½ufiger auf, da die Tasks vor Verï¿½ffentlichung der Serverdokumentation des zweiten Releases geschï¿½tzt wurden. Ein weiteres Problem, welches am Anfang des Sprints auftrat, waren die unklaren Anforderung an den Sprint, so wurden Features geplant welche mit dem damaligen Serverstand nicht mï¿½glich waren. Darauf konnten wir jedoch gut reagieren, indem wir den Entwicklern erst Tasks zuwiesen, welche Sie bereits gut abarbeiten konnten. wï¿½hrend dessen arbeiten wir die restlichen Tasks auf und passten Sie an den Serverstand an. Insgesamt kï¿½nnen wir hier jedoch von einem guten Abarbeitung der Tasks sprechen, da die geforderten 80 Story Points erfï¿½llt wurden, und einige Tasks sich im Nachhinein als noch aufwï¿½ndiger heraus stellten. 
 		
 		\begin{figure}[H] 
 			\centering
@@ -647,6 +647,9 @@
 			\caption{Burndown-Diagramm des Sprint 3}
 			\label{BurndownSprint3}
 		\end{figure}
+	
+		\subsubsection{Ausreiser}
+		F�r zwei User Stories wurden die gesch�tzten Story Punkte erst am zweiten Tag des dritten Sprints eingetragen. Aus diesem Grund liegt an dieser Stelle im Burndown-Diagramm ein Ausrei�er vor. Der n�chste Ausrei�er wurde dadurch verursacht, dass der Scrum Master eine bereits abgeschlossene User Story wieder ge�ffnet hat um einen Unteraufgabe hinzuzuf�gen. Am 19. Juni wurde eine User Story zum laufenden Sprint hinzugef�gt. Diese beinhaltet das Ausw�hlen von Armeen im ArmyManger und wurde bis dahin vergessen.
 		
 		\subsubsection{Abgeschlossene Vorgï¿½nge}
 		
@@ -993,13 +996,24 @@
 			\paragraph{Zugeteilter Entwickler} Dieser Task wurde Omar Sood zugeordnet.
 			\paragraph{Verlauf der Entwicklung} Für diesen Task benötigte der Entwickler 10 Stunden und 40 Minuten.
 			\subsubsection{Task - Zwischenrelease v0.3}
-			\paragraph{Ziel} Zur Vorbereitung der Abgabe auf 
-			\paragraph{Zugeteilter Entwickler} Dieser Task wurde Jan Müller zugewiesen.
-			\paragraph{Schätzung} Der Task wurde auf drei Stunden geschätzt.
-			\paragraph{Verlauf der Entwicklung} Der Entwickler benötigte eine Stunde um diesen Taks abzuschließen.
+			\paragraph{Ziel} Zur Vorbereitung der Abgabe auf dem master Branche, sollte ein eigener Zwischenrelease Branche erstellt. Dieser dient dazu die Integration aller entwicklten Features sicherzustellen. Von diesem Branche soll ein Pull Request an den master Branche erstellt werden.
+			\paragraph{Zugeteilter Entwickler} Jan M�ller bearbeite diesen Task.
+			\paragraph{Sch�tzung} Es wurden zwei Stunden f�r diesen Task gesch�tzt.
+			\paragraph{Verlauf der Entwicklung} Dieser Task wurde nach 15 Minuten abgeschlossen, da die Integration der Features funktionierte.
+			\subsubsection{Task - Speicherst�nde mergen}
+			\paragraph{Ziel} Beim Laden der Armeen sollen die lokalen und serverseitig gespeicherten Armeen sinnvoll gemerged werden. Wenn zwei Armeen die gleiche ID haben, werden die Units und der Name der lokalen Armeen durch die remote Armeen �berschrieben. Das Icon der lokal gespeicherten Armeen soll �bernommen werden. Lokale Armeen ohne IDs sollen ebenfalls �bernommen werden.
+			\paragraph{Zugeteilter Entwickler} Dieser Task wurde Tobias Klipp zugewiesen.
+			\paragraph{Sch�tzung} F�r diesen Task wurden f�nf Stunden gesch�tzt.
+			\paragraph{Verlauf der Entwicklung} Der Entwickler konnte auf die Arbeit einer anderen User Story aufbauen und ben�tigte daher nur 30 Minuten f�r diesen Task.
+			\subsection{Bugs}
+			In einem Fall wurde nach der Implementierung einer Funktionalit�t festgestellt, dass diese nicht korrekt funktioniert. Daf�r wurde in Jira ein Bug-Task angelegt.
+			\subsubsection{Bug - lokales Speichern unter Windows}
+			\paragraph{Ziel} Unter Windows schlug das lokale Speichern von Armeen schlug fehl und sollte behoben werden.
+			\paragraph{Zugeteilter Entwickler} Der Bug wurde Omar Sood zugewiesen.
+			\paragraph{Verlauf der Entwicklung} Der Bug wurde nach einer Stunde behoben.
 			\newpage
 			
-			\subsection{Zeitübersicht}
+			\subsection{Zeit�bersicht}
 			\begin{center}
 				\begin{longtable}{p{6cm} c c c c }
 					
