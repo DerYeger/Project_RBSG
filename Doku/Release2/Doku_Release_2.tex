@@ -311,9 +311,8 @@
 				\label{WaitingRoomWithMapAndWithNotReayButton}
 			\end{figure}
 		
-		
 	\subsection{Domain Stories}
-	
+
 		Die Domoain Stories wurden erstellt, um dem Kunden eine mögliche technische Realisierung der Anforderungen an dieses Release vorzustellen. Da zum Zeitpunkt der Kundenpräsentation, die Serverdokumentation noch nicht bekannt war, sind die Domain Stories zum Teil unvollständig oder allgemein gehalten. Die tatsächlich Umsetzung weicht vom Inhalt der Domain Stories ab.
 		\subsubsection{Ingame - Zurück in die Lobby}
 		Entsprechend den Anforderungen muss es möglich sein, aus dem Spiel zurück in die Lobby zu wechseln. In Abb. \ref{DomainStoryZurueckInDieLobby} wird dargestellt, dass durch das Betätigen des Leave game-Buttons ein Szenenwechsel zur Lobby durchgeführt wird (1). Zeitgleich werden Game Controller Klassen benachrichtigt (2) (Abb. \ref{DomainStoryZurueckController}). Diese senden dem Server über den Spielwebsocket die Nachricht vom Spielaustritt (3). Im Fall, dass der Spieler, der das Spiel verlässt, der Ersteller dieses Spiels war, wird eine DELETE Anfrage mit der ID des Spiels gesendet (4), wie in Abb. \ref{DomainStoryZurueckDelete} zu sehen. Zudem wird der Spiel-Websocket geschlossen (4) [sic].
@@ -355,15 +354,13 @@
 				\caption{Domain Story Speichern der Armee auf dem Server und lokal}
 				\label{DomainStoryArmyManager3}
 			\end{figure}
-		\subsubsection{Client - Nachrichten des Server müssen korrekt verarbeiten} Nach einem Spielbeitritt sollen alle eingehenden Nachrichten vom Server korrekt verarbeitet werden. Dazu gehören der Spielbeitritt weiterer Spieler sowie das initiale Spielgeschehen. In Abb. \ref{DomainStoryHandler2} werden eingehende Servernachrichten (1)-(3) dargestellt. Diese werden von jeweils von einem eigenen Handler-Objekt verarbeitet.
+		\subsubsection{Client - Nachrichten des Server müssen korrekt verarbeiten} Nach einem Spielbeitritt sollen alle eingehenden Nachrichten vom Server korrekt verarbeitet werden. Dazu gehören der Spielbeitritt weiterer Spieler sowie das initiale Spielgeschehen. In Abb. \ref{DomainStoryHandler2} werden eingehende Servernachrichten (1)-(3) dargestellt. Diese werden von jeweils von einem eigenen Handler-Objekt verarbeitet. Die Handler setzen die Servernachrichten im Datenmodell und im GUI der Applikation um (1)-(2), wie gezeigt in Abb. \ref{DomainStoryHandler1}.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.7\textwidth]{Handler2.png}
 				\caption{Domain Story Eingehend Servernachrichten}
 				\label{DomainStoryHandler2}
 			\end{figure}
-		\pagebreak 
-		Die Handler setzen die Servernachrichten im Datenmodell und im GUI der Applikation um (1)-(2), wie gezeigt in Abb. \ref{DomainStoryHandler1}.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.7\textwidth]{Handler1.png}
@@ -371,25 +368,21 @@
 				\label{DomainStoryHandler1}
 			\end{figure}
 		\subsubsection{Ingame Chat}
-		Die Abb. \ref{DomainStoryChat1} zeigt eine eingehende Chatnachricht, die im allgemeinen Channel versendet wurde (1). Diese wird vom Chat-Websocket unseres Client empfangen und an den entsprechenden Chat-Controller weitergereicht (2).
+		Die Abb. \ref{DomainStoryChat1} zeigt eine eingehende Chatnachricht, die im allgemeinen Channel versendet wurde (1). Diese wird vom Chat-Websocket unseres Client empfangen und an den entsprechenden Chat-Controller weitergereicht (2). Anschließend wird die Chatnachricht vom Chat-Controller im Chatfenster angezeigt (3) (Abb. \ref{DomainStoryChat2}).
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.7\textwidth]{Chat1.png}
 				\caption{Domain Story Eingehende Chatnachricht}
 				\label{DomainStoryChat1}
 			\end{figure}
-		\pagebreak 
-		Anschließend wird die Chatnachricht vom Chat-Controller im Chatfenster angezeigt (3) (Abb. \ref{DomainStoryChat2}).
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.7\textwidth]{Chat2.png}
 				\caption{Domain Story Anzeigen der Chatnachricht}
 				\label{DomainStoryChat2}
 			\end{figure}
-	
 	\section{Sprint \RN{3}}
-	
-		Der dritte Sprint dauert vom 10.06.2019 bis zum 25.06.2019. Es wurden für den Sprint 122 Storypoints geschätzt.
+		Der dritte Sprint dauert vom 10.06.2019 bis zum 25.06.2019. Es wurden für den Sprint 130 Storypoints geschätzt.
 		\subsection{Sprintziel}
 		Das Sprintziel ist im Jira mit \glqq Die Ausgangsituation zum Spielen erreichen.\grqq definiert. Darunter fällt:
 		\begin{itemize}
@@ -402,14 +395,6 @@
 		\subsection{User Stories}
 		\label{UserStoriesSprint3}
 		Die Titel der User Stories ergeben sich nach folgendem Muster. Zuerst wird die Priorität für das Release genannt. Hierbei unterteilen wir in \glqq Core\grqq, für Hauptfeatures, und in \glqq Optional\grqq, für Zusatzfeatures. Danach folgt der zugehörige Bereich zum Beispiel \glqq Lobby\grqq. Zuletzt folgt eine kurze Beschreibung des Features. Dies wird im Folgendem beibehalten. Es wurde vom Team entschieden, dass im zweiten Release ein Story Point einem Arbeitsaufwand von einer Stunde entspricht.
-		
-		%Die Entwickler werden in den kommenden Abschnitten mit den Icons aus Jira dargestell:
-		%\begin{itemize}
-		%	\item \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
-		%	\item \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
-		%	\item \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
-		%	\item \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
-		%\end{itemize}
 		
 		\subsubsection{Core - ArmyBuilder - Laden der Armeen}
 		\paragraph{Ziel} Die Aufgabe besteht darin das Laden der gespeicherten Armeen lokal und serverseitig zu realisieren.
@@ -424,7 +409,7 @@
 		\paragraph{Story} Albert befindet sich in dem ArmyBuilder. Albert hat eine Armee eine konfiguriert. Albert klickt auf den Speichern Button. Die Armeen werden lokal und auf dem Server gespeichert.
 		\paragraph{Zugeteilter Entwickler} Diese Story bearbeitet Tobias Klipp, um sich in mit der REST Kommunikation vertraut zu machen.
 		\paragraph{Schätzung}
-		Da das Feature von den Entwicklern als komplex eingeschätzt wurde, erhielt es 15 Story Points.
+		Da das Feature von den Entwicklern als komplex eingeschätzt wurde, erhielt es 13 Story Points.
 		\paragraph{Verlauf der Entwicklung} Die Realisierung des Speicherns der Armeen nahm deutlich mehr Zeit in Anspruch als geplant, da Tobias sich erst in die REST-Kommunikation einarbeiten mussten und auch noch nicht mit der Quelltextbasis vertraut war. Dies fiel nach der Teambesprechung am 14.06.2019 auf. Daraufhin wurd Tobias vom Scrum Master sowie einem Entwickler eingewiesen. Dieses Feature wurde nicht im dritten Sprint beendet und wurd in den vierten Sprint übernommen.
 		
 		\subsubsection{Core - ArmyBuilder - Auswahl einer Einheit}
@@ -589,46 +574,40 @@
 		
 		\newpage
 		
-		\subsection{ZeitÜbersicht}
+		\subsection{Zeitübersicht}
 		\begin{center}
 				\begin{longtable}{p{6cm} c c c c }
 					
 					User Story	& Story Points & Soll Zeit & Ist Zeit & Entwickler\\
 					\toprule
 					\endhead
-					Core - ArmyBuilder - Laden der Armeen & 5 & 5h & 1h 16m & Tobias Klipp \\ \hline 
+					Core - ArmyBuilder - Laden der Armeen & 5 & 5h & 16h 16min & Tobias Klipp \\ \hline 
 					
-					Core - ArmyBuilder - Speichern der Armeen & 13 & 13h & 28h & Tobias Klipp\\ \hline
+					Core - ArmyBuilder - Speichern der Armeen & 13 & 13h & 34h 45min & Tobias Klipp\\ \hline
 					
 					Core - ArmyBuilder - Hinzufügen der Einheiten & 13 & 13h & 7h 23m & Omar Sood\\ \hline
 					
 					Core - ArmyBuilder - Entfernen der Einheiten & 5 & 5h & 39m & Omar Sood\\ \hline
 					
 					Core - ArmyBuilder - zurück in die Lobby navigieren & 3 & 3h & 1h & Keanu Stückrad\\ \hline
-					
-					Core - ArmyBuilder - Löschen der Armee (Clear) & 1 & 1h & - & Keanu Stückrad\\ \hline
 						
 					Core - ArmyBuilder - Info über Attribute & 3 & 3h & 5h & Keanu Stückrad\\ \hline
+			
+					Core - Waiting Room - Anzeigen des Waiting Rooms (neues Layout) & 5 & 5h & 9h & Keanu Stückrad\\ \hline
 					
 					Optional - ArmyBuilder - Musik an/aus & 1 & 1h & 30m & Keanu Stückrad\\ \hline
 					
-					Optional - Waiting Room - Anzeigen der Karte (Preview) & 3 & 3h & - & Jan Müller\\ \hline
-					
 					Core - Lobby - Auswahl der Armee  & 1 & 1h & 18m & Omar Sood\\ \hline
 					
-					Core - Ingame - Anzeigen der Spielfeldes & 3 & 3h & - &  Keanu Stückrad\\ \hline
-					
-					Optional - Ingame - Zoomen auf dem Spielfeld & 13 & 13h & - & Keanu Stückrad\\ \hline
-					
-					Core - Ingame - Spiel verlassen & 3 & 3h & - & Keanu Stückrad\\ \hline
+					Core - Ingame - Anzeigen der Spielfeldes & 3 & 3h & 7h 30m &  Keanu Stückrad\\ \hline
 					
 					Core - ArmyBuilder - Auswahl einer Einheit & 5 & 5h & 9h 59m & Omar Sood\\ \hline
 					
-					Core - Waiting Room - Spiel beitreten & 16 & 16h & 13h 5m & Jan Müller\\ \hline
+					Core - Waiting Room - Spiel beitreten & 16 & 16h & 15h 23m & Jan Müller\\ \hline
 					
 					Appearance - ArmyBuilder & 8 & 8h & - & Tobias Klipp \\ \hline
 					
-					Core - Waiting Room - Chat & 13 & 13h & 5h & Jan Müller\\ \hline
+					Core - Waiting Room - Chat & 13 & 13h & 6h 35m & Jan Müller\\ \hline
 					
 					Core - ArmyBuilder - In den ArmyBuilder navigieren & 3 & 3h & 4h 7m & Omar Sood\\ \hline
 					
@@ -960,6 +939,62 @@
 			Das Feature wurde auf 5 Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Das Feature konnte in 30 Minuten fertig gestellt werden. Die Storie wurde erst im 5. Sprint vom Entwickler geschlossen. Die Funktionalität war jedoch bereits in Release \RN{2} vorhanden.
+			
+			\newpage
+			
+			\subsection{Zeitübersicht}
+			\begin{center}
+				\begin{longtable}{p{6cm} c c c c }
+					
+					User Story	& Story Points & Soll Zeit & Ist Zeit & Entwickler\\
+					\toprule
+					\endhead
+					Core - ArmyBuilder - Laden der Armeen & 5 & 5h & 16h 16min & Tobias Klipp \\ \hline 
+					
+					Core - ArmyBuilder - Speichern der Armeen & 13 & 13h & 34h 45min & Tobias Klipp \\ \hline
+					
+					Core - ArmyBuilder - Löschen der Armee (Clear) & 1 & 1h & 6h 45m & Tobias Klipp \\ \hline
+					
+					Optional - Waiting Room - Anzeigen der Karte (Preview) & 3 & 3h & 2h 2m& Jan Müller \\ \hline
+					
+					Optional - Ingame - Zoomen auf dem Spielfeld & 13 & 13h & 7h & Keanu Stückrad \\ \hline
+					
+					Core - Ingame - Spiel verlassen & 3 & 3h & 1h & Keanu Stückrad\\ \hline
+					
+					Appearance - ArmyBuilder & 8 & 8h & 14h & Keanu Stückrad\\ \hline
+					
+					Core - Login - Default Armeen erstellen und User auf erstellen von Armeen hinweisen & 3 & 3h & 4h 8m & Omar Sood\\ \hline
+					
+					Core - Lobby - Deaktivieren der JoinGame-Buttons und des Create-Game-Buttons bei keiner ausgewählten Armee & 3 & 3h & 2h & Omar Sood\\ \hline
+					
+					Optional - Chat - Anzeigen das eine Nachricht angekommen ist  & 3 & 3h & 1h 40m & Omar Sood\\ \hline
+					
+					Optional - ArmyBuilder - Bearbeiten der Armeeinformationen & 5 & 5h & 4h 24m & Omar Sood\\ \hline
+					
+					Optional - ArmyBuilder - Armeeauswahl aus der Lobby übernehmen & 1 & 1h & 1h 18m & Omar Sood\\ \hline
+					
+					Optional - Create Game - Auto Join & 1 & 1h & 1h 16m & Omar Sood\\ \hline
+					
+					Appearance - Create Game - Anpassen des Style's des Create-Game-Formulars & 3 & 3h & 2h 38m & Jan Müller\\ \hline
+					
+					Core - Waiting Room - Ein Spieler tritt dem Spiel bei & 3 & 3h & 3h 30m & Keanu Stückrad\\ \hline
+					
+					Core - Waiting Room - Ein Spieler verlässt das Spiel & 2 & 2h & 1h & Keanu Stückrad \\ \hline
+					
+					Optional - Waiting Room - "Player-Kasten" wird mit der Spielerfarbe dargestellt & 2 & 2h & 1h & Keanu Stückrad\\ \hline
+					
+					Core - ArmyBuilder - Autosave der Armeen bei verlassen des ArmyBuilders & 1 & 1h & 15m & Tobias Klipp\\
+					
+					Appearance - Alerts & 3 & 3h & 8h 55m & Omar Sood \\ \hline
+					
+					Core - ArmyBuilder - \glqq CanAttack\grqq Übersicht & 5 & 5h & 3h 49m & Omar Sood \\ \hline
+					
+					Appearance - Alerts & 3 & 3h & 8h 55m & Jan Müller \\ \hline
+					
+					Optional - ArmyBuilder- Indikator ob Speichern nötig ist und Aktivieren des Save Buttons & 5 & 5h & 2h 42m & Omar Sood\\
+					\caption{Übersicht der Zeiten für den 4. Sprint} \\
+				\end{longtable}
+			\end{center}
 			
 		\subsection{Analyse des 4. Sprint}
 			Der 4. Sprint wurde am 07.07.2019 abgeschlossen. Es wurden insgesamt 86 von 109 Story Points abgeschlossen. Es wurden alle KernFunktionalitäten und viele optionale Features umgesetzt. Im folgenden wird noch einmal der Verlauf des Sprints Analysiert und eine Übersicht über die nicht abgeschlossenen User Stories gegeben. 
