@@ -314,7 +314,7 @@
 		
 	\subsection{Domain Stories}
 	
-		Die Domoain Stories wurden erstellt, um dem Kunden eine mögliche technische Realisierung der Anforderungen an dieses Release vorzustellen. Da zum Zeitpunkt der Kundenpräsentation, die Serverdokumentation noch nicht bekannt war, sind die Domain Stories zum Teil unvollständig oder allgemein gehalten. Die tatsächlich Umsetzung weicht vom Inhalt der Domain Stories ab.
+		Die Domain Stories wurden erstellt, um dem Kunden eine mögliche technische Realisierung der Anforderungen an dieses Release vorzustellen. Da zum Zeitpunkt der Kundenpräsentation, die Serverdokumentation noch nicht bekannt war, sind die Domain Stories zum Teil unvollständig oder allgemein gehalten. Die tatsächlich Umsetzung weicht vom Inhalt der Domain Stories ab.
 		\subsubsection{Ingame - Zurück in die Lobby}
 		Entsprechend den Anforderungen muss es möglich sein, aus dem Spiel zurück in die Lobby zu wechseln. In Abb. \ref{DomainStoryZurueckInDieLobby} wird dargestellt, dass durch das Betätigen des Leave game-Buttons ein Szenenwechsel zur Lobby durchgeführt wird (1).
 			\begin{figure}[H] 
@@ -422,11 +422,11 @@
 		\paragraph{Story} Albert befindet sich im Login Bereich. Albert loggt sich erfolgreich beim Spiel ein. Die lokal/auf dem Server gespeicherten Armeen werden geladen. Albert befindet sich in der Lobby, die geladenen Armeen werden in der Armeenliste angezeigt.
 		\paragraph{Zugeteilter Entwickler} Als Entwickler wurde Tobias Klipp eingeteilt, da dieser auch das Speichern der Armeen übernimmt.
 		\paragraph{Schätzung}
-		Das Feature wurde auf 5 Story Points geschätzt.
+		Das Feature wurde auf fünf Story Points geschätzt.
 		\paragraph{Verlauf der Entwicklung} Das Feature wurde im Verlauf der Entwicklung auf Omar Sood und Tobias Klipp aufgeteilt. Tobias übernimmt dabei das Laden der Lokalen Speicherstände und Omar das Laden der Stände vom Server. Dies wurde vollzogen, da Tobias sich erst in die Projektstruktur einarbeiten musste, da er im letzten Release Product Owner war. Das Feature wurde nicht im dritten Sprint abgeschlossen und wurde deshalb in den vierten Sprint übernommen.
 		
 		\subsubsection{Core - ArmyBuilder - Speichern der Armeen}
-		\paragraph{Ziel} Der Entwickler soll das Speichern von Armeen loakl und serverseitig implementieren.
+		\paragraph{Ziel} Der Entwickler soll das Speichern von Armeen lokal und serverseitig implementieren.
 		\paragraph{Story} Albert befindet sich in dem ArmyBuilder. Albert hat eine Armee eine konfiguriert. Albert klickt auf den Speichern Button. Die Armeen werden lokal und auf dem Server gespeichert.
 		\paragraph{Zugeteilter Entwickler} Diese Story bearbeitet Tobias Klipp, um sich in mit der REST Kommunikation vertraut zu machen.
 		\paragraph{Schätzung}
@@ -438,7 +438,7 @@
 		\paragraph{Story} Albert befindet sich im ArmyBuilder. Es wird die Einheitenliste mit Einheiten angezeigt. Albert klickt eine Einheit aus der Liste an. Die Einheit wird ausgewählt und es wird eine Detail View zur Einheit angezeigt.
 		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
 		\paragraph{Schätzung}
-		Das Feature wurde auf 5 Story Points geschätzt.
+		Das Feature wurde auf fünf Story Points geschätzt.
 		\paragraph{Verlauf der Entwicklung} Die benötigte Zeit für die Entwicklung waren am Ende ca. 10h, da sich der Entwickler erst in einige JavaFx\footnote{Graphische Oberflächenbibilthek für Java} Themen einarbeiten musste. Des Weiteren umfasste die Aufgabe auch das Erstellen der Liste und die Serverkommunikation. Die Zeit ist somit nachvollziehbar und wurde vom Team falsch eingeschätzt.
 		
 		\subsubsection{Core - ArmyBuilder - Entfernen der Einheiten}
@@ -446,7 +446,7 @@
 		\paragraph{Story} Albert befindet sich im ArmyBuilder. Es ist eine Einheit in \glqq Deiner Armee \grqq ausgewählt. Albert klickt auf den Entfernen-Button. Die Einheit wird aus \glqq Deiner Armee \grqq entfernt.
 		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
 		\paragraph{Schätzung}
-		Das Feature wurde auf 5 Story Points geschätzt.
+		Das Feature wurde auf fünf Story Points geschätzt.
 		\paragraph{Verlauf der Entwicklung} Omar benötigte nur 39min für das Feature. Da in einer anderen User Story die notwendige Programmlogik für dieses Feature vorbereitet wurde.
 		
 		\subsubsection{Core - ArmyBuilder - zurück in die Lobby navigieren}
@@ -499,7 +499,7 @@
 		\paragraph{Story} Albert befindet sich in der Lobby. Albert tritt einem Spiel aus der Spieleliste bei. Es wird der Waiting Room für das Spiel angezeigt nach dem neuen Layout (Mockup).
 		\paragraph{Zugeteilter Entwickler} Diese Aufgabe wurde Keanu Stückrad zugeteilt, da er im letzten Release bereits begonnen hat den Waiting Room zu implementieren.
 		\paragraph{Schätzung}
-		Das Feature wurde auf 5 Story Points geschätzt.
+		Das Feature wurde auf fünf Story Points geschätzt.
 		\paragraph{Verlauf der Entwicklung} 
 		Die Anpassungen erwiesen sich als zeitaufwändiger, da der Entwickler Probleme mit der Anordnung der einzelnen Elemente hatte. Es wurden insgesamt 9 Stunden dafür benötigt.
 		
@@ -589,10 +589,28 @@
 		\paragraph{Story} Albert befindet sich in der ArmyBuilder. Es ist eine Liste der Armeen vorhanden. Albert klickt auf eine Armee (wählt diese aus). Die Armee wird selektiert und entsprechend in der Armeeübersicht angezeigt.
 		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
 		\paragraph{Schätzung}
-		Die Story wurde auf 5 Story Points geschätzt.
+		Die Story wurde auf fünf Story Points geschätzt.
 		\paragraph{Verlauf der Entwicklung} 
-		Die Entwicklung daurte 1 Stunde und 58 Minuten. Der Entwickler war schneller fertig als erwartet. Dies lag daran, dass andere Tasks bereits Grundlagen für die Task gaben und somit die Implementierung schneller möglich war.
-		
+		Die Entwicklung dauerte 1 Stunde und 58 Minuten. Der Entwickler war schneller fertig als erwartet. Dies lag daran, dass andere Tasks bereits Grundlagen für die Task gaben und somit die Implementierung schneller möglich war.
+		\subsection{Tasks}
+		Neben User Stories, die weiter in Unteraufgaben aufgeteilt sind, wurden einzelne Tasks vom Scrum Master erstellt, die keiner User Story zugeordnet wurden. Diese Tasks konnten nicht direkt in eine Aktion des Nutzers übersetzt werden und waren rein technischer Natur, ohne Bezug zur graphischen Benutzeroberfläche. Auf einzelne Tasks ist es in Jira nicht möglich, Story Points zu schätzen. Im Verlauf des zweiten Releases wurden Zeitschätzungen ergänzt.
+		\subsubsection{Task - Tests optimieren}
+		\paragraph{Ziel} Die Tests der graphischen Oberfläche der Applikation sollten in Bezug auf ihre Ausführungsdauer optimiert werden.
+		\paragraph{Zugeteilter Entwickler} Der Task wird von Omar Sood bearbeitet.
+		\paragraph{Verlauf der Entwicklung} 
+		Die Implementierung dieses Task dauerte 25 Minuten. Es konnten keine Story Points auf diesen Task im Jira geschätzt. Intern wurde eine Arbeitsstunde für diesen Task veranschlagt. Damit benötigte der Entwickler weniger als die veranschlagte Zeit für diesen Taks.
+		\subsubsection{Task - PR - stylingLoginCreate}
+		\paragraph{Ziel} Aus dem ersten Release ist ein offener Pull Request übrig geblieben, der aufgrund von Konflikten nicht gemerged werden konnte. Der Task bestand darin, diese Konflikte zu beseitigen.
+		\paragraph{Zugeteilter Entwickler} Keanu Stückrad bearbeitete diesen Task.
+		\paragraph{Verlauf der Entwicklung} 
+		Mit 30 Minuten wurde dieser Taks schneller abgeschlossen, als die eine Stunde, die intern dafür veranschlagt wurde.
+		\subsubsection{Task - REST Kommunikation}
+		\paragraph{Ziel} Die REST Kommunikation mit dem Server wird in unterschiedlichen Klassen mit Hilfe verschiedener Methoden gehandhabt. In diesem Task sollte die REST Kommunikation unserer Applikation vereinheitlicht werden.
+		\paragraph{Zugeteilter Entwickler} Dieser Task wurde Omar Sood zugewiesen.
+		\paragraph{Schätzung}
+		Die Story wurde auf fünf Zeitstunden geschätzt.
+		\paragraph{Verlauf der Entwicklung} 
+		Der Task wurde sehr niedrig priorisiert und wurde vom Entwickler im dritten Sprint nicht bearbeitet.
 		\newpage
 		
 		\subsection{ZeitÜbersicht}
@@ -808,7 +826,7 @@
 			\paragraph{Story}Albert befindet sich im ArmyBuider. Unter der Armeeliste befindet sich ein Bearbeiten-Button. Albert hat eine Armee ausgewählt und klick auf den Bearbeiten-Button. Es öffnet sich ein Dialog zum Bearbeiten der Armeeinformationen. Es ist möglich den Namen der Armee zu bearbeiten. Es ist möglich das Icon der Armee aus einer Liste vordefinierter Icons zu bearbeiten. Armeen werden mit einem Default Name und einem Default Icon erstellt, falls nichts näher spezifiziert ist. Wird die auf den Speichern Button geklickt, so wird die Armee gespeichert. Wird auf den Cancel Button geklickt, so wird die View geschlossen. Es wird nichts gespeichert.
 			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Der Aufwand wurde von den Entwicklern gut eingeschätzt, da eine Arbeitszeit von 4h und 24min benötigt wurde.
 		
@@ -880,7 +898,7 @@
 			\paragraph{Story} Albert befindet sich im ArmyBuilder. Albert wählt eine Einheit aus der "Unit Selection" aus. Es wird die Detail View zur Einheit angezeigt. In der Detail View ist eine Übersicht zu "Can Attack" vorhanden.
 			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet. Die Aufgabe wurde Omar zugeteilt, da dieser die Detailansicht schon in einer vorhergehen Story realisiert hat.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Da der Entwickler bereits Erfahrungen mit der Detailansicht hat konnte die Aufgabe mit 3h und 49min schneller abgeschlossen werden.
 			
@@ -889,7 +907,7 @@
 			\paragraph{Story} Albert befindet sich in der Lobby. Albert hat noch keine Änderungen an den Armeen vorgenommen. Der Indikator zum Speichern ist Grau. Der Save-Button ist Disabled. Albert fügt eine Einheit seiner Armee hinzu. Der Indikator zum Speicher hat die Farbe von Primary Two. Der Save-Button ist Enabled.
 			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Omar Sood bearbeitet. Die Aufgabe wurde Omar zugeteilt, da dieser schon viel im ArmyBuilder implementiert hat.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Der Entwickler war mit 2h und 42min doppelt so schnell wie geschätzt. Die Story wurde im positiven Sinne von den Entwicklern überschätzt.
 			\subsubsection{Core - ArmyBuilder - Laden der Armeen}
@@ -897,7 +915,7 @@
 			\paragraph{Story} Albert befindet sich im Login Bereich. Albert loggt sich erfolgreich beim Spiel ein. Die Lokal/auf dem Server gespeicherten Armeen werden geladen. Albert befindet sich in der Lobby, die geladenen Armeen werden in der Armeenliste angezeigt.
 			\paragraph{Zugeteilter Entwickler} Diese Story wurde von Tobias Klipp bearbeitet. Die Aufgabe wurde Tobias zugeteilt, da dieser bereits das Laden implementiert hat und somit bereits Erfahrung für diese Aufgabe besitzt.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Die Story benötigte eine Arbeitszeit von insgesamt 16h und 16min. Die Schwierigkeit bei der Implementierung war, dass die gespeicherten Armeen auf dem Server und Lokal zusammengeführt werden. Der Entwickler hatte auch Probleme damit, das Feature umzusetzen, da die Kommunikation mit dem Server noch neu war und er sich in die Thematik einarbeiten musste.
 			\subsubsection{Optional - Chat - Anzeigen das eine Nachricht angekommen ist}
@@ -913,7 +931,7 @@
 			\paragraph{Story} Albert befindet sich im ArmyBuider. Unter der Armeeliste befindet sich ein Bearbeiten-Button. Albert hat eine Armee ausgewählt und klick auf den Bearbeiten-Button. Es öffnet sich ein Dialog zum Bearbeiten der Armeeinformationen. Es ist möglich den Namen der Armee zu bearbeiten. Es ist möglich das Icon der Armee aus einer Liste vordefinierter Icons zu bearbeiten. Armeen werden mit einem Default Name und einem Default Icon erstellt, falls nichts näher spezifiziert ist. Wird die auf den Speichern Button geklickt, so wird die Armee gespeichert. Wird auf den Cancel-Button geklickt, so wird die View geschlossen. Es wird nichts gespeichert.
 			\paragraph{Zugeteilter Entwickler} Die Story wurde Omar Sood zugeteilt.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Mit 4h 24m war der Entwickler schneller als geplant.  
 			\subsubsection{Core - ArmyBuilder - Autosave der Armeen bei verlassen des ArmyBuilders}
@@ -929,7 +947,7 @@
 			\paragraph{Story} Albert befindet sich im ArmyBuilder. Albert hat ein paar Armeen erstellt und bearbeitet. Albert hat seine Änderungen noch nicht gespeichert. Albert klickt auf den Zurück-Button. Es werden alle Armeen gespeichert. Albert wird in die Lobby zurück navigiert.
 			\paragraph{Zugeteilter Entwickler} Die Story wurde Omar Sood zugeteilt. Omar hatte bereits die Detailansicht für Einheit implementiert, womit er die meiste Erfahrung in diesen Bereich hat.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Der Arbeitsaufwand für diese Story belief sich auf 3h und 49m. Damit war der Entwickler schneller als geplant.
 			\subsubsection{Optional - ArmyBuilder- Indikator ob Speichern nötig ist und Aktivieren des Save Buttons}
@@ -937,7 +955,7 @@
 			\paragraph{Story} Albert befindet sich in der Lobby. Albert hat noch keine Änderungen an den Armeen vorgenommen. Der Indikator zum Speichern ist Grau. Der Save-Button ist Disabled. Albert fügt eine Einheit seiner Armee hinzu. Der Indikator zum Speicher hat die Farbe von Primary Two. Der Save-Button ist Enabled.
 			\paragraph{Zugeteilter Entwickler} Die Story wurde Omar Sood zugeteilt.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Die Story wurde mit 2h und 42 in der Hälfte der geplanten Zeit erledigt.
 			\subsubsection{Optional - Waiting Room - Anzeigen der Einheiten der ausgewählten Armee}
@@ -949,13 +967,13 @@
 			\subsubsection{Optional - Lobby - Anzeigen der Einheiten einer Armee}
 			\paragraph{Story} Albert befindet sich im ArmyBuilder. Es sind Armeen vorhanden. Albert hovert über eine Armee. Es erscheint ein Overlay, in welchem die Einheiten der Armeen sehen kann.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Die Story wurde nicht in Sprint 4 begonnen und wird auch nicht in den nächsten Sprint übernommen werden.
 			\subsubsection{Optional - ArmyBuilder- Notifiaction für das Speichern der Armee und Waiting Animation.}
 			\paragraph{Story} Albert befindet sich in der Lobby. Albert hat eine Armee bearbeitet. Albert klickt auf den Speicher Button. Der Speicherprozess beginnt. Es wird eine Warteanimation angezeigt. Der Speicherprozess endet. Es wird eine Notification angezeigt mit dem Status des Speicherns.
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Da der Speicherprozess nur sehr wenig Zeit benötigt, ist das Anzeigen eines Ladebalkens nicht nötig. Die Story wird deshalb nicht umgesetzt.
 			\subsubsection{Core - ArmyBuilder - Lokaler Speicherort für Armeen}
@@ -963,7 +981,7 @@
 			\paragraph{Story} Albert befindet sich im ArmyBuilder. Albert klickt auf Speichern. Die Armeen werden lokal gespeichert an einem von uns definierten betriebssystemabhängigen Speicherort.
 			z.B. Windows: AppData 
 			\paragraph{Schätzung}
-			Das Feature wurde auf 5 Story Points geschätzt.
+			Das Feature wurde auf fünf Story Points geschätzt.
 			\paragraph{Verlauf der Entwicklung} 
 			Das Feature konnte in 30 Minuten fertig gestellt werden. Die Storie wurde erst im 5. Sprint vom Entwickler geschlossen. Die Funktionalität war jedoch bereits in Release \RN{2} vorhanden.
 			
@@ -1001,10 +1019,10 @@
 			
 				\paragraph{Optional - Waiting Room - Anzeigen der Einheiten der ausgewählten Armee}
 				\label{OWaitingRoomAnzeigenEinheiten}
-				In dieser Story sollten die Einheiten der ausgewahlten Armee im Warteraum angezeigt werden. Es stellte sich jedoch heraus, dass dies im nächsten Sprint wieder verworfen werden müsste, weshalb andere Aufgaben priorisiert wurden, um Arbeitszeit nicht in unnötige Features zu stecken. Diese Story wird in Sprint 5 nicht weitergeführt.
+				In dieser Story sollten die Einheiten der ausgewahlten Armee im Warteraum angezeigt werden. Es stellte sich jedoch heraus, dass dies im nächsten Sprint wieder verworfen werden müsste, weshalb andere Aufgaben priorisiert wurden, um Arbeitszeit nicht in unnötige Features zu stecken. Diese Story wird im fünften Sprint nicht weitergeführt.
 				
 				\paragraph{Optional - Lobby- Anzeigen der Einheiten einer Armee}
-				Ziel dieser Story war es die Einheiten der Armeen in der Lobby anzuzeigen. Auch diese Story wurde verworfen. Die Gründe dafür waren die selben wie in \ref{OWaitingRoomAnzeigenEinheiten}. Die Story wird in Sprint 5 nicht weitergeführt.
+				Ziel dieser Story war es die Einheiten der Armeen in der Lobby anzuzeigen. Auch diese Story wurde verworfen. Die Gründe dafür waren die selben wie in \ref{OWaitingRoomAnzeigenEinheiten}. Die Story wird im fünften Sprint nicht weitergeführt.
 				
 				\paragraph{Optional - ArmyBuilder - Notification für das Speichern der Armee und Waiting Animation}
 				Im Armeemanager sollte während des Speichervorgangs ein Fortschrittsbalken angezeigt werden und eine Benachrichtigung für das erfolgreiche Speichern erstellt werden. Da der Speichervorgang jedoch immer sehr schnell abgeschlossen wurde, ist das Anzeigen der eben genanten Visualisierungen verworfen wurden.
@@ -1021,7 +1039,7 @@
 			\end{figure}
 		
 			\subsubsection{Fazit}
-			Wir sehen den Sprint 4 als erfolgreich an, da alle restlichen KernFunktionalitäten und viele weitere optionale Features abgeschlossen werden konnten. Das von uns gesetzte Sprintziel konnte somit erreicht werden. Von den 23 über gebliebenen Story Points wurden 18 verworfen, der Product Owner und Scrum Master haben bei diesen übersehen sie aus dem Jira zu entfernen. Die übrigen 5 Story Points wurden im Jira nur nicht diesem Sprint zugeordnet, da der Entwickler die Aufgabe zu spät abgeschlossen hat. Somit bleiben am Ende auch keine Aufgaben über, womit die Schätzung für den 4. Sprinte eingehalten werden konnte.
+			Wir sehen den Sprint 4 als erfolgreich an, da alle restlichen KernFunktionalitäten und viele weitere optionale Features abgeschlossen werden konnten. Das von uns gesetzte Sprintziel konnte somit erreicht werden. Von den 23 über gebliebenen Story Points wurden 18 verworfen, der Product Owner und Scrum Master haben bei diesen übersehen sie aus dem Jira zu entfernen. Die übrigen fünf Story Points wurden im Jira nur nicht diesem Sprint zugeordnet, da der Entwickler die Aufgabe zu spät abgeschlossen hat. Somit bleiben am Ende auch keine Aufgaben über, womit die Schätzung für den 4. Sprinte eingehalten werden konnte.
 			
 			\paragraph{Code Coverage}
 			AbSchließend sei noch zu erwähnen, dass auch diesen Sprint die Quellcodeabdeckung weiter ausgebaut werden konnte. In \Abb{CodeCoverageReleaseTwo} ist eine Übersicht über die finale Code Coverage zum Ende von Release 2. Wir erreichen eine Abdeckung von insgesamt 76\%, womit die Anforderung von 60\% CO Coverage erfüllt ist.
