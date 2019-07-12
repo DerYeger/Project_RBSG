@@ -9,22 +9,22 @@
 \contentsline {subsubsection}{\numberline {3.2.3}Spiel erstellen}{4}
 \contentsline {subsubsection}{\numberline {3.2.4}Spiel beitreten}{4}
 \contentsline {subsubsection}{\numberline {3.2.5}Lobby Chat}{5}
-\contentsline {subsubsection}{\numberline {3.2.6}Umgesetzte Optionale Features}{5}
+\contentsline {subsubsection}{\numberline {3.2.6}Umgesetzte optionale Features}{5}
 \contentsline {subsection}{\numberline {3.3}Mockups}{6}
 \contentsline {subsubsection}{\numberline {3.3.1}ArmyBuilder}{6}
-\contentsline {subsection}{\numberline {3.4}Lobby}{10}
-\contentsline {subsubsection}{\numberline {3.4.1}Waiting Room}{11}
+\contentsline {subsubsection}{\numberline {3.3.2}Lobby}{10}
+\contentsline {subsubsection}{\numberline {3.3.3}Waiting Room}{11}
 \contentsline {paragraph}{\nonumberline Game Chat}{11}
 \contentsline {paragraph}{\nonumberline Anzeige der Mitspieler}{11}
 \contentsline {paragraph}{\nonumberline Anzeige des Spielfelds}{11}
-\contentsline {paragraph}{\nonumberline Anzeige der gew\"ahlten Armee}{12}
+\contentsline {paragraph}{\nonumberline Anzeige der gew\"ahlten Armee}{11}
 \contentsline {paragraph}{\nonumberline Mockups mit m\"oglichen Zusatzfeatures}{12}
 \contentsline {paragraph}{\nonumberline Nicht umsetzbare Mockups}{12}
-\contentsline {subsection}{\numberline {3.5}Domain Stories}{14}
-\contentsline {subsubsection}{\numberline {3.5.1}Ingame - Zur\"uck in die Lobby}{14}
-\contentsline {subsubsection}{\numberline {3.5.2}Armeemanager - Erstellen und Speichern einer Armee}{16}
-\contentsline {subsubsection}{\numberline {3.5.3}Client - Nachrichten des Server m\"ussen korrekt verarbeiten}{18}
-\contentsline {subsubsection}{\numberline {3.5.4}Ingame Chat}{19}
+\contentsline {subsection}{\numberline {3.4}Domain Stories}{14}
+\contentsline {subsubsection}{\numberline {3.4.1}Ingame - Zur\"uck in die Lobby}{14}
+\contentsline {subsubsection}{\numberline {3.4.2}Armeemanager - Erstellen und Speichern einer Armee}{16}
+\contentsline {subsubsection}{\numberline {3.4.3}Client - Nachrichten des Server m\"ussen korrekt verarbeiten}{18}
+\contentsline {subsubsection}{\numberline {3.4.4}Ingame Chat}{19}
 \contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iii}}}{20}
 \contentsline {subsection}{\numberline {4.1}Sprintziel}{20}
 \contentsline {subsection}{\numberline {4.2}User Stories}{20}
@@ -250,7 +250,7 @@
 \contentsline {paragraph}{\nonumberline Story}{38}
 \contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{38}
 \contentsline {paragraph}{\nonumberline Sch\"atzung}{38}
-\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{39}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{38}
 \contentsline {subsubsection}{\numberline {5.2.12}Appearance - Create Game - Anpassen des Style's des Create-Game-Formulars}{39}
 \contentsline {paragraph}{\nonumberline Ziel}{39}
 \contentsline {paragraph}{\nonumberline Story}{39}
@@ -268,7 +268,7 @@
 \contentsline {paragraph}{\nonumberline Story}{39}
 \contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{39}
 \contentsline {paragraph}{\nonumberline Sch\"atzung}{39}
-\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{40}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{39}
 \contentsline {subsubsection}{\numberline {5.2.15}Optional - Waiting Room - \glqq Player-Kasten\grqq \ wird mit der Spielerfarbe dargestellt}{40}
 \contentsline {paragraph}{\nonumberline Ziel}{40}
 \contentsline {paragraph}{\nonumberline Story}{40}
@@ -285,7 +285,7 @@
 \contentsline {paragraph}{\nonumberline Ziel}{40}
 \contentsline {paragraph}{\nonumberline Story}{40}
 \contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{40}
-\contentsline {paragraph}{\nonumberline Sch\"atzung}{41}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{40}
 \contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{41}
 \contentsline {subsubsection}{\numberline {5.2.18}Optional - ArmyBuilder- Indikator ob Speichern n\"otig ist und Aktivieren des Save Buttons}{41}
 \contentsline {paragraph}{\nonumberline Ziel}{41}
