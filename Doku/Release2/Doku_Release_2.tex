@@ -316,45 +316,39 @@
 	
 		Die Domoain Stories wurden erstellt, um dem Kunden eine mögliche technische Realisierung der Anforderungen an dieses Release vorzustellen. Da zum Zeitpunkt der Kundenpräsentation, die Serverdokumentation noch nicht bekannt war, sind die Domain Stories zum Teil unvollständig oder allgemein gehalten. Die tatsächlich Umsetzung weicht vom Inhalt der Domain Stories ab.
 		\subsubsection{Ingame - Zurück in die Lobby}
-		Entsprechend den Anforderungen muss es möglich sein, aus dem Spiel zurück in die Lobby zu wechseln. In Abb. \ref{DomainStoryZurueckInDieLobby} wird dargestellt, dass durch das Betätigen des Leave game-Buttons ein Szenenwechsel zur Lobby durchgeführt wird (1).
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.4\textwidth]{BackToLobby1.png}
-				\caption{Domain Story Zurück in die Lobby}
-				\label{DomainStoryZurueckInDieLobby}
-			\end{figure}
-		Zeitgleich werden Game Controller Klassen benachrichtigt (2) (Abb. \ref{DomainStoryZurueckController}).
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{BackToLobby2.png}
-				\caption{Domain Story Benachrichtigung der Spielcontroller}
-				\label{DomainStoryZurueckController}
-			\end{figure}
-		Diese senden dem Server über den Spielwebsocket die Nachricht vom Spielaustritt (3). Im Fall, dass der Spieler, der das Spiel verlässt, der Ersteller dieses Spiels war, wird eine DELETE Anfrage mit der ID des Spiels gesendet (4), wie in Abb. \ref{DomainStoryZurueckDelete} zu sehen. Zudem wird der Spiel-Websocket geschlossen (4) [sic].
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{BackToLobby3.png}
-				\caption{Domain Story DELETE Anfrage an den Server}
-				\label{DomainStoryZurueckDelete}
-			\end{figure}
-		\pagebreak 
+		Entsprechend den Anforderungen muss es möglich sein, aus dem Spiel zurück in die Lobby zu wechseln. In Abb. \ref{DomainStoryZurueckInDieLobby} wird dargestellt, dass durch das Betätigen des Leave game-Buttons ein Szenenwechsel zur Lobby durchgeführt wird (1). Zeitgleich werden Game Controller Klassen benachrichtigt (2) (Abb. \ref{DomainStoryZurueckController}). Diese senden dem Server über den Spielwebsocket die Nachricht vom Spielaustritt (3). Im Fall, dass der Spieler, der das Spiel verlässt, der Ersteller dieses Spiels war, wird eine DELETE Anfrage mit der ID des Spiels gesendet (4), wie in Abb. \ref{DomainStoryZurueckDelete} zu sehen. Zudem wird der Spiel-Websocket geschlossen (4) [sic].
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.7\textwidth]{BackToLobby1.png}
+			\caption{Domain Story Zurück in die Lobby}
+			\label{DomainStoryZurueckInDieLobby}
+		\end{figure}
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.7\textwidth]{BackToLobby2.png}
+			\caption{Domain Story Benachrichtigung der Spielcontroller}
+			\label{DomainStoryZurueckController}
+		\end{figure} 
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.7\textwidth]{BackToLobby3.png}
+			\caption{Domain Story DELETE Anfrage an den Server}
+			\label{DomainStoryZurueckDelete}
+		\end{figure} 
 		\subsubsection{Armeemanager - Erstellen und Speichern einer Armee}
-		Eine weitere Anforderungen für das zweite Release ist, Armeen konfigurieren und speichern zu können, sowohl lokal als auch auf dem Server. In Abb. \ref{DomainStoryArmyManager1} wird der Szenenwechsel nach Betätigen des Armee erstellen-Buttons dargestellt (1).
+		Eine weitere Anforderungen für das zweite Release ist, Armeen konfigurieren und speichern zu können, sowohl lokal als auch auf dem Server. In Abb. \ref{DomainStoryArmyManager1} wird der Szenenwechsel nach Betätigen des Armee erstellen-Buttons dargestellt (1). Im ArmyBuilder können anhand einer Einheitenauswahl Armeen konfiguriert werden. Anschließend wird durch Betätigen des Speichern-Buttons ein Army Manager Objekt angewiesen, den Speicher-Event auszuführen (2). Siehe dazu Abb. \ref{DomainStoryArmyManager2}. Der Army Manger sendet die aktuelle Armeekonfiguration im JSON-Format zum einen an den Server. Zum anderen wird die Armee lokal als JSON-Datei im dafür vorgesehenen Verzeichnis gespeichert (3). Dieser Vorgang wird in Abb. \ref{DomainStoryArmyManager3} abgebildet.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.5\textwidth]{ArmyManager1.png}
 				\caption{Domain Story Wechsel in den ArmyBuilder}
 				\label{DomainStoryArmyManager1}
 			\end{figure}
-		Im ArmyBuilder können anhand einer Einheitenauswahl Armeen konfiguriert werden. Anschließend wird durch Betätigen des Speichern-Buttons ein Army Manager Objekt angewiesen, den Speicher-Event auszuführen (2). Siehe dazu Abb. \ref{DomainStoryArmyManager2}
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.7\textwidth]{ArmyManager2.png}
 				\caption{Domain Story Speichern einer Armee}
 				\label{DomainStoryArmyManager2}
 			\end{figure}
-		\pagebreak 
-		Der Army Manger sendet die aktuelle Armeekonfiguration im JSON-Format zum einen an den Server. Zum anderen wird die Armee lokal als JSON-Datei im dafür vorgesehenen Verzeichnis gespeichert (3). Dieser Vorgang wird in Abb. \ref{DomainStoryArmyManager3} abgebildet.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.7\textwidth]{ArmyManager3.png}
@@ -675,14 +669,14 @@
 		Zum Ende des dritten Sprints ist eine Code Coverage von 69\% vorhanden. Siehe \Abb{CodeCoverageSprint3}.
 		\begin{figure}[H] 
 			\centering
-			\includegraphics[width=0.9\textwidth]{Coverage_Sprint_3.PNG}
+			\includegraphics[width=1\textwidth]{Coverage_Sprint_3.PNG}
 			\caption{Code Coverage vom 3. Sprint}
 			\label{CodeCoverageSprint3}
 		\end{figure}
 		
 		\begin{figure}[H] 
 			\centering
-			\includegraphics[width=0.8\textwidth]{Abschlossene_Vorgaenge_Sprint_3.png}
+			\includegraphics[width=1\textwidth]{Abschlossene_Vorgaenge_Sprint_3.png}
 			\caption{Abgeschlossene Vorgänge vom 3. Sprint}
 			\label{AbgeschlosseneVorgaengeSprint3}
 		\end{figure}
@@ -1044,7 +1038,7 @@
 				\item Speichern soll Lokal und auf dem Server erfolgen
 				\item Speichern von mindestens 3 Armeen
 			\end{itemize}
-			Diese Anforderungen wurden zum Ende des zweiten Releases abgedeckt. Die Armeen werden automatisch erstellt und es werden dem Nutzer 7 zu Konfiguration zur Verfügung gestellt. Verändert werden können die Armeen über die \glqq +\grqq und \glqq -\grqq Buttons. Gespeichert werden kann über den Speichern Button. Die 7 Armeen werden dabei lokal und auf dem Server gespeichert. Die Umsetzung war dabei in 3 Kernbereiche aufgeteilt. Diese werden in \Abb{MockUpArmeemanager} gezeigt.
+			Diese Anforderungen wurden zum Ende des zweiten Releases abgedeckt. Die Armeen werden automatisch erstellt und es werden dem Nutzer 7 zu Konfiguration zur Verfügung gestellt. Verändert werden können die Armeen über die \glqq +\grqq \ und \glqq -\grqq \ Buttons. Gespeichert werden kann über den Speichern Button. Die 7 Armeen werden dabei lokal und auf dem Server gespeichert. Die Umsetzung war dabei in 3 Kernbereiche aufgeteilt. Diese werden in \Abb{MockUpArmeemanager} gezeigt.
 			\begin{itemize}
 				\item Der Einheitenauswahl mit Detailansicht
 				\item Der ArmeeÜbersicht
@@ -1185,9 +1179,7 @@
 				\includegraphics[width=0.7\textwidth]{Alerts_New_Style.PNG}
 				\caption{überarbeitet Alerts im Dark Theme}
 				\label{AlertsNew}
-			\end{figure}
-		
-			\subsection{Fazit} 
+			\end{figure} 
 		
 	\newpage
 	\appendix
