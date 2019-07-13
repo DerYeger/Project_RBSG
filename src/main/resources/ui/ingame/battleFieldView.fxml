@@ -10,11 +10,10 @@
  @author Keanu Stückrad
  !-->
 
-
-<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
+<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
       <VBox fx:id="root" stylesheets="@../darkTheme.css">
-         <HBox alignment="CENTER_LEFT" styleClass="root-background-color">
+         <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="118.0" styleClass="root-background-color">
             <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" top="10.0" />
@@ -30,6 +29,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" prefWidth="18.0" styleClass="icon-button" />
          </HBox>
       </VBox>
    </children>

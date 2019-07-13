@@ -17,11 +17,20 @@ public class CommandBuilder {
 
     private static String LEAVE_GAME = "leaveGame";
 
+    private static String END_Phase = "nextPhase";
+
     public static ObjectNode leaveGameCommand() {
         return new ObjectMapper()
                 .createObjectNode()
                 .put(MESSAGE_TYPE, COMMAND)
                 .put(ACTION, LEAVE_GAME);
+    }
+
+    public static ObjectNode endPhaseCommand() {
+        return new ObjectMapper()
+                .createObjectNode()
+                .put(MESSAGE_TYPE, COMMAND)
+                .put(ACTION, END_Phase);
     }
 
     public static Map<String,Object> readyToPlay() {

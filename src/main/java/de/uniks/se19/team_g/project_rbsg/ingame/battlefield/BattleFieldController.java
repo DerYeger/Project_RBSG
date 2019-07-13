@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.ForestUrls;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
@@ -53,6 +54,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button leaveButton;
     public Button zoomOutButton;
     public Button zoomInButton;
+    public Button endPhaseButton;
     public VBox root;
 
     private Canvas canvas;
@@ -70,17 +72,20 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+    private GameEventManager gameEventManager;
 
     @Autowired
     public BattleFieldController(
             @NonNull final IngameGameProvider ingameGameProvider,
             @NonNull final GameProvider gameProvider,
             @NonNull final SceneManager sceneManager,
+            @NonNull final GameEventManager gameEventManager,
             @NonNull final AlertBuilder alertBuilder
     ) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
+        this.gameEventManager = gameEventManager;
         this.alertBuilder = alertBuilder;
     }
 
@@ -101,6 +106,12 @@ public class BattleFieldController implements RootController, IngameViewControll
                 zoomOutButton,
                 getClass().getResource("/assets/icons/navigation/zoomOutWhite.png"),
                 getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
+                40
+        );
+        JavaFXUtils.setButtonIcons(
+                endPhaseButton,
+                getClass().getResource("/assets/icons/navigation/endPhaseButtonWhite.png"),
+                getClass().getResource("/assets/icons/navigation/endPhaseButtonBlack.png"),
                 40
         );
         game = ingameGameProvider.get();
@@ -299,6 +310,14 @@ public class BattleFieldController implements RootController, IngameViewControll
             zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
             zoomFactor--;
         }
+    }
+
+    public void endPhase() {
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.END_PHASE,
+                        () -> this.gameEventManager.sendEndPhaseCommand(),
+                        null);
     }
 
     @Override
