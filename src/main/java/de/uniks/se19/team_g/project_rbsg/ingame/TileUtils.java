@@ -11,6 +11,11 @@ import javafx.scene.image.Image;
 
 import static de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType.*;
 
+/**
+ * @author Keanu Stückrad
+ * @author Georg Siebert
+ */
+
 public class TileUtils
 {
 

@@ -1,18 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
-import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.HighlightingTwo;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;
+import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.*;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
+import javafx.scene.paint.*;
+import org.slf4j.*;
 
 /**
- * @Author Georg Siebert
+ * @author Georg Siebert
  */
 
 public class TileDrawer

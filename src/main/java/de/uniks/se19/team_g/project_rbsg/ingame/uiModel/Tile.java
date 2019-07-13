@@ -6,6 +6,9 @@ import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.Image;
 
+/**
+ * @author Georg Siebert
+ */
 
 public class Tile
 {
