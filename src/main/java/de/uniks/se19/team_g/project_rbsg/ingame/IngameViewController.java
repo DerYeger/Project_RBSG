@@ -137,10 +137,6 @@ public class IngameViewController implements RootController {
 
     private void hoveredTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
     {
-        if(oldTile == newTile) {
-            return;
-        }
-
         if(oldTile != null && oldTile.getHighlightingTwo() != HighlightingTwo.SELECTED) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
             tileDrawer.drawTile(oldTile);
@@ -154,13 +150,6 @@ public class IngameViewController implements RootController {
 
     private void selectedTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
     {
-        logger.debug(String.valueOf(oldTile == newTile));
-        if(oldTile == newTile && oldTile != null) {
-            newTile.setHighlightingTwo(HighlightingTwo.NONE);
-            tileDrawer.drawTile(newTile);
-            selectedTile.set(null);
-        }
-
         if(oldTile != null) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
             tileDrawer.drawTile(oldTile);
@@ -222,14 +211,16 @@ public class IngameViewController implements RootController {
         logger.debug(String.valueOf(event.isDragDetect()));
         int xPos = (int) (event.getX()/CELL_SIZE);
         int yPos = (int) (event.getY()/CELL_SIZE);
-        selectedTile.set(tileMap[yPos][xPos]);
+        if(tileMap[yPos][xPos].equals(selectedTile.get())) {
+            selectedTile.set(null);
+            hoveredTile.set(null);
+        }
+        else{
+            selectedTile.set(tileMap[yPos][xPos]);
+        }
+
     }
-
-
-
-
-
-
+    
     public void leaveGame(ActionEvent actionEvent) {
         alertBuilder
                 .confirmation(
