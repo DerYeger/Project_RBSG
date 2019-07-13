@@ -109,8 +109,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
         JavaFXUtils.setButtonIcons(
                 endPhaseButton,
-                getClass().getResource("/assets/icons/operation/endPhaseButtonWhite.png"),
-                getClass().getResource("/assets/icons/operation/endPhaseButtonBlack.png"),
+                getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
+                getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
                 40
         );
         game = ingameGameProvider.get();
