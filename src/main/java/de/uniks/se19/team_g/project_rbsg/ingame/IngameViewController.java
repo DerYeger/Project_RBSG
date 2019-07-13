@@ -306,6 +306,10 @@ public class IngameViewController implements RootController {
     }
 
     public void endPhase(){
-
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.END_PHASE,
+                        this::doLeaveGame,
+                        null);
     }
 }
