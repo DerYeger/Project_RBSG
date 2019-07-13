@@ -11,46 +11,50 @@ public class Tile
 {
     private final Cell cell;
     private final Image backgroundImage;
-    private SimpleObjectProperty<TileHighlighting> highlighting;
-    private Unit unit;
+    private final Image deckoratorImage;
+    private HighlightingOne highlightingOne;
+    private HighlightingTwo highlightingTwo;
 
     public Tile(Cell cell) {
         this.cell = cell;
-        highlighting = new SimpleObjectProperty<>(TileHighlighting.NONE);
+        highlightingOne = HighlightingOne.NONE;
+        highlightingTwo = HighlightingTwo.NONE;
+
         backgroundImage = TileUtils.getBackgroundImage(cell);
-        unit = null;
+        //TODO: Add decorator to Tile Utils
+        deckoratorImage = null;
     }
 
-    public Unit getUnit()
-    {
-        return unit;
-    }
-
-    public void setUnit(Unit unit)
-    {
-        this.unit = unit;
-    }
-
-    public SimpleObjectProperty<TileHighlighting> highlightingProperty() {
-        return highlighting;
-    }
-
-    public TileHighlighting getHighlighting() {
-        return highlighting.get();
-    }
-
-    public void setHighlighting(TileHighlighting highlighting)
-    {
-        this.highlighting.set(highlighting);
-    }
-
-    public Image getBackgroundImage()
-    {
+    public Image getBackgroundImage() {
         return backgroundImage;
+    }
+
+    public HighlightingTwo getHighlightingTwo() {
+        return highlightingTwo;
+    }
+
+    public void setHighlightingTwo(HighlightingTwo highlightingTwo)
+    {
+        this.highlightingTwo = highlightingTwo;
     }
 
     public Cell getCell()
     {
         return cell;
+    }
+
+    public HighlightingOne getHighlightingOne()
+    {
+        return highlightingOne;
+    }
+
+    public void setHighlightingOne(HighlightingOne highlightingOne)
+    {
+        this.highlightingOne = highlightingOne;
+    }
+
+    public Image getDeckoratorImage()
+    {
+        return deckoratorImage;
     }
 }

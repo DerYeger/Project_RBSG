@@ -5,14 +5,15 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
-import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  * @author  Keanu Stückrad
+ * @author  Georg Siebert
  */
 @Scope("prototype")
 @Controller
@@ -55,7 +57,10 @@ public class IngameViewController implements RootController {
     private ObservableList<Unit> units;
 
     private int zoomFactor = 1;
+
     private TileDrawer tileDrawer;
+    private SimpleObjectProperty<Tile> selectedTile;
+    private SimpleObjectProperty<Tile> hoveredTile;
 
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
@@ -73,10 +78,12 @@ public class IngameViewController implements RootController {
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+        this.tileDrawer = new TileDrawer();
+        this.selectedTile = new SimpleObjectProperty<>(null);
+        this.hoveredTile = new SimpleObjectProperty<>(null);
     }
 
     public void initialize() {
-        this.tileDrawer = new TileDrawer();
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -112,50 +119,102 @@ public class IngameViewController implements RootController {
 
             for (Unit unit : units)
             {
-                tileMap[unit.getPosition().get().getY()][unit.getPosition().get().getX()].setUnit(unit);
-//                unit.getPosition().addListener(this::unitChangedPosition);
+                unit.getPosition().addListener(this::unitChangedPosition);
             }
 
             initCanvas();
         }
 
+
+        //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
-//        units.addListener((ListChangeListener<Unit>) c -> {
-//            unitListChanged(c);
-//        });
-//
-//        Unit unit = new Unit("Cool Id");
-//        unit.setPosition(tileMap[0][0].getCell());
-//        units.add(unit);
-//        unit.getPosition().addListener(this::unitChangedPosition);
-//        unit.setPosition(tileMap[0][0].getCell());
+
+        //Listener for unit list
+        units.addListener(this::unitListChanged);
+        selectedTile.addListener(this::selectedTileChanged);
+        hoveredTile.addListener(this::hoveredTileChanged);
+
+        Unit unit = new Unit("Cool Id");
+        Unit unitTwo = new Unit("Cooler Id");
+        Unit unitThree = new Unit("Coolest Id");
+        unit.setPosition(tileMap[0][0].getCell());
+        unitTwo.setPosition(tileMap[1][4].getCell());
+        unitThree.setPosition(tileMap[4][1].getCell());
+        units.add(unit);
+        units.add(unitTwo);
+        units.add(unitThree);
+        unit.getPosition().addListener(this::unitChangedPosition);
+        unitTwo.getPosition().addListener(this::unitChangedPosition);
+        unitThree.getPosition().addListener(this::unitChangedPosition);
+        unit.setPosition(tileMap[3][3].getCell());
+        unit.setPosition(tileMap[4][4].getCell());
+        unit.setPosition(tileMap[5][5].getCell());
+
     }
 
-//    private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
-//    {
-//        logger.debug("Hello");
-//    }
-//
-//    private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell object, Cell object1)
-//    {
-//        logger.debug("Hello");
-//    }
+    private void hoveredTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
+    {
+        if(oldTile == newTile) {
+            return;
+        }
+
+        if(oldTile != null && oldTile.getHighlightingTwo() != HighlightingTwo.SELECTED) {
+            oldTile.setHighlightingTwo(HighlightingTwo.NONE);
+            tileDrawer.drawTile(oldTile);
+        }
+
+        if(newTile != null && newTile.getHighlightingTwo() != HighlightingTwo.SELECTED) {
+            newTile.setHighlightingTwo(HighlightingTwo.HOVERED);
+            tileDrawer.drawTile(newTile);
+        }
+    }
+
+    private void selectedTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
+    {
+        if(oldTile == newTile) {
+            newTile.setHighlightingTwo(HighlightingTwo.NONE);
+            tileDrawer.drawTile(newTile);
+            selectedTile.set(null);
+        }
+
+        if(oldTile != null) {
+            oldTile.setHighlightingTwo(HighlightingTwo.NONE);
+            tileDrawer.drawTile(oldTile);
+        }
+
+        if(newTile != null) {
+            newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
+            tileDrawer.drawTile(newTile);
+        }
+    }
+
+    private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
+    {
+        logger.debug("Hello");
+    }
+
+
+    private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition)
+    {
+        tileDrawer.drawTile(tileMap[lastPosition.getY()][lastPosition.getX()]);
+        tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
+    }
 
 
 
     public void canvasHandleMouseMove(MouseEvent event) {
         int xPos = (int) (event.getX()/CELL_SIZE);
         int yPos = (int) (event.getY()/CELL_SIZE);
-        Tile hoveredTile = tileMap[yPos][xPos];
-        tileDrawer.drawTileHovered(hoveredTile);
+        hoveredTile.set(tileMap[yPos][xPos]);
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
-        int xPos = (int) (event.getX()/CELL_SIZE);
-        int yPos = (int) (event.getY()/CELL_SIZE);
-        Tile selectedTile = tileMap[yPos][xPos];
-        tileDrawer.drawTileSelected(selectedTile);
+        if(!event.isDragDetect()) {
+            int xPos = (int) (event.getX()/CELL_SIZE);
+            int yPos = (int) (event.getY()/CELL_SIZE);
+            selectedTile.set(tileMap[yPos][xPos]);
+        }
     }
 
     private void initCanvas() {

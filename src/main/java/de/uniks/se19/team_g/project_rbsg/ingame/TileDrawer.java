@@ -2,7 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.TileHighlighting;
+import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.HighlightingTwo;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -62,87 +62,38 @@ public class TileDrawer
         int y = tile.getCell().getY();
         double startX = x * CELL_SIZE;
         double startY = y * CELL_SIZE;
-        //Layer 0
+        //Layer 0 default layer
         graphicsContext.drawImage(grass, startX, startY);
-        //Layer 1
+        //Layer 1 biome layer
         graphicsContext.drawImage(tile.getBackgroundImage(), startX, startY);
-        //Layer 2
-        if (tile.getHighlighting() != TileHighlighting.NONE)
+        //Layer 2 decorator layer
+        if (tile.getDeckoratorImage() != null) {
+            graphicsContext.drawImage(tile.getDeckoratorImage(), startX, startY);
+        }
+        //Layer 3 Highlighting One -> Move and Attack
+
+
+        //Layer 4 Highlighting Two -> Hovering and Selecting
+        if (tile.getHighlightingTwo() != HighlightingTwo.NONE)
         {
-            if (tile.getHighlighting() == TileHighlighting.HOVERED)
+            if (tile.getHighlightingTwo() == HighlightingTwo.HOVERED)
             {
                 graphicsContext.setFill(transparentWhite);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
             }
-            if (tile.getHighlighting() == TileHighlighting.SELECTED)
+            if (tile.getHighlightingTwo() == HighlightingTwo.SELECTED)
             {
                 graphicsContext.setFill(selectedWhite);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
             }
         }
-        //Layer 3
-        if (tile.getUnit() != null)
+
+        //Layer 5
+        if (tile.getCell().getUnit().get() != null)
         {
             String imagePath = UnitTypeInfo.UNKNOWN.getImage().toExternalForm();
             Image unitImage = new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true);
             graphicsContext.drawImage(unitImage, startX, startY);
         }
     }
-
-    public void drawTileHovered(@NonNull Tile hoveredTile)
-    {
-        if (hoveredTile.getHighlighting() == TileHighlighting.HOVERED)
-        {
-            return;
-        }
-
-        if (hoveredTile.getHighlighting() == TileHighlighting.SELECTED)
-        {
-            if(lastHovered != null && !lastHovered.equals(hoveredTile)){
-                lastHovered.setHighlighting(TileHighlighting.NONE);
-                drawTile(lastHovered);
-            }
-            lastHovered = null;
-            return;
-        }
-
-        hoveredTile.setHighlighting(TileHighlighting.HOVERED);
-        drawTile(hoveredTile);
-
-        if (lastHovered != null && !hoveredTile.equals(lastHovered))
-        {
-            lastHovered.setHighlighting(TileHighlighting.NONE);
-            drawTile(lastHovered);
-        }
-
-        lastHovered = hoveredTile;
-    }
-
-    public void drawTileSelected(@NonNull Tile selectedTile)
-    {
-        if (selectedTile.getHighlighting() == TileHighlighting.SELECTED)
-        {
-            selectedTile.setHighlighting(TileHighlighting.NONE);
-            drawTileHovered(selectedTile);
-            lastSelected = null;
-            return;
-        }
-
-        selectedTile.setHighlighting(TileHighlighting.SELECTED);
-        drawTile(selectedTile);
-
-        if (lastSelected != null && !selectedTile.equals(lastSelected))
-        {
-            lastSelected.setHighlighting(TileHighlighting.NONE);
-            drawTile(lastSelected);
-        }
-
-        lastSelected = selectedTile;
-
-        if (selectedTile.equals(lastHovered))
-        {
-            lastHovered = null;
-        }
-    }
-
 }
