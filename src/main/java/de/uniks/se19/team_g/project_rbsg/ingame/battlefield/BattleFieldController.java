@@ -72,7 +72,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
-    private GameEventManager gameEventManager;
+    private IngameContext context;
 
     @Autowired
     public BattleFieldController(
@@ -85,7 +85,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
-        this.gameEventManager = gameEventManager;
         this.alertBuilder = alertBuilder;
     }
 
@@ -110,8 +109,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
         JavaFXUtils.setButtonIcons(
                 endPhaseButton,
-                getClass().getResource("/assets/icons/navigation/endPhaseButtonWhite.png"),
-                getClass().getResource("/assets/icons/navigation/endPhaseButtonBlack.png"),
+                getClass().getResource("/assets/icons/operation/endPhaseButtonWhite.png"),
+                getClass().getResource("/assets/icons/operation/endPhaseButtonBlack.png"),
                 40
         );
         game = ingameGameProvider.get();
@@ -316,12 +315,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         alertBuilder
                 .confirmation(
                         AlertBuilder.Text.END_PHASE,
-                        () -> this.gameEventManager.sendEndPhaseCommand(),
+                        () -> this.context.getGameEventManager().sendEndPhaseCommand(),
                         null);
     }
 
     @Override
     public void configure(@Nonnull IngameContext context) {
-
+        this.context = context;
     }
 }
