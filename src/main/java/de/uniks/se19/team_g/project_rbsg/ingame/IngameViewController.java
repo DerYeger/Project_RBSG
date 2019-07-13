@@ -125,7 +125,6 @@ public class IngameViewController implements RootController {
             initCanvas();
         }
 
-
         //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
@@ -134,23 +133,6 @@ public class IngameViewController implements RootController {
         units.addListener(this::unitListChanged);
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
-
-        Unit unit = new Unit("Cool Id");
-        Unit unitTwo = new Unit("Cooler Id");
-        Unit unitThree = new Unit("Coolest Id");
-        unit.setPosition(tileMap[0][0].getCell());
-        unitTwo.setPosition(tileMap[1][4].getCell());
-        unitThree.setPosition(tileMap[4][1].getCell());
-        units.add(unit);
-        units.add(unitTwo);
-        units.add(unitThree);
-        unit.getPosition().addListener(this::unitChangedPosition);
-        unitTwo.getPosition().addListener(this::unitChangedPosition);
-        unitThree.getPosition().addListener(this::unitChangedPosition);
-        unit.setPosition(tileMap[3][3].getCell());
-        unit.setPosition(tileMap[4][4].getCell());
-        unit.setPosition(tileMap[5][5].getCell());
-
     }
 
     private void hoveredTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
@@ -172,7 +154,8 @@ public class IngameViewController implements RootController {
 
     private void selectedTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
     {
-        if(oldTile == newTile) {
+        logger.debug(String.valueOf(oldTile == newTile));
+        if(oldTile == newTile && oldTile != null) {
             newTile.setHighlightingTwo(HighlightingTwo.NONE);
             tileDrawer.drawTile(newTile);
             selectedTile.set(null);
@@ -191,30 +174,30 @@ public class IngameViewController implements RootController {
 
     private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
     {
-        logger.debug("Hello");
+        if (c.next()) {
+            logger.debug(c.toString());
+            if (c.wasAdded()) {
+                for (int i = c.getFrom(); i < c.getTo(); i++)
+                {
+                    units.get(c.getFrom()).getPosition().addListener(this::unitChangedPosition);
+                }
+            }
+
+            if(c.wasRemoved()) {
+                for (Unit unit : c.getRemoved())
+                {
+                    unit.getPosition().removeListener(this::unitChangedPosition);
+                }
+            }
+        }
     }
 
 
     private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition)
     {
+//        logger.debug("Unit changed position");
         tileDrawer.drawTile(tileMap[lastPosition.getY()][lastPosition.getX()]);
         tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
-    }
-
-
-
-    public void canvasHandleMouseMove(MouseEvent event) {
-        int xPos = (int) (event.getX()/CELL_SIZE);
-        int yPos = (int) (event.getY()/CELL_SIZE);
-        hoveredTile.set(tileMap[yPos][xPos]);
-    }
-
-    public void canvasHandleMouseClicked(MouseEvent event) {
-        if(!event.isDragDetect()) {
-            int xPos = (int) (event.getX()/CELL_SIZE);
-            int yPos = (int) (event.getY()/CELL_SIZE);
-            selectedTile.set(tileMap[yPos][xPos]);
-        }
     }
 
     private void initCanvas() {
@@ -227,6 +210,19 @@ public class IngameViewController implements RootController {
 
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
+    }
+
+    public void canvasHandleMouseMove(MouseEvent event) {
+        int xPos = (int) (event.getX()/CELL_SIZE);
+        int yPos = (int) (event.getY()/CELL_SIZE);
+        hoveredTile.set(tileMap[yPos][xPos]);
+    }
+
+    public void canvasHandleMouseClicked(MouseEvent event) {
+        logger.debug(String.valueOf(event.isDragDetect()));
+        int xPos = (int) (event.getX()/CELL_SIZE);
+        int yPos = (int) (event.getY()/CELL_SIZE);
+        selectedTile.set(tileMap[yPos][xPos]);
     }
 
 

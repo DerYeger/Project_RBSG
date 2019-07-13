@@ -134,7 +134,7 @@ public class TileUtils
                 else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
                 else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
                 else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
-                else imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
+                else imagePath = UnitTypeInfo.UNKNOWN.getImage().toExternalForm();
 
         return imagePath;
     }

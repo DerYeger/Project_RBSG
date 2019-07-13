@@ -91,7 +91,7 @@ public class TileDrawer
         //Layer 5
         if (tile.getCell().getUnit().get() != null)
         {
-            String imagePath = UnitTypeInfo.UNKNOWN.getImage().toExternalForm();
+            String imagePath = TileUtils.getUnitImagePath(tile.getCell().getUnit().get().getUnitType());
             Image unitImage = new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true);
             graphicsContext.drawImage(unitImage, startX, startY);
         }
