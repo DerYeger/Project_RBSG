@@ -34,6 +34,7 @@ import static de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType.*;
 
 /**
  * @author  Keanu Stückrad
+ * @editor: Juri Lozowoj
  */
 @Scope("prototype")
 @Controller
@@ -49,6 +50,7 @@ public class IngameViewController implements RootController {
     public Button leaveButton;
     public Button zoomOutButton;
     public Button zoomInButton;
+    public Button endPhaseButton;
     public VBox root;
 
     private Canvas canvas;
@@ -96,6 +98,14 @@ public class IngameViewController implements RootController {
                 getClass().getResource("/assets/icons/navigation/zoomOutWhite.png"),
                 getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
                 40
+
+        );
+        JavaFXUtils.setButtonIcons(
+                endPhaseButton,
+                getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
+                getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
+                40
+
         );
         game = ingameGameProvider.get();
         if(game == null) {
@@ -295,4 +305,7 @@ public class IngameViewController implements RootController {
         }
     }
 
+    public void endPhase(){
+
+    }
 }
