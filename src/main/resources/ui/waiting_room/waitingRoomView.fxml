@@ -11,7 +11,8 @@
  !-->
 
 
-<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
+<?import javafx.scene.layout.VBox?>
+<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController">
    <children>
       <AnchorPane fx:id="root">
           <children>
@@ -19,11 +20,11 @@
                   <children>
                       <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" />
                       <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                      <Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#showInfo" styleClass="icon-button" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="10.0" />
-                      <Pane fx:id="player1Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0" />
-                      <Pane fx:id="player2Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="11.0" />
-                      <Pane fx:id="player3Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="258.0" />
-                      <Pane fx:id="player4Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="258.0" />
+                      <Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#debugGoToBattlefield" styleClass="icon-button" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="10.0" />
+                      <Pane fx:id="player1Pane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0" />
+                      <Pane fx:id="player2Pane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="11.0" />
+                      <Pane fx:id="player3Pane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="258.0" />
+                      <Pane fx:id="player4Pane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="258.0" />
                       <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
                           <children>
                               <Pane fx:id="miniGamePane" styleClass="mini-game-pane" StackPane.alignment="CENTER" />
@@ -39,7 +40,7 @@
               </AnchorPane>
               <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
                   <children>
-                      <Pane fx:id="armyBar" styleClass="army-pane" StackPane.alignment="CENTER_RIGHT" />
+                      <VBox fx:id="armySelector" styleClass="army-pane" StackPane.alignment="CENTER_RIGHT" />
                   </children>
               </StackPane>
           </children>

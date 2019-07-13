@@ -137,6 +137,7 @@ public class LoadArmiesTest {
     }
 
     @Test
+    @Ignore
     public void testLoading() throws ExecutionException, InterruptedException {
         File localArmiesFile = new File(System.getProperty("user.home") + "/.local/rbsg/testArmies.json");
         if(localArmiesFile.exists()){
@@ -185,6 +186,7 @@ public class LoadArmiesTest {
     }
 
     @Test
+    @Ignore
     public void testMergingOnline() throws ExecutionException, InterruptedException {
         File localArmiesFile = new File(System.getProperty("user.home") + "/.local/rbsg/testArmies.json");
         if(localArmiesFile.exists()){

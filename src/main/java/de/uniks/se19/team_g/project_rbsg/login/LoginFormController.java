@@ -104,6 +104,15 @@ public class LoginFormController implements Rincled
         addErrorFlag();
         loginButton.setDefaultButton(true);
         updateLabels();
+
+        final String rbsg_user = System.getenv("RBSG_USER");
+        final String rbsg_password = System.getenv("RBSG_PW");
+        if (rbsg_user != null) {
+            nameField.setText(rbsg_user);
+        }
+        if (rbsg_password != null) {
+            passwordField.setText(rbsg_password);
+        }
     }
 
     private void updateLabels()

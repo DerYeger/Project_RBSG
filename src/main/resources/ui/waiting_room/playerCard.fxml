@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -52,4 +53,8 @@
       <URL value="@waitingRoomView.css" />
       <URL value="@../darkTheme.css" />
    </stylesheets>
+   <styleClass>
+      <String fx:value="player-card" />
+      <String fx:value="inactive" />
+   </styleClass>
 </GridPane>

@@ -141,6 +141,8 @@ public class CreateGameController implements Rincled
             && this.numberOfPlayers != 0
         ){
             this.game = new Game(gameName.getText(), this.numberOfPlayers);
+            this.game.setCreator(userProvider.get());
+
             @SuppressWarnings("unchecked")
             final CompletableFuture<HashMap<String, Object>> gameRequestAnswerPromise = this.gameCreator.sendGameRequest(this.userProvider.get(), game);
             gameRequestAnswerPromise
@@ -166,7 +168,7 @@ public class CreateGameController implements Rincled
                     .thenRunAsync(
                         () -> {
                             gameProvider.set(game);
-                            sceneManager.setScene(SceneManager.SceneIdentifier.WAITING_ROOM, false, null);
+                            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
                         },
                         Platform::runLater
                     );
