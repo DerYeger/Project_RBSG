@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.*;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
@@ -37,7 +38,8 @@ import java.beans.*;
  */
 @Scope("prototype")
 @Controller
-public class BattleFieldController implements RootController, IngameViewController {
+public class BattleFieldController implements RootController, IngameViewController, Terminable
+{
 
     private static final double CELL_SIZE = 64;
     private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH/2;
@@ -274,5 +276,24 @@ public class BattleFieldController implements RootController, IngameViewControll
     @Override
     public void configure(@Nonnull IngameContext context) {
 
+    }
+
+    @Override
+    public void terminate()
+    {
+        selectedTile.removeListener(this::selectedTileChanged);
+        hoveredTile.removeListener(this::hoveredTileChanged);
+        for (Tile[] tileArray : tileMap)
+        {
+            for (Tile tile : tileArray)
+            {
+                tile.removeListener(this::highlightingChanged);
+            }
+        }
+
+        for (Unit unit : units)
+        {
+            unit.getPosition().removeListener(this::unitChangedPosition);
+        }
     }
 }
