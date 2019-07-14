@@ -200,10 +200,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
-    public void debugGoToBattlefield() {
-        // TODO: to consider
-    }
-
     public void leaveRoom() {
         alertBuilder
                 .confirmation(
