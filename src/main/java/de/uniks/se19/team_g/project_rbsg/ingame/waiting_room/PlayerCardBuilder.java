@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -83,8 +84,10 @@ public class PlayerCardBuilder {
         Platform.runLater(()-> playerListCellLabel.setText("Waiting for\nplayer..."));
         Platform.runLater(()-> progressIndicator.setVisible(true));
         Platform.runLater(()-> playerListCellImageView.setVisible(false));
-        playerListCellLabel.getStyleClass().remove("player");
-        playerListCellLabel.getStyleClass().add("waiting");
+        final ObservableList<String> styles = playerListCellLabel.getStyleClass();
+        styles.remove("player");
+        styles.remove("waiting");
+        styles.add("waiting");
         onPlayerChangedReadyState = null;
     }
 
