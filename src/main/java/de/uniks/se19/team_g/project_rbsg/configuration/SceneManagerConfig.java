@@ -2,10 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameRootController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.login.StartViewController;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController;
 import javafx.fxml.FXMLLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,15 +41,8 @@ public class SceneManagerConfig {
 
     @Bean
     @Scope("prototype")
-    public ViewComponent<WaitingRoomViewController> waitingRoomScene(@NonNull final FXMLLoader fxmlLoader) {
-        fxmlLoader.setLocation(getClass().getResource("/ui/waiting_room/waitingRoomView.fxml"));
-        return ViewComponent.fromLoader(fxmlLoader);
-    }
-
-    @Bean
-    @Scope("prototype")
-    public ViewComponent<IngameViewController> ingameScene(@NonNull final FXMLLoader fxmlLoader) {
-        fxmlLoader.setLocation(getClass().getResource("/ui/ingame/ingameView.fxml"));
+    public ViewComponent<IngameRootController> ingameScene(@NonNull final FXMLLoader fxmlLoader) {
+        fxmlLoader.setLocation(getClass().getResource("/ui/ingame/ingameRootView.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 }
