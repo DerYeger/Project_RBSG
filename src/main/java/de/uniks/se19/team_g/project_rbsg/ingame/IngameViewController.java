@@ -119,6 +119,7 @@ public class IngameViewController implements RootController {
 
             for (Unit unit : units)
             {
+                //Adds listener for units which are already in the list
                 unit.getPosition().addListener(this::unitChangedPosition);
             }
 
@@ -184,9 +185,12 @@ public class IngameViewController implements RootController {
 
     private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition)
     {
-//        logger.debug("Unit changed position");
-        tileDrawer.drawTile(tileMap[lastPosition.getY()][lastPosition.getX()]);
-        tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
+        if(lastPosition != null) {
+            tileDrawer.drawTile(tileMap[lastPosition.getY()][lastPosition.getX()]);
+        }
+        if(newPosition != null) {
+            tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
+        }
     }
 
     private void initCanvas() {
@@ -208,7 +212,6 @@ public class IngameViewController implements RootController {
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
-        logger.debug(String.valueOf(event.isDragDetect()));
         int xPos = (int) (event.getX()/CELL_SIZE);
         int yPos = (int) (event.getY()/CELL_SIZE);
         if(tileMap[yPos][xPos].equals(selectedTile.get())) {
