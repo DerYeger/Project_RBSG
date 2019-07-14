@@ -53,7 +53,7 @@ public class ModelManagerTests {
 
         assertNotNull(player);
         assertEquals("Player@1", player.getId());
-        assertEquals(game, player.getGame());
+        assertEquals(game, player.getCurrentGame());
         assertEquals("ggEngineering", player.getName());
         assertEquals("RED", player.getColor());
         assertEquals(2, player.getUnits().size());
@@ -166,6 +166,6 @@ public class ModelManagerTests {
         modelManager.handle(mapper.readValue(removePlayerFromGame, ObjectNode.class));
 
         assertTrue(game.getPlayers().isEmpty());
-        assertNull(player.getGame());
+        assertNull(player.getCurrentGame());
     }
 }

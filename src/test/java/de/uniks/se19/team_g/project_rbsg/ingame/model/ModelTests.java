@@ -60,7 +60,7 @@ public class ModelTests {
                 .setColor(BLUE);
 
         game.withPlayers(null, alice);
-        bob.setGame(game);
+        bob.setCurrentGame(game);
 
         final Collection<UnitType> canAttack = Arrays.asList(UnitType.CHOPPER, UnitType.JEEP);
 
@@ -99,8 +99,8 @@ public class ModelTests {
         assertTrue(game.getCells().containsAll(Arrays.asList(forest, grass, mountain, water)));
         assertEquals(4, game.getCells().size());
 
-        assertEquals(game, alice.getGame());
-        assertEquals(game, bob.getGame());
+        assertEquals(game, alice.getCurrentGame());
+        assertEquals(game, bob.getCurrentGame());
         assertEquals(game, forest.getGame());
         assertEquals(game, grass.getGame());
         assertEquals(game, mountain.getGame());
@@ -169,13 +169,13 @@ public class ModelTests {
         assertNull(water.getBottomRight());
         assertNull(water.getBottomLeft());
 
-        assertEquals(game, alice.getGame());
+        assertEquals(game, alice.getCurrentGame());
         assertEquals(ALICE, alice.getName());
         assertEquals(RED, alice.getColor());
         assertTrue(alice.getUnits().containsAll(Arrays.asList(aliceChopper5And10, aliceJeep1And5)));
         assertEquals(2, alice.getUnits().size());
 
-        assertEquals(game, bob.getGame());
+        assertEquals(game, bob.getCurrentGame());
         assertEquals(BOB, bob.getName());
         assertEquals(BLUE, bob.getColor());
         assertTrue(bob.getUnits().contains(bobChopper10And10));
@@ -271,8 +271,8 @@ public class ModelTests {
         assertNull(mountain.getGame());
         assertNull(water.getGame());
 
-        assertNull(alice.getGame());
-        assertNull(bob.getGame());
+        assertNull(alice.getCurrentGame());
+        assertNull(bob.getCurrentGame());
 
         assertNull(aliceChopper5And10.getGame());
         assertNull(aliceJeep1And5.getGame());
