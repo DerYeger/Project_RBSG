@@ -150,12 +150,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 ICON_SIZE
         );
-        JavaFXUtils.setButtonIcons(
-                showInfoButton,
-                getClass().getResource("/assets/icons/navigation/infoWhite.png"),
-                getClass().getResource("/assets/icons/navigation/infoBlack.png"),
-                ICON_SIZE
-        );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
     }
