@@ -22,15 +22,6 @@ public class ArmySelectorCellController extends ListCell<Army> implements Initia
     public Node root;
     public ImageView imageView;
 
-    @Nullable
-    private final ApplicationState appState;
-
-    public ArmySelectorCellController(
-        @Nullable ApplicationState appState
-    ) {
-        this.appState = appState;
-    }
-
     @Override
     protected void updateItem(Army item, boolean empty) {
         super.updateItem(item, empty);
@@ -50,14 +41,5 @@ public class ArmySelectorCellController extends ListCell<Army> implements Initia
     public void initialize(URL location, ResourceBundle resources) {
         setText(null);
         setGraphic(null);
-    }
-
-
-
-    public void onItemClicked(MouseEvent mouseEvent) {
-        if (appState == null) {
-            return;
-        }
-        appState.selectedArmy.set(getItem());
     }
 }

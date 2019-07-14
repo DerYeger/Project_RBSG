@@ -90,7 +90,7 @@ public class OpenCreateGameFormularTest extends ApplicationTest
         {
             final ApplicationState appState = new ApplicationState();
             // must be valid for createGame to be selectable
-            appState.validArmySelected.set(true);
+            appState.hasPlayableArmies.set(true);
 
             return appState;
         }

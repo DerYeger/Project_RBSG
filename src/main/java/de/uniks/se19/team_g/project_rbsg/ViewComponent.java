@@ -2,11 +2,15 @@ package de.uniks.se19.team_g.project_rbsg;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
 public class ViewComponent<T> {
+
+    private static Logger logger = LoggerFactory.getLogger(ViewComponent.class);
 
     private final Node root;
 
@@ -31,6 +35,7 @@ public class ViewComponent<T> {
         try {
             loader.load();
         } catch (IOException e) {
+            logger.error("failed to load component", e);
             throw new RuntimeException(e);
         }
 

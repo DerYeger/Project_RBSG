@@ -17,6 +17,8 @@ public class Game
     private int neededPlayer;
     private SimpleIntegerProperty joinedPlayer;
 
+    private User creator;
+
     public Game(String id, String name, String imagePath, int neededPlayer, int joinedPlayer)
     {
         this.id = id;
@@ -87,5 +89,13 @@ public class Game
     public SimpleIntegerProperty getJoinedPlayerProperty()
     {
         return this.joinedPlayer;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }
