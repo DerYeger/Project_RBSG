@@ -86,7 +86,7 @@ public class PlayerCardBuilder {
         Platform.runLater(()-> playerListCellImageView.setVisible(false));
         final ObservableList<String> styles = playerListCellLabel.getStyleClass();
         styles.remove("player");
-        styles.remove("waiting");
+        styles.remove("ready");
         styles.add("waiting");
         onPlayerChangedReadyState = null;
     }
