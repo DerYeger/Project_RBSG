@@ -30,6 +30,7 @@ import java.io.IOException;
  */
 public class PlayerCardBuilder {
 
+    public static final String READY_STYLE = "ready";
     public Label playerListCellLabel;
     public ImageView playerListCellImageView;
     public StackPane playerStackPane;
@@ -81,13 +82,13 @@ public class PlayerCardBuilder {
 
     private void setEmpty() {
         isEmpty = true;
-        Platform.runLater(()-> playerListCellLabel.setText("Waiting for\nplayer..."));
-        Platform.runLater(()-> progressIndicator.setVisible(true));
-        Platform.runLater(()-> playerListCellImageView.setVisible(false));
         final ObservableList<String> styles = playerListCellLabel.getStyleClass();
+        playerCardView.getStyleClass().remove(READY_STYLE);
         styles.remove("player");
-        styles.remove("ready");
         styles.add("waiting");
+        playerListCellLabel.setText("Waiting for\nplayer...");
+        progressIndicator.setVisible(true);
+        playerListCellImageView.setVisible(false);
         onPlayerChangedReadyState = null;
     }
 
@@ -171,10 +172,10 @@ public class PlayerCardBuilder {
 
     private void onPlayerChangedReadyState(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
         if (newValue) {
-            playerCardView.getStyleClass().add("ready");
+            playerCardView.getStyleClass().add(READY_STYLE);
             playerListCellImageView.setImage(blackAccountImage);
         } else {
-            playerCardView.getStyleClass().remove("ready");
+            playerCardView.getStyleClass().remove(READY_STYLE);
             playerListCellImageView.setImage(whiteAccountImage);
         }
     }
