@@ -1,6 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.ingame;
+package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.uiModel.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
 import javafx.scene.canvas.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;

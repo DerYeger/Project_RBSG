@@ -1,15 +1,11 @@
-package de.uniks.se19.team_g.project_rbsg.ingame;
+package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.BiomUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.ForestUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.MountainUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.cells_url.WaterUrls;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType;
-import javafx.scene.image.Image;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import javafx.scene.image.*;
 
-import static de.uniks.se19.team_g.project_rbsg.waiting_room.model.UnitType.*;
+import static de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType.*;
 
 /**
  * @author Keanu Stückrad

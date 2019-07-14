@@ -1,9 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.ingame.uiModel;
+package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.TileUtils;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
-import javafx.beans.property.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TileUtils;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import javafx.scene.image.Image;
 
 import java.beans.*;
