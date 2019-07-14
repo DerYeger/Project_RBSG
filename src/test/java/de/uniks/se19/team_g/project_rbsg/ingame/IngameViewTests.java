@@ -234,10 +234,9 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
 
         game.getUnits().get(0).setPosition(gameProvider.get().getCells().get(12));
 
-
-        sleep(10000);
-
         clickOn(100, 100, Motion.DIRECT);
+        clickOn(150, 125, Motion.DIRECT);
+        clickOn(50, 125, Motion.DIRECT);
     }
 
     @Override
