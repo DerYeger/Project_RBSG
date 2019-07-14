@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import org.junit.Assert;
@@ -77,5 +78,26 @@ public class GameEventManagerTests {
                 .addHandler(testGameEventHandler)
                 .handle(message);
         Assert.assertEquals(message, testGameEventHandler.handledMessage.toString());
+    }
+
+
+    @Test
+    public void testSendEndPhaseCommand(){
+
+        GameEventManager gameEventManager = new GameEventManager(new WebSocketClient() {
+            ObjectNode objectNode = new ObjectMapper()
+                    .createObjectNode()
+                    .put("messageType", "command")
+                    .put("action", "nextPhase");
+
+            @Override
+            public void sendMessage(final Object message) {
+                Assert.assertEquals(objectNode, message);
+            }
+        });
+
+
+        gameEventManager.sendEndPhaseCommand();
+
     }
 }

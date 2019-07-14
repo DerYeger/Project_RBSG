@@ -1,31 +1,30 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.WaterUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.ForestUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
-import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.MountainUrls;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             @NonNull final IngameGameProvider ingameGameProvider,
             @NonNull final GameProvider gameProvider,
             @NonNull final SceneManager sceneManager,
-            @NonNull final GameEventManager gameEventManager,
             @NonNull final AlertBuilder alertBuilder
     ) {
         this.ingameGameProvider = ingameGameProvider;

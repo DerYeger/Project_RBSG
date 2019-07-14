@@ -4,15 +4,21 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.alert.ConfirmationAlertController;
+import de.uniks.se19.team_g.project_rbsg.alert.InfoAlertController;
+import de.uniks.se19.team_g.project_rbsg.configuration.AlertConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import javafx.scene.Node;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -25,15 +31,21 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Locale;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author  Keanu Stückrad
@@ -44,15 +56,28 @@ import java.io.IOException;
         IngameViewTests.ContextConfiguration.class,
         BattleFieldController.class,
         IngameConfig.class,
+        IngameContext.class,
         GameEventManager.class,
+        InfoAlertController.class,
+        ConfirmationAlertController.class,
+        AlertConfig.class,
         AlertBuilder.class
 })
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class IngameViewTests extends ApplicationTest implements ApplicationContextAware {  // TODO Online Test ? for better coverage
 
+    private ApplicationContext context;
 
+    @Override
+    public void setApplicationContext(@NonNull final ApplicationContext context) throws BeansException {
+        this.context = context;
+    }
 
     @TestConfiguration
-    static class ContextConfiguration {
+    static class ContextConfiguration implements ApplicationContextAware {
+
+        private ApplicationContext context;
+
         @Bean
         public IngameGameProvider ingameGameProvider() {
             return new IngameGameProvider(){
@@ -160,23 +185,34 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
                 }
             };
         }
+
+        @Override
+        public void setApplicationContext(@NonNull final ApplicationContext context) throws BeansException {
+            this.context = context;
+        }
+
+        @Bean
+        @Scope("prototype")
+        public FXMLLoader fxmlLoader()
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(this.context::getBean);
+            return fxmlLoader;
+        }
     }
-
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
-        this.applicationContext = applicationContext;
-    }
-
 
     private Scene scene;
 
+    private SceneManager sceneManager;
+
     @Override
     public void start(@NonNull final Stage stage) {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
+        Rincl.setLocale(Locale.ENGLISH);
+        sceneManager = context.getBean(SceneManager.class);
+        sceneManager.init(stage);
         @SuppressWarnings("unchecked")
-        final Scene buffer = new Scene(((ViewComponent<RootController>) applicationContext.getBean("battleFieldScene")).getRoot());
+        final Scene buffer = new Scene(((ViewComponent<RootController>) context.getBean("battleFieldScene")).getRoot());
         scene = buffer;
         stage.setScene(scene);
         stage.setX(0);
@@ -186,13 +222,22 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
 
     @Test
     public void testBuildIngameView() {
-        Node ingameView = scene.getRoot();
-        Assert.assertNotNull(ingameView);
+
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
         Button leave = lookup("#leaveButton").query();
         Assert.assertNotNull(leave);
         clickOn("#leaveButton");
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        final Button cancel = lookup("#cancel").queryButton();
+        assertNotNull(cancel);
+
+        WaitForAsyncUtils.waitForFxEvents();
+        clickOn(cancel);
+        WaitForAsyncUtils.waitForFxEvents();
+
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
         clickOn("#zoomOutButton");
@@ -203,10 +248,21 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn("#zoomInButton");
         clickOn("#zoomInButton");
         clickOn("#zoomOutButton");
+
+        Button endPhase = lookup("#endPhaseButton").query();
+        Assert.assertNotNull(endPhase);
+        clickOn(endPhase);
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Button confirm = lookup("#confirm").query();
+        assertNotNull(confirm);
     }
 
     @Override
     public void stop() throws Exception {
         scene.getWindow().centerOnScreen();
     }
+
+
 }
