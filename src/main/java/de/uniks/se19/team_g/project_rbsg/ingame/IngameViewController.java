@@ -29,6 +29,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
+import java.beans.*;
+
 /**
  * @author  Keanu Stückrad
  * @author  Georg Siebert
@@ -115,6 +117,7 @@ public class IngameViewController implements RootController {
             for (Cell cell : cells)
             {
                 tileMap[cell.getY()][cell.getX()] = new Tile(cell);
+                tileMap[cell.getY()][cell.getX()].addListener(this::highlightingChanged);
             }
 
             for (Unit unit : units)
@@ -136,16 +139,20 @@ public class IngameViewController implements RootController {
         hoveredTile.addListener(this::hoveredTileChanged);
     }
 
+    private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
+    {
+        Tile tile = (Tile) propertyChangeEvent.getOldValue();
+        tileDrawer.drawTile(tile);
+    }
+
     private void hoveredTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
     {
         if(oldTile != null && oldTile.getHighlightingTwo() != HighlightingTwo.SELECTED) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
-            tileDrawer.drawTile(oldTile);
         }
 
         if(newTile != null && newTile.getHighlightingTwo() != HighlightingTwo.SELECTED) {
             newTile.setHighlightingTwo(HighlightingTwo.HOVERED);
-            tileDrawer.drawTile(newTile);
         }
     }
 
@@ -153,12 +160,10 @@ public class IngameViewController implements RootController {
     {
         if(oldTile != null) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
-            tileDrawer.drawTile(oldTile);
         }
 
         if(newTile != null) {
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
-            tileDrawer.drawTile(newTile);
         }
     }
 

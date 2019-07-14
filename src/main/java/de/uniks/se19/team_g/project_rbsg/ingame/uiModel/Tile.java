@@ -3,8 +3,10 @@ package de.uniks.se19.team_g.project_rbsg.ingame.uiModel;
 import de.uniks.se19.team_g.project_rbsg.ingame.TileUtils;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Unit;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
+
+import java.beans.*;
 
 /**
  * @author Georg Siebert
@@ -17,6 +19,16 @@ public class Tile
     private final Image deckoratorImage;
     private HighlightingOne highlightingOne;
     private HighlightingTwo highlightingTwo;
+
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public void removeListener(PropertyChangeListener listener) {
+        pcs.removePropertyChangeListener(listener);
+    }
+
+    public void addListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
+    }
 
     public Tile(Cell cell) {
         this.cell = cell;
@@ -39,6 +51,9 @@ public class Tile
     public void setHighlightingTwo(HighlightingTwo highlightingTwo)
     {
         this.highlightingTwo = highlightingTwo;
+
+        //Abusing property changed
+        pcs.firePropertyChange("HighlightingTwo", this, this.highlightingTwo);
     }
 
     public Cell getCell()
@@ -54,6 +69,10 @@ public class Tile
     public void setHighlightingOne(HighlightingOne highlightingOne)
     {
         this.highlightingOne = highlightingOne;
+
+        //Abusing property changed
+
+        pcs.firePropertyChange("HighlightingOne", this, this.highlightingOne);
     }
 
     public Image getDeckoratorImage()
