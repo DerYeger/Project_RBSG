@@ -1,10 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import javafx.scene.canvas.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.*;
 import org.slf4j.*;
+
+import java.util.*;
 
 /**
  * @author Georg Siebert
@@ -22,11 +25,19 @@ public class TileDrawer
     private GraphicsContext graphicsContext;
     private Tile lastHovered;
     private Tile lastSelected;
+    private HashMap<UnitType, Image> unitImagesMap;
 
     public TileDrawer()
     {
         lastHovered = null;
         lastSelected = null;
+        unitImagesMap = new HashMap<>();
+
+        for (UnitType type :UnitType.values())
+        {
+            Image image = new Image(TileUtils.getUnitImagePath(type), CELL_SIZE, CELL_SIZE, false ,true);
+            unitImagesMap.put(type, image);
+        }
     }
 
     public Canvas getCanvas()
@@ -86,9 +97,9 @@ public class TileDrawer
         //Layer 5
         if (tile.getCell().getUnit().get() != null)
         {
-            String imagePath = TileUtils.getUnitImagePath(tile.getCell().getUnit().get().getUnitType());
-            Image unitImage = new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true);
-            graphicsContext.drawImage(unitImage, startX, startY);
+//            String imagePath = TileUtils.getUnitImagePath(tile.getCell().getUnit().get().getUnitType());
+//            Image unitImage = new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true);
+            graphicsContext.drawImage(unitImagesMap.get(tile.getCell().getUnit().get().getUnitType()), startX, startY);
         }
     }
 }
