@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
@@ -18,6 +19,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +28,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,6 +36,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import static de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType.*;
 
@@ -53,7 +57,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button leaveButton;
     public Button zoomOutButton;
     public Button zoomInButton;
+
     public Button endPhaseButton;
+    public Pane endPhaseButtonContainer;
+
     public VBox root;
 
     private Canvas canvas;
@@ -69,21 +76,28 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
+    private final UserProvider userProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private IngameContext context;
+
+    private final ApplicationState appState;
 
     @Autowired
     public BattleFieldController(
             @NonNull final IngameGameProvider ingameGameProvider,
             @NonNull final GameProvider gameProvider,
             @NonNull final SceneManager sceneManager,
-            @NonNull final AlertBuilder alertBuilder
+            @NonNull final AlertBuilder alertBuilder,
+            @NonNull final UserProvider userProvider,
+            @Nullable final ApplicationState appState
     ) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+        this.userProvider = userProvider;
+        this.appState = appState;
     }
 
     public void initialize() {
@@ -122,6 +136,19 @@ public class BattleFieldController implements RootController, IngameViewControll
             canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
         }
+        /*
+        if (userProvider.get().getName() != ingameGameProvider.get().getCurrentPlayer().getName()){
+            JavaFXUtils.bindButtonDisableWithTooltip(
+                    endPhaseButton,
+                    endPhaseButtonContainer,
+                    new SimpleStringProperty(Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired")),
+                    appState.meIsCurrentPlayer
+                    );
+
+
+        }
+        */
+
     }
 
     private void initCanvas() {
