@@ -6,11 +6,10 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -28,6 +27,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.robot.*;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,12 +55,19 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         @Bean
         public IngameGameProvider ingameGameProvider() {
             return new IngameGameProvider(){
+
+                private Game inGame;
+
                 @Override
                 public Game get(){
-                    Game game = new Game("game");
+                    if(inGame != null) {
+                        return inGame;
+                    }
+
+                    Game game = new Game("AmazingGame24");
                     BufferedReader in = null;
                     try {
-                        String path = "game.txt";
+                        String path = "Game.txt";
                         in = new BufferedReader(new FileReader(new File(path)));
                         String zeile = null;
                         while ((zeile = in.readLine()) != null) {
@@ -135,6 +143,20 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
                             } catch (IOException e) {
                             }
                     }
+
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Unit unit = new Unit(String.valueOf(i));
+                        unit.setGame(game);
+                        unit.setPosition(game.getCells().get(i));
+                        unit.setHp(10);
+                        unit.setMp(10);
+                        unit.setUnitType(UnitType.CHOPPER);
+                    }
+                    if(inGame == null) {
+                        inGame = game;
+                    }
                     return game;
                 }
             };
@@ -201,6 +223,22 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn("#zoomInButton");
         clickOn("#zoomInButton");
         clickOn("#zoomOutButton");
+
+
+        IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
+        Game game = gameProvider.get();
+        Unit unit = new Unit("10");
+        unit.setHp(10);
+        unit.setMp(10);
+        unit.setUnitType(UnitType.CHOPPER);
+        unit.setGame(game);
+        unit.setPosition(game.getCells().get(11));
+
+        game.getUnits().get(0).setPosition(gameProvider.get().getCells().get(12));
+
+        clickOn(100, 100, Motion.DIRECT);
+        clickOn(150, 125, Motion.DIRECT);
+        clickOn(50, 125, Motion.DIRECT);
     }
 
     @Override
