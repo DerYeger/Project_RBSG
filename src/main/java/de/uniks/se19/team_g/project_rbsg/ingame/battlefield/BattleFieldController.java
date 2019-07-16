@@ -186,6 +186,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         hoveredTile.addListener(this::hoveredTileChanged);
         playerListController=new PlayerListController(game);
         playerBar.setVisible(false);
+        ingameField.setPickOnBounds(false);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)

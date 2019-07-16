@@ -76,7 +76,7 @@
             </HBox>
             <StackPane fx:id="ingameField">
                <children>
-                  <HBox fx:id="playerBar" alignment="TOP_CENTER" layoutY="100.0" prefHeight="100.0" prefWidth="200.0">
+                  <HBox fx:id="playerBar" alignment="TOP_CENTER" layoutY="100.0" maxHeight="100.0" prefHeight="100.0" StackPane.alignment="TOP_CENTER">
                      <children>
                         <Pane fx:id="player1" prefHeight="100.0" prefWidth="200.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
                         <Pane HBox.hgrow="ALWAYS" />
