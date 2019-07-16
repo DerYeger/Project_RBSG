@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
@@ -19,6 +20,7 @@ import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
@@ -36,6 +38,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 
 import java.beans.*;
+import java.util.ArrayList;
 
 /**
  * @author  Keanu Stückrad
@@ -163,6 +166,19 @@ public class BattleFieldController implements RootController, IngameViewControll
         //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
+
+        ArrayList<Pane> playerCardList = new ArrayList<Pane>();
+        playerCardList.add(player1);
+        playerCardList.add(player2);
+        playerCardList.add(player3);
+        playerCardList.add(player4);
+
+        playerListController=new PlayerListController(this.game);
+        int counter=0;
+        for(Player player : this.game.getPlayers()){
+            playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            counter++;
+        }
 
         //Listener for unit list
         units.addListener(this::unitListChanged);
