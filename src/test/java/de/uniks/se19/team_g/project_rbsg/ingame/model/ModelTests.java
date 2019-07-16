@@ -183,7 +183,7 @@ public class ModelTests {
 
         assertEquals(game, aliceChopper5And10.getGame());
         assertEquals(alice, aliceChopper5And10.getLeader());
-        assertEquals(water, aliceChopper5And10.getPosition().get());
+        assertEquals(water, aliceChopper5And10.positionProperty().get());
         assertEquals(UnitType.CHOPPER, aliceChopper5And10.getUnitType());
         assertEquals(5, aliceChopper5And10.getMp());
         assertEquals(10, aliceChopper5And10.getHp());
@@ -191,7 +191,7 @@ public class ModelTests {
 
         assertEquals(game, aliceJeep1And5.getGame());
         assertEquals(alice, aliceJeep1And5.getLeader());
-        assertEquals(grass, aliceJeep1And5.getPosition().get());
+        assertEquals(grass, aliceJeep1And5.positionProperty().get());
         assertEquals(UnitType.JEEP, aliceJeep1And5.getUnitType());
         assertEquals(1, aliceJeep1And5.getMp());
         assertEquals(5, aliceJeep1And5.getHp());
@@ -199,7 +199,7 @@ public class ModelTests {
 
         assertEquals(game, bobChopper10And10.getGame());
         assertEquals(bob, bobChopper10And10.getLeader());
-        assertEquals(mountain, bobChopper10And10.getPosition().get());
+        assertEquals(mountain, bobChopper10And10.positionProperty().get());
         assertEquals(UnitType.CHOPPER, bobChopper10And10.getUnitType());
         assertEquals(10, bobChopper10And10.getMp());
         assertEquals(10, bobChopper10And10.getHp());
@@ -219,7 +219,7 @@ public class ModelTests {
 
         assertNull(aliceJeep1And5.getGame());
         assertNull(aliceJeep1And5.getLeader());
-        assertNull(aliceJeep1And5.getPosition().get());
+        assertNull(aliceJeep1And5.positionProperty().get());
         assertEquals(UnitType.JEEP, aliceJeep1And5.getUnitType());
         assertEquals(1, aliceJeep1And5.getMp());
         assertEquals(5, aliceJeep1And5.getHp());

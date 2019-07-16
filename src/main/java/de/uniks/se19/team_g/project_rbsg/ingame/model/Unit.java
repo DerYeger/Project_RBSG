@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -46,8 +47,12 @@ public class Unit {
         return leader;
     }
 
-    public SimpleObjectProperty<Cell> getPosition() {
+    public ReadOnlyObjectProperty<Cell> positionProperty() {
         return position;
+    }
+
+    public Cell getPosition() {
+        return position.get();
     }
 
     public UnitType getUnitType() {

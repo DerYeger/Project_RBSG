@@ -71,7 +71,7 @@ public class MovementEvaluatorTest {
         final List<Cell> pathTo0_3 = tourTo0_3.getPath();
         Assert.assertEquals( 2L, pathTo0_3.size());
         Assert.assertSame( cells[0][2], pathTo0_3.get(0));
-        Assert.assertSame( tourTo0_3.getTarget(), tourTo0_3.getPath().get(0));
+        Assert.assertSame( tourTo0_3.getTarget(), tourTo0_3.getPath().get(1));
 
         // do not move through obstacles
         final Tour tourTo2_1 = tours.get(cells[2][1]);

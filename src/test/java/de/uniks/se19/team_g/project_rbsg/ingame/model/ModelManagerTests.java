@@ -139,8 +139,8 @@ public class ModelManagerTests {
         assertNull(water.getBottom());
         assertEquals(chopper, water.getUnit().get());
 
-        assertEquals(water, chopper.getPosition().get());
-        assertEquals(grass, jeep.getPosition().get());
+        assertEquals(water, chopper.positionProperty().get());
+        assertEquals(grass, jeep.positionProperty().get());
 
         final String removeFirstUnitFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Game@1\",\"fieldName\":\"allUnits\"}}";
         final String removeFirstUnitFromPlayer = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Player@1\",\"fieldName\":\"army\"}}";
@@ -158,7 +158,7 @@ public class ModelManagerTests {
 
         modelManager.handle(mapper.readValue(removeFirstUnitFromCell, ObjectNode.class));
 
-        assertNull(chopper.getPosition().get());
+        assertNull(chopper.positionProperty().get());
         assertNull(water.getUnit().get());
 
         final String removePlayerFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Player@1\",\"from\":\"Game@1\",\"fieldName\":\"allPlayer\"}}";

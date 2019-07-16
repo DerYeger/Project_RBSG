@@ -127,7 +127,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             for (Unit unit : units)
             {
                 //Adds listener for units which are already in the list
-                unit.getPosition().addListener(this::unitChangedPosition);
+                unit.positionProperty().addListener(this::unitChangedPosition);
             }
 
             initCanvas();
@@ -178,14 +178,14 @@ public class BattleFieldController implements RootController, IngameViewControll
             if (c.wasAdded()) {
                 for (int i = c.getFrom(); i < c.getTo(); i++)
                 {
-                    units.get(c.getFrom()).getPosition().addListener(this::unitChangedPosition);
+                    units.get(c.getFrom()).positionProperty().addListener(this::unitChangedPosition);
                 }
             }
 
             if(c.wasRemoved()) {
                 for (Unit unit : c.getRemoved())
                 {
-                    unit.getPosition().removeListener(this::unitChangedPosition);
+                    unit.positionProperty().removeListener(this::unitChangedPosition);
                 }
             }
         }
@@ -293,7 +293,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         for (Unit unit : units)
         {
-            unit.getPosition().removeListener(this::unitChangedPosition);
+            unit.positionProperty().removeListener(this::unitChangedPosition);
         }
     }
 }
