@@ -6,9 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
@@ -35,8 +32,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.robot.Motion;
 import org.testfx.util.WaitForAsyncUtils;
-
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -75,7 +72,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
                     Game game = new Game("AmazingGame24");
                     BufferedReader in = null;
                     try {
-                        String path = "Game.txt";
+                        String path = "game.txt";
                         in = new BufferedReader(new FileReader(new File(path)));
                         String zeile = null;
                         while ((zeile = in.readLine()) != null) {
@@ -250,8 +247,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         Assert.assertNotNull(endPhaseButton);
 
 
-        IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
-        Game game = gameProvider.get();
+        Game game = ingameGameProvider.get();
         Unit unit = new Unit("10");
         unit.setHp(10);
         unit.setMp(10);
@@ -259,7 +255,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         unit.setGame(game);
         unit.setPosition(game.getCells().get(11));
 
-        game.getUnits().get(0).setPosition(gameProvider.get().getCells().get(12));
+        game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
 
         clickOn(100, 100, Motion.DIRECT);
         clickOn(150, 125, Motion.DIRECT);

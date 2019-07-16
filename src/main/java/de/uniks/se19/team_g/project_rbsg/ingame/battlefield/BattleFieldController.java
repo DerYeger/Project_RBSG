@@ -6,42 +6,33 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.ForestUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.MountainUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.WaterUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.termination.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import javafx.beans.property.*;
-import javafx.beans.value.*;
-import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.geometry.Point2D;
-import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
@@ -49,8 +40,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
 
 /**
  * @author  Keanu Stückrad
@@ -89,8 +79,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private SimpleObjectProperty<Tile> selectedTile;
     private SimpleObjectProperty<Tile> hoveredTile;
 
-    private final IngameGameProvider ingameGameProvider;
-    private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private IngameContext context;
@@ -138,40 +126,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
                 40
         );
-
-        game = ingameGameProvider.get();
-        if(game == null) {
-            // exception
-        } else {
-            cells = game.getCells();
-            units = game.getUnits();
-
-            mapSize = (int) Math.sqrt(cells.size());
-            tileMap = new Tile[mapSize][mapSize];
-
-            for (Cell cell : cells)
-            {
-                tileMap[cell.getY()][cell.getX()] = new Tile(cell);
-                tileMap[cell.getY()][cell.getX()].addListener(this::highlightingChanged);
-            }
-
-            for (Unit unit : units)
-            {
-                //Adds listener for units which are already in the list
-                unit.getPosition().addListener(this::unitChangedPosition);
-            }
-
-            initCanvas();
-        }
-
-        //Add Event handler for actions on canvas
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
-        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
-
-        //Listener for unit list
-        units.addListener(this::unitListChanged);
-        selectedTile.addListener(this::selectedTileChanged);
-        hoveredTile.addListener(this::hoveredTileChanged);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -319,13 +273,35 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(game == null) {
             // exception
         } else {
-            grass = new Image("/assets/cells/grass.png");
             cells = game.getCells();
             units = game.getUnits();
-            columnRowSize = Math.sqrt(cells.size());
-            canvasColumnRowSize = columnRowSize * CELL_SIZE;
+
+            mapSize = (int) Math.sqrt(cells.size());
+            tileMap = new Tile[mapSize][mapSize];
+
+            for (Cell cell : cells)
+            {
+                tileMap[cell.getY()][cell.getX()] = new Tile(cell);
+                tileMap[cell.getY()][cell.getX()].addListener(this::highlightingChanged);
+            }
+
+            for (Unit unit : units)
+            {
+                //Adds listener for units which are already in the list
+                unit.getPosition().addListener(this::unitChangedPosition);
+            }
+
             initCanvas();
         }
+
+        //Add Event handler for actions on canvas
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
+
+        //Listener for unit list
+        units.addListener(this::unitListChanged);
+        selectedTile.addListener(this::selectedTileChanged);
+        hoveredTile.addListener(this::hoveredTileChanged);
 
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
 
