@@ -191,9 +191,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
         verify(musicManager, Mockito.times(1)).updateMusicButtonIcons(musicButton);
         clickOn("#soundButton");
         verify(musicManager, Mockito.times(2)).updateMusicButtonIcons(musicButton);
-        Button infoButton = lookup("#showInfoButton").query();
-        Assert.assertNotNull(infoButton);
-        clickOn("#showInfoButton");
         Button leaveButton = lookup("#leaveButton").query();
         Assert.assertNotNull(leaveButton);
         clickOn("#leaveButton");
@@ -254,12 +251,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
         verifyZeroInteractions(gameEventManager);
         bob.setIsReady(true);
         verifyZeroInteractions(gameEventManager);
-        alice.setIsReady(true);
-        verifyZeroInteractions(gameEventManager);
-        alice.setIsReady(false);
-        verifyZeroInteractions(gameEventManager);
-
-        gameData.setCreator(currentUser);
 
         alice.setIsReady(true);
         verify(gameEventManager).sendMessage(eq(CommandBuilder.startGame()));

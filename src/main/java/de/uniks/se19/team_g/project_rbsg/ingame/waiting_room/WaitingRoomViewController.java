@@ -150,12 +150,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 ICON_SIZE
         );
-        JavaFXUtils.setButtonIcons(
-                showInfoButton,
-                getClass().getResource("/assets/icons/navigation/infoWhite.png"),
-                getClass().getResource("/assets/icons/navigation/infoBlack.png"),
-                ICON_SIZE
-        );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
     }
@@ -198,10 +192,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             player3Pane.setVisible(false);
             player4Pane.setVisible(false);
         }
-    }
-
-    public void debugGoToBattlefield() {
-        // TODO: to consider
     }
 
     public void leaveRoom() {
@@ -270,7 +260,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                         for(PlayerCardBuilder playerC: playerCardBuilders){
                             if(!playerC.isEmpty) {
                                 if(playerC.getPlayer().equals(p)) {
-                                    playerC.playerLeft();
+                                    Platform.runLater(playerC::playerLeft);
                                     break;
                                 }
                             }
@@ -362,9 +352,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     private void mayStartGame() {
-        if (context.getGameData().getCreator() == context.getUser()) {
-            logger.debug("trigger game start of our own game");
-            context.getGameEventManager().sendMessage(CommandBuilder.startGame());
-        }
+        logger.debug("trigger game start");
+        context.getGameEventManager().sendMessage(CommandBuilder.startGame());
     }
 }

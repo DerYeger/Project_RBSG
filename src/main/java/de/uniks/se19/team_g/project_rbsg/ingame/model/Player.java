@@ -20,7 +20,7 @@ public class Player {
     @NonNull
     private final String id;
 
-    private Game game;
+    private Game currentGame;
 
     private String name;
 
@@ -42,8 +42,8 @@ public class Player {
         return id;
     }
 
-    public Game getGame() {
-        return game;
+    public Game getCurrentGame() {
+        return currentGame;
     }
 
     public String getName() {
@@ -58,22 +58,16 @@ public class Player {
         return units;
     }
 
-    public Player setGame(@Nullable final Game game) {
-        if (this.game == game){
-            return this;
-        }
-        if (this.game != null) {
-            this.game.doRemovePlayer(this);
-        }
-        doSetGame(game);
-        if (game != null){
-            game.doAddPlayer(this);
-        }
+    public Player setCurrentGame(@Nullable final Game currentGame) {
+        if (this.currentGame == currentGame) return this;
+        if (this.currentGame != null) this.currentGame.doRemovePlayer(this);
+        doSetGame(currentGame);
+        if (currentGame != null) currentGame.doAddPlayer(this);
         return this;
     }
 
     void doSetGame(@Nullable final Game game) {
-        this.game = game;
+        this.currentGame = game;
     }
 
     public Player withUnits(@Nullable final Unit ...units) {
@@ -137,7 +131,7 @@ public class Player {
     }
 
     public void remove() {
-        setGame(null);
+        setCurrentGame(null);
         withoutUnits(new ArrayList<>(units));
     }
 

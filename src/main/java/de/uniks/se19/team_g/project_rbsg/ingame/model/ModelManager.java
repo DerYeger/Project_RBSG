@@ -82,7 +82,7 @@ public class ModelManager implements GameEventHandler {
     private void handleChange(JsonNode data) {
         final String id = data.get("id").asText();
 
-        final Object entity = objectMap.get(id);
+        final Object entity = getEntityById(id);
 
         if (entity == null) {
             logger.error("unknown identity {} changed", id);
@@ -96,7 +96,7 @@ public class ModelManager implements GameEventHandler {
             final BeanWrapperImpl beanWrapper = new BeanWrapperImpl(entity);
             String newValueDescriptor = newValueNode.textValue();
 
-            Object newValue = objectMap.get(newValueDescriptor);
+            Object newValue = getEntityById(newValueDescriptor);
 
             if (newValue == null) {
                 newValue = newValueDescriptor;
@@ -111,6 +111,11 @@ public class ModelManager implements GameEventHandler {
         }
 
         logger.error("can't update entity of type {}", entity.getClass());
+    }
+
+    public <T> T getEntityById(String newValueDescriptor) {
+        //noinspection unchecked
+        return (T) objectMap.get(newValueDescriptor);
     }
 
     private void handleInit(@NonNull final ObjectNode node) {

@@ -20,7 +20,7 @@
                   <children>
                       <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" />
                       <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                      <Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#debugGoToBattlefield" styleClass="icon-button" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="10.0" />
+                      <!--<Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#debugGoToBattlefield" styleClass="icon-button" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="10.0" />-->
                       <Pane fx:id="player1Pane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0" />
                       <Pane fx:id="player2Pane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="11.0" />
                       <Pane fx:id="player3Pane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="258.0" />
