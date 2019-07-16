@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
    <children>
       <StackPane fx:id="mainStackPane" prefHeight="3000.0" styleClass="body">
@@ -22,15 +21,14 @@
             <GridPane fx:id="mainGridPane" styleClass="main-grid-pane" StackPane.alignment="TOP_LEFT">
                <children>
                   <Label fx:id="lobbyTitle" alignment="CENTER" styleClass="game-title" text="Advanced WASP Wars" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                  <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="lobbyPlayerListView">
+                        <ListView fx:id="lobbyPlayerListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="500.0">
                            <styleClass>
                               <String fx:value="default" />
                               <String fx:value="transparent" />
                            </styleClass>
                         </ListView>
-                        <VBox fx:id="armySelectorRoot" maxHeight="-Infinity" maxWidth="-Infinity" />
                      </children>
                   </HBox>
                   <VBox fx:id="chatContainer" styleClass="chat-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />

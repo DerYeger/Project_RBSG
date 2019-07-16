@@ -142,7 +142,6 @@ public class LobbyBuilderTest extends ApplicationTest
                     new AlertBuilder(sceneManager),
                     cellFactory,
                     selectedLocale,
-                    null,
                     appState,
                     null
             ) {

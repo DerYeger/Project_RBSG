@@ -64,7 +64,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     @Nonnull
     private final UnitListCellFactory unitCellFactory;
     @Nullable
-    private final Function<Pane, ArmySelectorController> armySelectorComponent;
+    private final Function<VBox, ArmySelectorController> armySelectorComponent;
     @Nullable
     private final MusicManager musicManager;
     @Nullable
@@ -84,7 +84,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button deleteArmyButton;
     public Button saveArmiesButton;
     public Button showInfoButton;
-    public Pane armySelectorRoot;
+    public VBox armySelectorRoot;
     public Button editArmyButton;
 
     public HBox modalContainer;
@@ -113,7 +113,7 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nonnull ViewComponent<EditArmyController> editArmyComponent,
             @Nullable ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory,
             @Nullable Function<HBox, ViewComponent<ArmyDetailController>> armyDetaiLFactory,
-            @Nullable Function<Pane, ArmySelectorController> armySelectorComponent,
+            @Nullable Function<VBox, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
             @Nonnull PersistentArmyManager persistantArmyManager

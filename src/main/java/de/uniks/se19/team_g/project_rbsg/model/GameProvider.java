@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * @author  Keanu Stückrad
  * @author Jan Müller
+ *
+ * provides a .model.Game Model that holds the lobby game knowledge like neededPlayerCount
  */
 @Component
 public class GameProvider implements Terminable {
