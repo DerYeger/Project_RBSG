@@ -105,6 +105,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    private int roundCount;
+
     @Autowired
     public BattleFieldController(
             @NonNull final IngameGameProvider ingameGameProvider,
@@ -212,6 +214,11 @@ public class BattleFieldController implements RootController, IngameViewControll
                 );
         phaseLabel.textProperty().bind(this.game.phaseProperty());
 
+        roundCount=0;
+        this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
+            roundCount=roundCount+1;
+        });
+        roundCountLabel.textProperty().bind(new SimpleIntegerProperty(roundCount).asString());
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
