@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -39,6 +40,7 @@ import javax.annotation.Nonnull;
 
 import java.beans.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author  Keanu Stückrad
@@ -92,6 +94,12 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Pane player4;
     @FXML
     public StackPane ingameField;
+    @FXML
+    public Label roundTextLabel;
+    @FXML
+    public Label roundCountLabel;
+    @FXML
+    public Label phaseLabel;
 
     private PlayerListController playerListController;
 
@@ -167,6 +175,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
 
+        HashMap<String, Player> playerMap=new HashMap<>();
+        HashMap<String, Node> playerNodeMap=new HashMap<>();
+
         ArrayList<Pane> playerCardList = new ArrayList<Pane>();
         playerCardList.add(player1);
         playerCardList.add(player2);
@@ -177,6 +188,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         int counter=0;
         for(Player player : this.game.getPlayers()){
             playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            playerMap.put(player.getName(), player);
+            playerNodeMap.put(player.getName(), playerListController.getPlayerCards().get(counter));
             counter++;
         }
 
@@ -187,6 +200,18 @@ public class BattleFieldController implements RootController, IngameViewControll
         playerListController=new PlayerListController(game);
         playerBar.setVisible(false);
         ingameField.setPickOnBounds(false);
+
+        roundTextLabel.setText("Runde");
+        playerNodeMap.get(this.game.getCurrentPlayer().getName()).setStyle("-fx-background-color: -selected-background-color");
+        this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
+                    Player oldPlayer = playerMap.get(oldVal);
+                    playerNodeMap.get(oldPlayer.getName()).setStyle("-fx-background-color: -root-background-color");
+                    Player newPlayer = playerMap.get(newVal);
+                    playerNodeMap.get(newPlayer.getName()).setStyle("-fx-background-color: -selected-background-color");
+        }
+                );
+        phaseLabel.textProperty().bind(this.game.phaseProperty());
+
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
