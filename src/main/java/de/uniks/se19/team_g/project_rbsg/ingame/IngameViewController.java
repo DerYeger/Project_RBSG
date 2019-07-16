@@ -35,6 +35,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -63,6 +64,7 @@ public class IngameViewController implements RootController {
     public Label phaseLabel;
     public SimpleIntegerProperty roundCount;
     public SimpleStringProperty phaseName;
+    public StackPane field;
 
     public Button leaveButton;
     public Button zoomOutButton;
@@ -169,7 +171,7 @@ public class IngameViewController implements RootController {
         canvas = new Canvas();
         canvas.setId("canvas");
         zoomableScrollPane = new ZoomableScrollPane(canvas);
-        root.getChildren().add(zoomableScrollPane);
+        field.getChildren().add(zoomableScrollPane);
         canvas.setHeight(canvasColumnRowSize);
         canvas.setWidth(canvasColumnRowSize);
         gc = canvas.getGraphicsContext2D();
@@ -353,9 +355,11 @@ public class IngameViewController implements RootController {
     public void openPlayerBar(@Nonnull final ActionEvent event){
         if(playerBar.visibleProperty().get()==false){
             playerBar.visibleProperty().setValue(true);
+            playerBar.toFront();
         }else
         {
             playerBar.visibleProperty().setValue(false);
+            playerBar.toBack();
         }
     }
 
