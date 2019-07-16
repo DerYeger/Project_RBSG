@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -9,8 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-
-import java.io.File;
 import java.io.IOException;
 
 public class PlayerCardController {

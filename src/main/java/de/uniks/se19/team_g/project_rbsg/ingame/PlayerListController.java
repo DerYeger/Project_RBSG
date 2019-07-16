@@ -1,11 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
-import de.uniks.se19.team_g.project_rbsg.waiting_room.PlayerCardBuilder;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Game;
-import de.uniks.se19.team_g.project_rbsg.waiting_room.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.PlayerCardBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 

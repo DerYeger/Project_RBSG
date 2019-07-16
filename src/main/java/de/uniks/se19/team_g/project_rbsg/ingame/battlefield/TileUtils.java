@@ -129,12 +129,12 @@ public class TileUtils
     public static String getUnitImagePath(UnitType unitType) {
         String imagePath;
 
-        if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
-                else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
-                else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
-                else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
-                else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
-                else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
+        if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe1.getImage().toExternalForm();
+                else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe2.getImage().toExternalForm();
+                else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe3.getImage().toExternalForm();
+                else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe4.getImage().toExternalForm();
+                else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe5.getImage().toExternalForm();
+                else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5d25be843129f1000129ffe6.getImage().toExternalForm();
                 else imagePath = UnitTypeInfo.UNKNOWN.getImage().toExternalForm();
 
         return imagePath;

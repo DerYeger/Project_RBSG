@@ -18,10 +18,14 @@ import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.geometry.Point2D;
 import javafx.scene.input.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +75,23 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
 
+    @FXML
+    public Button ingameInformationsButton;
+    @FXML
+    public HBox playerBar;
+    @FXML
+    public Pane player1;
+    @FXML
+    public Pane player2;
+    @FXML
+    public Pane player3;
+    @FXML
+    public Pane player4;
+    @FXML
+    public StackPane ingameField;
+
+    private PlayerListController playerListController;
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -108,6 +129,12 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
                 40
         );
+        JavaFXUtils.setButtonIcons(
+                ingameInformationsButton,
+                getClass().getResource("/assets/icons/operation/accountWhite.png"),
+                getClass().getResource("/assets/icons/operation/accountBlack.png"),
+                40
+        );
         game = ingameGameProvider.get();
         if(game == null) {
             // exception
@@ -141,6 +168,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         units.addListener(this::unitListChanged);
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
+        playerListController=new PlayerListController(game);
+        playerBar.setVisible(false);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -206,7 +235,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         canvas = new Canvas();
         canvas.setId("canvas");
         zoomableScrollPane = new ZoomableScrollPane(canvas);
-        root.getChildren().add(zoomableScrollPane);
+        ingameField.getChildren().add(zoomableScrollPane);
         canvas.setHeight(CELL_SIZE*mapSize);
         canvas.setWidth(CELL_SIZE*mapSize);
 
@@ -294,6 +323,16 @@ public class BattleFieldController implements RootController, IngameViewControll
         for (Unit unit : units)
         {
             unit.getPosition().removeListener(this::unitChangedPosition);
+        }
+    }
+    public void openPlayerBar(@Nonnull final ActionEvent event){
+        if(playerBar.visibleProperty().get()==false){
+            playerBar.visibleProperty().setValue(true);
+            playerBar.toFront();
+        }else
+        {
+            playerBar.visibleProperty().setValue(false);
+            playerBar.toBack();
         }
     }
 }
