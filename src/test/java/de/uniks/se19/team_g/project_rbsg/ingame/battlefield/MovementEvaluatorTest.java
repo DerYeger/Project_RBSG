@@ -24,15 +24,16 @@ public class MovementEvaluatorTest {
             Y -> player, 0 -> passable, X -> blocked
             OYOO
             XXOO
-            OOOO
-            OOOO
-
+            -OOO
+            --O-
          */
         Cell[][] cells = new Cell[4][4];
         for (int row = 0; row < 4; row++) {
             for (int column = 0; column < 4; column++) {
                 final Cell cell = new Cell(String.format("%d:%d", row, column));
                 cell.setPassable(true);
+                cell.setX(row);
+                cell.setY(column);
                 cells[row][column] = cell;
                 if (row > 0) {
                     cell.setTop(cells[row-1][column]);
@@ -64,6 +65,12 @@ public class MovementEvaluatorTest {
         Assert.assertSame( tourTo0_0.getTarget(), tourTo0_0.getPath().get(0));
         Assert.assertEquals(1, tourTo0_0.getCost());
 
+        // check starting cell in two steps
+        final Tour circle = tours.get(startCell);
+        Assert.assertEquals(2, circle.getPath().size());
+        Assert.assertEquals( startCell, circle.getPath().get(1));
+        Assert.assertNotEquals( startCell, circle.getPath().get(0));
+
         // way of length 2 and 4 possible, should choose 2
         final Tour tourTo0_3 = tours.get(cells[0][3]);
         Assert.assertSame(cells[0][3], tourTo0_3.getTarget());
@@ -82,10 +89,10 @@ public class MovementEvaluatorTest {
         Assert.assertSame( cells[0][2], pathTo2_1.get(0));
         Assert.assertSame( cells[1][2], pathTo2_1.get(1));
         Assert.assertSame( cells[2][2], pathTo2_1.get(2));
-        Assert.assertSame( tourTo0_3.getTarget(), pathTo2_1.get(3));
+        Assert.assertSame( tourTo2_1.getTarget(), pathTo2_1.get(3));
 
         // check other
-        Assert.assertEquals(8L, tours.size());
+        Assert.assertEquals(10L, tours.size());
         Assert.assertFalse(tours.containsKey(cells[1][1]));
         Assert.assertFalse(tours.containsKey(cells[2][0]));
 
