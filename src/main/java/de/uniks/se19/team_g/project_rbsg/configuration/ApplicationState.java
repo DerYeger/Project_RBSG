@@ -40,7 +40,5 @@ public class ApplicationState {
     public final ObservableList<Unit> unitDefinitions = FXCollections.observableArrayList();
     public final SimpleBooleanProperty hasPlayableArmies = new SimpleBooleanProperty();
 
-    public final SimpleBooleanProperty meIsCurrentPlayer = new SimpleBooleanProperty();
-
     public final ObservableList<String> notifications = FXCollections.observableArrayList();
 }

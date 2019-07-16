@@ -20,6 +20,10 @@ public class Game {
 
     private StringProperty phase = new SimpleStringProperty();
 
+    final private SimpleBooleanProperty alreadMovedThisRound = new SimpleBooleanProperty(true);
+
+    //private Player me;
+
     private ObservableList<Player> players;
 
     private ObservableList<Unit> units;
@@ -41,6 +45,7 @@ public class Game {
     public String getId() {
         return id;
     }
+
 
     public ObservableList<Player> getPlayers() {
         return players;
@@ -230,7 +235,6 @@ public class Game {
 
     public Game setCurrentPlayer(Player player) {
         currentPlayer.set(player);
-
         return this;
     }
 
@@ -253,4 +257,14 @@ public class Game {
     public void setWinner(Player winner) {
         this.winner.set(winner);
     }
+
+    public boolean getInitiallyMoved(){ return alreadMovedThisRound.get(); }
+
+    public SimpleBooleanProperty initiallyMovedProperty(){ return alreadMovedThisRound; }
+
+    public Game setInitiallyMoved(boolean initiallyMoved){
+        this.alreadMovedThisRound.set(initiallyMoved);
+        return this;
+    }
+
 }

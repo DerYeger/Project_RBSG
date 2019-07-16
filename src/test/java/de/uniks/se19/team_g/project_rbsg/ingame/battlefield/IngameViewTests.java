@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.alert.ConfirmationAlertController;
 import de.uniks.se19.team_g.project_rbsg.alert.InfoAlertController;
@@ -211,6 +209,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         Rincl.setLocale(Locale.ENGLISH);
         sceneManager = context.getBean(SceneManager.class);
         sceneManager.init(stage);
+        /*
         @SuppressWarnings("unchecked")
         final Scene buffer = new Scene(((ViewComponent<RootController>) context.getBean("battleFieldScene")).getRoot());
         scene = buffer;
@@ -218,6 +217,8 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         stage.setX(0);
         stage.setY(0);
         stage.show();
+
+         */
     }
 
     @Test
@@ -258,11 +259,13 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         Button confirm = lookup("#confirm").query();
         assertNotNull(confirm);
     }
-
+    /*
     @Override
     public void stop() throws Exception {
         scene.getWindow().centerOnScreen();
     }
+
+     */
 
 
 }

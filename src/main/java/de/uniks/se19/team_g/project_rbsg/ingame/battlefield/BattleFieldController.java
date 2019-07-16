@@ -13,14 +13,15 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.ForestUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.WaterUrls;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
@@ -136,18 +137,27 @@ public class BattleFieldController implements RootController, IngameViewControll
             canvasColumnRowSize = columnRowSize * CELL_SIZE;
             initCanvas();
         }
-        /*
-        if (userProvider.get().getName() != ingameGameProvider.get().getCurrentPlayer().getName()){
-            JavaFXUtils.bindButtonDisableWithTooltip(
-                    endPhaseButton,
-                    endPhaseButtonContainer,
-                    new SimpleStringProperty(Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired")),
-                    appState.meIsCurrentPlayer
-                    );
 
+        BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
 
-        }
-        */
+        ObjectProperty<Player> currentPlayerProperty = context.getGameState().currentPlayerProperty();
+
+        playerCanEndPhase.bind(Bindings.createBooleanBinding(
+                () -> {
+                    boolean active = userProvider.get().getName().equals(currentPlayerProperty.getName());
+
+                    return (active && context.getGameState().initiallyMovedProperty().get());
+                },
+                currentPlayerProperty, context.getGameState().initiallyMovedProperty()
+        ));
+
+        context.getGameState().initiallyMovedProperty().bind(Bindings.createBooleanBinding(
+                () -> false,
+                currentPlayerProperty
+        ));
+
+        endPhaseButton.disableProperty().bind(playerCanEndPhase);
+
 
     }
 

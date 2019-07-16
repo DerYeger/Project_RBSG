@@ -30,6 +30,8 @@ public class Player {
 
     final private BooleanProperty isReady = new SimpleBooleanProperty(false);
 
+    final private BooleanProperty isCurrentPlayer = new SimpleBooleanProperty(false);
+
     public Player(@NonNull final String id) {
         this.id = id;
 
@@ -57,10 +59,16 @@ public class Player {
     }
 
     public Player setGame(@Nullable final Game game) {
-        if (this.game == game) return this;
-        if (this.game != null) this.game.doRemovePlayer(this);
+        if (this.game == game){
+            return this;
+        }
+        if (this.game != null) {
+            this.game.doRemovePlayer(this);
+        }
         doSetGame(game);
-        if (game != null) game.doAddPlayer(this);
+        if (game != null){
+            game.doAddPlayer(this);
+        }
         return this;
     }
 
@@ -150,4 +158,6 @@ public class Player {
         this.isReady.set(isReady);
         return this;
     }
+
+
 }
