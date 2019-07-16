@@ -39,10 +39,17 @@ public class MovementEvaluator {
             HashMap<Cell, Tour> tours,
             final int costBefore
     ) {
+        if (cell == null) {
+            return;
+        }
+        if (!cell.isPassable()) {
+            return;
+        }
+
         // maybe the cost to move onto a cell will differ?
         int currentCost = costBefore + 1;
 
-        if (currentCost >= unit.getMp() || cell == null) {
+        if (currentCost >= unit.getMp()) {
             // can't move here
             return;
         }
