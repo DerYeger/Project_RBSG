@@ -14,9 +14,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.ForestUrls
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.MountainUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.WaterUrls;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -75,9 +72,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Image grass;
     private int zoomFactor = 1;
 
-    private final IngameGameProvider ingameGameProvider;
-    private final GameProvider gameProvider;
-    private final UserProvider userProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private IngameContext context;
@@ -86,18 +80,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Autowired
     public BattleFieldController(
-            @NonNull final IngameGameProvider ingameGameProvider,
-            @NonNull final GameProvider gameProvider,
             @NonNull final SceneManager sceneManager,
             @NonNull final AlertBuilder alertBuilder,
-            @NonNull final UserProvider userProvider,
             @Nullable final ApplicationState appState
     ) {
-        this.ingameGameProvider = ingameGameProvider;
-        this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
-        this.userProvider = userProvider;
         this.appState = appState;
     }
 
@@ -126,38 +114,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
                 40
         );
-        game = ingameGameProvider.get();
-        if(game == null) {
-            // exception
-        } else {
-            grass = new Image("/assets/cells/grass.png");
-            cells = game.getCells();
-            units = game.getUnits();
-            columnRowSize = Math.sqrt(cells.size());
-            canvasColumnRowSize = columnRowSize * CELL_SIZE;
-            initCanvas();
-        }
-
-        BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
-
-        ObjectProperty<Player> currentPlayerProperty = context.getGameState().currentPlayerProperty();
-
-        playerCanEndPhase.bind(Bindings.createBooleanBinding(
-                () -> {
-                    boolean active = userProvider.get().getName().equals(currentPlayerProperty.getName());
-
-                    return (active && context.getGameState().initiallyMovedProperty().get());
-                },
-                currentPlayerProperty, context.getGameState().initiallyMovedProperty()
-        ));
-
-        context.getGameState().initiallyMovedProperty().bind(Bindings.createBooleanBinding(
-                () -> false,
-                currentPlayerProperty
-        ));
-
-        endPhaseButton.disableProperty().bind(playerCanEndPhase);
-
 
     }
 
@@ -316,8 +272,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void doLeaveGame() {
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
-        gameProvider.clear();
-        ingameGameProvider.clear();
     }
 
     public void zoomIn(ActionEvent actionEvent) {
@@ -327,7 +281,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else if(zoomFactor == 0) {
             zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
             zoomFactor++;
-        } else if(zoomFactor == -1 && gameProvider.get().getNeededPlayer() == 4) {
+        } else if(zoomFactor == -1 && context.getGameData().getNeededPlayer() == 4) {
             zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
             zoomFactor++;
         }
@@ -340,7 +294,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else if(zoomFactor == 1) {
             zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
             zoomFactor--;
-        } else if(zoomFactor == 0 && gameProvider.get().getNeededPlayer() == 4) {
+        } else if(zoomFactor == 0 && context.getGameData().getNeededPlayer() == 4) {
             zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
             zoomFactor--;
         }
@@ -356,6 +310,39 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Override
     public void configure(@Nonnull IngameContext context) {
+
         this.context = context;
+
+        game = context.getGameState();
+        if(game == null) {
+            // exception
+        } else {
+            grass = new Image("/assets/cells/grass.png");
+            cells = game.getCells();
+            units = game.getUnits();
+            columnRowSize = Math.sqrt(cells.size());
+            canvasColumnRowSize = columnRowSize * CELL_SIZE;
+            initCanvas();
+        }
+
+        BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
+
+        ObjectProperty<Player> currentPlayerProperty = context.getGameState().currentPlayerProperty();
+
+        playerCanEndPhase.bind(Bindings.createBooleanBinding(
+                () -> {
+                    boolean active = context.getUser().getName().equals(currentPlayerProperty.getName());
+
+                    return (active && context.getGameState().initiallyMovedProperty().get());
+                },
+                currentPlayerProperty, context.getGameState().initiallyMovedProperty()
+        ));
+
+        context.getGameState().initiallyMovedProperty().bind(Bindings.createBooleanBinding(
+                () -> false,
+                currentPlayerProperty
+        ));
+
+        endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
     }
 }
