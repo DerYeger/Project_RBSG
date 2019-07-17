@@ -76,9 +76,9 @@
             </HBox>
             <StackPane fx:id="ingameField">
                <children>
-                  <HBox fx:id="playerBar" alignment="TOP_CENTER" layoutY="100.0" maxHeight="-Infinity" prefHeight="50.0" StackPane.alignment="TOP_CENTER">
+                  <HBox fx:id="playerBar" alignment="TOP_CENTER" layoutY="100.0" maxHeight="-Infinity" StackPane.alignment="TOP_CENTER">
                      <children>
-                        <Pane fx:id="player1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
+                        <Pane fx:id="player1" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
                         <Pane HBox.hgrow="ALWAYS" />
                         <Pane fx:id="player2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
                         <Pane layoutX="360.0" layoutY="10.0" HBox.hgrow="ALWAYS" />

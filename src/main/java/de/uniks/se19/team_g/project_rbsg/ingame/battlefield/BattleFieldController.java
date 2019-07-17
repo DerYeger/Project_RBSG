@@ -187,11 +187,22 @@ public class BattleFieldController implements RootController, IngameViewControll
         playerCardList.add(player4);
 
         playerListController=new PlayerListController(this.game);
+
         int counter=0;
+        if(this.game.getPlayers().size()==2){
+            player1.setVisible(false);
+            player4.setVisible(false);
+        }
         for(Player player : this.game.getPlayers()){
-            playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            if(this.game.getPlayers().size()==2){
+                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            }
+            else{
+                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            }
             playerMap.put(player.getName(), player);
             playerNodeMap.put(player.getName(), playerListController.getPlayerCards().get(counter));
+
             counter++;
         }
 
