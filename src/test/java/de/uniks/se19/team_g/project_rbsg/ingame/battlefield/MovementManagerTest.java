@@ -61,6 +61,7 @@ public class MovementManagerTest {
         // changed position should invalidate cached tours
         unit.setPosition(secondStart);
         verifyNoMoreInteractions(movementEvaluator);
+        clearInvocations(movementEvaluator);
         // second call to evaluator for unit
         // target1 not set in toursFromSecond
         answer = sut.getTour(unit, target1);
