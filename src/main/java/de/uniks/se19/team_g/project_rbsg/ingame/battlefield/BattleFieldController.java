@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
@@ -70,6 +71,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+    private IngameContext context;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -127,7 +129,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             for (Unit unit : units)
             {
                 //Adds listener for units which are already in the list
-                unit.getPosition().addListener(this::unitChangedPosition);
+                unit.getPosition().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition));
             }
 
             initCanvas();
@@ -178,7 +180,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             if (c.wasAdded()) {
                 for (int i = c.getFrom(); i < c.getTo(); i++)
                 {
-                    units.get(c.getFrom()).getPosition().addListener(this::unitChangedPosition);
+                    units.get(c.getFrom()).getPosition().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition));
                 }
             }
 
@@ -229,6 +231,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else{
             selectedTile.set(tileMap[yPos][xPos]);
+
         }
 
     }
@@ -275,7 +278,16 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Override
     public void configure(@Nonnull IngameContext context) {
+        this.context = context;
 
+        game = context.getGameState();
+        game.selectedUnitProperty().bind(Bindings.createObjectBinding(
+                () -> {
+                    Unit selectedUnit = selectedTile.get().getCell().getUnit().get();
+                    selectedUnit.setSelected(true);
+                    return selectedUnit;
+                }
+        ));
     }
 
     @Override
