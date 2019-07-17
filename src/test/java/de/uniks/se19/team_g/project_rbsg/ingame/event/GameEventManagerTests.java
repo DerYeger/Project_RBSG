@@ -100,7 +100,7 @@ public class GameEventManagerTests {
 
             @Override
             public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws Exception{
-                
+
             }
         });
 
