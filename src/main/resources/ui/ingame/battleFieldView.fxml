@@ -74,17 +74,26 @@
                   </HBox.margin>
                </HBox>
             </HBox>
-            <StackPane fx:id="ingameField">
+            <StackPane fx:id="ingameField" alignment="TOP_CENTER">
                <children>
                   <HBox fx:id="playerBar" alignment="TOP_CENTER" layoutY="100.0" maxHeight="-Infinity" StackPane.alignment="TOP_CENTER">
                      <children>
-                        <Pane fx:id="player1" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
-                        <Pane HBox.hgrow="ALWAYS" />
-                        <Pane fx:id="player2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
-                        <Pane layoutX="360.0" layoutY="10.0" HBox.hgrow="ALWAYS" />
-                        <Pane fx:id="player3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
-                        <Pane layoutX="710.0" layoutY="10.0" HBox.hgrow="ALWAYS" />
-                        <Pane fx:id="player4" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS" />
+                        <Pane fx:id="player1" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin></Pane>
+                        <Pane fx:id="player2" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin></Pane>
+                        <Pane fx:id="player3" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin></Pane>
+                        <Pane fx:id="player4" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin></Pane>
                      </children>
                      <StackPane.margin>
                         <Insets />

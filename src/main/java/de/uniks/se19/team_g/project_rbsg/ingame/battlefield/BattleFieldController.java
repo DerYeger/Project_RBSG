@@ -190,8 +190,13 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         int counter=0;
         if(this.game.getPlayers().size()==2){
+            /*player1.toBack();
             player1.setVisible(false);
-            player4.setVisible(false);
+            player4.toBack();
+            player4.setVisible(false);*/
+
+            playerBar.getChildren().remove(player1);
+            playerBar.getChildren().remove(player4);
         }
         for(Player player : this.game.getPlayers()){
             if(this.game.getPlayers().size()==2){
@@ -212,6 +217,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         hoveredTile.addListener(this::hoveredTileChanged);
         playerListController=new PlayerListController(game);
         playerBar.setVisible(false);
+        playerBar.setPickOnBounds(false);
         ingameField.setPickOnBounds(false);
 
         roundTextLabel.setText("Runde");
