@@ -179,8 +179,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         HashMap<String, Player> playerMap=new HashMap<>();
         HashMap<String, Node> playerNodeMap=new HashMap<>();
-
         ArrayList<Pane> playerCardList = new ArrayList<Pane>();
+
         playerCardList.add(player1);
         playerCardList.add(player2);
         playerCardList.add(player3);
@@ -190,16 +190,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         int counter=0;
         if(this.game.getPlayers().size()==2){
-            /*player1.toBack();
-            player1.setVisible(false);
-            player4.toBack();
-            player4.setVisible(false);*/
-
             playerBar.getChildren().remove(player1);
             playerCardList.remove(player1);
             playerBar.getChildren().remove(player4);
             playerCardList.remove(player4);
         }
+
         for(Player player : this.game.getPlayers()){
             if(this.game.getPlayers().size()==2){
                 playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
@@ -222,22 +218,22 @@ public class BattleFieldController implements RootController, IngameViewControll
         playerBar.setPickOnBounds(false);
         ingameField.setPickOnBounds(false);
 
-        roundTextLabel.setText("Runde");
         playerNodeMap.get(this.game.getCurrentPlayer().getName()).setStyle("-fx-background-color: -selected-background-color");
         this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
                     Player oldPlayer = playerMap.get(oldVal);
                     playerNodeMap.get(oldPlayer.getName()).setStyle("-fx-background-color: -root-background-color");
                     Player newPlayer = playerMap.get(newVal);
                     playerNodeMap.get(newPlayer.getName()).setStyle("-fx-background-color: -selected-background-color");
-        }
-                );
-        phaseLabel.textProperty().bind(this.game.phaseProperty());
+        });
 
         roundCount=0;
         this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
             roundCount=roundCount+1;
         });
         roundCountLabel.textProperty().bind(new SimpleIntegerProperty(roundCount).asString());
+        phaseLabel.textProperty().bind(this.game.phaseProperty());
+        roundTextLabel.setText("Runde");
+
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
