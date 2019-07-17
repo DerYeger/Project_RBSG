@@ -196,7 +196,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             player4.setVisible(false);*/
 
             playerBar.getChildren().remove(player1);
+            playerCardList.remove(player1);
             playerBar.getChildren().remove(player4);
+            playerCardList.remove(player4);
         }
         for(Player player : this.game.getPlayers()){
             if(this.game.getPlayers().size()==2){
