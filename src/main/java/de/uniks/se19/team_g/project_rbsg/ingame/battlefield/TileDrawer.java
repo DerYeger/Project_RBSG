@@ -15,6 +15,7 @@ public class TileDrawer
     private static final double CELL_SIZE = 64;
     private static final Color transparentWhite = Color.rgb(255, 255, 255, 0.2);
     private static final Color selectedWhite = Color.rgb(255, 255, 255, 0.4);
+    private static final Color movementBlue = Color.rgb(0, 0, 255, 0.5);
     private static Image grass = new Image("/assets/cells/grass.png");
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -66,7 +67,12 @@ public class TileDrawer
             graphicsContext.drawImage(tile.getDeckoratorImage(), startX, startY);
         }
         //Layer 3 Highlighting One -> Move and Attack
-
+        if (tile.getHighlightingOne() != HighlightingOne.NONE) {
+            if (tile.getHighlightingOne() == HighlightingOne.MOVE) {
+                graphicsContext.setFill(movementBlue);
+                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+            }
+        }
 
         //Layer 4 Highlighting Two -> Hovering and Selecting
         if (tile.getHighlightingTwo() != HighlightingTwo.NONE)
@@ -81,6 +87,16 @@ public class TileDrawer
                 graphicsContext.setFill(selectedWhite);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
             }
+            if (tile.getHighlightingTwo() == HighlightingTwo.SELECETD_WITH_UNITS)
+            {
+                graphicsContext.setFill(transparentWhite);
+                graphicsContext.setStroke(Color.rgb(136,88,140));
+                graphicsContext.setLineWidth(10);
+                graphicsContext.stroke();
+            }
+
+
+
         }
 
         //Layer 5
