@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Jan Müller
@@ -93,6 +96,11 @@ public class GameEventManagerTests {
             @Override
             public void sendMessage(final Object message) {
                 Assert.assertEquals(objectNode, message);
+            }
+
+            @Override
+            public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws Exception{
+                
             }
         });
 
