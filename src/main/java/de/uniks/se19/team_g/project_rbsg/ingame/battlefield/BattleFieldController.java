@@ -64,8 +64,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     private int zoomFactor = 1;
 
     private TileDrawer tileDrawer;
-    private SimpleObjectProperty<Tile> selectedTile;
-    private SimpleObjectProperty<Tile> hoveredTile;
+    @Nonnull
+    final private SimpleObjectProperty<Tile> selectedTile;
+    @Nonnull
+    final private SimpleObjectProperty<Tile> hoveredTile;
 
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
@@ -280,13 +282,31 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void configure(@Nonnull IngameContext context) {
         this.context = context;
 
-        game = context.getGameState();
-        game.selectedUnitProperty().bind(Bindings.createObjectBinding(
+        configureSelectedUnit();
+    }
+
+    private void configureSelectedUnit() {
+        this.context.getGameState()
+            .selectedUnitProperty().bind(Bindings.createObjectBinding(
                 () -> {
-                    Unit selectedUnit = selectedTile.get().getCell().getUnit().get();
+
+                    Tile selectedTile = this.selectedTile.get();
+                    if(selectedTile == null){
+                        return null;
+                    }
+                    Cell selectedCell = selectedTile.getCell();
+                    if (selectedCell.getUnit() == null){
+                        if (game.selectedUnitProperty() != null){
+                            game.selectedUnitProperty().get().setSelected(false);
+                        }
+                        return null;
+                    }
+                    SimpleObjectProperty<Unit> selectedUnitProperty = selectedCell.getUnit();
+                    Unit selectedUnit = selectedUnitProperty.get();
                     selectedUnit.setSelected(true);
                     return selectedUnit;
-                }
+                },
+                this.selectedTile
         ));
     }
 
