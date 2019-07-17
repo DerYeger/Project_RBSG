@@ -3,10 +3,12 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,9 +18,7 @@ public class MovementManager {
 
     private final MovementEvaluator movementEvaluator;
 
-    private Map<Cell, Tour> allowedTours;
-    private Unit unit;
-    private ChangeListener<Cell> unitPositionListener;
+    private Map<Unit, Entry> managedUnits = new HashMap<>();
 
     public MovementManager(MovementEvaluator movementEvaluator) {
 
@@ -27,21 +27,32 @@ public class MovementManager {
 
     @Nullable
     public Tour getTour(final @Nonnull Unit unit, final @Nonnull Cell target1) {
-        if (this.unit != unit) {
-            manageUnit(unit);
+        manageUnit(unit);
+
+        Entry entry = managedUnits.get(unit);
+        if (entry.allowedTours == null) {
+            entry.allowedTours = movementEvaluator.getAllowedTours(unit);
         }
 
-        return allowedTours.get(target1);
+        return entry.allowedTours.get(target1);
     }
 
-    protected void manageUnit(final @Nonnull Unit unit) {
-        this.unit = unit;
-        allowedTours = movementEvaluator.getAllowedTours(unit);
+    private void manageUnit(final @Nonnull Unit unit) {
+        if (managedUnits.containsKey(unit)) {
+            return;
+        }
+        Entry entry = new Entry();
+        unit.positionProperty().addListener(new WeakChangeListener<>(entry));
 
-        unitPositionListener = (observable, oldValue, newValue) -> {
-            this.unit = null;
-            this.allowedTours = null;
-        };
-        this.unit.positionProperty().addListener(new WeakChangeListener<>(unitPositionListener));
+        managedUnits.put(unit, entry);
+    }
+
+    private static class Entry implements ChangeListener<Cell> {
+        public Map<Cell, Tour> allowedTours = null;
+
+        @Override
+        public void changed(ObservableValue<? extends Cell> observable, Cell oldValue, Cell newValue) {
+            allowedTours = null;
+        }
     }
 }
