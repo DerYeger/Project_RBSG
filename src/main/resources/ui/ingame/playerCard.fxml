@@ -22,7 +22,7 @@
         <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
     </rowConstraints>
    <children>
-       <GridPane fx:id="playerLabelColorPane" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+       <GridPane fx:id="playerLabelColorPane" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
            <children>
                <Pane fx:id="colorPane" prefHeight="50.0" prefWidth="40.0" GridPane.columnIndex="1" />
                <Label fx:id="playerNameLabel" maxHeight="50.0" styleClass="default-medium" text="Label" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
@@ -35,7 +35,7 @@
                <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
            </rowConstraints>
        </GridPane>
-       <StackPane fx:id="playerStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="0">
+       <StackPane fx:id="playerStackPane" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="0">
            <children>
                <ImageView fx:id="playerImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
            </children>
