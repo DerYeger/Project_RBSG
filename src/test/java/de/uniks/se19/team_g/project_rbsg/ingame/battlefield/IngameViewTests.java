@@ -9,7 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -27,8 +27,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.robot.*;
-
+import org.testfx.robot.Motion;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,7 +66,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
                     Game game = new Game("AmazingGame24");
                     BufferedReader in = null;
                     try {
-                        String path = "Game.txt";
+                        String path = "game.txt";
                         in = new BufferedReader(new FileReader(new File(path)));
                         String zeile = null;
                         while ((zeile = in.readLine()) != null) {
@@ -223,7 +222,10 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn("#zoomInButton");
         clickOn("#zoomInButton");
         clickOn("#zoomOutButton");
+    }
 
+    @Test
+    public void testUnitSetting(){
 
         IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
         Game game = gameProvider.get();
@@ -239,6 +241,25 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn(100, 100, Motion.DIRECT);
         clickOn(150, 125, Motion.DIRECT);
         clickOn(50, 125, Motion.DIRECT);
+    }
+
+    @Test
+    public void testSetHighlightingOnSelctedUnit(){
+        IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
+        Game game = gameProvider.get();
+        ObservableList<Unit> units = game.getUnits();
+        for (Unit unti: units){
+
+        }
+        Unit unit = new Unit("1");
+
+        unit.setGame(game);
+        unit.setHp(10);
+        unit.setMp(10);
+        unit.setUnitType(UnitType.CHOPPER);
+        clickOn()
+
+
     }
 
     @Override
