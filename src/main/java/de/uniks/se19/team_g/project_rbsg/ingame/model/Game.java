@@ -28,6 +28,8 @@ public class Game {
 
     private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
 
+    private ObjectProperty<Unit> selectedUnit = new SimpleObjectProperty<>();
+
     private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
 
     public Game(@NonNull final String id) {
@@ -252,5 +254,17 @@ public class Game {
 
     public void setWinner(Player winner) {
         this.winner.set(winner);
+    }
+
+    public Unit getSelectedUnit() {
+        return selectedUnit.get();
+    }
+
+    public ObjectProperty<Unit> selectedUnitProperty() {
+        return selectedUnit;
+    }
+
+    public void setSelectedUnit(Unit selectedUnit) {
+        this.selectedUnit.set(selectedUnit);
     }
 }

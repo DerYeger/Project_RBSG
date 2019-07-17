@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
@@ -63,13 +64,16 @@ public class BattleFieldController implements RootController, IngameViewControll
     private int zoomFactor = 1;
 
     private TileDrawer tileDrawer;
-    private SimpleObjectProperty<Tile> selectedTile;
-    private SimpleObjectProperty<Tile> hoveredTile;
+    @Nonnull
+    final private SimpleObjectProperty<Tile> selectedTile;
+    @Nonnull
+    final private SimpleObjectProperty<Tile> hoveredTile;
 
     private final IngameGameProvider ingameGameProvider;
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+    private IngameContext context;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -229,6 +233,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else{
             selectedTile.set(tileMap[yPos][xPos]);
+
         }
 
     }
@@ -275,7 +280,34 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Override
     public void configure(@Nonnull IngameContext context) {
+        this.context = context;
 
+        configureSelectedUnit();
+    }
+
+    private void configureSelectedUnit() {
+        this.context.getGameState()
+            .selectedUnitProperty().bind(Bindings.createObjectBinding(
+                () -> {
+
+                    Tile selectedTile = this.selectedTile.get();
+                    if(selectedTile == null){
+                        return null;
+                    }
+                    Cell selectedCell = selectedTile.getCell();
+                    if (selectedCell.getUnit() == null){
+                        if (game.selectedUnitProperty() != null){
+                            game.selectedUnitProperty().get().setSelected(false);
+                        }
+                        return null;
+                    }
+                    SimpleObjectProperty<Unit> selectedUnitProperty = selectedCell.getUnit();
+                    Unit selectedUnit = selectedUnitProperty.get();
+                    selectedUnit.setSelected(true);
+                    return selectedUnit;
+                },
+                this.selectedTile
+        ));
     }
 
     @Override

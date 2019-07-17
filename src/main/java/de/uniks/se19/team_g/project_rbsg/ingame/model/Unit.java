@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
@@ -21,6 +22,8 @@ public class Unit {
     private Player leader;
 
     private SimpleObjectProperty<Cell> position;
+
+    private SimpleBooleanProperty selected;
 
     private UnitType unitType;
 
@@ -137,5 +140,17 @@ public class Unit {
     @Override
     public String toString() {
         return "(" + unitType + ", mp : " + mp + ", hp: " + hp + ")";
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public SimpleBooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
     }
 }
