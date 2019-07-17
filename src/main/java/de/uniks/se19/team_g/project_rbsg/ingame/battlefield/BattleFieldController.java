@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.RootController;
@@ -33,6 +34,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 
 import java.beans.*;
+import java.util.Map;
 
 /**
  * @author  Keanu Stückrad
@@ -73,6 +75,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final GameProvider gameProvider;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+    @Nonnull
+    private final MovementManager movementManager;
     private IngameContext context;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -82,12 +86,14 @@ public class BattleFieldController implements RootController, IngameViewControll
             @NonNull final IngameGameProvider ingameGameProvider,
             @NonNull final GameProvider gameProvider,
             @NonNull final SceneManager sceneManager,
-            @NonNull final AlertBuilder alertBuilder
+            @NonNull final AlertBuilder alertBuilder,
+            @Nonnull final MovementManager movementManager
     ) {
         this.ingameGameProvider = ingameGameProvider;
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+        this.movementManager = movementManager;
         this.tileDrawer = new TileDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
@@ -218,24 +224,62 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawMap(tileMap);
     }
 
+    protected Tile resolveTargetTile(MouseEvent event) {
+        int xPos = (int) (event.getX() / CELL_SIZE);
+        int yPos = (int) (event.getY() / CELL_SIZE);
+        return tileMap[yPos][xPos];
+    }
+
     public void canvasHandleMouseMove(MouseEvent event) {
-        int xPos = (int) (event.getX()/CELL_SIZE);
-        int yPos = (int) (event.getY()/CELL_SIZE);
-        hoveredTile.set(tileMap[yPos][xPos]);
+        Tile tile = resolveTargetTile(event);
+        hoveredTile.set(tile);
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
-        int xPos = (int) (event.getX()/CELL_SIZE);
-        int yPos = (int) (event.getY()/CELL_SIZE);
-        if(tileMap[yPos][xPos].equals(selectedTile.get())) {
+        Tile tile = resolveTargetTile(event);
+
+        if (handleMovement(tile)) {
+            return;
+        }
+
+        onTileSelection(tile);
+    }
+
+    private boolean handleMovement(Tile tile) {
+        if (!context.isMyTurn()) {
+            return false;
+        }
+
+        Cell cell = tile.getCell();
+
+        if (cell.getUnit().get() != null) {
+            return false;
+        }
+
+        Unit selectedUnit = context.getGameState().getSelectedUnit();
+        if (selectedUnit == null) {
+            return false;
+        }
+
+        Tour tour = movementManager.getTour(selectedUnit, cell);
+        if (tour == null) {
+            return false;
+        }
+
+        Map<String, Object> command = CommandBuilder.moveUnit(selectedUnit, tour.getPath());
+        context.getGameEventManager().sendMessage(command);
+
+        return true;
+    }
+
+    protected void onTileSelection(Tile tileClicked) {
+        if(tileClicked.equals(selectedTile.get())) {
             selectedTile.set(null);
             hoveredTile.set(null);
         }
         else{
-            selectedTile.set(tileMap[yPos][xPos]);
-
+            selectedTile.set(tileClicked);
         }
-
     }
 
     public void leaveGame(ActionEvent actionEvent) {
