@@ -46,14 +46,17 @@ public class MovementManagerTest {
         verify(movementEvaluator).getAllowedTours(unit);
         assertSame(tourToTarget1, answer);
         // target2 not set in toursFromFirst, i expect that the first answer is reused
-        assertNull(sut.getTour(unit, target2));
+        answer = sut.getTour(unit, target2);
         verifyNoMoreInteractions(movementEvaluator);
+        assertNull(answer);
 
+        /* this block would be relevant, if we want to cache results for different units. for now, let's say, we have only results for one unit
         assertNull(sut.getTour(otherUnit, target1));
         verify(movementEvaluator).getAllowedTours(otherUnit);
         // no changes to another units data
         assertSame(tourToTarget1, sut.getTour(unit, target1));
         verifyNoMoreInteractions(movementEvaluator);
+         */
 
         // changed position should invalidate cached tours
         unit.setPosition(secondStart);
