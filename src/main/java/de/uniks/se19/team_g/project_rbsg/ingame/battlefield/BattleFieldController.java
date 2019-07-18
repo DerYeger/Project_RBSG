@@ -128,6 +128,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private int roundCount;
+    private int phaseCount;
 
     @Autowired
     public BattleFieldController(
@@ -168,6 +169,12 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/accountBlack.png"),
                 40
         );
+        JavaFXUtils.setButtonIcons(
+                endPhaseButton,
+                getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
+                getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
+                40
+        );
         game = context.getGameState();
         if(game == null) {
             // exception
@@ -197,69 +204,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
 
-        HashMap<String, Player> playerMap=new HashMap<>();
-        HashMap<String, Node> playerNodeMap=new HashMap<>();
-        ArrayList<Pane> playerCardList = new ArrayList<Pane>();
-
-        playerCardList.add(player1);
-        playerCardList.add(player2);
-        playerCardList.add(player3);
-        playerCardList.add(player4);
-
-        playerListController=new PlayerListController(this.game);
-
-        int counter=0;
-        if(this.game.getPlayers().size()==2){
-            playerBar.getChildren().remove(player1);
-            playerCardList.remove(player1);
-            playerBar.getChildren().remove(player4);
-            playerCardList.remove(player4);
-        }
-
-        for(Player player : this.game.getPlayers()){
-            if(this.game.getPlayers().size()==2){
-                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
-            }
-            else{
-                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
-            }
-            playerMap.put(player.getName(), player);
-            playerNodeMap.put(player.getName(), playerListController.getPlayerCards().get(counter));
-
-            counter++;
-        }
-
         //Listener for unit list
         units.addListener(this::unitListChanged);
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
-        playerListController=new PlayerListController(game);
-        playerBar.setVisible(false);
-        playerBar.setPickOnBounds(false);
-        ingameField.setPickOnBounds(false);
 
-        playerNodeMap.get(this.game.getCurrentPlayer().getName()).setStyle("-fx-background-color: -selected-background-color");
-        this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
-                    Player oldPlayer = playerMap.get(oldVal);
-                    playerNodeMap.get(oldPlayer.getName()).setStyle("-fx-background-color: -root-background-color");
-                    Player newPlayer = playerMap.get(newVal);
-                    playerNodeMap.get(newPlayer.getName()).setStyle("-fx-background-color: -selected-background-color");
-        });
-
-        roundCount=0;
-        this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
-            roundCount=roundCount+1;
-        });
-        roundCountLabel.textProperty().bind(new SimpleIntegerProperty(roundCount).asString());
-        phaseLabel.textProperty().bind(this.game.phaseProperty());
-        roundTextLabel.setText("Runde");
-
-        JavaFXUtils.setButtonIcons(
-                endPhaseButton,
-                getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
-                getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
-                40
-        );
+        initPlayerBar();
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -331,6 +281,66 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
+    }
+    private void initPlayerBar(){
+
+        HashMap<String, Player> playerMap=new HashMap<>();
+        HashMap<String, Node> playerNodeMap=new HashMap<>();
+        ArrayList<Pane> playerCardList = new ArrayList<Pane>();
+
+        playerCardList.add(player1);
+        playerCardList.add(player2);
+        playerCardList.add(player3);
+        playerCardList.add(player4);
+
+        playerListController=new PlayerListController(this.game);
+
+        int counter=0;
+        if(this.game.getPlayers().size()==2){
+            playerBar.getChildren().remove(player1);
+            playerCardList.remove(player1);
+            playerBar.getChildren().remove(player4);
+            playerCardList.remove(player4);
+        }
+
+        for(Player player : this.game.getPlayers()){
+            if(this.game.getPlayers().size()==2){
+                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            }
+            else{
+                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            }
+            playerMap.put(player.getName(), player);
+            playerNodeMap.put(player.getName(), playerListController.getPlayerCards().get(counter));
+
+            counter++;
+        }
+
+        playerListController=new PlayerListController(game);
+        playerBar.setVisible(false);
+        playerBar.setPickOnBounds(false);
+        ingameField.setPickOnBounds(false);
+
+        playerNodeMap.get(this.game.getCurrentPlayer().getName()).setStyle("-fx-background-color: -selected-background-color");
+        this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
+            Player oldPlayer = playerMap.get(oldVal);
+            playerNodeMap.get(oldPlayer.getName()).setStyle("-fx-background-color: -root-background-color");
+            Player newPlayer = playerMap.get(newVal);
+            playerNodeMap.get(newPlayer.getName()).setStyle("-fx-background-color: -selected-background-color");
+        });
+
+        roundCount=0;
+        phaseCount=0;
+        this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
+            if(phaseCount==3){
+                phaseCount=0;
+                roundCount++;
+            }
+            phaseCount++;
+        });
+        roundCountLabel.textProperty().bind(new SimpleIntegerProperty(roundCount).asString());
+        phaseLabel.textProperty().bind(this.game.phaseProperty());
+        roundTextLabel.setText("Runde");
     }
 
     public void canvasHandleMouseMove(MouseEvent event) {
