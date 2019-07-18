@@ -79,6 +79,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private ZoomableScrollPane zoomableScrollPane;
     public StackPane battlefieldStackPane;
     public AnchorPane overlayAnchorPane;
+    public StackPane miniMapStackPane;
+
     private Game game;
 
     private ObservableList<Cell> cells;
@@ -169,6 +171,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
 
+        miniMapCanvas.visibleProperty().bindBidirectional(miniMapStackPane.visibleProperty());
         miniMapCanvas.setVisible(false);
         JavaFXUtils.setButtonIcons(
                 mapButton,
@@ -259,6 +262,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
+
+//        zoomableScrollPane.
     }
 
     public void canvasHandleMouseMove(MouseEvent event)
