@@ -150,6 +150,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Player player = new Player("Karli").setName("Karli");
         game.withPlayer(player);
         playerUnit.setLeader(player);
+        game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
@@ -168,14 +169,19 @@ public class BattleFieldViewTest extends ApplicationTest {
         clickOn(75, 100, Motion.DIRECT);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
+        verifyZeroInteractions(movementManager);
+        when(movementManager.getTour(playerUnit, definition.cells[1][0]))
+                .thenReturn(null);
+
         // test unit selection removed if not reachable terrain is clicked
         clickOn(25, 150, Motion.DIRECT);
+        verify(movementManager).getTour(playerUnit, definition.cells[1][0]);
         Assert.assertNull(game.getSelectedUnit());
         clickOn(75, 100, Motion.DIRECT);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
-        Mockito.verifyZeroInteractions(movementManager);
-        Mockito.verifyZeroInteractions(gameEventManager);
+        verifyNoMoreInteractions(movementManager);
+        verifyZeroInteractions(gameEventManager);
 
         Tour tour = new Tour();
         tour.setPath(Collections.singletonList(definition.cells[0][0]));
@@ -196,8 +202,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         // test move action fired, if reachable terrain is clicked
         clickOn(25, 100, Motion.DIRECT);
 
+        verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
-        verify(movementManager).getTour(any(), any());
+
+        // test no action, if user is not current player
+        game.setCurrentPlayer(null);
+        clickOn(25, 100, Motion.DIRECT);
     }
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {

@@ -216,6 +216,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void canvasHandleMouseClicked(MouseEvent event) {
         Tile tile = resolveTargetTile(event);
 
+        if (tile == null) {
+            return;
+        }
+
         if (handleMovement(tile)) {
             return;
         }
