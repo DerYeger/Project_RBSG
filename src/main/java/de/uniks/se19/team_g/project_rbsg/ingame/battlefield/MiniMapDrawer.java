@@ -30,12 +30,19 @@ public class MiniMapDrawer
     {
     }
 
-    public void setCanvas(Canvas canvas)
+    public void setCanvas(Canvas canvas, int mapSize)
     {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         xSize = canvas.getWidth();
         ySize = canvas.getHeight();
+
+        CellSizeX = Math.round(xSize / mapSize);
+        CellSizeY = Math.round(ySize / mapSize);
+        double width = CellSizeX * mapSize;
+        double height = CellSizeY * mapSize;
+        canvas.setWidth(width);
+        canvas.setHeight(height);
     }
 
     public void drawMinimap(Tile[][] map)

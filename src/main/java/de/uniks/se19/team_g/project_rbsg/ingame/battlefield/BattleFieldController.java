@@ -440,7 +440,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initMiniMap()
     {
-        miniMapDrawer.setCanvas(miniMapCanvas);
+        miniMapDrawer.setCanvas(miniMapCanvas, mapSize);
         miniMapDrawer.drawMinimap(tileMap);
     }
 
