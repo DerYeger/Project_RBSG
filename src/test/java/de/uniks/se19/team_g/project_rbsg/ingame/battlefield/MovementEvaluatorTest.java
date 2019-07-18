@@ -1,12 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -32,12 +30,6 @@ public class MovementEvaluatorTest {
         Assert.assertSame( tourTo0_0.getTarget(), tourTo0_0.getPath().get(0));
         Assert.assertEquals(1, tourTo0_0.getCost());
 
-        // check starting cell in two steps
-        final Tour circle = tours.get(startCell);
-        Assert.assertEquals(2, circle.getPath().size());
-        Assert.assertEquals( startCell, circle.getPath().get(1));
-        Assert.assertNotEquals( startCell, circle.getPath().get(0));
-
         // way of length 2 and 4 possible, should choose 2
         final Tour tourTo0_3 = tours.get(cells[0][3]);
         Assert.assertSame(cells[0][3], tourTo0_3.getTarget());
@@ -59,7 +51,7 @@ public class MovementEvaluatorTest {
         Assert.assertSame( tourTo2_1.getTarget(), pathTo2_1.get(3));
 
         // check other
-        Assert.assertEquals(10L, tours.size());
+        Assert.assertEquals(9L, tours.size());
         Assert.assertFalse(tours.containsKey(cells[1][1]));
         Assert.assertFalse(tours.containsKey(cells[2][0]));
 

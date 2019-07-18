@@ -118,7 +118,7 @@ public class ModelTests {
         assertNull(forest.getTop());
         assertEquals(grass, forest.getRight());
         assertEquals(mountain, forest.getBottom());
-        assertNull(forest.getUnit().get());
+        assertNull(forest.unitProperty().get());
         assertNull(forest.getTopLeft());
         assertNull(forest.getTopRight());
         assertEquals(water, forest.getBottomRight());
@@ -133,7 +133,7 @@ public class ModelTests {
         assertNull(grass.getTop());
         assertNull(grass.getRight());
         assertEquals(water, grass.getBottom());
-        assertEquals(aliceJeep1And5, grass.getUnit().get());
+        assertEquals(aliceJeep1And5, grass.unitProperty().get());
         assertNull(grass.getTopLeft());
         assertNull(grass.getTopRight());
         assertNull(grass.getBottomRight());
@@ -148,7 +148,7 @@ public class ModelTests {
         assertEquals(forest, mountain.getTop());
         assertEquals(water, mountain.getRight());
         assertNull(mountain.getBottom());
-        assertEquals(bobChopper10And10, mountain.getUnit().get());
+        assertEquals(bobChopper10And10, mountain.unitProperty().get());
         assertNull(mountain.getTopLeft());
         assertEquals(grass, mountain.getTopRight());
         assertNull(mountain.getBottomRight());
@@ -163,7 +163,7 @@ public class ModelTests {
         assertEquals(grass, water.getTop());
         assertNull(water.getRight());
         assertNull(water.getBottom());
-        assertEquals(aliceChopper5And10, water.getUnit().get());
+        assertEquals(aliceChopper5And10, water.unitProperty().get());
         assertEquals(forest, water.getTopLeft());
         assertNull(water.getTopRight());
         assertNull(water.getBottomRight());
@@ -212,7 +212,7 @@ public class ModelTests {
         assertFalse(game.getUnits().contains(aliceJeep1And5));
         assertEquals(2, game.getUnits().size());
 
-        assertNull(grass.getUnit().get());
+        assertNull(grass.unitProperty().get());
 
         assertFalse(alice.getUnits().contains(aliceJeep1And5));
         assertEquals(1, alice.getUnits().size());
@@ -242,7 +242,7 @@ public class ModelTests {
         assertNull(water.getTop());
         assertNull(water.getRight());
         assertNull(water.getBottom());
-        assertNull(water.getUnit().get());
+        assertNull(water.unitProperty().get());
         assertNull(water.getTopLeft());
 
         assertNull(mountain.getRight());

@@ -234,7 +234,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         Cell cell = tile.getCell();
 
-        if (cell.getUnit().get() != null) {
+        if (cell.unitProperty().get() != null) {
             return false;
         }
 
@@ -383,14 +383,10 @@ public class BattleFieldController implements RootController, IngameViewControll
                         return null;
                     }
                     Cell selectedCell = selectedTile.getCell();
-                    if (selectedCell.getUnit() == null){
-                        if (game.selectedUnitProperty() != null){
-                            game.selectedUnitProperty().get().setSelected(false);
-                        }
-                        return null;
-                    }
-                    SimpleObjectProperty<Unit> selectedUnitProperty = selectedCell.getUnit();
-                    Unit selectedUnit = selectedUnitProperty.get();
+
+                    game.selectedUnitProperty().get().setSelected(false);
+
+                    Unit selectedUnit = selectedCell.getUnit();
 
                     if (selectedUnit != null) {
                         selectedUnit.setSelected(true);

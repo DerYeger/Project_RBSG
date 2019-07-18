@@ -101,7 +101,7 @@ public class ModelManagerTests {
         assertNull(forest.getTop());
         assertEquals(grass, forest.getRight());
         assertEquals(mountain, forest.getBottom());
-        assertNull(forest.getUnit().get());
+        assertNull(forest.unitProperty().get());
 
         assertEquals(game, grass.getGame());
         assertEquals("Grass@1", grass.getId());
@@ -113,7 +113,7 @@ public class ModelManagerTests {
         assertNull(grass.getTop());
         assertNull(grass.getRight());
         assertEquals(water, grass.getBottom());
-        assertEquals(jeep, grass.getUnit().get());
+        assertEquals(jeep, grass.unitProperty().get());
 
         assertEquals(game, mountain.getGame());
         assertEquals("Mountain@1", mountain.getId());
@@ -125,7 +125,7 @@ public class ModelManagerTests {
         assertEquals(forest, mountain.getTop());
         assertEquals(water, mountain.getRight());
         assertNull(mountain.getBottom());
-        assertNull(mountain.getUnit().get());
+        assertNull(mountain.unitProperty().get());
 
         assertEquals(game, water.getGame());
         assertEquals("Water@1", water.getId());
@@ -137,7 +137,7 @@ public class ModelManagerTests {
         assertEquals(grass, water.getTop());
         assertNull(water.getRight());
         assertNull(water.getBottom());
-        assertEquals(chopper, water.getUnit().get());
+        assertEquals(chopper, water.unitProperty().get());
 
         assertEquals(water, chopper.positionProperty().get());
         assertEquals(grass, jeep.positionProperty().get());
@@ -159,7 +159,7 @@ public class ModelManagerTests {
         modelManager.handle(mapper.readValue(removeFirstUnitFromCell, ObjectNode.class));
 
         assertNull(chopper.positionProperty().get());
-        assertNull(water.getUnit().get());
+        assertNull(water.unitProperty().get());
 
         final String removePlayerFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Player@1\",\"from\":\"Game@1\",\"fieldName\":\"allPlayer\"}}";
 
