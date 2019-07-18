@@ -24,10 +24,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
-import javafx.beans.value.*;
-import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
@@ -109,8 +105,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     @Nonnull
     final private SimpleObjectProperty<Tile> hoveredTile;
 
-    private final IngameGameProvider ingameGameProvider;
-    private final GameProvider gameProvider;
+
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private IngameContext context;
@@ -181,7 +176,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (oldTile != null) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
         }
-
+        
         if ((newTile != null) && (newTile.getCell().getUnit().get() != null) && (isMyUnit(newTile.getCell().getUnit().get()))){
             Unit unit = newTile.getCell().getUnit().get();
             unit.setSelected(true);
@@ -190,6 +185,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else if(newTile != null) {
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
         }
+
     }
 
     private boolean isMyUnit(@NonNull Unit unit){
@@ -349,26 +345,31 @@ public class BattleFieldController implements RootController, IngameViewControll
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
 
+        //configureEndPhase();
+
+        configureSelectedUnit();
+    }
+
+    private void configureEndPhase() {
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
 
-        ObjectProperty<Player> currentPlayerProperty = context.getGameState().currentPlayerProperty();
+        ObjectProperty<Player> currentPlayerProperty = this.context.getGameState().currentPlayerProperty();
 
         playerCanEndPhase.bind(Bindings.createBooleanBinding(
                 () -> {
-                    boolean active = context.getUser().getName().equals(currentPlayerProperty.getName());
+                    boolean active = this.context.getUser().getName().equals(currentPlayerProperty.getName());
 
-                    return (active && context.getGameState().initiallyMovedProperty().get());
+                    return (active && this.context.getGameState().initiallyMovedProperty().get());
                 },
-                currentPlayerProperty, context.getGameState().initiallyMovedProperty()
+                currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
-        context.getGameState().initiallyMovedProperty().bind(Bindings.createBooleanBinding(
+        this.context.getGameState().initiallyMovedProperty().bind(Bindings.createBooleanBinding(
                 () -> false,
                 currentPlayerProperty
         ));
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
-       // configureSelectedUnit();
     }
 
     private void configureSelectedUnit() {
@@ -381,14 +382,13 @@ public class BattleFieldController implements RootController, IngameViewControll
                         return null;
                     }
                     Cell selectedCell = selectedTile.getCell();
-                    if (selectedCell.getUnit() == null){
-                        if (game.selectedUnitProperty() != null){
+                    if (selectedCell.getUnit().get() == null){
+                        if (game.selectedUnitProperty().get() != null){
                             game.selectedUnitProperty().get().setSelected(false);
                         }
                         return null;
                     }
-                    SimpleObjectProperty<Unit> selectedUnitProperty = selectedCell.getUnit();
-                    Unit selectedUnit = selectedUnitProperty.get();
+                    Unit selectedUnit = selectedCell.getUnit().get();
                     selectedUnit.setSelected(true);
                     this.selectedTile.get().setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
                     return selectedUnit;
