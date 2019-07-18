@@ -5,7 +5,6 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
-import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
@@ -40,7 +39,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.beans.PropertyChangeEvent;
 import java.util.Map;
 
@@ -90,21 +88,17 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private IngameContext context;
 
-    private final ApplicationState appState;
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public BattleFieldController(
             @NonNull final SceneManager sceneManager,
             @NonNull final AlertBuilder alertBuilder,
-            @Nonnull final MovementManager movementManager,
-            @Nullable final ApplicationState appState
+            @Nonnull final MovementManager movementManager
     ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.movementManager = movementManager;
-        this.appState = appState;
         this.tileDrawer = new TileDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
