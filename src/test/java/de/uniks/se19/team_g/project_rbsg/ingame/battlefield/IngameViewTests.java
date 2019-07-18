@@ -9,7 +9,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -192,10 +191,14 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
 
     private Scene scene;
 
+    RootController battleFieldController;
+
     @Override
     public void start(@NonNull final Stage stage) {
+        ViewComponent<RootController> battleFieldScene = (ViewComponent<RootController>) applicationContext.getBean("battleFieldScene");
+        this.battleFieldController = battleFieldScene.getController();
         @SuppressWarnings("unchecked")
-        final Scene buffer = new Scene(((ViewComponent<RootController>) applicationContext.getBean("battleFieldScene")).getRoot());
+        final Scene buffer = new Scene(battleFieldScene.getRoot());
         scene = buffer;
         stage.setScene(scene);
         stage.setX(0);
@@ -227,7 +230,9 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
     @Test
     public void testUnitSetting(){
 
+        ApplicationContext applicationContext = this.applicationContext;
         IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
+
         Game game = gameProvider.get();
         Unit unit = new Unit("10");
         unit.setHp(10);
@@ -235,6 +240,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         unit.setUnitType(UnitType.CHOPPER);
         unit.setGame(game);
         unit.setPosition(game.getCells().get(11));
+
 
         game.getUnits().get(0).setPosition(gameProvider.get().getCells().get(12));
 
@@ -247,17 +253,22 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
     public void testSetHighlightingOnSelctedUnit(){
         IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
         Game game = gameProvider.get();
-        ObservableList<Unit> units = game.getUnits();
-        for (Unit unti: units){
 
-        }
         Unit unit = new Unit("1");
 
         unit.setGame(game);
         unit.setHp(10);
         unit.setMp(10);
-        unit.setUnitType(UnitType.CHOPPER);
-        clickOn()
+        unit.setUnitType(UnitType.HEAVY_TANK);
+        clickOn(80, 120, Motion.DIRECT);
+
+        clickOn(80, 180, Motion.DIRECT);
+
+        clickOn(80, 240, Motion.DIRECT);
+
+        clickOn(80, 210, Motion.DIRECT);
+
+        String s = "hurra";
 
 
     }
