@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -21,6 +22,8 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatcher;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +40,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * @author  Keanu Stückrad
@@ -72,7 +82,7 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void testBuildIngameView() throws IOException {
+    public void testBuildIngameView() throws IOException, ExecutionException, InterruptedException {
 
         IngameGameProvider ingameGameProvider= new IngameGameProvider();
         ingameGameProvider.set(buildComplexTestGame());
@@ -128,29 +138,72 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void testMovement() {
+    public void testMovement() throws ExecutionException, InterruptedException {
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
         User user = new User();
         user.setName("Karli");
         Player player = new Player("Karli").setName("Karli");
-        definition.game.withPlayer(player);
+        game.withPlayer(player);
+        playerUnit.setLeader(player);
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
                 new GameProvider(),
                 new IngameGameProvider()
         );
-        context.gameInitialized(definition.game);
+        context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
         revealBattleField(context);
+
+        // test unit selection
+        Assert.assertNull(game.getSelectedUnit());
+        clickOn(25, 100, Motion.DIRECT);
+        Assert.assertNull(game.getSelectedUnit());
+        clickOn(75, 100, Motion.DIRECT);
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
+
+        // test unit selection removed if not reachable terrain is clicked
+        clickOn(25, 150, Motion.DIRECT);
+        Assert.assertNull(game.getSelectedUnit());
+        clickOn(75, 100, Motion.DIRECT);
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
+
+        Mockito.verifyZeroInteractions(movementManager);
+        Mockito.verifyZeroInteractions(gameEventManager);
+
+        Tour tour = new Tour();
+        tour.setPath(Collections.singletonList(definition.cells[0][0]));
+        when(movementManager.getTour(playerUnit, definition.cells[0][0]))
+                .thenReturn(tour);
+        doAnswer(
+                invocation -> {
+                    CommandBuilder.MoveUnitData data = (CommandBuilder.MoveUnitData) ((Map) invocation.getArgument(0)).get("data");
+                    Assert.assertEquals(data.unitId, playerUnit.getId());
+                    Assert.assertEquals(
+                            Collections.singletonList("0:0"),
+                            data.path
+                    );
+                    return null;
+                }
+        ).when(gameEventManager).sendMessage(any());
+
+        // test move action fired, if reachable terrain is clicked
+        clickOn(25, 100, Motion.DIRECT);
+
+        verify(gameEventManager).sendMessage(any());
+        verify(movementManager).getTour(any(), any());
     }
 
-    protected void revealBattleField(IngameContext context) {
-        Platform.runLater(
+    protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
+        // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions
+        // in Platform.runLater() will result in failing tests right away
+        CompletableFuture.runAsync(
                 ()-> {
                     battleFieldComponent.getController().configure(context);
                     Stage stage = new Stage();
@@ -158,9 +211,9 @@ public class BattleFieldViewTest extends ApplicationTest {
                     stage.setX(0);
                     stage.setY(0);
                     stage.show();
-                }
-        );
-        WaitForAsyncUtils.waitForFxEvents();
+                },
+                Platform::runLater
+        ).get();
     }
 
     public static Game buildComplexTestGame() throws IOException {

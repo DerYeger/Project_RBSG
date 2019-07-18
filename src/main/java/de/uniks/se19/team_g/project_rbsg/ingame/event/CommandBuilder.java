@@ -77,7 +77,7 @@ public class CommandBuilder {
         return command;
     }
 
-    static class MoveUnitData {
+    public static class MoveUnitData {
         public String unitId;
         public List<String> path;
     }
