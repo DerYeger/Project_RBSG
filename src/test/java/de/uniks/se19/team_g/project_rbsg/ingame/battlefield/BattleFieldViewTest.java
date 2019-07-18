@@ -46,11 +46,11 @@ import java.io.IOException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         FXMLLoaderFactory.class,
-        IngameViewTests.ContextConfiguration.class,
+        BattleFieldViewTest.ContextConfiguration.class,
         BattleFieldController.class,
         IngameConfig.class
 })
-public class IngameViewTests extends ApplicationTest implements ApplicationContextAware {
+public class BattleFieldViewTest extends ApplicationTest implements ApplicationContextAware {
 
 
     private ViewComponent<BattleFieldController> battleFieldComponent;
