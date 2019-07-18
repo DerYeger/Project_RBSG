@@ -175,41 +175,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
                 40
         );
-        game = context.getGameState();
-        if(game == null) {
-            // exception
-        } else {
-            cells = game.getCells();
-            units = game.getUnits();
-
-            mapSize = (int) Math.sqrt(cells.size());
-            tileMap = new Tile[mapSize][mapSize];
-
-            for (Cell cell : cells)
-            {
-                tileMap[cell.getY()][cell.getX()] = new Tile(cell);
-                tileMap[cell.getY()][cell.getX()].addListener(this::highlightingChanged);
-            }
-
-            for (Unit unit : units)
-            {
-                //Adds listener for units which are already in the list
-                unit.getPosition().addListener(this::unitChangedPosition);
-            }
-
-            initCanvas();
-        }
-
-        //Add Event handler for actions on canvas
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
-        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
-
-        //Listener for unit list
-        units.addListener(this::unitListChanged);
-        selectedTile.addListener(this::selectedTileChanged);
-        hoveredTile.addListener(this::hoveredTileChanged);
-
-        initPlayerBar();
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -283,7 +248,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawMap(tileMap);
     }
     private void initPlayerBar(){
-
+        game = context.getGameState();
         HashMap<String, Player> playerMap=new HashMap<>();
         HashMap<String, Node> playerNodeMap=new HashMap<>();
         ArrayList<Pane> playerCardList = new ArrayList<Pane>();
@@ -436,6 +401,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
 
             initCanvas();
+            initPlayerBar();
         }
 
         //Add Event handler for actions on canvas
