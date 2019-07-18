@@ -17,10 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -383,10 +380,15 @@ public class BattleFieldController implements RootController, IngameViewControll
                         return null;
                     }
                     Cell selectedCell = selectedTile.getCell();
+                    if (selectedCell.unitProperty() == null){
+                        if (game.selectedUnitProperty() != null){
+                            game.selectedUnitProperty().get().setSelected(false);
+                        }
+                        return null;
+                    }
 
-                    game.selectedUnitProperty().get().setSelected(false);
-
-                    Unit selectedUnit = selectedCell.getUnit();
+                    ReadOnlyObjectProperty<Unit> selectedUnitProperty = selectedCell.unitProperty();
+                    Unit selectedUnit = selectedUnitProperty.get();
 
                     if (selectedUnit != null) {
                         selectedUnit.setSelected(true);
