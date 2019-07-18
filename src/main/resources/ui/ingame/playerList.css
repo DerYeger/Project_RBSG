@@ -5,6 +5,6 @@
     -fx-max-width: 150;
     -fx-min-height: 50;
     -fx-min-width: 75;
-    -fx-background-color: -root-background-color;
+    -fx-background-color: rgb(45, 45, 45);
     -fx-effect: -shadow;
 }
