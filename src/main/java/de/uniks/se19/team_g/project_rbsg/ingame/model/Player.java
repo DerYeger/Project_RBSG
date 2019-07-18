@@ -30,8 +30,6 @@ public class Player {
 
     final private BooleanProperty isReady = new SimpleBooleanProperty(false);
 
-    final private BooleanProperty isCurrentPlayer = new SimpleBooleanProperty(false);
-
     public Player(@NonNull final String id) {
         this.id = id;
 

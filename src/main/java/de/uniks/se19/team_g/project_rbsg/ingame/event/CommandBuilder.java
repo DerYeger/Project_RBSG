@@ -17,7 +17,7 @@ public class CommandBuilder {
 
     private static String LEAVE_GAME = "leaveGame";
 
-    private static String END_Phase = "nextPhase";
+    private static String END_PHASE = "nextPhase";
 
     public static ObjectNode leaveGameCommand() {
         return new ObjectMapper()
@@ -30,7 +30,7 @@ public class CommandBuilder {
         return new ObjectMapper()
                 .createObjectNode()
                 .put(MESSAGE_TYPE, COMMAND)
-                .put(ACTION, END_Phase);
+                .put(ACTION, END_PHASE);
     }
 
     public static Map<String,Object> readyToPlay() {

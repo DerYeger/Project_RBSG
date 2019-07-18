@@ -20,7 +20,7 @@ public class Game {
 
     private StringProperty phase = new SimpleStringProperty();
 
-    final private SimpleBooleanProperty alreaydMovedThisRound = new SimpleBooleanProperty(true);
+    final private SimpleBooleanProperty alreadydMovedThisRound = new SimpleBooleanProperty(true);
 
     //private Player me;
 
@@ -258,12 +258,12 @@ public class Game {
         this.winner.set(winner);
     }
 
-    public boolean getInitiallyMoved(){ return alreaydMovedThisRound.get(); }
+    public boolean getInitiallyMoved(){ return alreadydMovedThisRound.get(); }
 
-    public SimpleBooleanProperty initiallyMovedProperty(){ return alreaydMovedThisRound; }
+    public SimpleBooleanProperty initiallyMovedProperty(){ return alreadydMovedThisRound; }
 
     public Game setInitiallyMoved(boolean initiallyMoved){
-        this.alreaydMovedThisRound.set(initiallyMoved);
+        this.alreadydMovedThisRound.set(initiallyMoved);
         return this;
     }
 
