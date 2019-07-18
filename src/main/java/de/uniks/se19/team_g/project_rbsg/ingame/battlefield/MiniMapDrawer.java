@@ -107,7 +107,6 @@ public class MiniMapDrawer
                     double startUnitRecX = startX + (CellSizeX / 4);
                     double startUnitRecY = startY + (CellSizeY / 4);
 
-                    logger.debug("drawing unit on minimap");
                     if (actualTile.getCell().getUnit().get().getLeader() != null)
                     {
                         gc.setFill(Color.valueOf(actualTile.getCell().getUnit().get().getLeader().getColor()));
