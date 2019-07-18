@@ -60,6 +60,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button zoomOutButton;
     public Button zoomInButton;
 
+    public Button mapButton;
+
     public Button endPhaseButton;
     public Pane endPhaseButtonContainer;
 
@@ -85,6 +87,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private final IngameGameProvider ingameProvider;
+
     private IngameContext context;
 
     private final ApplicationState appState;
