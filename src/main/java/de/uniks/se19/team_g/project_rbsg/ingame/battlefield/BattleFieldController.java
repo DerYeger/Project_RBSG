@@ -73,6 +73,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
+    private final ChangeListener<Cell> unitPositionListener = this::unitChangedPosition;
+    private final ChangeListener<Tile> hoveredTileListener = this::hoveredTileChanged;
+    private final ChangeListener<Tile> selectedTileListener = this::selectedTileChanged;
+    private final PropertyChangeListener highlightingListener = this::highlightingChanged;
+
     @Autowired
     public BattleFieldController(
             @NonNull final IngameGameProvider ingameGameProvider,
@@ -121,13 +127,13 @@ public class BattleFieldController implements RootController, IngameViewControll
             for (Cell cell : cells)
             {
                 tileMap[cell.getY()][cell.getX()] = new Tile(cell);
-                tileMap[cell.getY()][cell.getX()].addListener(this::highlightingChanged);
+                tileMap[cell.getY()][cell.getX()].addListener(highlightingListener);
             }
 
             for (Unit unit : units)
             {
                 //Adds listener for units which are already in the list
-                unit.getPosition().addListener(this::unitChangedPosition);
+                unit.getPosition().addListener(unitPositionListener);
             }
 
             initCanvas();
@@ -138,9 +144,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
 
         //Listener for unit list
-        units.addListener(this::unitListChanged);
-        selectedTile.addListener(this::selectedTileChanged);
-        hoveredTile.addListener(this::hoveredTileChanged);
+        units.addListener(unitListListener);
+        selectedTile.addListener(selectedTileListener);
+        hoveredTile.addListener(hoveredTileListener);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -173,19 +179,19 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
     {
-        if (c.next()) {
+        while(c.next()) {
             logger.debug(c.toString());
             if (c.wasAdded()) {
-                for (int i = c.getFrom(); i < c.getTo(); i++)
+                for (Unit unit : c.getAddedSubList())
                 {
-                    units.get(c.getFrom()).getPosition().addListener(this::unitChangedPosition);
+                    unit.getPosition().addListener(unitPositionListener);
                 }
             }
 
             if(c.wasRemoved()) {
                 for (Unit unit : c.getRemoved())
                 {
-                    unit.getPosition().removeListener(this::unitChangedPosition);
+                    unit.getPosition().removeListener(unitPositionListener);
                 }
             }
         }
@@ -281,19 +287,21 @@ public class BattleFieldController implements RootController, IngameViewControll
     @Override
     public void terminate()
     {
-        selectedTile.removeListener(this::selectedTileChanged);
-        hoveredTile.removeListener(this::hoveredTileChanged);
+        selectedTile.removeListener(selectedTileListener);
+        hoveredTile.removeListener(hoveredTileListener);
         for (Tile[] tileArray : tileMap)
         {
             for (Tile tile : tileArray)
             {
-                tile.removeListener(this::highlightingChanged);
+                tile.removeListener(highlightingListener);
             }
         }
 
         for (Unit unit : units)
         {
-            unit.getPosition().removeListener(this::unitChangedPosition);
+            unit.getPosition().removeListener(unitPositionListener);
         }
+
+        units.removeListener(unitListListener);
     }
 }
