@@ -36,4 +36,18 @@ public class PlayerCardController {
         return playerCard;
     }
 
+    public Node createLoserCard(Player player){
+        Node playerCard=null;
+        try {
+            playerCard=loader.load();
+            playerNameLabel.setText(player.getName());
+            playerNameLabel.setStyle("-fx-text-fill: #000000");
+            playerImage.setImage(new Image((getClass().getResource("/assets/icons/operation/accountBlack.png")).toString()));
+            colorPane.setBackground(new Background(new BackgroundFill(Color.valueOf(player.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return playerCard;
+    }
+
 }

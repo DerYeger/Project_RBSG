@@ -24,6 +24,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
@@ -58,6 +59,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author  Keanu Stückrad
@@ -251,6 +253,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         game = context.getGameState();
         HashMap<String, Player> playerMap=new HashMap<>();
         HashMap<String, Node> playerNodeMap=new HashMap<>();
+        HashMap<String, Pane> playerPaneMap=new HashMap<>();
         ArrayList<Pane> playerCardList = new ArrayList<Pane>();
 
         playerCardList.add(player1);
@@ -269,14 +272,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         for(Player player : this.game.getPlayers()){
-            if(this.game.getPlayers().size()==2){
-                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
-            }
-            else{
-                playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
-            }
-            playerMap.put(player.getName(), player);
-            playerNodeMap.put(player.getName(), playerListController.getPlayerCards().get(counter));
+
+            playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            playerPaneMap.put(player.getId(), playerCardList.get(counter));
+            playerMap.put(player.getId(), player);
+            playerNodeMap.put(player.getId(), playerListController.getPlayerCards().get(counter));
 
             counter++;
         }
@@ -286,13 +286,26 @@ public class BattleFieldController implements RootController, IngameViewControll
         playerBar.setPickOnBounds(false);
         ingameField.setPickOnBounds(false);
 
-        playerNodeMap.get(this.game.getCurrentPlayer().getName()).setStyle("-fx-background-color: -selected-background-color");
+        playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
         this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
             Player oldPlayer = playerMap.get(oldVal);
-            playerNodeMap.get(oldPlayer.getName()).setStyle("-fx-background-color: -root-background-color");
+            playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
             Player newPlayer = playerMap.get(newVal);
-            playerNodeMap.get(newPlayer.getName()).setStyle("-fx-background-color: -selected-background-color");
+            playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
         });
+        this.game.getPlayers().addListener((ListChangeListener) l -> {
+            if(!l.next()){
+                return;
+            }
+            List<Player> removedPlayer = l.getRemoved();
+            Platform.runLater(()->{
+                for(Player player : removedPlayer){
+                    playerPaneMap.get(player.getId()).getChildren().remove(0);
+                    playerPaneMap.get(player.getId()).getChildren().add(playerListController.createLoserCard(player));
+                }
+            });
+        });
+
 
         roundCount=0;
         phaseCount=0;

@@ -21,7 +21,6 @@ public class PlayerListController {
         this.cards = FXCollections.observableArrayList();
         this.game=game;
         initPlayerCards(game.getPlayers());
-        //createCardNodes();
     }
 
     private void initPlayerCards(ObservableList<Player> players){
@@ -31,17 +30,13 @@ public class PlayerListController {
         }
     }
 
-    private void createCardNodes() {
-        for(PlayerCardBuilder cardBuilder : playerCardBuilders){
-            Node node = cardBuilder.buildPlayerCard();
-            cardBuilder.setPlayer(game.getPlayers().get(0), Color.valueOf(game.getPlayers().get(0).getColor()));
-            node.scaleXProperty().setValue(0.75);
-            node.scaleYProperty().setValue(0.75);
-            cards.add(node);
-        }
+    public Node createLoserCard(Player player){
+        PlayerCardController playerCardController = new PlayerCardController();
+        return playerCardController.createLoserCard(player);
     }
 
     public ObservableList<Node> getPlayerCards() {
+
         return cards;
     }
 }
