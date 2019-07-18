@@ -35,6 +35,7 @@ public class Unit {
         this.id = id;
 
         position = new SimpleObjectProperty<>();
+        selected = new SimpleBooleanProperty(false);
     }
 
     public String getId() {

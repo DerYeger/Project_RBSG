@@ -58,12 +58,36 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private Game game;
     private ObservableList<Cell> cells;
+
+    public Tile[][] getTileMap() {
+        return tileMap;
+    }
+
+    public void setTileMap(Tile[][] tileMap) {
+        this.tileMap = tileMap;
+    }
+
     private Tile[][] tileMap;
     private ObservableList<Unit> units;
 
     private int zoomFactor = 1;
 
     private TileDrawer tileDrawer;
+
+    @Nonnull
+    public Tile getSelectedTile() {
+        return selectedTile.get();
+    }
+
+    @Nonnull
+    public SimpleObjectProperty<Tile> selectedTileProperty() {
+        return selectedTile;
+    }
+
+    public void setSelectedTile(@Nonnull Tile selectedTile) {
+        this.selectedTile.set(selectedTile);
+    }
+
     @Nonnull
     final private SimpleObjectProperty<Tile> selectedTile;
     @Nonnull
@@ -155,23 +179,35 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void hoveredTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
     {
-        if(oldTile != null && oldTile.getHighlightingTwo() != HighlightingTwo.SELECTED) {
+        if(oldTile != null && oldTile.getHighlightingTwo() == HighlightingTwo.HOVERED) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
         }
 
-        if(newTile != null && newTile.getHighlightingTwo() != HighlightingTwo.SELECTED) {
+        if(newTile != null && newTile.getHighlightingTwo() == HighlightingTwo.NONE) {
             newTile.setHighlightingTwo(HighlightingTwo.HOVERED);
         }
     }
 
-    private void selectedTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
-    {
-        if(oldTile != null) {
+    private void selectedTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile) {
+        if (oldTile != null) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
         }
 
-        if(newTile != null) {
+        if ((newTile != null) && (newTile.getCell().getUnit().get() != null) && (isMyUnit(newTile.getCell().getUnit().get()))){
+            Unit unit = newTile.getCell().getUnit().get();
+            unit.setSelected(true);
+            context.getGameState().setSelectedUnit(newTile.getCell().getUnit().get());
+            newTile.setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
+        } else if(newTile != null) {
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
+        }
+    }
+
+    private boolean isMyUnit(@NonNull Unit unit){
+        if (unit.getLeader().getName().equals(context.getUser().getName())){
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -282,7 +318,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void configure(@Nonnull IngameContext context) {
         this.context = context;
 
-        configureSelectedUnit();
+       // configureSelectedUnit();
     }
 
     private void configureSelectedUnit() {

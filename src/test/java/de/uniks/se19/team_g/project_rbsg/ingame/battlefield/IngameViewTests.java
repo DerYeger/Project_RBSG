@@ -6,9 +6,12 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +21,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -182,21 +186,31 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
 
     private ApplicationContext applicationContext;
 
+    private IngameContext ingameContext;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
         this.applicationContext = applicationContext;
     }
 
+    @Autowired
+    IngameGameProvider ingameGameProvider;
 
     private Scene scene;
 
-    RootController battleFieldController;
+    public RootController battleFieldController;
 
     @Override
     public void start(@NonNull final Stage stage) {
+
+        UserProvider userProvider = new UserProvider();
+        GameProvider gameDataProvider = new GameProvider();
+        ingameContext = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
         ViewComponent<RootController> battleFieldScene = (ViewComponent<RootController>) applicationContext.getBean("battleFieldScene");
         this.battleFieldController = battleFieldScene.getController();
+        ((IngameViewController)battleFieldController).configure(ingameContext);
+
         @SuppressWarnings("unchecked")
         final Scene buffer = new Scene(battleFieldScene.getRoot());
         scene = buffer;
@@ -254,12 +268,29 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
         Game game = gameProvider.get();
 
-        Unit unit = new Unit("1");
+        //ingameContext.gameInitialized(game);
+       /* Tile[][] tileMap = ((BattleFieldController) battleFieldController).getTileMap();
+        Tile tile = tileMap[0][0];
 
-        unit.setGame(game);
-        unit.setHp(10);
-        unit.setMp(10);
-        unit.setUnitType(UnitType.HEAVY_TANK);
+        ((BattleFieldController)battleFieldController).setSelectedTile(tile);
+*/
+        Unit unitOne = new Unit("1");
+        Unit unitTwo = new Unit("2");
+
+        Player playerOne = new Player("1");
+        Player playerTwo = new Player("2");
+
+        unitOne.setLeader(playerOne);
+
+        unitTwo.setLeader(playerTwo);
+        unitTwo.setUnitType(UnitType.BAZOOKA_TROOPER);
+        unitTwo.setGame(game);
+
+        unitOne.setGame(game);
+        unitOne.setHp(10);
+        unitOne.setMp(10);
+        unitOne.setUnitType(UnitType.HEAVY_TANK);
+
         clickOn(80, 120, Motion.DIRECT);
 
         clickOn(80, 180, Motion.DIRECT);
