@@ -84,7 +84,7 @@ public class IngameRootController
         mountWaitingRoom();
     }
 
-    protected void configureContext() {
+    public void configureContext() {
 
         ingameContext = contextFactory.getObject();
 

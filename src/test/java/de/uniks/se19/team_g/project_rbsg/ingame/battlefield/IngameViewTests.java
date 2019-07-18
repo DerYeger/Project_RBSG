@@ -1,15 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -19,7 +21,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +32,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.robot.*;
-
+import org.testfx.robot.Motion;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,12 +48,12 @@ import java.io.IOException;
         FXMLLoaderFactory.class,
         IngameViewTests.ContextConfiguration.class,
         BattleFieldController.class,
-        IngameConfig.class,
-        AlertBuilder.class
+        IngameConfig.class
 })
-public class IngameViewTests extends ApplicationTest implements ApplicationContextAware {  // TODO Online Test ? for better coverage
+public class IngameViewTests extends ApplicationTest implements ApplicationContextAware {
 
 
+    private ViewComponent<BattleFieldController> battleFieldComponent;
 
     @TestConfiguration
     static class ContextConfiguration {
@@ -67,7 +72,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
                     Game game = new Game("AmazingGame24");
                     BufferedReader in = null;
                     try {
-                        String path = "Game.txt";
+                        String path = "game.txt";
                         in = new BufferedReader(new FileReader(new File(path)));
                         String zeile = null;
                         while ((zeile = in.readLine()) != null) {
@@ -170,19 +175,15 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
 //                }
             };
         }
-        @Bean
-        public GameProvider gameProvider() {
-            return new GameProvider(){
-                @Override
-                public de.uniks.se19.team_g.project_rbsg.model.Game get(){
-                    de.uniks.se19.team_g.project_rbsg.model.Game game = new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4);
-                    return game;
-                }
-            };
-        }
     }
 
     private ApplicationContext applicationContext;
+
+    @MockBean
+    AlertBuilder alertBuilder;
+
+    @Autowired
+    IngameGameProvider ingameGameProvider;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -193,10 +194,14 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
 
     private Scene scene;
 
+    @Autowired
+    ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
+
+
     @Override
     public void start(@NonNull final Stage stage) {
-        @SuppressWarnings("unchecked")
-        final Scene buffer = new Scene(((ViewComponent<RootController>) applicationContext.getBean("battleFieldScene")).getRoot());
+        battleFieldComponent = battleFieldFactory.getObject();
+        final Scene buffer = new Scene(battleFieldComponent.getRoot());
         scene = buffer;
         stage.setScene(scene);
         stage.setX(0);
@@ -207,6 +212,20 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
     @Test
     public void testBuildIngameView() {
         Node ingameView = scene.getRoot();
+        BattleFieldController controller = battleFieldComponent.getController();
+
+        GameProvider gameDataProvider = new GameProvider();
+        gameDataProvider.set(new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4));
+
+
+        UserProvider userProvider = new UserProvider();
+        userProvider.set(new User().setName("TestUser"));
+
+        IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
+
+        Platform.runLater(()->controller.configure(context));
+        WaitForAsyncUtils.waitForFxEvents();
+
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
@@ -224,9 +243,11 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn("#zoomInButton");
         clickOn("#zoomOutButton");
 
+        Button endPhaseButton = lookup("#endPhaseButton").query();
+        Assert.assertNotNull(endPhaseButton);
 
-        IngameGameProvider gameProvider = (IngameGameProvider) applicationContext.getBean(IngameGameProvider.class);
-        Game game = gameProvider.get();
+
+        Game game = ingameGameProvider.get();
         Unit unit = new Unit("10");
         unit.setHp(10);
         unit.setMp(10);
@@ -234,7 +255,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         unit.setGame(game);
         unit.setPosition(game.getCells().get(11));
 
-        game.getUnits().get(0).setPosition(gameProvider.get().getCells().get(12));
+        game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
 
         clickOn(100, 100, Motion.DIRECT);
         clickOn(150, 125, Motion.DIRECT);
