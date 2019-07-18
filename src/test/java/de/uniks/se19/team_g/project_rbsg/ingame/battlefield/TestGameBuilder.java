@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 
 import java.util.Arrays;
 
@@ -19,17 +17,19 @@ public class TestGameBuilder {
         Definition definition = new Definition(new Cell[4][4]);
 
         Game game = definition.game;
-        Unit helicopterDick = definition.playerUnit;
+        Unit chubbyCharles = definition.playerUnit;
+        definition.playerUnit.setUnitType(UnitType.HEAVY_TANK);
         Unit enemy = definition.otherUnit;
-        helicopterDick.setMp(4);
-        game.withUnit(helicopterDick);
+        chubbyCharles.setMp(4);
+        game.withUnit(chubbyCharles);
         Cell[][] cells = definition.cells;
         for (int row = 0; row < 4; row++) {
             for (int column = 0; column < 4; column++) {
                 final Cell cell = new Cell(String.format("%d:%d", row, column));
+                cell.setBiome(Biome.GRASS);
                 cell.setPassable(true);
-                cell.setX(row);
-                cell.setY(column);
+                cell.setX(column);
+                cell.setY(row);
                 cells[row][column] = cell;
                 if (row > 0) {
                     cell.setTop(cells[row-1][column]);
@@ -40,9 +40,11 @@ public class TestGameBuilder {
             }
         }
         Cell startCell = cells[0][1];
-        helicopterDick.setPosition(startCell);
+        chubbyCharles.setPosition(startCell);
         cells[1][0].setPassable(false);
+        cells[1][0].setBiome(Biome.WATER);
         cells[1][1].setPassable(false);
+        cells[1][1].setBiome(Biome.WATER);
 
         game.withCells(
                 Arrays.stream(cells)
