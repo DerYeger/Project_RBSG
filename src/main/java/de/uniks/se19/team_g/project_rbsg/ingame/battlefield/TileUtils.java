@@ -18,6 +18,7 @@ public class TileUtils
     private static Image grass = new Image("/assets/cells/grass.png");
 
     public static Image getBackgroundImage(Cell cell) {
+
         if(cell.getBiome().toString().equals("Grass")) return grass;
 
         String biome = cell.getBiome().toString().equals("Forest") ? "forest" :
@@ -129,13 +130,13 @@ public class TileUtils
     public static String getUnitImagePath(UnitType unitType) {
         String imagePath;
 
-        if(unitType.equals(INFANTRY)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
-                else if(unitType.equals(BAZOOKA_TROOPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
-                else if(unitType.equals(JEEP)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
-                else if(unitType.equals(LIGHT_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
-                else if(unitType.equals(HEAVY_TANK)) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
-                else if(unitType.equals(CHOPPER)) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
-                else imagePath = UnitTypeInfo.UNKNOWN.getImage().toExternalForm();
+        if(unitType == INFANTRY) imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
+        else if(unitType == BAZOOKA_TROOPER) imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
+        else if(unitType == JEEP) imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
+        else if(unitType == LIGHT_TANK) imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
+        else if(unitType == HEAVY_TANK) imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
+        else if(unitType == CHOPPER) imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
+        else imagePath = UnitTypeInfo.UNKNOWN.getImage().toExternalForm();
 
         return imagePath;
     }
