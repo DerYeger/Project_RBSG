@@ -243,6 +243,10 @@ public class BattleFieldController implements RootController, IngameViewControll
             return false;
         }
 
+        if (selectedUnit.getLeader() != context.getUserPlayer()) {
+            return false;
+        }
+
         Tour tour = movementManager.getTour(selectedUnit, cell);
         if (tour == null) {
             return false;
