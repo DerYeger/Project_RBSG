@@ -52,7 +52,7 @@ public class IngameContext {
 
         userPlayer = game.getPlayers().stream().filter(
                 player -> player.getName().equals(user.getName())
-        ).findAny().orElseThrow();
+        ).findAny().orElse(null);
     }
 
     public User getUser() {
