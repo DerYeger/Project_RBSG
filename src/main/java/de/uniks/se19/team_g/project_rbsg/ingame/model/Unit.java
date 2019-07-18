@@ -23,7 +23,7 @@ public class Unit {
 
     private SimpleObjectProperty<Cell> position;
 
-    private SimpleBooleanProperty selected;
+    private SimpleBooleanProperty selected = new SimpleBooleanProperty();
 
     private UnitType unitType;
 

@@ -20,14 +20,10 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -39,6 +35,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author  Keanu Stückrad
@@ -46,172 +43,40 @@ import java.io.IOException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         FXMLLoaderFactory.class,
-        BattleFieldViewTest.ContextConfiguration.class,
         BattleFieldController.class,
         IngameConfig.class
 })
-public class BattleFieldViewTest extends ApplicationTest implements ApplicationContextAware {
+public class BattleFieldViewTest extends ApplicationTest {
 
 
     private ViewComponent<BattleFieldController> battleFieldComponent;
 
-    @TestConfiguration
-    static class ContextConfiguration {
-        @Bean
-        public IngameGameProvider ingameGameProvider() {
-            return new IngameGameProvider(){
-
-                private Game inGame;
-
-                @Override
-                public Game get(){
-                    if(inGame != null) {
-                        return inGame;
-                    }
-
-                    Game game = new Game("AmazingGame24");
-                    BufferedReader in = null;
-                    try {
-                        String path = "game.txt";
-                        in = new BufferedReader(new FileReader(new File(path)));
-                        String zeile = null;
-                        while ((zeile = in.readLine()) != null) {
-                            int idAnf = zeile.indexOf('@')+1;
-                            int idEnd = zeile.indexOf('\"', idAnf);
-                            int xAnf = zeile.indexOf("\"x\":")+4;
-                            int xEnd = zeile.indexOf(",\"y");
-                            int yAnf = zeile.indexOf("\"y\":")+4;
-                            int yEnd = zeile.indexOf(",\"isPas");
-                            int bAnf = 7;
-                            int bEnd = zeile.indexOf('@');
-                            String biome = zeile.substring( bAnf, bEnd);
-                            Biome b = biome.equals("Grass") ? Biome.GRASS :
-                                            biome.equals("Forest") ? Biome.FOREST :
-                                                    biome.equals("Mountain") ? Biome.MOUNTAIN :
-                                                            biome.equals("Water") ? Biome.WATER : null;
-                            game.withCell(new Cell(zeile.substring( idAnf, idEnd))
-                                    .setX(Integer.parseInt(zeile.substring( xAnf, xEnd)))
-                                    .setY(Integer.parseInt(zeile.substring( yAnf, yEnd)))
-                                    .setBiome(b));
-                        }
-                        in = new BufferedReader(new FileReader(new File(path)));
-                        while((zeile = in.readLine()) != null){
-                            int idAnf = zeile.indexOf('@')+1;
-                            int idEnd = idAnf+8;
-                            int leAnf = zeile.indexOf('@', zeile.indexOf("\"left\""))+1;
-                            int leEnd = zeile.indexOf('\"', leAnf);
-                            int riAnf = zeile.indexOf('@', zeile.indexOf("\"right\""))+1;
-                            int riEnd = zeile.indexOf('\"', riAnf);
-                            int boAnf = zeile.indexOf('@', zeile.indexOf("\"bottom\""))+1;
-                            int boEnd = zeile.indexOf('\"', boAnf);
-                            int toAnf = zeile.indexOf('@', zeile.indexOf("\"top\""))+1;
-                            int toEnd = zeile.indexOf('\"', toAnf);
-                            for(Cell c: game.getCells()) {
-                                if(c.getId().equals(zeile.substring( idAnf, idEnd))) {
-                                    if(leAnf > 0){
-                                        for(Cell ce: game.getCells()){
-                                            if(ce.getId().equals(zeile.substring( leAnf, leEnd))) {
-                                                c.setLeft(ce);
-                                            }
-                                        }
-                                    }
-                                    if(riAnf > 0){
-                                        for(Cell ce: game.getCells()){
-                                            if(ce.getId().equals(zeile.substring( riAnf, riEnd))) {
-                                                c.setRight(ce);
-                                            }
-                                        }
-                                    }
-                                    if(boAnf > 0){
-                                        for(Cell ce: game.getCells()){
-                                            if(ce.getId().equals(zeile.substring( boAnf, boEnd))) {
-                                                c.setBottom(ce);
-                                            }
-                                        }
-                                    }
-                                    if(toAnf > 0){
-                                        for(Cell ce: game.getCells()){
-                                            if(ce.getId().equals(zeile.substring( toAnf, toEnd))) {
-                                                c.setTop(ce);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (in != null)
-                            try {
-                                in.close();
-                            } catch (IOException e) {
-                            }
-                    }
-
-
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Unit unit = new Unit(String.valueOf(i));
-                        unit.setGame(game);
-                        unit.setPosition(game.getCells().get(i));
-                        unit.setHp(10);
-                        unit.setMp(10);
-                        unit.setUnitType(UnitType.CHOPPER);
-                    }
-                    if(inGame == null) {
-                        inGame = game;
-                    }
-                    return game;
-                }
-            };
-        }
-        @Bean
-        public SceneManager sceneManager(){
-            return new SceneManager() {
-//                @Override
-//                public void setLobbyScene(@NonNull final boolean useCache, @Nullable final SceneIdentifier cacheIdentifier) {
-//
-//                }
-            };
-        }
-    }
-
-    private ApplicationContext applicationContext;
+    @SpyBean
+    SceneManager sceneManager;
 
     @MockBean
     AlertBuilder alertBuilder;
 
-    @Autowired
-    IngameGameProvider ingameGameProvider;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
-        this.applicationContext = applicationContext;
-    }
-
-
-    private Scene scene;
+    @MockBean
+    MovementManager movementManager;
 
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
 
 
     @Override
-    public void start(@NonNull final Stage stage) {
+    public void start(@NonNull final Stage ignored) {
         battleFieldComponent = battleFieldFactory.getObject();
-        final Scene buffer = new Scene(battleFieldComponent.getRoot());
-        scene = buffer;
-        stage.setScene(scene);
-        stage.setX(0);
-        stage.setY(0);
-        stage.show();
     }
 
     @Test
-    public void testBuildIngameView() {
-        Node ingameView = scene.getRoot();
+    public void testBuildIngameView() throws IOException {
+
+        IngameGameProvider ingameGameProvider= new IngameGameProvider();
+        ingameGameProvider.set(buildComplexTestGame());
+
+
+        Node ingameView = battleFieldComponent.getRoot();
         BattleFieldController controller = battleFieldComponent.getController();
 
         GameProvider gameDataProvider = new GameProvider();
@@ -223,7 +88,16 @@ public class BattleFieldViewTest extends ApplicationTest implements ApplicationC
 
         IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
 
-        Platform.runLater(()->controller.configure(context));
+        Platform.runLater(
+                ()-> {
+                    controller.configure(context);
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(battleFieldComponent.getRoot()));
+                    stage.setX(0);
+                    stage.setY(0);
+                    stage.show();
+                }
+        );
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertNotNull(ingameView);
@@ -257,13 +131,97 @@ public class BattleFieldViewTest extends ApplicationTest implements ApplicationC
 
         game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
 
-        clickOn(100, 100, Motion.DIRECT);
-        clickOn(150, 125, Motion.DIRECT);
-        clickOn(50, 125, Motion.DIRECT);
+        clickOn(25, 100, Motion.DIRECT);
+        clickOn(25, 150, Motion.DIRECT);
+        clickOn(75, 150, Motion.DIRECT);
     }
 
-    @Override
-    public void stop() throws Exception {
-        scene.getWindow().centerOnScreen();
+    public static Game buildComplexTestGame() throws IOException {
+        Game game = new Game("AmazingGame24");
+        BufferedReader in;
+
+        String path = "game.txt";
+        in = new BufferedReader(new FileReader(new File(path)));
+        String zeile;
+        while ((zeile = in.readLine()) != null) {
+            int idAnf = zeile.indexOf('@')+1;
+            int idEnd = zeile.indexOf('\"', idAnf);
+            int xAnf = zeile.indexOf("\"x\":")+4;
+            int xEnd = zeile.indexOf(",\"y");
+            int yAnf = zeile.indexOf("\"y\":")+4;
+            int yEnd = zeile.indexOf(",\"isPas");
+            int bAnf = 7;
+            int bEnd = zeile.indexOf('@');
+            String biome = zeile.substring( bAnf, bEnd);
+            Biome b = biome.equals("Grass") ? Biome.GRASS :
+                    biome.equals("Forest") ? Biome.FOREST :
+                            biome.equals("Mountain") ? Biome.MOUNTAIN :
+                                    biome.equals("Water") ? Biome.WATER : null;
+            Objects.requireNonNull(b);
+            game.withCell(new Cell(zeile.substring( idAnf, idEnd))
+                    .setX(Integer.parseInt(zeile.substring( xAnf, xEnd)))
+                    .setY(Integer.parseInt(zeile.substring( yAnf, yEnd)))
+                    .setBiome(b));
+        }
+        in = new BufferedReader(new FileReader(new File(path)));
+        while((zeile = in.readLine()) != null){
+            int idAnf = zeile.indexOf('@')+1;
+            int idEnd = idAnf+8;
+            int leAnf = zeile.indexOf('@', zeile.indexOf("\"left\""))+1;
+            int leEnd = zeile.indexOf('\"', leAnf);
+            int riAnf = zeile.indexOf('@', zeile.indexOf("\"right\""))+1;
+            int riEnd = zeile.indexOf('\"', riAnf);
+            int boAnf = zeile.indexOf('@', zeile.indexOf("\"bottom\""))+1;
+            int boEnd = zeile.indexOf('\"', boAnf);
+            int toAnf = zeile.indexOf('@', zeile.indexOf("\"top\""))+1;
+            int toEnd = zeile.indexOf('\"', toAnf);
+            for(Cell c: game.getCells()) {
+                if(c.getId().equals(zeile.substring( idAnf, idEnd))) {
+                    if(leAnf > 0){
+                        for(Cell ce: game.getCells()){
+                            if(ce.getId().equals(zeile.substring( leAnf, leEnd))) {
+                                c.setLeft(ce);
+                            }
+                        }
+                    }
+                    if(riAnf > 0){
+                        for(Cell ce: game.getCells()){
+                            if(ce.getId().equals(zeile.substring( riAnf, riEnd))) {
+                                c.setRight(ce);
+                            }
+                        }
+                    }
+                    if(boAnf > 0){
+                        for(Cell ce: game.getCells()){
+                            if(ce.getId().equals(zeile.substring( boAnf, boEnd))) {
+                                c.setBottom(ce);
+                            }
+                        }
+                    }
+                    if(toAnf > 0){
+                        for(Cell ce: game.getCells()){
+                            if(ce.getId().equals(zeile.substring( toAnf, toEnd))) {
+                                c.setTop(ce);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        in.close();
+
+
+        for (int i = 0; i < 10; i++)
+        {
+            Unit unit = new Unit(String.valueOf(i));
+            unit.setGame(game);
+            unit.setPosition(game.getCells().get(i));
+            unit.setHp(10);
+            unit.setMp(10);
+            unit.setUnitType(UnitType.CHOPPER);
+        }
+
+        return game;
     }
 }
