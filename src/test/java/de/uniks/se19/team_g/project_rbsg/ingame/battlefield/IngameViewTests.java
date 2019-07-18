@@ -258,6 +258,14 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn(50, 125, Motion.DIRECT);
         Assert.assertNull(controller.getSelectedTile());
 
+
+
+        Button mapButton = lookup("#mapButton").query();
+        Assert.assertNotNull(mapButton);
+        clickOn("#mapButton");
+
+        sleep(10000);
+
         clickOn("#zoomOutButton");
         clickOn("#zoomOutButton");
         Button zoomIn = lookup("#zoomInButton").query();

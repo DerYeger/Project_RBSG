@@ -1,10 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import javafx.scene.canvas.*;
-import javafx.scene.paint.*;
-import org.slf4j.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MiniMapDrawer
 {
@@ -14,6 +16,7 @@ public class MiniMapDrawer
     private final static Color darkblue = Color.DARKBLUE;
     private final static Color white = Color.WHITE;
     private final static Color black = Color.BLACK;
+    private final static Color transparentWhite = Color.rgb(255, 255, 255, 0.5);
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private Canvas canvas;
     private double xSize = 0;
@@ -43,6 +46,10 @@ public class MiniMapDrawer
             return;
         }
 
+        if (!canvas.visibleProperty().get())
+        {
+            return;
+        }
         CellSizeX = xSize / map.length;
         CellSizeY = ySize / map.length;
 
@@ -56,36 +63,51 @@ public class MiniMapDrawer
 
                 if (actualTile.getHighlightingTwo() == HighlightingTwo.SELECTED)
                 {
-                    gc.setStroke(white);
+                    gc.setFill(white);
                 }
+                else if(actualTile.getHighlightingTwo() == HighlightingTwo.HOVERED)
+                {
+                    gc.setFill(transparentWhite);
+                }
+//                else if(actualTile.getHighlightingTwo() == HighlightingTwo.UnitSelcted) {
+//                    gc.setFill(primaryColor);
+//                }
                 else
                 {
                     switch (actualTile.getCell().getBiome())
                     {
                         case WATER:
-                            gc.setStroke(darkblue);
+                            gc.setFill(darkblue);
                             break;
                         case GRASS:
-                            gc.setStroke(green);
+                            gc.setFill(green);
                             break;
                         case FOREST:
-                            gc.setStroke(darkgreen);
+                            gc.setFill(darkgreen);
                             break;
                         case MOUNTAIN:
-                            gc.setStroke(brown);
+                            gc.setFill(brown);
                             break;
                         default:
-                            gc.setStroke(black);
+                            gc.setFill(black);
                     }
                 }
                 gc.fillRect(startX, startY, CellSizeX, CellSizeY);
 
-                if(actualTile.getCell().getUnit() != null) {
-                    double startUnitRecX = startX + (CellSizeX/4);
-                    double startUnitRecY = startY + (CellSizeY/4);
+                if (actualTile.getCell().getUnit().get() != null)
+                {
+                    double startUnitRecX = startX + (CellSizeX / 4);
+                    double startUnitRecY = startY + (CellSizeY / 4);
 
-                    gc.setStroke(Color.valueOf(actualTile.getCell().getUnit().get().getLeader().getColor()));
-                    gc.fillRect(startUnitRecX, startUnitRecY, CellSizeX/2, CellSizeY/2);
+                    logger.debug("drawing unit on minimap");
+                    if (actualTile.getCell().getUnit().get().getLeader() != null)
+                    {
+                        gc.setFill(Color.valueOf(actualTile.getCell().getUnit().get().getLeader().getColor()));
+                    } else
+                    {
+                        gc.setFill(Color.RED);
+                    }
+                    gc.fillRect(startUnitRecX, startUnitRecY, CellSizeX / 2, CellSizeY / 2);
                 }
             }
         }
