@@ -201,7 +201,7 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
     @Override
     public void start(@NonNull final Stage stage) {
         battleFieldComponent = battleFieldFactory.getObject();
-        final Scene buffer = new Scene(battleFieldComponent.getRoot());
+        final Scene buffer = new Scene(battleFieldComponent.getRoot(), 600, 600);
         scene = buffer;
         stage.setScene(scene);
         stage.setX(0);
@@ -234,20 +234,12 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         clickOn("#leaveButton");
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
-        clickOn("#zoomOutButton");
-        clickOn("#zoomOutButton");
-        Button zoomIn = lookup("#zoomInButton").query();
-        Assert.assertNotNull(zoomIn);
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
-        clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
         Assert.assertNotNull(endPhaseButton);
 
 
-        Game game = ingameGameProvider.get();
+        Game game = context.getGameState();
         Unit unit = new Unit("10");
         unit.setHp(10);
         unit.setMp(10);
@@ -258,8 +250,22 @@ public class IngameViewTests extends ApplicationTest implements ApplicationConte
         game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
 
         clickOn(100, 100, Motion.DIRECT);
+        Assert.assertNotNull(controller.getSelectedTile());
         clickOn(150, 125, Motion.DIRECT);
+        Assert.assertNotNull(controller.getSelectedTile());
         clickOn(50, 125, Motion.DIRECT);
+        Assert.assertNotNull(controller.getSelectedTile());
+        clickOn(50, 125, Motion.DIRECT);
+        Assert.assertNull(controller.getSelectedTile());
+
+        clickOn("#zoomOutButton");
+        clickOn("#zoomOutButton");
+        Button zoomIn = lookup("#zoomInButton").query();
+        Assert.assertNotNull(zoomIn);
+        clickOn("#zoomInButton");
+        clickOn("#zoomInButton");
+        clickOn("#zoomInButton");
+        clickOn("#zoomOutButton");
     }
 
     @Override
