@@ -18,7 +18,7 @@ public class TileDrawer
     private static final double CELL_SIZE = 64;
     private static final Color transparentWhite = Color.rgb(255, 255, 255, 0.2);
     private static final Color selectedWhite = Color.rgb(255, 255, 255, 0.4);
-    private static Image grass = new Image("/assets/cells/grass.png");
+    private static Image grass = new Image("/assets/cells/grass/grass1.png");
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Canvas canvas;
@@ -33,9 +33,9 @@ public class TileDrawer
         lastSelected = null;
         unitImagesMap = new HashMap<>();
 
-        for (UnitType type :UnitType.values())
+        for (UnitType type : UnitType.values())
         {
-            Image image = new Image(TileUtils.getUnitImagePath(type), CELL_SIZE, CELL_SIZE, false ,true);
+            Image image = new Image(TileUtils.getUnitImagePath(type), CELL_SIZE, CELL_SIZE, false, true);
             unitImagesMap.put(type, image);
         }
     }
@@ -73,11 +73,11 @@ public class TileDrawer
         //Layer 1 biome layer
         graphicsContext.drawImage(tile.getBackgroundImage(), startX, startY);
         //Layer 2 decorator layer
-        if (tile.getDeckoratorImage() != null) {
+        if (tile.getDeckoratorImage() != null)
+        {
             graphicsContext.drawImage(tile.getDeckoratorImage(), startX, startY);
         }
         //Layer 3 Highlighting One -> Move and Attack
-
 
         //Layer 4 Highlighting Two -> Hovering and Selecting
         if (tile.getHighlightingTwo() != HighlightingTwo.NONE)
@@ -86,6 +86,7 @@ public class TileDrawer
             {
                 graphicsContext.setFill(transparentWhite);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+
             }
             if (tile.getHighlightingTwo() == HighlightingTwo.SELECTED)
             {
