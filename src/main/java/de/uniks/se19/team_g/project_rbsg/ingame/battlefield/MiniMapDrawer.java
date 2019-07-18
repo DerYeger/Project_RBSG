@@ -50,8 +50,9 @@ public class MiniMapDrawer
         {
             return;
         }
-        CellSizeX = xSize / map.length;
-        CellSizeY = ySize / map.length;
+
+        CellSizeX = Math.round(xSize / map.length);
+        CellSizeY = Math.round(ySize / map.length);
 
         for (int y = 0; y < map.length; y++)
         {
@@ -107,7 +108,7 @@ public class MiniMapDrawer
                     {
                         gc.setFill(Color.RED);
                     }
-                    gc.fillRect(startUnitRecX, startUnitRecY, CellSizeX / 2, CellSizeY / 2);
+                    gc.fillRect(startUnitRecX, startUnitRecY, Math.round(CellSizeX / 2), Math.round(CellSizeY / 2));
                 }
             }
         }
