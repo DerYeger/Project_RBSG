@@ -251,6 +251,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         Map<String, Object> command = CommandBuilder.moveUnit(selectedUnit, tour.getPath());
         context.getGameEventManager().sendMessage(command);
+        context.getGameState().setInitiallyMoved(true);
 
         return true;
     }
@@ -317,7 +318,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureSelectedUnit();
 
-        game = context.getGameState();
+        Game gameState = context.getGameState();
+        game = gameState;
         if (game == null) {
             // exception
         } else {
@@ -351,21 +353,20 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
 
-        ObjectProperty<Player> currentPlayerProperty = context.getGameState().currentPlayerProperty();
+        ObjectProperty<Player> currentPlayerProperty = gameState.currentPlayerProperty();
 
         playerCanEndPhase.bind(Bindings.createBooleanBinding(
                 () -> {
                     boolean active = context.getUser().getName().equals(currentPlayerProperty.getName());
 
-                    return (active && context.getGameState().initiallyMovedProperty().get());
+                    return (active && gameState.initiallyMovedProperty().get());
                 },
-                currentPlayerProperty, context.getGameState().initiallyMovedProperty()
+                currentPlayerProperty, gameState.initiallyMovedProperty()
         ));
 
-        context.getGameState().initiallyMovedProperty().bind(Bindings.createBooleanBinding(
-                () -> false,
-                currentPlayerProperty
-        ));
+        currentPlayerProperty.addListener((observable, oldValue, newValue) -> {
+            gameState.setInitiallyMoved(false);
+        });
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
     }

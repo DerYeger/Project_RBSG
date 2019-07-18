@@ -202,6 +202,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         // test move action fired, if reachable terrain is clicked
         clickOn(25, 100, Motion.DIRECT);
 
+        Assert.assertTrue(game.getInitiallyMoved());
+
         verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
 
