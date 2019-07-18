@@ -58,7 +58,7 @@
                <children>
                   <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
                      <children>
-                        <StackPane fx:id="miniMapStackPane" styleClass="miniMapBox" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                        <StackPane fx:id="miniMapStackPane" styleClass="miniMapBox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Canvas fx:id="miniMapCanvas" height="250.0" styleClass="miniMap" width="250.0" StackPane.alignment="CENTER" />
                            </children>
