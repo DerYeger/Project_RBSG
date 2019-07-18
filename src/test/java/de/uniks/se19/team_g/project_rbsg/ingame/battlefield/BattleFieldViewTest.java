@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -77,7 +79,6 @@ public class BattleFieldViewTest extends ApplicationTest {
 
 
         Node ingameView = battleFieldComponent.getRoot();
-        BattleFieldController controller = battleFieldComponent.getController();
 
         GameProvider gameDataProvider = new GameProvider();
         gameDataProvider.set(new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4));
@@ -88,17 +89,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
 
-        Platform.runLater(
-                ()-> {
-                    controller.configure(context);
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(battleFieldComponent.getRoot()));
-                    stage.setX(0);
-                    stage.setY(0);
-                    stage.show();
-                }
-        );
-        WaitForAsyncUtils.waitForFxEvents();
+        revealBattleField(context);
 
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
@@ -134,6 +125,42 @@ public class BattleFieldViewTest extends ApplicationTest {
         clickOn(25, 100, Motion.DIRECT);
         clickOn(25, 150, Motion.DIRECT);
         clickOn(75, 150, Motion.DIRECT);
+    }
+
+    @Test
+    public void testMovement() {
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Karli");
+        Player player = new Player("Karli").setName("Karli");
+        definition.game.withPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(definition.game);
+        context.setGameEventManager(gameEventManager);
+
+        revealBattleField(context);
+    }
+
+    protected void revealBattleField(IngameContext context) {
+        Platform.runLater(
+                ()-> {
+                    battleFieldComponent.getController().configure(context);
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(battleFieldComponent.getRoot()));
+                    stage.setX(0);
+                    stage.setY(0);
+                    stage.show();
+                }
+        );
+        WaitForAsyncUtils.waitForFxEvents();
     }
 
     public static Game buildComplexTestGame() throws IOException {
