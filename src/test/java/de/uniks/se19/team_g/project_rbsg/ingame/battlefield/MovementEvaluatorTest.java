@@ -15,44 +15,11 @@ public class MovementEvaluatorTest {
     @Test
     public void test() {
 
-        Game game = new Game("tolles game");
-        Unit helicopterDick = new Unit("helicopterDick");
-        helicopterDick.setMp(4);
-        game.withUnit(helicopterDick);
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
 
-        /*
-            Y -> player, 0 -> passable, X -> blocked
-            OYOO
-            XXOO
-            -OOO
-            --O-
-         */
-        Cell[][] cells = new Cell[4][4];
-        for (int row = 0; row < 4; row++) {
-            for (int column = 0; column < 4; column++) {
-                final Cell cell = new Cell(String.format("%d:%d", row, column));
-                cell.setPassable(true);
-                cell.setX(row);
-                cell.setY(column);
-                cells[row][column] = cell;
-                if (row > 0) {
-                    cell.setTop(cells[row-1][column]);
-                }
-                if (column > 0) {
-                    cell.setLeft(cells[row][column-1]);
-                }
-            }
-        }
-        Cell startCell = cells[0][1];
-        helicopterDick.setPosition(startCell);
-        cells[1][0].setPassable(false);
-        cells[1][1].setPassable(false);
-
-        game.withCells(
-                Arrays.stream(cells)
-                    .flatMap(Arrays::stream)
-                        .toArray(Cell[]::new)
-        );
+        Cell[][] cells = definition.cells;
+        Unit helicopterDick = definition.playerUnit;
+        Cell startCell = helicopterDick.getPosition();
 
         MovementEvaluator sut = new MovementEvaluator();
 
