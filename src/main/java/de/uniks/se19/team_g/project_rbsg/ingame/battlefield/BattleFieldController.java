@@ -383,7 +383,10 @@ public class BattleFieldController implements RootController, IngameViewControll
                     }
                     SimpleObjectProperty<Unit> selectedUnitProperty = selectedCell.getUnit();
                     Unit selectedUnit = selectedUnitProperty.get();
-                    selectedUnit.setSelected(true);
+
+                    if (selectedUnit != null) {
+                        selectedUnit.setSelected(true);
+                    }
                     return selectedUnit;
                 },
                 this.selectedTile
