@@ -319,9 +319,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
         roundCountLabel.textProperty().bind(new SimpleIntegerProperty(roundCount).asString());
         phaseLabel.textProperty().bind(this.game.phaseProperty());
-        System.out.println(getResources().getString("round"));
         //roundTextLabel.textProperty().setValue(getResources().getString("round"));
-        roundTextLabel.textProperty().setValue("round");
+        roundTextLabel.textProperty().setValue("Round");
     }
 
     public void canvasHandleMouseMove(MouseEvent event) {
