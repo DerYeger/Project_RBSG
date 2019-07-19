@@ -148,7 +148,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         Player player = new Player("Karli").setName("Karli");
         game.withPlayer(player);
         playerUnit.setLeader(player);
-        game.setCurrentPlayer(player);
+        game.setCurrentPlayer(null);
+
+        playerUnit.setMp(3);
+        playerUnit.setRemainingMovePoints(0);
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
@@ -159,6 +162,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.setGameEventManager(gameEventManager);
 
         revealBattleField(context);
+
+        CompletableFuture.runAsync(
+            () -> game.setCurrentPlayer(player),
+            Platform::runLater
+        ).get();
+        Assert.assertEquals(playerUnit.getMp(), playerUnit.getRemainingMovePoints());
 
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
@@ -182,6 +191,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         verifyZeroInteractions(gameEventManager);
 
         Tour tour = new Tour();
+        tour.setCost(2);
         tour.setPath(Collections.singletonList(definition.cells[0][0]));
         when(movementManager.getTour(playerUnit, definition.cells[0][0]))
                 .thenReturn(tour);
@@ -201,6 +211,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         clickOn(25, 100, Motion.DIRECT);
 
         Assert.assertTrue(game.getInitiallyMoved());
+        Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
 
         verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
