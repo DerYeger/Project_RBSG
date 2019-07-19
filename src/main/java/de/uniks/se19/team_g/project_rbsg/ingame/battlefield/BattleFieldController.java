@@ -355,6 +355,9 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         ObjectProperty<Player> currentPlayerProperty = gameState.currentPlayerProperty();
 
+        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> calculateEndPhase(newValue, playerCanEndPhase)));
+
+
         playerCanEndPhase.bind(Bindings.createBooleanBinding(
                 () -> {
                     boolean active = context.getUser().getName().equals(currentPlayerProperty.getName());
@@ -369,6 +372,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
+    }
+
+    private void calculateEndPhase(Player newPlayer, BooleanProperty playerCanEndPhase) {
+        boolean active = context.getUser().getName().equals(newPlayer.getName());
+        playerCanEndPhase.set(active && this.context.getGameState().initiallyMovedProperty().get());
+
     }
 
     private void configureSelectedUnit() {
