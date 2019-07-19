@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,9 +29,11 @@ public class Game {
 
     private ObservableList<Cell> cells;
 
-    private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
+    final private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
 
-    private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
+    final private ObjectProperty<Unit> selectedUnit = new SimpleObjectProperty<>();
+
+    final private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -265,4 +268,17 @@ public class Game {
         return this;
     }
 
+
+    public Unit getSelectedUnit() {
+        return selectedUnit.get();
+    }
+
+    @Nonnull
+    public ObjectProperty<Unit> selectedUnitProperty() {
+        return selectedUnit;
+    }
+
+    public void setSelectedUnit(Unit selectedUnit) {
+        this.selectedUnit.set(selectedUnit);
+    }
 }

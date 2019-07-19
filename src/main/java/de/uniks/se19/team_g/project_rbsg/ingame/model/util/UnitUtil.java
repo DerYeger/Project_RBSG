@@ -74,7 +74,7 @@ public class UnitUtil {
                 break;
             case CELL:
                 final Cell cell = modelManager.cellWithId(from);
-                if (unit.getPosition().get() != null && unit.getPosition().get().equals(cell)) unit.setPosition(null);
+                if (unit.positionProperty().get() != null && unit.positionProperty().get().equals(cell)) unit.setPosition(null);
                 break;
             default:
                 LOGGER.error("Unknown fieldName for " + from + ": " + fieldName);

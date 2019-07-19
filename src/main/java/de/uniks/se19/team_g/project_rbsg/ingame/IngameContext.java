@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 @Component
 @Scope("prototype")
@@ -20,6 +22,7 @@ public class IngameContext {
     private GameEventManager gameEventManager;
 
     private final BooleanProperty initialized = new SimpleBooleanProperty();
+    private Player userPlayer;
 
     public IngameContext(
         @Nonnull UserProvider userProvider,
@@ -41,8 +44,15 @@ public class IngameContext {
     }
 
     public void gameInitialized(de.uniks.se19.team_g.project_rbsg.ingame.model.Game game) {
+
+        User user = Objects.requireNonNull(getUser());
+
         gameStateProvider.set(game);
         initialized.set(true);
+
+        userPlayer = game.getPlayers().stream().filter(
+                player -> player.getName().equals(user.getName())
+        ).findAny().orElse(null);
     }
 
     public User getUser() {
@@ -68,5 +78,13 @@ public class IngameContext {
     public void tearDown() {
         gameDataProvider.clear();
         gameStateProvider.clear();
+    }
+
+    public boolean isMyTurn() {
+        return getUserPlayer() == getGameState().getCurrentPlayer();
+    }
+
+    public Player getUserPlayer() {
+        return userPlayer;
     }
 }
