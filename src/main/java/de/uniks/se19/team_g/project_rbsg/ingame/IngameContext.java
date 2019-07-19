@@ -78,6 +78,9 @@ public class IngameContext {
     public void tearDown() {
         gameDataProvider.clear();
         gameStateProvider.clear();
+        if (gameEventManager != null) {
+            gameEventManager.terminate();
+        }
     }
 
     public boolean isMyTurn() {

@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
@@ -252,6 +253,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         Map<String, Object> command = CommandBuilder.moveUnit(selectedUnit, tour.getPath());
         context.getGameEventManager().sendMessage(command);
         context.getGameState().setInitiallyMoved(true);
+        selectedUnit.setRemainingMovePoints(
+                selectedUnit.getRemainingMovePoints() - tour.getCost()
+        );
 
         return true;
     }
@@ -318,6 +322,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureSelectedUnit();
 
+        context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
+
         Game gameState = context.getGameState();
         game = gameState;
         if (game == null) {
@@ -369,6 +375,18 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
+    }
+
+    private void onNextPlayer(Observable observable, Player lastPlayer, Player nextPlayer) {
+        if (context.isMyTurn()) {
+            onBeforeUserTurn();
+        }
+    }
+
+    private void onBeforeUserTurn() {
+        for (Unit unit : context.getUserPlayer().getUnits()) {
+            unit.setRemainingMovePoints(unit.getMp());
+        }
     }
 
     private void configureSelectedUnit() {
