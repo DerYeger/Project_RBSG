@@ -24,6 +24,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
@@ -66,7 +67,7 @@ import java.util.List;
  */
 @Scope("prototype")
 @Controller
-public class BattleFieldController implements RootController, IngameViewController, Terminable
+public class BattleFieldController implements RootController, IngameViewController, Terminable, Rincled
 {
 
     private static final double CELL_SIZE = 64;
@@ -318,7 +319,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
         roundCountLabel.textProperty().bind(new SimpleIntegerProperty(roundCount).asString());
         phaseLabel.textProperty().bind(this.game.phaseProperty());
-        roundTextLabel.setText("Runde");
+        System.out.println(getResources().getString("round"));
+        //roundTextLabel.textProperty().setValue(getResources().getString("round"));
+        roundTextLabel.textProperty().setValue("round");
     }
 
     public void canvasHandleMouseMove(MouseEvent event) {
