@@ -176,7 +176,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (oldTile != null) {
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
         }
-        
+
         if ((newTile != null) && (newTile.getCell().getUnit().get() != null) && (isMyUnit(newTile.getCell().getUnit().get()))){
             Unit unit = newTile.getCell().getUnit().get();
             unit.setSelected(true);
