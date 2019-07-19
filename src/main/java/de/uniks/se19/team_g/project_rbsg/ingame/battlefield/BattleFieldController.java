@@ -351,34 +351,30 @@ public class BattleFieldController implements RootController, IngameViewControll
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
 
-        BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
+        configureEndPhase();
+    }
 
-        ObjectProperty<Player> currentPlayerProperty = gameState.currentPlayerProperty();
+    private void configureEndPhase() {
+        BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
 
-        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> calculateEndPhase(newValue, playerCanEndPhase)));
-
+        ObjectProperty<Player> currentPlayerProperty = this.context.getGameState().currentPlayerProperty();
 
         playerCanEndPhase.bind(Bindings.createBooleanBinding(
-                () -> {
-                    boolean active = context.getUser().getName().equals(currentPlayerProperty.getName());
-
-                    return (active && gameState.initiallyMovedProperty().get());
-                },
-                currentPlayerProperty, gameState.initiallyMovedProperty()
+                () -> (context.isMyTurn() && this.context.getGameState().getInitiallyMoved()),
+                currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
+        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}) );
+
         currentPlayerProperty.addListener((observable, oldValue, newValue) -> {
-            gameState.setInitiallyMoved(false);
+            this.context.getGameState().setInitiallyMoved(false);
         });
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
+
+        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
     }
 
-    private void calculateEndPhase(Player newPlayer, BooleanProperty playerCanEndPhase) {
-        boolean active = context.getUser().getName().equals(newPlayer.getName());
-        playerCanEndPhase.set(active && this.context.getGameState().initiallyMovedProperty().get());
-
-    }
 
     private void configureSelectedUnit() {
         this.context.getGameState()
