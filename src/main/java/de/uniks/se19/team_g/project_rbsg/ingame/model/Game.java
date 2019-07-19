@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,15 +21,19 @@ public class Game {
 
     private StringProperty phase = new SimpleStringProperty();
 
+    final private SimpleBooleanProperty alreadyMovedThisRound = new SimpleBooleanProperty(true);
+
     private ObservableList<Player> players;
 
     private ObservableList<Unit> units;
 
     private ObservableList<Cell> cells;
 
-    private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
+    final private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
 
-    private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
+    final private ObjectProperty<Unit> selectedUnit = new SimpleObjectProperty<>();
+
+    final private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -41,6 +46,7 @@ public class Game {
     public String getId() {
         return id;
     }
+
 
     public ObservableList<Player> getPlayers() {
         return players;
@@ -230,7 +236,6 @@ public class Game {
 
     public Game setCurrentPlayer(Player player) {
         currentPlayer.set(player);
-
         return this;
     }
 
@@ -252,5 +257,28 @@ public class Game {
 
     public void setWinner(Player winner) {
         this.winner.set(winner);
+    }
+
+    public boolean getInitiallyMoved(){ return alreadyMovedThisRound.get(); }
+
+    public SimpleBooleanProperty initiallyMovedProperty(){ return alreadyMovedThisRound; }
+
+    public Game setInitiallyMoved(boolean initiallyMoved){
+        this.alreadyMovedThisRound.set(initiallyMoved);
+        return this;
+    }
+
+
+    public Unit getSelectedUnit() {
+        return selectedUnit.get();
+    }
+
+    @Nonnull
+    public ObjectProperty<Unit> selectedUnitProperty() {
+        return selectedUnit;
+    }
+
+    public void setSelectedUnit(Unit selectedUnit) {
+        this.selectedUnit.set(selectedUnit);
     }
 }

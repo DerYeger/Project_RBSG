@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.endPhaseCommand;
 import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.leaveGameCommand;
 
 /**
@@ -150,6 +151,10 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
     private void sendLeaveCommand() {
         webSocketClient.sendMessage(leaveGameCommand());
+    }
+
+    public void sendEndPhaseCommand() {
+        webSocketClient.sendMessage(endPhaseCommand());
     }
 
     public void setOnConnectionClosed(@Nonnull Runnable onConnectionClosed) {

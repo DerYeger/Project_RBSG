@@ -84,7 +84,7 @@ public class IngameRootController
         mountWaitingRoom();
     }
 
-    protected void configureContext() {
+    public void configureContext() {
 
         ingameContext = contextFactory.getObject();
 
@@ -118,7 +118,10 @@ public class IngameRootController
     // package-private for testability. i'm so sorry.
     void handleGameEvents(ObjectNode message) {
         if (GameEventManager.isActionType(message, GameEventManager.GAME_INIT_FINISHED)) {
-            Platform.runLater(() -> ingameContext.gameInitialized(modelManager.getGame()));
+            Platform.runLater(() -> {
+                ingameContext.gameInitialized(modelManager.getGame());
+                logger.debug("user play ist {}", ingameContext.getUserPlayer());
+            });
             return;
         }
 

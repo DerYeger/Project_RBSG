@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -47,7 +48,7 @@ public class Cell {
     }
 
     public boolean isPassable() {
-        return isPassable;
+        return isPassable && getUnit() == null;
     }
 
     public int getX() {
@@ -94,8 +95,12 @@ public class Cell {
         return bottom.getLeft();
     }
 
-    public SimpleObjectProperty<Unit> getUnit() {
+    public ReadOnlyObjectProperty<Unit> unitProperty() {
         return unit;
+    }
+
+    public Unit getUnit() {
+        return unit.get();
     }
 
     public Cell setGame(@Nullable final Game game) {

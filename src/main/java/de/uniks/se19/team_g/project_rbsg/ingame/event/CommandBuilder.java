@@ -2,10 +2,14 @@ package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CommandBuilder {
 
@@ -17,11 +21,20 @@ public class CommandBuilder {
 
     private static String LEAVE_GAME = "leaveGame";
 
+    private static String END_PHASE = "nextPhase";
+
     public static ObjectNode leaveGameCommand() {
         return new ObjectMapper()
                 .createObjectNode()
                 .put(MESSAGE_TYPE, COMMAND)
                 .put(ACTION, LEAVE_GAME);
+    }
+
+    public static ObjectNode endPhaseCommand() {
+        return new ObjectMapper()
+                .createObjectNode()
+                .put(MESSAGE_TYPE, COMMAND)
+                .put(ACTION, END_PHASE);
     }
 
     public static Map<String,Object> readyToPlay() {
@@ -50,5 +63,22 @@ public class CommandBuilder {
         command.put(ACTION, action);
         return command;
 
+    }
+
+    public static Map<String, Object> moveUnit(Unit unit, List<Cell> sortedList)
+    {
+        MoveUnitData data = new MoveUnitData();
+        data.unitId = unit.getId();
+        data.path = sortedList.stream().map(Cell::getId).collect(Collectors.toList());
+
+        Map<String, Object> command = command("moveUnit");
+        command.put("data", data);
+
+        return command;
+    }
+
+    public static class MoveUnitData {
+        public String unitId;
+        public List<String> path;
     }
 }
