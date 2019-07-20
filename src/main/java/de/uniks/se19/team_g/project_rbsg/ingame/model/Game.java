@@ -21,7 +21,7 @@ public class Game {
 
     private StringProperty phase = new SimpleStringProperty();
 
-    final private SimpleBooleanProperty alreadyMovedThisRound = new SimpleBooleanProperty(true);
+    final private SimpleBooleanProperty alreadyMovedThisRound = new SimpleBooleanProperty(false);
 
     private ObservableList<Player> players;
 
