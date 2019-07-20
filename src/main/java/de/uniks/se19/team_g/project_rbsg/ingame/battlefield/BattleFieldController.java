@@ -323,6 +323,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureSelectedUnit();
 
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
+        if (context.getGameState().getCurrentPlayer() != null) {
+            onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
+        }
 
         Game gameState = context.getGameState();
         game = gameState;
