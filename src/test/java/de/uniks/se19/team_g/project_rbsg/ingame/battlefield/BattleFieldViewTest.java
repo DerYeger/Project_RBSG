@@ -61,6 +61,8 @@ import static org.mockito.Mockito.*;
 public class BattleFieldViewTest extends ApplicationTest {
 
 
+    public static final int BASE_X = 150;
+    public static final int BASE_Y = 50;
     private ViewComponent<BattleFieldController> battleFieldComponent;
 
     @SpyBean
@@ -132,9 +134,13 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
 
-        clickOn(25, 100, Motion.DIRECT);
-        clickOn(25, 150, Motion.DIRECT);
-        clickOn(75, 150, Motion.DIRECT);
+        click(25, 100);
+        click(25, 150);
+        click(75, 150);
+    }
+
+    private void click(double x, double y) {
+        clickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
     }
 
     @Test
@@ -173,9 +179,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
-        clickOn(25, 100, Motion.DIRECT);
+        click(25, 100);
         Assert.assertNull(game.getSelectedUnit());
-        clickOn(75, 100, Motion.DIRECT);
+        click(75, 100);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         verifyZeroInteractions(movementManager);
@@ -183,10 +189,10 @@ public class BattleFieldViewTest extends ApplicationTest {
                 .thenReturn(null);
 
         // test unit selection removed if not reachable terrain is clicked
-        clickOn(25, 150, Motion.DIRECT);
+        click(25, 150);
         verify(movementManager).getTour(playerUnit, definition.cells[1][0]);
         Assert.assertNull(game.getSelectedUnit());
-        clickOn(75, 100, Motion.DIRECT);
+        click(75, 100);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         verifyNoMoreInteractions(movementManager);
@@ -210,7 +216,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         ).when(gameEventManager).sendMessage(any());
 
         // test move action fired, if reachable terrain is clicked
-        clickOn(25, 100, Motion.DIRECT);
+        click(25, 100);
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
@@ -220,7 +226,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         // test no action, if user is not current player
         game.setCurrentPlayer(null);
-        clickOn(25, 100, Motion.DIRECT);
+        click(25, 100);
     }
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
@@ -231,8 +237,8 @@ public class BattleFieldViewTest extends ApplicationTest {
                     battleFieldComponent.getController().configure(context);
                     Stage stage = new Stage();
                     stage.setScene(new Scene(battleFieldComponent.getRoot()));
-                    stage.setX(0);
-                    stage.setY(0);
+                    stage.setX(BASE_X);
+                    stage.setY(BASE_Y);
                     stage.show();
                 },
                 Platform::runLater
