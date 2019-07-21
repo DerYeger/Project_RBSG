@@ -29,6 +29,7 @@ public class Tile
     }
 
     public Tile(Cell cell) {
+        cell.setTile(this);
         this.cell = cell;
         highlightingOne = HighlightingOne.NONE;
         highlightingTwo = HighlightingTwo.NONE;

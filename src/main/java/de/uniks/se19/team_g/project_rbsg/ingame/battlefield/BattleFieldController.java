@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
@@ -390,8 +391,31 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureEndPhase();
 
-        //configureSelectedUnit();
+        configureCells();
+
+        configureReachability();
     }
+
+    private void configureCells() {
+        for (Cell cell: this.context.getGameState().getCells()){
+            cell.isReachableProperty().addListener(((observable, oldValue, newValue) -> {
+                cell.getTile().setHighlightingOne(HighlightingOne.MOVE);
+            }));
+        }
+    }
+
+    private void configureReachability(){
+
+        this.context.getGameState().selectedUnitProperty().addListener(((observable, oldUnit, newUnit) -> {
+            if (!isMyUnit(this.context.getGameState().getSelectedUnit())) {
+                return;
+            }
+        }
+    }
+
+
+
+
 
     private void configureEndPhase() {
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
@@ -423,64 +447,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             unit.setRemainingMovePoints(unit.getMp());
         }
     }
-    /*
-    private void configureSelectedUnit() {
-        this.context.getGameState()
-            .selectedUnitProperty().bind(Bindings.createObjectBinding(
-                () -> {
-
-                    Tile selectedTile = this.selectedTile.get();
-                    if(selectedTile == null){
-                        return null;
-                    }
-                    Cell selectedCell = selectedTile.getCell();
-                    if (selectedCell.unitProperty() == null){
-                        if (game.selectedUnitProperty() != null){
-                            game.selectedUnitProperty().get().setSelected(false);
-                        }
-                        return null;
-                    }
-
-                    ReadOnlyObjectProperty<Unit> selectedUnitProperty = selectedCell.unitProperty();
-                    Unit selectedUnit = selectedUnitProperty.get();
-
-                    if (selectedUnit != null) {
-                        selectedUnit.setSelected(true);
-                    }
-                    return selectedUnit;
-                },
-                this.selectedTile
-        ));
-    }
-    */
-
-    /*
-    private void configureSelectedUnit() {
-        this.context.getGameState()
-            .selectedUnitProperty().bind(Bindings.createObjectBinding(
-                () -> {
-
-                    Tile selectedTile = this.selectedTile.get();
-                    if(selectedTile == null){
-                        return null;
-                    }
-                    Cell selectedCell = selectedTile.getCell();
-                    if (selectedCell.getUnit().get() == null){
-                        if (game.selectedUnitProperty().get() != null){
-                            game.selectedUnitProperty().get().setSelected(false);
-                        }
-                        return null;
-                    }
-                    Unit selectedUnit = selectedCell.getUnit().get();
-                    selectedUnit.setSelected(true);
-                    this.selectedTile.get().setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
-                    return selectedUnit;
-                },
-                this.selectedTile
-        ));
-    }
-    */
-
 
     @Override
     public void terminate()

@@ -20,7 +20,7 @@ public class TileDrawer
     private static final Color transparentWhite = Color.rgb(255, 255, 255, 0.2);
     private static final Color selectedWhite = Color.rgb(255, 255, 255, 0.4);
     private static final Color movementBlue = Color.rgb(0, 0, 255, 0.5);
-    private static final Color primaryColor = Color.rgb(136,88,140);
+    private static final Color selectedBlue = Color.rgb(134,140,252);
     private static Image grass = new Image("/assets/cells/grass.png");
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -111,7 +111,7 @@ public class TileDrawer
     }
 
     private void drawBorderAroundTile(double startX, double startY) {
-        graphicsContext.setStroke(primaryColor);
+        graphicsContext.setStroke(selectedBlue);
         graphicsContext.setLineWidth(5);
         graphicsContext.strokeLine((startX + 5), (startY + 5), (startX + (CELL_SIZE - 5)), (startY + 5));
         graphicsContext.strokeLine((startX + (CELL_SIZE - 5)), (startY + 5), startX + (CELL_SIZE - 5), startY + (CELL_SIZE - 5));
