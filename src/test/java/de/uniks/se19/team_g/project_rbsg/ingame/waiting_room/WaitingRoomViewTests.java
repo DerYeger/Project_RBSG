@@ -173,7 +173,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
     MusicManager musicManager;
 
     @Test
-    public void testButons() throws Exception {
+    public void testButtons() throws Exception {
         WaitForAsyncUtils.asyncFx(
             () -> {
                 final ViewComponent<WaitingRoomViewController> buffer = waitingRoomScene.getObject();

@@ -53,7 +53,7 @@ public class MovementEvaluator {
         // maybe the cost to move onto a cell will differ?
         int currentCost = costBefore + 1;
 
-        if (currentCost > unit.getMp()) {
+        if (currentCost > unit.getRemainingMovePoints()) {
             // can't move here
             return;
         }

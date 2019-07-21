@@ -19,6 +19,9 @@ public class MovementEvaluatorTest {
         Unit helicopterDick = definition.playerUnit;
         Cell startCell = helicopterDick.getPosition();
 
+        helicopterDick.setMp(0);
+        helicopterDick.setRemainingMovePoints(4);
+
         MovementEvaluator sut = new MovementEvaluator();
 
         Map<Cell, Tour> tours = sut.getAllowedTours(helicopterDick);
