@@ -102,14 +102,14 @@ public class MiniMapDrawer
                 }
                 gc.fillRect(startX, startY, CellSizeX, CellSizeY);
 
-                if (actualTile.getCell().getUnit().get() != null)
+                if (actualTile.getCell().getUnit() != null)
                 {
                     double startUnitRecX = startX + (CellSizeX / 4);
                     double startUnitRecY = startY + (CellSizeY / 4);
 
-                    if (actualTile.getCell().getUnit().get().getLeader() != null)
+                    if (actualTile.getCell().getUnit().getLeader() != null)
                     {
-                        gc.setFill(Color.valueOf(actualTile.getCell().getUnit().get().getLeader().getColor()));
+                        gc.setFill(Color.valueOf(actualTile.getCell().getUnit().getLeader().getColor()));
                     } else
                     {
                         gc.setFill(Color.RED);
