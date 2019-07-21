@@ -364,6 +364,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureSelectedUnit();
 
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
+        if (context.getGameState().getCurrentPlayer() != null) {
+            onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
+        }
 
         Game gameState = context.getGameState();
         game = gameState;
@@ -398,31 +401,27 @@ public class BattleFieldController implements RootController, IngameViewControll
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
 
-        //configureEndPhase();
-
         configureSelectedUnit();
-    }
 
     private void configureEndPhase() {
-        BooleanProperty playerCanEndPhase = new SimpleBooleanProperty();
+        BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
 
         ObjectProperty<Player> currentPlayerProperty = this.context.getGameState().currentPlayerProperty();
 
         playerCanEndPhase.bind(Bindings.createBooleanBinding(
-                () -> {
-                    boolean active = this.context.getUser().getName().equals(currentPlayerProperty.getName());
-
-                    return (active && this.context.getGameState().initiallyMovedProperty().get());
-                },
+                () -> (context.isMyTurn() && this.context.getGameState().getInitiallyMoved()),
                 currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
-        this.context.getGameState().initiallyMovedProperty().bind(Bindings.createBooleanBinding(
-                () -> false,
-                currentPlayerProperty
-        ));
+        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}) );
+
+        currentPlayerProperty.addListener((observable, oldValue, newValue) -> {
+            this.context.getGameState().setInitiallyMoved(false);
+        });
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
+
+        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
     }
 
     private void onNextPlayer(Observable observable, Player lastPlayer, Player nextPlayer) {
