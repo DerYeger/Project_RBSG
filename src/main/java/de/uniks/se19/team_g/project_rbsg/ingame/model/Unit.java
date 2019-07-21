@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -21,7 +21,11 @@ public class Unit {
 
     private SimpleObjectProperty<Cell> position;
 
+    private SimpleBooleanProperty selected = new SimpleBooleanProperty();
+
     private UnitType unitType;
+
+    final private SimpleIntegerProperty remainingMovePoints = new SimpleIntegerProperty(0);
 
     private int mp;
     private int hp;
@@ -46,8 +50,12 @@ public class Unit {
         return leader;
     }
 
-    public SimpleObjectProperty<Cell> getPosition() {
+    public ReadOnlyObjectProperty<Cell> positionProperty() {
         return position;
+    }
+
+    public Cell getPosition() {
+        return position.get();
     }
 
     public UnitType getUnitType() {
@@ -132,5 +140,30 @@ public class Unit {
     @Override
     public String toString() {
         return "(" + unitType + ", mp : " + mp + ", hp: " + hp + ")";
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public SimpleBooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+
+
+    public int getRemainingMovePoints() {
+        return remainingMovePoints.get();
+    }
+
+    public ReadOnlyIntegerProperty remainingMovePointsProperty() {
+        return remainingMovePoints;
+    }
+
+    public void setRemainingMovePoints(int remainingMovePoints) {
+        this.remainingMovePoints.set(remainingMovePoints);
     }
 }

@@ -38,6 +38,7 @@ public class ConfirmationAlertController extends AlertController {
         label.textProperty().setValue(text);
 
         confirm.setOnAction(event -> {
+            hide();
             if (onConfirmRunnable != null) {
                 onConfirmRunnable.run();
             }

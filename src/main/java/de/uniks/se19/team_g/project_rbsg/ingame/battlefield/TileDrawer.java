@@ -23,14 +23,10 @@ public class TileDrawer
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
-    private Tile lastHovered;
-    private Tile lastSelected;
     private HashMap<UnitType, Image> unitImagesMap;
 
     public TileDrawer()
     {
-        lastHovered = null;
-        lastSelected = null;
         unitImagesMap = new HashMap<>();
 
         for (UnitType type : UnitType.values())
@@ -96,11 +92,9 @@ public class TileDrawer
         }
 
         //Layer 5
-        if (tile.getCell().getUnit().get() != null)
+        if (tile.getCell().unitProperty().get() != null)
         {
-//            String imagePath = TileUtils.getUnitImagePath(tile.getCell().getUnit().get().getUnitType());
-//            Image unitImage = new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true);
-            graphicsContext.drawImage(unitImagesMap.get(tile.getCell().getUnit().get().getUnitType()), startX, startY);
+            graphicsContext.drawImage(unitImagesMap.get(tile.getCell().getUnit().getUnitType()), startX, startY);
         }
     }
 }
