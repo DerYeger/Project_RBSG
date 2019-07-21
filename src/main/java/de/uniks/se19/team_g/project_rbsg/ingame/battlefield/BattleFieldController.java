@@ -69,14 +69,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Game game;
     private ObservableList<Cell> cells;
 
-    public Tile[][] getTileMap() {
-        return tileMap;
-    }
-
-    public void setTileMap(Tile[][] tileMap) {
-        this.tileMap = tileMap;
-    }
-
     private Tile[][] tileMap;
     private ObservableList<Unit> units;
 
@@ -110,9 +102,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final MovementManager movementManager;
 
     private IngameContext context;
-
-    private final ApplicationState appState;
->>>>>>>>> Temporary merge branch 2
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -179,10 +168,10 @@ public class BattleFieldController implements RootController, IngameViewControll
             oldTile.setHighlightingTwo(HighlightingTwo.NONE);
         }
 
-        if ((newTile != null) && (newTile.getCell().getUnit().get() != null) && (isMyUnit(newTile.getCell().getUnit().get()))){
-            Unit unit = newTile.getCell().getUnit().get();
+        if ((newTile != null) && (newTile.getCell().getUnit() != null) && (isMyUnit(newTile.getCell().getUnit()))){
+            Unit unit = newTile.getCell().getUnit();
             unit.setSelected(true);
-            context.getGameState().setSelectedUnit(newTile.getCell().getUnit().get());
+            context.getGameState().setSelectedUnit(newTile.getCell().getUnit());
             newTile.setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
         } else if(newTile != null) {
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
@@ -361,8 +350,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void configure(@Nonnull IngameContext context) {
         this.context = context;
 
-        configureSelectedUnit();
-
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
         if (context.getGameState().getCurrentPlayer() != null) {
             onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
@@ -401,7 +388,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
 
-        configureSelectedUnit();
+        configureEndPhase();
+
+        //configureSelectedUnit();
+    }
 
     private void configureEndPhase() {
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
@@ -415,9 +405,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}) );
 
-        currentPlayerProperty.addListener((observable, oldValue, newValue) -> {
-            this.context.getGameState().setInitiallyMoved(false);
-        });
+        currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
@@ -435,7 +423,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             unit.setRemainingMovePoints(unit.getMp());
         }
     }
-
+    /*
     private void configureSelectedUnit() {
         this.context.getGameState()
             .selectedUnitProperty().bind(Bindings.createObjectBinding(
@@ -464,7 +452,9 @@ public class BattleFieldController implements RootController, IngameViewControll
                 this.selectedTile
         ));
     }
+    */
 
+    /*
     private void configureSelectedUnit() {
         this.context.getGameState()
             .selectedUnitProperty().bind(Bindings.createObjectBinding(
@@ -489,6 +479,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                 this.selectedTile
         ));
     }
+    */
+
 
     @Override
     public void terminate()
