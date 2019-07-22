@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
@@ -53,6 +54,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH/2;
     private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 60)/2;
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
+
+    private static final String MOVE_PHASE = "movePhase";
+    private static final String LAST_MOVE_PHASE = "lastMovePhase";
 
     public Button leaveButton;
     public Button zoomOutButton;
@@ -170,12 +174,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         if ((newTile != null) && (newTile.getCell().getUnit() != null) && (isMyUnit(newTile.getCell().getUnit()))){
-            Unit unit = newTile.getCell().getUnit();
-            unit.setSelected(true);
-            context.getGameState().setSelectedUnit(newTile.getCell().getUnit());
             newTile.setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
         } else if(newTile != null) {
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
+            this.context.getGameState().setSelectedUnit(null);
         }
 
     }
@@ -195,21 +197,23 @@ public class BattleFieldController implements RootController, IngameViewControll
             if (c.wasAdded()) {
                 for (int i = c.getFrom(); i < c.getTo(); i++)
                 {
-                    units.get(c.getFrom()).positionProperty().addListener(this::unitChangedPosition);
+                    units.get(c.getFrom()).positionProperty()
+                            .addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, units.get(c.getFrom())));
                 }
             }
 
             if(c.wasRemoved()) {
                 for (Unit unit : c.getRemoved())
                 {
-                    unit.positionProperty().removeListener(this::unitChangedPosition);
+                    unit.positionProperty()
+                            .removeListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, units.get(c.getFrom())));
                 }
             }
         }
     }
 
 
-    private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition)
+    private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition, Unit unit)
     {
         if(lastPosition != null) {
             tileDrawer.drawTile(tileMap[lastPosition.getY()][lastPosition.getX()]);
@@ -217,6 +221,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(newPosition != null) {
             tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
         }
+        game.setSelectedUnit(unit);
+        unit.getRemainingMovePoints();// hack
+        setCellReachability(unit);
     }
 
     private void initCanvas() {
@@ -250,10 +257,29 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         if (handleMovement(tile)) {
+            this.setSelectedTile(tile); //unsicher
             return;
         }
 
-        onTileSelection(tile);
+        if (tile.getCell().getUnit() != null){
+            Unit unit = tile.getCell().getUnit();
+            onUnitSelection(unit, tile);
+        } else {
+            onTileSelection(tile);
+        }
+    }
+
+    private void onUnitSelection(Unit unitClicked, Tile tileClicked){
+        if(unitClicked.equals(game.getSelectedUnit())){
+            game.setSelectedUnit(null);
+            selectedTile.set(null);
+            hoveredTile.set(null);
+            setCellReachability(null);
+        } else {
+            game.setSelectedUnit(unitClicked);
+            selectedTile.set(tileClicked);
+            setCellReachability(unitClicked);
+        }
     }
 
     private boolean handleMovement(Tile tile) {
@@ -374,7 +400,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
             for (Unit unit : units) {
                 //Adds listener for units which are already in the list
-                unit.positionProperty().addListener(this::unitChangedPosition);
+                unit.positionProperty().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
+                unit.remainingMovePointsProperty().addListener(((observable, oldValue, newValue) -> setCellReachability(unit)));
             }
 
             initCanvas();
@@ -389,33 +416,51 @@ public class BattleFieldController implements RootController, IngameViewControll
         selectedTile.addListener(this::selectedTileChanged);
         hoveredTile.addListener(this::hoveredTileChanged);
 
+        this.context.getGameState().selectedUnitProperty()
+                .addListener((observable, oldUnit, newUnit) -> setCellReachability(newUnit));
+
         configureEndPhase();
 
         configureCells();
-
-        configureReachability();
     }
 
     private void configureCells() {
         for (Cell cell: this.context.getGameState().getCells()){
             cell.isReachableProperty().addListener(((observable, oldValue, newValue) -> {
-                cell.getTile().setHighlightingOne(HighlightingOne.MOVE);
+                if (newValue) {
+                    cell.getTile().setHighlightingOne(HighlightingOne.MOVE);
+                } else {
+                    cell.getTile().setHighlightingOne(HighlightingOne.NONE);
+                }
             }));
         }
     }
 
-    private void configureReachability(){
+    private void setCellReachability(@Nullable Unit selectedUnit){
+        if(selectedUnit == null){
+            for(Cell cell: this.context.getGameState().getCells()) {
+                cell.setIsReachable(false);
+            }
+            return;
+        }
 
-        this.context.getGameState().selectedUnitProperty().addListener(((observable, oldUnit, newUnit) -> {
-            if (!isMyUnit(this.context.getGameState().getSelectedUnit())) {
-                return;
+        if (!isMyUnit(selectedUnit)) {
+            return;
+        }
+
+        if (! (this.context.getGameState().getPhase().equals(MOVE_PHASE)
+                || this.context.getGameState().getPhase().equals(LAST_MOVE_PHASE))){
+            return;
+        }
+
+        for(Cell cell: this.context.getGameState().getCells()) {
+            if (this.movementManager.getTour(selectedUnit, cell) != null){
+                cell.setIsReachable(true);
+            } else{
+                cell.setIsReachable(false);
             }
         }
     }
-
-
-
-
 
     private void configureEndPhase() {
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
@@ -463,7 +508,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         for (Unit unit : units)
         {
-            unit.positionProperty().removeListener(this::unitChangedPosition);
+            unit.positionProperty()
+                    .removeListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
         }
     }
 }

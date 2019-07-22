@@ -33,9 +33,9 @@ public class Cell {
 
     private SimpleObjectProperty<Unit> unit;
 
-    private SimpleBooleanProperty isReachable;
+    private SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
 
-    private SimpleBooleanProperty isAttackable;
+    private SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
 
     public Cell(@NonNull final String id) {
         this.id = id;
