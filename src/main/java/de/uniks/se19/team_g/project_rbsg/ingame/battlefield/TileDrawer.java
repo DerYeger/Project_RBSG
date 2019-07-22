@@ -19,7 +19,8 @@ public class TileDrawer
     private static final double CELL_SIZE = 64;
     private static final Color transparentWhite = Color.rgb(255, 255, 255, 0.2);
     private static final Color selectedWhite = Color.rgb(255, 255, 255, 0.4);
-    private static final Color movementBlue = Color.rgb(0, 0, 255, 0.5);
+    private static final Color movementBlue = Color.rgb(0, 0, 255, 0.4);
+    private static final Color attackRed = Color.rgb(207,102,121, 0.4);
     private static final Color selectedBlue = Color.rgb(134,140,252);
     private static Image grass = new Image("/assets/cells/grass.png");
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -76,6 +77,12 @@ public class TileDrawer
             if (tile.getHighlightingOne() == HighlightingOne.MOVE) {
                 graphicsContext.setFill(movementBlue);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                drawBorderAroundTile(startX, startY, selectedBlue);
+            }
+            if (tile.getHighlightingOne() == HighlightingOne.ATTACK) {
+                graphicsContext.setFill(attackRed);
+                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                drawBorderAroundTile(startX, startY, attackRed);
             }
         }
 
@@ -93,7 +100,7 @@ public class TileDrawer
             }
             if (tile.getHighlightingTwo() == HighlightingTwo.SELECETD_WITH_UNITS)
             {
-                drawBorderAroundTile(startX, startY);
+                drawBorderAroundTile(startX, startY, selectedBlue);
             }
             graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
 
@@ -110,8 +117,8 @@ public class TileDrawer
         }
     }
 
-    private void drawBorderAroundTile(double startX, double startY) {
-        graphicsContext.setStroke(selectedBlue);
+    private void drawBorderAroundTile(double startX, double startY, Color borderColer) {
+        graphicsContext.setStroke(borderColer);
         graphicsContext.setLineWidth(5);
         graphicsContext.strokeLine((startX + 5), (startY + 5), (startX + (CELL_SIZE - 5)), (startY + 5));
         graphicsContext.strokeLine((startX + (CELL_SIZE - 5)), (startY + 5), startX + (CELL_SIZE - 5), startY + (CELL_SIZE - 5));

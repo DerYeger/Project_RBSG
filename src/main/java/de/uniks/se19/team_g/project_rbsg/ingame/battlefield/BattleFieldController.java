@@ -56,6 +56,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
 
     private static final String MOVE_PHASE = "movePhase";
+    private static final String ATTACK_PHASE = "attackPhase";
     private static final String LAST_MOVE_PHASE = "lastMovePhase";
 
     public Button leaveButton;
@@ -91,7 +92,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         return selectedTile;
     }
 
-    public void setSelectedTile(@Nonnull Tile selectedTile) {
+    public void setSelectedTile(@Nullable Tile selectedTile) {
         this.selectedTile.set(selectedTile);
     }
 
@@ -183,6 +184,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private boolean isMyUnit(@NonNull Unit unit){
+        if (unit.getLeader() == null){
+            return false;
+        }
         if (unit.getLeader().getName().equals(context.getUser().getName())){
             return true;
         } else {
@@ -222,8 +226,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
         }
         game.setSelectedUnit(unit);
-        unit.getRemainingMovePoints();// hack
-        setCellReachability(unit);
+        setCellProperty(unit);
     }
 
     private void initCanvas() {
@@ -257,7 +260,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         if (handleMovement(tile)) {
-            this.setSelectedTile(tile); //unsicher
+            //this.setSelectedTile(tile); //unsicher
+            selectedTile.set(tile);
+            setCellProperty(this.context.getGameState().getSelectedUnit());
             return;
         }
 
@@ -274,11 +279,10 @@ public class BattleFieldController implements RootController, IngameViewControll
             game.setSelectedUnit(null);
             selectedTile.set(null);
             hoveredTile.set(null);
-            setCellReachability(null);
+            setCellProperty(null);
         } else {
             game.setSelectedUnit(unitClicked);
             selectedTile.set(tileClicked);
-            setCellReachability(unitClicked);
         }
     }
 
@@ -369,8 +373,13 @@ public class BattleFieldController implements RootController, IngameViewControll
         alertBuilder
                 .confirmation(
                         AlertBuilder.Text.END_PHASE,
-                        () -> this.context.getGameEventManager().sendEndPhaseCommand(),
+                        () -> doEndPhase(),
                         null);
+    }
+
+    private void doEndPhase(){
+        this.context.getGameEventManager().sendEndPhaseCommand();
+        this.context.getGameState().setSelectedUnit(null);
     }
 
     @Override
@@ -401,7 +410,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             for (Unit unit : units) {
                 //Adds listener for units which are already in the list
                 unit.positionProperty().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
-                unit.remainingMovePointsProperty().addListener(((observable, oldValue, newValue) -> setCellReachability(unit)));
+                unit.remainingMovePointsProperty().addListener(((observable, oldValue, newValue) -> setCellProperty(unit)));
             }
 
             initCanvas();
@@ -417,7 +426,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         hoveredTile.addListener(this::hoveredTileChanged);
 
         this.context.getGameState().selectedUnitProperty()
-                .addListener((observable, oldUnit, newUnit) -> setCellReachability(newUnit));
+                .addListener((observable, oldUnit, newUnit) -> setCellProperty(newUnit));
+
+        this.context.getGameState().phaseProperty().addListener(((observable, oldValue, newValue) -> {
+            setCellProperty(null);
+        }));
 
         configureEndPhase();
 
@@ -433,32 +446,88 @@ public class BattleFieldController implements RootController, IngameViewControll
                     cell.getTile().setHighlightingOne(HighlightingOne.NONE);
                 }
             }));
+
+            cell.isAttackableProperty().addListener(((observable, oldValue, newValue) -> {
+                if (newValue) {
+                    cell.getTile().setHighlightingOne(HighlightingOne.ATTACK);
+                    setUnitAttackProperty(cell);
+                } else {
+                    cell.getTile().setHighlightingOne(HighlightingOne.NONE);
+                    removeUnitAttackProperty(cell);
+                }
+            }));
         }
     }
 
-    private void setCellReachability(@Nullable Unit selectedUnit){
-        if(selectedUnit == null){
-            for(Cell cell: this.context.getGameState().getCells()) {
+    private void removeUnitAttackProperty(@NonNull Cell cell){
+        if (cell.getUnit() == null){
+            return;
+        }
+        Unit unit = cell.getUnit();
+        if (isMyUnit(unit)){
+            return;
+        }
+        unit.setAttackable(false);
+    }
+
+    private void setUnitAttackProperty(@NonNull Cell cell){
+        if (cell.getUnit() == null){
+            return;
+        }
+        Unit unit = cell.getUnit();
+        if (isMyUnit(unit)){
+            return;
+        }
+        unit.setAttackable(true);
+    }
+
+    private void setCellProperty(@Nullable Unit selectedUnit) {
+        if (selectedUnit == null) {
+            for (Cell cell : this.context.getGameState().getCells()) {
                 cell.setIsReachable(false);
+                cell.setIsAttackable(false);
+                removeUnitAttackProperty(cell);
             }
             return;
         }
 
-        if (!isMyUnit(selectedUnit)) {
+        if ((!isMyUnit(selectedUnit)) || (!this.context.isMyTurn())) {
             return;
         }
-
-        if (! (this.context.getGameState().getPhase().equals(MOVE_PHASE)
-                || this.context.getGameState().getPhase().equals(LAST_MOVE_PHASE))){
-            return;
+        if (this.context.getGameState().getPhase().equals(ATTACK_PHASE)) {
+            setAttackRadius(selectedUnit);
+        } else {
+            setMoveRadius(selectedUnit);
         }
+    }
 
+    private void setMoveRadius(@NonNull Unit selectedUnit) {
         for(Cell cell: this.context.getGameState().getCells()) {
             if (this.movementManager.getTour(selectedUnit, cell) != null){
                 cell.setIsReachable(true);
             } else{
                 cell.setIsReachable(false);
             }
+        }
+    }
+
+
+    private void setAttackRadius(@NonNull Unit selectedUnit){
+        Cell position = selectedUnit.getPosition();
+        for (Cell cell: this.context.getGameState().getCells()){
+            cell.setIsAttackable(false);
+        }
+        if (position.getLeft() != null){
+            position.getLeft().setIsAttackable(true);
+        }
+        if (position.getTop() != null){
+            position.getTop().setIsAttackable(true);
+        }
+        if (position.getRight() != null){
+            position.getRight().setIsAttackable(true);
+        }
+        if (position.getBottom() != null) {
+            position.getBottom().setIsAttackable(true);
         }
     }
 

@@ -299,6 +299,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         context.getUser().setName("Bob");
         revealBattleField(context);
+        context.getGameState().getCells().get(5).setUnit(null);
         context.getGameState().setPhase("movePhase");
         Tour tour = new Tour();
 
@@ -324,6 +325,74 @@ public class BattleFieldViewTest extends ApplicationTest {
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(null);
         playerUnit.setRemainingMovePoints(2);
         playerUnit.setPosition(target);
+    }
+
+    @Test
+    public void testAttackRadius() throws ExecutionException, InterruptedException{
+        BattleFieldController battleFieldController = battleFieldComponent.getController();
+
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+        playerUnit.setPosition(playerUnit.getPosition().getBottom());
+
+        Unit enemyUnit = new Unit("1");
+        enemyUnit.setUnitType(UnitType.BAZOOKA_TROOPER);
+        enemyUnit.setPosition(playerUnit.getPosition().getRight());
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob");
+
+        User enemy = new User();
+        enemy.setName("Dinkelberg");
+        Player enenymPlayer = new Player("Dinkelberg").setName("Dinkelberg");
+
+        game.withPlayer(player);
+        game.withPlayer(enenymPlayer);
+        playerUnit.setLeader(player);
+        enemyUnit.setLeader(enenymPlayer);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+        revealBattleField(context);
+        context.getGameState().setPhase("attackPhase");
+
+        Assert.assertFalse(enemyUnit.isAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+
+        game.setSelectedUnit(playerUnit);
+
+        Assert.assertTrue(enemyUnit.isAttackable());
+        Assert.assertTrue(playerUnit.getPosition().getLeft().isIsAttackable());
+        Assert.assertTrue(playerUnit.getPosition().getTop().isIsAttackable());
+        Assert.assertTrue(playerUnit.getPosition().getRight().isIsAttackable());
+        Assert.assertTrue(playerUnit.getPosition().getBottom().isIsAttackable());
+
+        context.getGameState().setPhase("movePhase");
+
+        Assert.assertFalse(enemyUnit.isAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+
+
+
+
     }
 
 

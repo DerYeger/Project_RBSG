@@ -23,6 +23,8 @@ public class Unit {
 
     private SimpleBooleanProperty selected = new SimpleBooleanProperty();
 
+    private SimpleBooleanProperty attackable = new SimpleBooleanProperty(false);
+
     private UnitType unitType;
 
     final private SimpleIntegerProperty remainingMovePoints = new SimpleIntegerProperty(0);
@@ -166,5 +168,17 @@ public class Unit {
 
     public void setRemainingMovePoints(int remainingMovePoints) {
         this.remainingMovePoints.set(remainingMovePoints);
+    }
+
+    public boolean isAttackable() {
+        return attackable.get();
+    }
+
+    public SimpleBooleanProperty attackableProperty() {
+        return attackable;
+    }
+
+    public void setAttackable(boolean attackable) {
+        this.attackable.set(attackable);
     }
 }
