@@ -5,7 +5,6 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
-import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
@@ -16,7 +15,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.Observable;
@@ -26,7 +24,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -91,14 +88,12 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Game game;
 
     private ObservableList<Cell> cells;
-    private Tile[][] tileMap;
     private ObservableList<Unit> units;
 
     private int zoomFactor = 1;
 
     private final ChangeListener<Tile> hoveredTileListener = this::hoveredTileChanged;
     private final ChangeListener<Tile> selectedTileListener = this::selectedTileChanged;
-    private final ChangeListener<Cell> unitPositionListener = this::unitChangedPosition;
     private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
     private final PropertyChangeListener highlightingListener = this::highlightingChanged;
 
@@ -106,14 +101,14 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Tile[][] tileMap;
     private int mapSize;
 
-    @Nonnull
-    public Tile getSelectedTile() {
-        return selectedTile.get();
+    public SimpleObjectProperty<Tile> selectedTileProperty()
+    {
+        return selectedTile;
     }
 
-    @Nonnull
-    public SimpleObjectProperty<Tile> selectedTileProperty() {
-        return selectedTile;
+    public Tile getSelectedTile()
+    {
+        return selectedTile.get();
     }
 
     public void setSelectedTile(@Nullable Tile selectedTile) {
@@ -125,8 +120,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     @Nonnull
     final private SimpleObjectProperty<Tile> hoveredTile;
 
-    private final SceneManager sceneManager;
-    private final AlertBuilder alertBuilder;
     @Nonnull
     private final MovementManager movementManager;
 
@@ -145,16 +138,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
-    }
-
-    public Tile getSelectedTile()
-    {
-        return selectedTile.get();
-    }
-
-    public SimpleObjectProperty<Tile> selectedTileProperty()
-    {
-        return selectedTile;
     }
 
     public Tile getHoveredTile()
@@ -259,7 +242,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             {
                 for (Unit unit : c.getAddedSubList())
                 {
-                    unit.positionProperty().addListener(unitPositionListener);
+                    unit.positionProperty().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
                 }
             }
 
@@ -267,7 +250,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             {
                 for (Unit unit : c.getRemoved())
                 {
-                    unit.positionProperty().removeListener(unitPositionListener);
+                    unit.positionProperty().removeListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
                 }
             }
         }
@@ -322,7 +305,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         if (handleMovement(tile)) {
-            //this.setSelectedTile(tile); //unsicher
             selectedTile.set(tile);
             setCellProperty(this.context.getGameState().getSelectedUnit());
             return;

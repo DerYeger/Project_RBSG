@@ -3,20 +3,15 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.paint.*;
-import org.slf4j.*;
 
-import java.util.*;
+import java.util.HashMap;
 
 /**
  * @author Georg Siebert
@@ -30,7 +25,7 @@ public class TileDrawer
     private static final Color movementBlue = Color.rgb(0, 0, 255, 0.4);
     private static final Color attackRed = Color.rgb(207,102,121, 0.4);
     private static final Color selectedBlue = Color.rgb(134,140,252);
-    private static Image grass = new Image("/assets/cells/grass.png");
+    private static Image grass = new Image("/assets/cells/grass/grass1.png");
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Canvas canvas;
