@@ -82,7 +82,7 @@
                   </HBox.margin>
                </HBox>
             </HBox>
-            <StackPane fx:id="ingameField" alignment="TOP_CENTER">
+            <StackPane fx:id="battlefieldStackPane" alignment="TOP_CENTER">
                <children>
                   <HBox fx:id="playerBar" alignment="TOP_CENTER" layoutY="100.0" maxHeight="-Infinity" StackPane.alignment="TOP_CENTER">
                      <children>
