@@ -87,7 +87,7 @@
             </HBox>
             <StackPane fx:id="battlefieldStackPane" alignment="TOP_CENTER">
                <children>
-                  <AnchorPane fx:id="overlayAnchorPane" StackPane.alignment="TOP_CENTER">
+                  <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false" StackPane.alignment="TOP_CENTER">
                      <StackPane.margin>
                         <Insets />
                      </StackPane.margin>
