@@ -92,16 +92,16 @@
                         <Insets />
                      </StackPane.margin>
                      <children>
-                        <HBox fx:id="playerBar" alignment="TOP_CENTER" maxHeight="-Infinity">
+                        <HBox fx:id="playerBar" maxHeight="-Infinity" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Pane fx:id="player1" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
-                                    <Insets left="50.0" right="50.0" />
+                                    <Insets left="50.0" right="25.0" />
                                  </HBox.margin>
                               </Pane>
                               <Pane fx:id="player2" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
-                                    <Insets left="50.0" right="50.0" />
+                                    <Insets left="25.0" right="25.0" />
                                  </HBox.margin>
                               </Pane>
                               <Pane fx:id="player3" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
@@ -111,7 +111,7 @@
                               </Pane>
                               <Pane fx:id="player4" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
-                                    <Insets left="50.0" right="50.0" />
+                                    <Insets left="25.0" right="50.0" />
                                  </HBox.margin>
                               </Pane>
                            </children>

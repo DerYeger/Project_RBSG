@@ -42,6 +42,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -328,6 +329,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         int counter=0;
         if(this.game.getPlayers().size()==2){
+            playerBar.setAlignment(Pos.TOP_CENTER);
             playerBar.getChildren().remove(player1);
             playerCardList.remove(player1);
             playerBar.getChildren().remove(player4);
