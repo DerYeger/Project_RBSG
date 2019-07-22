@@ -136,7 +136,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(25, 100);
         click(25, 150);
         click(75, 150);
+
+        Button button = lookup("#mapButton").query();
+        clickOn("#mapButton");
+        clickOn("#mapButton");
     }
+
 
     private void click(double x, double y) {
         clickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);

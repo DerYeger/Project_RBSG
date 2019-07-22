@@ -1,0 +1,4 @@
+.miniMapBox {
+    -fx-background-color: -root-background-color;
+    -fx-padding: 2;
+}
