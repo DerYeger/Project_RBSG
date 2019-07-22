@@ -314,7 +314,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     }
     private void initPlayerBar(){
-        game = context.getGameState();
         HashMap<String, Player> playerMap=new HashMap<>();
         HashMap<String, Node> playerNodeMap=new HashMap<>();
         HashMap<String, Pane> playerPaneMap=new HashMap<>();
@@ -349,6 +348,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         playerBar.setVisible(false);
         playerBar.setPickOnBounds(false);
         battlefieldStackPane.setPickOnBounds(false);
+        miniMapStackPane.setPickOnBounds(false);
 
         playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
         this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
