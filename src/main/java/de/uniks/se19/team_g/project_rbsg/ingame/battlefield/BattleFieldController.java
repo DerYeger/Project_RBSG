@@ -367,14 +367,20 @@ public class BattleFieldController implements RootController, IngameViewControll
         battlefieldStackPane.setPickOnBounds(false);
         miniMapStackPane.setPickOnBounds(false);
 
-        playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
+        if(!playerNodeMap.isEmpty() && this.game.getCurrentPlayer()!=null){
+            playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
+        }
         this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
             //Player oldPlayer = playerMap.get(oldVal);
             Player oldPlayer = oldVal;
-            playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
+            if(oldPlayer!=null){
+                playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
+            }
             //Player newPlayer = playerMap.get(newVal);
-            Player newPlayer = newVal;
-            playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
+            if(newVal!=null){
+                Player newPlayer = newVal;
+                playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
+            }
         });
         this.game.getPlayers().addListener((ListChangeListener) l -> {
             if(!l.next()){
