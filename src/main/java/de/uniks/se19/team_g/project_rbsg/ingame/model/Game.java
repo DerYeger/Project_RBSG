@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -231,7 +232,9 @@ public class Game {
     }
 
     public void setPhase(String phase) {
-        this.phase.set(phase);
+        Platform.runLater(()-> {
+            this.phase.set(phase);
+        });
     }
 
     public Game setCurrentPlayer(Player player) {

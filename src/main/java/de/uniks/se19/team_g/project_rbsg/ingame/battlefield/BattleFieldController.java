@@ -29,10 +29,7 @@ import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -164,8 +161,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private PlayerListController playerListController;
 
-    private int roundCount;
-    private int phaseCount;
+    private SimpleIntegerProperty roundCount;
+    private int roundCounter;
 
     @Autowired
     public BattleFieldController(
@@ -180,6 +177,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
+        this.roundCount = new SimpleIntegerProperty();
+        this.roundCounter = 1;
     }
 
     public Tile getHoveredTile()
@@ -370,9 +369,11 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
         this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
-            Player oldPlayer = playerMap.get(oldVal);
+            //Player oldPlayer = playerMap.get(oldVal);
+            Player oldPlayer = oldVal;
             playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
-            Player newPlayer = playerMap.get(newVal);
+            //Player newPlayer = playerMap.get(newVal);
+            Player newPlayer = newVal;
             playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
         });
         this.game.getPlayers().addListener((ListChangeListener) l -> {
@@ -388,19 +389,22 @@ public class BattleFieldController implements RootController, IngameViewControll
             });
         });
 
-
-        roundCount=0;
-        phaseCount=0;
         this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
-            if(phaseCount==3){
-                phaseCount=0;
-                roundCount++;
-            }
-            phaseCount++;
+            Platform.runLater(() -> {
+                if(oldVal==null){
+                    return;
+                }
+                if(oldVal.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size())==0){
+                    roundCount.set(roundCount.get()+1);
+                    roundCounter=0;
+                }
+                roundCounter++;
+            });
         });
-        roundCountLabel.textProperty().bind(new SimpleIntegerProperty(roundCount).asString());
+        roundCount.set(0);
+
+        roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.textProperty().bind(this.game.phaseProperty());
-        //roundTextLabel.textProperty().setValue(getResources().getString("round"));
         roundTextLabel.textProperty().setValue("Round");
     }
 
