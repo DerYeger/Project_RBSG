@@ -186,7 +186,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(25, 100);
         Assert.assertNull(game.getSelectedUnit());
         click(75, 100);
-        //Assert.assertSame(playerUnit, game.getSelectedUnit());
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyZeroInteractions(movementManager);
         when(movementManager.getTour(playerUnit, definition.cells[1][0]))
