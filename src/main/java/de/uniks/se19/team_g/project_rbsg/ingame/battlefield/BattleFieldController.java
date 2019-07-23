@@ -268,7 +268,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
         }
         miniMapDrawer.drawMinimap(tileMap);
-        game.setSelectedUnit(unit);
         setCellProperty(unit);
     }
 
@@ -462,6 +461,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void doEndPhase(){
         this.context.getGameEventManager().sendEndPhaseCommand();
         this.context.getGameState().setSelectedUnit(null);
+        setSelectedTile(null);
     }
 
     @Override
@@ -512,9 +512,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.context.getGameState().selectedUnitProperty()
                 .addListener((observable, oldUnit, newUnit) -> setCellProperty(newUnit));
 
-        this.context.getGameState().phaseProperty().addListener(((observable, oldValue, newValue) -> {
-            setCellProperty(null);
-        }));
+        this.context.getGameState().phaseProperty()
+                .addListener(((observable, oldValue, newValue) -> setCellProperty(null)));
 
         configureEndPhase();
 
