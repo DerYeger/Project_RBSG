@@ -85,7 +85,7 @@ public class TileDrawer
             if (tile.getHighlightingOne() == HighlightingOne.MOVE) {
                 graphicsContext.setFill(movementBlue);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
-                drawBorderAroundTile(startX, startY, selectedBlue);
+                drawBorderAroundTile(startX, startY, movementBlue);
             }
             if (tile.getHighlightingOne() == HighlightingOne.ATTACK) {
                 graphicsContext.setFill(attackRed);
@@ -127,10 +127,10 @@ public class TileDrawer
 
     private void drawBorderAroundTile(double startX, double startY, Color borderColer) {
         graphicsContext.setStroke(borderColer);
-        graphicsContext.setLineWidth(5);
-        graphicsContext.strokeLine((startX + 5), (startY + 5), (startX + (CELL_SIZE - 5)), (startY + 5));
-        graphicsContext.strokeLine((startX + (CELL_SIZE - 5)), (startY + 5), startX + (CELL_SIZE - 5), startY + (CELL_SIZE - 5));
-        graphicsContext.strokeLine((startX  + (CELL_SIZE - 5)), startY + (CELL_SIZE - 5), (startX + 5 ),startY + (CELL_SIZE - 5));
-        graphicsContext.strokeLine((startX + 5), (startY + (CELL_SIZE - 5)), (startX + 5), (startY + 5));
+        graphicsContext.setLineWidth(4);
+        graphicsContext.strokeLine((startX + 2), (startY + 2), (startX + (CELL_SIZE - 2)), (startY + 2));
+        graphicsContext.strokeLine((startX + (CELL_SIZE - 2)), (startY + 5), startX + (CELL_SIZE - 2), startY + (CELL_SIZE - 2));
+        graphicsContext.strokeLine((startX  + (CELL_SIZE - 2)), startY + (CELL_SIZE - 2), (startX + 2),startY + (CELL_SIZE - 2));
+        graphicsContext.strokeLine((startX + 2), (startY + (CELL_SIZE - 5)), (startX + 2), (startY + 2));
     }
 }
