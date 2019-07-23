@@ -10,7 +10,8 @@ public enum HighlightingTwo
 {
     NONE("None"),
     HOVERED("Hovered"),
-    SELECTED("Selected");
+    SELECTED("Selected"),
+    SELECETD_WITH_UNITS("Selected_with_Units");
 
     private final String highlight;
 
