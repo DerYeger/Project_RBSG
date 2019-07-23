@@ -98,6 +98,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private TileDrawer tileDrawer;
     private Tile[][] tileMap;
     private int mapSize;
+    private Camera camera;
 
     @Nonnull
     final private SimpleObjectProperty<Tile> selectedTile;
@@ -216,6 +217,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
         }
         miniMapDrawer.drawMinimap(tileMap);
+        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
+        logger.debug(String.valueOf(zoomableScrollPane.getHeight()));
+        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
     }
 
     private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
@@ -266,7 +270,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
-
     }
 
     protected Tile resolveTargetTile(MouseEvent event) {
@@ -457,7 +460,11 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
 
             initCanvas();
+            camera = new Camera(zoomableScrollPane.scaleValueProperty(), zoomableScrollPane.hvalueProperty(),
+                                zoomableScrollPane.vvalueProperty(), mapSize, zoomableScrollPane.heightProperty(),
+                                zoomableScrollPane.widthProperty());
             initMiniMap();
+            miniMapDrawer.setCamera(camera);
         }
 
         //Add Event handler for actions on canvas
