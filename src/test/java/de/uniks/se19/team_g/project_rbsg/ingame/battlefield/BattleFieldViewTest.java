@@ -391,6 +391,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         while(context.getGameState().getPhase()==null){
             sleep(1);
         }
+        WaitForAsyncUtils.waitForFxEvents();
         Assert.assertFalse(enemyUnit.isAttackable());
         Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
@@ -409,7 +410,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         while(context.getGameState().getPhase()!="movePhase"){
             sleep(1);
         }
-
+        WaitForAsyncUtils.waitForFxEvents();
         Assert.assertFalse(enemyUnit.isAttackable());
         Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());

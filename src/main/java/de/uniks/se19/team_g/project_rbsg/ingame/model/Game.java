@@ -233,17 +233,9 @@ public class Game {
     }
 
     public void setPhase(String phase) throws InterruptedException {
-        CountDownLatch countDown = new CountDownLatch(1);
         Platform.runLater(()-> {
-            try {
-                this.phase.set(phase);
-            }
-            finally {
-                countDown.countDown();
-            }
+            this.phase.set(phase);
         });
-        //Wait until new phase is successfully set
-        countDown.await();
     }
 
     public Game setCurrentPlayer(Player player) {
