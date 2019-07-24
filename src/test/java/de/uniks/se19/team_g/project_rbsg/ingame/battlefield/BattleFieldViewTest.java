@@ -388,7 +388,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.getUser().setName("Bob");
         revealBattleField(context);
         context.getGameState().setPhase("attackPhase");
-
+        while(context.getGameState().getPhase()==null){
+            sleep(1);
+        }
         Assert.assertFalse(enemyUnit.isAttackable());
         Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
@@ -404,6 +406,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(playerUnit.getPosition().getBottom().isIsAttackable());
 
         context.getGameState().setPhase("movePhase");
+        while(context.getGameState().getPhase()!="movePhase"){
+            sleep(1);
+        }
 
         Assert.assertFalse(enemyUnit.isAttackable());
         Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());

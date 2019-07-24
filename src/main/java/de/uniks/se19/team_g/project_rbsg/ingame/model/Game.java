@@ -11,6 +11,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Jan Müller
@@ -231,10 +232,18 @@ public class Game {
         return phase;
     }
 
-    public void setPhase(String phase) {
+    public void setPhase(String phase) throws InterruptedException {
+        CountDownLatch countDown = new CountDownLatch(1);
         Platform.runLater(()-> {
-            this.phase.set(phase);
+            try {
+                this.phase.set(phase);
+            }
+            finally {
+                countDown.countDown();
+            }
         });
+        //Wait until new phase is successfully set
+        countDown.await();
     }
 
     public Game setCurrentPlayer(Player player) {
