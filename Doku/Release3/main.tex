@@ -1,0 +1,872 @@
+\documentclass[12pt, titlepage]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage{color}
+\usepackage[a4paper, lmargin={2.5cm}, rmargin={2cm}, tmargin={2.5cm}, bmargin={2.5cm}]{geometry}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{helvet}
+\usepackage{scrpage2}
+\usepackage{wrapfig}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\arraystretch}{1.2}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\ofoot{\pagemark}
+\ifoot{RBSG - Enhanced Wars}
+\cfoot{Gruppe G}
+\ohead{\includegraphics[width=0.12\textwidth]{images/Logo.png}}
+\ihead{Projektdokumentation}
+\chead{Release \RN{3}}
+\newcommand{\RN}[1]{%
+	\textup{\uppercase\expandafter{\romannumeral#1}}%
+}
+\newcommand{\Abb}[1]{%
+	Abb.\ \ref{#1}%
+}
+\titleclass{\subsubsubsection}{straight}[\subsection]
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}}
+\titleformat{\subsubsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+  {3.25ex \@plus1ex \@minus .2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\def\toclevel@subsubsubsection{4}
+\def\toclevel@paragraph{5}
+\def\toclevel@paragraph{6}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\l@paragraph{\@dottedtocline{5}{10em}{5em}}
+\def\l@subparagraph{\@dottedtocline{6}{14em}{6em}}
+\makeatother
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+\begin{document}
+    \begin{titlepage}
+		\centering
+		{\scshape\LARGE Projektdokumentation \par}
+		\vspace{0.75cm}
+		{\bfseries\Huge Release \RN{3}\par}
+		\vspace{0.75cm}
+		{\scshape\Large Universit\"at Kassel \par}
+		{\scshape\Large Software Engineering \RN{1} SS 19\par}
+		\vspace{0.5cm}
+		{\bfseries\LARGE Projekt: Rundenbasiertes Strategiespiel \par}
+		{\bfseries\LARGE RBSG - Enhanced Wars\par}
+		\vspace{0.5cm}
+		{\scshape\Large Gruppe G\par}
+		\vspace{1.5cm}
+		{\includegraphics[width=1\textwidth]{images/Logo.png}\par}
+		\vspace{0.5cm}
+		{\scshape\Large Scrum Master: Jan M"uller\par}
+		{\scshape\Large Product Owner: Keanu St"uckrad\par}
+		\vspace{0.75cm}
+		{\bfseries\Large 8.7.2019 - 4.8.2019\par}
+	\end{titlepage}	
+	\pagenumbering{arabic}
+	\setcounter{page}{1}	
+	\section{Vorwort}
+    	Das Release \RN{3} von Gruppe G des Projekts RBSG, ein rundenbasiertes Strategiespiel, soll im Rahmen des Moduls \glqq Software Engineering \RN{1}\grqq\ im Fachbereich \glqq Software Engineering\grqq\ im Sommersemester 2019 mit dieser Dokumentation festgehalten werden.
+    	\vspace{0.3cm} \newline
+        Das Vorgehen in diesem Modul ist so gegliedert, dass es vier Releases mit jeweils zwei Sprints "uber vier Monate gibt. Das Projekt begann am 13.5.2019 und wird bis zum 1.9.2019 laufen. Ein Client f"ur einen Klon vom Klassiker \glqq Advanced Wars\grqq\ soll entwickelt werden. Dabei ist das Team "uber die vier Releases immer in einen Scrum Master, einen Product Owner und mehrere Developer eingeteilt.
+        \vspace{0.3cm} \newline
+        Die Dokumentation wird eine Einleitung in das Release, danach die Zusammenfassung der beiden Sprints und eine abschlie"sende Releaseanalyse enthalten. In der Einleitung sollen die Anforderungen des Kunden, der letzte Standpunkt und die neuen MockUps und User Stories erl"autert werden. In den Sprintdokumentationen wird kurz das jeweilige Ziel dargelegt und darauf sollen alle User Stories aufgelistet werden. Abschlie"send wird es jeweils eine Sprintanalyse mit einer Zeit- und Vorgangs"ubersicht geben. Die Releaseanalyse wird aufzeigen, ob das Resultat den Anforderungen entspricht und ob das Team effektiv gearbeitet hat.
+    \newpage
+    \tableofcontents
+    \newpage
+    \section{Release \RN{3}}
+        Das Release \RN{3} erstreckt sich "uber die vier Wochen vom 8.7.2019 bis zum 4.8.2019. Die zwei Sprints gehen vom 8.7.2019 bis zum 21.7.2019 und vom 22.7.2019 bis zum 4.8.2019.
+        \vspace{0.1cm} \newline
+        Das Team ist in diesem Release wie gefolgt aufgeteilt:
+        \begin{itemize}
+            \item Scrum Master:  \hspace{0.275cm} \includegraphics[width=0.05\textwidth]{images/avatars/jan.png} \ Jan M"uller
+    		\item Product Owner:   \hspace{0.1cm} \includegraphics[width=0.05\textwidth]{images/avatars/keanu.png} \ Keanu St"uckrad
+    		\item Developer:
+    		\begin{enumerate}
+    		    \item \includegraphics[width=0.05\textwidth]{images/avatars/georg.png} \ Georg Siebert
+    		    \item \includegraphics[width=0.05\textwidth]{images/avatars/juri.png} \ Juri Lozowoj
+    		    \item \includegraphics[width=0.05\textwidth]{images/avatars/omar.png} \ Omar Sood 
+    		    \item \includegraphics[width=0.05\textwidth]{images/avatars/tobias.png} \ Tobias Klipp
+    		\end{enumerate}
+        \end{itemize}
+        \subsection{Releaseanforderungen}
+            Vom Kunden wurden folgende Features gefordert:
+            \begin{enumerate}
+                \item Client: Waiting Room (Gamelobby)
+                \begin{itemize}
+                    \item Unterst"utzung eines Chats
+                    \item Armee soll auch nach dem Spielbeitritt ausgew"ahlt werden k"onnen
+                    \item Spieler m"ussen ein Bereit senden k"onnen
+                    \item Spieler m"ussen das Spiel starten k"onnen
+                \end{itemize}
+                \item Client: Ingame
+                \begin{itemize}
+                    \item Bewegen von Einheiten
+                    \item Angreifen von Einheiten
+                    \item Unterst"utzung einer Minimap
+                    \item Unterst"utzung eines Chats
+                    \item Anzeige aller Spieler
+                    \item Anzeige der aktuellen Runde/Phase
+                    \item Spieler m"ussen das Spiel verlassen k"onnen
+                    \item Anzeige des Gewinners
+                \end{itemize}
+                \item Client: Lobby
+                \begin{itemize}
+                    \item Spieler muss einem Spiel "uber Beobachtermodus beitreten k"onnen
+                \end{itemize}
+                \item Qualit"atssicherung
+                \begin{itemize}
+                    \item C0 Testabdeckung von 75\%
+                \end{itemize}
+            \end{enumerate}
+        \subsection{Standpunkt des letzten Releases}
+            Das Release \RN{2} erstreckte sich vom 10.6.2019 bis zum 7.7.2019. Nach dem 7.7. waren folgende Teile des Clients fertig gestellt:
+            \begin{itemize}
+                \item Login
+                \begin{itemize}
+                    \item[$\ast$] Anmelden
+                    \item[$\ast$] Registrieren
+                \end{itemize}
+                \item Lobby
+                \begin{itemize}
+                    \item[$\ast$] Spiel erstellen/beitreten
+                    \item[$\ast$] Anzeige der angemeldeten Spieler 
+                    \item[$\ast$] Anzeige der aktiven Spiele
+                    \item[$\ast$] Unterst"utzung eines Chats
+                    \item[$\ast$] Ausloggen
+                \end{itemize}
+                \item Army Manager
+                \begin{itemize}
+                    \item[$\ast$] Konfigurieren eigener Armeen
+                    \item[$\ast$] Speichern von Armeen lokal und auf dem Server
+                \end{itemize}
+                \item Waiting Room (Gamelobby)
+                \begin{itemize}
+                    \item[$\ast$] Unterst"utzung eines Chats
+                    \item[$\ast$] Anzeige der beigetretenen Spieler 
+                    \item[$\ast$] Zur"uck zur Lobby
+                \end{itemize}
+                \item Ingame
+                \begin{itemize}
+                    \item[$\ast$] Anzeige des initialen Spielgeschehens
+                    \item[$\ast$] Zur"uck zur Lobby
+                \end{itemize}
+            \end{itemize}
+            Weiterhin wurde bereits eine C0 Testabdeckung von mindestens 60\% erreicht.
+            \subsubsection{Login}
+                Im Login kann der User sich anmelden oder sich sogar registrieren (siehe Abbildung \ref{Login}). \\
+                \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/login/Login.png}
+    				\caption{Release \RN{2}: Login Szene}
+    				\label{Login}
+			    \end{figure}
+			    \ \\ Versucht man sich anzumelden oder zu registrieren, erscheint ein Lade Indicator (siehe Abbildung \ref{Login_Form}) und die Buttons und Textfelder werden disabled. Macht der User dabei einen Fehler oder kann keine Verbindung zum Server hergestellt werden, erscheint eine Fehlermeldung (siehe Abbildung \ref{Login_Form}). Der Login ist internationalisiert und der Untertitel \glqq Enhanced Wars\grqq\ ist animiert. Weiterhin kann man die Musik "uber den Button ein der Ecke ein- und ausschalten. \\
+			    \begin{figure}[H]
+                    \centering
+                    \begin{subfigure}[h]{0.3\linewidth}
+                        \includegraphics[width=\linewidth]{images/old_state/login/Indicator.png}
+                        \caption{Indicator}
+                    \end{subfigure}
+                    \begin{subfigure}[h]{0.3\linewidth}
+                        \includegraphics[width=\linewidth]{images/old_state/login/MissingName.png}
+                        \caption{Missing Name}
+                    \end{subfigure}
+                    \begin{subfigure}[h]{0.3\linewidth}
+                        \includegraphics[width=\linewidth]{images/old_state/login/MissingPassword.png}
+                        \caption{Missing Password}
+                    \end{subfigure}
+                    \begin{subfigure}[h]{0.3\linewidth}
+                        \includegraphics[width=\linewidth]{images/old_state/login/InvalidCredentials.png}
+                        \caption{Invalid Credentials}
+                    \end{subfigure}
+                    \begin{subfigure}[h]{0.3\linewidth}
+                        \includegraphics[width=\linewidth]{images/old_state/login/UnexpectedError.png}
+                        \caption{Unexpected Error}
+                    \end{subfigure}
+                    \caption{Release \RN{2}: Login Form}
+                    \label{Login_Form}
+                \end{figure}
+            \subsubsection{Lobby} \label{LOBBY}
+                Die Lobby zeigt eine Liste von allen Spielern (die nicht im Spiel sind) und allen Spielen an. Diese aktualisieren sich, wenn der Server die entsprechenede Nachricht schickt. Man kann sich "uber die Buttons oben rechts ausloggen, die Sprache "andern oder die Musik an- und ausschalten. Der Chat wird unten links angezeigt. Rechts sieht man eine Liste mit allen vollst"andigen Armeen. Hat man keine vollst"andige Armee ausgew"ahlt, kann man kein Spiel erstellen (siehe Abbildung \ref{Lobby_No_Army_Selected}). \\
+                \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/NoArmySelected.png}
+    				\caption{Release \RN{2}: Lobby Szene: Keine Armee ausgew"ahlt}
+    				\label{Lobby_No_Army_Selected}
+			    \end{figure}
+			    \begin{wrapfigure}[8]{r}{0.35\textwidth}
+                    \begin{center}
+                        \includegraphics[width=0.35\textwidth]{images/old_state/lobby/CreateGame.png}
+                    \end{center}
+                    \caption{Release \RN{2}: Create Game}
+                    \label{Create_Game}
+                \end{wrapfigure}
+			    \ \vspace{0.5cm} \\ Hat man eine Armee ausgew"ahlt,kann man ein Spiel erstellen oder einem Spiel beitreten (siehe Abbildung \ref{Create_Game} oder \ref{Lobby_Language}). Spiel erstellen geht "uber Create Game (siehe Abbildung \ref{Lobby_Army_Selected}). Der User hat die Auswahl zwischen einem 2-Spieler-Spiel und einem 4-Spieler-Spiel. Danach wird ein Autojoin getriggert. Die Lobby ist auch internationalisiert (vgl. Abbildung \ref{Lobby_Army_Selected} mit \ref{Lobby_Language}). \\
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/ArmySelected.png}
+    				\caption{Release \RN{2}: Lobby Szene: Armee ausgew"ahlt}
+    				\label{Lobby_Army_Selected}
+			    \end{figure}
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/International+Chat+GameCreated.png}
+    				\caption{Release \RN{2}: Lobby Szene: Sprache DE}
+    				\label{Lobby_Language}
+			    \end{figure}
+		    \subsubsection{Army Manager}
+		        Im Army Manager sieht der User eine Liste der Einheiten, die man w"ahlen kann, und eine Liste der Einheiten, die in der gerade rechts ausgew"ahlten Armee sind. In der Mitte steht der Name der ausgew"ahlten Armee, ein + und ein - Button, um Einheiten der Armee hinzuzuf"ugen oder um sie zu l"oschen und ein Z"ahler, der anzeigt, wie voll die Armee ist. Neben der Einheitenliste ist oben eine Vorschau der gerade ausgew"ahlten Einheit. Neben diesem Feld werden die Properties der Einheit angezeigt und welche Einheiten die ausgew"ahlte Einheit angreifen kann. Hier stehen bei keiner Auswahl Fragezeichen (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), ansonsten \\
+		        \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/NoUnitSelected.png}
+    				\caption{Release \RN{2}: Army Manager Szene: Keine Einheit ausgew"ahlt}
+    				\label{Army_Manager_No_Unit_Selected}
+			    \end{figure}
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/UnitSelected.png}
+    				\caption{Release \RN{2}: Army Manager Szene: Einheit ausgew"ahlt}
+    				\label{Army_Manager_Unit_Selected}
+			    \end{figure}
+			    \ \\ Werte (siehe Abbildung \ref{Army_Manager_Unit_Selected}). Darunter steht der Lore Text der ausgew"ahlten Einheit. Oben rechts sind Buttons, um zur"uck zur Lobby zu gehen, um die Musik ein- oder auszuschalten und ein Button der die Properties in einem neuen Menu erkl"art (siehe Abbildung \ref{Property_Infoo}). Unten rechts sind Buttons, um eine Armee komplett \\
+			    \begin{figure}[H]
+                    \centering
+                    \begin{minipage}{0.6\textwidth}
+                        \centering
+                        \includegraphics[width=0.6\textwidth]{images/old_state/army_manager/PropertyInfo.png}
+                        \caption{Release \RN{2}: Property Info}
+                        \label{Property_Infoo}
+                    \end{minipage}%
+                    \begin{minipage}{0.5\textwidth}
+                        \centering
+                        \includegraphics[width=0.5\textwidth]{images/old_state/army_manager/EditArmy.png}
+                        \caption{Release \RN{2}: Armee bearbeiten}
+                        \label{Edit_Army}
+                    \end{minipage}
+                \end{figure}
+                \ \\ zu l"oschen, um sie zu speichern (wird disabled, wenn sich nichts ge"andert hat (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), wenn der User etwas "andert wieder enabled (siehe Abbildung \ref{Army_Manager_Ready_To_Save})) und ein Button, um den Armeenamen zu "andern oder das Icon zu wechseln. Dazu "offnet sich ein weiteres Menu (siehe Abbildung \ref{Edit_Army}). \\
+                \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/ArmyReadyToSave.png}
+    				\caption{Release \RN{2}: Army Manager Szene: Speicherbar}
+    				\label{Army_Manager_Ready_To_Save}
+			    \end{figure}
+	        \subsubsection{Waiting Room (Gamelobby)} \label{WAITING_ROOM}
+                Tritt der User dem Warteraum bei, dann sieht er oben rechts Buttons. Einmal einen Button zum Verlassen des Spiels in die Lobby, ein Button, um die Musik ein- und auszuschalten, und ein Button, um Informationen anzuzeigen. Da dieser Button noch keine spezielle Funktion hat, wechselt man mit jenem Testweise auf das Spielfeld (Ingame). Oben in der Mitte wird eine Kartenvorschau angezeigt. Links und rechts daneben sind die Playercards. Je nachdem ob man ein 2- Spieler-Spiel oder ein 4-Spieler-Spiel gestartet hat, sind dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). \\
+                \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/2Player.png}
+    				\caption{Release \RN{2}: Waiting Room Szene: 2 Spieler}
+    				\label{Waiting_Room_2}
+			    \end{figure}
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/4Player.png}
+    				\caption{Release \RN{2}: Waiting Room Szene: 4 Spieler}
+    				\label{Waiting_Room_4}
+			    \end{figure}
+			    \ \\ Auf den Spielerkarten stehen der Name des jeweiligen Spielers und der User sieht die Farbe. Ist noch kein Spieler da, wird ein Indikator angezeigt. Unten ist der Chat und daneben eine freie Pane f"ur ein Minigame, dass noch implementiert werden soll.
+	        \subsubsection{Ingame}
+	            Die Ingame Szene zeigt bisher nur die Karte und das initiale Spielgeschehen. Die initialen Einheiten werden auch angezeigt. Weiterhin gibt es einen Button, der zur"uck in die Lobby geht. Zwei weitere Buttons kontrollieren das Zoomen (siehe Abbildung \ref{Ingame}, \ref{Ingame_In} und \ref{Ingame_Out}). \\
+	            \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/Ingame.png}
+    				\caption{Release \RN{2}: Ingame Szene}
+    				\label{Ingame}
+			    \end{figure}
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/ZoomIn.png}
+    				\caption{Release \RN{2}: Ingame Szene: Zoom In}
+    				\label{Ingame_In}
+			    \end{figure}
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/ZoomOut.png}
+    				\caption{Release \RN{2}: Ingame Szene: Zoom Out}
+    				\label{Ingame_Out}
+			    \end{figure}
+	\newpage
+		    \subsubsection{Weitere Features}
+		        \begin{wrapfigure}[23]{r}{0.35\textwidth}
+                    \begin{center}
+                        \includegraphics[width=0.35\textwidth]{images/old_state/additional/LoginFailure.png}
+                        \caption{Release \RN{2}: Login Fehler}
+                        \label{Login_Failure}
+                    \end{center}
+                    \begin{center}
+                        \includegraphics[width=0.35\textwidth]{images/old_state/additional/WaitingRoomFailure.png}
+                        \caption{Release \RN{2}: Spielfehler}
+                        \label{Game_Failure}
+                    \end{center}
+                \end{wrapfigure}
+		        \ \\ Weiterhin wurde seit den ersten beiden Releases ein Dark Theme Styling implementiert, wie man auf allen vorangegangenen Abbildungen sehen kann. Musik und Internationalisierung war auch v"ollig optional und funktioniert nun in jeder Szene. Der User kann auch nach Belieben Chuck Norris Zitate "uber den Chat-Befehl \glqq \textbackslash chuckMe\grqq\ im Chat versenden und weiterhin wird nun angezeigt, wann jede Nachricht geschickt wurde. Wenn man eine private Nachricht bekommt, wird dies auch auf dem jeweiligen Tab mit der secondary Farbe signalisiert. Die Kartenvorschau im Warteraum war auch optional, genauso wie das Zoomen Ingame. Den Armeenamen, sowie das Icon dazu "andern zu k"onnen, war auch optional. Der Autojoin nach dem Create Game war auch nicht verlangt, funktioniert nun aber bestens. Ein weiteres sehr wichtiges Feature ist, dass der Client den Spieler nun Fehlermeldungen (siehe Abbildung \ref{Login_Failure} und \ref{Game_Failure}) schickt, wenn der Server einen Websocket unerwartet schlie"sst. Man wird je nach Fehler in den Login oder die Lobby zur"uckgeschickt. Au"sserdem gibt es ein Fenster, in dem der User noch einmal aussuchen kann, ob er sich wirklich ausloggen m"ochte oder ob er wirklich das Spiel verlassen m"ochte (siehe Abbildung \ref{Leave_Game} und \ref{Logout}). \\
+		        \begin{figure}[H]
+                    \centering
+                    \begin{minipage}{0.55\textwidth}
+                        \centering
+                        \includegraphics[width=0.55\textwidth]{images/old_state/additional/LeaveGame.png}
+                        \caption{Release \RN{2}: Spiel verlassen}
+                        \label{Leave_Game}
+                    \end{minipage}%
+                    \begin{minipage}{0.55\textwidth}
+                        \centering
+                        \includegraphics[width=0.55\textwidth]{images/old_state/additional/Logout.png}
+                        \caption{Release \RN{2}: Logout}
+                        \label{Logout}
+                    \end{minipage}
+                \end{figure}
+                \ \\ Die C0 Testabdeckung betrug zum Ende des Releases \RN{2} 77\%.
+                \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/old_state/Coverage.png}
+    				\caption{Release \RN{2}: C0 Testabdeckung (Siehe Line, \%)}
+    				\label{Coverage}
+			    \end{figure}
+	    \subsection{MockUps}
+	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zu Lobby und Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Die MockUps sind im Stil des Dark Theme und sollen an die UI aus den vorherigen Releases ankn"upfen.
+	        \subsubsection{Lobby}
+	            In der Lobby muss zum Stand aus dem Release \RN{2} (siehe Kapitel \ref{LOBBY}) ein Button hinzugef"ugt werden, der den User einem Beobachtungsmodus beitreten l"asst, der ihn direkt in die Ingame Szene weiterleitet. Des Weiteren soll die Armeeauswahl von der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
+	            \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/mockUps/LobbyWatchMode.png}
+    				\caption{MockUp: Beobachtungsmodus Lobby}
+    				\label{Watch_Mode}
+			    \end{figure}
+		    \subsubsection{Waiting Room (Gamelobby)}
+		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"sstenteils vorhanden war, muss nun nur noch das Ready geben hinzugef"ugt werden. Dies soll bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl muss deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit sind, sollen in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollen sich schwarz f"arben. Wenn alle Spieler das Ready gegeben haben, wird ein Overlay angezeigt, in dem ein Indicator l"adt, bis zur Ingame Szene gewechselt wird (siehe Abbildung \ref{Game_Start}). Auf den MockUps ist auch ein optionales Feature zu sehen. Dies ist das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden soll. \\
+		        \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/mockUps/NotReady.png}
+    				\caption{MockUp: User nicht bereit}
+    				\label{Not_Ready}
+			    \end{figure}
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/mockUps/Ready.png}
+    				\caption{MockUp: User bereit}
+    				\label{Ready}
+			    \end{figure}
+			    \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/mockUps/StartGame.png}
+    				\caption{MockUp: Spielstart}
+    				\label{Game_Start}
+			    \end{figure}
+		    \subsubsection{Ingame}
+		        Bisher zeigt die Ingame Szene nur das initiale Spielgeschehen. In diesem Release soll dies aber haupts"achlich erweitert werden. Zuerst sollen der Chat, die Minimap und die Spieler angezeigt werden. Diese Elemente m"ussen auch eingeklappt werden k"onnen "uber die jeweiligen Buttons oben rechts im Fenster. Die aktuelle Runde und die aktuelle Phase sollen oben mittig angezeigt werden. Der aktuelle Spieler soll in seiner Playercard mit der secondary Farbe hinterlegt werden. Links oben kommt der Musik Button zum ein- und ausschalten der Musik hinzu. \\
+		        \begin{figure}[H] 
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/mockUps/Ingame.png}
+    				\caption{MockUp: Ingame}
+    				\label{Ingame_View}
+			    \end{figure}
+			    \subsubsubsection{Einheit ausw"ahlen}
+			        Der Server stellt den Spielern drei Phasen zur Verf"ugung, wenn ein Spieler an der Reihe ist. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden muss, eine Angriffsphase, die "ubersprungen werden kann und eine restliche Bewegungspunktephase, die "ubersprungen werden kann. \\
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/Move2.png}
+    				    \caption{MockUp: Phase 1: Ausw"ahlen}
+    				    \label{Select_1}
+			        \end{figure}
+			        \ \\ Danach beendet der jeweilige Spieler seine Runde. Wenn der User selbst an der Reihe ist und in einer seiner drei Phasen auf eine Einheit klickt soll der Bewegungsradius oder Angriffsradius angezeigt werden. \\
+                    \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/ClickUnitAttackPhase.png}
+    				    \caption{MockUp: Phase 2: Ausw"ahlen}
+    				    \label{Select_2}
+			        \end{figure} 
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/ClickUnitRestMovePhase.png}
+    				    \caption{MockUp: Phase 3: Ausw"ahlen}
+    				    \label{Select_3}
+			        \end{figure} 
+		            \ \\ In Phase 1 soll zus"atzlich zum Bewegungs- auch der Angriffsradius angezeigt werden (siehe Abbildung \ref{Select_1}). In Phase 2 soll nur der Angriffsradius angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 soll ein verk"urzter Bewegungsradius ohne Angriffsradius angezeigt werden (siehe Abbildung \ref{Select_3}).
+                \subsubsubsection{Einheit bewegen}
+                    Nachdem der User in Phase 1 oder 3 eine Einheit ausgew"ahlt hat, und er "uber die Felder hovert, auf die er seine Einheit stellen k"onnte, muss der k"urzeste Pfad berechnet werden. Ein Pfeil soll dahin angezeigt werden. Klickt der User auf ein Feld, bewegt sich seine Einheit dorthin. \\
+                    \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/Move.png}
+    				    \caption{MockUp: Bewegen (Phase 1)}
+    				    \label{Move}
+			        \end{figure}
+                    \ \\ Sp"ater soll das Kontextmenu dazu erg"anzt werden und dem User die M"oglichkeit geben seinen Zug doch noch zu widerrufen. Ist ein Gegner an der Reihe und der Server sendet eine bewegte Einheit, dann soll auch erst die Bewegungsreichweite angezeigt werden und danach (kurz verz"ogert) die Einheit bewegt werden.
+			    \subsubsubsection{Einheit angreifen}
+			        Nachdem der User in Phase 2 eine Einheit ausgew"ahlt hat, kann er eine gegnerische Einheit neben ihm ausw"ahlen (insofern eine vorhanden ist) und sie angreifen. Sp"ater soll dies auch noch "uber ein Kontextmenu best"atigt werden, um dem User die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Weiterhin soll ein zweites Kontextmenu angezeigt werden, indem der User nochmal alle Properties beider Einheiten sieht und somit doppelt entscheiden kann, ob er den Angriff durchf"uhrt. Ist ein Gegner in seiner Phase 2, soll bei einem Angriff von ihm, wenn er vom Server empfangen wird, auch die Angriffsreichweite angezeigt werden und kurz danach der Angriff durchgef"uhrt werden.
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/Attack.png}
+    				    \caption{MockUp: Angreifen}
+    				    \label{Attack}
+			        \end{figure}
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/ConfirmAttack.png}
+    				    \caption{MockUp: Angreifen best"atigen}
+    				    \label{Attack_Confirm}
+			        \end{figure}
+			    \subsubsubsection{Spielende}
+			        Wenn ein Spieler verloren hat, da er keine Einheiten mehr hat, soll das Icon und der Name in seiner Playercard schwarz werden. Bei diesem User soll ein Overlay angezeigt werden, in dem steht, dass er verloren hat. Au"sserdem kann er "uber Buttons entscheiden, ob er sich ausloggt, in die Lobby geht oder dem Spiel als Spectator beitritt (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig ist, hat er das Spiel gewonnen. Diesem User soll auch ein Overlay angezeigt werden, in dem er mit Buttons sich ausloggen, zur"uck zur Lobby gehen oder das Spiel in den sozialen Medien teilen kann (optionales Feature, siehe Abbildung \ref{Game_Won}). Bei anderen Usern, die im Spectatormodus sind, soll auch ein "ahnliches Overlay mit den gleichen Buttons angezeigt werden (siehe Abbildung \ref{Spactator_End}).
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/GameLost.png}
+    				    \caption{MockUp: Spiel verloren}
+    				    \label{Game_Lost}
+			        \end{figure}
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/GameWon.png}
+    				    \caption{MockUp: Spiel gewonnen}
+    				    \label{Game_Won}
+			        \end{figure}
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/SpactatorEnd.png}
+    				    \caption{MockUp: Beobachtungsmodus: Spiel vorbei}
+    				    \label{Spactator_End}
+			        \end{figure}
+			    \subsubsubsection{Kontextmen"u}
+			        TODO: Schreiben
+			    \subsubsubsection{Weitere Features}
+			        Es soll f"ur den User m"oglich sein, "uber einen Button seine jeweilige Phase zu beenden und in die n"achste zu wechseln. Nach Beenden aller drei Phasen, soll auch die Runde beendet werden. Wenn ein Gegner an der Reihe ist, muss der Phase beenden Button disabled sein. Beim Beenden der Phasen soll immer ein Overlay angezeigt werden (siehe Abbildung \ref{Phase_End}). \\
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/EndPhase.png}
+    				    \caption{MockUp: Phase beenden}
+    				    \label{Phase_End}
+			        \end{figure}
+			        \ \\ Ein weiteres Feature ist, dass wenn der User "uber irgendeine Einheit hovert, alle Properties der Einheit angezeigt werden (siehe Abbildung \ref{Property_Info}). \\
+			        \begin{figure}[H] 
+    				    \centering
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/showPropertiesWhenHovered.png}
+    				    \caption{MockUp: Property Info}
+    				    \label{Property_Info}
+			        \end{figure}
+		\subsection{Domain Stories}
+		    Domain Stories wurden einmal zum Ready geben f"ur den Waiting Room und einmal f"ur das Bewegen von Einheiten Ingame angefertigt. \\
+		    TODO: Bilder einpflegen und beschreiben?
+		    \ \\ Die Domain Stories wurden vor dem Release der Serverdokumentation f"ur das Kundentreffen erstellt. Deswegen zeigen sie leichte Abweichungen vom tats"achlichen Verhalten des Servers. Zum Beispiel sendet der Server Spiel starten erst, wenn irgendein Spieler den Befehl zum Spiel starten an den Server schickt, nachdem alle eine Ready gegeben haben. Wir nahmen an, dass der Server automatisch das Spiel startet, nachdem alle ready sind. Unsere Move Story trifft teilweise den Server. Der Unterschied zu unserer Story ist, dass wir vorher nicht davon ausgingen, dass eine Runde des Spielers in die drei Phasen unterteilt ist. Deswegen zeigt unsere Story auf dem MockUp oben rechts schon die bewegte Einheit, mit der jetzt eigentlich angegriffen werden sollte. Da dies vom Server her nicht funktioniert, m"ussen wir dies auf die drei Phasen unterteilen.
+	\newpage
+	\section{Sprint \RN{5}}
+	    Der f"unfte Sprint erstreckte sich "uber dem Zeitraum vom 8.7.2019 bis zum 21.7.2019. Es wurden 116 Storypoints f"ur alle User Stories gesch"atzt.
+	    \subsection{Sprintziel} \label{Sprintgoal_5}
+	        Es sollte nach dem f"unften Sprint m"oglich sein:
+	        \begin{itemize}
+	            \item Dem Spiel im Waiting Room korrekt beizutreten
+	            \item Das Spielfeld und die Minimap mit den Einheiten darauf zu sehen
+	            \item Eine Einheit auszuw"ahlen, anzugreifen und zu bewegen
+	            \item Den Spielstatus zu sehen und Phasen beenden zu k"onnen
+	        \end{itemize}
+	        Wenn noch genug Zeit "ubrig sein sollte, sollte die Ingame Chatintegration und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden wir "uber 80 Storypoints abarbeiten, was bei vier Entwicklern als ein guter Fortschritt gewertet werden k"onnte.
+	    \subsection{User Stories} \label{User_Stories_5}
+	        Die User Stories, die vom Product Owner erstellt wurden, sind wie gefolgt aufgebaut: Im Titel kann man sehen, zu welcher Szene die Story geh"ort. Anschlie"ssend werden die Story Points (Ein Storypoint entspricht einer Stunde) und der zugeteilte Entwickler genannt. Danach folgt das Ziel und die Story selbst. Das Ziel fasst die Subtasks, die der Scrum Master erstellt hat, zusammen.
+	        \subsubsection{Waiting Room - Spielbeitritt anpassen}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 5 Storypoints gesch"atzt und an Omar Sood zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll das Ready geben implementieren, wenn eine Armee ausgew"ahlt wurde und das Spiel muss starten, sobald alle Spieler bereit sind.
+	            \paragraph{Story}
+	                Karli ist einem Spiel beigetreten und befindet sich im Wartreraum. Alle anderen Spieler sind bereit. Karli w"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
+	            TODO: Verbindung zur Domain Story
+            \subsubsection{Ingame - Spielfeld}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 13 Storypoints gesch"atzt und an Georg Siebert zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll es m"oglich machen, dass Einheiten angezeigt werden und dass jedes Feld klickbar ist.
+	            \paragraph{Story}
+	                Karli ist bereits einem Spiel beigetreten und sieht das Spielfeld. Karli sieht die Einheiten auf dem Spielfeld. Karli m"ochte nun auf ein Feld (einer Einheit) klicken.
+	        \subsubsection{Ingame - Phase beenden}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 3 Storypoints gesch"atzt und an Juri Lozowoj zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll einen Phase beenden Button hinzuf"ugen und die jeweiligen Servernachrichten zum Phase beenden senden und abfangen k"onnen.
+	            \paragraph{Story}
+	                Karli befindet sich bereits in einem Spiel. Karli hat gerade einen Teil ihrer Armee bewegt (oder mit einem Teil angegriffen) und m"ochte nun die jeweilige Phase beenden. Daf"ur klickt Karli auf den entsprechenden Button (siehe Mockup). Die Phase wird beendet und die n"achste tritt ein (bzw. der n"achste Spieler ist an der Reihe).
+            \subsubsection{Ingame - Einheit ausw"ahlen}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 13 Storypoints gesch"atzt und an Juri Lozowoj zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll das Anklicken und Auswa"hlen der eigenen Einheiten implementieren. Danach soll die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der User sich befindet. Dies soll sp"ater auch f"ur die Gegner angezeigt werden, wenn sie an der Reihe sind.
+	            \paragraph{Story}
+	                Karli befindet sich bereits in einem Spiel. Karli w"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert (siehe Mockups).
+            \subsubsection{Ingame - Einheit bewegen}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 13 Storypoints gesch"atzt und an Omar Sood zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll den k"urzesten Pfad berechnen, wenn eine Einheit bewegt werden soll und muss die jeweiligen Nachrichten an den Server senden und auch abfangen k"onnen.
+	            \paragraph{Story}
+	                Karli befindet sich in der Bewegungsphase oder der restlichen Bewegungspunktephase und hat bereits auf eine Einheit geklickt und sieht alle Felder, auf welche die Einheit bewegt werden k"onnte (je nachdem ob Karli in der 1. oder 3. Phase ist, mit oder ohne rote Felder). Karli klickt auf ein Feld in Bewegungsreichweite und die Einheit wird bewegt.
+	            TODO: Verbindung zur Domain Story
+            \subsubsection{Ingame - Einheit angreifen}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 5 Storypoints gesch"atzt und an Omar Sood zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll bei einem Angriff die jeweiligen Nachrichten an den Server senden und auch abfangen k"onnen.
+	            \paragraph{Story}
+	                Karli ist in der Angriffsphase und hat bereits eine Einheit ausgew"ahlt. Karli sieht alle Felder in Rot, die angegriffen werden k"onnten. Karli w"ahlt eine gegnerische Einheit auf diesen Feldern aus und greift sie an.
+            \subsubsection{Ingame - Spielstatus anzeigen}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 8 Storypoints gesch"atzt und an Tobias Klipp zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll einen Button zum Ein- und Ausblenden der Spielerkarten Ingame implementieren. Der aktive Spieler soll hervorgehoben werden.
+	            \paragraph{Story}
+	                Karli befindet sich bereits in einem Spiel. In der Menuleiste sieht Karli einen Button zum Anzeigen der Spieler und die aktuelle Rundennummer. Karli klickt auf diesen Button. Eine Anzeige der Spieler wird eingeblendet (siehe Mockup). Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. MockUp).
+            \subsubsection{Ingame - Minimap anzeigen}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 8 Storypoints gesch"atzt und an Georg Siebert zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll eine Minimap implementieren, die "uber einen Button ein- und ausblendbar sein soll.
+	            \paragraph{Story}
+	                Karli befindet sich bereits in einem Spiel. In der rechten oberen Ecke sieht Karli die Minimap, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf den Button zum Ausbleden der Minimap. Die Minimap wird ausgeblendet.
+            \subsubsection{Ingame - Chatintegration}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 13 Storypoints gesch"atzt und an Tobias Klipp zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll einen Button zum Ein- und Ausblenden des Chats implementieren. Die Chat muss gegebenfalls auch implementiert werden.
+	            \paragraph{Story}
+	                Karli befindet sich bereits in einem Spiel. Karli blendet den Chat durch Bet"atigen des zugeh"origen Buttons ein (siehe Mockup). Karli schreibt eine Nachricht an die anderen Spieler. Karli kann die Antworten der anderen Spieler lesen.
+            \subsubsection{Ingame - Game Over}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 2 Storypoints gesch"atzt und an Tobias Klipp zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll ein Overlay anzeigen, wenn ein Spieler verloren hat, auf dem der User in die Lobby oder den Login wechseln kann. Der User soll auch weiter zuschauen k"onnen. Seine Spielerkarte soll sich dunkel f"arben.
+	            \paragraph{Story}
+	                Karli hat keine Einheiten mehr und verliert das Spiel. Karli sieht, wie sich Karlis Playercard schwarz f"arbt (Name und Icon). Karli kann ausw"ahlen, ob in die Lobby gewechselt oder ob der Logout gerufen oder ob dem Spiel als Spectator beigetreten wird.
+            \subsubsection{Ingame - Game Won}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 2 Storypoints gesch"atzt und an Tobias Klipp zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll ein Overlay anzeigen, wenn ein Spieler gewonnen hat, auf dem der User in die Lobby oder den Login wechseln kann.
+	            \paragraph{Story}
+	                Karli hat als einziger noch Einheiten und gewinnt das Spiel. Karli kann ausw"ahlen, ob in die Lobby gewechselt oder ob der Logout gerufen wird.
+            \subsubsection{Lobby - Spactating}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 5 Storypoints gesch"atzt und an Juri Lozowoj zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll einen Button hinzuf"ugen, der den User als Beobachter auf das Spielfeld weiterleitet.
+	            \paragraph{Story}
+	                Karli hat sich bereits eingeloggt und sieht die Lobby. Karli sieht die Spielliste und m"ochte dieses mal nicht selbst spielen. Karli dr"uckt auf den Spactator-Button und wechselt nun zum Spielfeld.
+            \subsubsection{Ingame - Spactating}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 13 Storypoints gesch"atzt und an Juri Lozowoj zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll die Ingame Szene aufbauen, ohne dass der User dort im Chat mitschreiben oder das Spielfeld bedienen kann.
+	            \paragraph{Story}
+	                Karli sieht bereits das Spielfeld. Karli kann weder Aktionen auf dem Spielfeld ausf"uhren, noch im Chat mitschreiben. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genie"sst das Spiel.
+            \subsubsection{Ingame - Spectator Over}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 2 Storypoints gesch"atzt und an Tobias Klipp zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll ein Overlay anzeigen, wenn ein Spieler gewonnen hat und das Spiel vorbei ist. Auf dem Overlay kann der User in die Lobby oder den Login wechseln.
+	            \paragraph{Story}
+	                Karli sieht, dass Bob als einziger noch Einheiten hat und das Spiel endet. Karli kann ausw"ahlen, ob in die Lobby gewechselt oder ob der Logout gerufen wird.
+            \subsubsection{Ingame - Einheiteninformationen}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 8 Storypoints gesch"atzt und an Georg Siebert zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll ein UI Element erstellen, dass die Einheiteninformationen anzeigt, wenn man "uber eine Einheit hovert.
+	            \paragraph{Story}
+	                Karli befindet sich bereits in einem Spiel. Karli f"ahrt mit seinem Mouse-Courser "uber eine Einheit. Es wird Karli (w"ahrend die Maus auf der Einheit verweilt) eine Infobox mit wichtigen Informationen "uber diese Einheit angezeigt (siehe Mockups). Die Box sollte sich sp"ater, wie in TG-274 beschrieben, positionieren.
+            \subsubsection{Ingame - Musiksteuerung}
+	            \paragraph{Zuteilung}
+	                Diese User Story wurde auf 3 Storypoints gesch"atzt und an Omar Sood zugeteilt.
+	            \paragraph{Ziel}
+	                Der Entwickler soll einen Musik Button hinzuf"ugen und die Musik soll sich genauso bedienen lassen, wie in den restlichen Szenen.
+	            \paragraph{Story}
+	                Karli befindet sich bereits in einem Spiel. Karli m"ochte die Musik ausschalten. Karli klickt auf den daf"ur vorgesehenen Button (siehe Mockup). Die Musik wird ausgeschaltet.
+        \subsection{Tasks} \label{Tasks_5}
+            Die Tasks wurden vom Scrum Master erstellt und sind nicht aus Usersicht beschreibbar, da sie nur technische Aufgaben sind. Aus diesem Grund unterscheiden sich Tasks nur in einer Sache von User Stories. Sie haben keine Story.
+            \subsubsection{Servernachrichten}
+            	\paragraph{Zuteilung}
+            		Diese Task wurde auf 8 Zeitstunden gesch"atzt und an Omar Sood zugeteilt.
+            	\paragraph{Ziel}
+            		Der Entwickler soll alle restlichen Servernachrichten abfangen, die in keiner User Story ber"ucksichtig wurden. Dazu geh"oren unter anderem "Anderungen des Datenmodells, welche durch Aktionen der Gegenspieler anfallen.
+            \subsubsection{Einheiteninformationen im Datenmodell}
+            	\paragraph{Zuteilung}
+            		Diese Task wurde auf 5 Zeitstunden gesch"atzt und an Tobias Klipp zugeteilt.
+            	\paragraph{Ziel}
+            		Der Entwickler soll die Enums UnitType und UnitTypeInfo zu einer Enum zusammenf"ugen und darauf achten, dass alle Funktionalit"aten erhalten bleiben.
+            \subsubsection{Ingame - Kontextmen"u-Framework}
+            	\paragraph{Zuteilung}
+            		Diese Task wurde auf 8 Zeitstunden gesch"atzt und an Georg Siebert zugeteilt.
+            	\paragraph{Ziel}
+            		Der Entwickler soll ein Kontext-Framework erstellen, mit dem es m"oglich sein soll, Aktionen (Bewegen, Angreifen, Best"atigen eines Angriffs) zu best"atigen oder abzubrechen. Weiterhin soll sich das Kontextmen"u immer in Richtung Mitte ausklappen.
+        \subsection{User Stories im Backlog}
+        	Weitere Stories (nur optionale Aufgaben) wurden im Backlog abgelegt. Da die Ziele f"ur diesen Sprint schon ziemlich umfangreich waren, blieben alle diese Stories den kompletten Sprint im Backlog und waren niemandem zugeteilt und wurden auch nicht gesch"atzt.
+        	\subsubsection{Optional - Lobby - Anzeigen der Einheiten einer Armee}
+	        	\paragraph{Zuteilung}
+	        		Diese User Story wurde bereits im Release \RN{2} auf 5 Storypoints gesch"atzt und ist zur Zeit niemandem zugeteilt.
+	        	\paragraph{Ziel}
+	        		Der Entwickler soll ein Overlay implementieren, dass die Einheiten einer nicht ausgew"ahlten Armee anzeigt, wenn man "uber sie hovert.
+	        	\paragraph{Story}
+	        		Albert befindet sich im ArmyBuilder. Es sind Armeen vorhanden. Albert hovert über eine Armee. Es erscheint ein Overlay, in welchem die Einheiten der Armeen sehen kann.
+	        \subsubsection{Optional - Ingame - Phase automatisch beenden}
+		        \paragraph{Ziel}
+		        	Der Entwickler soll ein automatisches Phase Ende an den Server schicken, wenn er keine Aktion mehr mit allen Einheiten durchf"uhren kann.
+		        \paragraph{Story}
+		        	Karli ist gerade in einer der 3 Phasen. Karli hat entweder alle Einheiten bewegt (Phase 1 und 3) oder mit allen angegriffen (Phase 2). Karli muss nicht den Phase Ende Button klicken. Die Phase wird automatisch beendet.
+		    \subsubsection{Optional - Ingame - Auf gegnerischen Aktionen scrollen}
+			    \paragraph{Ziel}
+			    	Der Entwickler soll ein automatisches Springen auf der Karte implementieren, wenn ein Gegner eine Aktion durchf"uhrt.
+			    \paragraph{Story}
+			    	Karli ist nicht an der Reihe und schaut den Gegnern zu. Immer wenn ein Gegner eine Aktion durchführt (Bewegen bzw. Angreifen einer Einheit), sieht Karli, wie sich der Bildschirm auf die Aktion zentriert.
+			\subsubsection{Optional - Ingame - Einheiten bewegen - Hover}
+				\paragraph{Ziel}
+					Der Entwickler soll es m"oglichen machen, dass ein Pfeil zu dem jeweiligen Feld angezeigt wird, auf das der User seine Einheit bewegen m"ochte.
+				\paragraph{Story}
+					Karli befindet sich in der Bewegungsphase oder der restlichen Bewegungspunktephase und hat bereits auf eine Einheit geklickt und sieht alle Felder, auf welche die Einheit bewegt werden k"onnte (je nachdem ob Karli in der 1. oder 3. Phase ist, mit oder ohne rote Felder). Karli hovert "uber die Felder und der k"urzeste Weg mit einem Pfeil zum jeweiligen Feld wird angezeigt.
+			\subsubsection{Optional - Waiting Room - Minigame}
+				\paragraph{Ziel}
+					Der Entwickler soll ein Minigame implementieren.
+				\paragraph{Story}
+					Karli befindet ist einem Spiel beigetreten und befindet sich im Waiting Room. Karli hat Langeweile, da noch nicht alle ready sind. Karli spielt so lange Tic Tac Toe, bis das Spiel startet.
+    \newpage
+        \subsection{Zeit"ubersicht}
+        	Diese "Ubersicht zeigt alle Stories, die das Team aufgrund von den Sprintzielen abschli"ssen wollte. Wie gut zu erkennen ist, wurden nicht alle Stories abgeschlossen, daf"ur aber schon weitere angefangen, die mit in den n"achsten Sprint genommen werden.
+        	\begin{longtable}[H]{p{6cm} c c c c }
+        			\label{Time_1}
+       				\textbf{User Story} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
+       				\toprule
+       				\endhead
+       				Waiting Room - Spielbeitritt anpassen & 5 h & 13 h 9 min & - & Omar Sood\\
+       				Ingame - Spielfeld & 13 h & 8 h 22 min & - & Georg Siebert\\
+       				Ingame - Phase beenden & 3 h & 15 h 20 min & - & Juri Lozowoj \\
+       				Ingame - Einheit ausw"ahlen & 13 h & 8 h 46 min & 4h 14 min & Juri Lozowoj \\
+       				Ingame - Einheit bewegen & 13 h & 11 h 19 min & 35 min & Omar Sood \\
+       				Ingame - Einheit angreifen & 5 h & - & 5 h & Omar Sood \\
+       				Ingame - Spielstatus anzeigen & 8 h & 18 h 45 min & - & Tobias Klipp \\
+       				Ingame - Minimap anzeigen & 8 h & 8 h 25 min & 4 h & Georg Siebert \\
+       				Ingame - Chatintegration & 13 h & - & 13 h & Tobias Klipp \\
+       				Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
+       				Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\
+        			\caption{Zeit"ubersicht f"unfter Sprint}
+        	\end{longtable}
+        \subsection{Analyse}
+        	Der f"unfte Sprint endete am 21.7.2019. Das Team schaffte nur 29 der 116 gesch"atzten Storypoints. Deswegen werden im folgenden Kapitel die Resultate und Probleme aus diesem Sprint aufgezeigt werden.
+        	\subsubsection{Burndown}
+        		Wie im Burndown-Diagramm unschwer zu erkennen ist, wurden diesen Sprint nur vier Stories abgeschlossen (siehe n"achstes Kapitel \ref{done_stories_5}), die zusammen die besagten 29 Storypoints ergeben. Es ist allerdings in der Tabelle \ref{Time_1} zu sehen, dass das Team insgesamt trotzdem circa 84 Stunden arbeitete. Das kommt daher, dass das Team sich einmal wieder bei der Komplexit"at der Aufgaben bei den Storypoints versch"atzt hat. Gute Beispiele sind zum Beispiel \glqq Waiting Room - Spielbeitritt anpassen\grqq\ (circa 8 h l"anger als gesch"atzt), \glqq Ingame - Phase beenden\grqq\ (circa 12 h l"anger) oder \glqq Ingame - Spielstatus anzeigen\grqq\ (circa 11 h l"anger). Wie auch in der Tabelle \ref{Time_1} zu erkennen ist, waren zum Ende des f"unften Sprints noch drei weitere Stories aktiv in Bearbeitung, was erkl"art, warum ab dem 18.7. sich das Diagramm nicht mehr "anderte. Die Probleme waren hier, dass die Aufgaben in diesem Sprint ziemlich serverlastig waren, und zugleich aber auch im Client darauf die richtige Ästethik angezeigt werden sollte. Weiterhin mussten diesen Sprint auch das erste Mal mathematische Berechnungen durchgef"uhrt werden (zum Beispiel Pfadberechnung beim Einheiten bewegen). Gl"ucklicherweise passten unsere Stories diesen Sprint schon ziemlich gut zu den Eigenschaften des Servers, sodass wir keine neuen hinzuf"ugen oder andere l"oschen mussten (sie wurden h"ochstens geringf"ugig angepasst). Da die Entwickler ziemlich besch"aftigt waren, die geforderten Features zu implementieren, wurden auch keine Stories aus dem Backlog mit in den Sprint genommen. Somit gab es auch im Diagramm keine Ausreiser nach oben.
+	        	\begin{figure}[H] 
+	        		\centering
+	        		\includegraphics[width=\textwidth]{images/sprintV/burndown.png}
+	        		\caption{Sprint \RN{5}: Burndown Diagramm}
+	        		\label{Burndown_5}
+	        	\end{figure} 
+        	\subsubsection{Abgeschlossene Stories} \label{done_stories_5}
+        		Es wurden bisher vier Stories abgeschlossen (siehe Abbildung \ref{Done_5}). Dies war leider weniger als erwartet, aber aufgrund komplexer Aufgaben nicht zu vermeiden. Im Nachhinein wird es nun eine genauere Beschreibung der abgeschlossenen Stories geben.
+        		\begin{figure}[H] 
+        			\centering
+        			\includegraphics[width=\textwidth]{images/sprintV/done.png}
+        			\caption{Sprint \RN{5}: Abgeschlossene Stories}
+        			\label{Done_5}
+        		\end{figure}
+        		\subsubsubsection{Waiting Room - Spielbeitritt anpassen}
+	        		\paragraph{Verlauf}
+	        			TODO: Schreiben
+	        		\paragraph{Ergebnis}
+	        			TODO: Schreiben
+       			\subsubsubsection{Ingame - Spielfeld}
+	       			\paragraph{Verlauf}
+	       				TODO: Schreiben
+	       			\paragraph{Ergebnis}
+	       				TODO: Schreiben
+    			\subsubsubsection{Ingame - Phase beenden}
+    				\paragraph{Verlauf}
+    					TODO: Schreiben
+    				\paragraph{Ergebnis}
+    					TODO: Schreiben
+    			\subsubsubsection{Ingame - Spielstatus anzeigen}
+    				\paragraph{Verlauf}
+    					TODO: Schreiben
+    				\paragraph{Ergebnis}
+    					TODO: Schreiben
+        	\subsubsection{Angefangene Stories}
+        		Wie bereits während der Analyse des Burndown erwähnt, wurden drei Stories zum Ende des Sprints noch nicht ganz abgeschlossen. Im kommenden Abschnitt wird es einen kleinen Überblick geben, wie weit jene fortgeschritten sind.
+        		\subsubsubsection{Ingame - Einheit ausw"ahlen}
+        			\paragraph{Verlauf}
+	        			TODO: Schreiben
+        			\paragraph{Stand}
+        				TODO: Schreiben
+        		\subsubsubsection{Ingame - Einheit bewegen}
+        			\paragraph{Verlauf}
+        				TODO: Schreiben
+        			\paragraph{Stand}
+        				TODO: Schreiben
+        		\subsubsubsection{Ingame - Minimap anzeigen}
+        			\paragraph{Verlauf}
+        				TODO: Schreiben
+        			\paragraph{Stand}
+        				TODO: Schreiben
+        	\subsubsection{Nicht abgeschlossene Stories/Tasks}
+        		Des Weiteren wurden neben den drei bereits neu angefangenen Stories noch weitere zwölf Stories/Tasks aufgrund von Zeigr"unden nicht angefangen und abgeschlossen (siehe Abbildung \ref{To_Do_5}). Diese Aufgaben waren sogar nicht optional und sollten von unserem Team im n"achsten Sprint bew"altigt werden.
+        		\begin{figure}[H] 
+        			\centering
+        			\includegraphics[width=\textwidth]{images/sprintV/toDo.png}
+        			\caption{Sprint \RN{5}: Nicht Abgeschlossene Stories/Tasks}
+        			\label{To_Do_5}
+        		\end{figure}
+        	\subsubsection{Entfernte Tasks}
+        		Am Ende des f"unften Sprints wurden die Tasks \glqq Einheiteninformationen im Datenmodell\grqq\ und \glqq Kontextmen"u-Framework\grqq\ aus dem Sprint in den Backlog verschoben, um das Ziel f"uer den n"achsten Sprint somit leichter einhalten zu k"onnen. Das Kontextmen"u sollte auch im n"achsten Sprint auf eine Sidebar umgestellt werden. 
+        	\subsubsection{Fazit}
+        		Zwar wurde das Ziel von 116 Storypoints in diesem Sprint eindeutig nicht bew"altigt und das Ergebnis mit 29 abgeschlossen Storypoints wirkt nicht wirklich zufriedenstellend (genauso wie noch nicht viele angeforderte Features implementiert wurden), jedoch arbeitete das Team "uber 80 Stunden und gab sein bestes, m"oglichst viel der Features umzusetzen. Deswegen sollte sich das Team im n"achsten Sprint darauf konzentrieren, mehr Stories in weniger Zeit umzusetzen, damit die Releaseanforderungen erf"ullt werden k"onnen. Die Qualit"atssicherung (siehe Abbildung \ref{Coverage_5}) hingegen betrug zum Ende des f"unften Sprints bereits 79\%., was die Anforderungen schon "ubertrifft. Es ist also zu erkennen, dass das Team diesen Sprint viele (sogar komplexe) Tests schrieb, die ebenfalls Zeit kosteten.
+        		\begin{figure}[H] 
+        			\centering
+        			\includegraphics[width=0.8\textwidth]{images/sprintV/coverage.png}
+        			\caption{Sprint \RN{5}: C0 Testabdeckung (Siehe Line, \%)}
+        			\label{Coverage_5}
+        		\end{figure} 
+    \newpage
+    \section{Sprint \RN{6}}
+    	Der sechste Sprint erstreckte sich "uber dem Zeitraum vom 22.7.2019 bis zum 4.8.2019. Zu Beginn des Sprints betrug die Anzahl an Storypoints 87.
+    	\subsection{Sprintziel}
+    		Es sollte nach dem sechsten Sprint m"oglich sein:
+    		\begin{itemize}
+    			\item Alle Features aus dem Sprint \RN{5} (siehe Kapitel \ref{Sprintgoal_5})
+    			\item Einen Ingame Chat zu benutzen
+    			\item Verschiedene Overlays beim Spielende zu sehen
+    			\item Einem Beobachtungsmodus beizutreten
+    			\item Einheiteninformationen in einer Sidebar einzusehen
+    			\item Musiksteuerung in der Ingame Szene
+    		\end{itemize}
+    		Wenn genug Zeit bleibt, sollte noch eine Box in der Sidebar implementiert werden, die es m"oglich macht, Aktionen (Bewegen oder Angreifen) zu best"atigen oder abzubrechen (Stories aus dem Backlog). Weitere Optionals liegen bereits im Backlog (siehe Kapitel \ref{Backlog_6}), aber wenn das Team die oben genannten Features schafft, hat das Team genug Storypoints f"ur diesen Sprint und das Release bew"altigt.
+    	\subsection{Ge"anderte User Stories vom Sprint \RN{5}}
+    		Es gab auch User Stories aus dem f"unften Sprint, die vom Product Owner im Nachhinein noch ge"andert werden mussten, da sich "Anderungen in den MockUps ergeben haben. Zur Erinnerung noch einmal der Aufbau einer Dokumentation einer User Story: Im Titel kann man sehen, zu welcher Szene die Story geh"ort. Anschlie"ssend werden die Story Points (Ein Storypoint entspricht einer Stunde) und der zugeteilte Entwickler genannt. Danach folgt das Ziel und die Story selbst. Das Ziel fasst die Subtasks, die der Scrum Master erstellt hat, zusammen.
+    		\subsubsection{Ingame - Minimap anzeigen}
+    			 \paragraph{Zuteilung}
+    				Diese User Story wurde auf 8 Storypoints gesch"atzt und an Georg Siebert zugeteilt.
+    			\paragraph{Ge"andertes Ziel}
+    				Der Entwickler soll eine Minimap implementieren. Auf der Minimap soll es m"oglich sein, den Sichtbereich zu wechseln.
+    			\paragraph{Ge"anderte Story}
+    				Karli befindet sich bereits in einem Spiel. In der rechten unteren Ecke sieht Karli die Minimap, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minimap. Der Sichtbereich "andert sich zu dieser Stelle.
+   			\subsubsection{Ingame - Einheiteninformationen}
+   				\paragraph{Zuteilung}
+   					Diese User Story wurde auf 8 Storypoints gesch"atzt und an Georg Siebert zugeteilt.
+   				\paragraph{Ge"andertes Ziel}
+   					Der Entwickler soll ein UI Element erstellen, dass die Einheiteninformationen anzeigt, wenn man "uber eine Einheit hovert.
+   				\paragraph{Ge"anderte Story}
+   					Karli befindet sich bereits in einem Spiel. Karli f"ahrt mit seinem Mouse-Courser "uber eine Einheit. Es werden Karli alle wichtigen Informationen "uber die Einheit in der Sidebar angezeigt (siehe MockUps).
+   		\subsection{"Ubernommene User Stories aus Sprint \RN{5}}
+   			Weiterhin gab es auch noch alte User Stories aus dem f"unften Sprint, die aufgrund Zeitmangels noch nicht geschafft wurden. Diese wurden nun in den sechsten Sprint mit "ubernommen. Es folgt eine Liste aller Stories:
+   			\begin{itemize}
+   				\item Ingame - Einheit ausw"ahlen (angefangen in Sprint \RN{5})
+   				\item Ingame - Einheit bewegen (angefangen in Sprint \RN{5})
+   				\item Ingame - Einheit angreifen
+   				\item Ingame - Spielstatus anzeigen (angefangen in Sprint \RN{5})
+   				\item Ingame - Minimap anzeigen (angefangen in Sprint \RN{5})
+   				\item Ingame - Chatintegration
+   				\item Ingame - Game Over
+   				\item Ingame - Game Won
+   				\item Lobby - Spactating
+   				\item Ingame - Spactating
+   				\item Ingame - Spectator Over
+   				\item Ingame - Einheiteninformationen
+   				\item Ingame - Musiksteuerung
+   			\end{itemize}
+   			Eine genauere Beschreibung zu jeder Story befindet sich im Kapitel \ref{User_Stories_5}. Dort steht weiterhin, wer die Story bearbeitet, wie viele Storypoints gesch"atzt wurden und was das Ziel der Story ist. Dies hat sich vom Sprint \RN{5} auf Sprint \RN{6} ebenfalls nicht ge"andert.
+    	\subsection{"Ubernommene Tasks aus Sprint \RN{5}}
+    		Weiterhin gab es auch noch alte Tasks aus dem f"unften Sprint, die aufgrund Zeitmangels noch nicht geschafft wurden. Diese wurden nun in den sechsten Sprint mit "ubernommen. Es folgt eine Liste aller Tasks:
+	    	\begin{itemize}
+	    		\item Servernachrichten
+	    	\end{itemize}
+    		Eine genauere Beschreibung zu jeder Task befindet sich im Kapitel \ref{Tasks_5}. Dort steht weiterhin, wer die Task bearbeitet, wie viele Stunden gesch"atzt wurden und was das Ziel der Task ist. Dies hat sich vom Sprint \RN{5} auf Sprint \RN{6} ebenfalls nicht ge"andert.
+    	\subsection{User Stories und Tasks im Backlog} \label{Backlog_6}
+    		TODO: Intro schreiben
+    		\subsubsection{User Stories aus Sprint \RN{5}}
+    			\begin{itemize}
+    				\item Optional - Lobby - Anzeigen der Einheiten einer Armee
+    				\item Optional - Ingame - Phase automatisch beenden
+    				\item Optional - Ingame - Auf gegnerischen Aktionen scrollen
+    				\item Optional - Ingame - Einheiten bewegen - Hover
+    				\item Optional - Waiting Room - Minigame
+    			\end{itemize}
+    		\subsubsection{Tasks aus Sprint \RN{5}}
+	    		\begin{itemize}
+	    			\item Kontextmen"u-Framework
+	    			\item Einheiteninformationen im Datenmodell
+	    		\end{itemize}
+    		\subsubsection{Ingame - Einheit bewegen best"atigen}
+	    		\paragraph{Ziel}
+	    			Der Entwickler soll ein UI Element erstellen, dass die Einheiteninformationen anzeigt, wenn man "uber eine Einheit hovert.
+	    		\paragraph{Story}
+	    			Karli hat bereits eine Einheit ausgew"ahlt und das Feld geklickt, auf das Karli die Einheit bewegen m"ochte. Ein Icon erscheint auf diesem Feld (siehe MockUps). In der Sidebar kann Karli aussuchen, ob der Move wirklich gemacht wird. Karli klickt \glqq Move\grqq. Die Einheit wird bewegt.
+   			\subsubsection{Ingame - Einheit Aktion abbrechen}
+	   			\paragraph{Ziel}
+	   				Der Entwickler soll ein UI Element erstellen, dass die Einheiteninformationen anzeigt, wenn man "uber eine Einheit hovert.
+	   			\paragraph{Story}
+	   				Karli hat bereits eine Einheit ausgew"ahlt und das Feld geklickt, auf das Karli eine Einheit bewegen/angreifen m"ochte. Ein Icon erscheint auf diesem Feld (siehe MockUps). In der Sidebar kann Karli aussuchen, ob der/die Move/Attack wirklich gemacht wird. Karli klickt \glqq Cancel\grqq. Die Einheit wird nicht bewegt/angegriffen und das Icon auf dem Feld ausgeblendet.
+			\subsubsection{Ingame - Einheit angreifen best"atigen}
+				\paragraph{Ziel}
+					Der Entwickler soll ein UI Element erstellen, dass die Einheiteninformationen anzeigt, wenn man "uber eine Einheit hovert.
+				\paragraph{Story}
+					Karli hat bereits eine Einheit ausgew"ahlt und die gegnerische Einheit geklickt, die Karli angreifen m"ochte. Ein Icon erscheint auf diesem Feld (siehe MockUps). In der Sidebar kann Karli aussuchen, ob die Attack wirklich gemacht wird. Karli klickt \glqq Attack\grqq. Die gegnerische Einheit wird angegriffen.
+     \newpage	
+    	\subsection{Zeit"ubersicht}
+    		TODO: Intro schreiben
+    		\begin{longtable}[H]{p{6cm} c c c c }
+    			\label{Time_2}
+    			\textbf{User Story/Task} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
+    			\toprule
+    			\endhead
+    			Ingame - Einheit ausw"ahlen & 13 h & 8 h 46 min & 4h 14 min & Juri Lozowoj \\
+    			Ingame - Einheit bewegen & 13 h & 11 h 19 min & 35 min & Omar Sood \\
+    			Ingame - Einheit angreifen & 5 h & - & 5 h & Omar Sood \\
+    			Ingame - Spielstatus anzeigen & 8 h & 24 h & - & Tobias Klipp \\
+    			Ingame - Minimap anzeigen & 8 h & 8 h 25 min & 4 h & Georg Siebert \\
+    			Ingame - Chatintegration & 13 h & - & 13 h & Tobias Klipp \\
+    			Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
+    			Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\
+    			Lobby - Spectating & 5 h & - & 5 h & Juri Lozowoj \\
+    			Ingame - Spectating & 13 h & - & 13 h & Juri Lozowoj \\
+    			Ingame - Spectator Over & 2 h & - & 2 h & Tobias Klipp \\
+    			Ingame - Einheiteninformationen & 8 h & - & 8 h & Georg Siebert \\
+    			Ingame - Musiksteuerung & 3 h & - & 3 h & Omar Sood \\
+    			\midrule
+    			Servernachrichten & 8 h & - & 8 h & Omar Sood\\
+    			\caption{Zeit"ubersicht sechster Sprint}
+    		\end{longtable}
+    	\subsection{Analyse}
+    		TODO: Intro schreiben
+	    	\subsubsection{Burndown}
+	    		TODO: Schreiben
+	    	\subsubsection{Ausreiser}
+	    		TODO: Schreiben
+	    	\subsubsection{Abgeschlossen}
+	    		TODO: Schreiben
+	    		\subsubsection{Angefangen}
+	    		TODO: Schreiben
+	    	\subsubsection{Nicht abgeschlossen}
+	    		TODO: Schreiben
+	    	\subsubsection{Entfernt}
+	    		TODO: Schreiben
+	    	\subsubsection{Fazit}
+	    		TODO: Schreiben
+	\newpage
+	\section{Abschluss Release \RN{3}}
+		TODO: Intro schreiben
+		\subsection{Neue MockUps im Verlauf des Releases \RN{3}}
+		TODO: Schreiben
+		\subsection{Vergleich MockUps mit aktueller Implementation}
+		TODO: Schreiben
+	\newpage
+	\section{Quellenangaben}
+		\listoffigures
+		\listoftables
+\end{document}
