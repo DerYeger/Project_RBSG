@@ -1,10 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.paint.*;
-import org.slf4j.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
 
 /**
  * @author Georg Siebert
@@ -14,19 +21,29 @@ public class TileDrawer
 {
     private static final double CELL_SIZE = 64;
     private static final Color transparentWhite = Color.rgb(255, 255, 255, 0.2);
+    private static final Color movementBlue = Color.rgb(134,140,252, 0.6);
     private static final Color selectedWhite = Color.rgb(255, 255, 255, 0.4);
-    private static Image grass = new Image("/assets/cells/grass.png");
+    private static final Color movementBlueBorder = Color.rgb(51, 51, 255);
+    private static final Color selectedBlue = Color.rgb(134,140,252);
+
+    private static final Color attackRed = Color.rgb(207,102,121, 0.6);
+    private static final Color attackRedBorder = Color.rgb(207,102,121);
+    private static Image grass = new Image("/assets/cells/grass/grass1.png");
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
-    private Tile lastHovered;
-    private Tile lastSelected;
+    private HashMap<UnitType, Image> unitImagesMap;
 
     public TileDrawer()
     {
-        lastHovered = null;
-        lastSelected = null;
+        unitImagesMap = new HashMap<>();
+
+        for (UnitType type : UnitType.values())
+        {
+            Image image = new Image(TileUtils.getUnitImagePath(type), CELL_SIZE, CELL_SIZE, false, true);
+            unitImagesMap.put(type, image);
+        }
     }
 
     public Canvas getCanvas()
@@ -62,11 +79,23 @@ public class TileDrawer
         //Layer 1 biome layer
         graphicsContext.drawImage(tile.getBackgroundImage(), startX, startY);
         //Layer 2 decorator layer
-        if (tile.getDeckoratorImage() != null) {
+        if (tile.getDeckoratorImage() != null)
+        {
             graphicsContext.drawImage(tile.getDeckoratorImage(), startX, startY);
         }
         //Layer 3 Highlighting One -> Move and Attack
-
+        if (tile.getHighlightingOne() != HighlightingOne.NONE) {
+            if (tile.getHighlightingOne() == HighlightingOne.MOVE) {
+                graphicsContext.setFill(movementBlue);
+                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                drawBorderAroundTile(startX, startY, movementBlueBorder);
+            }
+            if (tile.getHighlightingOne() == HighlightingOne.ATTACK) {
+                graphicsContext.setFill(attackRed);
+                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                drawBorderAroundTile(startX, startY, attackRedBorder);
+            }
+        }
 
         //Layer 4 Highlighting Two -> Hovering and Selecting
         if (tile.getHighlightingTwo() != HighlightingTwo.NONE)
@@ -75,20 +104,36 @@ public class TileDrawer
             {
                 graphicsContext.setFill(transparentWhite);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+
             }
             if (tile.getHighlightingTwo() == HighlightingTwo.SELECTED)
             {
                 graphicsContext.setFill(selectedWhite);
                 graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
             }
+            if (tile.getHighlightingTwo() == HighlightingTwo.SELECETD_WITH_UNITS)
+            {
+                drawBorderAroundTile(startX, startY, selectedBlue);
+            }
+            graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+
+
+
         }
 
         //Layer 5
         if (tile.getCell().unitProperty().get() != null)
         {
-            String imagePath = TileUtils.getUnitImagePath(tile.getCell().unitProperty().get().getUnitType());
-            Image unitImage = new Image(imagePath, CELL_SIZE, CELL_SIZE, false, true);
-            graphicsContext.drawImage(unitImage, startX, startY);
+            graphicsContext.drawImage(unitImagesMap.get(tile.getCell().getUnit().getUnitType()), startX, startY);
         }
+    }
+
+    private void drawBorderAroundTile(double startX, double startY, Color borderColer) {
+        graphicsContext.setStroke(borderColer);
+        graphicsContext.setLineWidth(4);
+        graphicsContext.strokeLine((startX + 2), (startY + 2), (startX + (CELL_SIZE - 2)), (startY + 2));
+        graphicsContext.strokeLine((startX + (CELL_SIZE - 2)), (startY + 5), startX + (CELL_SIZE - 2), startY + (CELL_SIZE - 2));
+        graphicsContext.strokeLine((startX  + (CELL_SIZE - 2)), startY + (CELL_SIZE - 2), (startX + 2),startY + (CELL_SIZE - 2));
+        graphicsContext.strokeLine((startX + 2), (startY + (CELL_SIZE - 5)), (startX + 2), (startY + 2));
     }
 }

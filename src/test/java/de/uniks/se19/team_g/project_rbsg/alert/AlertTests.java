@@ -122,6 +122,11 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
 
         assertTrue(confirmedAndCanceled[0]);
 
+        alertBuilder.confirmation(AlertBuilder.Text.INVALID_INPUT,
+                () -> confirmedAndCanceled[0] = true,
+                () -> confirmedAndCanceled[1] = true);
+        WaitForAsyncUtils.waitForFxEvents();
+
         final Button cancel = lookup("#cancel").queryButton();
         assertNotNull(cancel);
 
