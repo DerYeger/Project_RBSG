@@ -56,7 +56,7 @@ public class Cell {
     }
 
     public boolean isPassable() {
-        return isPassable && getUnit() == null;
+        return isPassable;
     }
 
     public int getX() {
