@@ -116,7 +116,7 @@
                               </Pane>
                            </children>
                         </HBox>
-                        <StackPane fx:id="miniMapStackPane" styleClass="miniMapBox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <StackPane fx:id="miniMapStackPane" styleClass="miniMapBox" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Canvas fx:id="miniMapCanvas" height="250.0" styleClass="miniMap" width="250.0" StackPane.alignment="CENTER" />
                            </children>
