@@ -9,7 +9,7 @@ public class TestGameBuilder {
     /**
         Y -> player unit, 0 -> passable, X -> blocked, E -> enemy
         OYOO
-        XEOO
+        XXEO
         -OOO
         --O-
      */
@@ -43,8 +43,10 @@ public class TestGameBuilder {
         chubbyCharles.setPosition(startCell);
         cells[1][0].setPassable(false);
         cells[1][0].setBiome(Biome.WATER);
-        cells[1][1].setUnit(enemy);
-        cells[1][1].setBiome(Biome.FOREST);
+        cells[1][1].setPassable(false);
+        cells[1][1].setBiome(Biome.WATER);
+        cells[1][2].setUnit(enemy);
+        cells[1][2].setBiome(Biome.FOREST);
 
         game.withCells(
                 Arrays.stream(cells)
