@@ -75,11 +75,14 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         return gameEventHandlers;
     }
 
-    public void startSocket(@Nonnull final String gameID, @Nullable final String armyID) throws Exception {
+    public void startSocket(@Nonnull final String gameID, @Nullable final String armyID, @NonNull final boolean spectatorModus) throws Exception {
         final URIBuilder uriBuilder = new URIBuilder("/game");
         uriBuilder.addParameter("gameId", gameID);
         if (armyID != null) {
             uriBuilder.addParameter("armyId", armyID);
+        }
+        if (spectatorModus) {
+            uriBuilder.addParameter("spectator", String.valueOf(spectatorModus));
         }
         webSocketClient.start(uriBuilder.build().toString(), this);
     }

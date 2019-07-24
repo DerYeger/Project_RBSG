@@ -94,8 +94,10 @@ public class IngameRootController
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this::handleGameEvents);
 
+        boolean spectatorModus = ingameContext.getGameData().isSpectatorModus();
+
         try {
-            gameEventManager.startSocket(gameData.getId(), null);
+            gameEventManager.startSocket(gameData.getId(), null, spectatorModus);
         } catch (Exception e) {
             logger.error("failed to start socket", e);
             // TODO: how to handle socket start error? so far, it escalated to FXML loader as well

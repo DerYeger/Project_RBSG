@@ -289,6 +289,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         Bindings.bindContent( playableAwareArmies, applicationState.armies);
 
         armySelectorController.setSelection(playableAwareArmies.filtered(a -> a.isPlayable.get()), selectedArmy);
+
+        if(this.context.getGameData().isSpectatorModus()){
+            armySelector.setDisable(true);
+        }
     }
 
     @Override
