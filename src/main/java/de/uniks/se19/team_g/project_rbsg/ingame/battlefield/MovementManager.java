@@ -28,15 +28,19 @@ public class MovementManager {
     }
 
     @Nullable
-    public Tour getTour(final @Nonnull Unit unit, final @Nonnull Cell target1) {
+    public Tour getTour(final @Nonnull Unit unit, final @Nonnull Cell target) {
         manageUnit(unit);
+
+        if (target.getUnit() != null) {
+            return null;
+        }
 
         Entry entry = managedUnits.get(unit);
         if (entry.allowedTours == null) {
             entry.allowedTours = movementEvaluator.getAllowedTours(unit);
         }
 
-        return entry.allowedTours.get(target1);
+        return entry.allowedTours.get(target);
     }
 
     private void manageUnit(final @Nonnull Unit unit) {
