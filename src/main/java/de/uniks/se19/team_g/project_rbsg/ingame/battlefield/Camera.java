@@ -120,6 +120,7 @@ public class Camera
     {
         maxStartCellX = (int) Math.round(xOffset / CELL_SIZE);
         maxStartCellY = (int) Math.round(yOffset / CELL_SIZE);
+        logger.debug("MaxStartCells: "  + maxStartCellX + " " + maxStartCellY);
     }
 
     private void FactorChanged(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal)
@@ -132,24 +133,28 @@ public class Camera
 
     private void calcOffset()
     {
-        xOffset = mapSize * CELL_SIZE - (width.get() / zoomFactor.get());
-        yOffset = mapSize * CELL_SIZE - (height.get() / zoomFactor.get());
+        xOffset = (mapSize * CELL_SIZE) - (getWidht() / zoomFactor.get());
+        yOffset = (mapSize * CELL_SIZE) - (getHeight() / zoomFactor.get());
+        logger.debug("Offsets: " + xOffset + " " + yOffset);
     }
 
     private void calculateVisibleCells()
     {
-        visibleCellsX = (int) Math.round(width.get() / zoomFactor.get());
-        visibleCellsY = (int) Math.round(height.get() / zoomFactor.get());
+        visibleCellsX = (int) Math.round((width.get() / zoomFactor.get()) / CELL_SIZE);
+        visibleCellsY = (int) Math.round((height.get() / zoomFactor.get()) / CELL_SIZE);
+        logger.debug("Visible Cells: " + visibleCellsX + " " + visibleCellsY);
     }
 
 
     private void calculateStartPos()
     {
-        int xCells = (int) Math.round(xOffset / CELL_SIZE);
-        int yCells = (int) Math.round(yOffset / CELL_SIZE);
+        int xCells = (int) Math.round((xOffset * getxFactor()) / CELL_SIZE);
+        int yCells = (int) Math.round((yOffset * getyFactor()) / CELL_SIZE);
 
-        xStartCell = xCells + 1;
-        yStartCell = yCells + 1;
+        xStartCell = xCells;
+        yStartCell = yCells;
+
+        logger.debug("StartPosition: " + xStartCell + " " + yStartCell);
     }
 
     public int getVisibleCellsX()

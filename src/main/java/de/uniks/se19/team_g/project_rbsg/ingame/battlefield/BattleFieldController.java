@@ -5,7 +5,6 @@ import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
-import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
@@ -15,7 +14,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.Observable;
@@ -94,6 +92,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<Cell> unitPositionListener = this::unitChangedPosition;
     private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
     private final PropertyChangeListener highlightingListener = this::highlightingChanged;
+    private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
 
     private TileDrawer tileDrawer;
     private Tile[][] tileMap;
@@ -258,6 +257,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         miniMapDrawer.drawMinimap(tileMap);
     }
+
+    private void cameraViewChanged(ObservableValue<? extends Number> observableValue, Number number, Number number1)
+    {
+        miniMapDrawer.drawMinimap(tileMap);
+    }
+
 
     private void initCanvas()
     {
@@ -475,6 +480,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         units.addListener(unitListListener);
         selectedTile.addListener(selectedTileListener);
         hoveredTile.addListener(hoveredTileListener);
+
+        //Add Listeners to the Zoomable ScrollPane
+        zoomableScrollPane.scaleValueProperty().addListener(cameraViewChangedListener);
+        zoomableScrollPane.hvalueProperty().addListener(cameraViewChangedListener);
+        zoomableScrollPane.vvalueProperty().addListener(cameraViewChangedListener);
 
         configureEndPhase();
     }

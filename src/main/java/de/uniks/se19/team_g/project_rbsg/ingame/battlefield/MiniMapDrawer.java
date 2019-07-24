@@ -123,12 +123,12 @@ public class MiniMapDrawer
         {
             double startX = (camera.getxStartCell() * CellSizeX);
             double startY = (camera.getyStartCell() * CellSizeY);
-            double maxX = (startX + (camera.getVisibleCellsX() * CellSizeX) + CellSizeX);
-            double maxY = (startY + (camera.getVisibleCellsY() * CellSizeY) + CellSizeY);
+            double maxX = (startX + (camera.getVisibleCellsX() * CellSizeX));
+            double maxY = (startY + (camera.getVisibleCellsY() * CellSizeY));
 
             logger.debug(startX + " " + startY + " " + maxX + " "+ maxY);
-            gc.setStroke(transparentWhite);
-            gc.setLineWidth(1.0);
+            gc.setStroke(white);
+            gc.setLineWidth(1.5);
 
             gc.strokeLine(startX, startY, maxX, startY);
             gc.strokeLine(maxX, startY, maxX, maxY);
