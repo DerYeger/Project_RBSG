@@ -712,6 +712,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else {
             setMoveRadius(selectedUnit);
         }
+        selectedUnit.getPosition().getTile().setHighlightingOne(HighlightingOne.NONE);
     }
 
     private void setMoveRadius(@NonNull Unit selectedUnit) {

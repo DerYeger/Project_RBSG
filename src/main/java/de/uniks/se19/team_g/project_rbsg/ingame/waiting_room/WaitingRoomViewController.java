@@ -212,7 +212,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     private void showMapPreview(@NonNull final List<Cell> cells) {
-        final Node previewMap = previewMapBuilder.buildPreviewMap(cells, mapPreviewPane.getWidth(), mapPreviewPane.getHeight());
+        final Node previewMap = previewMapBuilder.buildPreviewMap(cells,256, 256);
         Platform.runLater(() -> mapPreviewPane.getChildren().add(previewMap));
     }
 
