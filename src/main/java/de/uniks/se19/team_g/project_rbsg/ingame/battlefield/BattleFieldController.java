@@ -42,8 +42,11 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -58,6 +61,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.Map;
 
 import java.util.ArrayList;
@@ -158,6 +162,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Label roundCountLabel;
     @FXML
     public Label phaseLabel;
+    @FXML
+    public ImageView phaseImage;
+    @FXML
+    public HBox ingameInformationHBox;
 
     private PlayerListController playerListController;
 
@@ -407,10 +415,32 @@ public class BattleFieldController implements RootController, IngameViewControll
                 roundCounter++;
             });
         });
+
+        this.game.phaseProperty().addListener(((observable, oldValue, newValue) -> {
+            switch(newValue){
+                case "movePhase": {
+                    File file = new File(String.valueOf(this.getClass().getResource("/assets/icons/operation/footstepsWhite.png")));
+                    Image image = new Image(String.valueOf(file));
+                    phaseImage.imageProperty().setValue(image);
+                }break;
+                case "attackPhase": {
+                    File file = new File(String.valueOf(this.getClass().getResource("/assets/icons/operation/swordClashWhite.png")));
+                    Image image = new Image(String.valueOf(file));
+                    phaseImage.imageProperty().setValue(image);
+                }break;
+                case "lastMovePhase": {
+                    File file = new File(String.valueOf(this.getClass().getResource("/assets/icons/operation/footprintWhite.png")));
+                    Image image = new Image(String.valueOf(file));
+                    phaseImage.imageProperty().setValue(image);
+                }break;
+            }
+        }));
         roundCount.set(0);
 
         roundCountLabel.textProperty().bind(roundCount.asString());
-        phaseLabel.textProperty().bind(this.game.phaseProperty());
+        phaseLabel.setText("Phase");
+        ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
+        //phaseLabel.textProperty().bind(this.game.phaseProperty());
         roundTextLabel.textProperty().setValue("Round");
     }
 
