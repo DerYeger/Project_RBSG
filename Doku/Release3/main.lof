@@ -21,8 +21,8 @@
 \contentsline {figure}{\numberline {20}{\ignorespaces Release \textup {\uppercase {ii}}: Logout\relax }}{15}{figure.caption.17}% 
 \contentsline {figure}{\numberline {21}{\ignorespaces Release \textup {\uppercase {ii}}: C0 Testabdeckung (Siehe Line, \%)\relax }}{15}{figure.caption.18}% 
 \contentsline {figure}{\numberline {22}{\ignorespaces MockUp: Beobachtungsmodus Lobby\relax }}{16}{figure.caption.19}% 
-\contentsline {figure}{\numberline {23}{\ignorespaces MockUp: User nicht bereit\relax }}{17}{figure.caption.20}% 
-\contentsline {figure}{\numberline {24}{\ignorespaces MockUp: User bereit\relax }}{17}{figure.caption.21}% 
+\contentsline {figure}{\numberline {23}{\ignorespaces MockUp: Nutzer nicht bereit\relax }}{17}{figure.caption.20}% 
+\contentsline {figure}{\numberline {24}{\ignorespaces MockUp: Nutzer bereit\relax }}{17}{figure.caption.21}% 
 \contentsline {figure}{\numberline {25}{\ignorespaces MockUp: Spielstart\relax }}{18}{figure.caption.22}% 
 \contentsline {figure}{\numberline {26}{\ignorespaces MockUp: Ingame\relax }}{19}{figure.caption.23}% 
 \contentsline {figure}{\numberline {27}{\ignorespaces MockUp: Phase 1: Ausw"ahlen\relax }}{19}{figure.caption.24}% 
@@ -32,10 +32,10 @@
 \contentsline {figure}{\numberline {31}{\ignorespaces MockUp: Angreifen\relax }}{22}{figure.caption.28}% 
 \contentsline {figure}{\numberline {32}{\ignorespaces MockUp: Angreifen best"atigen\relax }}{22}{figure.caption.29}% 
 \contentsline {figure}{\numberline {33}{\ignorespaces MockUp: Spiel verloren\relax }}{23}{figure.caption.30}% 
-\contentsline {figure}{\numberline {34}{\ignorespaces MockUp: Spiel gewonnen\relax }}{23}{figure.caption.31}% 
+\contentsline {figure}{\numberline {34}{\ignorespaces MockUp: Spiel gewonnen\relax }}{24}{figure.caption.31}% 
 \contentsline {figure}{\numberline {35}{\ignorespaces MockUp: Beobachtungsmodus: Spiel vorbei\relax }}{24}{figure.caption.32}% 
 \contentsline {figure}{\numberline {36}{\ignorespaces MockUp: Phase beenden\relax }}{25}{figure.caption.33}% 
-\contentsline {figure}{\numberline {37}{\ignorespaces MockUp: Property Info\relax }}{25}{figure.caption.34}% 
+\contentsline {figure}{\numberline {37}{\ignorespaces MockUp: Property Info\relax }}{26}{figure.caption.34}% 
 \contentsline {figure}{\numberline {38}{\ignorespaces Sprint \textup {\uppercase {v}}: Burndown Diagramm\relax }}{35}{figure.caption.98}% 
 \contentsline {figure}{\numberline {39}{\ignorespaces Sprint \textup {\uppercase {v}}: Abgeschlossene Stories\relax }}{35}{figure.caption.99}% 
 \contentsline {figure}{\numberline {40}{\ignorespaces Sprint \textup {\uppercase {v}}: Nicht Abgeschlossene Stories/Tasks\relax }}{37}{figure.caption.114}% 

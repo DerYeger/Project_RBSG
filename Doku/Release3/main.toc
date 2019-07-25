@@ -18,7 +18,7 @@
 \contentsline {subsubsubsection}{\numberline {2.3.3.3}Einheit angreifen}{21}{subsubsubsection.2.3.3.3}% 
 \contentsline {subsubsubsection}{\numberline {2.3.3.4}Spielende}{22}{subsubsubsection.2.3.3.4}% 
 \contentsline {subsubsubsection}{\numberline {2.3.3.5}Kontextmen"u}{24}{subsubsubsection.2.3.3.5}% 
-\contentsline {subsubsubsection}{\numberline {2.3.3.6}Weitere Features}{24}{subsubsubsection.2.3.3.6}% 
+\contentsline {subsubsubsection}{\numberline {2.3.3.6}Weitere Features}{25}{subsubsubsection.2.3.3.6}% 
 \contentsline {subsection}{\numberline {2.4}Domain Stories}{26}{subsection.2.4}% 
 \contentsline {section}{\numberline {3}Sprint \textup {\uppercase {v}}}{27}{section.3}% 
 \contentsline {subsection}{\numberline {3.1}Sprintziel}{27}{subsection.3.1}% 
@@ -43,8 +43,8 @@
 \contentsline {paragraph}{\nonumberline Zuteilung}{28}{section*.47}% 
 \contentsline {paragraph}{\nonumberline Ziel}{28}{section*.48}% 
 \contentsline {paragraph}{\nonumberline Story}{28}{section*.49}% 
-\contentsline {subsubsection}{\numberline {3.2.6}Ingame - Einheit angreifen}{28}{subsubsection.3.2.6}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{28}{section*.50}% 
+\contentsline {subsubsection}{\numberline {3.2.6}Ingame - Einheit angreifen}{29}{subsubsection.3.2.6}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{29}{section*.50}% 
 \contentsline {paragraph}{\nonumberline Ziel}{29}{section*.51}% 
 \contentsline {paragraph}{\nonumberline Story}{29}{section*.52}% 
 \contentsline {subsubsection}{\numberline {3.2.7}Ingame - Spielstatus anzeigen}{29}{subsubsection.3.2.7}% 
@@ -58,9 +58,9 @@
 \contentsline {subsubsection}{\numberline {3.2.9}Ingame - Chatintegration}{29}{subsubsection.3.2.9}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{29}{section*.59}% 
 \contentsline {paragraph}{\nonumberline Ziel}{29}{section*.60}% 
-\contentsline {paragraph}{\nonumberline Story}{29}{section*.61}% 
-\contentsline {subsubsection}{\numberline {3.2.10}Ingame - Game Over}{29}{subsubsection.3.2.10}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{29}{section*.62}% 
+\contentsline {paragraph}{\nonumberline Story}{30}{section*.61}% 
+\contentsline {subsubsection}{\numberline {3.2.10}Ingame - Game Over}{30}{subsubsection.3.2.10}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{30}{section*.62}% 
 \contentsline {paragraph}{\nonumberline Ziel}{30}{section*.63}% 
 \contentsline {paragraph}{\nonumberline Story}{30}{section*.64}% 
 \contentsline {subsubsection}{\numberline {3.2.11}Ingame - Game Won}{30}{subsubsection.3.2.11}% 
@@ -74,9 +74,9 @@
 \contentsline {subsubsection}{\numberline {3.2.13}Ingame - Spectating}{30}{subsubsection.3.2.13}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{30}{section*.71}% 
 \contentsline {paragraph}{\nonumberline Ziel}{30}{section*.72}% 
-\contentsline {paragraph}{\nonumberline Story}{30}{section*.73}% 
-\contentsline {subsubsection}{\numberline {3.2.14}Ingame - Spectator Over}{30}{subsubsection.3.2.14}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{30}{section*.74}% 
+\contentsline {paragraph}{\nonumberline Story}{31}{section*.73}% 
+\contentsline {subsubsection}{\numberline {3.2.14}Ingame - Spectator Over}{31}{subsubsection.3.2.14}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{31}{section*.74}% 
 \contentsline {paragraph}{\nonumberline Ziel}{31}{section*.75}% 
 \contentsline {paragraph}{\nonumberline Story}{31}{section*.76}% 
 \contentsline {subsubsection}{\numberline {3.2.15}Ingame - Einheiteninformationen}{31}{subsubsection.3.2.15}% 
@@ -88,11 +88,11 @@
 \contentsline {paragraph}{\nonumberline Ziel}{31}{section*.81}% 
 \contentsline {paragraph}{\nonumberline Story}{31}{section*.82}% 
 \contentsline {subsection}{\numberline {3.3}Tasks}{31}{subsection.3.3}% 
-\contentsline {subsubsection}{\numberline {3.3.1}Servernachrichten}{31}{subsubsection.3.3.1}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{31}{section*.83}% 
-\contentsline {paragraph}{\nonumberline Ziel}{31}{section*.84}% 
-\contentsline {subsubsection}{\numberline {3.3.2}Einheiteninformationen im Datenmodell}{31}{subsubsection.3.3.2}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{31}{section*.85}% 
+\contentsline {subsubsection}{\numberline {3.3.1}Servernachrichten}{32}{subsubsection.3.3.1}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{32}{section*.83}% 
+\contentsline {paragraph}{\nonumberline Ziel}{32}{section*.84}% 
+\contentsline {subsubsection}{\numberline {3.3.2}Einheiteninformationen im Datenmodell}{32}{subsubsection.3.3.2}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{32}{section*.85}% 
 \contentsline {paragraph}{\nonumberline Ziel}{32}{section*.86}% 
 \contentsline {subsection}{\numberline {3.4}User Stories im Backlog}{32}{subsection.3.4}% 
 \contentsline {subsubsection}{\numberline {3.4.1}Optional - Lobby - Anzeigen der Einheiten einer Armee}{32}{subsubsection.3.4.1}% 
@@ -104,9 +104,9 @@
 \contentsline {paragraph}{\nonumberline Story}{32}{section*.91}% 
 \contentsline {subsubsection}{\numberline {3.4.3}Optional - Ingame - Auf gegnerischen Aktionen scrollen}{32}{subsubsection.3.4.3}% 
 \contentsline {paragraph}{\nonumberline Ziel}{32}{section*.92}% 
-\contentsline {paragraph}{\nonumberline Story}{32}{section*.93}% 
-\contentsline {subsubsection}{\numberline {3.4.4}Optional - Ingame - Einheiten bewegen - Hover}{32}{subsubsection.3.4.4}% 
-\contentsline {paragraph}{\nonumberline Ziel}{32}{section*.94}% 
+\contentsline {paragraph}{\nonumberline Story}{33}{section*.93}% 
+\contentsline {subsubsection}{\numberline {3.4.4}Optional - Ingame - Einheiten bewegen - Hover}{33}{subsubsection.3.4.4}% 
+\contentsline {paragraph}{\nonumberline Ziel}{33}{section*.94}% 
 \contentsline {paragraph}{\nonumberline Story}{33}{section*.95}% 
 \contentsline {subsubsection}{\numberline {3.4.5}Optional - Waiting Room - Minigame}{33}{subsubsection.3.4.5}% 
 \contentsline {paragraph}{\nonumberline Ziel}{33}{section*.96}% 
