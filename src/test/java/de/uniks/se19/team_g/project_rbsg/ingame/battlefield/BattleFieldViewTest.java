@@ -454,6 +454,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         verify(gameEventManager).api();
         verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
+
+        Assert.assertNull(game.getSelectedUnit());
+        Assert.assertNull(battleFieldController.getSelectedTile());
     }
 
 

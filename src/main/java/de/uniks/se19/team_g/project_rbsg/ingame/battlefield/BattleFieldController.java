@@ -339,6 +339,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         context.getGameEventManager().api().attack(selectedUnit, targetUnit);
+        game.setSelectedUnit(null);
+        setSelectedTile(null);
 
         return true;
     }
