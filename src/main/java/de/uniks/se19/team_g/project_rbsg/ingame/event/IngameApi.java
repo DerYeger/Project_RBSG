@@ -32,6 +32,7 @@ public class IngameApi {
     }
 
     public static class BasicCommand {
+        final public String messageType = "command";
         final public String action;
 
         public BasicCommand(String action) {

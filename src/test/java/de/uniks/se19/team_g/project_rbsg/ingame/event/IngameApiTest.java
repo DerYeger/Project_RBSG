@@ -37,6 +37,7 @@ public class IngameApiTest extends ApplicationTest {
         Unit u2 = new Unit("2");
         IngameApi.AttackCommand attackCommand = sut.buildAttack(u1, u2);
 
+        Assert.assertEquals( "command", attackCommand.messageType);
         Assert.assertEquals("attackUnit", attackCommand.action);
         Assert.assertEquals( "1", attackCommand.data.unitId);
         Assert.assertEquals( "2", attackCommand.data.toAttackId);
