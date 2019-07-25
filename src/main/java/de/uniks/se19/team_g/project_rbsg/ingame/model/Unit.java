@@ -30,7 +30,7 @@ public class Unit {
     final private SimpleIntegerProperty remainingMovePoints = new SimpleIntegerProperty(0);
 
     private int mp;
-    private int hp;
+    private SimpleIntegerProperty hp = new SimpleIntegerProperty();
 
     private ArrayList<UnitType> canAttack;
 
@@ -70,6 +70,10 @@ public class Unit {
     }
 
     public int getHp() {
+        return hp.get();
+    }
+
+    public SimpleIntegerProperty hpProperty() {
         return hp;
     }
 
@@ -125,7 +129,7 @@ public class Unit {
     }
 
     public Unit setHp(@NonNull final int hp) {
-        this.hp = hp;
+        this.hp.set(hp);
         return this;
     }
 

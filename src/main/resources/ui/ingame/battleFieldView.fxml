@@ -55,21 +55,18 @@
                   </HBox>
                   <StackPane fx:id="battlefieldStackPane">
                      <children>
-                        <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
-                           <children>
-                              <StackPane fx:id="miniMapStackPane" styleClass="miniMapBox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false" />
                      </children>
                   </StackPane>
                </children>
             </VBox>
             <VBox fx:id="sidebar" prefHeight="200.0" prefWidth="100.0" styleClass="root-background-color">
                <children>
+                  <VBox fx:id="unitInformationContainer" prefHeight="200.0" prefWidth="100.0" />
                   <VBox styleClass="buttonVBox">
                      <children>
-                        <Button fx:id="actionButton" mnemonicParsing="false" styleClass="icon-with-text" text="Button" />
-                        <Button fx:id="Cancel" mnemonicParsing="false" styleClass="icon-with-text" text="Button" />
+                        <Button fx:id="actionButton" mnemonicParsing="false" styleClass="icon-with-text" text="Attack" />
+                        <Button fx:id="Cancel" mnemonicParsing="false" styleClass="icon-with-text" text="Cancel" />
                      </children>
                   </VBox>
                   <StackPane fx:id="miniMapStackPane" prefHeight="150.0" prefWidth="200.0">

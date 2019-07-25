@@ -80,6 +80,12 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button endPhaseButton;
     public Pane endPhaseButtonContainer;
     public VBox root;
+    public VBox unitInformationContainer;
+    public Button actionButton;
+    public Button Cancel;
+    public Button playerButton;
+    public Button chatButton;
+    public Button musicButton;
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
     public StackPane battlefieldStackPane;
