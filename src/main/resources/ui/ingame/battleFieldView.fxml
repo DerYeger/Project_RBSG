@@ -39,6 +39,7 @@
                      </HBox.margin>
                   </Button>
                   <Button fx:id="mapButton" mnemonicParsing="false" onAction="#toggleMap" styleClass="icon-button" />
+                  <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
                   <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" prefWidth="18.0" styleClass="icon-button">
                      <padding>
                         <Insets top="10.0" />
@@ -49,7 +50,6 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Pane>
-                  <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" top="10.0" />

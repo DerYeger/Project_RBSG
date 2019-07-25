@@ -189,8 +189,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
         JavaFXUtils.setButtonIcons(
                 chatButton,
-                getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
-                getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
+                getClass().getResource("/assets/icons/operation/chatWhite.png"),
+                getClass().getResource("/assets/icons/operation/chatBubbleWhite.png"),
                 40
         );
 
@@ -198,8 +198,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         miniMapCanvas.setVisible(false);
         JavaFXUtils.setButtonIcons(
                 mapButton,
-                getClass().getResource("/assets/icons/operation/chatWhite.png"),
-                getClass().getResource("/assets/icons/operation/chatBubbleWhite.png"),
+                getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
+                getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
                 40);
     }
 
@@ -592,7 +592,11 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initChat() {
-        
+
+    }
+
+    public void openChat(){
+
     }
 
     private void configureCells() {
