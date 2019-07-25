@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.component;
 
+import javafx.beans.property.*;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -9,13 +10,19 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 public class ZoomableScrollPane extends ScrollPane {
-    private double scaleValue = 0.7;
-    private double zoomIntensity = 0.02;
+    private SimpleDoubleProperty scaleValue;
+    //private double scaleValue = 0.7;
+    private SimpleDoubleProperty zoomIntensity;
+    //private double zoomIntensity = 0.02;
     private Node target;
     private Node zoomNode;
 
     public ZoomableScrollPane(Node target) {
         super();
+
+        scaleValue = new SimpleDoubleProperty(0.7);
+        zoomIntensity = new SimpleDoubleProperty(0.02);
+
         getStylesheets().add("/ui/darkTheme.css");
         getStyleClass().add("invisible");
         this.target = target;
@@ -49,19 +56,19 @@ public class ZoomableScrollPane extends ScrollPane {
     }
 
     private void updateScale() {
-        target.setScaleX(scaleValue);
-        target.setScaleY(scaleValue);
+        target.setScaleX(scaleValue.get());
+        target.setScaleY(scaleValue.get());
     }
 
     public void onScroll(double wheelDelta, Point2D mousePoint) {
-        double zoomFactor = Math.exp(wheelDelta * zoomIntensity);
+        double zoomFactor = Math.exp(wheelDelta * zoomIntensity.get());
         Bounds innerBounds = zoomNode.getLayoutBounds();
         Bounds viewportBounds = getViewportBounds();
 
         // calculate pixel offsets from [0, 1] range
         double valX = this.getHvalue() * (innerBounds.getWidth() - viewportBounds.getWidth());
         double valY = this.getVvalue() * (innerBounds.getHeight() - viewportBounds.getHeight());
-        scaleValue = scaleValue * zoomFactor;
+        setScaleValue(scaleValue.get() * zoomFactor);
         updateScale();
         this.layout(); // refresh ScrollPane scroll positions & target bounds
 
@@ -76,6 +83,36 @@ public class ZoomableScrollPane extends ScrollPane {
         Bounds updatedInnerBounds = zoomNode.getBoundsInLocal();
         this.setHvalue((valX + adjustment.getX()) / (updatedInnerBounds.getWidth() - viewportBounds.getWidth()));
         this.setVvalue((valY + adjustment.getY()) / (updatedInnerBounds.getHeight() - viewportBounds.getHeight()));
+    }
+
+    public double getScaleValue()
+    {
+        return scaleValue.get();
+    }
+
+    public SimpleDoubleProperty scaleValueProperty()
+    {
+        return scaleValue;
+    }
+
+    public void setScaleValue(double scaleValue)
+    {
+        this.scaleValue.set(scaleValue);
+    }
+
+    public double getZoomIntensity()
+    {
+        return zoomIntensity.get();
+    }
+
+    public SimpleDoubleProperty zoomIntensityProperty()
+    {
+        return zoomIntensity;
+    }
+
+    public void setZoomIntensity(double zoomIntensity)
+    {
+        this.zoomIntensity.set(zoomIntensity);
     }
 }
 
