@@ -38,6 +38,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
+                  <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button" />
                   <Button fx:id="mapButton" mnemonicParsing="false" onAction="#toggleMap" styleClass="icon-button" />
                   <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" prefWidth="18.0" styleClass="icon-button">
                      <padding>

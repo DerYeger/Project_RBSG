@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
@@ -80,6 +81,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button endPhaseButton;
     public Pane endPhaseButtonContainer;
     public VBox root;
+    public Button musicButton;
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
     public StackPane battlefieldStackPane;
@@ -125,18 +127,22 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Nonnull
     private final MovementManager movementManager;
+    @Nonnull
+    private final MusicManager musicManager;
 
     private IngameContext context;
 
     @Autowired
     public BattleFieldController(
-            @NonNull final SceneManager sceneManager,
-            @NonNull final AlertBuilder alertBuilder,
-            @Nonnull final MovementManager movementManager
-    ) {
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final AlertBuilder alertBuilder,
+            @Nonnull final MovementManager movementManager,
+            @Nonnull final MusicManager musicManager
+            ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.movementManager = movementManager;
+        this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
@@ -191,6 +197,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
                 getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
                 40);
+
+        musicManager.initButtonIcons(musicButton);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -743,5 +751,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.scaleValueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.hvalueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
+    }
+
+    public void toggleMusic() {
+        musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
     }
 }
