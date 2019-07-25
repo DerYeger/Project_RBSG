@@ -54,8 +54,16 @@ public class Camera
         yFactor.addListener(factorListener);
         height.addListener(factorListener);
         height.addListener(factorListener);
+    }
 
-        logger.debug(height + " " + width);
+    public int getMaxStartCellX()
+    {
+        return maxStartCellX;
+    }
+
+    public int getMaxStartCellY()
+    {
+        return maxStartCellY;
     }
 
     public void setToStartPos(int x, int y)
@@ -68,18 +76,36 @@ public class Camera
         int startX = CELL_SIZE * x;
         int startY = CELL_SIZE * y;
 
+        double xFactor = startX / xOffset;
+        double yFactor = startY / yOffset;
+
         // Idea is xFactor * xOffset = xStart
-        setxFactor(startX / xOffset);
-        setyFactor(startY / yOffset);
+
+        if (xFactor > 1)
+        {
+            setxFactor(1.0);
+        }
+        else
+        {
+            setxFactor(xFactor);
+        }
+
+        if (yFactor > 1)
+        {
+            setyFactor(1.0);
+        }
+        else
+        {
+            setyFactor(startY / yOffset);
+        }
     }
 
     public void TryToCenterToPostition(int x, int y)
     {
-
-        setToStartPos(getCenteredStart(x, visibleCellsX), getCenteredStart(y, visibleCellsY));
+        setToStartPos(getCenteredStart(x, visibleCellsX, maxStartCellX), getCenteredStart(y, visibleCellsY, maxStartCellY));
     }
 
-    private int getCenteredStart(int z, int visibleCellsZ)
+    private int getCenteredStart(int z, int visibleCellsZ, int maxStartCell)
     {
         int zStart;
         //Try to perfectly center the position
@@ -92,17 +118,12 @@ public class Camera
             //Z would cut right side have to adjust
             else
             {
-                int offset = z + visibleCellsZ - mapSize;
-                zStart = z - (visibleCellsZ + offset);
-                //Z would cut left side set to 0
-                if (zStart < 0)
-                {
-                    zStart = 0;
-                }
+                zStart = maxStartCell;
             }
         }
         //Z would cut left side set to 0
-        else {
+        else
+        {
             zStart = 0;
         }
         return zStart;
@@ -120,13 +141,10 @@ public class Camera
     {
         maxStartCellX = (int) Math.round(xOffset / CELL_SIZE);
         maxStartCellY = (int) Math.round(yOffset / CELL_SIZE);
-        logger.debug("MaxStartCells: "  + maxStartCellX + " " + maxStartCellY);
     }
 
     private void FactorChanged(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal)
     {
-        logger.debug("Factor changed " + zoomFactor.get() + " " + xFactor.get() + " " + yFactor.get());
-        logger.debug(getHeight() + " " + getWidht());
         completeCalculation();
     }
 
@@ -135,14 +153,12 @@ public class Camera
     {
         xOffset = (mapSize * CELL_SIZE) - (getWidht() / zoomFactor.get());
         yOffset = (mapSize * CELL_SIZE) - (getHeight() / zoomFactor.get());
-        logger.debug("Offsets: " + xOffset + " " + yOffset);
     }
 
     private void calculateVisibleCells()
     {
         visibleCellsX = (int) Math.round((width.get() / zoomFactor.get()) / CELL_SIZE);
         visibleCellsY = (int) Math.round((height.get() / zoomFactor.get()) / CELL_SIZE);
-        logger.debug("Visible Cells: " + visibleCellsX + " " + visibleCellsY);
     }
 
 
@@ -154,7 +170,6 @@ public class Camera
         xStartCell = xCells;
         yStartCell = yCells;
 
-        logger.debug("StartPosition: " + xStartCell + " " + yStartCell);
     }
 
     public int getVisibleCellsX()
@@ -237,4 +252,13 @@ public class Camera
         return mapSize;
     }
 
+    public double getxOffset()
+    {
+        return xOffset;
+    }
+
+    public double getyOffset()
+    {
+        return yOffset;
+    }
 }
