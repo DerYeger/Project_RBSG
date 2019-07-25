@@ -87,14 +87,14 @@
     	\vspace{0.3cm} \newline
         Das Vorgehen in diesem Modul ist so gegliedert, dass es vier Releases mit jeweils zwei Sprints "uber vier Monate gibt. Das Projekt begann am 13.5.2019 und wird bis zum 1.9.2019 laufen. Ein Client f"ur einen Klon vom Klassiker \glqq Advanced Wars\grqq\ soll entwickelt werden. Dabei ist das Team "uber die vier Releases immer in einen Scrum Master, einen Product Owner und mehrere Developer eingeteilt.
         \vspace{0.3cm} \newline
-        Die Dokumentation wird eine Einleitung in das Release, danach die Zusammenfassung der beiden Sprints und eine abschlie"sende Releaseanalyse enthalten. In der Einleitung sollen die Anforderungen des Kunden, der letzte Standpunkt und die neuen MockUps und User Stories erl"autert werden. In den Sprintdokumentationen wird kurz das jeweilige Ziel dargelegt und darauf sollen alle User Stories aufgelistet werden. Abschlie"send wird es jeweils eine Sprintanalyse mit einer Zeit- und Vorgangs"ubersicht geben. Die Releaseanalyse wird aufzeigen, ob das Resultat den Anforderungen entspricht und ob das Team effektiv gearbeitet hat.
+        Die Dokumentation wird eine Einleitung in das Release, danach die Zusammenfassung der beiden Sprints und eine abschlie"sende Releaseanalyse enthalten. In der Einleitung sollen die Anforderungen des Kunden, der letzte Standpunkt und die neuen MockUps erl"autert werden. In den Sprintdokumentationen wird jeweils kurz das Ziel dargelegt und darauf sollen alle User Stories, Tasks oder Bugs aufgelistet werden. Am Ende wird es immer eine Zeit\"ubersicht mit einer Analyse des Sprints geben. Das letzte Kapitel mit der Releaseanalyse wird aufzeigen, ob das Resultat den Anforderungen entspricht und ob das Team effektiv arbeitete.
     \newpage
     \tableofcontents
     \newpage
     \section{Release \RN{3}}
-        Das Release \RN{3} erstreckt sich "uber die vier Wochen vom 8.7.2019 bis zum 4.8.2019. Die zwei Sprints gehen vom 8.7.2019 bis zum 21.7.2019 und vom 22.7.2019 bis zum 4.8.2019.
+        Das Release \RN{3} erstreckte sich "uber die vier Wochen vom 8.7.2019 bis zum 4.8.2019. Die zwei Sprints gingen vom 8.7.2019 bis zum 21.7.2019 und vom 22.7.2019 bis zum 4.8.2019.
         \vspace{0.1cm} \newline
-        Das Team ist in diesem Release wie gefolgt aufgeteilt:
+        Das Team war in diesem Release wie gefolgt aufgeteilt:
         \begin{itemize}
             \item Scrum Master:  \hspace{0.275cm} \includegraphics[width=0.05\textwidth]{images/avatars/jan.png} \ Jan M"uller
     		\item Product Owner:   \hspace{0.1cm} \includegraphics[width=0.05\textwidth]{images/avatars/keanu.png} \ Keanu St"uckrad
@@ -341,9 +341,9 @@
     				\label{Coverage}
 			    \end{figure}
 	    \subsection{MockUps}
-	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zu Lobby und Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Die MockUps sind im Stil des Dark Theme und sollen an die UI aus den vorherigen Releases ankn"upfen.
+	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zu Lobby und Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergeben haben (Das Kontextmen"u wurde durch eine Sidebar ersetzt. SIehe \ref{MockUps_Sidebar_Section}). Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
 	        \subsubsection{Lobby}
-	            In der Lobby muss zum Stand aus dem Release \RN{2} (siehe Kapitel \ref{LOBBY}) ein Button hinzugef"ugt werden, der den Nutzer einem Beobachtungsmodus beitreten l"asst, der ihn direkt in die Ingame Szene weiterleitet. Des Weiteren soll die Armeeauswahl von der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
+	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubt einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
 	            \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/LobbyWatchMode.png}
@@ -351,7 +351,7 @@
     				\label{Watch_Mode}
 			    \end{figure}
 		    \subsubsection{Waiting Room (Gamelobby)}
-		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"sstenteils vorhanden war, muss nun nur noch das Ready geben hinzugef"ugt werden. Dies soll bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl muss deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit sind, sollen in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollen sich schwarz f"arben. Wenn alle Spieler das Ready gegeben haben, wird ein Overlay angezeigt, in dem ein Indicator l"adt, bis zur Ingame Szene gewechselt wird (siehe Abbildung \ref{Game_Start}). Auf den MockUps ist auch ein optionales Feature zu sehen. Dies ist das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden soll. \\
+		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"sstenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indicator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps war auch ein optionales Feature zu sehen. Dies war das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/NotReady.png}
@@ -371,7 +371,7 @@
     				\label{Game_Start}
 			    \end{figure}
 		    \subsubsection{Ingame}
-		        Bisher zeigt die Ingame Szene nur das initiale Spielgeschehen. In diesem Release soll dies aber haupts"achlich erweitert werden. Zuerst sollen der Chat, die Minikarte und die Spieler angezeigt werden. Diese Elemente m"ussen auch eingeklappt werden k"onnen "uber die jeweiligen Buttons oben rechts im Fenster. Die aktuelle Runde und die aktuelle Phase sollen oben mittig angezeigt werden. Der aktuelle Spieler soll in seiner Playercard mit der secondary Farbe hinterlegt werden. Links oben kommt der Musik Button zum ein- und ausschalten der Musik hinzu. \\
+		        Bisher zeigte die Ingame Szene nur das initiale Spielgeschehen. In diesem Release sollte dies haupts"achlich erweitert werden. Chat, die Minikarte und die Spieler mussten angezeigt werden. Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden.In der oberen Leiste kam au"sserdem der Musik Button zum ein- und ausschalten der Musik hinzu. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/Ingame.png}
@@ -443,7 +443,7 @@
     				    \caption{MockUp: Beobachtungsmodus: Spiel vorbei}
     				    \label{Spactator_End}
 			        \end{figure}
-			    \subsubsubsection{Kontextmen"u}
+			    \subsubsubsection{Kontextmen"u} \label{MockUps_Sidebar_Section}
 			        TODO: Schreiben
 			    \subsubsubsection{Weitere Features}
 			        Es soll f"ur den Nutzer m"oglich sein, "uber einen Button seine jeweilige Phase zu beenden und in die n"achste zu wechseln. Nach Beenden aller drei Phasen, soll auch die Runde beendet werden. Wenn ein Gegner an der Reihe ist, muss der Phase beenden Button disabled sein. Beim Beenden der Phasen soll immer ein Overlay angezeigt werden (siehe Abbildung \ref{Phase_End}). \\
@@ -504,7 +504,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
 	            \paragraph{Ziel}
-	                Durch Anklicken einer Einheit soll diese Ausgewählt werden. Danach soll die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befindet.
+	                Durch Anklicken einer Einheit soll diese Ausgew\"ahlt werden. Danach soll die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befindet.
 	            \paragraph{Story}
 	                Karli befindet sich bereits in einem Spiel. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G\"ultige Bewegungsziele werden blau und g\"ultige Angriffsziele rot markiert (siehe Mockups).
             \subsubsection{Ingame - Einheit bewegen}
@@ -742,7 +742,7 @@
     		\end{itemize}
     		F\"ur den Fall, dass die Mindestanforderungen vor Ende des Sprints abgeschlossen werden sollten, soll eine Sidebar zum Spielfeld hinzugef\"ugt werden. Diese soll es erm\"oglichen Aktionen, wie Bewegen oder Angreifen, zu best\"atigen und abzubrechen. Weitere optionale Features liegen im Backlog vor (siehe Kapitel \ref{Backlog_6}). Falls das Team die Umsetzung der oben genannten Features schafft sind die Mindestanforderungen jedoch bereits erf\"ullt.
     	\subsection{Ge\"anderte User Stories vom Sprint \RN{5}}
-    		DIe folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups geändert haben.
+    		DIe folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups ge\"andert haben.
     		\subsubsection{Ingame - Minikarte anzeigen}
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
