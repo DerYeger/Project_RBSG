@@ -126,7 +126,6 @@ public class MiniMapDrawer
             double maxX = (startX + (camera.getVisibleCellsX() * CellSizeX));
             double maxY = (startY + (camera.getVisibleCellsY() * CellSizeY));
 
-            logger.debug(startX + " " + startY + " " + maxX + " "+ maxY);
             gc.setStroke(white);
             gc.setLineWidth(1.5);
 
@@ -141,5 +140,16 @@ public class MiniMapDrawer
     public void setCamera(Camera camera)
     {
         this.camera = camera;
+    }
+
+    public int getXPostionOnMap(double x)
+    {
+        return (int) (x/CellSizeX);
+
+    }
+
+    public int getYPostionOnMap(double y)
+    {
+        return (int) (y/CellSizeY);
     }
 }

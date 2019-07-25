@@ -27,7 +27,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.*;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -216,9 +216,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
         }
         miniMapDrawer.drawMinimap(tileMap);
-        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
-        logger.debug(String.valueOf(zoomableScrollPane.getHeight()));
-        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
+//        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
+//        logger.debug(String.valueOf(zoomableScrollPane.getHeight()));
+//        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
     }
 
     private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
@@ -280,6 +280,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     protected Tile resolveTargetTile(MouseEvent event) {
         int xPos = (int) (event.getX() / CELL_SIZE);
         int yPos = (int) (event.getY() / CELL_SIZE);
+
         return tileMap[yPos][xPos];
     }
 
@@ -486,7 +487,18 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.hvalueProperty().addListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().addListener(cameraViewChangedListener);
 
+        miniMapCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::miniMapHandleMouseClick);
+
         configureEndPhase();
+    }
+
+    private void miniMapHandleMouseClick(MouseEvent mouseEvent)
+    {
+        int xPos = miniMapDrawer.getXPostionOnMap(mouseEvent.getX());
+        int yPos = miniMapDrawer.getYPostionOnMap(mouseEvent.getY());
+        logger.debug("Pos: " + xPos + " " + yPos);
+        camera.TryToCenterToPostition(xPos, yPos);
+        miniMapDrawer.drawMinimap(tileMap);
     }
 
     private void configureEndPhase() {
@@ -576,5 +588,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         units.removeListener(unitListListener);
+
+        zoomableScrollPane.scaleValueProperty().removeListener(cameraViewChangedListener);
+        zoomableScrollPane.hvalueProperty().removeListener(cameraViewChangedListener);
+        zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
     }
 }
