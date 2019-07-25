@@ -4,10 +4,12 @@ import static org.junit.Assert.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * @author Jan Müller
@@ -59,27 +61,27 @@ public class ModelManagerTests {
         assertEquals(2, player.getUnits().size());
         assertTrue(player.getUnits().containsAll(game.getUnits()));
 
-        final Unit chopper = player.getUnits().stream().filter(u -> u.getUnitType().equals(UnitType.CHOPPER)).findAny().orElse(null);
+        final Unit chopper = player.getUnits().stream().filter(u -> u.getUnitType().equals(UnitTypeInfo._CHOPPER)).findAny().orElse(null);
 
         assertNotNull(chopper);
         assertEquals("Unit@1", chopper.getId());
         assertEquals(game, chopper.getGame());
         assertEquals(player, chopper.getLeader());
-        assertEquals(UnitType.CHOPPER, chopper.getUnitType());
+        assertEquals(UnitTypeInfo._CHOPPER, chopper.getUnitType());
         assertEquals(5, chopper.getMp());
         assertEquals(10, chopper.getHp());
-        assertEquals(Arrays.asList(UnitType.LIGHT_TANK, UnitType.HEAVY_TANK), chopper.getCanAttack());
+        assertEquals(Arrays.asList(UnitTypeInfo._LIGHT_TANK, UnitTypeInfo._HEAVY_TANK), chopper.getCanAttack());
 
-        final Unit jeep = player.getUnits().stream().filter(u -> u.getUnitType().equals(UnitType.JEEP)).findAny().orElse(null);
+        final Unit jeep = player.getUnits().stream().filter(u -> u.getUnitType().equals(UnitTypeInfo._JEEP)).findAny().orElse(null);
 
         assertNotNull(jeep);
         assertEquals("Unit@2", jeep.getId());
         assertEquals(game, jeep.getGame());
         assertEquals(player, jeep.getLeader());
-        assertEquals(UnitType.JEEP, jeep.getUnitType());
+        assertEquals(UnitTypeInfo._JEEP, jeep.getUnitType());
         assertEquals(1, jeep.getMp());
         assertEquals(5, jeep.getHp());
-        assertEquals(Arrays.asList(UnitType.INFANTRY), jeep.getCanAttack());
+        assertEquals(Collections.singletonList(UnitTypeInfo._INFANTRY), jeep.getCanAttack());
 
         final Cell forest = game.getCells().stream().filter(c -> c.getBiome().equals(Biome.FOREST)).findAny().orElse(null);
         final Cell grass = game.getCells().stream().filter(c -> c.getBiome().equals(Biome.GRASS)).findAny().orElse(null);

@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +24,14 @@ public class UnitUtil {
     private static final String POSITION = "position";
     private static final String CAN_ATTACK = "canAttack";
 
+    @SuppressWarnings("UnusedReturnValue")
     public static Unit buildUnit(@NonNull final ModelManager modelManager,
                                  @NonNull final String identifier,
                                  @NonNull final JsonNode data,
                                  @NonNull final boolean logging) {
         final Unit unit = modelManager.unitWithId(identifier);
 
-        if (data.has(TYPE)) unit.setUnitType(StringToEnum.unitType(data.get(TYPE).asText()));
+        if (data.has(TYPE)) unit.setUnitType(UnitTypeInfo.resolveType(data.get(TYPE).asText()));
         if (data.has(MP)) unit.setMp(data.get(MP).asInt());
         if (data.has(HP)) unit.setHp(data.get(HP).asInt());
         if (data.has(GAME)) unit.setGame(modelManager.gameWithId(data.get(GAME).asText()));
@@ -39,9 +41,9 @@ public class UnitUtil {
         if (data.has(CAN_ATTACK)) {
             final JsonNode unitTypes = data.get(CAN_ATTACK);
             if (unitTypes.isArray()) {
-                final ArrayList<UnitType> canAttack = new ArrayList<>();
+                final ArrayList<UnitTypeInfo> canAttack = new ArrayList<>();
                 for (final JsonNode unitType : unitTypes) {
-                    canAttack.add(StringToEnum.unitType(unitType.asText()));
+                    canAttack.add(UnitTypeInfo.resolveType(unitType.asText()));
                 }
                 unit.setCanAttack(canAttack);
             }
