@@ -371,7 +371,7 @@
     				\label{Game_Start}
 			    \end{figure}
 		    \subsubsection{Ingame}
-		        Bisher zeigt die Ingame Szene nur das initiale Spielgeschehen. In diesem Release soll dies aber haupts"achlich erweitert werden. Zuerst sollen der Chat, die Minimap und die Spieler angezeigt werden. Diese Elemente m"ussen auch eingeklappt werden k"onnen "uber die jeweiligen Buttons oben rechts im Fenster. Die aktuelle Runde und die aktuelle Phase sollen oben mittig angezeigt werden. Der aktuelle Spieler soll in seiner Playercard mit der secondary Farbe hinterlegt werden. Links oben kommt der Musik Button zum ein- und ausschalten der Musik hinzu. \\
+		        Bisher zeigt die Ingame Szene nur das initiale Spielgeschehen. In diesem Release soll dies aber haupts"achlich erweitert werden. Zuerst sollen der Chat, die Minikarte und die Spieler angezeigt werden. Diese Elemente m"ussen auch eingeklappt werden k"onnen "uber die jeweiligen Buttons oben rechts im Fenster. Die aktuelle Runde und die aktuelle Phase sollen oben mittig angezeigt werden. Der aktuelle Spieler soll in seiner Playercard mit der secondary Farbe hinterlegt werden. Links oben kommt der Musik Button zum ein- und ausschalten der Musik hinzu. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/Ingame.png}
@@ -529,13 +529,13 @@
 	                Es soll einen Button zum Ein- und Ausblenden der Spielerinformationen implementiert werden. Der aktive Spieler soll hervorgehoben werden.
 	            \paragraph{Story}
 	                Karli befindet sich bereits in einem Spiel. In der Men\"uleiste sieht Karli einen Button zum Anzeigen der Spieler und die aktuelle Rundennummer. Karli klickt auf diesen Button. Eine Anzeige der Spieler wird eingeblendet (siehe Mockup). Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. MockUp).
-            \subsubsection{Ingame - Minimap anzeigen}
+            \subsubsection{Ingame - Minikarte anzeigen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
 	            \paragraph{Ziel}
 	                Es soll eine Minikarte implementiert werden, die \"uber einen Button ein- und ausblendbar sein soll.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. In der rechten oberen Ecke sieht Karli die Minimap, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr\"uckt auf den Button zum Ausbleden der Minimap. Die Minimap wird ausgeblendet.
+	                Karli befindet sich bereits in einem Spiel. In der rechten oberen Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr\"uckt auf den Button zum Ausbleden der Minikarte. Die Minikarte wird ausgeblendet.
             \subsubsection{Ingame - Chatintegration}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
@@ -648,7 +648,7 @@
        				Ingame - Einheit bewegen & 13 h & 11 h 19 min & 35 min & Omar Sood \\
        				Ingame - Einheit angreifen & 5 h & - & 5 h & Omar Sood \\
        				Ingame - Spielstatus anzeigen & 8 h & 18 h 45 min & - & Tobias Klipp \\
-       				Ingame - Minimap anzeigen & 8 h & 8 h 25 min & 4 h & Georg Siebert \\
+       				Ingame - Minikarte anzeigen & 8 h & 8 h 25 min & 4 h & Georg Siebert \\
        				Ingame - Chatintegration & 13 h & - & 13 h & Tobias Klipp \\
        				Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
        				Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\
@@ -704,7 +704,7 @@
         				TODO: Schreiben
         			\paragraph{Stand}
         				TODO: Schreiben
-        		\subsubsubsection{Ingame - Minimap anzeigen}
+        		\subsubsubsection{Ingame - Minikarte anzeigen}
         			\paragraph{Verlauf}
         				TODO: Schreiben
         			\paragraph{Stand}
@@ -743,13 +743,13 @@
     		Wenn genug Zeit bleibt, sollte noch eine Box in der Sidebar implementiert werden, die es m"oglich macht, Aktionen (Bewegen oder Angreifen) zu best"atigen oder abzubrechen (Stories aus dem Backlog). Weitere Optionals liegen bereits im Backlog (siehe Kapitel \ref{Backlog_6}), aber wenn das Team die oben genannten Features schafft, hat das Team genug Storypoints f"ur diesen Sprint und das Release bew"altigt.
     	\subsection{Ge"anderte User Stories vom Sprint \RN{5}}
     		Es gab auch User Stories aus dem f"unften Sprint, die vom Product Owner im Nachhinein noch ge"andert werden mussten, da sich "Anderungen in den MockUps ergeben haben. Zur Erinnerung noch einmal der Aufbau einer Dokumentation einer User Story: Im Titel kann man sehen, zu welcher Szene die Story geh"ort. Anschlie"ssend werden die Story Points (Ein Storypoint entspricht einer Stunde) und der zugeteilte Entwickler genannt. Danach folgt das Ziel und die Story selbst. Das Ziel fasst die Subtasks, die der Scrum Master erstellt hat, zusammen.
-    		\subsubsection{Ingame - Minimap anzeigen}
+    		\subsubsection{Ingame - Minikarte anzeigen}
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch"atzt und an Georg Siebert zugeteilt.
     			\paragraph{Ge"andertes Ziel}
-    				Der Entwickler soll eine Minimap implementieren. Auf der Minimap soll es m"oglich sein, den Sichtbereich zu wechseln.
+    				Der Entwickler soll eine Minikarte implementieren. Auf der Minikarte soll es m"oglich sein, den Sichtbereich zu wechseln.
     			\paragraph{Ge"anderte Story}
-    				Karli befindet sich bereits in einem Spiel. In der rechten unteren Ecke sieht Karli die Minimap, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minimap. Der Sichtbereich "andert sich zu dieser Stelle.
+    				Karli befindet sich bereits in einem Spiel. In der rechten unteren Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minikarte. Der Sichtbereich "andert sich zu dieser Stelle.
    			\subsubsection{Ingame - Einheiteninformationen}
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 8 Storypoints gesch"atzt und an Georg Siebert zugeteilt.
@@ -764,7 +764,7 @@
    				\item Ingame - Einheit bewegen (angefangen in Sprint \RN{5})
    				\item Ingame - Einheit angreifen
    				\item Ingame - Spielstatus anzeigen (angefangen in Sprint \RN{5})
-   				\item Ingame - Minimap anzeigen (angefangen in Sprint \RN{5})
+   				\item Ingame - Minikarte anzeigen (angefangen in Sprint \RN{5})
    				\item Ingame - Chatintegration
    				\item Ingame - Game Over
    				\item Ingame - Game Won
@@ -823,7 +823,7 @@
     			Ingame - Einheit bewegen & 13 h & 11 h 19 min & 35 min & Omar Sood \\
     			Ingame - Einheit angreifen & 5 h & - & 5 h & Omar Sood \\
     			Ingame - Spielstatus anzeigen & 8 h & 24 h & - & Tobias Klipp \\
-    			Ingame - Minimap anzeigen & 8 h & 8 h 25 min & 4 h & Georg Siebert \\
+    			Ingame - Minikarte anzeigen & 8 h & 8 h 25 min & 4 h & Georg Siebert \\
     			Ingame - Chatintegration & 13 h & - & 13 h & Tobias Klipp \\
     			Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
     			Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\

@@ -51,7 +51,7 @@
 \contentsline {paragraph}{\nonumberline Zuteilung}{29}{section*.53}% 
 \contentsline {paragraph}{\nonumberline Ziel}{29}{section*.54}% 
 \contentsline {paragraph}{\nonumberline Story}{29}{section*.55}% 
-\contentsline {subsubsection}{\numberline {3.2.8}Ingame - Minimap anzeigen}{29}{subsubsection.3.2.8}% 
+\contentsline {subsubsection}{\numberline {3.2.8}Ingame - Minikarte anzeigen}{29}{subsubsection.3.2.8}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{29}{section*.56}% 
 \contentsline {paragraph}{\nonumberline Ziel}{29}{section*.57}% 
 \contentsline {paragraph}{\nonumberline Story}{29}{section*.58}% 
@@ -134,7 +134,7 @@
 \contentsline {subsubsubsection}{\numberline {3.6.3.2}Ingame - Einheit bewegen}{36}{subsubsubsection.3.6.3.2}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{36}{section*.110}% 
 \contentsline {paragraph}{\nonumberline Stand}{36}{section*.111}% 
-\contentsline {subsubsubsection}{\numberline {3.6.3.3}Ingame - Minimap anzeigen}{36}{subsubsubsection.3.6.3.3}% 
+\contentsline {subsubsubsection}{\numberline {3.6.3.3}Ingame - Minikarte anzeigen}{36}{subsubsubsection.3.6.3.3}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{36}{section*.112}% 
 \contentsline {paragraph}{\nonumberline Stand}{36}{section*.113}% 
 \contentsline {subsubsection}{\numberline {3.6.4}Nicht abgeschlossene Stories/Tasks}{36}{subsubsection.3.6.4}% 
@@ -143,7 +143,7 @@
 \contentsline {section}{\numberline {4}Sprint \textup {\uppercase {vi}}}{38}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Sprintziel}{38}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}Ge"anderte User Stories vom Sprint \textup {\uppercase {v}}}{38}{subsection.4.2}% 
-\contentsline {subsubsection}{\numberline {4.2.1}Ingame - Minimap anzeigen}{38}{subsubsection.4.2.1}% 
+\contentsline {subsubsection}{\numberline {4.2.1}Ingame - Minikarte anzeigen}{38}{subsubsection.4.2.1}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{38}{section*.116}% 
 \contentsline {paragraph}{\nonumberline Ge"andertes Ziel}{38}{section*.117}% 
 \contentsline {paragraph}{\nonumberline Ge"anderte Story}{38}{section*.118}% 
