@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import static org.junit.Assert.*;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -62,20 +63,20 @@ public class ModelTests {
         game.withPlayers(null, alice);
         bob.setCurrentGame(game);
 
-        final Collection<UnitType> canAttack = Arrays.asList(UnitType.CHOPPER, UnitType.JEEP);
+        final Collection<UnitTypeInfo> canAttack = Arrays.asList(UnitTypeInfo._CHOPPER, UnitTypeInfo._JEEP);
 
         final Unit aliceChopper5And10 = new Unit("")
-                .setUnitType(UnitType.CHOPPER)
+                .setUnitType(UnitTypeInfo._CHOPPER)
                 .setMp(5)
                 .setHp(10)
                 .setCanAttack(canAttack);
         final Unit aliceJeep1And5 = new Unit("")
-                .setUnitType(UnitType.JEEP)
+                .setUnitType(UnitTypeInfo._JEEP)
                 .setMp(1)
                 .setHp(5)
                 .setCanAttack(canAttack);
         final Unit bobChopper10And10 = new Unit("")
-                .setUnitType(UnitType.CHOPPER)
+                .setUnitType(UnitTypeInfo._CHOPPER)
                 .setMp(10)
                 .setHp(10)
                 .setCanAttack(canAttack);
@@ -126,7 +127,7 @@ public class ModelTests {
 
         assertEquals(game, grass.getGame());
         assertEquals(Biome.GRASS, grass.getBiome());
-        assertFalse(grass.isPassable());
+        assertTrue(grass.isPassable());
         assertEquals(1, grass.getX());
         assertEquals(0, grass.getY());
         assertEquals(forest, grass.getLeft());
@@ -184,7 +185,7 @@ public class ModelTests {
         assertEquals(game, aliceChopper5And10.getGame());
         assertEquals(alice, aliceChopper5And10.getLeader());
         assertEquals(water, aliceChopper5And10.positionProperty().get());
-        assertEquals(UnitType.CHOPPER, aliceChopper5And10.getUnitType());
+        assertEquals(UnitTypeInfo._CHOPPER, aliceChopper5And10.getUnitType());
         assertEquals(5, aliceChopper5And10.getMp());
         assertEquals(10, aliceChopper5And10.getHp());
         assertEquals(canAttack, aliceChopper5And10.getCanAttack());
@@ -192,7 +193,7 @@ public class ModelTests {
         assertEquals(game, aliceJeep1And5.getGame());
         assertEquals(alice, aliceJeep1And5.getLeader());
         assertEquals(grass, aliceJeep1And5.positionProperty().get());
-        assertEquals(UnitType.JEEP, aliceJeep1And5.getUnitType());
+        assertEquals(UnitTypeInfo._JEEP, aliceJeep1And5.getUnitType());
         assertEquals(1, aliceJeep1And5.getMp());
         assertEquals(5, aliceJeep1And5.getHp());
         assertEquals(canAttack, aliceJeep1And5.getCanAttack());
@@ -200,7 +201,7 @@ public class ModelTests {
         assertEquals(game, bobChopper10And10.getGame());
         assertEquals(bob, bobChopper10And10.getLeader());
         assertEquals(mountain, bobChopper10And10.positionProperty().get());
-        assertEquals(UnitType.CHOPPER, bobChopper10And10.getUnitType());
+        assertEquals(UnitTypeInfo._CHOPPER, bobChopper10And10.getUnitType());
         assertEquals(10, bobChopper10And10.getMp());
         assertEquals(10, bobChopper10And10.getHp());
         assertEquals(canAttack, bobChopper10And10.getCanAttack());
@@ -220,7 +221,7 @@ public class ModelTests {
         assertNull(aliceJeep1And5.getGame());
         assertNull(aliceJeep1And5.getLeader());
         assertNull(aliceJeep1And5.positionProperty().get());
-        assertEquals(UnitType.JEEP, aliceJeep1And5.getUnitType());
+        assertEquals(UnitTypeInfo._JEEP, aliceJeep1And5.getUnitType());
         assertEquals(1, aliceJeep1And5.getMp());
         assertEquals(5, aliceJeep1And5.getHp());
         assertEquals(canAttack, aliceJeep1And5.getCanAttack());

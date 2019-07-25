@@ -54,7 +54,7 @@ public class MovementEvaluatorTest {
         Assert.assertSame( tourTo2_1.getTarget(), pathTo2_1.get(3));
 
         // check other
-        Assert.assertEquals(9L, tours.size());
+        Assert.assertEquals(10, tours.size());
         Assert.assertFalse(tours.containsKey(cells[1][1]));
         Assert.assertFalse(tours.containsKey(cells[2][0]));
 

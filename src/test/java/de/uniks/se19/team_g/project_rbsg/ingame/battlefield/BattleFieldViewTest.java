@@ -4,17 +4,21 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -139,7 +143,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit unit = new Unit("10");
         unit.setHp(10);
         unit.setMp(10);
-        unit.setUnitType(UnitType.CHOPPER);
+        unit.setUnitType(UnitTypeInfo._CHOPPER);
         unit.setGame(game);
         unit.setPosition(game.getCells().get(11));
 
@@ -201,9 +205,10 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Assert.assertEquals(playerUnit.getMp(), playerUnit.getRemainingMovePoints());
 
+        context.getGameState().setPhase("movePhase");
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
-        click(25, 100);
+        click(75, 150);
         Assert.assertNull(game.getSelectedUnit());
         click(300, 175);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
@@ -244,6 +249,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
+        Assert.assertNull(game.getSelectedUnit());
+        SimpleObjectProperty<Tile> selectedTileProperty = battleFieldComponent.getController().selectedTileProperty();
+        Assert.assertNull(selectedTileProperty.get());
 
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
@@ -251,6 +259,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         // test no action, if user is not current player
         game.setCurrentPlayer(null);
         click(350, 150);
+        verifyNoMoreInteractions(gameEventManager);
+        click(350, 150);
+
     }
 
     @Test
@@ -362,7 +373,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setPosition(playerUnit.getPosition().getBottom());
 
         Unit enemyUnit = new Unit("1");
-        enemyUnit.setUnitType(UnitType.BAZOOKA_TROOPER);
+        enemyUnit.setUnitType(UnitTypeInfo._BAZOOKA_TROOPER);
         enemyUnit.setPosition(playerUnit.getPosition().getRight());
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
@@ -423,6 +434,56 @@ public class BattleFieldViewTest extends ApplicationTest {
 
     }
 
+    @Test
+    public void testAttack() throws ExecutionException, InterruptedException {
+        BattleFieldController battleFieldController = battleFieldComponent.getController();
+
+        IngameApi ingameApi = mock(IngameApi.class);
+        GameEventManager gameEventManager = mock(GameEventManager.class);
+        when(gameEventManager.api()).thenReturn(ingameApi);
+
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        game.withPlayer(player);
+        playerUnit.setLeader(player);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+        revealBattleField(context);
+
+        game.setPhase(Game.Phase.attackPhase.name());
+        click(325, 200);
+        click( 325, 250);
+        click(325, 200);
+        game.setPhase(Game.Phase.movePhase.name());
+        click(375, 200);
+        verifyZeroInteractions(gameEventManager);
+        game.setPhase(Game.Phase.attackPhase.name());
+
+        click(300, 200);
+        click(350, 200);
+        verify(gameEventManager).api();
+        verifyNoMoreInteractions(gameEventManager);
+        verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
+
+        Assert.assertNull(game.getSelectedUnit());
+        Assert.assertNull(battleFieldController.getSelectedTile());
+    }
+
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions
@@ -436,11 +497,10 @@ public class BattleFieldViewTest extends ApplicationTest {
                     stage.setY(BASE_Y);
                     stage.show();
                 },
-                runnable -> Platform.runLater(runnable)
+                Platform::runLater
         );
 
         aVoid.get();
-
     }
 
     public static Game buildComplexTestGame() throws IOException {
@@ -526,7 +586,7 @@ public class BattleFieldViewTest extends ApplicationTest {
             unit.setPosition(game.getCells().get(i));
             unit.setHp(10);
             unit.setMp(10);
-            unit.setUnitType(UnitType.CHOPPER);
+            unit.setUnitType(UnitTypeInfo._CHOPPER);
         }
 
         return game;
