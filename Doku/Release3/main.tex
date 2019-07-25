@@ -371,7 +371,7 @@
     				\label{Game_Start}
 			    \end{figure}
 		    \subsubsection{Ingame}
-		        Bisher zeigte die Ingame Szene nur das initiale Spielgeschehen. In diesem Release sollte dies haupts"achlich erweitert werden. Chat, die Minikarte und die Spieler mussten angezeigt werden. Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden.In der oberen Leiste kam au"sserdem der Musik Button zum ein- und ausschalten der Musik hinzu. \\
+		        Bisher zeigte die Ingame Szene nur das initiale Spielgeschehen. In diesem Release sollte diese Szene haupts"achlich erweitert werden. Chat, die Minikarte und die Spieler mussten angezeigt werden. Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au"sserdem der Musik Button zum ein- und ausschalten der Musik hinzu. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/Ingame.png}
@@ -379,29 +379,29 @@
     				\label{Ingame_View}
 			    \end{figure}
 			    \subsubsubsection{Einheit ausw"ahlen}
-			        Der Server stellt den Spielern drei Phasen zur Verf"ugung, wenn ein Spieler an der Reihe ist. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden muss, eine Angriffsphase, die "ubersprungen werden kann und eine restliche Bewegungspunktephase, die "ubersprungen werden kann. \\
+			        Der Server stellte drei Phasen zur Verf"ugung, wenn ein Spieler an der Reihe war. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden musste, eine Angriffsphase, die "ubersprungen werden konnte und eine restliche Bewegungspunktephase, die ebenfalls "ubersprungen werden konnte. \\
 			        \begin{figure}[H] 
     				    \centering
-    				    \includegraphics[width=0.8\textwidth]{images/mockUps/Move2.png}
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/Select.png}
     				    \caption{MockUp: Phase 1: Ausw"ahlen}
     				    \label{Select_1}
 			        \end{figure}
-			        \ \\ Danach beendet der jeweilige Spieler seine Runde. Wenn der Nutzer selbst an der Reihe ist und in einer seiner drei Phasen auf eine Einheit klickt soll der Bewegungsradius oder Angriffsradius angezeigt werden. \\
+			        \ \\ Nachdem alle drei Phasen vom aktiven Spieler beendet wurden, war die Runde des Spielers vorbei. Wenn der Nutzer selbst an der Reihe war und in einer seiner drei Phasen auf eine Einheit klickte, sollte der Bewegungsradius oder Angriffsradius angezeigt werden. \\
                     \begin{figure}[H] 
     				    \centering
-    				    \includegraphics[width=0.8\textwidth]{images/mockUps/ClickUnitAttackPhase.png}
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/Select2.png}
     				    \caption{MockUp: Phase 2: Ausw"ahlen}
     				    \label{Select_2}
 			        \end{figure} 
 			        \begin{figure}[H] 
     				    \centering
-    				    \includegraphics[width=0.8\textwidth]{images/mockUps/ClickUnitRestMovePhase.png}
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/Select3.png}
     				    \caption{MockUp: Phase 3: Ausw"ahlen}
     				    \label{Select_3}
 			        \end{figure} 
-		            \ \\ In Phase 1 soll zus"atzlich zum Bewegungs- auch der Angriffsradius angezeigt werden (siehe Abbildung \ref{Select_1}). In Phase 2 soll nur der Angriffsradius angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 soll ein verk"urzter Bewegungsradius ohne Angriffsradius angezeigt werden (siehe Abbildung \ref{Select_3}).
+		            \ \\ In Phase 1 sollten zus"atzlich zum Bewegungsradius auch alle m"oglichen Angriffsziele markiert werden (siehe Abbildung \ref{Select_1}). In Phase 2 sollten nur alle m"oglichen Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 sollte ein verk"urzter Bewegungsradius ohne Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_3}), je nachdem wie weit sich eine Einheit noch bewegen konnte.
                 \subsubsubsection{Einheit bewegen}
-                    Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausgew"ahlt hat, und er "uber die Felder hovert, auf die er seine Einheit stellen k"onnte, muss der k"urzeste Pfad berechnet werden. Ein Pfeil soll dahin angezeigt werden. Klickt der Nutzer auf ein Feld, bewegt sich seine Einheit dorthin. \\
+                    Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausgew"ahlte, und er "uber die Felder hoverte, auf die er seine Einheit stellen k"onnte, muss der k"urzeste Pfad berechnet werden. Ein Pfeil soll dahin angezeigt werden. Klickt der Nutzer auf ein Feld, bewegt sich seine Einheit dorthin. \\
                     \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/Move.png}
