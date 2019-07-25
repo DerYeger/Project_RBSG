@@ -49,6 +49,7 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Pane>
+                  <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" top="10.0" />

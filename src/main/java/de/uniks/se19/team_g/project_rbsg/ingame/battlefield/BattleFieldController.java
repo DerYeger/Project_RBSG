@@ -28,6 +28,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.*;
+import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -103,6 +104,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Tile[][] tileMap;
     private int mapSize;
     private Camera camera;
+
+    @FXML
+    public Button chatButton;
 
     public SimpleObjectProperty<Tile> selectedTileProperty()
     {
@@ -183,13 +187,19 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
                 40
         );
+        JavaFXUtils.setButtonIcons(
+                chatButton,
+                getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
+                getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
+                40
+        );
 
         miniMapCanvas.visibleProperty().bindBidirectional(miniMapStackPane.visibleProperty());
         miniMapCanvas.setVisible(false);
         JavaFXUtils.setButtonIcons(
                 mapButton,
-                getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
-                getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
+                getClass().getResource("/assets/icons/operation/chatWhite.png"),
+                getClass().getResource("/assets/icons/operation/chatBubbleWhite.png"),
                 40);
     }
 
@@ -547,6 +557,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                                 zoomableScrollPane.vvalueProperty(), mapSize, zoomableScrollPane.heightProperty(),
                                 zoomableScrollPane.widthProperty());
             initMiniMap();
+            initChat();
             miniMapDrawer.setCamera(camera);
         } else {
             // exception
@@ -578,6 +589,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureEndPhase();
 
         configureCells();
+    }
+
+    private void initChat() {
+        
     }
 
     private void configureCells() {
