@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
@@ -130,7 +131,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit unit = new Unit("10");
         unit.setHp(10);
         unit.setMp(10);
-        unit.setUnitType(UnitType.CHOPPER);
+        unit.setUnitType(UnitTypeInfo._CHOPPER);
         unit.setGame(game);
         unit.setPosition(game.getCells().get(11));
 
@@ -351,7 +352,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setPosition(playerUnit.getPosition().getBottom());
 
         Unit enemyUnit = new Unit("1");
-        enemyUnit.setUnitType(UnitType.BAZOOKA_TROOPER);
+        enemyUnit.setUnitType(UnitTypeInfo._BAZOOKA_TROOPER);
         enemyUnit.setPosition(playerUnit.getPosition().getRight());
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
@@ -472,12 +473,10 @@ public class BattleFieldViewTest extends ApplicationTest {
                     stage.setY(BASE_Y);
                     stage.show();
                 },
-                runnable -> Platform.runLater(runnable)
+                Platform::runLater
         );
 
         aVoid.get();
-
-
     }
 
     public static Game buildComplexTestGame() throws IOException {
@@ -563,7 +562,7 @@ public class BattleFieldViewTest extends ApplicationTest {
             unit.setPosition(game.getCells().get(i));
             unit.setHp(10);
             unit.setMp(10);
-            unit.setUnitType(UnitType.CHOPPER);
+            unit.setUnitType(UnitTypeInfo._CHOPPER);
         }
 
         return game;

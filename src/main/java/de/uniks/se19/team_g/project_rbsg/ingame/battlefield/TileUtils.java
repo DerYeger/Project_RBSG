@@ -148,13 +148,6 @@ public class TileUtils
         return size;
     }
 
-    public static String getUnitImagePath(UnitType unitType)
-    {
-        String imagePath;
-
-        return UnitTypeInfo.resolveType(unitType.name()).getImage().toExternalForm();
-    }
-
     public static Image getDecoratorImage()
     {
         Random random = new Random();

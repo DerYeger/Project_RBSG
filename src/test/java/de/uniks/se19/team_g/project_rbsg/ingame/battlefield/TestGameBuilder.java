@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class TestGameBuilder {
 
         Game game = definition.game;
         Unit chubbyCharles = definition.playerUnit;
-        definition.playerUnit.setUnitType(UnitType.HEAVY_TANK);
+        definition.playerUnit.setUnitType(UnitTypeInfo._HEAVY_TANK);
         Unit enemy = definition.otherUnit;
         chubbyCharles.setMp(4);
         game.withUnit(chubbyCharles);
@@ -69,9 +70,9 @@ public class TestGameBuilder {
 
         Game game = definition.game;
         Unit chubbyCharles = definition.playerUnit;
-        definition.playerUnit.setUnitType(UnitType.HEAVY_TANK);
+        definition.playerUnit.setUnitType(UnitTypeInfo._HEAVY_TANK);
         Unit enemy = definition.otherUnit;
-        enemy.setUnitType(UnitType.CHOPPER);
+        enemy.setUnitType(UnitTypeInfo._CHOPPER);
         chubbyCharles.setMp(4);
         game.withUnit(chubbyCharles);
         Cell[][] cells = definition.cells;
