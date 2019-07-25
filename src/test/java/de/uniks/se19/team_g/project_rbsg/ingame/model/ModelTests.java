@@ -126,7 +126,7 @@ public class ModelTests {
 
         assertEquals(game, grass.getGame());
         assertEquals(Biome.GRASS, grass.getBiome());
-        assertFalse(grass.isPassable());
+        assertTrue(grass.isPassable());
         assertEquals(1, grass.getX());
         assertEquals(0, grass.getY());
         assertEquals(forest, grass.getLeft());
