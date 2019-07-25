@@ -48,6 +48,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Keanu Stückrad
@@ -303,6 +304,10 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
 
+        if (handleAttack(tile)) {
+            return;
+        }
+
         if (handleMovement(tile)) {
             return;
         }
@@ -313,6 +318,31 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else {
             onTileSelection(tile);
         }
+    }
+
+    private boolean handleAttack(Tile tile) {
+
+        Cell targetCell = tile.getCell();
+        Unit selectedUnit = context.getGameState().getSelectedUnit();
+        Unit targetUnit = targetCell.getUnit();
+
+        if (
+               !context.isMyTurn()
+            || !context.getGameState().isPhase(Game.Phase.attackPhase)
+            || Objects.isNull(selectedUnit)
+            || selectedUnit.getLeader() != context.getUserPlayer()
+            || Objects.isNull(targetUnit)
+            || !targetCell.isIsAttackable()
+            || targetUnit.getLeader() == context.getUserPlayer()
+        ) {
+            return false;
+        }
+
+        context.getGameEventManager().api().attack(selectedUnit, targetUnit);
+        game.setSelectedUnit(null);
+        setSelectedTile(null);
+
+        return true;
     }
 
     private void onUnitSelection(Unit unitClicked, Tile tileClicked){
@@ -331,6 +361,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (!context.isMyTurn()) {
             return false;
         }
+        Game game = context.getGameState();
+
+        if (
+                !game.isPhase(Game.Phase.movePhase)
+            &&  !game.isPhase(Game.Phase.lastMovePhase)
+        ) {
+            return false;
+        }
 
         Cell cell = tile.getCell();
 
@@ -338,7 +376,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             return false;
         }
 
-        Unit selectedUnit = context.getGameState().getSelectedUnit();
+        Unit selectedUnit = game.getSelectedUnit();
         if (selectedUnit == null) {
             return false;
         }
@@ -353,13 +391,13 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         Map<String, Object> command = CommandBuilder.moveUnit(selectedUnit, tour.getPath());
-        context.getGameEventManager().sendMessage(command);
-        context.getGameState().setInitiallyMoved(true);
+        game.setInitiallyMoved(true);
         selectedUnit.setRemainingMovePoints(
                 selectedUnit.getRemainingMovePoints() - tour.getCost()
         );
-        context.getGameState().setSelectedUnit(null);
+        game.setSelectedUnit(null);
         setSelectedTile(null);
+        context.getGameEventManager().sendMessage(command);
 
         return true;
     }
@@ -576,7 +614,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         if ((!isMyUnit(selectedUnit)) || (!this.context.isMyTurn())) {
             return;
         }
-        if (this.context.getGameState().getPhase().equals(ATTACK_PHASE)) {
+        if (this.context.getGameState().isPhase(Game.Phase.attackPhase)) {
             setAttackRadius(selectedUnit);
         } else {
             setMoveRadius(selectedUnit);

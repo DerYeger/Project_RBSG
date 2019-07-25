@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Highlighting
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
@@ -183,6 +184,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         ).get();
         Assert.assertEquals(playerUnit.getMp(), playerUnit.getRemainingMovePoints());
 
+        context.getGameState().setPhase("movePhase");
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
         click(75, 150);
@@ -405,6 +407,56 @@ public class BattleFieldViewTest extends ApplicationTest {
 
 
 
+    }
+
+    @Test
+    public void testAttack() throws ExecutionException, InterruptedException {
+        BattleFieldController battleFieldController = battleFieldComponent.getController();
+
+        IngameApi ingameApi = mock(IngameApi.class);
+        GameEventManager gameEventManager = mock(GameEventManager.class);
+        when(gameEventManager.api()).thenReturn(ingameApi);
+
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob");
+        game.withPlayer(player);
+        playerUnit.setLeader(player);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+        revealBattleField(context);
+
+        game.setPhase(Game.Phase.attackPhase.name());
+        click(125, 200);
+        click( 125, 250);
+        click(125, 200);
+        game.setPhase(Game.Phase.movePhase.name());
+        click(175, 200);
+        verifyZeroInteractions(gameEventManager);
+        game.setPhase(Game.Phase.attackPhase.name());
+
+        click(125, 200);
+        click(175, 200);
+        verify(gameEventManager).api();
+        verifyNoMoreInteractions(gameEventManager);
+        verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
+
+        Assert.assertNull(game.getSelectedUnit());
+        Assert.assertNull(battleFieldController.getSelectedTile());
     }
 
 

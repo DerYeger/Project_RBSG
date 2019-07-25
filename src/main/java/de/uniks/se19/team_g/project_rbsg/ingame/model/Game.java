@@ -281,4 +281,14 @@ public class Game {
     public void setSelectedUnit(Unit selectedUnit) {
         this.selectedUnit.set(selectedUnit);
     }
+
+    public boolean isPhase(Phase phase) {
+        return phase.name().equals(getPhase());
+    }
+
+    public enum Phase {
+        movePhase,
+        attackPhase,
+        lastMovePhase
+    }
 }
