@@ -152,30 +152,7 @@ public class TileUtils
     {
         String imagePath;
 
-        switch (unitType)
-        {
-            case INFANTRY:
-                imagePath = UnitTypeInfo._5cc051bd62083600017db3b6.getImage().toExternalForm();
-                break;
-            case CHOPPER:
-                imagePath = UnitTypeInfo._5cc051bd62083600017db3bb.getImage().toExternalForm();
-                break;
-            case JEEP:
-                imagePath = UnitTypeInfo._5cc051bd62083600017db3b8.getImage().toExternalForm();
-                break;
-            case HEAVY_TANK:
-                imagePath = UnitTypeInfo._5cc051bd62083600017db3ba.getImage().toExternalForm();
-                break;
-            case LIGHT_TANK:
-                imagePath = UnitTypeInfo._5cc051bd62083600017db3b9.getImage().toExternalForm();
-                break;
-            case BAZOOKA_TROOPER:
-                imagePath = UnitTypeInfo._5cc051bd62083600017db3b7.getImage().toExternalForm();
-                break;
-            default:
-                imagePath = UnitTypeInfo.UNKNOWN.getImage().toExternalForm();
-        }
-        return imagePath;
+        return UnitTypeInfo.resolveType(unitType.name()).getImage().toExternalForm();
     }
 
     public static Image getDecoratorImage()
