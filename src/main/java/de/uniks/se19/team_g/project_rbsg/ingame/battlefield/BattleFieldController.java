@@ -304,8 +304,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         if (handleMovement(tile)) {
-            selectedTile.set(tile);
-            setCellProperty(this.context.getGameState().getSelectedUnit());
             return;
         }
 
@@ -360,6 +358,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         selectedUnit.setRemainingMovePoints(
                 selectedUnit.getRemainingMovePoints() - tour.getCost()
         );
+        context.getGameState().setSelectedUnit(null);
+        setSelectedTile(null);
 
         return true;
     }
@@ -431,7 +431,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         alertBuilder
                 .confirmation(
                         AlertBuilder.Text.END_PHASE,
-                        () -> doEndPhase(),
+                        this::doEndPhase,
                         null);
     }
 
@@ -475,10 +475,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         Game gameState = context.getGameState();
         game = gameState;
-        if (game == null) {
-            // exception
-        } else
-        {
+        if (game != null) {
             cells = game.getCells();
             units = game.getUnits();
 
@@ -498,6 +495,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
             initCanvas();
             initMiniMap();
+        } else {
+            // exception
         }
 
         //Add Event handler for actions on canvas

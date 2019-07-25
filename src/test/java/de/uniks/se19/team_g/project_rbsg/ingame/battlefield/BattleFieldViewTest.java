@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
@@ -15,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -224,13 +226,18 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
+        Assert.assertNull(game.getSelectedUnit());
+        SimpleObjectProperty<Tile> selectedTileProperty = battleFieldComponent.getController().selectedTileProperty();
+        Assert.assertNull(selectedTileProperty.get());
 
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
 
         // test no action, if user is not current player
         game.setCurrentPlayer(null);
+        verifyNoMoreInteractions(gameEventManager);
         click(75, 150);
+
     }
 
     @Test
