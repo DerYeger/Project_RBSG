@@ -191,19 +191,21 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
         context.getGameState().setPhase("movePhase");
+        WaitForAsyncUtils.waitForFxEvents();
 
         revealBattleField(context);
         CompletableFuture.runAsync(
             () -> game.setCurrentPlayer(player),
             Platform::runLater
         ).get();
+
         Assert.assertEquals(playerUnit.getMp(), playerUnit.getRemainingMovePoints());
 
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
         click(25, 100);
         Assert.assertNull(game.getSelectedUnit());
-        click(350, 150);
+        click(300, 175);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyZeroInteractions(movementManager);
@@ -214,7 +216,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(300, 200);
         //verify(movementManager).getTour(playerUnit, definition.cells[1][0]);
         Assert.assertNull(game.getSelectedUnit());
-        click(350, 150);
+        click(300, 175);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyNoMoreInteractions(movementManager);
@@ -238,7 +240,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         ).when(gameEventManager).sendMessage(any());
 
         // test move action fired, if reachable terrain is clicked
-        click(300, 150);
+        click(250, 175);
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
@@ -248,7 +250,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         // test no action, if user is not current player
         game.setCurrentPlayer(null);
-        click(300, 150);
+        click(350, 150);
     }
 
     @Test
@@ -322,6 +324,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
         context.getGameState().getCells().get(5).setUnit(null);
         context.getGameState().setPhase("movePhase");
+        WaitForAsyncUtils.waitForFxEvents();
+
         Tour tour = new Tour();
 
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(tour);
