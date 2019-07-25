@@ -15,8 +15,8 @@
 \contentsline {subsubsection}{\numberline {2.3.3}Ingame}{18}{subsubsection.2.3.3}% 
 \contentsline {subsubsubsection}{\numberline {2.3.3.1}Einheit ausw"ahlen}{19}{subsubsubsection.2.3.3.1}% 
 \contentsline {subsubsubsection}{\numberline {2.3.3.2}Einheit bewegen}{21}{subsubsubsection.2.3.3.2}% 
-\contentsline {subsubsubsection}{\numberline {2.3.3.3}Einheit angreifen}{21}{subsubsubsection.2.3.3.3}% 
-\contentsline {subsubsubsection}{\numberline {2.3.3.4}Spielende}{22}{subsubsubsection.2.3.3.4}% 
+\contentsline {subsubsubsection}{\numberline {2.3.3.3}Einheit angreifen}{22}{subsubsubsection.2.3.3.3}% 
+\contentsline {subsubsubsection}{\numberline {2.3.3.4}Spielende}{23}{subsubsubsection.2.3.3.4}% 
 \contentsline {subsubsubsection}{\numberline {2.3.3.5}Kontextmen"u}{24}{subsubsubsection.2.3.3.5}% 
 \contentsline {subsubsubsection}{\numberline {2.3.3.6}Weitere Features}{25}{subsubsubsection.2.3.3.6}% 
 \contentsline {subsection}{\numberline {2.4}Domain Stories}{26}{subsection.2.4}% 
