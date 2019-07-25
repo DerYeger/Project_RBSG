@@ -341,7 +341,7 @@
     				\label{Coverage}
 			    \end{figure}
 	    \subsection{MockUps}
-	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zu Lobby und Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergeben haben (Das Kontextmen"u wurde durch eine Sidebar ersetzt. SIehe \ref{MockUps_Sidebar_Section}). Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
+	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zur Lobby und zum Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergeben haben (Ein Kontextmen"u wurde durch eine Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
 	        \subsubsection{Lobby}
 	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubt einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
 	            \begin{figure}[H] 
@@ -351,7 +351,7 @@
     				\label{Watch_Mode}
 			    \end{figure}
 		    \subsubsection{Waiting Room (Gamelobby)}
-		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"sstenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indicator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps war auch ein optionales Feature zu sehen. Dies war das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. \\
+		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"sstenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indicator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps waren auch zwei optionale Features zu sehen. Dies war einmal das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. Und au"sserdem sollte oben in der Mitte der Name des Spiels angezeigt werden (siehe auf den MockUps mit Beispielnamen \glqq Enhanced Wars\grqq). \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/NotReady.png}
@@ -443,23 +443,15 @@
     				    \caption{MockUp: Beobachtungsmodus: Spiel vorbei}
     				    \label{Spactator_End}
 			        \end{figure}
-			    \subsubsubsection{Kontextmen"u} \label{MockUps_Sidebar_Section}
-			        TODO: Schreiben
 			    \subsubsubsection{Weitere Features}
-			        Es soll f"ur den Nutzer m"oglich sein, "uber einen Button seine jeweilige Phase zu beenden und in die n"achste zu wechseln. Nach Beenden aller drei Phasen, soll auch die Runde beendet werden. Wenn ein Gegner an der Reihe ist, muss der Phase beenden Button disabled sein. Beim Beenden der Phasen soll immer ein Overlay angezeigt werden (siehe Abbildung \ref{Phase_End}). \\
+			        Es sollte f"ur den Nutzer m"oglich sein, "uber einen Button die Phase beenden zu k"onnen und in die n"achste zu wechseln. Nach Beenden aller drei Phasen, musste auch die Runde beendet werden. Wenn ein Gegner an der Reihe war, musste der Phase beenden Button disabled sein. Beim Beenden der Phasen sollte immer ein Overlay angezeigt werden (siehe Abbildung \ref{Phase_End}). \\
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/EndPhase.png}
     				    \caption{MockUp: Phase beenden}
     				    \label{Phase_End}
 			        \end{figure}
-			        \ \\ Ein weiteres Feature ist, dass wenn der Nutzer "uber irgendeine Einheit hovert, alle Properties der Einheit angezeigt werden (siehe Abbildung \ref{Property_Info}). \\
-			        \begin{figure}[H] 
-    				    \centering
-    				    \includegraphics[width=0.8\textwidth]{images/mockUps/showPropertiesWhenHovered.png}
-    				    \caption{MockUp: Property Info}
-    				    \label{Property_Info}
-			        \end{figure}
+			        \ \\ Es gab ein weiteres Feature, bei dem der Nutzer "uber eine Einheit hovern konnte, und je nachdem "uber welche Einheit der Nutzer hoverte, aktualisierten sich alle Properties und das Bild der gehoverten Einheit in der Sidebar. Die Einheiten des Spielers, der an der Reihe war, sollten in der oberen Box der Sidebar angezeigt werden. Die Einheiten der restlichen Spieler, die nicht an der Reihe waren, sollten in der unteren Box angezeigt werden. Zu Beginn jeder neuen Runde und sollten die beiden Boxen immer wieder leer sein und sich erst wieder f"ullen, wenn "uber eine EInheit gehovert bzw. wenn eine Aktion mit einer Einheit ausgef"uhrt wurde.
 		\subsection{Domain Stories}
 		    Domain Stories wurden einmal zum Ready geben f"ur den Waiting Room und einmal f"ur das Bewegen von Einheiten Ingame angefertigt. \\
 		    TODO: Bilder einpflegen und beschreiben?
@@ -475,7 +467,7 @@
 	            \item Einheiten auszuw"ahlen, zu bewegen und anzugreifen
 	            \item Den Spielstatus zu sehen und Phasen zu beenden
 	        \end{itemize}
-	        Falls die Entwicklung schneller als erwartet voranschreiten sollte, würden der Ingamechat und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden "uber 80 Storypoints abgearbeitet werden, was bei vier Entwicklern als ein guter Fortschritt gewertet werden kann.
+	        Falls die Entwicklung schneller als erwartet voranschreiten sollte, w"urden der Ingamechat und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden "uber 80 Storypoints abgearbeitet werden, was bei vier Entwicklern als ein guter Fortschritt gewertet werden kann.
 	    \subsection{User Stories} \label{User_Stories_5}
 	        Die User Stories, die vom Product Owner erstellt wurden, sind wie gefolgt aufgebaut: Dem Titel kann entnommen werden zu welcher Szene die Story geh"ort. Anschlie"ssend werden die Story Points und der zugeteilte Entwickler genannt. Danach folgt das Ziel und die Story selbst. Das Ziel fasst die Subtasks, die der Scrum Master erstellt hat, zusammen.
 	        \subsubsection{Waiting Room - Spielbeitritt anpassen}
@@ -635,7 +627,7 @@
 					Karli befindet ist einem Spiel beigetreten und befindet sich im Waiting Room. Karli hat Langeweile, da noch nicht alle ready sind. Karli spielt so lange Tic Tac Toe, bis das Spiel startet.
     \newpage
         \subsection{Zeit"ubersicht}
-        	Diese \"Ubersicht zeigt alle Stories, welche im Rahmen der Sprintziele bearbeitet werden sollten. Wie zu erkennen ist wurden nicht alle Stories abgeschlossen. Es wurden jedoch schon umfangreichere Grundlagen f\"ur Features des sechsten Sprints gelegt.
+        	Diese \"Ubersicht zeigt alle Stories, welche im Rahmen der Ziele bearbeitet werden sollten. Wie zu erkennen ist wurden nicht alle Stories abgeschlossen. Es wurden jedoch schon umfangreichere Grundlagen f\"ur Features des sechsten Sprints gelegt.
         	\begin{longtable}[H]{p{6cm} c c c c }
         			\label{Time_1}
        				\textbf{User Story} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
@@ -657,7 +649,7 @@
         \subsection{Analyse}
         	Der f\"unfte Sprint endete am 21.7.2019. Das Team schaffte 29 der 116 gesch\"atzten Storypoints.
         	\subsubsection{Burndown}
-        		Wie im Burndown-Diagramm zu erkennen ist, wurden diesen Sprint nur vier Stories mit einem Umfang von 29 Storypoints abgeschlossen (siehe Kapitel \ref{done_stories_5}). Wie Tabelle \ref{Time_1} zeigt, betr\"agt die Arbeitszeit trotzdem 84 Stunden. Die Hauptursache ist die Untersch\"atzung der Aufgabenumf\"ange, wodurch mehrere begonnene Stories in diesem Sprint nicht mehr abgeschlossen werden konnten und andere deutlich mehr Zeit als erwartet in Anspruch nahmen. Zudem f\"uhrte die in diesem Release h\"ohere Anzahl an blockierenden und relatierten Tasks zu einer insgesamt langsamereren Entwicklung, da sich die Entwickler h\"aufig miteiander abrsprechen mussten.
+        		Wie im Burndown-Diagramm zu erkennen ist, wurden diesen Sprint nur vier Stories mit einem Umfang von 29 Storypoints abgeschlossen (siehe Kapitel \ref{done_stories_5}). Wie Tabelle \ref{Time_1} zeigt, betr\"agt die Arbeitszeit trotzdem 84 Stunden. Die Hauptursache ist die Untersch\"atzung der Aufgabenumf\"ange, wodurch mehrere begonnene Stories in diesem Sprint nicht mehr abgeschlossen werden konnten und andere deutlich mehr Zeit als erwartet in Anspruch nahmen. Zudem f\"uhrte die in diesem Release h\"ohere Anzahl an blockierenden und relatierten Tasks zu einer insgesamt langsamereren Entwicklung, da sich die Entwickler h\"aufig miteiander absprechen mussten.
 	        	\begin{figure}[H] 
 	        		\centering
 	        		\includegraphics[width=\textwidth]{images/sprintV/burndown.png}
@@ -720,7 +712,7 @@
         	\subsubsection{Entfernte Tasks}
         		Am Ende des f\"unften Sprints wurden der Task \glqq Einheiteninformationen im Datenmodell\grqq\ aus dem Sprint in das Backlog verschoben, da er nicht Teil der Mindestanforderung ist.
         	\subsubsection{Fazit}
-        		Die Ziele des Sprints wurden verfehlt. Um die Mindestanforderungen zu erreichen musste das Entwicklerteam seine Produktivit\"at im sechsten Sprint deutlich steigern. Da die C0 Abdeckung (siehe Abbildung \ref{Coverage_5}) zum Ende des f\"unften Sprints bereits 79\% betrug gab es bei der Qualit\"atssicherung keine Defizite.
+        		Die Ziele des Sprints wurden verfehlt. Um die Mindestanforderungen zu erreichen musste das Entwicklerteam seine Produktivit\"at im sechsten Sprint deutlich steigern. Da die C0 Abdeckung (siehe Abbildung \ref{Coverage_5}) zum Ende des f\"unften Sprints bereits 79\% betrug, gab es bei der Qualit\"atssicherung keine Defizite.
         		\begin{figure}[H] 
         			\centering
         			\includegraphics[width=0.8\textwidth]{images/sprintV/coverage.png}
