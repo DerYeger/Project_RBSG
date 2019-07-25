@@ -1,13 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
-import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -59,9 +58,15 @@ public class UnitListCellController extends ListCell<Unit> implements Initializa
             return;
         }
 
-        unitName.textProperty()
-            .bind( JavaFXUtils.bindTranslation(selectedLocale, unit.getNameKey())
-        );
+        StringProperty textProperty = unitName.textProperty();
+        if (unit.getTypeInfo() == UnitTypeInfo.UNKNOWN) {
+            textProperty.unbind();
+            textProperty.setValue(unit.type.get());
+        } else {
+            textProperty.bind(
+                    JavaFXUtils.bindTranslation(selectedLocale, unit.getNameKey())
+            );
+        }
 
         final ObjectProperty<Image> imageObjectProperty = imageView.imageProperty();
         JavaFXUtils.bindImage(imageObjectProperty, unit.iconUrl);
