@@ -616,7 +616,12 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     public void openChat(){
-        chatPane.setVisible(true);
+        if(chatPane.isVisible()){
+            chatPane.setVisible(false);
+        }
+        else {
+            chatPane.setVisible(true);
+        }
     }
 
     private void configureCells() {
