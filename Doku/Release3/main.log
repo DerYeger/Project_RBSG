@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  25 JUL 2019 12:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  25 JUL 2019 12:19
 entering extended mode
 **./main.tex
 (main.tex
@@ -5093,17 +5093,13 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 866.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 866.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 866.
  ) 
 Here is how much of TeX's memory you used:
- 12696 strings out of 492895
- 211377 string characters out of 3123735
- 431812 words of memory out of 3000000
- 16078 multiletter control sequences out of 15000+200000
+ 12695 strings out of 492895
+ 211362 string characters out of 3123735
+ 430812 words of memory out of 3000000
+ 16077 multiletter control sequences out of 15000+200000
  27425 words of font info for 54 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,15n,87p,9112b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -5114,7 +5110,7 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/urw/helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2
 .9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (47 pages, 4901594 bytes).
+Output written on main.pdf (47 pages, 4900721 bytes).
 PDF statistics:
  1330 PDF objects out of 1440 (max. 8388607)
  274 named destinations out of 1000 (max. 500000)
