@@ -408,7 +408,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             if(!l.next()){
                 return;
             }
-            List<Player> removedPlayer = l.getRemoved();
+            @SuppressWarnings("unchecked")
+            List<Player> removedPlayer = (List<Player>)l.getRemoved();
             Platform.runLater(()->{
                 for(Player player : removedPlayer){
                     playerPaneMap.get(player.getId()).getChildren().remove(0);
