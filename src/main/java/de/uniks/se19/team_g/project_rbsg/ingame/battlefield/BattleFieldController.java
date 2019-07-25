@@ -620,8 +620,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             chatPane.setVisible(false);
             JavaFXUtils.setButtonIcons(
                     chatButton,
-                    getClass().getResource("/assets/icons/operation/chatWhite.png"),
-                    getClass().getResource("/assets/icons/operation/chatBlack.png"),
+                    getClass().getResource("/assets/icons/operation/chatBubbleWhite.png"),
+                    getClass().getResource("/assets/icons/operation/chatBubbleBlack.png"),
                     40
             );
         }
@@ -629,8 +629,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             chatPane.setVisible(true);
             JavaFXUtils.setButtonIcons(
                     chatButton,
-                    getClass().getResource("/assets/icons/operation/chatBubbleWhite.png"),
-                    getClass().getResource("/assets/icons/operation/chatBubbleBlack.png"),
+                    getClass().getResource("/assets/icons/operation/chatWhite.png"),
+                    getClass().getResource("/assets/icons/operation/chatBlack.png"),
                     40
             );
         }
