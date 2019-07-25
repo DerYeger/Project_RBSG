@@ -3,7 +3,10 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
@@ -105,8 +108,13 @@ public class BattleFieldController implements RootController, IngameViewControll
     private int mapSize;
     private Camera camera;
 
+    private final ChatBuilder chatBuilder;
+    private ChatController chatController;
+
     @FXML
     public Button chatButton;
+    @FXML
+    public StackPane chatPane;
 
     public SimpleObjectProperty<Tile> selectedTileProperty()
     {
@@ -136,7 +144,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     public BattleFieldController(
             @NonNull final SceneManager sceneManager,
             @NonNull final AlertBuilder alertBuilder,
-            @Nonnull final MovementManager movementManager
+            @Nonnull final MovementManager movementManager,
+            @NonNull final ChatBuilder chatBuilder,
+            @NonNull final ChatController chatController
     ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
@@ -145,6 +155,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
+        this.chatBuilder=chatBuilder;
+        this.chatController=chatController;
     }
 
     public Tile getHoveredTile()
@@ -557,7 +569,11 @@ public class BattleFieldController implements RootController, IngameViewControll
                                 zoomableScrollPane.vvalueProperty(), mapSize, zoomableScrollPane.heightProperty(),
                                 zoomableScrollPane.widthProperty());
             initMiniMap();
-            initChat();
+            try {
+                initChat();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             miniMapDrawer.setCamera(camera);
         } else {
             // exception
@@ -591,12 +607,15 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureCells();
     }
 
-    private void initChat() {
-
+    private void initChat() throws Exception {
+        final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
+        chatPane.getChildren().add(chatComponents.getRoot());
+        chatController = chatComponents.getController();
+        chatPane.setVisible(false);
     }
 
     public void openChat(){
-
+        chatPane.setVisible(true);
     }
 
     private void configureCells() {
