@@ -13,6 +13,10 @@ public class IngameApi {
         this.gameEventManager = gameEventManager;
     }
 
+    public GameEventManager getGameEventManager() {
+        return gameEventManager;
+    }
+
     public void attack(Unit attacker, Unit target) {
         gameEventManager.sendMessage(buildAttack(attacker, target));
     }
