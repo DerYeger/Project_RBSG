@@ -35,6 +35,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -166,6 +167,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     @FXML
     public HBox ingameInformationHBox;
+    @FXML
+    public HBox menueBar;
 
     private PlayerListController playerListController;
 
@@ -236,7 +239,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         miniMapCanvas.visibleProperty().bindBidirectional(miniMapStackPane.visibleProperty());
-        miniMapCanvas.setVisible(false);
+        miniMapCanvas.setVisible(true);
         JavaFXUtils.setButtonIcons(
                 mapButton,
                 getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
@@ -440,6 +443,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.setText("Phase");
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
+        //ingameInformationHBox.setSpacing(10);
+        HBox.setMargin(ingameInformationHBox, new Insets(10,10 ,10,10));
         //phaseLabel.textProperty().bind(this.game.phaseProperty());
         roundTextLabel.textProperty().setValue("Round");
     }
