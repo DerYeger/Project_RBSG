@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -12,6 +14,8 @@ public class Cell {
 
     @NonNull
     private final String id;
+
+    private Tile tile;
 
     private Game game;
 
@@ -28,6 +32,10 @@ public class Cell {
     private Cell bottom;
 
     private SimpleObjectProperty<Unit> unit;
+
+    private SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
+
+    private SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
 
     public Cell(@NonNull final String id) {
         this.id = id;
@@ -48,7 +56,7 @@ public class Cell {
     }
 
     public boolean isPassable() {
-        return isPassable && getUnit() == null;
+        return isPassable;
     }
 
     public int getX() {
@@ -205,8 +213,43 @@ public class Cell {
         setUnit(null);
     }
 
+
+    public boolean isIsReachable() {
+        return isReachable.get();
+    }
+
+    public SimpleBooleanProperty isReachableProperty() {
+        return isReachable;
+    }
+
+    public void setIsReachable(boolean isReachable) {
+        this.isReachable.set(isReachable);
+    }
+
     @Override
     public String toString() {
         return "(" + biome + ", " + x + ", " + y + ")";
+    }
+
+
+    public Tile getTile() {
+        return tile;
+    }
+
+    public void setTile(Tile tile) {
+        this.tile = tile;
+    }
+
+
+    public boolean isIsAttackable() {
+        return isAttackable.get();
+    }
+
+    public SimpleBooleanProperty isAttackableProperty() {
+        return isAttackable;
+    }
+
+    public void setIsAttackable(boolean isAttackable) {
+        this.isAttackable.set(isAttackable);
     }
 }
