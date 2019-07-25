@@ -142,7 +142,7 @@
 \contentsline {subsubsection}{\numberline {3.6.6}Fazit}{37}{subsubsection.3.6.6}% 
 \contentsline {section}{\numberline {4}Sprint \textup {\uppercase {vi}}}{38}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Sprintziel}{38}{subsection.4.1}% 
-\contentsline {subsection}{\numberline {4.2}Ge"anderte User Stories vom Sprint \textup {\uppercase {v}}}{38}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.2}Ge\"anderte User Stories vom Sprint \textup {\uppercase {v}}}{38}{subsection.4.2}% 
 \contentsline {subsubsection}{\numberline {4.2.1}Ingame - Minikarte anzeigen}{38}{subsubsection.4.2.1}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{38}{section*.116}% 
 \contentsline {paragraph}{\nonumberline Ge"andertes Ziel}{38}{section*.117}% 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  25 JUL 2019 12:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  25 JUL 2019 12:29
 entering extended mode
 **./main.tex
 (main.tex
@@ -3859,7 +3859,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.744 ...e"anderte User Stories vom Sprint \RN{5}}
+l.744 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3868,7 +3868,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.744 ...e"anderte User Stories vom Sprint \RN{5}}
+l.744 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3880,7 +3880,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.744 ...e"anderte User Stories vom Sprint \RN{5}}
+l.744 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3889,7 +3889,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.744 ...e"anderte User Stories vom Sprint \RN{5}}
+l.744 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5110,7 +5110,7 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/urw/helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2
 .9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (47 pages, 4900726 bytes).
+Output written on main.pdf (47 pages, 4900372 bytes).
 PDF statistics:
  1330 PDF objects out of 1440 (max. 8388607)
  274 named destinations out of 1000 (max. 500000)
