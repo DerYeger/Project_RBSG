@@ -27,9 +27,10 @@ public class UnitInfoBoxController implements Initializable, Terminable
     private ChangeListener<Unit> unitChangeListener;
     private ChangeListener<Number> hpChangeListener;
 
-    private ObjectProperty<Unit> unit;
-    private StringProperty hpText;
-    private StringProperty mpText;
+    private ObjectProperty<Unit> unit = new SimpleObjectProperty<>();
+    private StringProperty hpText = new SimpleStringProperty("No unit selected");
+    private StringProperty mpText = new SimpleStringProperty("-");
+    private StringProperty defaultText = new SimpleStringProperty("-");
 
     private PropertyInfoBuilder propertyInfoBuilder;
 
@@ -41,8 +42,6 @@ public class UnitInfoBoxController implements Initializable, Terminable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        unit = new SimpleObjectProperty<>();
-        hpText = new SimpleStringProperty(null);
         unitChangeListener = this::unitChanged;
         hpChangeListener = this::hpChanged;
         unit.addListener(unitChangeListener);
@@ -50,10 +49,10 @@ public class UnitInfoBoxController implements Initializable, Terminable
 
         firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/hpIcon.png").toExternalForm(), hpText));
         secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/mpIcon.png").toExternalForm(), mpText));
-        secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(null, null));
-        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(null, null));
-        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(null, null));
-        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(null, null));
+        secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
+        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
+        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
+        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
     }
 
     private void hpChanged(ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
@@ -67,6 +66,7 @@ public class UnitInfoBoxController implements Initializable, Terminable
             Image image = new Image(TileUtils.getUnitImagePath(unit.get().getUnitType()));
             unitImageView.setImage(image);
             unit.get().hpProperty().addListener(hpChangeListener);
+            hpText.set(String.format("%d / %d ", unit.get().getHp(), 9000));
             mpText.set(String.valueOf(unit.get().getMp()));
         }
         else {

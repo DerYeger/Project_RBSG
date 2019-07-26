@@ -131,6 +131,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     final private SimpleObjectProperty<Tile> selectedTile;
     @Nonnull
     final private SimpleObjectProperty<Tile> hoveredTile;
+    @Nonnull
+    final private SimpleObjectProperty<Unit> hoveredUnit;
+
 
     @Nonnull
     private final MovementManager movementManager;
@@ -150,6 +153,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
+        this.hoveredUnit = new SimpleObjectProperty<>(null);
         this.unitInfoBoxBuilder = new UnitInfoBoxBuilder();
     }
 
@@ -165,7 +169,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void initialize()
     {
-
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -193,8 +196,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
                 40
         );
-
-
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -211,6 +212,10 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         if(newTile != null && newTile.getHighlightingTwo() == HighlightingTwo.NONE) {
             newTile.setHighlightingTwo(HighlightingTwo.HOVERED);
+        }
+
+        if(newTile != null && newTile.getCell().getUnit() != null) {
+            hoveredUnit.set(newTile.getCell().getUnit());
         }
         miniMapDrawer.drawMinimap(tileMap);
     }
@@ -525,10 +530,13 @@ public class BattleFieldController implements RootController, IngameViewControll
                                 zoomableScrollPane.vvalueProperty(), mapSize, zoomableScrollPane.heightProperty(),
                                 zoomableScrollPane.widthProperty());
             initMiniMap();
-            miniMapDrawer.setCamera(camera);
+
         } else {
             // exception
         }
+
+        unitInformationContainer.getChildren().add(unitInfoBoxBuilder.build(game.selectedUnitProperty()));
+        unitInformationContainer.getChildren().add(unitInfoBoxBuilder.build(hoveredUnit));
 
         //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
@@ -657,7 +665,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         int xPos = miniMapDrawer.getXPostionOnMap(mouseEvent.getX());
         int yPos = miniMapDrawer.getYPostionOnMap(mouseEvent.getY());
-        logger.debug("Pos: " + xPos + " " + yPos);
         camera.TryToCenterToPostition(xPos, yPos);
         miniMapDrawer.drawMinimap(tileMap);
     }
@@ -695,6 +702,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void initMiniMap()
     {
         miniMapDrawer.setCanvas(miniMapCanvas, mapSize);
+        miniMapDrawer.setCamera(camera);
         miniMapDrawer.drawMinimap(tileMap);
     }
     @Override
