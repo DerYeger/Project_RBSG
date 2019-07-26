@@ -21,7 +21,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <VBox fx:id="root" styleClass="root-background-color" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
+            <VBox fx:id="root" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="118.0" spacing="10.0" styleClass="root-background-color">
                      <children>
@@ -35,12 +35,12 @@
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="musicButton" mnemonicParsing="false" styleClass="icon-button" />
                         <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Button>
+                        <Button fx:id="musicButton" mnemonicParsing="false" styleClass="icon-button" />
                         <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button">
                            <padding>
                               <Insets top="10.0" />
@@ -49,9 +49,9 @@
                         <Button fx:id="playerButton" mnemonicParsing="false" styleClass="icon-button" />
                         <Button fx:id="chatButton" mnemonicParsing="false" styleClass="icon-button" />
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" top="10.0" />
-                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                   <StackPane fx:id="battlefieldStackPane">
                      <children>
@@ -59,22 +59,42 @@
                      </children>
                   </StackPane>
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="root-background-color" />
+                  <String fx:value="battlefieldContainer" />
+               </styleClass>
             </VBox>
-            <VBox fx:id="sidebar" prefHeight="200.0" prefWidth="100.0" styleClass="root-background-color">
+            <VBox fx:id="sidebar" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <VBox fx:id="unitInformationContainer" prefHeight="200.0" prefWidth="100.0" />
-                  <VBox styleClass="buttonVBox">
+                  <VBox fx:id="unitInformationContainer" prefHeight="200.0" prefWidth="100.0">
+                     <styleClass>
+                        <String fx:value="boxSpacing" />
+                        <String fx:value="contentVBox" />
+                     </styleClass></VBox>
+                  <VBox>
                      <children>
                         <Button fx:id="actionButton" mnemonicParsing="false" styleClass="icon-with-text" text="Attack" />
                         <Button fx:id="Cancel" mnemonicParsing="false" styleClass="icon-with-text" text="Cancel" />
                      </children>
+                     <styleClass>
+                        <String fx:value="buttonBox" />
+                        <String fx:value="contentVBox" />
+                        <String fx:value="elevation-2" />
+                     </styleClass>
                   </VBox>
                   <StackPane fx:id="miniMapStackPane" prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Canvas fx:id="miniMapCanvas" height="200.0" width="200.0" />
+                        <Canvas fx:id="miniMapCanvas" height="200.0" width="200.0" StackPane.alignment="CENTER" />
                      </children>
                   </StackPane>
                </children>
+               <styleClass>
+                  <String fx:value="root-background-color" />
+                  <String fx:value="sidebarContainer" />
+               </styleClass>
             </VBox>
          </children>
          <stylesheets>

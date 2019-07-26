@@ -196,6 +196,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
                 40
         );
+
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -535,8 +536,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             // exception
         }
 
-        unitInformationContainer.getChildren().add(unitInfoBoxBuilder.build(game.selectedUnitProperty()));
-        unitInformationContainer.getChildren().add(unitInfoBoxBuilder.build(hoveredUnit));
 
         //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
@@ -564,6 +563,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureEndPhase();
 
         configureCells();
+
+        unitInformationContainer.getChildren().add(unitInfoBoxBuilder.build(game.selectedUnitProperty()));
+        unitInformationContainer.getChildren().add(unitInfoBoxBuilder.build(hoveredUnit));
     }
 
     private void configureCells() {

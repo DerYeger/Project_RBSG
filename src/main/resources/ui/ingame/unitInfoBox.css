@@ -1,0 +1,7 @@
+.unitInfoContainer {
+    -fx-padding: 5px;
+}
+
+VBox, HBox {
+    -fx-spacing: 5px;
+}

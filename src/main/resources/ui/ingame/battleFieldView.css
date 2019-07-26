@@ -1,8 +1,25 @@
-.miniMapBox {
-    -fx-background-color: -root-background-color;
-    -fx-padding: 2;
+.buttonBox {
+    -fx-spacing: 10;
 }
 
-.buttonVBox {
+.boxSpacing {
     -fx-spacing: 10;
+}
+
+.sidebarContainer {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.battlefieldContainer {
+    -fx-padding: 10;
+}
+
+.contentVBox {
+    -fx-padding: 10 0;
+    -fx-alignment: center;
+}
+
+.actionVBox button {
+    -fx-effect:  none;
 }

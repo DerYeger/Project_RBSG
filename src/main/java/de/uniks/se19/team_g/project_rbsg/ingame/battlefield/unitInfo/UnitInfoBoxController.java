@@ -1,21 +1,18 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TileUtils;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.termination.*;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
+import javafx.fxml.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import org.slf4j.*;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import javax.annotation.*;
+import java.net.*;
+import java.util.*;
 
 public class UnitInfoBoxController implements Initializable, Terminable
 {
@@ -33,6 +30,8 @@ public class UnitInfoBoxController implements Initializable, Terminable
     private StringProperty defaultText = new SimpleStringProperty("-");
 
     private PropertyInfoBuilder propertyInfoBuilder;
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public UnitInfoBoxController()
     {
@@ -62,26 +61,30 @@ public class UnitInfoBoxController implements Initializable, Terminable
 
     private void unitChanged(ObservableValue<? extends Unit> observableValue, Unit oldUnit, Unit newUnit)
     {
-        if(newUnit != null) {
+        logger.debug("Unit changed!");
+        if (newUnit != null)
+        {
             Image image = new Image(TileUtils.getUnitImagePath(unit.get().getUnitType()));
             unitImageView.setImage(image);
             unit.get().hpProperty().addListener(hpChangeListener);
             hpText.set(String.format("%d / %d ", unit.get().getHp(), 9000));
             mpText.set(String.valueOf(unit.get().getMp()));
         }
-        else {
+        else
+        {
             Image image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm());
             unitImageView.setImage(image);
             hpText.set("No unit selected");
             mpText.set("-");
         }
 
-        if(oldUnit != null) {
+        if (oldUnit != null)
+        {
             oldUnit.hpProperty().removeListener(hpChangeListener);
         }
     }
 
-    public void bindUnit(ObjectProperty<Unit> unit)
+    public void bindUnit(@Nonnull final ReadOnlyObjectProperty<Unit> unit)
     {
         this.unit.bind(unit);
     }

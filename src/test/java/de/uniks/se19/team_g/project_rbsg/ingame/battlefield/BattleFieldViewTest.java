@@ -140,9 +140,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(25, 150);
         click(75, 150);
 
-        Button button = lookup("#mapButton").query();
-        clickOn("#mapButton");
-        clickOn("#mapButton");
     }
 
 

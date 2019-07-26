@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxController">
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxController">
    <children>
       <VBox>
          <children>
@@ -16,10 +17,10 @@
                <children>
                   <VBox fx:id="firstPropertyContainer">
                      <children>
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <StackPane>
                            <children>
-                              <Pane />
-                              <ImageView fx:id="unitImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                              <Pane styleClass="elevation-8" />
+                              <ImageView fx:id="unitImageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../assets/unit/portrait/soldier.gif" />
                                  </image>
@@ -35,4 +36,12 @@
       </VBox>
       <VBox fx:id="thirdPropertyContainer" />
    </children>
+   <stylesheets>
+      <URL value="@../darkTheme.css" />
+      <URL value="@unitInfoBox.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="elevation-2" />
+      <String fx:value="unitInfoContainer" />
+   </styleClass>
 </HBox>
