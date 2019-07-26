@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
@@ -100,6 +101,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button endPhaseButton;
     public Pane endPhaseButtonContainer;
     public VBox root;
+    public Button musicButton;
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
     public StackPane battlefieldStackPane;
@@ -145,6 +147,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Nonnull
     private final MovementManager movementManager;
+    @Nonnull
+    private final MusicManager musicManager;
 
     private IngameContext context;
 
@@ -180,13 +184,15 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Autowired
     public BattleFieldController(
-            @NonNull final SceneManager sceneManager,
-            @NonNull final AlertBuilder alertBuilder,
-            @Nonnull final MovementManager movementManager
-    ) {
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final AlertBuilder alertBuilder,
+            @Nonnull final MovementManager movementManager,
+            @Nonnull final MusicManager musicManager
+            ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.movementManager = movementManager;
+        this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
@@ -248,6 +254,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
                 getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
                 40);
+
+        musicManager.initButtonIcons(musicButton);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -434,18 +442,15 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.game.phaseProperty().addListener(((observable, oldValue, newValue) -> {
             switch(newValue){
                 case "movePhase": {
-                    File file = new File(String.valueOf(this.getClass().getResource("/assets/icons/operation/footstepsWhite.png")));
-                    Image image = new Image(String.valueOf(file));
+                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/footstepsWhite.png"));
                     phaseImage.imageProperty().setValue(image);
                 }break;
                 case "attackPhase": {
-                    File file = new File(String.valueOf(this.getClass().getResource("/assets/icons/operation/swordClashWhite.png")));
-                    Image image = new Image(String.valueOf(file));
+                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/swordClashWhite.png"));
                     phaseImage.imageProperty().setValue(image);
                 }break;
                 case "lastMovePhase": {
-                    File file = new File(String.valueOf(this.getClass().getResource("/assets/icons/operation/footprintWhite.png")));
-                    Image image = new Image(String.valueOf(file));
+                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/footprintWhite.png"));
                     phaseImage.imageProperty().setValue(image);
                 }break;
             }
@@ -919,5 +924,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerBar.visibleProperty().setValue(false);
             playerBar.toBack();
         }
+    }
+
+    public void toggleMusic() {
+        musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
     }
 }
