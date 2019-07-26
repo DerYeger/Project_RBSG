@@ -52,6 +52,6 @@ public class StartViewController implements RootController {
     }
 
     public void toggleSound(ActionEvent actionEvent) {
-        musicManager.updateMusicButtonIcons(musicButton);
+        musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
     }
 }
