@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
@@ -371,6 +372,8 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         context.getUser().setName("Bob");
         revealBattleField(context);
+        Tile unitTile = playerUnit.getPosition().getTile();
+
         context.getGameState().setPhase("attackPhase");
 
         Assert.assertFalse(enemyUnit.isAttackable());
@@ -378,6 +381,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         game.setSelectedUnit(playerUnit);
 
@@ -386,6 +392,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertTrue(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertTrue(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
 
@@ -394,12 +402,13 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
 
-
-
-
+        context.getGameState().setPhase("movePhase");
+        battleFieldController.setSelectedTile(unitTile);
+        battleFieldController.setSelectedTile(unitTile);
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
     }
-
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions
