@@ -208,7 +208,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     public void toggleSound() {
-        musicManager.updateMusicButtonIcons(soundButton);
+        musicManager.toggleMusicAndUpdateButtonIconSet(soundButton);
     }
 
     private void showMapPreview(@NonNull final List<Cell> cells) {

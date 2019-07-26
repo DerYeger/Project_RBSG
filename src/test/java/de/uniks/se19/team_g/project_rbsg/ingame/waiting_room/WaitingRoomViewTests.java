@@ -188,9 +188,9 @@ public class WaitingRoomViewTests extends ApplicationTest {
         Button musicButton = lookup("#soundButton").query();
         Assert.assertNotNull(musicButton);
         clickOn("#soundButton");
-        verify(musicManager, Mockito.times(1)).updateMusicButtonIcons(musicButton);
+        verify(musicManager, Mockito.times(1)).toggleMusicAndUpdateButtonIconSet(musicButton);
         clickOn("#soundButton");
-        verify(musicManager, Mockito.times(2)).updateMusicButtonIcons(musicButton);
+        verify(musicManager, Mockito.times(2)).toggleMusicAndUpdateButtonIconSet(musicButton);
         Button leaveButton = lookup("#leaveButton").query();
         Assert.assertNotNull(leaveButton);
         clickOn("#leaveButton");

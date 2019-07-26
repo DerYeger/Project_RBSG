@@ -63,15 +63,24 @@ public class MusicManager {
         }
     }
 
-    public void updateMusicButtonIcons(Button soundButton) {
-        musicRunning = !musicRunning;
+    public void toggleMusicAndUpdateButtonIconSet(Button soundButton) {
+
+        setMusicRunning(!musicRunning);
+
         if(musicRunning) {
-            initMusic();
             JavaFXUtils.setButtonIcons(soundButton, musicNoteWhite, musicNoteBlack, ICON_SIZE);
         } else {
-            stopMusic();
             JavaFXUtils.setButtonIcons(soundButton, musicNoteWhiteOff, musicNoteBlackOff, ICON_SIZE);
         }
     }
 
+    public void setMusicRunning(boolean musicRunning) {
+        this.musicRunning = musicRunning;
+
+        if(musicRunning) {
+            initMusic();
+        } else {
+            stopMusic();
+        }
+    }
 }
