@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
@@ -92,6 +93,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     public AnchorPane overlayAnchorPane;
     public StackPane miniMapStackPane;
 
+    private UnitInfoBoxBuilder unitInfoBoxBuilder;
+
     private Game game;
 
     private ObservableList<Cell> cells;
@@ -147,6 +150,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
+        this.unitInfoBoxBuilder = new UnitInfoBoxBuilder();
     }
 
     public Tile getHoveredTile()
@@ -190,13 +194,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
 
-        miniMapCanvas.visibleProperty().bindBidirectional(miniMapStackPane.visibleProperty());
-        miniMapCanvas.setVisible(false);
-        JavaFXUtils.setButtonIcons(
-                mapButton,
-                getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
-                getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
-                40);
+
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -229,9 +227,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             this.context.getGameState().setSelectedUnit(null);
         }
         miniMapDrawer.drawMinimap(tileMap);
-//        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
-//        logger.debug(String.valueOf(zoomableScrollPane.getHeight()));
-//        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
     }
 
     private boolean isMyUnit(@NonNull Unit unit){
@@ -488,29 +483,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                         AlertBuilder.Text.END_PHASE,
                         this::doEndPhase,
                         null);
-    }
-
-    public void toggleMap(ActionEvent actionEvent)
-    {
-        if (miniMapCanvas.visibleProperty().get())
-        {
-            miniMapCanvas.visibleProperty().set(false);
-            JavaFXUtils.setButtonIcons(
-                    mapButton,
-                    getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
-                    getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
-                    40);
-        }
-        else
-        {
-            miniMapCanvas.visibleProperty().set(true);
-            JavaFXUtils.setButtonIcons(
-                    mapButton,
-                    getClass().getResource("/assets/icons/operation/mapWhite.png"),
-                    getClass().getResource("/assets/icons/operation/mapBlack.png"),
-                    40);
-        }
-        miniMapDrawer.drawMinimap(tileMap);
     }
 
     private void doEndPhase(){
