@@ -31,7 +31,7 @@
         <ImageView fx:id="playersImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.vgrow="SOMETIMES" />
         <Label fx:id="playersLabel" styleClass="default" text="Label" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
         <ImageView fx:id="joinImageView" disable="true" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="5" GridPane.vgrow="SOMETIMES" />
-      <Button fx:id="spectatorButton" mnemonicParsing="false" onAction="#joinSpectating" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />
+      <Button id="spectatorButton" fx:id="spectatorButton" mnemonicParsing="false" onAction="#joinSpectating" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />
       <Pane fx:id="joinButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
             <Button fx:id="joinButton" mnemonicParsing="false" styleClass="icon-button" text="Button" />

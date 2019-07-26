@@ -11,14 +11,12 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -26,7 +24,6 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -97,7 +94,7 @@ public class IngameRootControllerTest extends ApplicationTest {
         verify(battleFieldComponent, never()).getController();
 
         inOrder.verify(gameEventManager).setOnConnectionClosed(any());
-        inOrder.verify(gameEventManager).startSocket(eq(gameData.getId()), any());
+        inOrder.verify(gameEventManager).startSocket(eq(gameData.getId()), any(), false);
         inOrder.verify(waitingRoomViewController).configure(ingameContext);
 
         //Termination
