@@ -39,13 +39,21 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="endPhaseButton" alignment="CENTER" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" stylesheets="@../darkTheme.css" />
+                     <Button fx:id="endPhaseButton" alignment="CENTER" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" stylesheets="@../darkTheme.css">
+                        <HBox.margin>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </HBox.margin>
+                     </Button>
                      <Button fx:id="ingameInformationsButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button">
                         <HBox.margin>
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button" />
+                     <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button">
+                        <HBox.margin>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </HBox.margin>
+                     </Button>
                      <Button fx:id="mapButton" mnemonicParsing="false" onAction="#toggleMap" styleClass="icon-button" >
                         <HBox.margin>
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
