@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TileUtils;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.beans.property.ObjectProperty;
@@ -45,7 +44,7 @@ public class UnitInfoBoxController implements Initializable, Terminable
         unit = new SimpleObjectProperty<>();
         hpText = new SimpleStringProperty(null);
         unitChangeListener = this::unitChanged;
-        hpChangeListener = this::hpCHanged;
+        hpChangeListener = this::hpChanged;
         unit.addListener(unitChangeListener);
 
 
@@ -57,9 +56,9 @@ public class UnitInfoBoxController implements Initializable, Terminable
         thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(null, null));
     }
 
-    private void hpCHanged(ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
+    private void hpChanged(ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
     {
-        hpText.set(String.format("%d / %d ", 9000, newHp.intValue()));
+        hpText.set(String.format("%d / %d ", newHp.intValue(), 9000));
     }
 
     private void unitChanged(ObservableValue<? extends Unit> observableValue, Unit oldUnit, Unit newUnit)
@@ -71,7 +70,10 @@ public class UnitInfoBoxController implements Initializable, Terminable
             mpText.set(String.valueOf(unit.get().getMp()));
         }
         else {
-            //TODO: if unit is unset
+            Image image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm());
+            unitImageView.setImage(image);
+            hpText.set("No unit selected");
+            mpText.set("-");
         }
 
         if(oldUnit != null) {
