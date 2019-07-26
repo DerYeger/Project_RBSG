@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.18)  26 JUL 2019 01:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.18)  26 JUL 2019 12:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1296,22 +1296,22 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [22 <./images/mockUps/ConfirmMove2.png> <./images/mockUps/Attack.png>]
-<images/mockUps/GameOver.png, id=443, 1003.75pt x 686.565pt>
+<images/mockUps/GameOver.png, id=443, 1174.3875pt x 803.0pt>
 File: images/mockUps/GameOver.png Graphic file (type png)
 <use images/mockUps/GameOver.png>
 Package pdftex.def Info: images/mockUps/GameOver.png  used on input line 430.
-(pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
-<images/mockUps/GameWon.png, id=444, 1003.75pt x 686.565pt>
+(pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
+<images/mockUps/GameWon.png, id=444, 1174.3875pt x 803.0pt>
 File: images/mockUps/GameWon.png Graphic file (type png)
 <use images/mockUps/GameWon.png>
 Package pdftex.def Info: images/mockUps/GameWon.png  used on input line 436.
-(pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
-<images/mockUps/SpactatorEnd.png, id=445, 1003.75pt x 686.565pt>
+(pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
+<images/mockUps/SpactatorEnd.png, id=445, 1174.3875pt x 803.0pt>
 File: images/mockUps/SpactatorEnd.png Graphic file (type png)
 <use images/mockUps/SpactatorEnd.png>
 Package pdftex.def Info: images/mockUps/SpactatorEnd.png  used on input line 44
 2.
-(pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
+(pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
 Package pdftex.def Info: images/Logo.png  used on input line 445.
@@ -1656,7 +1656,7 @@ exlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
 xlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2
 019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/tex
 mf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (45 pages, 4999536 bytes).
+Output written on main.pdf (45 pages, 5070632 bytes).
 PDF statistics:
  1321 PDF objects out of 1440 (max. 8388607)
  1156 compressed objects within 12 object streams
