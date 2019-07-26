@@ -476,7 +476,7 @@
 	            \paragraph{Ziel}
 	                Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit sind.
 	            \paragraph{Story}
-	                Karli ist einem Spiel beigetreten und befindet sich im Wartreraum. Alle anderen Spieler sind bereit. Karli w\"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
+	                Karli befindet sich in der Wartreraumszene. Alle anderen Spieler sind bereit. Karli w"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
 	            TODO: Verbindung zur Domain Story
             \subsubsection{Ingame - Spielfeld}
 	            \paragraph{Zuteilung}
@@ -484,28 +484,28 @@
 	            \paragraph{Ziel}
 			   		Das Spielfeld sollte die Einheiten anzeigen. Jedes Feld musste anklickbar sein.
 	            \paragraph{Story}
-	                Karli ist bereits einem Spiel beigetreten und sieht das Spielfeld. Karli sieht die Einheiten auf dem Spielfeld. Karli m\"ochte nun auf ein Feld (einer Einheit) klicken.
+	                Karli befindet sich in der Ingameszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld (einer Einheit). Das Feld wird ausgew"ahlt.
 	        \subsubsection{Ingame - Phase beenden}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
 	            \paragraph{Ziel}
-	                Es sollte einen Button geben, welcher bei Bet\"atigung die aktuelle Phase beendete. Dies sollte nur m\"oglich sein, wenn der Nutzer auch seine Phase beenden konnte.
+	                Es sollte einen Button geben, welcher bei Bet\"atigung die aktuelle Phase beendete. Dies sollte nur m\"oglich sein, wenn der Nutzer auch seine Phase beenden konnte, da er an der Reihe war.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. Karli hat gerade einen Teil ihrer Armee bewegt (oder mit einem Teil angegriffen) und m\"ochte nun die jeweilige Phase beenden. Daf\"ur klickt Karli auf den entsprechenden Button (siehe Mockup). Die Phase wird beendet und die n\"achste tritt ein (bzw. der n\"achste Spieler ist an der Reihe).
+	                Karli befindet sich in der Ingameszene. Karli klickt auf den Phase-Beenden Button (siehe Mockup). Die Phase wird beendet und die n"achste tritt ein (bzw. der n"achste Spieler ist an der Reihe).
             \subsubsection{Ingame - Einheit ausw\"ahlen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
 	            \paragraph{Ziel}
 	                Durch Anklicken einer Einheit sollte diese Ausgew\"ahlt werden. Danach musste die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befand.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G\"ultige Bewegungsziele werden blau und g\"ultige Angriffsziele rot markiert (siehe Mockups).
+	                Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert (siehe Mockups).
             \subsubsection{Ingame - Einheit bewegen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
 	            \paragraph{Ziel}
 	                F\"ur die Bewegung einer Einheit sollte der k\"urzeste Pfad zum Zielfeld berechnet werden. Anschlie{\ss}end musste eine Nachricht an den Server gesendet und dessen Antwort korrekt verarbeitet werden.
 	            \paragraph{Story}
-	                Karli befindet sich in der Bewegungsphase oder der restlichen Bewegungspunktephase und hat bereits auf eine Einheit geklickt und sieht alle Felder, auf welche die Einheit bewegt werden k\"onnte (je nachdem ob Karli in der 1. oder 3. Phase ist, mit oder ohne rote Felder). Karli klickt auf ein Feld in Bewegungsreichweite und die Einheit wird bewegt.
+	                Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus, die Karli bewegen m"ochte. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt.
 	            TODO: Verbindung zur Domain Story
             \subsubsection{Ingame - Einheit angreifen}
 	            \paragraph{Zuteilung}
@@ -513,77 +513,77 @@
 	            \paragraph{Ziel}
 	                Es sollte m\"oglich sein, gegnerische Einheiten anzugreifen. Entsprechende Nachrichten sollten an den Server gesendet und dessen Antworten korrekt verarbeitet werden.
 	            \paragraph{Story}
-	                Karli ist in der Angriffsphase und hat bereits eine Einheit ausgew\"ahlt. Karli sieht alle Felder in Rot, die angegriffen werden k\"onnen. Karli w\"ahlt eine gegnerische Einheit auf diesen Feldern aus und greift sie an.
+	                Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus. Karli sieht alle Felder mit Einheiten in Rot, die angegriffen werden k"onnen. Karli w"ahlt eine gegnerische Einheit auf diesen Feldern aus. Die Einheit wird angegriffen.
             \subsubsection{Ingame - Spielstatus anzeigen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
 	            \paragraph{Ziel}
 	                Es sollte einen Button zum Ein- und Ausblenden der Spielerinformationen implementiert werden. Der aktive Spieler sollte hervorgehoben werden.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. In der Men\"uleiste sieht Karli einen Button zum Anzeigen der Spieler und die aktuelle Rundennummer. Karli klickt auf diesen Button. Eine Anzeige der Spieler wird eingeblendet (siehe Mockup). Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. MockUp).
+	                Karli befindet sich in der Ingameszene. Karli sieht eine Runden- und Phasenanzeige. Karli klickt auf den Spieler-Anzeigen Button. Die Anzeige der Spieler wird eingeblendet (siehe Mockup). Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. MockUp).
             \subsubsection{Ingame - Minikarte anzeigen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
 	            \paragraph{Ziel}
 	                Es sollte eine Minikarte implementiert werden, die \"uber einen Button ein- und ausblendbar werden konnte.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. In der rechten oberen Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr\"uckt auf den Button zum Ausbleden der Minikarte. Die Minikarte wird ausgeblendet.
+	                Karli befindet sich in der Ingameszene. In der rechten oberen Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt den Minikarte Button. Die Minikarte wird ausgeblendet.
             \subsubsection{Ingame - Chatintegration}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
 	            \paragraph{Ziel}
 	                Es sollte einen Button zum Ein- und Ausblenden des Chats implementiert werden.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. Karli blendet den Chat durch Bet\"atigen des zugeh\"origen Buttons ein (siehe Mockup). Karli schreibt eine Nachricht an die anderen Spieler. Karli kann die Antworten der anderen Spieler lesen.
+	                Karli befindet sich in der Ingameszene. Karli dr"uckt den Chat-Einblenden Button. Der Chat wird angezeigt. Karli schreibt eine Nachricht. Die Nachricht wird im Chat f"ur alle Spieler im Spiel angezeigt. Bob schreibt eine Nachricht. Karli kann Bobs Nachricht lesen.
             \subsubsection{Ingame - Game Over}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
 	            \paragraph{Ziel}
 	                Wenn der Nutzer verloren hatte, sollte ein Overlay angezeigt werden. Auf diesem konnte er in die Lobby wechseln oder dem Spiel zuschauen.
 	            \paragraph{Story}
-	                Karli hat keine Einheiten mehr und verliert das Spiel. Karli sieht, wie sich Karlis Playercard schwarz f"arbt (Name und Icon). Karli kann ausw"ahlen, ob in die Lobby gewechselt oder ob dem Spiel als Spectator beigetreten wird.
+	                Karli befindet sich in der Ingameszene. Karlis Playerkarte färbt sich schwarz (Name und Icon). Karli sieht ein Overlay aufgehen, auf welchem Karli gefragt wird, ob Karli das Spiel weiter betrachten möchte. Karli drückt den Cancel Button. Karli wechselt in die Lobby.
             \subsubsection{Ingame - Game Won}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
 	            \paragraph{Ziel}
                       Wenn der Nutzer gewann, sollte ein Overlay angezeigt werden, das ihn in die Lobby wechseln lie"ss.
 	            \paragraph{Story}
-	                Karli hat als einziger noch Einheiten und gewinnt das Spiel. Karli wechselt in die Lobby.
+	                Karli befindet sich in der Ingameszene. Karli besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen (siehe MockUp). Karli wechselt in die Lobby.
+             \subsubsection{Ingame - Spectator Over}
+             	\paragraph{Zuteilung}
+             		Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
+             	\paragraph{Ziel}
+             		Wenn das Spiel vorbei war, sollte dem Nutzer ein Overlay angezeigt werden, durch das er in die Lobby wechselte.
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Bob besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen (siehe MockUp). Karli wechselt in die Lobby.
             \subsubsection{Lobby - Spectating}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
 	            \paragraph{Ziel}
 	                Es sollte ein Button hinzugef\"ugt werden, der einen Spielbeitritt als Beobachter erm\"oglichte.
 	            \paragraph{Story}
-	                Karli hat sich bereits eingeloggt und sieht die Lobby. Karli sieht die Spielliste und m\"ochte dieses mal nicht selbst spielen. Karli dr\"uckt auf den Beobachter-Button und wechselt nun zum Spielfeld.
+	                Karli befindet sich in der Lobbyszene.  Karli sieht die Spielliste und m"ochte dieses mal nicht selbst spielen. Karli dr"uckt auf den Spactator-Button. Karli wird in den Warteraumszene weitergeleitet.
             \subsubsection{Ingame - Spectating}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
 	            \paragraph{Ziel}
 	                Das Spiel sollte so angepasst werden, dass ein Zuschauer weder mit dem Spielfeld interagieren, noch Chatnachrichten schreiben konnte.
 	            \paragraph{Story}
-	                Karli sieht bereits das Spielfeld. Karli kann weder Aktionen auf dem Spielfeld ausf\"uhren, noch im Chat mitschreiben. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und geni{\ss}t das Spiel.
-            \subsubsection{Ingame - Spectator Over}
-	            \paragraph{Zuteilung}
-	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
-	            \paragraph{Ziel}
-	                Wenn das Spiel vorbei war, sollte dem Nutzer ein Overlay angezeigt werden, durch das er in die Lobby wechselte.
-	            \paragraph{Story}
-	                Karli sieht, dass Bob als einziger noch Einheiten hat und das Spiel endet. Karli wechselt in die Lobby.
+	                Karli befindet sich in der Ingameszene. Karli versucht etwas in den Chat zu schreiben. Karli versucht Aktionen mit den Einheiten auszuführen. Karlis Aktionen funktionieren nicht. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genießt das Spiel.
             \subsubsection{Ingame - Einheiteninformationen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
 	            \paragraph{Ziel}
-	                Bewegte der Nuzter die Maus \"uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in der Sidebar angezeigt werden.
+	                Bewegte der Nuzter die Maus \"uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einem Kontextmen"u angezeigt werden.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. Karli fährt mit seinem Mouse-Courser über eine Einheit. Es werden Karli alle wichtigen Informationen über die Einheit in der Sidebar angezeigt (siehe MockUps).
+	                Karli befindet sich in der Ingameszene. Karli f"ahrt mit seinem Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen über die Einheit werden in einem Kontextmen"u angezeigt.
             \subsubsection{Ingame - Musiksteuerung}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
 	            \paragraph{Ziel}
 	                Es sollte ein Musik Button hinzugef\"ugt werden, mit dem sich die Musik genauso bedienen lie"ss wie in den restlichen Szenen.
 	            \paragraph{Story}
-	                Karli befindet sich bereits in einem Spiel. Karli m\"ochte die Musik ausschalten. Karli klickt auf den daf\"ur vorgesehenen Button (siehe Mockup). Die Musik wird ausgeschaltet.
+	                Karli befindet sich in der Ingameszene und die Musik spielt. Karli klickt auf den Musik Button (siehe Mockup). Die Musik wird ausgeschaltet.
         \subsection{Tasks} \label{Tasks_5}
             Die Tasks wurden vom Scrum Master erstellt und sind nicht aus Nutzersicht beschreibbar, da sie nur technische Aufgaben waren. Aus diesem Grund unterschieden sich Tasks nur in einer Sache von User Stories. Sie hatten keine Story.
             \subsubsection{Servernachrichten}
@@ -620,7 +620,7 @@
         \subsection{Analyse}
         	Der f\"unfte Sprint endete am 21.7.2019. Das Team schaffte 29 der 116 gesch\"atzten Storypoints.
         	\subsubsection{Burndown}
-        		Wie im Burndown-Diagramm zu erkennen ist, wurden diesen Sprint nur vier Stories mit einem Umfang von 29 Storypoints abgeschlossen (siehe Kapitel \ref{done_stories_5}). Wie Tabelle \ref{Time_1} zeigt, betr\"agt die Arbeitszeit trotzdem 84 Stunden. Die Hauptursache ist die Untersch\"atzung der Aufgabenumf\"ange, wodurch mehrere begonnene Stories in diesem Sprint nicht mehr abgeschlossen werden konnten und andere deutlich mehr Zeit als erwartet in Anspruch nahmen. Zudem f\"uhrte die in diesem Release h\"ohere Anzahl an blockierenden und relatierten Tasks zu einer insgesamt langsamereren Entwicklung, da sich die Entwickler h\"aufig miteiander absprechen mussten.
+        		Wie im Burndown-Diagramm zu erkennen ist, wurden diesen Sprint nur vier Stories mit einem Umfang von 29 Storypoints abgeschlossen (siehe Kapitel \ref{done_stories_5}). Wie Tabelle \ref{Time_1} zeigt, betrug die Arbeitszeit trotzdem 84 Stunden. Die Hauptursache war die Untersch\"atzung der Aufgabenumf\"ange, wodurch mehrere begonnene Stories in diesem Sprint nicht mehr abgeschlossen werden konnten und andere deutlich mehr Zeit als erwartet in Anspruch nahmen. Zudem f\"uhrte die in diesem Release h\"ohere Anzahl an blockierenden und relatierten Tasks zu einer insgesamt langsamereren Entwicklung, da sich die Entwickler h\"aufig miteiander absprechen mussten.
 	        	\begin{figure}[H] 
 	        		\centering
 	        		\includegraphics[width=\textwidth]{images/sprintV/burndown.png}
@@ -628,7 +628,7 @@
 	        		\label{Burndown_5}
 	        	\end{figure} 
         	\subsubsection{Abgeschlossene Stories} \label{done_stories_5}
-        		Es wurden bisher vier Stories abgeschlossen (siehe Abbildung \ref{Done_5}). Dies ist weniger als erwartet, aber aufgrund komplexer Aufgaben nicht zu vermeiden. Im Nachhinein wird es nun eine genauere Beschreibung der abgeschlossenen Stories geben.
+        		Es wurden bisher vier Stories abgeschlossen (siehe Abbildung \ref{Done_5}). Dies war weniger als erwartet, aber aufgrund komplexer Aufgaben nicht zu vermeiden. Im Nachhinein wird es nun eine genauere Beschreibung der abgeschlossenen Stories geben.
         		\begin{figure}[H] 
         			\centering
         			\includegraphics[width=\textwidth]{images/sprintV/done.png}
@@ -656,7 +656,7 @@
     				\paragraph{Ergebnis}
     					TODO: Schreiben
         	\subsubsection{Angefangene Stories}
-        		Wie bereits in der Analyse des Burndowns erw\"ahnt, wurden drei bereits begonnene Stories zum Ende des Sprints noch nicht abgeschlossen. Im kommenden Abschnitt wird es einen \"Uberblick geben, wie weit diese bearbeitet wurden.
+        		Wie bereits in der Analyse des Burndowns erw\"ahnt wurde, wurden drei bereits begonnene Stories zum Ende des Sprints noch nicht abgeschlossen. Im kommenden Abschnitt wird es einen \"Uberblick geben, wie weit diese bearbeitet wurden.
         		\subsubsubsection{Ingame - Einheit ausw"ahlen}
         			\paragraph{Verlauf}
 	        			TODO: Schreiben
@@ -673,17 +673,15 @@
         			\paragraph{Stand}
         				TODO: Schreiben
         	\subsubsection{Nicht abgeschlossene Stories/Tasks}
-        		Des Weiteren wurden neben den drei bereits angefangenen Stories noch weitere zw\"olf Stories beziehungsweise Tasks aufgrund von Zeitgr\"unden nicht angefangen und abgeschlossen (siehe Abbildung \ref{To_Do_5}). Diese Aufgaben sind nicht optional und sollten von unserem Team im n\"achsten Sprint bew\"altigt werden.
+        		Des Weiteren wurden neben den drei bereits angefangenen Stories noch weitere zw\"olf Stories beziehungsweise Tasks aufgrund von Zeitgr\"unden nicht angefangen und abgeschlossen (siehe Abbildung \ref{To_Do_5}). Diese Aufgaben waren nicht optional und sollten von unserem Team im n\"achsten Sprint bew\"altigt werden.
         		\begin{figure}[H] 
         			\centering
         			\includegraphics[width=\textwidth]{images/sprintV/toDo.png}
         			\caption{Sprint \RN{5}: Nicht Abgeschlossene Stories/Tasks}
         			\label{To_Do_5}
         		\end{figure}
-        	\subsubsection{Entfernte Tasks}
-        		Am Ende des f\"unften Sprints wurden der Task \glqq Einheiteninformationen im Datenmodell\grqq\ aus dem Sprint in das Backlog verschoben, da er nicht Teil der Mindestanforderung ist.
         	\subsubsection{Fazit}
-        		Die Ziele des Sprints wurden verfehlt. Um die Mindestanforderungen zu erreichen musste das Entwicklerteam seine Produktivit\"at im sechsten Sprint deutlich steigern. Da die C0 Abdeckung (siehe Abbildung \ref{Coverage_5}) zum Ende des f\"unften Sprints bereits 79\% betrug, gab es bei der Qualit\"atssicherung keine Defizite.
+        		Die Ziele des Sprints wurden verfehlt. Um die Mindestanforderungen zu erreichen, m"usste das Entwicklerteam seine Produktivit\"at im sechsten Sprint deutlich steigern. Da die C0 Abdeckung (siehe Abbildung \ref{Coverage_5}) zum Ende des f\"unften Sprints bereits 79\% betrug, gab es bei der Qualit\"atssicherung keine Defizite.
         		\begin{figure}[H] 
         			\centering
         			\includegraphics[width=0.8\textwidth]{images/sprintV/coverage.png}
@@ -703,25 +701,25 @@
     			\item Einheiteninformationen in einer Sidebar einzusehen
     			\item Die Musik auch im Spiel ein- und auszuschalten
     		\end{itemize}
-    		F\"ur den Fall, dass die Mindestanforderungen vor Ende des Sprints abgeschlossen werden sollten, soll eine Sidebar zum Spielfeld hinzugef\"ugt werden. Diese soll es erm\"oglichen Aktionen, wie Bewegen oder Angreifen, zu best\"atigen und abzubrechen. Weitere optionale Features liegen im Backlog vor (siehe Kapitel \ref{Backlog_6}). Falls das Team die Umsetzung der oben genannten Features schafft sind die Mindestanforderungen jedoch bereits erf\"ullt.
+    		F\"ur den Fall, dass die Mindestanforderungen vor Ende des Sprints abgeschlossen werden sollten, sollte eine Sidebar zum Spielfeld hinzugef\"ugt werden. Diese sollte es erm\"oglichen Aktionen, wie Bewegen oder Angreifen, zu best\"atigen und abzubrechen. Falls das Team die Umsetzung der oben genannten Features schaffen w"urde, w"aren die Mindestanforderungen jedoch bereits erf\"ullt.
     	\subsection{Ge\"anderte User Stories vom Sprint \RN{5}}
-    		DIe folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups ge\"andert haben.
+    		Die folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups ge\"andert haben.
     		\subsubsection{Ingame - Minikarte anzeigen}
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
     			\paragraph{Ge\"andertes Ziel}
-    				Es soll eine Minikarte existieren. \"Uber die Minikarte soll es m\"oglich sein den Sichtbereich zu wechseln.
+    				Es sollte eine Minikarte implementiert werden. \"Uber die Minikarte sollte es m\"oglich sein, den Sichtbereich zu wechseln.
     			\paragraph{Ge\"anderte Story}
-    				Karli befindet sich bereits in einem Spiel. In der rechten unteren Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr\"uckt auf eine Stelle in der Minikarte. Der Sichtbereich \"andert sich zu dieser Stelle.
+    				Karli befindet sich in der Ingameszene. In der rechten unteren Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minikarte. Der Sichtbereich "andert sich zu dieser Stelle.
    			\subsubsection{Ingame - Einheiteninformationen}
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
    				\paragraph{Ge\"andertes Ziel}
-   					Bewegt der Nutzer die Maus \ "uber eine Einheit sollen alle verf\"ugbaren Informationen dieser Einheit angezeigt werden.
+   					Bewegte der Nutzer die Maus \ "uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einer Sidebar angezeigt werden.
    				\paragraph{Ge\"anderte Story}
-   					Karli befindet sich bereits in einem Spiel. Karli f\"ahrt mit seinem Mouse-Courser \"uber eine Einheit. Es werden alle wichtigen Informationen \"uber die Einheit in der Sidebar angezeigt (siehe MockUps).
+   					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt (siehe MockUps).
    		\subsection{\"Ubernommene User Stories aus Sprint \RN{5}}
-   			Weiterhin gab es auch User Stories aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden nun in den sechsten Sprint \"ubernommen. Es folgt eine Liste dieser Stories:
+   			Weiterhin gab es auch User Stories aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden mit in den sechsten Sprint \"ubernommen. Es folgt eine Liste dieser Stories:
    			\begin{itemize}
    				\item Ingame - Einheit ausw\"ahlen (angefangen in Sprint \RN{5})
    				\item Ingame - Einheit bewegen (angefangen in Sprint \RN{5})
@@ -731,32 +729,48 @@
    				\item Ingame - Chatintegration
    				\item Ingame - Game Over
    				\item Ingame - Game Won
+   				\item Ingame - Spectator Over
    				\item Lobby - Spectating
    				\item Ingame - Spectating
-   				\item Ingame - Spectator Over
    				\item Ingame - Einheiteninformationen
    				\item Ingame - Musiksteuerung
    			\end{itemize}
    			Eine genauere Beschreibung zu jeder Story befindet sich im Kapitel \ref{User_Stories_5}.
    		\subsection{User Stories}
-   			TODO: Add
+   			Im sechsten Sprint wurden weitere User Stories vom Product Owner erstellt.
+   			\subsubsection{Ingame - Einheit bewegen nach Bewegung}
+   				\paragraph{Zuteilung}
+   					Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
+   				\paragraph{Ziel}
+   					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgewählt sein, falls sie noch verbleibende Bewegungspunkte besa"ss.
+   				\paragraph{Story}
+   					Karli befindet sich in der Ingameszene. Karli klickt auf eine Einheit. Die Bewegungsreichweite wird angezeigt. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt und bleibt weiterhin ausgew"ahlt, aber der blaue Bewegungsradius hat sich verkleinert. Karli bewegt die Einheit noch einmal auf ein weiteres Feld. Die Bewegungspunkte sind noch nicht aufgebraucht und die Einheit bleibt weiter ausgew"ahlt. Karli hat keine Lust mehr die Einheit zu bewegen und w"ahlt sie ab.
    		\subsection{Ge\"anderte Tasks vom Sprint \RN{5}}
-   			DIe folgenden Tasks des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung "anderte.
+   			Die folgenden Tasks des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung "anderte.
    			\subsubsection{Einheiteninformationen im Datenmodell}
    				\paragraph{Ge"andete Zuteilung}
    					Diese Task wurde auf 5 Zeitstunden gesch\"atzt und an Omar Sood zugeteilt.
    				\paragraph{Ziel}
-   					Der Entwickler soll die Enums UnitType und UnitTypeInfo zu einer Enum zusammenf\"ugen und darauf achten, dass alle Funktionalit\"aten erhalten bleiben.
+   					Der Entwickler sollte die Enums UnitType und UnitTypeInfo zu einer Enum zusammenf\"ugen und musste darauf achten, dass alle Funktionalit\"aten erhalten blieben.
     	\subsection{\"Ubernommene Tasks aus Sprint \RN{5}}
-    		Weiterhin gab es auch Tasks aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden nun in den sechsten Sprint \"ubernommen. Es folgt eine Liste dieser Tasks:
+    		Weiterhin gab es auch Tasks aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden mit in den sechsten Sprint \"ubernommen. Es folgt eine Liste dieser Tasks:
 	    	\begin{itemize}
 	    		\item Servernachrichten
+	    		\item Einheiteninformationen im Datenmodell
 	    	\end{itemize}
     		Eine genauere Beschreibung zu jeder Task befindet sich im Kapitel \ref{Tasks_5}.
-   		\subsection{Tasks}
- 			TODO: Add
 		\subsection{Bugs}
-			TODO: Add
+			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam.
+			\subsubsection{Terminierung sicherstellen}
+				\paragraph{Zuteilung}
+					Dieser Bug sollte von Omar Sood behoben werden.
+				\paragraph{Problem}
+					Die Terminierung des GameEventSockets musste angepasst werden. Sie sollte nicht doppelt aufgerufen werden. Weiterhin sollte sie immer stattfinden, wenn der Nutzer die Anwendung schloss oder in die Lobby wechselte.
+			\subsubsection{Ingame - Einheit mehrmals auswählen}
+				\paragraph{Zuteilung}
+					Dieser Bug sollte von Juri Lozowoj behoben werden.
+				\paragraph{Problem}
+					Falls der Nutzer eine Einheit auswählte, abwählte und dann wieder auswählte, ohne vorher eine andere Einheit ausgewählt zu haben, wurde sie danach als Angriffs- bzw. Bewegungsziel farblich markiert. Dies sollte nicht stattfinden.
      \newpage	
     	\subsection{Zeit\"ubersicht}
     		TODO: Intro schreiben
@@ -765,21 +779,26 @@
     			\textbf{User Story/Task} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
     			\toprule
     			\endhead
-    			Ingame - Einheit ausw\"ahlen & 13 h & 8 h 46 min & 4h 14 min & Juri Lozowoj \\
-    			Ingame - Einheit bewegen & 13 h & 11 h 19 min & 35 min & Omar Sood \\
+    			Ingame - Einheit ausw\"ahlen & 13 h & 16 h 29 min & - & Juri Lozowoj \\
+    			Ingame - Einheit bewegen & 13 h & 13 h 35 min & - & Omar Sood \\
     			Ingame - Einheit angreifen & 5 h & - & 5 h & Omar Sood \\
-    			Ingame - Spielstatus anzeigen & 8 h & 24 h & - & Tobias Klipp \\
-    			Ingame - Minikarte anzeigen & 8 h & 8 h 25 min & 4 h & Georg Siebert \\
-    			Ingame - Chatintegration & 13 h & - & 13 h & Tobias Klipp \\
-    			Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
-    			Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\
+    			Ingame - Chatintegration & 13 h & 2 h & 11 h & Tobias Klipp \\
+    			Ingame - Minikarte anzeigen & 8 h & 12 h 14 min & - & Georg Siebert \\
     			Lobby - Spectating & 5 h & - & 5 h & Juri Lozowoj \\
     			Ingame - Spectating & 13 h & - & 13 h & Juri Lozowoj \\
+    			Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
+    			Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\
     			Ingame - Spectator Over & 2 h & - & 2 h & Tobias Klipp \\
-    			Ingame - Einheiteninformationen & 8 h & - & 8 h & Georg Siebert \\
-    			Ingame - Musiksteuerung & 3 h & - & 3 h & Omar Sood \\
+    			Ingame - Einheiteninformationen & 8 h & 1 h & 7 h & Georg Siebert \\
+    			Ingame - Spielstatus anzeigen & 8 h & 31 h 30 min & - & Tobias Klipp \\
+    			Ingame - Musiksteuerung & 3 h & 20 min & - & Omar Sood \\
+    			Ingame - Einheit bewegen nach Bewegung & 5 h & - & 5 h & Omar Sood \\
     			\midrule
-    			Servernachrichten & 8 h & - & 8 h & Omar Sood\\
+    			Einheiteninformationen im Datenmodell & 5 h & 1 h 27 min & - & Omar Sood \\
+    			Servernachrichten & 8 h & - & - & Omar Sood \\
+    			\midrule
+    			Terminierung sicherstellen & - & - & ? & Omar Sood \\
+    			Ingame - Einheit mehrmals auswählen & - & - & ? & Juri Lozowoj \\
     			\caption{Zeit\"ubersicht sechster Sprint}
     		\end{longtable}
     	\subsection{Analyse}
