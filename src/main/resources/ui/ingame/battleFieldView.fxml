@@ -64,7 +64,7 @@
                               <Canvas fx:id="miniMapCanvas" height="250.0" styleClass="miniMap" width="250.0" StackPane.alignment="CENTER" />
                            </children>
                         </StackPane>
-                        <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" prefWidth="1200"/>
+                        <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" prefWidth="950"/>
                      </children>
                   </AnchorPane>
                </children>

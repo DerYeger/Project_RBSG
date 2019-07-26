@@ -613,6 +613,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         chatPane.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();
         chatPane.setVisible(false);
+        //chatPane.setMinWidth(canvas.getWidth()-miniMapCanvas.getWidth());
     }
 
     public void openChat(){
