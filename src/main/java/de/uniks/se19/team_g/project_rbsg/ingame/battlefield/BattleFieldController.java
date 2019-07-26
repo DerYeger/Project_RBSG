@@ -371,10 +371,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         playerCardList.add(player4);
 
         playerListController=new PlayerListController(this.game);
+        playerBar.setAlignment(Pos.TOP_CENTER);
 
         int counter=0;
         if(this.game.getPlayers().size()==2){
-            playerBar.setAlignment(Pos.TOP_CENTER);
             playerBar.getChildren().remove(player1);
             playerCardList.remove(player1);
             playerBar.getChildren().remove(player4);
@@ -401,12 +401,10 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
         }
         this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
-            //Player oldPlayer = playerMap.get(oldVal);
             Player oldPlayer = oldVal;
             if(oldPlayer!=null){
                 playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
             }
-            //Player newPlayer = playerMap.get(newVal);
             if(newVal!=null){
                 Player newPlayer = newVal;
                 playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
@@ -427,16 +425,17 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
 
         this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
-            Platform.runLater(() -> {
+
                 if(oldVal==null){
                     return;
                 }
                 if(oldVal.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size())==0){
+                    Platform.runLater(() -> {
                     roundCount.set(roundCount.get()+1);
+                    });
                     roundCounter=0;
                 }
                 roundCounter++;
-            });
         });
 
         this.game.phaseProperty().addListener(((observable, oldValue, newValue) -> {
@@ -455,8 +454,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                 }break;
             }
         }));
-        roundCount.set(0);
 
+        roundCount.set(0);
         roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.setText("Phase");
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
