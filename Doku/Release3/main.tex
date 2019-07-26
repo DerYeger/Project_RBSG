@@ -513,7 +513,7 @@
 	            \paragraph{Ziel}
 	                Es sollte m\"oglich sein, gegnerische Einheiten anzugreifen. Entsprechende Nachrichten sollten an den Server gesendet und dessen Antworten korrekt verarbeitet werden.
 	            \paragraph{Story}
-	                Karli ist in der Angriffsphase und hat bereits eine Einheit ausgew\"ahlt. Karli sieht alle Felder in Rot, die angegriffen werden k\"onnen. Karli w\"ahlt eine gegnerische Einheit auf diesen Feldern aus und greift sie an. Die eigene Einheit ist nicht mehr auswählbar und ist nicht mehr ausgewählt.
+	                Karli ist in der Angriffsphase und hat bereits eine Einheit ausgew\"ahlt. Karli sieht alle Felder in Rot, die angegriffen werden k\"onnen. Karli w\"ahlt eine gegnerische Einheit auf diesen Feldern aus und greift sie an.
             \subsubsection{Ingame - Spielstatus anzeigen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
@@ -596,25 +596,6 @@
             		Diese Task wurde auf 5 Zeitstunden gesch\"atzt und an Tobias Klipp zugeteilt.
             	\paragraph{Ziel}
             		Der Entwickler sollte die Enums UnitType und UnitTypeInfo zu einer Enum zusammenf\"ugen und musste darauf achten, dass alle Funktionalit\"aten erhalten blieben.
-        \subsection{User Stories im Backlog}
-        	Weitere Stories (nur optionale Aufgaben) wurden im Backlog abgelegt. Da die Ziele f"ur diesen Sprint schon ziemlich umfangreich waren, blieben alle diese Stories den kompletten Sprint im Backlog und waren niemandem zugeteilt und wurden auch nicht gesch"atzt.
-        	\subsubsection{Optional - Lobby - Anzeigen der Einheiten einer Armee}
-	        	\paragraph{Zuteilung}
-	        		Diese User Story wurde bereits im Release \RN{2} auf 5 Storypoints gesch"atzt und war in diesem Sprint niemandem zugeteilt.
-	        	\paragraph{Ziel}
-	        		Der Entwickler sollte ein Overlay implementieren, dass die Einheiten einer nicht ausgew"ahlten Armee anzeigte, wenn man "uber das Icon hoverte.
-	        	\paragraph{Story}
-	        		Albert befindet sich im ArmyBuilder. Es sind Armeen vorhanden. Albert hovert \"uber eine Armee. Es erscheint ein Overlay, in welchem die Einheiten der Armeen sehen kann.
-		    \subsubsection{Optional - Ingame - Auf gegnerischen Aktionen scrollen}
-			    \paragraph{Ziel}
-			    	Der Entwickler sollte ein automatisches Springen auf der Karte implementieren, wenn ein Gegner eine Aktion durchf"uhrt.
-			    \paragraph{Story}
-			    	Karli ist nicht an der Reihe und schaut den Gegnern zu. Immer wenn ein Gegner eine Aktion durchf\"uhrt (Bewegen bzw. Angreifen einer Einheit), sieht Karli, wie sich der Bildschirm auf die Aktion zentriert.
-			\subsubsection{Optional - Waiting Room - Minigame}
-				\paragraph{Ziel}
-					Der Entwickler sollte ein Minispiel implementieren.
-				\paragraph{Story}
-					Karli befindet ist einem Spiel beigetreten und befindet sich im Waiting Room. Karli hat Langeweile, da noch nicht alle ready sind. Karli spielt so lange Tic Tac Toe, bis das Spiel startet.
     \newpage
         \subsection{Zeit"ubersicht}
         	Diese \"Ubersicht zeigt alle Stories, welche im Rahmen der Ziele bearbeitet werden sollten. Wie zu erkennen ist wurden nicht alle Stories abgeschlossen. Es wurden jedoch schon umfangreichere Grundlagen f\"ur Features des sechsten Sprints gelegt.
@@ -757,6 +738,8 @@
    				\item Ingame - Musiksteuerung
    			\end{itemize}
    			Eine genauere Beschreibung zu jeder Story befindet sich im Kapitel \ref{User_Stories_5}.
+   		\subsection{User Stories}
+   			TODO: Add
    		\subsection{Ge\"anderte Tasks vom Sprint \RN{5}}
    			DIe folgenden Tasks des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung "anderte.
    			\subsubsection{Einheiteninformationen im Datenmodell}
@@ -770,35 +753,10 @@
 	    		\item Servernachrichten
 	    	\end{itemize}
     		Eine genauere Beschreibung zu jeder Task befindet sich im Kapitel \ref{Tasks_5}.
-    	\subsection{User Stories und Tasks im Backlog} \label{Backlog_6}
-    		TODO: Intro schreiben
-    		\subsubsection{User Stories aus Sprint \RN{5}}
-    			\begin{itemize}
-    				\item Optional - Lobby - Anzeigen der Einheiten einer Armee
-    				\item Optional - Ingame - Phase automatisch beenden
-    				\item Optional - Ingame - Auf gegnerischen Aktionen scrollen
-    				\item Optional - Ingame - Einheiten bewegen - Hover
-    				\item Optional - Waiting Room - Minigame
-    			\end{itemize}
-    		\subsubsection{Tasks aus Sprint \RN{5}}
-	    		\begin{itemize}
-	    			\item Einheiteninformationen im Datenmodell
-	    		\end{itemize}
-    		\subsubsection{Ingame - Einheit bewegen best\"atigen}
-	    		\paragraph{Ziel}
-	    			TODO: Ziel beschreiben. Hier stand etwas ganz anderes
-	    		\paragraph{Story}
-	    			Karli hat bereits eine Einheit ausgew\"ahlt und auf das Feld geklickt, auf das Karli die Einheit bewegen m\"ochte. Ein Icon erscheint auf diesem Feld (siehe MockUps). In der Sidebar kann Karli aussuchen, ob die Bewegung ausgef\"uhrt werden soll. Karli klickt \glqq Move\grqq. Die Einheit wird bewegt.
-		\subsubsection{Ingame - Einheit angreifen best"atigen}
-			\paragraph{Ziel}
-				TODO: Ziel beschreiben. Hier stand etwas ganz anderes
-			\paragraph{Story}
-				Karli hat bereits eine Einheit ausgew\"ahlt und auf die gegnerische Einheit geklickt, welche Karli angreifen m\"ochte. Ein Icon erscheint auf diesem Feld (siehe MockUps). In der Sidebar kann Karli aussuchen, ob der Angriff ausgef\"uhrt werden soll. Karli klickt \glqq Attack\grqq. Die gegnerische Einheit wird angegriffen.
-		\subsubsection{Ingame - Aktion abbrechen}
-   			\paragraph{Ziel}
-   				TODO: Ziel beschreiben. Hier stand etwas ganz anderes
-   			\paragraph{Story}
-   				Karli hat bereits eine Einheit ausgew\"ahlt und das Feld geklickt, auf das Karli eine Einheit bewegen/angreifen m\"ochte. Ein Icon erscheint auf diesem Feld (siehe MockUps). In der Sidebar kann Karli aussuchen, ob die Aktion ausgef\"uhrt werden soll. Karli klickt \glqq Cancel\grqq. Die Aktion wird abgebrochen und das Icon auf dem Feld ausgeblendet.
+   		\subsection{Tasks}
+ 			TODO: Add
+		\subsection{Bugs}
+			TODO: Add
      \newpage	
     	\subsection{Zeit\"ubersicht}
     		TODO: Intro schreiben
