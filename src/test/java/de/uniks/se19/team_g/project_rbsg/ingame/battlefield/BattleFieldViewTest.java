@@ -479,7 +479,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setPhase(Game.Phase.attackPhase.name());
 
         click(300, 225);
-        click(300, 225);
         click(350, 225);
         verify(gameEventManager).api();
         verifyNoMoreInteractions(gameEventManager);
