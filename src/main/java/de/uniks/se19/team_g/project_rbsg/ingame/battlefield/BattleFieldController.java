@@ -285,7 +285,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             newTile.setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
         } else if(newTile != null) {
             newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
-            this.context.getGameState().setSelectedUnit(null);
         }
         miniMapDrawer.drawMinimap(tileMap);
 //        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
@@ -339,7 +338,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
         }
         miniMapDrawer.drawMinimap(tileMap);
-        setCellProperty(unit);
     }
 
     private void cameraViewChanged(ObservableValue<? extends Number> observableValue, Number number, Number number1)
@@ -489,6 +487,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         if (handleMovement(tile)) {
+            setSelectedTile(null);
+            this.context.getGameState().setSelectedUnit(null);
             return;
         }
 
@@ -589,6 +589,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else{
             selectedTile.set(tileClicked);
+            setCellProperty(null);
+            this.context.getGameState().setSelectedUnit(null);
+            setSelectedTile(null);
         }
     }
 
@@ -708,7 +711,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             for (Unit unit : units) {
                 //Adds listener for units which are already in the list
                 unit.positionProperty().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
-                unit.remainingMovePointsProperty().addListener(((observable, oldValue, newValue) -> setCellProperty(unit)));
             }
 
             initCanvas();
