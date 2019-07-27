@@ -1,15 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
@@ -29,23 +27,23 @@ public class TileDrawer
     private static final Color attackRed = Color.rgb(207,102,121, 0.4);
     private static final Color attackRedBorder = Color.rgb(207,102,121);
     private static Image grass = new Image("/assets/cells/grass/grass1.png");
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
-    private HashMap<UnitType, Image> unitImagesMap;
+    private HashMap<UnitTypeInfo, Image> unitImagesMap;
 
     public TileDrawer()
     {
         unitImagesMap = new HashMap<>();
 
-        for (UnitType type : UnitType.values())
+        for (UnitTypeInfo type : UnitTypeInfo.values())
         {
-            Image image = new Image(TileUtils.getUnitImagePath(type), CELL_SIZE, CELL_SIZE, false, true);
+            Image image = new Image(type.getImage().toExternalForm(), CELL_SIZE, CELL_SIZE, false, true);
             unitImagesMap.put(type, image);
         }
     }
 
+    @SuppressWarnings("unused")
     public Canvas getCanvas()
     {
         return canvas;
@@ -59,11 +57,9 @@ public class TileDrawer
 
     public void drawMap(Tile[][] map)
     {
-        for (int y = 0; y < map.length; y++)
-        {
-            for (int x = 0; x < map[y].length; x++)
-            {
-                drawTile(map[y][x]);
+        for (Tile[] tiles : map) {
+            for (Tile tile : tiles) {
+                drawTile(tile);
             }
         }
     }

@@ -56,6 +56,14 @@ public class MovementManagerTest {
         assertSame(tourToTarget1, sut.getTour(unit, target1));
         verifyNoMoreInteractions(movementEvaluator);
 
+        // unit on target should result in null
+        target1.setUnit(new Unit("dummy"));
+        assertNull(sut.getTour(unit, target1));
+        target1.setUnit(null);
+        assertSame(tourToTarget1, sut.getTour(unit, target1));
+        verifyNoMoreInteractions(movementEvaluator);
+
+
         // changed position should invalidate cached tours
         unit.setPosition(secondStart);
         verifyNoMoreInteractions(movementEvaluator);
@@ -66,5 +74,13 @@ public class MovementManagerTest {
         verify(movementEvaluator).getAllowedTours(unit);
         assertNull(answer);
         assertSame(tourToTarget2, sut.getTour(unit, target2));
+
+        // updated movementpoints should invalidate cached tours
+        unit.setRemainingMovePoints(69);
+        verifyNoMoreInteractions(movementEvaluator);
+        sut.getTour(unit, new Cell("dummy"));
+        verify(movementEvaluator, times(2)).getAllowedTours(unit);
+
+
     }
 }

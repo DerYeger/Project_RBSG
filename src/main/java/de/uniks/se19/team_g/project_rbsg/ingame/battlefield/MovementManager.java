@@ -28,15 +28,19 @@ public class MovementManager {
     }
 
     @Nullable
-    public Tour getTour(final @Nonnull Unit unit, final @Nonnull Cell target1) {
+    public Tour getTour(final @Nonnull Unit unit, final @Nonnull Cell target) {
         manageUnit(unit);
+
+        if (target.getUnit() != null) {
+            return null;
+        }
 
         Entry entry = managedUnits.get(unit);
         if (entry.allowedTours == null) {
             entry.allowedTours = movementEvaluator.getAllowedTours(unit);
         }
 
-        return entry.allowedTours.get(target1);
+        return entry.allowedTours.get(target);
     }
 
     private void manageUnit(final @Nonnull Unit unit) {
@@ -44,16 +48,20 @@ public class MovementManager {
             return;
         }
         Entry entry = new Entry();
-        unit.positionProperty().addListener(new WeakChangeListener<>(entry));
+        WeakChangeListener<Object> listener = new WeakChangeListener<>(entry);
+        unit.positionProperty().addListener(listener);
+        unit.remainingMovePointsProperty().addListener(listener);
 
         managedUnits.put(unit, entry);
     }
 
-    private static class Entry implements ChangeListener<Cell> {
+    private static class Entry
+        implements ChangeListener<Object>
+    {
         public Map<Cell, Tour> allowedTours = null;
 
         @Override
-        public void changed(ObservableValue<? extends Cell> observable, Cell oldValue, Cell newValue) {
+        public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
             allowedTours = null;
         }
     }
