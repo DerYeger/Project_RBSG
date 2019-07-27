@@ -1,12 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
+import javafx.scene.canvas.*;
+import javafx.scene.paint.*;
+import org.slf4j.*;
 
 public class MiniMapDrawer
 {
@@ -23,11 +20,13 @@ public class MiniMapDrawer
     private double ySize = 0;
     private double CellSizeX = 0;
     private double CellSizeY = 0;
+    private Camera camera;
 
     private GraphicsContext gc;
 
     public MiniMapDrawer()
     {
+        camera = null;
     }
 
     public void setCanvas(Canvas canvas, int mapSize)
@@ -73,7 +72,7 @@ public class MiniMapDrawer
                 {
                     gc.setFill(white);
                 }
-                else if(actualTile.getHighlightingTwo() == HighlightingTwo.HOVERED)
+                else if (actualTile.getHighlightingTwo() == HighlightingTwo.HOVERED)
                 {
                     gc.setFill(transparentWhite);
                 }
@@ -110,7 +109,8 @@ public class MiniMapDrawer
                     if (actualTile.getCell().getUnit().getLeader() != null)
                     {
                         gc.setFill(Color.valueOf(actualTile.getCell().getUnit().getLeader().getColor()));
-                    } else
+                    }
+                    else
                     {
                         gc.setFill(Color.RED);
                     }
@@ -118,6 +118,38 @@ public class MiniMapDrawer
                 }
             }
         }
+
+        if (camera != null)
+        {
+            double startX = (camera.getxStartCell() * CellSizeX);
+            double startY = (camera.getyStartCell() * CellSizeY);
+            double maxX = (startX + (camera.getVisibleCellsX() * CellSizeX));
+            double maxY = (startY + (camera.getVisibleCellsY() * CellSizeY));
+
+            gc.setStroke(white);
+            gc.setLineWidth(1.5);
+
+            gc.strokeLine(startX, startY, maxX, startY);
+            gc.strokeLine(maxX, startY, maxX, maxY);
+            gc.strokeLine(maxX, maxY, startX, maxY);
+            gc.strokeLine(startX, maxY, startX, startY);
+        }
+
     }
 
+    public void setCamera(Camera camera)
+    {
+        this.camera = camera;
+    }
+
+    public int getXPostionOnMap(double x)
+    {
+        return (int) (x/CellSizeX);
+
+    }
+
+    public int getYPostionOnMap(double y)
+    {
+        return (int) (y/CellSizeY);
+    }
 }

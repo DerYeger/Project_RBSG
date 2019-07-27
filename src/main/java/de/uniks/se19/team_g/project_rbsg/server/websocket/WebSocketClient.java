@@ -98,7 +98,8 @@ public class WebSocketClient
         {
             try
             {
-                this.session.getBasicRemote().sendText(new ObjectMapper().writeValueAsString(message));
+                String messageString = new ObjectMapper().writeValueAsString(message);
+                this.session.getBasicRemote().sendText(messageString);
             }
             catch (IOException e)
             {

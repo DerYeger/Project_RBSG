@@ -32,7 +32,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -238,7 +237,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         if (musicManager == null) {
             return;
         }
-        musicManager.updateMusicButtonIcons(soundButton);
+        musicManager.toggleMusicAndUpdateButtonIconSet(soundButton);
     }
 
     public void leaveRoom() {

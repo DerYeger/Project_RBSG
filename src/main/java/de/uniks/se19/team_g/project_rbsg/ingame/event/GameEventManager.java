@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketCloseHandler;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -47,14 +48,26 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
     private Runnable onConnectionClosed;
 
     private final CountDownLatch terminateLatch = new CountDownLatch(1);
+    @Nonnull private final IngameApi api;
 
+    @Autowired
     public GameEventManager(@NonNull final WebSocketClient webSocketClient) {
+        this(webSocketClient, new IngameApi());
+    }
+
+    public GameEventManager(
+        @Nonnull final WebSocketClient webSocketClient,
+        @Nonnull final IngameApi api
+    ) {
         this.webSocketClient = webSocketClient;
+        webSocketClient.setCloseHandler(this);
+
+        this.api = api;
+        api.setGameEventManager(this);
 
         gameEventHandlers = new ArrayList<>();
         gameEventHandlers.add(new DefaultGameEventHandler());
 
-        webSocketClient.setCloseHandler(this);
     }
 
     public static boolean isActionType(ObjectNode message, String action) {
@@ -187,5 +200,9 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
             }
         }
         logger.debug("Terminated " + this);
+    }
+
+    public IngameApi api() {
+        return api;
     }
 }

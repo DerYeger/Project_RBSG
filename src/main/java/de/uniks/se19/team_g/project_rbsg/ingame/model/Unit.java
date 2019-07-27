@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import javafx.beans.property.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -19,26 +20,23 @@ public class Unit {
 
     private Player leader;
 
-    private SimpleObjectProperty<Cell> position;
+    private SimpleObjectProperty<Cell> position = new SimpleObjectProperty<>();
 
-    private SimpleBooleanProperty selected = new SimpleBooleanProperty();
+    private SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
 
     private SimpleBooleanProperty attackable = new SimpleBooleanProperty(false);
 
-    private UnitType unitType;
+    private UnitTypeInfo unitType;
 
     final private SimpleIntegerProperty remainingMovePoints = new SimpleIntegerProperty(0);
 
     private int mp;
     private int hp;
 
-    private ArrayList<UnitType> canAttack;
+    private ArrayList<UnitTypeInfo> canAttack;
 
     public Unit(@NonNull final String id) {
         this.id = id;
-
-        position = new SimpleObjectProperty<>();
-        selected = new SimpleBooleanProperty(false);
     }
 
     public String getId() {
@@ -61,7 +59,7 @@ public class Unit {
         return position.get();
     }
 
-    public UnitType getUnitType() {
+    public UnitTypeInfo getUnitType() {
         return unitType;
     }
 
@@ -73,7 +71,7 @@ public class Unit {
         return hp;
     }
 
-    public ArrayList<UnitType> getCanAttack() {
+    public ArrayList<UnitTypeInfo> getCanAttack() {
         return canAttack;
     }
 
@@ -114,7 +112,7 @@ public class Unit {
         this.position.set(position);
     }
 
-    public Unit setUnitType(@NonNull final UnitType unitType) {
+    public Unit setUnitType(@NonNull final UnitTypeInfo unitType) {
         this.unitType = unitType;
         return this;
     }
@@ -129,7 +127,7 @@ public class Unit {
         return this;
     }
 
-    public Unit setCanAttack(@NonNull final Collection<UnitType> canAttack) {
+    public Unit setCanAttack(@NonNull final Collection<UnitTypeInfo> canAttack) {
         this.canAttack = new ArrayList<>(canAttack);
         return this;
     }

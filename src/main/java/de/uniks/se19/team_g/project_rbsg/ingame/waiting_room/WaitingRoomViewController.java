@@ -213,11 +213,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     public void toggleSound() {
-        musicManager.updateMusicButtonIcons(soundButton);
+        musicManager.toggleMusicAndUpdateButtonIconSet(soundButton);
     }
 
     private void showMapPreview(@NonNull final List<Cell> cells) {
-        final Node previewMap = previewMapBuilder.buildPreviewMap(cells, mapPreviewPane.getWidth(), mapPreviewPane.getHeight());
+        final Node previewMap = previewMapBuilder.buildPreviewMap(cells,256, 256);
         Platform.runLater(() -> mapPreviewPane.getChildren().add(previewMap));
     }
 

@@ -108,4 +108,10 @@ public class GameEventManagerTests {
         gameEventManager.sendEndPhaseCommand();
 
     }
+
+    @Test
+    public void defaultConstructor() {
+        GameEventManager gameEventManager = new GameEventManager(new WebSocketClient());
+        Assert.assertSame(gameEventManager.api().getGameEventManager(), gameEventManager);
+    }
 }
