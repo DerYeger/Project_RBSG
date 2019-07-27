@@ -13,17 +13,20 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameRootController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
@@ -41,6 +44,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -55,7 +59,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -64,7 +67,7 @@ import java.util.concurrent.CompletableFuture;
         GameProvider.class,
         UserProvider.class,
         SceneManager.class,
-        JoinGameManager.class,
+        GameListViewCell.class,
         CreateGameFormBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
@@ -72,23 +75,64 @@ import java.util.concurrent.CompletableFuture;
         SceneManagerConfig.class,
         AlertBuilder.class,
         LocaleConfig.class,
+        IngameContext.class,
+        IngameGameProvider.class,
+        IngameRootController.class,
+        JoinGameManager.class,
         SpectatorModusTest.ContextConfiguration.class
 })
 public class SpectatorModusTest extends ApplicationTest {
 
     private static final Game NEW_GAME = new Game("1", "myNewGame", 2, 1);
 
+    @Autowired
+    GameProvider gameProvider;
+
+    @Autowired
+    UserProvider userProvider;
+
+    @Autowired
+    GameEventManager gameEventManager;
+
+    private LobbyViewController lobbyViewController;
+
     @TestConfiguration
     public static class ContextConfiguration {
 
         @Bean
-        public GameManager gameManager() {
-            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider()) {
+        public CreateGameController createGameController()
+        {
+            return Mockito.mock(CreateGameController.class);
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
+        }
+
+        @Bean
+        public GameManager gameManager()
+        {
+            return new GameManager(new RESTClient(new RestTemplate()), new UserProvider())
+            {
                 @Override
-                public Collection<Game> getGames() {
+                public Collection<Game> getGames()
+                {
                     ArrayList<Game> games = new ArrayList<>();
                     games.add(NEW_GAME);
                     return games;
+                }
+            };
+        }
+
+        @Bean
+        public PlayerManager playerManager() {
+            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider())
+            {
+                @Override
+                public Collection<Player> getPlayers()
+                {
+                    return new ArrayList<Player>();
                 }
             };
         }
@@ -103,15 +147,19 @@ public class SpectatorModusTest extends ApplicationTest {
         }
 
         @Bean
-        public LogoutManager logoutManager() {
-            return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
-        }
-
-        @Bean
         public ChatController chatController() {
             return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
                 public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient) {
+                }
+            };
+        }
+
+        @Bean
+        public LobbyChatClient lobbyChatClient() {
+            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
+                @Override
+                public void startChatClient(@NonNull final ChatController chatController) {
                 }
             };
         }
@@ -128,49 +176,19 @@ public class SpectatorModusTest extends ApplicationTest {
             });
         }
 
-        @Bean
-        public PlayerManager playerManager() {
-            return new PlayerManager(new RESTClient(new RestTemplate()), new UserProvider()) {
-                @Override
-                public Collection<Player> getPlayers() {
-                    return new ArrayList<Player>();
-                }
-            };
-        }
-
-        @Bean
-        public LobbyChatClient lobbyChatClient() {
-            return new LobbyChatClient(new WebSocketClient(), new UserProvider()) {
-                @Override
-                public void startChatClient(@NonNull final ChatController chatController) {
-                }
-            };
-        }
-
-        @Bean
-        public GameListViewCell gameListViewCell(){
-            return new GameListViewCell(
-                    new GameProvider(),
-                    new UserProvider(),
-                    new SceneManager(),
-                    new JoinGameManager(new RestTemplate()){
-                        @Override
-                        public CompletableFuture joinGame(@NonNull User user, @NonNull Game game){
-                            return new CompletableFuture();
-                        }
-                    },
-                    new ApplicationState());
-
-        }
     }
 
     @Autowired
     private ApplicationContext context;
 
-    private LobbyViewController lobbyViewController;
+    @Autowired
+    IngameContext ingameContext;
 
     @Override
     public void start(Stage stage) {
+
+        ingameContext.getUser().setUserKey("123");
+        ingameContext.getUser().setName("Bob");
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         @SuppressWarnings("unchecked")
         ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
@@ -185,10 +203,9 @@ public class SpectatorModusTest extends ApplicationTest {
     }
 
     @Test
-    public void joinAsSpectatorTest(){
+    public void joinAsSpectatorTest() throws Exception {
 
         ListCell<Game> newGame = lookup("#lobbyGamesListView .list-cell").nth(0).query();
-        //Button spectatorButton = (Button)newGame.queryAccessibleAttribute(AccessibleAttribute.CONTENTS, lookup("spectatorButton"));
         Button spectatorButton = from(newGame).lookup("#spectatorButtonmyNewGame").query();
         clickOn(spectatorButton);
 
@@ -196,6 +213,8 @@ public class SpectatorModusTest extends ApplicationTest {
 
         Assert.assertTrue(NEW_GAME.isSpectatorModus());
 
-
+        gameEventManager.startSocket("1", null, true);
     }
 }
+
+

@@ -158,12 +158,17 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
         chatContainer.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();
+        if(this.context.getGameData().isSpectatorModus()){
+            //chatContainer.setDisable(true);
+            chatController.getChatChannelControllers().get("General").getInputField().setDisable(true);
+        }
     }
 
     private void initPlayerCardBuilders() {
         playerCard = new PlayerCardBuilder();
         playerCard2 = new PlayerCardBuilder();
         playerCardBuilders = FXCollections.observableArrayList();
+        playerCardBuilders.add(playerCard);
         playerCardBuilders.add(playerCard2);
         if(gameProvider.get().getNeededPlayer() == 4) {
             playerCard3 = new PlayerCardBuilder();
@@ -218,6 +223,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     public void setPlayerCards(Game game) {
         // init PlayerCards
+        /*
         boolean skipped = false;
         Player user = null;
         for(Player p: game.getPlayers()) {
@@ -229,12 +235,16 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             // Exception
             return;
         }
-        playerCard.setPlayer(user, Color.valueOf(user.getColor()));
+
+         */
+        //playerCard.setPlayer(user, Color.valueOf(user.getColor()));
         for (Player p : game.getPlayers()) {
-            if(p.equals(user) && !skipped){
+            /*if(p.equals(user) && !skipped){
                 skipped = true;
                 continue;
             }
+
+             */
             for(PlayerCardBuilder playerC: playerCardBuilders){
                 if(playerC.isEmpty) {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));

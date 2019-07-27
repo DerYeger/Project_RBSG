@@ -168,7 +168,11 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
         if (this.game != null) {
             this.game.setSpectatorModus(true);
         }
-        joinButtonClicked(event);
+        if(game != null) {
+            gameProvider.set(game);
+                //joinGameManager.joinGame(userProvider.get(), game).get();
+            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
+        }
     }
 
     @Override

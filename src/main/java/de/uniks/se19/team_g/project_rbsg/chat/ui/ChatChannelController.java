@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.chat.ui;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -104,4 +103,10 @@ public class ChatChannelController {
     public String getChannel() {
         return channel;
     }
+
+
+    public TextField getInputField() {
+        return inputField;
+    }
+
 }

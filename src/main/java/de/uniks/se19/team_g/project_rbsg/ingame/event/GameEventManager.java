@@ -78,7 +78,7 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
     public void startSocket(@Nonnull final String gameID, @Nullable final String armyID, @NonNull final boolean spectatorModus) throws Exception {
         final URIBuilder uriBuilder = new URIBuilder("/game");
         uriBuilder.addParameter("gameId", gameID);
-        if (armyID != null) {
+        if ((armyID != null) && (! spectatorModus)){
             uriBuilder.addParameter("armyId", armyID);
         }
         if (spectatorModus) {
