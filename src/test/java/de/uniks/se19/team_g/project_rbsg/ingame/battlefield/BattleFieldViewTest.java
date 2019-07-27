@@ -212,9 +212,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.getGameState().setPhase("movePhase");
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
-        click(75, 150);
+        click(300, 150);
         Assert.assertNull(game.getSelectedUnit());
-        click(300, 175);
+        click(350, 175);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyZeroInteractions(movementManager);
@@ -225,7 +225,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(300, 200);
         //verify(movementManager).getTour(playerUnit, definition.cells[1][0]);
         Assert.assertNull(game.getSelectedUnit());
-        click(300, 175);
+        click(350, 175);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyNoMoreInteractions(movementManager);
@@ -249,7 +249,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         ).when(gameEventManager).sendMessage(any());
 
         // test move action fired, if reachable terrain is clicked
-        click(250, 175);
+        click(300, 175);
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
@@ -478,8 +478,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         verifyZeroInteractions(gameEventManager);
         game.setPhase(Game.Phase.attackPhase.name());
 
-        click(305, 225);
-        click(350, 225);
+        click(325, 225);
+        click(375, 225);
         verify(gameEventManager).api();
         verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
