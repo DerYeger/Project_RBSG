@@ -12,32 +12,47 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Highlighting
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
+import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.termination.*;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.*;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -48,15 +63,20 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.Map;
 import java.util.Objects;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Keanu Stückrad
  */
 @Scope("prototype")
 @Controller
-public class BattleFieldController implements RootController, IngameViewController, Terminable
+public class BattleFieldController implements RootController, IngameViewController, Terminable, Rincled
 {
 
     private static final double CELL_SIZE = 64;
@@ -132,6 +152,36 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private IngameContext context;
 
+    @FXML
+    public Button ingameInformationsButton;
+    @FXML
+    public HBox playerBar;
+    @FXML
+    public Pane player1;
+    @FXML
+    public Pane player2;
+    @FXML
+    public Pane player3;
+    @FXML
+    public Pane player4;
+    @FXML
+    public Label roundTextLabel;
+    @FXML
+    public Label roundCountLabel;
+    @FXML
+    public Label phaseLabel;
+    @FXML
+    public ImageView phaseImage;
+    @FXML
+    public HBox ingameInformationHBox;
+    @FXML
+    public HBox menueBar;
+
+    private PlayerListController playerListController;
+
+    private SimpleIntegerProperty roundCount;
+    private int roundCounter;
+
     @Autowired
     public BattleFieldController(
             @Nonnull final SceneManager sceneManager,
@@ -147,6 +197,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
         this.hoveredTile = new SimpleObjectProperty<>(null);
+        this.roundCount = new SimpleIntegerProperty();
+        this.roundCounter = 1;
     }
 
     public Tile getHoveredTile()
@@ -182,7 +234,12 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
                 40
         );
-
+        JavaFXUtils.setButtonIcons(
+                ingameInformationsButton,
+                getClass().getResource("/assets/icons/operation/accountWhite.png"),
+                getClass().getResource("/assets/icons/operation/accountBlack.png"),
+                40
+        );
         JavaFXUtils.setButtonIcons(
                 endPhaseButton,
                 getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
@@ -191,7 +248,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         miniMapCanvas.visibleProperty().bindBidirectional(miniMapStackPane.visibleProperty());
-        miniMapCanvas.setVisible(false);
+        miniMapCanvas.setVisible(true);
         JavaFXUtils.setButtonIcons(
                 mapButton,
                 getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
@@ -294,12 +351,116 @@ public class BattleFieldController implements RootController, IngameViewControll
         canvas = new Canvas();
         canvas.setId("canvas");
         zoomableScrollPane = new ZoomableScrollPane(canvas);
+        canvas.setHeight(CELL_SIZE*mapSize);
+        canvas.setWidth(CELL_SIZE*mapSize);
         battlefieldStackPane.getChildren().add(0,zoomableScrollPane);
-        canvas.setHeight(CELL_SIZE * mapSize);
-        canvas.setWidth(CELL_SIZE * mapSize);
-
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
+    }
+    private void initPlayerBar(){
+        HashMap<String, Player> playerMap=new HashMap<>();
+        HashMap<String, Node> playerNodeMap=new HashMap<>();
+        HashMap<String, Pane> playerPaneMap=new HashMap<>();
+        ArrayList<Pane> playerCardList = new ArrayList<Pane>();
+
+        playerCardList.add(player1);
+        playerCardList.add(player2);
+        playerCardList.add(player3);
+        playerCardList.add(player4);
+
+        playerListController=new PlayerListController(this.game);
+        playerBar.setAlignment(Pos.TOP_CENTER);
+
+        int counter=0;
+        if(this.game.getPlayers().size()==2){
+            playerBar.getChildren().remove(player1);
+            playerCardList.remove(player1);
+            playerBar.getChildren().remove(player4);
+            playerCardList.remove(player4);
+        }
+
+        for(Player player : this.game.getPlayers()){
+
+            playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
+            playerPaneMap.put(player.getId(), playerCardList.get(counter));
+            playerMap.put(player.getId(), player);
+            playerNodeMap.put(player.getId(), playerListController.getPlayerCards().get(counter));
+
+            counter++;
+        }
+
+        playerListController=new PlayerListController(game);
+        playerBar.setVisible(false);
+        playerBar.setPickOnBounds(false);
+        battlefieldStackPane.setPickOnBounds(false);
+        miniMapStackPane.setPickOnBounds(false);
+
+        if(!playerNodeMap.isEmpty() && this.game.getCurrentPlayer()!=null){
+            playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
+        }
+        this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
+            Player oldPlayer = oldVal;
+            if(oldPlayer!=null){
+                playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
+            }
+            if(newVal!=null){
+                Player newPlayer = newVal;
+                playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
+            }
+        });
+        this.game.getPlayers().addListener((ListChangeListener) l -> {
+            if(!l.next()){
+                return;
+            }
+            @SuppressWarnings("unchecked")
+            List<Player> removedPlayer = (List<Player>)l.getRemoved();
+            Platform.runLater(()->{
+                for(Player player : removedPlayer){
+                    playerPaneMap.get(player.getId()).getChildren().remove(0);
+                    playerPaneMap.get(player.getId()).getChildren().add(playerListController.createLoserCard(player));
+                }
+            });
+        });
+
+        this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
+
+                if(oldVal==null){
+                    return;
+                }
+                if(oldVal.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size())==0){
+                    Platform.runLater(() -> {
+                    roundCount.set(roundCount.get()+1);
+                    });
+                    roundCounter=0;
+                }
+                roundCounter++;
+        });
+
+        this.game.phaseProperty().addListener(((observable, oldValue, newValue) -> {
+            switch(newValue){
+                case "movePhase": {
+                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/footstepsWhite.png"));
+                    phaseImage.imageProperty().setValue(image);
+                }break;
+                case "attackPhase": {
+                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/swordClashWhite.png"));
+                    phaseImage.imageProperty().setValue(image);
+                }break;
+                case "lastMovePhase": {
+                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/footprintWhite.png"));
+                    phaseImage.imageProperty().setValue(image);
+                }break;
+            }
+        }));
+
+        roundCount.set(0);
+        roundCountLabel.textProperty().bind(roundCount.asString());
+        phaseLabel.setText("Phase");
+        ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
+        //ingameInformationHBox.setSpacing(10);
+        HBox.setMargin(ingameInformationHBox, new Insets(10,10 ,10,10));
+        //phaseLabel.textProperty().bind(this.game.phaseProperty());
+        roundTextLabel.textProperty().setValue("Round");
     }
 
     protected Tile resolveTargetTile(MouseEvent event) {
@@ -557,6 +718,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                                 zoomableScrollPane.vvalueProperty(), mapSize, zoomableScrollPane.heightProperty(),
                                 zoomableScrollPane.widthProperty());
             initMiniMap();
+            initPlayerBar();
             miniMapDrawer.setCamera(camera);
         } else {
             // exception
@@ -753,6 +915,16 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.scaleValueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.hvalueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
+    }
+    public void openPlayerBar(@Nonnull final ActionEvent event){
+        if(playerBar.visibleProperty().get()==false){
+            playerBar.visibleProperty().setValue(true);
+            playerBar.toFront();
+        }else
+        {
+            playerBar.visibleProperty().setValue(false);
+            playerBar.toBack();
+        }
     }
 
     public void toggleMusic() {

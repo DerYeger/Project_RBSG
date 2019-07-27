@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Jan Müller
@@ -230,8 +232,10 @@ public class Game {
         return phase;
     }
 
-    public void setPhase(String phase) {
-        this.phase.set(phase);
+    public void setPhase(String phase) throws InterruptedException {
+        Platform.runLater(()-> {
+            this.phase.set(phase);
+        });
     }
 
     public Game setCurrentPlayer(Player player) {

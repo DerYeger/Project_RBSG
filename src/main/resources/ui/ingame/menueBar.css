@@ -1,0 +1,15 @@
+@import url("/ui/darkTheme.css");
+
+.label.default {
+    -fx-font-size: 16pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Regular;
+}
+
+.label.roundCount {
+    -fx-font-size: 16pt;
+    -text-align: center;
+    -fx-font-weight: bold;
+    -fx-font-family: Roboto-Medium;
+    -fx-text-fill: -on-primary-fill;
+}
