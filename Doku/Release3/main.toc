@@ -9,7 +9,7 @@
 \contentsline {subsubsection}{\numberline {2.2.4}Waiting Room (Gamelobby)}{10}{subsubsection.2.2.4}% 
 \contentsline {subsubsection}{\numberline {2.2.5}Ingame}{12}{subsubsection.2.2.5}% 
 \contentsline {subsubsection}{\numberline {2.2.6}Weitere Features}{14}{subsubsection.2.2.6}% 
-\contentsline {subsection}{\numberline {2.3}MockUps}{14}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.3}MockUps}{15}{subsection.2.3}% 
 \contentsline {subsubsection}{\numberline {2.3.1}Lobby}{15}{subsubsection.2.3.1}% 
 \contentsline {subsubsection}{\numberline {2.3.2}Waiting Room (Gamelobby)}{15}{subsubsection.2.3.2}% 
 \contentsline {subsubsection}{\numberline {2.3.3}Ingame}{17}{subsubsection.2.3.3}% 
@@ -93,73 +93,77 @@
 \contentsline {subsubsection}{\numberline {3.3.2}Einheiteninformationen im Datenmodell}{29}{subsubsection.3.3.2}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{29}{section*.84}% 
 \contentsline {paragraph}{\nonumberline Ziel}{30}{section*.85}% 
-\contentsline {subsection}{\numberline {3.4}Zeit"ubersicht}{31}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Analyse}{31}{subsection.3.5}% 
-\contentsline {subsubsection}{\numberline {3.5.1}Burndown}{31}{subsubsection.3.5.1}% 
-\contentsline {subsubsection}{\numberline {3.5.2}Abgeschlossene Stories}{32}{subsubsection.3.5.2}% 
-\contentsline {subsubsubsection}{\numberline {3.5.2.1}Waiting Room - Spielbeitritt anpassen}{32}{subsubsubsection.3.5.2.1}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{32}{section*.88}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{32}{section*.89}% 
-\contentsline {subsubsubsection}{\numberline {3.5.2.2}Ingame - Spielfeld}{32}{subsubsubsection.3.5.2.2}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{32}{section*.90}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{32}{section*.91}% 
-\contentsline {subsubsubsection}{\numberline {3.5.2.3}Ingame - Phase beenden}{32}{subsubsubsection.3.5.2.3}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{32}{section*.92}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{32}{section*.93}% 
-\contentsline {subsubsubsection}{\numberline {3.5.2.4}Ingame - Spielstatus anzeigen}{33}{subsubsubsection.3.5.2.4}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{33}{section*.94}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{33}{section*.95}% 
-\contentsline {subsubsection}{\numberline {3.5.3}Angefangene Stories}{33}{subsubsection.3.5.3}% 
-\contentsline {subsubsubsection}{\numberline {3.5.3.1}Ingame - Einheit ausw"ahlen}{33}{subsubsubsection.3.5.3.1}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{33}{section*.96}% 
-\contentsline {paragraph}{\nonumberline Stand}{33}{section*.97}% 
-\contentsline {subsubsubsection}{\numberline {3.5.3.2}Ingame - Einheit bewegen}{33}{subsubsubsection.3.5.3.2}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{33}{section*.98}% 
-\contentsline {paragraph}{\nonumberline Stand}{33}{section*.99}% 
-\contentsline {subsubsubsection}{\numberline {3.5.3.3}Ingame - Minikarte anzeigen}{33}{subsubsubsection.3.5.3.3}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{33}{section*.100}% 
-\contentsline {paragraph}{\nonumberline Stand}{33}{section*.101}% 
-\contentsline {subsubsection}{\numberline {3.5.4}Nicht abgeschlossene Stories/Tasks}{33}{subsubsection.3.5.4}% 
-\contentsline {subsubsection}{\numberline {3.5.5}Fazit}{34}{subsubsection.3.5.5}% 
-\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {vi}}}{35}{section.4}% 
-\contentsline {subsection}{\numberline {4.1}Sprintziel}{35}{subsection.4.1}% 
-\contentsline {subsection}{\numberline {4.2}Ge\"anderte User Stories vom Sprint \textup {\uppercase {v}}}{35}{subsection.4.2}% 
-\contentsline {subsubsection}{\numberline {4.2.1}Ingame - Minikarte anzeigen}{35}{subsubsection.4.2.1}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{35}{section*.104}% 
-\contentsline {paragraph}{\nonumberline Ge\"andertes Ziel}{35}{section*.105}% 
-\contentsline {paragraph}{\nonumberline Ge\"anderte Story}{35}{section*.106}% 
-\contentsline {subsubsection}{\numberline {4.2.2}Ingame - Einheiteninformationen}{35}{subsubsection.4.2.2}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{35}{section*.107}% 
-\contentsline {paragraph}{\nonumberline Ge\"andertes Ziel}{35}{section*.108}% 
-\contentsline {paragraph}{\nonumberline Ge\"anderte Story}{36}{section*.109}% 
-\contentsline {subsection}{\numberline {4.3}\"Ubernommene User Stories aus Sprint \textup {\uppercase {v}}}{36}{subsection.4.3}% 
-\contentsline {subsection}{\numberline {4.4}User Stories}{36}{subsection.4.4}% 
-\contentsline {subsubsection}{\numberline {4.4.1}Ingame - Einheit bewegen nach Bewegung}{36}{subsubsection.4.4.1}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{36}{section*.110}% 
-\contentsline {paragraph}{\nonumberline Ziel}{36}{section*.111}% 
-\contentsline {paragraph}{\nonumberline Story}{37}{section*.112}% 
-\contentsline {subsection}{\numberline {4.5}Ge\"anderte Tasks vom Sprint \textup {\uppercase {v}}}{37}{subsection.4.5}% 
-\contentsline {subsubsection}{\numberline {4.5.1}Einheiteninformationen im Datenmodell}{37}{subsubsection.4.5.1}% 
-\contentsline {paragraph}{\nonumberline Ge"andete Zuteilung}{37}{section*.113}% 
-\contentsline {paragraph}{\nonumberline Ziel}{37}{section*.114}% 
-\contentsline {subsection}{\numberline {4.6}\"Ubernommene Tasks aus Sprint \textup {\uppercase {v}}}{37}{subsection.4.6}% 
-\contentsline {subsection}{\numberline {4.7}Bugs}{37}{subsection.4.7}% 
-\contentsline {subsubsection}{\numberline {4.7.1}Terminierung sicherstellen}{37}{subsubsection.4.7.1}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{37}{section*.115}% 
-\contentsline {paragraph}{\nonumberline Problem}{37}{section*.116}% 
-\contentsline {subsubsection}{\numberline {4.7.2}Ingame - Einheit mehrmals ausw\"ahlen}{37}{subsubsection.4.7.2}% 
+\contentsline {subsection}{\numberline {3.4}Zeit"ubersicht}{30}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Analyse}{30}{subsection.3.5}% 
+\contentsline {subsubsection}{\numberline {3.5.1}Burndown}{30}{subsubsection.3.5.1}% 
+\contentsline {subsubsection}{\numberline {3.5.2}Abgeschlossene Stories}{31}{subsubsection.3.5.2}% 
+\contentsline {subsubsubsection}{\numberline {3.5.2.1}Waiting Room - Spielbeitritt anpassen}{31}{subsubsubsection.3.5.2.1}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{31}{section*.88}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{31}{section*.89}% 
+\contentsline {subsubsubsection}{\numberline {3.5.2.2}Ingame - Spielfeld}{31}{subsubsubsection.3.5.2.2}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{31}{section*.90}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{31}{section*.91}% 
+\contentsline {subsubsubsection}{\numberline {3.5.2.3}Ingame - Phase beenden}{31}{subsubsubsection.3.5.2.3}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{31}{section*.92}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{31}{section*.93}% 
+\contentsline {subsubsubsection}{\numberline {3.5.2.4}Ingame - Spielstatus anzeigen}{32}{subsubsubsection.3.5.2.4}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{32}{section*.94}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{32}{section*.95}% 
+\contentsline {subsubsection}{\numberline {3.5.3}Angefangene Stories}{32}{subsubsection.3.5.3}% 
+\contentsline {subsubsubsection}{\numberline {3.5.3.1}Ingame - Einheit ausw"ahlen}{32}{subsubsubsection.3.5.3.1}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{32}{section*.96}% 
+\contentsline {paragraph}{\nonumberline Stand}{32}{section*.97}% 
+\contentsline {subsubsubsection}{\numberline {3.5.3.2}Ingame - Einheit bewegen}{32}{subsubsubsection.3.5.3.2}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{32}{section*.98}% 
+\contentsline {paragraph}{\nonumberline Stand}{32}{section*.99}% 
+\contentsline {subsubsubsection}{\numberline {3.5.3.3}Ingame - Minikarte anzeigen}{32}{subsubsubsection.3.5.3.3}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{32}{section*.100}% 
+\contentsline {paragraph}{\nonumberline Stand}{32}{section*.101}% 
+\contentsline {subsubsection}{\numberline {3.5.4}Nicht abgeschlossene Stories/Tasks}{32}{subsubsection.3.5.4}% 
+\contentsline {subsubsection}{\numberline {3.5.5}Fazit}{33}{subsubsection.3.5.5}% 
+\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {vi}}}{34}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Sprintziel}{34}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}Ge\"anderte User Stories vom Sprint \textup {\uppercase {v}}}{34}{subsection.4.2}% 
+\contentsline {subsubsection}{\numberline {4.2.1}Ingame - Minikarte anzeigen}{34}{subsubsection.4.2.1}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{34}{section*.104}% 
+\contentsline {paragraph}{\nonumberline Ge\"andertes Ziel}{34}{section*.105}% 
+\contentsline {paragraph}{\nonumberline Ge\"anderte Story}{34}{section*.106}% 
+\contentsline {subsubsection}{\numberline {4.2.2}Ingame - Einheiteninformationen}{34}{subsubsection.4.2.2}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{34}{section*.107}% 
+\contentsline {paragraph}{\nonumberline Ge\"andertes Ziel}{34}{section*.108}% 
+\contentsline {paragraph}{\nonumberline Ge\"anderte Story}{35}{section*.109}% 
+\contentsline {subsection}{\numberline {4.3}\"Ubernommene User Stories aus Sprint \textup {\uppercase {v}}}{35}{subsection.4.3}% 
+\contentsline {subsection}{\numberline {4.4}User Stories}{35}{subsection.4.4}% 
+\contentsline {subsubsection}{\numberline {4.4.1}Ingame - Einheit bewegen nach Bewegung}{35}{subsubsection.4.4.1}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{35}{section*.110}% 
+\contentsline {paragraph}{\nonumberline Ziel}{35}{section*.111}% 
+\contentsline {paragraph}{\nonumberline Story}{36}{section*.112}% 
+\contentsline {subsection}{\numberline {4.5}Ge\"anderte Tasks vom Sprint \textup {\uppercase {v}}}{36}{subsection.4.5}% 
+\contentsline {subsubsection}{\numberline {4.5.1}Einheiteninformationen im Datenmodell}{36}{subsubsection.4.5.1}% 
+\contentsline {paragraph}{\nonumberline Ge"andete Zuteilung}{36}{section*.113}% 
+\contentsline {paragraph}{\nonumberline Ziel}{36}{section*.114}% 
+\contentsline {subsection}{\numberline {4.6}\"Ubernommene Tasks aus Sprint \textup {\uppercase {v}}}{36}{subsection.4.6}% 
+\contentsline {subsection}{\numberline {4.7}Tasks}{36}{subsection.4.7}% 
+\contentsline {subsubsection}{\numberline {4.7.1}Ingame - Best\"atigungsbox in der Sidebar}{36}{subsubsection.4.7.1}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{36}{section*.115}% 
+\contentsline {paragraph}{\nonumberline Ziel}{36}{section*.116}% 
+\contentsline {subsection}{\numberline {4.8}Bugs}{37}{subsection.4.8}% 
+\contentsline {subsubsection}{\numberline {4.8.1}Terminierung sicherstellen}{37}{subsubsection.4.8.1}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{37}{section*.117}% 
-\contentsline {paragraph}{\nonumberline Problem}{38}{section*.118}% 
-\contentsline {subsection}{\numberline {4.8}Zeit\"ubersicht}{39}{subsection.4.8}% 
-\contentsline {subsection}{\numberline {4.9}Analyse}{39}{subsection.4.9}% 
-\contentsline {subsubsection}{\numberline {4.9.1}Burndown}{39}{subsubsection.4.9.1}% 
-\contentsline {subsubsection}{\numberline {4.9.2}Ausrei{\ss }er}{39}{subsubsection.4.9.2}% 
-\contentsline {subsubsection}{\numberline {4.9.3}Abgeschlossen}{39}{subsubsection.4.9.3}% 
-\contentsline {subsubsection}{\numberline {4.9.4}Angefangen}{40}{subsubsection.4.9.4}% 
-\contentsline {subsubsection}{\numberline {4.9.5}Nicht abgeschlossen}{40}{subsubsection.4.9.5}% 
-\contentsline {subsubsection}{\numberline {4.9.6}Entfernt}{40}{subsubsection.4.9.6}% 
-\contentsline {subsubsection}{\numberline {4.9.7}Fazit}{40}{subsubsection.4.9.7}% 
-\contentsline {section}{\numberline {5}Abschluss Release \textup {\uppercase {iii}}}{41}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Neue MockUps im Verlauf des Releases \textup {\uppercase {iii}}}{41}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Vergleich MockUps mit aktueller Implementation}{41}{subsection.5.2}% 
-\contentsline {section}{\numberline {6}Quellenangaben}{42}{section.6}% 
+\contentsline {paragraph}{\nonumberline Problem}{37}{section*.118}% 
+\contentsline {subsubsection}{\numberline {4.8.2}Ingame - Einheit mehrmals ausw\"ahlen}{37}{subsubsection.4.8.2}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{37}{section*.119}% 
+\contentsline {paragraph}{\nonumberline Problem}{37}{section*.120}% 
+\contentsline {subsection}{\numberline {4.9}Zeit\"ubersicht}{38}{subsection.4.9}% 
+\contentsline {subsection}{\numberline {4.10}Analyse}{38}{subsection.4.10}% 
+\contentsline {subsubsection}{\numberline {4.10.1}Burndown}{38}{subsubsection.4.10.1}% 
+\contentsline {subsubsection}{\numberline {4.10.2}Ausrei{\ss }er}{38}{subsubsection.4.10.2}% 
+\contentsline {subsubsection}{\numberline {4.10.3}Abgeschlossen}{39}{subsubsection.4.10.3}% 
+\contentsline {subsubsection}{\numberline {4.10.4}Angefangen}{39}{subsubsection.4.10.4}% 
+\contentsline {subsubsection}{\numberline {4.10.5}Nicht abgeschlossen}{39}{subsubsection.4.10.5}% 
+\contentsline {subsubsection}{\numberline {4.10.6}Entfernt}{39}{subsubsection.4.10.6}% 
+\contentsline {subsubsection}{\numberline {4.10.7}Fazit}{39}{subsubsection.4.10.7}% 
+\contentsline {section}{\numberline {5}Abschluss Release \textup {\uppercase {iii}}}{40}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Neue MockUps im Verlauf des Releases \textup {\uppercase {iii}}}{40}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Vergleich MockUps mit aktueller Implementation}{40}{subsection.5.2}% 
+\contentsline {section}{\numberline {6}Quellenangaben}{41}{section.6}% 

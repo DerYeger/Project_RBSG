@@ -148,7 +148,7 @@
                     \item[$\ast$] Spiel erstellen/beitreten
                     \item[$\ast$] Anzeige der angemeldeten Spieler 
                     \item[$\ast$] Anzeige der aktiven Spiele
-                    \item[$\ast$] Unterst"utzung eines Chats
+                    \item[$\ast$] Chatfunktion
                     \item[$\ast$] Ausloggen
                 \end{itemize}
                 \item Army Manager
@@ -158,7 +158,7 @@
                 \end{itemize}
                 \item Waiting Room (Gamelobby)
                 \begin{itemize}
-                    \item[$\ast$] Unterst"utzung eines Chats
+                    \item[$\ast$] Chatfunktion
                     \item[$\ast$] Anzeige der beigetretenen Spieler 
                     \item[$\ast$] Zur"uck zur Lobby
                 \end{itemize}
@@ -170,19 +170,19 @@
             \end{itemize}
             Weiterhin wurde bereits eine C0 Testabdeckung von mindestens 60\% erreicht.
             \subsubsection{Login}
-                Im Login kann der Nuzter sich anmelden oder sich sogar registrieren (siehe Abbildung \ref{Login}). \\
+                Im Login konnte der Nuzter sich anmelden oder registrieren (siehe Abbildung \ref{Login}). \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/login/Login.png}
     				\caption{Release \RN{2}: Login Szene}
     				\label{Login}
 			    \end{figure}
-			    \ \\ Versucht man sich anzumelden oder zu registrieren, erscheint ein Lade Indicator (siehe Abbildung \ref{Login_Form}) und die Buttons und Textfelder werden disabled. Macht der Nutzer dabei einen Fehler oder kann keine Verbindung zum Server hergestellt werden, erscheint eine Fehlermeldung (siehe Abbildung \ref{Login_Form}). Der Login ist internationalisiert und der Untertitel \glqq Enhanced Wars\grqq\ ist animiert. Weiterhin kann man die Musik "uber den Button ein der Ecke ein- und ausschalten. \\
+			    \ \\ Versuchte der Nutzer sich anzumelden oder zu registrieren, erschien ein Lade-Indikator (siehe Abbildung \ref{Login_Form}) und die Buttons und Textfelder wurden disabled. Machte der Nutzer dabei einen Fehler oder konnte keine Verbindung zum Server hergestellt werden, erschien eine Fehlermeldung (siehe Abbildung \ref{Login_Form}). Der Login war internationalisiert und der Untertitel \glqq Enhanced Wars\grqq\ war animiert. Weiterhin konnte der Nutzer die Musik "uber den Musik Button in der Ecke ein- und ausschalten. \\
 			    \begin{figure}[H]
                     \centering
                     \begin{subfigure}[h]{0.3\linewidth}
                         \includegraphics[width=\linewidth]{images/old_state/login/Indicator.png}
-                        \caption{Indicator}
+                        \caption{Indikator}
                     \end{subfigure}
                     \begin{subfigure}[h]{0.3\linewidth}
                         \includegraphics[width=\linewidth]{images/old_state/login/MissingName.png}
@@ -200,11 +200,11 @@
                         \includegraphics[width=\linewidth]{images/old_state/login/UnexpectedError.png}
                         \caption{Unexpected Error}
                     \end{subfigure}
-                    \caption{Release \RN{2}: Login Form}
+                    \caption{Release \RN{2}: Login Formular}
                     \label{Login_Form}
                 \end{figure}
             \subsubsection{Lobby} \label{LOBBY}
-                Die Lobby zeigt eine Liste von allen Spielern (die nicht im Spiel sind) und allen Spielen an. Diese aktualisieren sich, wenn der Server die entsprechenede Nachricht schickt. Man kann sich "uber die Buttons oben rechts ausloggen, die Sprache "andern oder die Musik an- und ausschalten. Der Chat wird unten links angezeigt. Rechts sieht man eine Liste mit allen vollst"andigen Armeen. Hat man keine vollst"andige Armee ausgew"ahlt, kann man kein Spiel erstellen (siehe Abbildung \ref{Lobby_No_Army_Selected}). \\
+                Die Lobby zeigte eine Liste von allen Spielern (die nicht im Spiel waren) und allen Spielen an. Diese aktualisierten sich, wenn der Server die entsprechenede Nachricht schickte. Der Nutzer konnte sich "uber die Buttons oben rechts ausloggen, die Sprache "andern oder die Musik an- und ausschalten. Der Chat wurde unten links angezeigt. Rechts sah der Nutzer eine Liste mit allen vollst"andigen Armeen. Hatte der Nutzer keine vollst"andige Armee ausgew"ahlt, konnte er kein Spiel erstellen (siehe Abbildung \ref{Lobby_No_Army_Selected}) und auch keinem Spiel beitreten. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/NoArmySelected.png}
@@ -215,10 +215,10 @@
                     \begin{center}
                         \includegraphics[width=0.35\textwidth]{images/old_state/lobby/CreateGame.png}
                     \end{center}
-                    \caption{Release \RN{2}: Create Game}
+                    \caption{Release \RN{2}: Create Game Formular}
                     \label{Create_Game}
                 \end{wrapfigure}
-			    \ \vspace{0.5cm} \\ Hat man eine Armee ausgew"ahlt,kann man ein Spiel erstellen oder einem Spiel beitreten (siehe Abbildung \ref{Create_Game} oder \ref{Lobby_Language}). Spiel erstellen geht "uber Create Game (siehe Abbildung \ref{Lobby_Army_Selected}). Der Nutzer hat die Auswahl zwischen einem 2-Spieler-Spiel und einem 4-Spieler-Spiel. Danach wird ein Autojoin getriggert. Die Lobby ist auch internationalisiert (vgl. Abbildung \ref{Lobby_Army_Selected} mit \ref{Lobby_Language}). \\
+			    \ \vspace{0.5cm} \\ Hatte der Nutzer aber eine Armee ausgew"ahlt, konnte er ein Spiel erstellen oder einem Spiel beitreten (siehe Abbildung \ref{Create_Game} oder \ref{Lobby_Language}). Spiel erstellen funktionierte "uber den Create Game Button (siehe Abbildung \ref{Lobby_Army_Selected}). Der Nutzer hatte die Auswahl zwischen einem 2-Spieler-Spiel und einem 4-Spieler-Spiel. Danach wurde ein Autojoin gerufen und der Nutzer trat dem Spiel automatisch bei. Die Lobby war auch internationalisiert (vgl. Abbildung \ref{Lobby_Army_Selected} mit \ref{Lobby_Language}). \\
 			    \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/ArmySelected.png}
@@ -232,7 +232,7 @@
     				\label{Lobby_Language}
 			    \end{figure}
 		    \subsubsection{Army Manager}
-		        Im Army Manager sieht der Nutzer eine Liste der Einheiten, die man w"ahlen kann, und eine Liste der Einheiten, die in der gerade rechts ausgew"ahlten Armee sind. In der Mitte steht der Name der ausgew"ahlten Armee, ein + und ein - Button, um Einheiten der Armee hinzuzuf"ugen oder um sie zu l"oschen und ein Z"ahler, der anzeigt, wie voll die Armee ist. Neben der Einheitenliste ist oben eine Vorschau der gerade ausgew"ahlten Einheit. Neben diesem Feld werden die Properties der Einheit angezeigt und welche Einheiten die ausgew"ahlte Einheit angreifen kann. Hier stehen bei keiner Auswahl Fragezeichen (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), ansonsten \\
+		        Im Army Manager gab es eine Liste der Einheiten, die der Nutzer w"ahlen konnte, und eine Liste der Einheiten, die in der gerade rechts ausgew"ahlten Armee waren. In der Mitte stand der Name der ausgew"ahlten Armee, ein Plus (+) und ein Minus (-) Button, um Einheiten der Armee hinzuzuf"ugen oder um sie zu l"oschen und ein Z"ahler, der anzeigte, wie viele Einheiten bereits in der Armee waren. Neben der Einheitenliste war eine Vorschau der gerade ausgew"ahlten Einheit. Neben diesem Feld wurden die Properties der Einheit angezeigt und welche Einheiten die ausgew"ahlte Einheit angreifen konnte. Hier stand bei keiner Auswahl in jedem Feld ein Fragezeichen (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), ansonsten Zahlenwerte (siehe Abbildung \ref{Army_Manager_Unit_Selected}). \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/NoUnitSelected.png}
@@ -245,7 +245,7 @@
     				\caption{Release \RN{2}: Army Manager Szene: Einheit ausgew"ahlt}
     				\label{Army_Manager_Unit_Selected}
 			    \end{figure}
-			    \ \\ Werte (siehe Abbildung \ref{Army_Manager_Unit_Selected}). Darunter steht der Lore Text der ausgew"ahlten Einheit. Oben rechts sind Buttons, um zur"uck zur Lobby zu gehen, um die Musik ein- oder auszuschalten und ein Button der die Properties in einem neuen Menu erkl"art (siehe Abbildung \ref{Property_Infoo}). Unten rechts sind Buttons, um eine Armee komplett \\
+			    \ \\ Darunter war der Lore Text der ausgew"ahlten Einheit zu sehen. Oben rechts waren Buttons, um zur"uck zur Lobby zu gehen, um die Musik ein- oder auszuschalten und ein Button, der die Properties in einem Overlay erkl"arte (siehe Abbildung \ref{Property_Infoo}). Unten rechts befanden sich Buttons, um eine Armee komplett zu l"oschen, \\
 			    \begin{figure}[H]
                     \centering
                     \begin{minipage}{0.6\textwidth}
@@ -261,7 +261,7 @@
                         \label{Edit_Army}
                     \end{minipage}
                 \end{figure}
-                \ \\ zu l"oschen, um sie zu speichern (wird disabled, wenn sich nichts ge"andert hat (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), wenn der Nutzer etwas "andert wieder enabled (siehe Abbildung \ref{Army_Manager_Ready_To_Save})) und ein Button, um den Armeenamen zu "andern oder das Icon zu wechseln. Dazu "offnet sich ein weiteres Menu (siehe Abbildung \ref{Edit_Army}). \\
+                \ \\ um sie zu speichern (wurde disabled, wenn sich nichts "anderte (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}). Wenn der Nutzer aber etwas "anderte wurde der Button wieder enabled (siehe Abbildung \ref{Army_Manager_Ready_To_Save})). Es gab dort in der Ecke einen weiteren Button, um den Armeenamen zu "andern oder das Icon zu wechseln. Dazu "offnet sich ein weiteres Overlay (siehe Abbildung \ref{Edit_Army}). \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/ArmyReadyToSave.png}
@@ -269,7 +269,7 @@
     				\label{Army_Manager_Ready_To_Save}
 			    \end{figure}
 	        \subsubsection{Waiting Room (Gamelobby)} \label{WAITING_ROOM}
-                Tritt der Nutzer dem Warteraum bei, dann sieht er oben rechts Buttons. Einmal einen Button zum Verlassen des Spiels in die Lobby, ein Button, um die Musik ein- und auszuschalten, und ein Button, um Informationen anzuzeigen. Da dieser Button noch keine spezielle Funktion hat, wechselt man mit jenem Testweise auf das Spielfeld (Ingame). Oben in der Mitte wird eine Kartenvorschau angezeigt. Links und rechts daneben sind die Playercards. Je nachdem ob man ein 2- Spieler-Spiel oder ein 4-Spieler-Spiel gestartet hat, sind dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). \\
+                Trat der Nutzer dem Warteraum bei, dann sah er oben rechts verschiedene Buttons. Einmal einen Button zum Verlassen des Spiels in die Lobby, einen Button, um die Musik ein- und auszuschalten, und einen Button, um Informationen anzuzeigen. Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise auf das Spielfeld (Ingame). Oben in der Mitte wurde die Kartenvorschau angezeigt. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/2Player.png}
@@ -282,9 +282,9 @@
     				\caption{Release \RN{2}: Waiting Room Szene: 4 Spieler}
     				\label{Waiting_Room_4}
 			    \end{figure}
-			    \ \\ Auf den Spielerkarten stehen der Name des jeweiligen Spielers und der Nutzer sieht die Farbe. Ist noch kein Spieler da, wird ein Indikator angezeigt. Unten ist der Chat und daneben eine freie Pane f"ur ein Minigame, dass noch implementiert werden soll.
+			    \ \\ Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten fanden sich der Name und die Farbe des jeweiligen Spielers vor. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Unten war der Chat und daneben eine freie Pane f"ur ein Minigame, dass noch implementiert werden sollte.
 	        \subsubsection{Ingame}
-	            Die Ingame Szene zeigt bisher nur die Karte und das initiale Spielgeschehen. Die initialen Einheiten werden auch angezeigt. Weiterhin gibt es einen Button, der zur"uck in die Lobby geht. Zwei weitere Buttons kontrollieren das Zoomen (siehe Abbildung \ref{Ingame}, \ref{Ingame_In} und \ref{Ingame_Out}). \\
+	            Die Ingameszene zeigte bisher nur die Karte und das initiale Spielgeschehen. Die initialen Einheiten wurden auch angezeigt. Weiterhin gab es einen Button, der zur"uck in die Lobby navigierte. Zwei weitere Buttons kontrollierten das Zoomen auf dem Spielfeld (siehe Abbildung \ref{Ingame}, \ref{Ingame_In} und \ref{Ingame_Out}). \\
 	            \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/Ingame.png}
@@ -317,7 +317,7 @@
                         \label{Game_Failure}
                     \end{center}
                 \end{wrapfigure}
-		        \ \\ Weiterhin wurde seit den ersten beiden Releases ein Dark Theme Styling implementiert, wie man auf allen vorangegangenen Abbildungen sehen kann. Musik und Internationalisierung war auch v"ollig optional und funktioniert nun in jeder Szene. Der Nutzer kann auch nach Belieben Chuck Norris Zitate "uber den Chat-Befehl \glqq \textbackslash chuckMe\grqq\ im Chat versenden und weiterhin wird nun angezeigt, wann jede Nachricht geschickt wurde. Wenn man eine private Nachricht bekommt, wird dies auch auf dem jeweiligen Tab mit der secondary Farbe signalisiert. Die Kartenvorschau im Warteraum war auch optional, genauso wie das Zoomen Ingame. Den Armeenamen, sowie das Icon dazu "andern zu k"onnen, war auch optional. Der Autojoin nach dem Create Game war auch nicht verlangt, funktioniert nun aber bestens. Ein weiteres sehr wichtiges Feature ist, dass der Client den Spieler nun Fehlermeldungen (siehe Abbildung \ref{Login_Failure} und \ref{Game_Failure}) schickt, wenn der Server einen Websocket unerwartet schlie"sst. Man wird je nach Fehler in den Login oder die Lobby zur"uckgeschickt. Au"sserdem gibt es ein Fenster, in dem der Nutzer noch einmal aussuchen kann, ob er sich wirklich ausloggen m"ochte oder ob er wirklich das Spiel verlassen m"ochte (siehe Abbildung \ref{Leave_Game} und \ref{Logout}). \\
+		        \ \\ Weiterhin wurde seit den ersten beiden Releases ein Dark Theme Styling implementiert, wie auf allen vorangegangenen Abbildungen zu sehen ist. Musik und Internationalisierung waren zwar optional, aber funktionierten in jeder Szene. Der Nutzer konnte auch nach Belieben Chuck Norris Zitate "uber den Chat-Befehl \glqq \textbackslash chuckMe\grqq\ im Chat versenden und es wurde auch mit einem Zeitstempel vor jeder Nachricht angezeigt, wann sie verschickt wurde. Wenn der Nutzer eine private Nachricht bekam, wurde dies auf dem neu aufgegangenem Tab mit der secondary Farbe signalisiert. Die Kartenvorschau im Warteraum war auch optional, genauso wie das Zoomen Ingame. Den Armeenamen, sowie das Icon dazu "andern zu k"onnen, war auch optional. Der Autojoin nach dem Create Game wurde auch nicht verlangt, funktioniert aber bestens. Ein weiteres sehr wichtiges Feature war, dass der Client den Spieler Fehlermeldungen (siehe Abbildung \ref{Login_Failure} und \ref{Game_Failure}) schickte, wenn der Server einen Websocket unerwartet schlo"ss. Der Nutzer wurde je nach Fehler in den Login oder die Lobby zur"uckgeschickt. Au"sserdem gab es ein Fenster, in dem sich der Nutzer noch einmal entscheiden konnte, ob er sich wirklich ausloggen oder ob er wirklich das Spiel verlassen mochte (siehe Abbildung \ref{Leave_Game} und \ref{Logout}). \\
 		        \begin{figure}[H]
                     \centering
                     \begin{minipage}{0.55\textwidth}
@@ -340,6 +340,7 @@
     				\caption{Release \RN{2}: C0 Testabdeckung (Siehe Line, \%)}
     				\label{Coverage}
 			    \end{figure}
+    \newpage
 	    \subsection{MockUps}
 	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zur Lobby und zum Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergeben haben (Ein Kontextmen"u wurde durch eine Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
 	        \subsubsection{Lobby}
@@ -351,7 +352,7 @@
     				\label{Watch_Mode}
 			    \end{figure}
 		    \subsubsection{Waiting Room (Gamelobby)}
-		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"sstenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indicator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps waren auch zwei optionale Features zu sehen. Dies war einmal das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. Und au"sserdem sollte oben in der Mitte der Name des Spiels angezeigt werden (siehe auf den MockUps mit Beispielnamen \glqq Enhanced Wars\grqq). \\
+		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"sstenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indikator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps waren auch zwei optionale Features zu sehen. Dies war einmal das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. Und au"sserdem sollte oben in der Mitte der Name des Spiels angezeigt werden (siehe auf den MockUps mit Beispielnamen \glqq Enhanced Wars\grqq). \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/NotReady.png}
@@ -371,13 +372,14 @@
     				\label{Game_Start}
 			    \end{figure}
 		    \subsubsection{Ingame}
-		        Bisher zeigte die Ingame Szene nur das initiale Spielgeschehen. In diesem Release sollte diese Szene haupts"achlich erweitert werden. Chat, die Minikarte und die Spieler mussten angezeigt werden. Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au"sserdem der Musik Button zum ein- und ausschalten der Musik hinzu. \\
+		        Bisher zeigte die Ingame Szene nur das initiale Spielgeschehen. In diesem Release sollte diese Szene haupts"achlich erweitert werden. Chat, die Minikarte und die Spieler mussten angezeigt werden. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/Ingame.png}
     				\caption{MockUp: Ingame}
     				\label{Ingame_View}
 			    \end{figure}
+		    	\ \\   Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au"sserdem der Musik Button zum ein- und ausschalten der Musik hinzu.
 			    \subsubsubsection{Einheit ausw"ahlen}
 			        Der Server stellte drei Phasen zur Verf"ugung, wenn ein Spieler an der Reihe war. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden musste, eine Angriffsphase, die "ubersprungen werden konnte und eine restliche Bewegungspunktephase, die ebenfalls "ubersprungen werden konnte. \\
 			        \begin{figure}[H] 
@@ -596,9 +598,8 @@
             		Diese Task wurde auf 5 Zeitstunden gesch\"atzt und an Tobias Klipp zugeteilt.
             	\paragraph{Ziel}
             		Der Entwickler sollte die Enums UnitType und UnitTypeInfo zu einer Enum zusammenf\"ugen und musste darauf achten, dass alle Funktionalit\"aten erhalten blieben.
-    \newpage
         \subsection{Zeit"ubersicht}
-        	Diese \"Ubersicht zeigt alle Stories, welche im Rahmen der Ziele bearbeitet werden sollten. Wie zu erkennen ist wurden nicht alle Stories abgeschlossen. Es wurden jedoch schon umfangreichere Grundlagen f\"ur Features des sechsten Sprints gelegt.
+        	Diese \"Ubersicht zeigt alle Stories, welche im Rahmen der Ziele bearbeitet werden sollten. Wie zu erkennen ist, wurden nicht alle Stories abgeschlossen. Es wurden jedoch schon umfangreichere Grundlagen f\"ur Features des sechsten Sprints gelegt.
         	\begin{longtable}[H]{p{6cm} c c c c }
         			\label{Time_1}
        				\textbf{User Story} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
@@ -620,7 +621,7 @@
         \subsection{Analyse}
         	Der f\"unfte Sprint endete am 21.7.2019. Das Team schaffte 29 der 116 gesch\"atzten Storypoints.
         	\subsubsection{Burndown}
-        		Wie im Burndown-Diagramm zu erkennen ist, wurden diesen Sprint nur vier Stories mit einem Umfang von 29 Storypoints abgeschlossen (siehe Kapitel \ref{done_stories_5}). Wie Tabelle \ref{Time_1} zeigt, betrug die Arbeitszeit trotzdem 84 Stunden. Die Hauptursache war die Untersch\"atzung der Aufgabenumf\"ange, wodurch mehrere begonnene Stories in diesem Sprint nicht mehr abgeschlossen werden konnten und andere deutlich mehr Zeit als erwartet in Anspruch nahmen. Zudem f\"uhrte die in diesem Release h\"ohere Anzahl an blockierenden und relatierten Tasks zu einer insgesamt langsamereren Entwicklung, da sich die Entwickler h\"aufig miteiander absprechen mussten.
+        		Wie im Burndown-Diagramm zu sehen ist, wurden diesen Sprint nur vier Stories mit einem Umfang von 29 Storypoints abgeschlossen (siehe Kapitel \ref{done_stories_5}). Wie Tabelle \ref{Time_1} zeigt, betrug die Arbeitszeit trotzdem 84 Stunden. Die Hauptursache war die Untersch\"atzung der Aufgabenumf\"ange, wodurch mehrere begonnene Stories in diesem Sprint nicht mehr abgeschlossen werden konnten und andere deutlich mehr Zeit als erwartet in Anspruch nahmen. Zudem f\"uhrte die in diesem Release h\"ohere Anzahl an blockierenden und relatierten Tasks zu einer insgesamt langsamereren Entwicklung, da sich die Entwickler h\"aufig miteiander absprechen mussten.
 	        	\begin{figure}[H] 
 	        		\centering
 	        		\includegraphics[width=\textwidth]{images/sprintV/burndown.png}
@@ -673,7 +674,7 @@
         			\paragraph{Stand}
         				TODO: Schreiben
         	\subsubsection{Nicht abgeschlossene Stories/Tasks}
-        		Des Weiteren wurden neben den drei bereits angefangenen Stories noch weitere zw\"olf Stories beziehungsweise Tasks aufgrund von Zeitgr\"unden nicht angefangen und abgeschlossen (siehe Abbildung \ref{To_Do_5}). Diese Aufgaben waren nicht optional und sollten von unserem Team im n\"achsten Sprint bew\"altigt werden.
+        		Des Weiteren wurden neben den drei bereits angefangenen Stories noch weitere elf Stories beziehungsweise Tasks aufgrund von Zeitgr\"unden nicht angefangen und abgeschlossen (siehe Abbildung \ref{To_Do_5}). Diese Aufgaben waren nicht optional und sollten von unserem Team im n\"achsten Sprint bew\"altigt werden.
         		\begin{figure}[H] 
         			\centering
         			\includegraphics[width=\textwidth]{images/sprintV/toDo.png}
@@ -703,7 +704,7 @@
     		\end{itemize}
     		F\"ur den Fall, dass die Mindestanforderungen vor Ende des Sprints abgeschlossen werden sollten, sollte eine Sidebar zum Spielfeld hinzugef\"ugt werden. Diese sollte es erm\"oglichen Aktionen, wie Bewegen oder Angreifen, zu best\"atigen und abzubrechen. Falls das Team die Umsetzung der oben genannten Features schaffen w"urde, w"aren die Mindestanforderungen jedoch bereits erf\"ullt.
     	\subsection{Ge\"anderte User Stories vom Sprint \RN{5}}
-    		Die folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups ge\"andert haben.
+    		Die folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups "anderten.
     		\subsubsection{Ingame - Minikarte anzeigen}
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
@@ -759,6 +760,13 @@
 	    		\item Einheiteninformationen im Datenmodell
 	    	\end{itemize}
     		Eine genauere Beschreibung zu jeder Task befindet sich im Kapitel \ref{Tasks_5}.
+   		\subsection{Tasks}
+   			Im sechsten Sprint wurden weitere Tasks vom Scrum Master erstellt.
+   			\subsubsection{Ingame - Bestätigungsbox in der Sidebar}
+   				\paragraph{Zuteilung}
+   					Diese Task wurde auf TODO Zeitstunden gesch"atzt und dan Georg Siebert zugeteilt.
+				\paragraph{Ziel}
+					Es musste eine Box in der Sidebar erstellt werden, die es m"oglich machte, Aktionen zu best"atigen oder abzubrechen (Die Funktionalit"aten sollten erst sp"ater in den untergeordneten User Stories erstellt werden). War der User nicht an der Reihe oder im Beobachtungsmodus, musste diese Box disabled werden. Beziehungsweise sollte dann auf den beiden Buttons der Text und das Icon nicht mehr sichtbar sein.
 		\subsection{Bugs}
 			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam.
 			\subsubsection{Terminierung sicherstellen}
@@ -796,6 +804,7 @@
     			\midrule
     			Einheiteninformationen im Datenmodell & 5 h & 1 h 27 min & - & Omar Sood \\
     			Servernachrichten & 8 h & - & - & Omar Sood \\
+    			Ingame - Bestätigungsbox in der Sidebar & ? h & - & - & Georg Siebert \\
     			\midrule
     			Terminierung sicherstellen & - & - & ? & Omar Sood \\
     			Ingame - Einheit mehrmals auswählen & - & - & ? & Juri Lozowoj \\
