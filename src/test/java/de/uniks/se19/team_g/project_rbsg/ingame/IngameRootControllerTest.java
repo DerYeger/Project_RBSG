@@ -94,7 +94,7 @@ public class IngameRootControllerTest extends ApplicationTest {
         verify(battleFieldComponent, never()).getController();
 
         inOrder.verify(gameEventManager).setOnConnectionClosed(any());
-        inOrder.verify(gameEventManager).startSocket(eq(gameData.getId()), any(), false);
+        inOrder.verify(gameEventManager).startSocket(gameData.getId(), null, false);
         inOrder.verify(waitingRoomViewController).configure(ingameContext);
 
         //Termination

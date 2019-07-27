@@ -159,7 +159,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         chatContainer.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();
         if(this.context.getGameData().isSpectatorModus()){
-            //chatContainer.setDisable(true);
             chatController.getChatChannelControllers().get("General").getInputField().setDisable(true);
         }
     }
@@ -223,28 +222,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     public void setPlayerCards(Game game) {
         // init PlayerCards
-        /*
-        boolean skipped = false;
-        Player user = null;
-        for(Player p: game.getPlayers()) {
-            if(p.getName().equals(userProvider.get().getName())) {
-                user = p;
-            }
-        }
-        if (user == null) {
-            // Exception
-            return;
-        }
-
-         */
-        //playerCard.setPlayer(user, Color.valueOf(user.getColor()));
         for (Player p : game.getPlayers()) {
-            /*if(p.equals(user) && !skipped){
-                skipped = true;
-                continue;
-            }
-
-             */
             for(PlayerCardBuilder playerC: playerCardBuilders){
                 if(playerC.isEmpty) {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));
@@ -258,7 +236,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                 if (c.wasAdded()) {
                     for (Player p : c.getAddedSubList()) {
                         for(PlayerCardBuilder playerC: playerCardBuilders){
-                            if(playerC.isEmpty) {
+                            if((playerC.isEmpty) && (p.getColor() != null)){
                                 playerC.setPlayer(p, Color.valueOf(p.getColor()));
                                 break;
                             }
