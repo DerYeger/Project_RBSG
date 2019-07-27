@@ -16,6 +16,7 @@ public class Game
 
     private int neededPlayer;
     private SimpleIntegerProperty joinedPlayer;
+    private SimpleBooleanProperty spectatorModus = new SimpleBooleanProperty(false);
 
     private User creator;
 
@@ -97,5 +98,18 @@ public class Game
 
     public void setCreator(User creator) {
         this.creator = creator;
+    }
+
+
+    public boolean isSpectatorModus() {
+        return spectatorModus.get();
+    }
+
+    public SimpleBooleanProperty spectatorModusProperty() {
+        return spectatorModus;
+    }
+
+    public void setSpectatorModus(boolean spectatorModus) {
+        this.spectatorModus.set(spectatorModus);
     }
 }

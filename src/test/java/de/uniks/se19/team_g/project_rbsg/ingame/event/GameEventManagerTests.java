@@ -51,7 +51,7 @@ public class GameEventManagerTests {
     public void testStartSocket() throws Exception {
         String gameId = "12345";
         String armyID = "54321";
-        gameEventManager.startSocket(gameId, armyID);
+        gameEventManager.startSocket(gameId, armyID, false);
         Mockito.verify(webSocketClient).start("/game?gameId=12345&armyId=54321", gameEventManager);
     }
 

@@ -51,6 +51,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
     public Label playersLabel;
     public Button joinButton;
     public Pane joinButtonContainer;
+    public Button spectatorButton;
 
     private FXMLLoader fxmlLoader;
 
@@ -110,8 +111,10 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
 
 
             joinButton.setOnAction(this::joinButtonClicked);
-
             joinButton.setId("joinGameButton"+ game.getName());
+
+            spectatorButton.setOnAction(this::joinSpectating);
+            spectatorButton.setId("spectatorButton" + game.getName());
 
             this.game = game;
         }
@@ -161,6 +164,17 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
         }
     }
 
+    public void joinSpectating(ActionEvent event){
+        if (this.game != null) {
+            this.game.setSpectatorModus(true);
+        }
+        if(game != null) {
+            gameProvider.set(game);
+                //joinGameManager.joinGame(userProvider.get(), game).get();
+            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         joinButton.setText(null);
@@ -185,6 +199,13 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             joinButtonContainer,
             new SimpleStringProperty(Rincl.getResources(ProjectRbsgFXApplication.class).getString("ValidArmyRequired")),
             appState.hasPlayableArmies
+        );
+
+        JavaFXUtils.setButtonIcons(
+                spectatorButton,
+                getClass().getResource("/assets/icons/operation/spectatorWhite.png"),
+                getClass().getResource("/assets/icons/operation/spectatorBlack.png"),
+                40
         );
     }
 }
