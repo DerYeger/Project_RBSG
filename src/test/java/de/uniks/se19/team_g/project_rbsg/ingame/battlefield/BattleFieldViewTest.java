@@ -385,6 +385,8 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         context.getUser().setName("Bob");
         revealBattleField(context);
+        Tile unitTile = playerUnit.getPosition().getTile();
+
         context.getGameState().setPhase("attackPhase");
 
         Assert.assertFalse(enemyUnit.isAttackable());
@@ -392,6 +394,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         game.setSelectedUnit(playerUnit);
 
@@ -400,6 +405,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertTrue(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertTrue(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
 
@@ -408,10 +415,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
 
-
-
-
+        context.getGameState().setPhase("movePhase");
+        battleFieldController.setSelectedTile(unitTile);
+        battleFieldController.setSelectedTile(unitTile);
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
     }
 
     @Test
