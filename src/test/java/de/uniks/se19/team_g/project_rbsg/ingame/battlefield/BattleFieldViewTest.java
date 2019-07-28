@@ -25,7 +25,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,7 +39,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.robot.Motion;
-import org.testfx.util.ColorUtils;
 import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.BufferedReader;
@@ -172,6 +170,11 @@ public class BattleFieldViewTest extends ApplicationTest {
     private void click(double x, double y) {
         clickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
     }
+
+    private void doubleClick(double x, double y) {
+        doubleClickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
+    }
+
 
     @Test
     public void testMovement() throws ExecutionException, InterruptedException {
@@ -499,7 +502,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNull(game.getSelectedUnit());
         Assert.assertNull(battleFieldController.getSelectedTile());
     }
-
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions
