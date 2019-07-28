@@ -347,4 +347,5 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         logger.debug("trigger game start");
         context.getGameEventManager().sendMessage(CommandBuilder.startGame());
     }
+
 }
