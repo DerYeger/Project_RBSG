@@ -8,18 +8,11 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.termination.*;
-import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
@@ -35,10 +28,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -48,11 +41,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import org.slf4j.Logger;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -63,13 +52,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.util.Map;
-import java.util.Objects;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Keanu Stückrad
@@ -592,6 +575,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             setCellProperty(null);
             this.context.getGameState().setSelectedUnit(null);
             setSelectedTile(null);
+
         }
     }
 

@@ -71,8 +71,8 @@ public class TestGameBuilder {
         Game game = definition.game;
         Unit chubbyCharles = definition.playerUnit;
         definition.playerUnit.setUnitType(UnitTypeInfo._HEAVY_TANK);
-        Unit enemy = definition.otherUnit;
-        enemy.setUnitType(UnitTypeInfo._CHOPPER);
+        //Unit enemy = definition.otherUnit;
+        //enemy.setUnitType(UnitTypeInfo._CHOPPER);
         chubbyCharles.setMp(4);
         game.withUnit(chubbyCharles);
         Cell[][] cells = definition.cells;
@@ -95,7 +95,7 @@ public class TestGameBuilder {
 
         Cell startCell = cells[0][0];
         chubbyCharles.setPosition(startCell);
-        enemy.setPosition(cells[0][1]);
+        //enemy.setPosition(cells[0][1]);
 
         cells[1][1].setPassable(false);
         cells[1][1].setBiome(Biome.WATER);
