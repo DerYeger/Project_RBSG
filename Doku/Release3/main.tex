@@ -18,6 +18,7 @@
 \usepackage{wrapfig}
 \usepackage{titlesec}
 \usepackage{hyperref}
+\usepackage{enumitem}
 \renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\arraystretch}{1.2}
 \pagestyle{scrheadings}
@@ -211,7 +212,7 @@
     				\caption{Release \RN{2}: Lobby Szene: Keine Armee ausgew"ahlt}
     				\label{Lobby_No_Army_Selected}
 			    \end{figure}
-			    \begin{wrapfigure}[8]{r}{0.35\textwidth}
+			    \begin{wrapfigure}[9]{r}{0.35\textwidth}
                     \begin{center}
                         \includegraphics[width=0.35\textwidth]{images/old_state/lobby/CreateGame.png}
                     \end{center}
@@ -336,13 +337,13 @@
                 \ \\ Die C0 Testabdeckung betrug zum Ende des Releases \RN{2} 77\%.
                 \begin{figure}[H] 
     				\centering
-    				\includegraphics[width=0.8\textwidth]{images/old_state/Coverage.png}
+    				\includegraphics[width=\textwidth]{images/old_state/Coverage.png}
     				\caption{Release \RN{2}: C0 Testabdeckung (Siehe Line, \%)}
     				\label{Coverage}
 			    \end{figure}
     \newpage
 	    \subsection{MockUps}
-	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zur Lobby und zum Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergeben haben (Ein Kontextmen"u wurde durch eine Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
+	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zur Lobby und zum Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergeben haben (Ein Kontextmen"u wurde durch die Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
 	        \subsubsection{Lobby}
 	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubt einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
 	            \begin{figure}[H] 
@@ -460,19 +461,19 @@
 		    	TODO: Beschreiben \\
 			    \begin{figure}[H] 
 			    	\centering
-			    	\includegraphics[width=0.8\textwidth]{images/domain_stories/readyStory1.png}
+			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory1.png}
 			    	\caption{Domain Story: Ready 1}
 			    	\label{Domain_Story_Ready_1}
 			    \end{figure}
 			    \begin{figure}[H] 
 			    	\centering
-			    	\includegraphics[width=0.8\textwidth]{images/domain_stories/readyStory2.png}
+			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory2.png}
 			    	\caption{Domain Story: Ready 2}
 			    	\label{Domain_Story_Ready_2}
 			    \end{figure}
 		    	\begin{figure}[H] 
 		    		\centering
-		    		\includegraphics[width=0.8\textwidth]{images/domain_stories/readyStory3.png}
+		    		\includegraphics[width=\textwidth]{images/domain_stories/readyStory3.png}
 		    		\caption{Domain Story: Ready 3}
 		    		\label{Domain_Story_Ready_3}
 		    	\end{figure}
@@ -480,19 +481,19 @@
 		    	TODO: Beschreiben \\
 		    	\begin{figure}[H] 
 		    		\centering
-		    		\includegraphics[width=0.8\textwidth]{images/domain_stories/moveStory1.png}
+		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory1.png}
 		    		\caption{Domain Story: Move 1}
 		    		\label{Domain_Story_Move_1}
 		    	\end{figure}
 		    	\begin{figure}[H] 
 		    		\centering
-		    		\includegraphics[width=0.8\textwidth]{images/domain_stories/moveStory2.png}
+		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory2.png}
 		    		\caption{Domain Story: Move 2}
 		    		\label{Domain_Story_Move_2}
 		    	\end{figure}
 		    	\begin{figure}[H] 
 		    		\centering
-		    		\includegraphics[width=0.8\textwidth]{images/domain_stories/moveStory3.png}
+		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory3.png}
 		    		\caption{Domain Story: Move 3}
 		    		\label{Domain_Story_Move_3}
 		    	\end{figure}
@@ -510,121 +511,185 @@
 	        \end{itemize}
 	        Falls die Entwicklung schneller als erwartet voranschreiten sollte, w"urden der Ingamechat und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden "uber 80 Storypoints abgearbeitet werden, was bei vier Entwicklern als ein guter Fortschritt gewertet werden k"onnte.
 	    \subsection{User Stories} \label{User_Stories_5}
-	        Die User Stories, die vom Product Owner erstellt wurden, sind wie gefolgt aufgebaut: Dem Titel kann entnommen werden zu welcher Szene die Story geh"ort. Anschlie"ssend werden die Story Points und der zugeteilte Entwickler genannt. Danach folgt das Ziel und die Story selbst. Das Ziel fasst die Subtasks, die der Scrum Master erstellt hat, zusammen.
+	        Die User Stories, die vom Product Owner erstellt wurden, sind wie gefolgt aufgebaut: Dem Titel kann entnommen werden zu welcher Szene die Story geh"ort. Anschlie"ssend werden die Story Points und der zugeteilte Entwickler genannt. Danach folgt die Story und das Ziel. Das Ziel fasst die Subtasks, die der Scrum Master erstellt hat, zusammen. Danach werden alle Subtasks aufgelistet.
 	        \subsubsection{Waiting Room - Spielbeitritt anpassen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
-	            \paragraph{Ziel}
-	                Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit sind.
 	            \paragraph{Story}
-	                Karli befindet sich in der Wartreraumszene. Alle anderen Spieler sind bereit. Karli w"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
+	            	Karli befindet sich in der Wartreraumszene. Alle anderen Spieler sind bereit. Karli w"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
 	            TODO: Verbindung zur Domain Story
+	            \paragraph{Ziel und Subtasks}
+	                Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit sind.
+	                \begin{enumerate}[label={}]
+	                	\item \textbf{Armeeauswahl im Warteraum} \hspace{5pt} Die Armeeauswahl soll nur im Warteraum m"oglich sein. Daf"ur muss sie aus der Lobby entfernt und von der Armeeauswahl des Army Managers getrennt werden. Das Deaktivieren der Join/Create Game Buttons muss so angepasst werden, dass diese nur deaktiviert sind, wenn der Spieler keine einzige g"ultige Armee besitzt.
+	                	\item \textbf{Ready-Funktionalit"at} \hspace{5pt} Spieler, welche bereit sind, sollen im Warteraum hervorgehoben werden (siehe Mockup). W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
+	                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den Ingame Controller zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schließen der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
+	                \end{enumerate}
             \subsubsection{Ingame - Spielfeld}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld (einer Einheit). Das Feld wird ausgew"ahlt.
+	            \paragraph{Ziel und Subtasks}
 			   		Das Spielfeld sollte die Einheiten anzeigen. Jedes Feld musste anklickbar sein.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld (einer Einheit). Das Feld wird ausgew"ahlt.
+	            	 \begin{enumerate}[label={}]
+	            		\item \textbf{Einheiten anzeigen} \hspace{5pt} Die Einheiten sollen angezeigt werden. "Andert sich die Position einer Einheit (im Datenmodell), soll sich auch das Spielfeld entsprechend aktualisieren.
+	            		\item \textbf{OnClick-Extensionpoints} \hspace{5pt} Es soll m"oglich sein, beim Anklicken eines Feldes Methoden mit der Referenz der darunterliegenden Datenstruktur (der Cell Instanz) aufzurufen.
+            		\end{enumerate}
 	        \subsubsection{Ingame - Phase beenden}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
-	            \paragraph{Ziel}
+             \paragraph{Story}
+             	Karli befindet sich in der Ingameszene. Karli klickt auf den Phase-Beenden Button (siehe Mockup). Die Phase wird beendet und die n"achste tritt ein (bzw. der n"achste Spieler ist an der Reihe).
+	            \paragraph{Ziel und Subtasks}
 	                Es sollte einen Button geben, welcher bei Bet\"atigung die aktuelle Phase beendete. Dies sollte nur m\"oglich sein, wenn der Nutzer auch seine Phase beenden konnte, da er an der Reihe war.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli klickt auf den Phase-Beenden Button (siehe Mockup). Die Phase wird beendet und die n"achste tritt ein (bzw. der n"achste Spieler ist an der Reihe).
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Button und Funktionalit"at hinzuf"ugen} \hspace{5pt} Bei der Bet"atigung des Buttons soll die aktuelle Phase beendet und der Server dar"uber informiert werden. Es soll nicht m"oglich sein, den Button zu betätigen, wenn der Benuzter nicht an der Reihe ist.
+	            	\end{enumerate}
             \subsubsection{Ingame - Einheit ausw\"ahlen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
-	            \paragraph{Ziel}
+              	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert (siehe Mockups).
+	            \paragraph{Ziel und Subtasks}
 	                Durch Anklicken einer Einheit sollte diese Ausgew\"ahlt werden. Danach musste die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befand.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert (siehe Mockups).
+	           		\begin{enumerate}[label={}]
+	           			\item \textbf{Ausgew"ahlte Einheit setzten} \hspace{5pt} Klickt der Anwender auf eine Einheit, soll diese ausgew"ahlt werden (soll im Datenmodell bzw. Controller hinterlegt werden). Zudem soll die Zelle der Einheit farblich hervorgehoben werden (siehe Mockups). Dies soll nur m"oglich sein, wenn der Spieler an der Reihe ist.
+	           			\item \textbf{G"ultige Ziele markieren} \hspace{5pt} G"ultige Bewegungs- und Angriffsziele (Cell, eventuell auch Unit) sollen als solche markiert werden (Property). Zudem sollen sie farblich hervorgehoben werden (siehe Mockup). Weiterhin darf in der Angriffsphase nur der rote Angriffsradius angezeigt werden und in der restlichen Bewegungspunkte Phase nur der blaue Bewegungsradius (siehe MockUps). Blau: \#868cfc für den Rahmen, beim Hintergrund 40\% Opacity (siehe selected color im Stylesheet). Rot: \#cf6679 für den Rahmen, beim Hintergrund 40\% Opacity (siehe error color im Stylesheet).
+	           		\end{enumerate}
             \subsubsection{Ingame - Einheit bewegen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus, die Karli bewegen m"ochte. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt.
+             	TODO: Verbindung zur Domain Story
+	            \paragraph{Ziel und Subtasks}
 	                F\"ur die Bewegung einer Einheit sollte der k\"urzeste Pfad zum Zielfeld berechnet werden. Anschlie{\ss}end musste eine Nachricht an den Server gesendet und dessen Antwort korrekt verarbeitet werden.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus, die Karli bewegen m"ochte. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt.
-	            TODO: Verbindung zur Domain Story
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Berechnung des k"urzesten Weges} \hspace{5pt} Der Server erwartet einen g"ultigen Weg ohne Hindernisse. Daf"ur soll der Weg berechnet werden, der die geringste Anzahl an MP verbraucht.
+	            		\item \textbf{Zug an Server senden} \hspace{5pt} Der Server soll "uber die Bewegung informiert werden.
+	            		\item \textbf{Antwort des Servers verarbeiten} \hspace{5pt} Die Antwort des Servers soll korrekt verarbeitet werden. Das hei"sst, dass im Erfolgsfall die Bewegung im Datenmodell umgesetzt werden soll und im Fehlerfall der User eine entsprechende Meldung erhalten soll.
+	            		\item \textbf{Klickhandler} \hspace{5pt} Beim Klick auf ein als g"ultiges Bewegungsziel markiertes Feld soll die aktuell ausgew"ahlte Einheit dorthin bewegt werden.
+	            		\item \textbf{Aufr"aumen} \hspace{5pt} Nach der Aktion soll aufger"aumt werden. Das hei"sst, dass die zuvor ausgew"ahlte Einheit, welche die Aktion ausf"uhrt, nicht mehr ausgewählt sein soll. Es sollen keine Felder mehr hervorgehoben sein.
+	            	\end{enumerate}
             \subsubsection{Ingame - Einheit angreifen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus. Karli sieht alle Felder mit Einheiten in Rot, die angegriffen werden k"onnen. Karli w"ahlt eine gegnerische Einheit auf diesen Feldern aus. Die Einheit wird angegriffen.
+	            \paragraph{Ziel und Subtasks}
 	                Es sollte m\"oglich sein, gegnerische Einheiten anzugreifen. Entsprechende Nachrichten sollten an den Server gesendet und dessen Antworten korrekt verarbeitet werden.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus. Karli sieht alle Felder mit Einheiten in Rot, die angegriffen werden k"onnen. Karli w"ahlt eine gegnerische Einheit auf diesen Feldern aus. Die Einheit wird angegriffen.
+            		\begin{enumerate}[label={}]
+            			\item \textbf{Angriff an Server senden} \hspace{5pt} Der Server soll "uber den Agriff informiert werden (Angreifende Einheit und angegriffene Einheit).
+            			\item \textbf{Antwort des Servers verarbeiten} \hspace{5pt} Die Antwort des Servers soll korrekt verarbeitet werden. Das hei"sst, dass im Erfolgsfall der Angriff im Datenmodell umgesetzt werden soll und im Fehlerfall der User eine entsprechende Meldung erhalten (zur Zeit sind keine Fehlerf"alle bekannt) soll.
+            			\item \textbf{Klickhandler} \hspace{5pt} Beim Klick auf ein als g"ultiges Angriffsziel markiertes Feld soll, falls dort auch eine gegnerische Einheit positioniert ist, die aktuell ausgew"ahlte Einheit diese angreifen.
+            			\item \textbf{Aufr"aumen} \hspace{5pt} Nach der Aktion soll aufger"aumt werden. Das hei"sst, dass die zuvor ausgew"ahlte Einheit, welche die Aktion ausf"uhrt, nicht mehr ausgew"ahlt sein soll. Es sollen keine Felder mehr hervorgehoben sein.
+            		\end{enumerate}
             \subsubsection{Ingame - Spielstatus anzeigen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli sieht eine Runden- und Phasenanzeige. Karli klickt auf den Spieler-Anzeigen Button. Die Anzeige der Spieler wird eingeblendet (siehe Mockup). Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. MockUp).
+	            \paragraph{Ziel und Subtasks}
 	                Es sollte einen Button zum Ein- und Ausblenden der Spielerinformationen implementiert werden. Der aktive Spieler sollte hervorgehoben werden.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli sieht eine Runden- und Phasenanzeige. Karli klickt auf den Spieler-Anzeigen Button. Die Anzeige der Spieler wird eingeblendet (siehe Mockup). Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. MockUp).
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Rundenanzeige} \hspace{5pt} Die Rundenanzahl soll korrekt dargestellt und aktualisiert werden (siehe Mockup). Die aktuelle Phase soll angezeigt werden (Bewegungsphase, dann Angriffsphase, dann restliche Bewegungspunktephase). Die Phasen sollen neben dem Label mit einem Icon dargestellt werden. Laut Server befinden sich in einer Runde die drei verschiedene Phasen.
+	            		\item \textbf{Spielerliste} \hspace{5pt} Die Spielerliste soll alle Spieler, welche sich im Spiel befinden, und deren Farbe anzeigen. Der aktive Spieler soll hervorgehoben sein (in der selected Color). Spieler, welche das Spiel verlassen oder verloren haben, sollen mit einem schwarzen Icon und schwarzem Spielernamen hinterlegt sein.
+	            		\item \textbf{Ein-/Ausblenden der Spielerliste} \hspace{5pt} "Uber einen Button in der oberen Leiste (siehe Mockup) soll sich die Spielerliste ein- und ausblenden lassen.
+	            	\end{enumerate}
             \subsubsection{Ingame - Minikarte anzeigen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
-	            \paragraph{Ziel}
-	                Es sollte eine Minikarte implementiert werden, die \"uber einen Button ein- und ausblendbar werden konnte.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. In der rechten oberen Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt den Minikarte Button. Die Minikarte wird ausgeblendet.
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. In der rechten oberen Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt den Minikarte Button. Die Minikarte wird ausgeblendet.
+	            \paragraph{Ziel und Subtasks}
+	                Es sollte eine Minikarte implementiert werden, die \"uber einen Button ein- und ausgeblendet werden konnte.
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Minikarte anzeigen} \hspace{5pt} Die Minikarte soll, wie in der Story und den Mockups beschrieben, dargestellt werden.
+	            		\item \textbf{Ein-/Ausblenden der Minikarte} \hspace{5pt} "Uber einen Button in der oberen Leiste (siehe Mockup) soll sich die Minikarte ein- und ausblenden lassen.
+	            	\end{enumerate}
             \subsubsection{Ingame - Chatintegration}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli dr"uckt den Chat-Einblenden Button. Der Chat wird angezeigt. Karli schreibt eine Nachricht. Die Nachricht wird im Chat f"ur alle Spieler im Spiel angezeigt. Bob schreibt eine Nachricht. Karli kann Bobs Nachricht lesen.
+	            \paragraph{Ziel und Subtasks}
 	                Es sollte einen Button zum Ein- und Ausblenden des Chats implementiert werden.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli dr"uckt den Chat-Einblenden Button. Der Chat wird angezeigt. Karli schreibt eine Nachricht. Die Nachricht wird im Chat f"ur alle Spieler im Spiel angezeigt. Bob schreibt eine Nachricht. Karli kann Bobs Nachricht lesen.
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Nachrichten senden und empfangen} \hspace{5pt} Hinweis: Es sollte ausreichen, einen Chatnode 1:1 wie im WaitingRoomViewController zu instanziieren. Nachrichten sollen korrekt gesendet und empfangen werden (vgl. Warteraum und Lobbychat, siehe Serverdoku).
+	            		\item \textbf{Ein-/Ausblenden des Chats} \hspace{5pt} "Uber einen Button in der oberen Leiste (siehe Mockup) soll sich der Chat ein- und ausblenden lassen. Der Chat soll bis zur Sidebar rechts gehen. Der Chat ist in einer StackPane "uber dem Spielfeld (und die Sidebar ist ein anderes Element neben dem Spielfeld).
+	            	\end{enumerate}
             \subsubsection{Ingame - Game Over}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karlis Playerkarte färbt sich schwarz (Name und Icon). Karli sieht ein Overlay aufgehen, auf welchem Karli gefragt wird, ob Karli das Spiel weiter betrachten möchte. Karli drückt den Cancel Button. Karli wechselt in die Lobby.
+	            \paragraph{Ziel und Subtasks}
 	                Wenn der Nutzer verloren hatte, sollte ein Overlay angezeigt werden. Auf diesem konnte er in die Lobby wechseln oder dem Spiel zuschauen.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karlis Playerkarte färbt sich schwarz (Name und Icon). Karli sieht ein Overlay aufgehen, auf welchem Karli gefragt wird, ob Karli das Spiel weiter betrachten möchte. Karli drückt den Cancel Button. Karli wechselt in die Lobby.
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Alert anlegen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls der Nuzter das Spiel verloren (keine Einheiten) hat UND nicht gleichzeitig ein anderer Spieler dadurch gewinnt (In diesem Fall greift der Spectate Over Alert). Best"atigt der User die Anfrage, soll der Alert geschlossen werden. Tut er dies nicht, soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, m"ussen zuvor eventuell aktive Alerts geschlossen werden.
+	            	\end{enumerate}
             \subsubsection{Ingame - Game Won}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
-	            \paragraph{Ziel}
-                      Wenn der Nutzer gewann, sollte ein Overlay angezeigt werden, das ihn in die Lobby wechseln lie"ss.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen (siehe MockUp). Karli wechselt in die Lobby.
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen (siehe MockUp). Karli wechselt in die Lobby.
+	            \paragraph{Ziel und Subtasks}
+                    Wenn der Nutzer gewann, sollte ein Overlay angezeigt werden, das ihn in die Lobby wechseln lie"ss.
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Alert anzeigen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls der Nuzter das Spiel gewonnen hat. Bei Bet"atigung des Buttons soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, m"ussen zuvor eventuell aktive Alerts geschlossen werden.
+	            	\end{enumerate}
              \subsubsection{Ingame - Spectator Over}
              	\paragraph{Zuteilung}
              		Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
-             	\paragraph{Ziel}
+           		\paragraph{Story}
+           			Karli befindet sich in der Ingameszene. Bob besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen (siehe MockUp). Karli wechselt in die Lobby.
+             	\paragraph{Ziel und Subtasks}
              		Wenn das Spiel vorbei war, sollte dem Nutzer ein Overlay angezeigt werden, durch das er in die Lobby wechselte.
-             	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Bob besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen (siehe MockUp). Karli wechselt in die Lobby.
+             		\begin{enumerate}[label={}]
+             			\item \textbf{Alert anzeigen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls ein anderer Spieler (und nicht der Nuzter) das Spiel gewonnen hat. Bei Bet"atigung des Buttons soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, müssen zuvor eventuell aktive Alerts geschlossen werden.
+             		\end{enumerate}
             \subsubsection{Lobby - Spectating}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Lobbyszene.  Karli sieht die Spielliste und m"ochte dieses mal nicht selbst spielen. Karli dr"uckt auf den Spactator-Button. Karli wird in den Warteraumszene weitergeleitet.
+	            \paragraph{Ziel und Subtasks}
 	                Es sollte ein Button hinzugef\"ugt werden, der einen Spielbeitritt als Beobachter erm\"oglichte.
-	            \paragraph{Story}
-	                Karli befindet sich in der Lobbyszene.  Karli sieht die Spielliste und m"ochte dieses mal nicht selbst spielen. Karli dr"uckt auf den Spactator-Button. Karli wird in den Warteraumszene weitergeleitet.
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Button hinzuf"ugen} \hspace{5pt} Jeder Eintrag in der Spielliste soll um den neuen Button erweitert werden (siehe Mockup). Bei Bet"atigung dieses Buttons soll ein Szenenwechsel in den Warteraum stattfinden, dieses Mal jedoch nur als Zuschauer.
+	            	\end{enumerate}
             \subsubsection{Ingame - Spectating}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
-	            \paragraph{Ziel}
+             	 \paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli versucht etwas in den Chat zu schreiben. Karli versucht Aktionen mit den Einheiten auszuführen. Karlis Aktionen funktionieren nicht. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genießt das Spiel.
+	            \paragraph{Ziel und Subtasks}
 	                Das Spiel sollte so angepasst werden, dass ein Zuschauer weder mit dem Spielfeld interagieren, noch Chatnachrichten schreiben konnte.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli versucht etwas in den Chat zu schreiben. Karli versucht Aktionen mit den Einheiten auszuführen. Karlis Aktionen funktionieren nicht. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genießt das Spiel.
+	           		\begin{enumerate}[label={}]
+	           			\item \textbf{Zuschauerfunktionalit"at hinzuf"ugen} \hspace{5pt} Die Szene soll der regul"aren Ingameszene (ohne Runde-Beenden Button) entsprechen. Der Benutzer soll jedoch keine Aktionen ausf"uhren k"onnen oder Nachricht absenden k"onnen. Das Lesen von Chatnachrichten soll m"oglich sein.
+	           		\end{enumerate}
             \subsubsection{Ingame - Einheiteninformationen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene. Karli f"ahrt mit seinem Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen über die Einheit werden in einem Kontextmen"u angezeigt.
+	            \paragraph{Ziel und Subtasks}
 	                Bewegte der Nuzter die Maus \"uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einem Kontextmen"u angezeigt werden.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene. Karli f"ahrt mit seinem Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen über die Einheit werden in einem Kontextmen"u angezeigt.
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{UI Element für Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollten beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
+	            		\item \textbf{Informationen bei Mouseover anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll bei einem Mouseover auf einer Einheit eingeblendet werden. Ansonsten soll es wieder ausgeblendet werden.
+	            	\end{enumerate}
             \subsubsection{Ingame - Musiksteuerung}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
-	            \paragraph{Ziel}
+             	\paragraph{Story}
+             		Karli befindet sich in der Ingameszene und die Musik spielt. Karli klickt auf den Musik Button (siehe Mockup). Die Musik wird ausgeschaltet.
+	            \paragraph{Ziel und Subtasks}
 	                Es sollte ein Musik Button hinzugef\"ugt werden, mit dem sich die Musik genauso bedienen lie"ss wie in den restlichen Szenen.
-	            \paragraph{Story}
-	                Karli befindet sich in der Ingameszene und die Musik spielt. Karli klickt auf den Musik Button (siehe Mockup). Die Musik wird ausgeschaltet.
+	            	\begin{enumerate}[label={}]
+	            		\item \textbf{Button und Funktionalit"at hinzuf"ugen} \hspace{5pt} Es soll ein Button zur (De-) Aktivierung der Musik hinzugef"ugt werden. Die Funktionalit"at soll die gleiche wie bei Login, Lobby und Warteraum sein. Das hei"sst, dass die Einstellung szenen"ubergreifend erhalten bleiben soll.
+	            	\end{enumerate}
         \subsection{Tasks} \label{Tasks_5}
             Die Tasks wurden vom Scrum Master erstellt und sind nicht aus Nutzersicht beschreibbar, da sie nur technische Aufgaben waren. Aus diesem Grund unterschieden sich Tasks nur in einer Sache von User Stories. Sie hatten keine Story.
             \subsubsection{Servernachrichten}
@@ -724,7 +789,7 @@
         		Die Ziele des Sprints wurden verfehlt. Um die Mindestanforderungen zu erreichen, m"usste das Entwicklerteam seine Produktivit\"at im sechsten Sprint deutlich steigern. Da die C0 Abdeckung (siehe Abbildung \ref{Coverage_5}) zum Ende des f\"unften Sprints bereits 79\% betrug, gab es bei der Qualit\"atssicherung keine Defizite.
         		\begin{figure}[H] 
         			\centering
-        			\includegraphics[width=0.8\textwidth]{images/sprintV/coverage.png}
+        			\includegraphics[width=\textwidth]{images/sprintV/coverage.png}
         			\caption{Sprint \RN{5}: C0 Testabdeckung (Siehe Line, \%)}
         			\label{Coverage_5}
         		\end{figure} 
@@ -747,17 +812,25 @@
     		\subsubsection{Ingame - Minikarte anzeigen}
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
-    			\paragraph{Ge\"andertes Ziel}
+   				\paragraph{Ge\"anderte Story}
+   					Karli befindet sich in der Ingameszene. In der rechten unteren Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minikarte. Der Sichtbereich "andert sich zu dieser Stelle.
+    			\paragraph{Ge\"andertes Ziel und Subtasks}
     				Es sollte eine Minikarte implementiert werden. \"Uber die Minikarte sollte es m\"oglich sein, den Sichtbereich zu wechseln.
-    			\paragraph{Ge\"anderte Story}
-    				Karli befindet sich in der Ingameszene. In der rechten unteren Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minikarte. Der Sichtbereich "andert sich zu dieser Stelle.
+    				\begin{enumerate}[label={}]
+    					\item \textbf{Minikarte anzeigen} \hspace{5pt} Die Minikarte soll, wie in der Story und den Mockups beschrieben, dargestellt werden.
+    					\item \textbf{Springen "uber die Minikarte} \hspace{5pt} Durch das Klicken auf eine Stelle auf der Minikarte soll der Sichtbereich auf dem Spielfeld verschoben werden.
+    				\end{enumerate}
    			\subsubsection{Ingame - Einheiteninformationen}
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
-   				\paragraph{Ge\"andertes Ziel}
+				\paragraph{Ge\"anderte Story}
+					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt (siehe MockUps).
+   				\paragraph{Ge\"andertes Ziel und Subtasks}
    					Bewegte der Nutzer die Maus \ "uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einer Sidebar angezeigt werden.
-   				\paragraph{Ge\"anderte Story}
-   					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt (siehe MockUps).
+   					\begin{enumerate}[label={}]
+   						\item \textbf{UI Element für Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollen beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
+   						\item \textbf{Informationen bei Mouseover anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll bei einem Mouseover auf einer Einheit eingeblendet werden und eingeblendet bleiben, bis "uber eine neue Einheit gehovert wird. Die Einheit, die der Spieler ausgew"ahlt hat, soll in der oberen Box angezeigt werden. Die Einheit, "uber die zuletzt gehovert wurde, soll in der unteren Box angezeigt werden.
+   					\end{enumerate}
    		\subsection{\"Ubernommene User Stories aus Sprint \RN{5}}
    			Weiterhin gab es auch User Stories aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden mit in den sechsten Sprint \"ubernommen. Es folgt eine Liste dieser Stories:
    			\begin{itemize}
@@ -781,10 +854,13 @@
    			\subsubsection{Ingame - Einheit bewegen nach Bewegung}
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
-   				\paragraph{Ziel}
+  				\paragraph{Story}
+  					Karli befindet sich in der Ingameszene. Karli klickt auf eine Einheit. Die Bewegungsreichweite wird angezeigt. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt und bleibt weiterhin ausgew"ahlt, aber der blaue Bewegungsradius hat sich verkleinert. Karli bewegt die Einheit noch einmal auf ein weiteres Feld. Die Bewegungspunkte sind noch nicht aufgebraucht und die Einheit bleibt weiter ausgew"ahlt. Karli hat keine Lust mehr die Einheit zu bewegen und w"ahlt sie ab.
+   				\paragraph{Ziel und Subtasks}
    					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgewählt sein, falls sie noch verbleibende Bewegungspunkte besa"ss.
-   				\paragraph{Story}
-   					Karli befindet sich in der Ingameszene. Karli klickt auf eine Einheit. Die Bewegungsreichweite wird angezeigt. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt und bleibt weiterhin ausgew"ahlt, aber der blaue Bewegungsradius hat sich verkleinert. Karli bewegt die Einheit noch einmal auf ein weiteres Feld. Die Bewegungspunkte sind noch nicht aufgebraucht und die Einheit bleibt weiter ausgew"ahlt. Karli hat keine Lust mehr die Einheit zu bewegen und w"ahlt sie ab.
+   					\begin{enumerate}[label={}]
+   						\item \textbf{Einheit ausw"ahlen} \hspace{5pt} Nachdem der Nutzer eine Einheit bewegt hat, soll diese erneut ausgew"ahlt werden, falls sie noch verbleibende Bewegungspunkte besitzt.
+   					\end{enumerate}
    		\subsection{Ge\"anderte Tasks vom Sprint \RN{5}}
    			Die folgenden Tasks des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung "anderte.
    			\subsubsection{Einheiteninformationen im Datenmodell}
@@ -807,7 +883,7 @@
 				\paragraph{Ziel}
 					Es musste eine Box in der Sidebar erstellt werden, die es m"oglich machte, Aktionen zu best"atigen oder abzubrechen (Die Funktionalit"aten sollten erst sp"ater in den untergeordneten User Stories erstellt werden). War der User nicht an der Reihe oder im Beobachtungsmodus, musste diese Box disabled werden. Beziehungsweise sollte dann auf den beiden Buttons der Text und das Icon nicht mehr sichtbar sein.
 		\subsection{Bugs}
-			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam.
+			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam. Diese werden hier wie gefolgt beschrieben: Zuerst wird genannt, wer den Bug beheben sollte. Danach wird das Problem beschrieben, das den Bug darstellte. Bearbeitungszeit wurden bei den Bugtasks nicht geschätzt. 
 			\subsubsection{Terminierung sicherstellen}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Omar Sood behoben werden.
@@ -818,12 +894,21 @@
 					Dieser Bug sollte von Juri Lozowoj behoben werden.
 				\paragraph{Problem}
 					Falls der Nutzer eine Einheit auswählte, abwählte und dann wieder auswählte, ohne vorher eine andere Einheit ausgewählt zu haben, wurde sie danach als Angriffs- bzw. Bewegungsziel farblich markiert. Dies sollte nicht stattfinden.
-     \newpage	
+			\subsubsection{Spectating - Automatischer Wechsel zum Spielfeld}
+				\paragraph{Zuteilung}
+					Dieser Bug sollte von Juri Lozowoj behoben werden.
+				\paragraph{Problem}
+					Falls der Nutzer einem Spiel als Beobachter beitrat und dieses bereits startete, wechselte der Client nicht zum Spielfeld. Falls also das Spiel bereits startete (sollte an den vorhandenen Einheiten, der aktuellen Phase oder dem aktuellen Spieler am Datenmodell zu erkennen sein), sollte ein automatischer Wechsel zum Spielfeld stattfinden.
+			\subsubsection{Lobby - Spielbeitritt blockieren}
+				\paragraph{Zuteilung}
+					Dieser Bug sollte von Georg Siebert behoben werden.
+				\paragraph{Problem}
+					Falls ein Spiel bereits voll war, sollte kein Spielbeitritt mehr möglich sein. Dafür sollte der entsprechende Button deaktiviert werden (und aktiviert werden, falls wieder ein Platz frei wurde).
     	\subsection{Zeit\"ubersicht}
     		TODO: Intro schreiben
     		\begin{longtable}[H]{p{6cm} c c c c }
     			\label{Time_2}
-    			\textbf{User Story/Task} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
+    			\textbf{User Story/Task/Bug} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
     			\toprule
     			\endhead
     			Ingame - Einheit ausw\"ahlen & 13 h & 16 h 29 min & - & Juri Lozowoj \\
@@ -843,10 +928,12 @@
     			\midrule
     			Einheiteninformationen im Datenmodell & 5 h & 1 h 27 min & - & Omar Sood \\
     			Servernachrichten & 8 h & - & - & Omar Sood \\
-    			Ingame - Bestätigungsbox in der Sidebar & ? h & - & - & Georg Siebert \\
+    			Ingame - Bestätigungsbox in der Sidebar & 3 h & - & - & Georg Siebert \\
     			\midrule
     			Terminierung sicherstellen & - & - & ? & Omar Sood \\
     			Ingame - Einheit mehrmals auswählen & - & - & ? & Juri Lozowoj \\
+    			Spectating - Automatischer Wechsel zum Spielfeld & - & - & ? & Juri Lozowoj \\
+    			Lobby - Spielbeitritt blockieren & - & - & ? & Georg Siebert \\
     			\caption{Zeit\"ubersicht sechster Sprint}
     		\end{longtable}
     	\subsection{Analyse}
