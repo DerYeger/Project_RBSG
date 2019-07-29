@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  29 JUL 2019 10:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  29 JUL 2019 11:05
 entering extended mode
 **./main.tex
 (main.tex
@@ -2160,8 +2160,8 @@ ry2.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.482 		    \subsubsection{Move}
-                                
+l.482 		    \subsubsection{Bewegung}
+                                    
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -2169,8 +2169,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.482 		    \subsubsection{Move}
-                                
+l.482 		    \subsubsection{Bewegung}
+                                    
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -2181,8 +2181,8 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.482 		    \subsubsection{Move}
-                                
+l.482 		    \subsubsection{Bewegung}
+                                    
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -2190,8 +2190,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.482 		    \subsubsection{Move}
-                                
+l.482 		    \subsubsection{Bewegung}
+                                    
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -2199,41 +2199,36 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/domain_stories/moveStory1.png, id=478, 857.2025pt x 419.5675pt>
+<images/domain_stories/moveStory1.png, id=479, 857.2025pt x 419.5675pt>
 File: images/domain_stories/moveStory1.png Graphic file (type png)
 <use images/domain_stories/moveStory1.png>
 Package pdftex.def Info: images/domain_stories/moveStory1.png  used on input li
 ne 486.
 (pdftex.def)             Requested size: 469.47049pt x 229.78972pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--489
-
- []
-
-<images/domain_stories/moveStory2.png, id=479, 871.255pt x 412.54124pt>
-File: images/domain_stories/moveStory2.png Graphic file (type png)
-<use images/domain_stories/moveStory2.png>
-Package pdftex.def Info: images/domain_stories/moveStory2.png  used on input li
-ne 492.
-(pdftex.def)             Requested size: 469.47049pt x 222.29054pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 495.
+Package pdftex.def Info: images/Logo.png  used on input line 490.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [26 <./images/domain_stories/readyStory3.png>]
-<images/domain_stories/moveStory3.png, id=485, 795.97375pt x 658.46pt>
+<images/domain_stories/moveStory2.png, id=487, 871.255pt x 412.54124pt>
+File: images/domain_stories/moveStory2.png Graphic file (type png)
+<use images/domain_stories/moveStory2.png>
+Package pdftex.def Info: images/domain_stories/moveStory2.png  used on input li
+ne 493.
+(pdftex.def)             Requested size: 469.47049pt x 222.29054pt.
+<images/domain_stories/moveStory3.png, id=489, 795.97375pt x 658.46pt>
 File: images/domain_stories/moveStory3.png Graphic file (type png)
 <use images/domain_stories/moveStory3.png>
 Package pdftex.def Info: images/domain_stories/moveStory3.png  used on input li
-ne 498.
+ne 500.
 (pdftex.def)             Requested size: 469.47049pt x 388.35742pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 502.
+Package pdftex.def Info: images/Logo.png  used on input line 504.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2243,7 +2238,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 2.png>]
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 503.
+Package pdftex.def Info: images/Logo.png  used on input line 504.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2253,7 +2248,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.504 	\section{Sprint \RN{5}}
+l.505 	\section{Sprint \RN{5}}
                               
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2262,7 +2257,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.504 	\section{Sprint \RN{5}}
+l.505 	\section{Sprint \RN{5}}
                               
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2274,7 +2269,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.504 	\section{Sprint \RN{5}}
+l.505 	\section{Sprint \RN{5}}
                               
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2283,7 +2278,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.504 	\section{Sprint \RN{5}}
+l.505 	\section{Sprint \RN{5}}
                               
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2294,12 +2289,12 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 504.
+(hyperref)                removing `\uppercase' on input line 505.
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.506 	    \subsection{Sprintziel}
+l.507 	    \subsection{Sprintziel}
                                    \label{Sprintgoal_5}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2308,28 +2303,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.506 	    \subsection{Sprintziel}
-                                   \label{Sprintgoal_5}
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.506 	    \subsection{Sprintziel}
-                                   \label{Sprintgoal_5}
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.506 	    \subsection{Sprintziel}
+l.507 	    \subsection{Sprintziel}
                                    \label{Sprintgoal_5}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2341,7 +2315,28 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.515 	    \subsection{User Stories}
+l.507 	    \subsection{Sprintziel}
+                                   \label{Sprintgoal_5}
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.507 	    \subsection{Sprintziel}
+                                   \label{Sprintgoal_5}
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.516 	    \subsection{User Stories}
                                      \label{User_Stories_5}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2350,7 +2345,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.515 	    \subsection{User Stories}
+l.516 	    \subsection{User Stories}
                                      \label{User_Stories_5}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2362,7 +2357,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.515 	    \subsection{User Stories}
+l.516 	    \subsection{User Stories}
                                      \label{User_Stories_5}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2371,7 +2366,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.515 	    \subsection{User Stories}
+l.516 	    \subsection{User Stories}
                                      \label{User_Stories_5}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2383,7 +2378,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.517 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...on{Waiting Room - Spielbeitritt anpassen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2392,7 +2387,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.517 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...on{Waiting Room - Spielbeitritt anpassen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2404,7 +2399,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.517 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...on{Waiting Room - Spielbeitritt anpassen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2413,7 +2408,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.517 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...on{Waiting Room - Spielbeitritt anpassen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2424,7 +2419,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 529.
+Package pdftex.def Info: images/Logo.png  used on input line 530.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2434,7 +2429,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.530 ...       \subsubsection{Ingame - Spielfeld}
+l.531 ...       \subsubsection{Ingame - Spielfeld}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2443,7 +2438,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.530 ...       \subsubsection{Ingame - Spielfeld}
+l.531 ...       \subsubsection{Ingame - Spielfeld}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2455,7 +2450,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.530 ...       \subsubsection{Ingame - Spielfeld}
+l.531 ...       \subsubsection{Ingame - Spielfeld}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2464,7 +2459,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.530 ...       \subsubsection{Ingame - Spielfeld}
+l.531 ...       \subsubsection{Ingame - Spielfeld}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2476,7 +2471,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.541 ...   \subsubsection{Ingame - Phase beenden}
+l.542 ...   \subsubsection{Ingame - Phase beenden}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2485,7 +2480,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.541 ...   \subsubsection{Ingame - Phase beenden}
+l.542 ...   \subsubsection{Ingame - Phase beenden}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2497,7 +2492,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.541 ...   \subsubsection{Ingame - Phase beenden}
+l.542 ...   \subsubsection{Ingame - Phase beenden}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2506,7 +2501,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.541 ...   \subsubsection{Ingame - Phase beenden}
+l.542 ...   \subsubsection{Ingame - Phase beenden}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2518,7 +2513,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.551 ...bsubsection{Ingame - Einheit ausw\"ahlen}
+l.552 ...bsubsection{Ingame - Einheit ausw\"ahlen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2527,7 +2522,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.551 ...bsubsection{Ingame - Einheit ausw\"ahlen}
+l.552 ...bsubsection{Ingame - Einheit ausw\"ahlen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2539,7 +2534,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.551 ...bsubsection{Ingame - Einheit ausw\"ahlen}
+l.552 ...bsubsection{Ingame - Einheit ausw\"ahlen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2548,7 +2543,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.551 ...bsubsection{Ingame - Einheit ausw\"ahlen}
+l.552 ...bsubsection{Ingame - Einheit ausw\"ahlen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2559,7 +2554,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 556.
+Package pdftex.def Info: images/Logo.png  used on input line 557.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2569,7 +2564,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.562 ... \subsubsection{Ingame - Einheit bewegen}
+l.563 ... \subsubsection{Ingame - Einheit bewegen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2578,7 +2573,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.562 ... \subsubsection{Ingame - Einheit bewegen}
+l.563 ... \subsubsection{Ingame - Einheit bewegen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2590,7 +2585,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.562 ... \subsubsection{Ingame - Einheit bewegen}
+l.563 ... \subsubsection{Ingame - Einheit bewegen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2599,7 +2594,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.562 ... \subsubsection{Ingame - Einheit bewegen}
+l.563 ... \subsubsection{Ingame - Einheit bewegen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2611,7 +2606,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.577 ...subsubsection{Ingame - Einheit angreifen}
+l.578 ...subsubsection{Ingame - Einheit angreifen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2620,7 +2615,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.577 ...subsubsection{Ingame - Einheit angreifen}
+l.578 ...subsubsection{Ingame - Einheit angreifen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2632,7 +2627,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.577 ...subsubsection{Ingame - Einheit angreifen}
+l.578 ...subsubsection{Ingame - Einheit angreifen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2641,7 +2636,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.577 ...subsubsection{Ingame - Einheit angreifen}
+l.578 ...subsubsection{Ingame - Einheit angreifen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2652,7 +2647,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 580.
+Package pdftex.def Info: images/Logo.png  used on input line 581.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2662,7 +2657,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.590 ...subsection{Ingame - Spielstatus anzeigen}
+l.591 ...subsection{Ingame - Spielstatus anzeigen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2671,7 +2666,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.590 ...subsection{Ingame - Spielstatus anzeigen}
+l.591 ...subsection{Ingame - Spielstatus anzeigen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2683,7 +2678,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.590 ...subsection{Ingame - Spielstatus anzeigen}
+l.591 ...subsection{Ingame - Spielstatus anzeigen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2692,7 +2687,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.590 ...subsection{Ingame - Spielstatus anzeigen}
+l.591 ...subsection{Ingame - Spielstatus anzeigen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2703,7 +2698,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 600.
+Package pdftex.def Info: images/Logo.png  used on input line 601.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2713,7 +2708,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.602 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.603 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2722,7 +2717,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.602 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.603 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2734,7 +2729,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.602 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.603 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2743,7 +2738,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.602 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.603 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2755,7 +2750,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.613 ... \subsubsection{Ingame - Chatintegration}
+l.614 ... \subsubsection{Ingame - Chatintegration}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2764,7 +2759,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.613 ... \subsubsection{Ingame - Chatintegration}
+l.614 ... \subsubsection{Ingame - Chatintegration}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2776,7 +2771,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.613 ... \subsubsection{Ingame - Chatintegration}
+l.614 ... \subsubsection{Ingame - Chatintegration}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2785,7 +2780,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.613 ... \subsubsection{Ingame - Chatintegration}
+l.614 ... \subsubsection{Ingame - Chatintegration}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2795,7 +2790,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 
-Overfull \hbox (8.17993pt too wide) in paragraph at lines 622--623
+Overfull \hbox (8.17993pt too wide) in paragraph at lines 623--624
 []\OT1/phv/b/n/12 Ein-/Ausblenden des Chats   []\OT1/phv/m/n/12 Uber einen But-
 ton in der obe-ren Leis-te (sie-he Mockup)
  []
@@ -2803,7 +2798,7 @@ ton in der obe-ren Leis-te (sie-he Mockup)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.624 ...       \subsubsection{Ingame - Game Over}
+l.625 ...       \subsubsection{Ingame - Game Over}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2812,7 +2807,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.624 ...       \subsubsection{Ingame - Game Over}
+l.625 ...       \subsubsection{Ingame - Game Over}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2824,7 +2819,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.624 ...       \subsubsection{Ingame - Game Over}
+l.625 ...       \subsubsection{Ingame - Game Over}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2833,7 +2828,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.624 ...       \subsubsection{Ingame - Game Over}
+l.625 ...       \subsubsection{Ingame - Game Over}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2844,7 +2839,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 627.
+Package pdftex.def Info: images/Logo.png  used on input line 628.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2854,7 +2849,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.634 ...        \subsubsection{Ingame - Game Won}
+l.635 ...        \subsubsection{Ingame - Game Won}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2863,7 +2858,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.634 ...        \subsubsection{Ingame - Game Won}
+l.635 ...        \subsubsection{Ingame - Game Won}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2875,7 +2870,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.634 ...        \subsubsection{Ingame - Game Won}
+l.635 ...        \subsubsection{Ingame - Game Won}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2884,7 +2879,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.634 ...        \subsubsection{Ingame - Game Won}
+l.635 ...        \subsubsection{Ingame - Game Won}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2896,7 +2891,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.644 ...  \subsubsection{Ingame - Spectator Over}
+l.645 ...  \subsubsection{Ingame - Spectator Over}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2905,7 +2900,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.644 ...  \subsubsection{Ingame - Spectator Over}
+l.645 ...  \subsubsection{Ingame - Spectator Over}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2917,7 +2912,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.644 ...  \subsubsection{Ingame - Spectator Over}
+l.645 ...  \subsubsection{Ingame - Spectator Over}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2926,7 +2921,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.644 ...  \subsubsection{Ingame - Spectator Over}
+l.645 ...  \subsubsection{Ingame - Spectator Over}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2937,7 +2932,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 653.
+Package pdftex.def Info: images/Logo.png  used on input line 654.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2947,7 +2942,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.654 ...       \subsubsection{Lobby - Spectating}
+l.655 ...       \subsubsection{Lobby - Spectating}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2956,7 +2951,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.654 ...       \subsubsection{Lobby - Spectating}
+l.655 ...       \subsubsection{Lobby - Spectating}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2968,7 +2963,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.654 ...       \subsubsection{Lobby - Spectating}
+l.655 ...       \subsubsection{Lobby - Spectating}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2977,7 +2972,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.654 ...       \subsubsection{Lobby - Spectating}
+l.655 ...       \subsubsection{Lobby - Spectating}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2989,7 +2984,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.664 ...      \subsubsection{Ingame - Spectating}
+l.665 ...      \subsubsection{Ingame - Spectating}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2998,7 +2993,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.664 ...      \subsubsection{Ingame - Spectating}
+l.665 ...      \subsubsection{Ingame - Spectating}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3010,7 +3005,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.664 ...      \subsubsection{Ingame - Spectating}
+l.665 ...      \subsubsection{Ingame - Spectating}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3019,7 +3014,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.664 ...      \subsubsection{Ingame - Spectating}
+l.665 ...      \subsubsection{Ingame - Spectating}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3031,7 +3026,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.674 ...bsection{Ingame - Einheiteninformationen}
+l.675 ...bsection{Ingame - Einheiteninformationen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3040,7 +3035,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.674 ...bsection{Ingame - Einheiteninformationen}
+l.675 ...bsection{Ingame - Einheiteninformationen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3052,7 +3047,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.674 ...bsection{Ingame - Einheiteninformationen}
+l.675 ...bsection{Ingame - Einheiteninformationen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3061,7 +3056,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.674 ...bsection{Ingame - Einheiteninformationen}
+l.675 ...bsection{Ingame - Einheiteninformationen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3072,14 +3067,14 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 679.
+Package pdftex.def Info: images/Logo.png  used on input line 680.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [35]
-Overfull \hbox (17.23315pt too wide) in paragraph at lines 680--681
+Overfull \hbox (17.23315pt too wide) in paragraph at lines 681--682
  []\OT1/phv/b/n/12 Ziel und Sub-tasks[] \OT1/phv/m/n/12 Be-weg-te der Nuz-ter d
 ie Maus []uber ei-ne Ein-heit, soll-ten al-le verf[]ugbaren
  []
@@ -3087,7 +3082,7 @@ ie Maus []uber ei-ne Ein-heit, soll-ten al-le verf[]ugbaren
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.685 ...  \subsubsection{Ingame - Musiksteuerung}
+l.686 ...  \subsubsection{Ingame - Musiksteuerung}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3096,28 +3091,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.685 ...  \subsubsection{Ingame - Musiksteuerung}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.685 ...  \subsubsection{Ingame - Musiksteuerung}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.685 ...  \subsubsection{Ingame - Musiksteuerung}
+l.686 ...  \subsubsection{Ingame - Musiksteuerung}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3129,8 +3103,8 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.695         \subsection{Tasks}
-                                 \label{Tasks_5}
+l.686 ...  \subsubsection{Ingame - Musiksteuerung}
+                                                  
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -3138,8 +3112,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.695         \subsection{Tasks}
-                                 \label{Tasks_5}
+l.686 ...  \subsubsection{Ingame - Musiksteuerung}
+                                                  
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -3150,7 +3124,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.695         \subsection{Tasks}
+l.696         \subsection{Tasks}
                                  \label{Tasks_5}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3159,7 +3133,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.695         \subsection{Tasks}
+l.696         \subsection{Tasks}
                                  \label{Tasks_5}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3171,7 +3145,28 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.697 ...        \subsubsection{Servernachrichten}
+l.696         \subsection{Tasks}
+                                 \label{Tasks_5}
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.696         \subsection{Tasks}
+                                 \label{Tasks_5}
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.698 ...        \subsubsection{Servernachrichten}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3180,7 +3175,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.697 ...        \subsubsection{Servernachrichten}
+l.698 ...        \subsubsection{Servernachrichten}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3192,7 +3187,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.697 ...        \subsubsection{Servernachrichten}
+l.698 ...        \subsubsection{Servernachrichten}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3201,7 +3196,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.697 ...        \subsubsection{Servernachrichten}
+l.698 ...        \subsubsection{Servernachrichten}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3213,7 +3208,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.702 ...on{Einheiteninformationen im Datenmodell}
+l.703 ...on{Einheiteninformationen im Datenmodell}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3222,7 +3217,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.702 ...on{Einheiteninformationen im Datenmodell}
+l.703 ...on{Einheiteninformationen im Datenmodell}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3234,7 +3229,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.702 ...on{Einheiteninformationen im Datenmodell}
+l.703 ...on{Einheiteninformationen im Datenmodell}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3243,7 +3238,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.702 ...on{Einheiteninformationen im Datenmodell}
+l.703 ...on{Einheiteninformationen im Datenmodell}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3254,7 +3249,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 707.
+Package pdftex.def Info: images/Logo.png  used on input line 708.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3264,7 +3259,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.707         \subsection{Zeit"ubersicht}
+l.708         \subsection{Zeit"ubersicht}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3273,7 +3268,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.707         \subsection{Zeit"ubersicht}
+l.708         \subsection{Zeit"ubersicht}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3285,7 +3280,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.707         \subsection{Zeit"ubersicht}
+l.708         \subsection{Zeit"ubersicht}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3294,7 +3289,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.707         \subsection{Zeit"ubersicht}
+l.708         \subsection{Zeit"ubersicht}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3304,19 +3299,19 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 
-Overfull \hbox (0.3547pt too wide) in alignment at lines 709--713
+Overfull \hbox (0.3547pt too wide) in alignment at lines 710--714
  [] [] [] [] [] 
  []
 
 
-Overfull \hbox (0.3547pt too wide) in alignment at lines 713--726
+Overfull \hbox (0.3547pt too wide) in alignment at lines 714--727
  [] [] [] [] [] 
  []
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.727         \subsection{Analyse}
+l.728         \subsection{Analyse}
                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3325,28 +3320,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.727         \subsection{Analyse}
-                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.727         \subsection{Analyse}
-                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.727         \subsection{Analyse}
+l.728         \subsection{Analyse}
                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3358,7 +3332,28 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.729         	\subsubsection{Burndown}
+l.728         \subsection{Analyse}
+                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.728         \subsection{Analyse}
+                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.730         	\subsubsection{Burndown}
                                        
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3367,7 +3362,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.729         	\subsubsection{Burndown}
+l.730         	\subsubsection{Burndown}
                                        
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3379,7 +3374,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.729         	\subsubsection{Burndown}
+l.730         	\subsubsection{Burndown}
                                        
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3388,7 +3383,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.729         	\subsubsection{Burndown}
+l.730         	\subsubsection{Burndown}
                                        
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3397,14 +3392,14 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/burndown.png, id=619, 1362.08875pt x 590.205pt>
+<images/sprintV/burndown.png, id=622, 1362.08875pt x 590.205pt>
 File: images/sprintV/burndown.png Graphic file (type png)
 <use images/sprintV/burndown.png>
-Package pdftex.def Info: images/sprintV/burndown.png  used on input line 733.
+Package pdftex.def Info: images/sprintV/burndown.png  used on input line 734.
 (pdftex.def)             Requested size: 469.47049pt x 203.4228pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 737.
+Package pdftex.def Info: images/Logo.png  used on input line 738.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3414,7 +3409,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.737 ...  	\subsubsection{Abgeschlossene Stories}
+l.738 ...  	\subsubsection{Abgeschlossene Stories}
                                                    \label{done_stories_5}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3423,7 +3418,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.737 ...  	\subsubsection{Abgeschlossene Stories}
+l.738 ...  	\subsubsection{Abgeschlossene Stories}
                                                    \label{done_stories_5}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3435,7 +3430,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.737 ...  	\subsubsection{Abgeschlossene Stories}
+l.738 ...  	\subsubsection{Abgeschlossene Stories}
                                                    \label{done_stories_5}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3444,7 +3439,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.737 ...  	\subsubsection{Abgeschlossene Stories}
+l.738 ...  	\subsubsection{Abgeschlossene Stories}
                                                    \label{done_stories_5}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3453,14 +3448,14 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/done.png, id=627, 687.06688pt x 214.30063pt>
+<images/sprintV/done.png, id=630, 687.06688pt x 214.30063pt>
 File: images/sprintV/done.png Graphic file (type png)
 <use images/sprintV/done.png>
-Package pdftex.def Info: images/sprintV/done.png  used on input line 741.
+Package pdftex.def Info: images/sprintV/done.png  used on input line 742.
 (pdftex.def)             Requested size: 469.47049pt x 146.4288pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 758.
+Package pdftex.def Info: images/Logo.png  used on input line 759.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3470,7 +3465,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.765         	\subsubsection{Angefangene Stories}
+l.766         	\subsubsection{Angefangene Stories}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3479,7 +3474,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.765         	\subsubsection{Angefangene Stories}
+l.766         	\subsubsection{Angefangene Stories}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3491,7 +3486,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.765         	\subsubsection{Angefangene Stories}
+l.766         	\subsubsection{Angefangene Stories}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3500,7 +3495,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.765         	\subsubsection{Angefangene Stories}
+l.766         	\subsubsection{Angefangene Stories}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3512,7 +3507,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.782 ...ction{Nicht abgeschlossene Stories/Tasks}
+l.783 ...ction{Nicht abgeschlossene Stories/Tasks}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3521,7 +3516,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.782 ...ction{Nicht abgeschlossene Stories/Tasks}
+l.783 ...ction{Nicht abgeschlossene Stories/Tasks}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3533,7 +3528,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.782 ...ction{Nicht abgeschlossene Stories/Tasks}
+l.783 ...ction{Nicht abgeschlossene Stories/Tasks}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3542,7 +3537,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.782 ...ction{Nicht abgeschlossene Stories/Tasks}
+l.783 ...ction{Nicht abgeschlossene Stories/Tasks}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3551,14 +3546,14 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/toDo.png, id=641, 682.04813pt x 634.37pt>
+<images/sprintV/toDo.png, id=644, 682.04813pt x 634.37pt>
 File: images/sprintV/toDo.png Graphic file (type png)
 <use images/sprintV/toDo.png>
-Package pdftex.def Info: images/sprintV/toDo.png  used on input line 786.
+Package pdftex.def Info: images/sprintV/toDo.png  used on input line 787.
 (pdftex.def)             Requested size: 469.47049pt x 436.66068pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 790.
+Package pdftex.def Info: images/Logo.png  used on input line 791.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3568,7 +3563,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.790         	\subsubsection{Fazit}
+l.791         	\subsubsection{Fazit}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3577,7 +3572,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.790         	\subsubsection{Fazit}
+l.791         	\subsubsection{Fazit}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3589,7 +3584,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.790         	\subsubsection{Fazit}
+l.791         	\subsubsection{Fazit}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3598,7 +3593,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.790         	\subsubsection{Fazit}
+l.791         	\subsubsection{Fazit}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3607,14 +3602,14 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/coverage.png, id=658, 660.96938pt x 56.21pt>
+<images/sprintV/coverage.png, id=661, 660.96938pt x 56.21pt>
 File: images/sprintV/coverage.png Graphic file (type png)
 <use images/sprintV/coverage.png>
-Package pdftex.def Info: images/sprintV/coverage.png  used on input line 794.
+Package pdftex.def Info: images/sprintV/coverage.png  used on input line 795.
 (pdftex.def)             Requested size: 469.47049pt x 39.92566pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 798.
+Package pdftex.def Info: images/Logo.png  used on input line 799.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3624,7 +3619,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.799     \section{Sprint \RN{6}}
+l.800     \section{Sprint \RN{6}}
                                  
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3633,7 +3628,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.799     \section{Sprint \RN{6}}
+l.800     \section{Sprint \RN{6}}
                                  
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3645,7 +3640,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.799     \section{Sprint \RN{6}}
+l.800     \section{Sprint \RN{6}}
                                  
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3654,7 +3649,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.799     \section{Sprint \RN{6}}
+l.800     \section{Sprint \RN{6}}
                                  
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3665,12 +3660,12 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 799.
+(hyperref)                removing `\uppercase' on input line 800.
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.801     	\subsection{Sprintziel}
+l.802     	\subsection{Sprintziel}
                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3679,7 +3674,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.801     	\subsection{Sprintziel}
+l.802     	\subsection{Sprintziel}
                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3691,7 +3686,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.801     	\subsection{Sprintziel}
+l.802     	\subsection{Sprintziel}
                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3700,7 +3695,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.801     	\subsection{Sprintziel}
+l.802     	\subsection{Sprintziel}
                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3710,7 +3705,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 
-Overfull \hbox (21.06554pt too wide) in paragraph at lines 811--812
+Overfull \hbox (21.06554pt too wide) in paragraph at lines 812--813
 \OT1/phv/m/n/12 den soll-ten, soll-te ei-ne Si-de-bar zum Spiel-feld hin-zu-gef
 []ugt wer-den. Die-se soll-te es erm[]oglichen
  []
@@ -3718,7 +3713,7 @@ Overfull \hbox (21.06554pt too wide) in paragraph at lines 811--812
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.812 ...\"anderte User Stories vom Sprint \RN{5}}
+l.813 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3727,7 +3722,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.812 ...\"anderte User Stories vom Sprint \RN{5}}
+l.813 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3739,7 +3734,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.812 ...\"anderte User Stories vom Sprint \RN{5}}
+l.813 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3748,7 +3743,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.812 ...\"anderte User Stories vom Sprint \RN{5}}
+l.813 ...\"anderte User Stories vom Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3759,10 +3754,10 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 812.
+(hyperref)                removing `\uppercase' on input line 813.
 
 
-Overfull \hbox (0.1328pt too wide) in paragraph at lines 813--814
+Overfull \hbox (0.1328pt too wide) in paragraph at lines 814--815
 \OT1/phv/m/n/12 Die fol-gen-den Sto-ries des f[]unften Sprints wur-den ak-tua-l
 i-siert, da sich ih-re Mockups []ander-
  []
@@ -3770,7 +3765,7 @@ i-siert, da sich ih-re Mockups []ander-
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.814 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.815 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3779,7 +3774,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.814 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.815 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3791,7 +3786,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.814 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.815 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3800,7 +3795,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.814 ...ubsubsection{Ingame - Minikarte anzeigen}
+l.815 ...ubsubsection{Ingame - Minikarte anzeigen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3812,7 +3807,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.825 ...bsection{Ingame - Einheiteninformationen}
+l.826 ...bsection{Ingame - Einheiteninformationen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3821,7 +3816,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.825 ...bsection{Ingame - Einheiteninformationen}
+l.826 ...bsection{Ingame - Einheiteninformationen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3833,7 +3828,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.825 ...bsection{Ingame - Einheiteninformationen}
+l.826 ...bsection{Ingame - Einheiteninformationen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3842,7 +3837,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.825 ...bsection{Ingame - Einheiteninformationen}
+l.826 ...bsection{Ingame - Einheiteninformationen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3853,7 +3848,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 830.
+Package pdftex.def Info: images/Logo.png  used on input line 831.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3863,7 +3858,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.836 ...ernommene User Stories aus Sprint \RN{5}}
+l.837 ...ernommene User Stories aus Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3872,7 +3867,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.836 ...ernommene User Stories aus Sprint \RN{5}}
+l.837 ...ernommene User Stories aus Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3884,7 +3879,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.836 ...ernommene User Stories aus Sprint \RN{5}}
+l.837 ...ernommene User Stories aus Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3893,7 +3888,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.836 ...ernommene User Stories aus Sprint \RN{5}}
+l.837 ...ernommene User Stories aus Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3904,12 +3899,12 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 836.
+(hyperref)                removing `\uppercase' on input line 837.
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.854    		\subsection{User Stories}
+l.855    		\subsection{User Stories}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3918,7 +3913,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.854    		\subsection{User Stories}
+l.855    		\subsection{User Stories}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3930,7 +3925,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.854    		\subsection{User Stories}
+l.855    		\subsection{User Stories}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3939,7 +3934,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.854    		\subsection{User Stories}
+l.855    		\subsection{User Stories}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3950,7 +3945,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 856.
+Package pdftex.def Info: images/Logo.png  used on input line 857.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3960,7 +3955,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.856 ...n{Ingame - Einheit bewegen nach Bewegung}
+l.857 ...n{Ingame - Einheit bewegen nach Bewegung}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3969,7 +3964,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.856 ...n{Ingame - Einheit bewegen nach Bewegung}
+l.857 ...n{Ingame - Einheit bewegen nach Bewegung}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3981,7 +3976,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.856 ...n{Ingame - Einheit bewegen nach Bewegung}
+l.857 ...n{Ingame - Einheit bewegen nach Bewegung}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3990,7 +3985,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.856 ...n{Ingame - Einheit bewegen nach Bewegung}
+l.857 ...n{Ingame - Einheit bewegen nach Bewegung}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4002,7 +3997,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.866 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
+l.867 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4011,7 +4006,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.866 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
+l.867 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4023,7 +4018,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.866 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
+l.867 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4032,95 +4027,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.866 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 866.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.868 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.868 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.868 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.868 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.873 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.873 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.873 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.873 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
+l.867 ...tion{Ge\"anderte Tasks vom Sprint \RN{5}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4131,54 +4038,12 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 873.
+(hyperref)                removing `\uppercase' on input line 867.
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.880    		\subsection{Tasks}
-                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.880    		\subsection{Tasks}
-                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.880    		\subsection{Tasks}
-                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.880    		\subsection{Tasks}
-                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.882 ...ngame - Best�tigungsbox in der Sidebar}
+l.869 ...on{Einheiteninformationen im Datenmodell}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4187,7 +4052,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.882 ...ngame - Best�tigungsbox in der Sidebar}
+l.869 ...on{Einheiteninformationen im Datenmodell}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4199,7 +4064,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.882 ...ngame - Best�tigungsbox in der Sidebar}
+l.869 ...on{Einheiteninformationen im Datenmodell}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4208,7 +4073,137 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.882 ...ngame - Best�tigungsbox in der Sidebar}
+l.869 ...on{Einheiteninformationen im Datenmodell}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.874 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.874 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.874 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.874 ...on{\"Ubernommene Tasks aus Sprint \RN{5}}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 874.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.881    		\subsection{Tasks}
+                             
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.881    		\subsection{Tasks}
+                             
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.881    		\subsection{Tasks}
+                             
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.881    		\subsection{Tasks}
+                             
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.883 ...ngame - Best�tigungsbox in der Sidebar}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.883 ...ngame - Best�tigungsbox in der Sidebar}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.883 ...ngame - Best�tigungsbox in der Sidebar}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.883 ...ngame - Best�tigungsbox in der Sidebar}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4219,7 +4214,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 885.
+Package pdftex.def Info: images/Logo.png  used on input line 886.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -4229,7 +4224,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.887 		\subsection{Bugs}
+l.888 		\subsection{Bugs}
                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4238,28 +4233,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.887 		\subsection{Bugs}
-                         
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.887 		\subsection{Bugs}
-                         
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.887 		\subsection{Bugs}
+l.888 		\subsection{Bugs}
                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4271,7 +4245,28 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.889 ...subsubsection{Terminierung sicherstellen}
+l.888 		\subsection{Bugs}
+                         
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.888 		\subsection{Bugs}
+                         
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.890 ...subsubsection{Terminierung sicherstellen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4280,7 +4275,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.889 ...subsubsection{Terminierung sicherstellen}
+l.890 ...subsubsection{Terminierung sicherstellen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4292,7 +4287,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.889 ...subsubsection{Terminierung sicherstellen}
+l.890 ...subsubsection{Terminierung sicherstellen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4301,7 +4296,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.889 ...subsubsection{Terminierung sicherstellen}
+l.890 ...subsubsection{Terminierung sicherstellen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4313,7 +4308,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.894 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4322,7 +4317,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.894 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4334,7 +4329,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.894 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4343,7 +4338,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.894 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4353,7 +4348,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 
-Overfull \hbox (27.85962pt too wide) in paragraph at lines 898--899
+Overfull \hbox (27.85962pt too wide) in paragraph at lines 899--900
  []\OT1/phv/b/n/12 Problem[] \OT1/phv/m/n/12 Falls der Nut-zer ei-ne Ein-heit a
 usw[]?`$[]$hlte, abw[]?`$[]$hlte und dann wie-der ausw[]?`$[]$hlte,
  []
@@ -4361,7 +4356,7 @@ usw[]?`$[]$hlte, abw[]?`$[]$hlte und dann wie-der ausw[]?`$[]$hlte,
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.899 ...ng - Automatischer Wechsel zum Spielfeld}
+l.900 ...ng - Automatischer Wechsel zum Spielfeld}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4370,7 +4365,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.899 ...ng - Automatischer Wechsel zum Spielfeld}
+l.900 ...ng - Automatischer Wechsel zum Spielfeld}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4382,7 +4377,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.899 ...ng - Automatischer Wechsel zum Spielfeld}
+l.900 ...ng - Automatischer Wechsel zum Spielfeld}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4391,7 +4386,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.899 ...ng - Automatischer Wechsel zum Spielfeld}
+l.900 ...ng - Automatischer Wechsel zum Spielfeld}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4403,7 +4398,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.904 ...section{Lobby - Spielbeitritt blockieren}
+l.905 ...section{Lobby - Spielbeitritt blockieren}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4412,7 +4407,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.904 ...section{Lobby - Spielbeitritt blockieren}
+l.905 ...section{Lobby - Spielbeitritt blockieren}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4424,7 +4419,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.904 ...section{Lobby - Spielbeitritt blockieren}
+l.905 ...section{Lobby - Spielbeitritt blockieren}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4433,7 +4428,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.904 ...section{Lobby - Spielbeitritt blockieren}
+l.905 ...section{Lobby - Spielbeitritt blockieren}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4444,7 +4439,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 909.
+Package pdftex.def Info: images/Logo.png  used on input line 910.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -4454,7 +4449,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.909     	\subsection{Zeit\"ubersicht}
+l.910     	\subsection{Zeit\"ubersicht}
                                        
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4463,7 +4458,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.909     	\subsection{Zeit\"ubersicht}
+l.910     	\subsection{Zeit\"ubersicht}
                                        
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4475,7 +4470,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.909     	\subsection{Zeit\"ubersicht}
+l.910     	\subsection{Zeit\"ubersicht}
                                        
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4484,7 +4479,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.909     	\subsection{Zeit\"ubersicht}
+l.910     	\subsection{Zeit\"ubersicht}
                                        
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4494,44 +4489,44 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 
-Overfull \hbox (0.3547pt too wide) in alignment at lines 911--915
+Overfull \hbox (0.3547pt too wide) in alignment at lines 912--916
  [] [] [] [] [] 
  []
 
 
-Underfull \hbox (badness 3792) in paragraph at lines 926--926
+Underfull \hbox (badness 3792) in paragraph at lines 927--927
 []|\OT1/phv/m/n/12 Ingame - Ein-hei-ten-in-for-ma-tio-
  []
 
 
-Underfull \hbox (badness 1308) in paragraph at lines 931--931
+Underfull \hbox (badness 1308) in paragraph at lines 932--932
 []|\OT1/phv/m/n/12 Einheiteninformationen im Da-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 936--936
+Underfull \hbox (badness 10000) in paragraph at lines 937--937
 []|\OT1/phv/m/n/12 Ingame - Ein-heit mehr-mals
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 937--937
+Underfull \hbox (badness 10000) in paragraph at lines 938--938
 []|\OT1/phv/m/n/12 Spectating - Au-to-ma-ti-scher
  []
 
 
-Overfull \hbox (0.3547pt too wide) in alignment at lines 915--938
+Overfull \hbox (0.3547pt too wide) in alignment at lines 916--939
  [] [] [] [] [] 
  []
 
 
-Overfull \hbox (0.3547pt too wide) in alignment at lines 938--940
+Overfull \hbox (0.3547pt too wide) in alignment at lines 939--941
  [] [] [] [] [] 
  []
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.941     	\subsection{Analyse}
+l.942     	\subsection{Analyse}
                                
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4540,28 +4535,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.941     	\subsection{Analyse}
-                               
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.941     	\subsection{Analyse}
-                               
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.941     	\subsection{Analyse}
+l.942     	\subsection{Analyse}
                                
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4573,7 +4547,28 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.943 	    	\subsubsection{Burndown}
+l.942     	\subsection{Analyse}
+                               
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.942     	\subsection{Analyse}
+                               
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.944 	    	\subsubsection{Burndown}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4582,7 +4577,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.943 	    	\subsubsection{Burndown}
+l.944 	    	\subsubsection{Burndown}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4594,7 +4589,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.943 	    	\subsubsection{Burndown}
+l.944 	    	\subsubsection{Burndown}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4603,7 +4598,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.943 	    	\subsubsection{Burndown}
+l.944 	    	\subsubsection{Burndown}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4614,7 +4609,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 945.
+Package pdftex.def Info: images/Logo.png  used on input line 946.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -4624,7 +4619,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.945 	    	\subsubsection{Ausrei{\ss}er}
+l.946 	    	\subsubsection{Ausrei{\ss}er}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4633,7 +4628,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.945 	    	\subsubsection{Ausrei{\ss}er}
+l.946 	    	\subsubsection{Ausrei{\ss}er}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4645,7 +4640,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.945 	    	\subsubsection{Ausrei{\ss}er}
+l.946 	    	\subsubsection{Ausrei{\ss}er}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4654,7 +4649,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.945 	    	\subsubsection{Ausrei{\ss}er}
+l.946 	    	\subsubsection{Ausrei{\ss}er}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4666,7 +4661,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.947 	    	\subsubsection{Abgeschlossen}
+l.948 	    	\subsubsection{Abgeschlossen}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4675,7 +4670,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.947 	    	\subsubsection{Abgeschlossen}
+l.948 	    	\subsubsection{Abgeschlossen}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4687,7 +4682,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.947 	    	\subsubsection{Abgeschlossen}
+l.948 	    	\subsubsection{Abgeschlossen}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4696,7 +4691,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.947 	    	\subsubsection{Abgeschlossen}
+l.948 	    	\subsubsection{Abgeschlossen}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4708,7 +4703,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.949 	    		\subsubsection{Angefangen}
+l.950 	    		\subsubsection{Angefangen}
                                        
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4717,28 +4712,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.949 	    		\subsubsection{Angefangen}
-                                       
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.949 	    		\subsubsection{Angefangen}
-                                       
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.949 	    		\subsubsection{Angefangen}
+l.950 	    		\subsubsection{Angefangen}
                                        
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4750,7 +4724,28 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.951 	    	\subsubsection{Nicht abgeschlossen}
+l.950 	    		\subsubsection{Angefangen}
+                                       
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.950 	    		\subsubsection{Angefangen}
+                                       
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.952 	    	\subsubsection{Nicht abgeschlossen}
                                                
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4759,7 +4754,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.951 	    	\subsubsection{Nicht abgeschlossen}
+l.952 	    	\subsubsection{Nicht abgeschlossen}
                                                
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4771,7 +4766,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.951 	    	\subsubsection{Nicht abgeschlossen}
+l.952 	    	\subsubsection{Nicht abgeschlossen}
                                                
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4780,7 +4775,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.951 	    	\subsubsection{Nicht abgeschlossen}
+l.952 	    	\subsubsection{Nicht abgeschlossen}
                                                
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4792,7 +4787,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.953 	    	\subsubsection{Entfernt}
+l.954 	    	\subsubsection{Entfernt}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4801,7 +4796,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.953 	    	\subsubsection{Entfernt}
+l.954 	    	\subsubsection{Entfernt}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4813,7 +4808,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.953 	    	\subsubsection{Entfernt}
+l.954 	    	\subsubsection{Entfernt}
                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4822,7 +4817,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.953 	    	\subsubsection{Entfernt}
+l.954 	    	\subsubsection{Entfernt}
                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4834,7 +4829,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.955 	    	\subsubsection{Fazit}
+l.956 	    	\subsubsection{Fazit}
                                  
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4843,7 +4838,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.955 	    	\subsubsection{Fazit}
+l.956 	    	\subsubsection{Fazit}
                                  
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4855,7 +4850,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.955 	    	\subsubsection{Fazit}
+l.956 	    	\subsubsection{Fazit}
                                  
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4864,7 +4859,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.955 	    	\subsubsection{Fazit}
+l.956 	    	\subsubsection{Fazit}
                                  
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4875,7 +4870,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 957.
+Package pdftex.def Info: images/Logo.png  used on input line 958.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -4885,7 +4880,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.958 	\section{Abschluss Release \RN{3}}
+l.959 	\section{Abschluss Release \RN{3}}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4894,7 +4889,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.958 	\section{Abschluss Release \RN{3}}
+l.959 	\section{Abschluss Release \RN{3}}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4906,7 +4901,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.958 	\section{Abschluss Release \RN{3}}
+l.959 	\section{Abschluss Release \RN{3}}
                                          
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4915,7 +4910,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.958 	\section{Abschluss Release \RN{3}}
+l.959 	\section{Abschluss Release \RN{3}}
                                          
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4926,12 +4921,12 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 958.
+(hyperref)                removing `\uppercase' on input line 959.
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.960 ...e MockUps im Verlauf des Releases \RN{3}}
+l.961 ...e MockUps im Verlauf des Releases \RN{3}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4940,7 +4935,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.960 ...e MockUps im Verlauf des Releases \RN{3}}
+l.961 ...e MockUps im Verlauf des Releases \RN{3}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4952,7 +4947,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.960 ...e MockUps im Verlauf des Releases \RN{3}}
+l.961 ...e MockUps im Verlauf des Releases \RN{3}}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4961,7 +4956,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.960 ...e MockUps im Verlauf des Releases \RN{3}}
+l.961 ...e MockUps im Verlauf des Releases \RN{3}}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4972,12 +4967,12 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 960.
+(hyperref)                removing `\uppercase' on input line 961.
 
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.962 ...ich MockUps mit aktueller Implementation}
+l.963 ...ich MockUps mit aktueller Implementation}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4986,7 +4981,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.962 ...ich MockUps mit aktueller Implementation}
+l.963 ...ich MockUps mit aktueller Implementation}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4998,7 +4993,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.962 ...ich MockUps mit aktueller Implementation}
+l.963 ...ich MockUps mit aktueller Implementation}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -5007,7 +5002,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.962 ...ich MockUps mit aktueller Implementation}
+l.963 ...ich MockUps mit aktueller Implementation}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5018,7 +5013,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 964.
+Package pdftex.def Info: images/Logo.png  used on input line 965.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -5028,7 +5023,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.965 	\section{Quellenangaben}
+l.966 	\section{Quellenangaben}
                                
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -5037,28 +5032,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.965 	\section{Quellenangaben}
-                               
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.965 	\section{Quellenangaben}
-                               
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.965 	\section{Quellenangaben}
+l.966 	\section{Quellenangaben}
                                
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5070,7 +5044,28 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.966 		\listoffigures
+l.966 	\section{Quellenangaben}
+                               
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.966 	\section{Quellenangaben}
+                               
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.967 		\listoffigures
                       
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -5079,7 +5074,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.966 		\listoffigures
+l.967 		\listoffigures
                       
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5091,7 +5086,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.966 		\listoffigures
+l.967 		\listoffigures
                       
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -5100,7 +5095,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.966 		\listoffigures
+l.967 		\listoffigures
                       
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5115,7 +5110,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 967.
+Package pdftex.def Info: images/Logo.png  used on input line 968.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -5125,7 +5120,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.967 		\listoftables
+l.968 		\listoftables
                      
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -5134,7 +5129,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.967 		\listoftables
+l.968 		\listoftables
                      
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5146,7 +5141,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.967 		\listoftables
+l.968 		\listoftables
                      
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -5155,7 +5150,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.967 		\listoftables
+l.968 		\listoftables
                      
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5168,23 +5163,23 @@ two letters. (See Chapter 27 of The TeXbook.)
 \tf@lot=\write6
 \openout6 = `main.lot'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 968.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 969.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 968.
+Package pdftex.def Info: images/Logo.png  used on input line 969.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [49]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 968.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 969.
  (main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 968.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 968.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 969.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 969.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 968.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 969.
  ) 
 Here is how much of TeX's memory you used:
  13084 strings out of 492895
@@ -5201,9 +5196,9 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/urw/helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2
 .9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (50 pages, 5538915 bytes).
+Output written on main.pdf (50 pages, 5539267 bytes).
 PDF statistics:
- 1397 PDF objects out of 1440 (max. 8388607)
+ 1400 PDF objects out of 1440 (max. 8388607)
  316 named destinations out of 1000 (max. 500000)
  1694 words of extra memory for PDF output out of 10000 (max. 10000000)
 

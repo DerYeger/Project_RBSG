@@ -20,7 +20,7 @@
 \contentsline {subsubsubsection}{\numberline {2.3.3.5}Weitere Features}{23}{subsubsubsection.2.3.3.5}% 
 \contentsline {subsection}{\numberline {2.4}Domain Stories}{24}{subsection.2.4}% 
 \contentsline {subsubsection}{\numberline {2.4.1}Spielstart}{24}{subsubsection.2.4.1}% 
-\contentsline {subsubsection}{\numberline {2.4.2}Move}{26}{subsubsection.2.4.2}% 
+\contentsline {subsubsection}{\numberline {2.4.2}Bewegung}{26}{subsubsection.2.4.2}% 
 \contentsline {section}{\numberline {3}Sprint \textup {\uppercase {v}}}{29}{section.3}% 
 \contentsline {subsection}{\numberline {3.1}Sprintziel}{29}{subsection.3.1}% 
 \contentsline {subsection}{\numberline {3.2}User Stories}{29}{subsection.3.2}% 

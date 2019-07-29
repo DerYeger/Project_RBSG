@@ -456,50 +456,51 @@
 			        \end{figure}
 			        \ \\ Es gab ein weiteres Feature, bei dem der Nutzer "uber eine Einheit hovern konnte, und je nachdem "uber welche Einheit der Nutzer hoverte, aktualisierten sich alle Properties und das Bild der gehoverten Einheit in der Sidebar. Die Einheiten des Spielers, der an der Reihe war, sollten in der oberen Box der Sidebar angezeigt werden. Die Einheiten der restlichen Spieler, die nicht an der Reihe waren, sollten in der unteren Box angezeigt werden. Zu Beginn jeder neuen Runde und sollten die beiden Boxen immer wieder leer sein und sich erst wieder f"ullen, wenn "uber eine EInheit gehovert bzw. wenn eine Aktion mit einer Einheit ausgef"uhrt wurde.
 		\subsection{Domain Stories}
-		    Im Folgenden werden die Domain Stories f\"ur den Spielstart und das Ausf\"uhren einer Aktion, konkret die Bewegung einer Einheit, erl\"autert. \\
+		    Im Folgenden werden die Domain Stories f\"ur den Spielstart und das Ausf\"uhren einer Aktion, konkret die Bewegung einer Einheit, erl\"autert. Die Domain Stories wurden vor der Ver\"offentlichung der Serverdokumentation erstellt. Deshalb weichen die tats\"achlichen Nachrichten leicht von den hier Aufgef\"uhrten ab. \\
 		    \subsubsection{Spielstart}
-		    	Der Nutzer tritt einem Spiel \"uber die Lobby bei. Der Client zeigt nun die initiale Spielsituation, die Armeeauswahl und alle Spieler, welche sich im dem Spiel befinden (siehe Abbildung \ref{Domain_Story_Ready_1}). \
+		    	Der Nutzer tritt einem Spiel \"uber die Lobby bei. Der Client zeigt nun die initiale Spielsituation, die Armeeauswahl und alle Spieler, welche sich im dem Spiel befinden (siehe Abbildung \ref{Domain_Story_Ready_1}).
 			    \begin{figure}[H] 
 			    	\centering
 			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory1.png}
 			    	\caption{Domain Story: Ready 1}
 			    	\label{Domain_Story_Ready_1}
 			    \end{figure}
-			Der Nutzer w\"ahlt eine Armee aus. Die Spielerkarte des Nuzters wird aktualisiert und zeigt nun, dass er bereit ist (siehe Abbildung \ref{Domain_Story_Ready_2}). \
+			Der Nutzer w\"ahlt eine Armee aus. Die Spielerkarte des Nuzters wird aktualisiert und zeigt nun, dass er bereit ist (siehe Abbildung \ref{Domain_Story_Ready_2}).
 			    \begin{figure}[H] 
 			    	\centering
 			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory2.png}
 			    	\caption{Domain Story: Ready 2}
 			    	\label{Domain_Story_Ready_2}
 			    \end{figure}
-			Die Anwendung teilt dem Server mit, dass der Nutzer nun bereit ist. Der Server informiert die Anwendung \"uber den Spielstart. Das Spiel startet (siehe Abbildung \ref{Domain_Story_Ready_3}). \
+			Die Anwendung teilt dem Server mit, dass der Nutzer nun bereit ist. Der Server informiert die Anwendung \"uber den Spielstart. Das Spiel startet (siehe Abbildung \ref{Domain_Story_Ready_3}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/readyStory3.png}
 		    		\caption{Domain Story: Ready 3}
 		    		\label{Domain_Story_Ready_3}
 		    	\end{figure}
-		    \subsubsection{Move}
-		    	TODO: Beschreiben \\
+		    \subsubsection{Bewegung}
+		    	Der Nutzer klickt auf eine Einheit, wodurch diese  ausgew\"ahlt wird (siehe Abbildung \ref{Domain_Story_Move_1}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory1.png}
 		    		\caption{Domain Story: Move 1}
 		    		\label{Domain_Story_Move_1}
 		    	\end{figure}
+			Der Nutzer klickt auf g\"ultiges Zielfeld und best\"atigt die Aktion (siehe Abbildung \ref{Domain_Story_Move_2}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory2.png}
 		    		\caption{Domain Story: Move 2}
 		    		\label{Domain_Story_Move_2}
 		    	\end{figure}
+			Die Anwendung sendet eine Nachricht, welche die Bewegung beschreibt, an den Server. Dieser informiert die Anwendung \"uber, dass die Aktion zul\"assig ist. Die Anwendung aktualisiert das Datenmodell und das Benutzerinterface wird aktualisiert (siehe Abbildung \ref{Domain_Story_Move_3}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory3.png}
 		    		\caption{Domain Story: Move 3}
 		    		\label{Domain_Story_Move_3}
 		    	\end{figure}
-		    \ \\ TODO: eventuell l"oschen oder mit in die Einleitung nehmen?: Die Domain Stories wurden vor dem Release der Serverdokumentation f"ur das Kundentreffen erstellt. Deswegen zeigen sie leichte Abweichungen vom tats"achlichen Verhalten des Servers. Zum Beispiel sendet der Server Spiel starten erst, wenn irgendein Spieler den Befehl zum Spiel starten an den Server schickt, nachdem alle eine Ready gegeben haben. Wir nahmen an, dass der Server automatisch das Spiel startet, nachdem alle ready sind. Unsere Move Story trifft teilweise den Server. Der Unterschied zu unserer Story ist, dass wir vorher nicht davon ausgingen, dass eine Runde des Spielers in die drei Phasen unterteilt ist. Deswegen zeigt unsere Story auf dem MockUp oben rechts schon die bewegte Einheit, mit der jetzt eigentlich angegriffen werden sollte. Da dies vom Server her nicht funktioniert, m"ussen wir dies auf die drei Phasen unterteilen.
 	\newpage
 	\section{Sprint \RN{5}}
 	    Der f"unfte Sprint erstreckte sich "uber dem Zeitraum vom 8.7.2019 bis zum 21.7.2019. Es wurden 116 Storypoints f"ur alle User Stories gesch"atzt.
@@ -525,7 +526,7 @@
 	                \begin{enumerate}[label={}]
 	                	\item \textbf{Armeeauswahl im Warteraum} \hspace{5pt} Die Armeeauswahl soll nur im Warteraum m"oglich sein. Daf"ur muss sie aus der Lobby entfernt und von der Armeeauswahl des Army Managers getrennt werden. Das Deaktivieren der Join/Create Game Buttons muss so angepasst werden, dass diese nur deaktiviert sind, wenn der Spieler keine einzige g"ultige Armee besitzt.
 	                	\item \textbf{Ready-Funktionalit"at} \hspace{5pt} Spieler, welche bereit sind, sollen im Warteraum hervorgehoben werden (siehe Mockup). W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
-	                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den Ingame Controller zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schlie�en der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
+	                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den Ingame Controller zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schlie{\ss}en der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
 	                \end{enumerate}
             \subsubsection{Ingame - Spielfeld}
 	            \paragraph{Zuteilung}
