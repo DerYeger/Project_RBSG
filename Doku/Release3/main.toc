@@ -120,9 +120,9 @@
 \contentsline {paragraph}{\nonumberline Stand}{41}{section*.105}% 
 \contentsline {subsubsubsection}{\numberline {3.5.3.3}Ingame - Minikarte anzeigen}{41}{subsubsubsection.3.5.3.3}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{41}{section*.106}% 
-\contentsline {paragraph}{\nonumberline Stand}{41}{section*.107}% 
+\contentsline {paragraph}{\nonumberline Stand}{42}{section*.107}% 
 \contentsline {subsubsection}{\numberline {3.5.4}Nicht abgeschlossene Stories/Tasks}{42}{subsubsection.3.5.4}% 
-\contentsline {subsubsection}{\numberline {3.5.5}Fazit}{42}{subsubsection.3.5.5}% 
+\contentsline {subsubsection}{\numberline {3.5.5}Fazit}{43}{subsubsection.3.5.5}% 
 \contentsline {section}{\numberline {4}Sprint \textup {\uppercase {vi}}}{44}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Sprintziel}{44}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}Ge\"anderte User Stories vom Sprint \textup {\uppercase {v}}}{44}{subsection.4.2}% 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.18)  29 JUL 2019 22:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.18)  29 JUL 2019 23:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1568,28 +1568,28 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [40]
-<images/sprintV/toDo.png, id=662, 682.04813pt x 634.37pt>
-File: images/sprintV/toDo.png Graphic file (type png)
-<use images/sprintV/toDo.png>
-Package pdftex.def Info: images/sprintV/toDo.png  used on input line 787.
-(pdftex.def)             Requested size: 469.47049pt x 436.66068pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 790.
+Package pdftex.def Info: images/Logo.png  used on input line 781.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [41]
-<images/sprintV/coverage.png, id=675, 660.96938pt x 56.21pt>
+<images/sprintV/toDo.png, id=672, 682.04813pt x 634.37pt>
+File: images/sprintV/toDo.png Graphic file (type png)
+<use images/sprintV/toDo.png>
+Package pdftex.def Info: images/sprintV/toDo.png  used on input line 787.
+(pdftex.def)             Requested size: 469.47049pt x 436.66068pt.
+<images/sprintV/coverage.png, id=674, 660.96938pt x 56.21pt>
 File: images/sprintV/coverage.png Graphic file (type png)
 <use images/sprintV/coverage.png>
 Package pdftex.def Info: images/sprintV/coverage.png  used on input line 795.
 (pdftex.def)             Requested size: 469.47049pt x 39.92566pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 799.
+Package pdftex.def Info: images/Logo.png  used on input line 798.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -1798,7 +1798,7 @@ exlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
 xlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2
 019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/tex
 mf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (54 pages, 5421927 bytes).
+Output written on main.pdf (54 pages, 5422806 bytes).
 PDF statistics:
  1441 PDF objects out of 1728 (max. 8388607)
  1254 compressed objects within 13 object streams
