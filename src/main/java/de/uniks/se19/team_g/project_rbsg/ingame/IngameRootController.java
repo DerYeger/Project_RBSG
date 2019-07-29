@@ -130,14 +130,6 @@ public class IngameRootController
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
             Platform.runLater(() -> mountBattleField());
         }
-
-        if (this.ingameContext.isInitialized()) {
-            logger.debug("game was initialized");
-            if (this.ingameContext.getGameData().isSpectatorModus()) {
-                logger.debug("tried to mount");
-                Platform.runLater(() -> mountBattleField());
-            }
-        }
     }
 
     public void onConnectionClosed() {
