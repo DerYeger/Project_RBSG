@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  29 JUL 2019 11:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  29 JUL 2019 11:38
 entering extended mode
 **./main.tex
 (main.tex
@@ -949,32 +949,32 @@ File: omsphv.fd
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
-<images/avatars/jan.png, id=204, 90.3375pt x 90.3375pt>
+<images/avatars/jan.png, id=203, 90.3375pt x 90.3375pt>
 File: images/avatars/jan.png Graphic file (type png)
 <use images/avatars/jan.png>
 Package pdftex.def Info: images/avatars/jan.png  used on input line 100.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<images/avatars/keanu.png, id=205, 90.3375pt x 90.3375pt>
+<images/avatars/keanu.png, id=204, 90.3375pt x 90.3375pt>
 File: images/avatars/keanu.png Graphic file (type png)
 <use images/avatars/keanu.png>
 Package pdftex.def Info: images/avatars/keanu.png  used on input line 101.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<images/avatars/georg.png, id=206, 90.3375pt x 90.3375pt>
+<images/avatars/georg.png, id=205, 90.3375pt x 90.3375pt>
 File: images/avatars/georg.png Graphic file (type png)
 <use images/avatars/georg.png>
 Package pdftex.def Info: images/avatars/georg.png  used on input line 104.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<images/avatars/juri.png, id=207, 90.3375pt x 90.3375pt>
+<images/avatars/juri.png, id=206, 90.3375pt x 90.3375pt>
 File: images/avatars/juri.png Graphic file (type png)
 <use images/avatars/juri.png>
 Package pdftex.def Info: images/avatars/juri.png  used on input line 105.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<images/avatars/omar.png, id=208, 90.3375pt x 90.3375pt>
+<images/avatars/omar.png, id=207, 90.3375pt x 90.3375pt>
 File: images/avatars/omar.png Graphic file (type png)
 <use images/avatars/omar.png>
 Package pdftex.def Info: images/avatars/omar.png  used on input line 106.
 (pdftex.def)             Requested size: 23.47495pt x 23.47478pt.
-<images/avatars/tobias.png, id=209, 18.0675pt x 18.0675pt>
+<images/avatars/tobias.png, id=208, 18.0675pt x 18.0675pt>
 File: images/avatars/tobias.png Graphic file (type png)
 <use images/avatars/tobias.png>
 Package pdftex.def Info: images/avatars/tobias.png  used on input line 107.
@@ -1116,7 +1116,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/old_state/login/Login.png, id=230, 1003.75pt x 703.62875pt>
+<images/old_state/login/Login.png, id=229, 1003.75pt x 703.62875pt>
 File: images/old_state/login/Login.png Graphic file (type png)
 <use images/old_state/login/Login.png>
 Package pdftex.def Info: images/old_state/login/Login.png  used on input line 1
@@ -1136,32 +1136,32 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [5]
-<images/old_state/login/Indicator.png, id=238, 805.0075pt x 600.2425pt>
+<images/old_state/login/Indicator.png, id=237, 805.0075pt x 600.2425pt>
 File: images/old_state/login/Indicator.png Graphic file (type png)
 <use images/old_state/login/Indicator.png>
 Package pdftex.def Info: images/old_state/login/Indicator.png  used on input li
 ne 185.
 (pdftex.def)             Requested size: 140.84258pt x 105.01653pt.
-<images/old_state/login/MissingName.png, id=239, 801.99625pt x 601.24625pt>
+<images/old_state/login/MissingName.png, id=238, 801.99625pt x 601.24625pt>
 File: images/old_state/login/MissingName.png Graphic file (type png)
 <use images/old_state/login/MissingName.png>
 Package pdftex.def Info: images/old_state/login/MissingName.png  used on input 
 line 189.
 (pdftex.def)             Requested size: 140.84258pt x 105.58664pt.
-<images/old_state/login/MissingPassword.png, id=240, 806.01125pt x 592.2125pt>
+<images/old_state/login/MissingPassword.png, id=239, 806.01125pt x 592.2125pt>
 File: images/old_state/login/MissingPassword.png Graphic file (type png)
 <use images/old_state/login/MissingPassword.png>
 Package pdftex.def Info: images/old_state/login/MissingPassword.png  used on in
 put line 193.
 (pdftex.def)             Requested size: 140.84258pt x 103.47607pt.
-<images/old_state/login/InvalidCredentials.png, id=241, 800.9925pt x 599.23875p
+<images/old_state/login/InvalidCredentials.png, id=240, 800.9925pt x 599.23875p
 t>
 File: images/old_state/login/InvalidCredentials.png Graphic file (type png)
 <use images/old_state/login/InvalidCredentials.png>
 Package pdftex.def Info: images/old_state/login/InvalidCredentials.png  used on
  input line 197.
 (pdftex.def)             Requested size: 140.84258pt x 105.3621pt.
-<images/old_state/login/UnexpectedError.png, id=242, 800.9925pt x 598.235pt>
+<images/old_state/login/UnexpectedError.png, id=241, 800.9925pt x 598.235pt>
 File: images/old_state/login/UnexpectedError.png Graphic file (type png)
 <use images/old_state/login/UnexpectedError.png>
 Package pdftex.def Info: images/old_state/login/UnexpectedError.png  used on in
@@ -1214,7 +1214,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/old_state/lobby/NoArmySelected.png, id=244, 1003.75pt x 701.62125pt>
+<images/old_state/lobby/NoArmySelected.png, id=243, 1003.75pt x 701.62125pt>
 File: images/old_state/lobby/NoArmySelected.png Graphic file (type png)
 <use images/old_state/lobby/NoArmySelected.png>
 Package pdftex.def Info: images/old_state/lobby/NoArmySelected.png  used on inp
@@ -1237,13 +1237,13 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 > <./images/old_state/login/MissingName.png> <./images/old_state/login/MissingP
 assword.png> <./images/old_state/login/InvalidCredentials.png> <./images/old_st
 ate/login/UnexpectedError.png>]
-<images/old_state/lobby/CreateGame.png, id=257, 1003.75pt x 803.0pt>
+<images/old_state/lobby/CreateGame.png, id=256, 1003.75pt x 803.0pt>
 File: images/old_state/lobby/CreateGame.png Graphic file (type png)
 <use images/old_state/lobby/CreateGame.png>
 Package pdftex.def Info: images/old_state/lobby/CreateGame.png  used on input l
 ine 217.
 (pdftex.def)             Requested size: 164.31754pt x 131.4478pt.
-<images/old_state/lobby/ArmySelected.png, id=263, 1003.75pt x 702.625pt>
+<images/old_state/lobby/ArmySelected.png, id=262, 1003.75pt x 702.625pt>
 File: images/old_state/lobby/ArmySelected.png Graphic file (type png)
 <use images/old_state/lobby/ArmySelected.png>
 Package pdftex.def Info: images/old_state/lobby/ArmySelected.png  used on input
@@ -1254,7 +1254,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 222--228
 
  []
 
-<images/old_state/lobby/International+Chat+GameCreated.png, id=264, 1003.75pt x
+<images/old_state/lobby/International+Chat+GameCreated.png, id=263, 1003.75pt x
  702.625pt>
 File: images/old_state/lobby/International+Chat+GameCreated.png Graphic file (t
 ype png)
@@ -1314,7 +1314,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/old_state/army_manager/NoUnitSelected.png, id=277, 1003.75pt x 703.6287
+<images/old_state/army_manager/NoUnitSelected.png, id=276, 1003.75pt x 703.6287
 5pt>
 File: images/old_state/army_manager/NoUnitSelected.png Graphic file (type png)
 <use images/old_state/army_manager/NoUnitSelected.png>
@@ -1336,20 +1336,20 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 [8 <./images/old_state/lobby/ArmySelected.png> <./images/old_state/lobby/Intern
 ational+Chat+GameCreated.png>]
-<images/old_state/army_manager/UnitSelected.png, id=284, 1003.75pt x 704.6325pt
+<images/old_state/army_manager/UnitSelected.png, id=283, 1003.75pt x 704.6325pt
 >
 File: images/old_state/army_manager/UnitSelected.png Graphic file (type png)
 <use images/old_state/army_manager/UnitSelected.png>
 Package pdftex.def Info: images/old_state/army_manager/UnitSelected.png  used o
 n input line 245.
 (pdftex.def)             Requested size: 375.57782pt x 263.65594pt.
-<images/old_state/army_manager/PropertyInfo.png, id=286, 1304.875pt x 803.0pt>
+<images/old_state/army_manager/PropertyInfo.png, id=285, 1304.875pt x 803.0pt>
 File: images/old_state/army_manager/PropertyInfo.png Graphic file (type png)
 <use images/old_state/army_manager/PropertyInfo.png>
 Package pdftex.def Info: images/old_state/army_manager/PropertyInfo.png  used o
 n input line 254.
 (pdftex.def)             Requested size: 169.0128pt x 104.00157pt.
-<images/old_state/army_manager/EditArmy.png, id=287, 1003.75pt x 803.0pt>
+<images/old_state/army_manager/EditArmy.png, id=286, 1003.75pt x 803.0pt>
 File: images/old_state/army_manager/EditArmy.png Graphic file (type png)
 <use images/old_state/army_manager/EditArmy.png>
 Package pdftex.def Info: images/old_state/army_manager/EditArmy.png  used on in
@@ -1375,7 +1375,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 [9 <./images/old_state/army_manager/NoUnitSelected.png> <./images/old_state/arm
 y_manager/UnitSelected.png>]
-<images/old_state/army_manager/ArmyReadyToSave.png, id=299, 1003.75pt x 702.625
+<images/old_state/army_manager/ArmyReadyToSave.png, id=298, 1003.75pt x 702.625
 pt>
 File: images/old_state/army_manager/ArmyReadyToSave.png Graphic file (type png)
 
@@ -1430,7 +1430,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/old_state/waiting_room/2Player.png, id=300, 1003.75pt x 699.61375pt>
+<images/old_state/waiting_room/2Player.png, id=299, 1003.75pt x 699.61375pt>
 File: images/old_state/waiting_room/2Player.png Graphic file (type png)
 <use images/old_state/waiting_room/2Player.png>
 Package pdftex.def Info: images/old_state/waiting_room/2Player.png  used on inp
@@ -1451,7 +1451,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 [10 <./images/old_state/army_manager/PropertyInfo.png> <./images/old_state/army
 _manager/EditArmy.png> <./images/old_state/army_manager/ArmyReadyToSave.png>]
-<images/old_state/waiting_room/4Player.png, id=310, 1003.75pt x 702.625pt>
+<images/old_state/waiting_room/4Player.png, id=309, 1003.75pt x 702.625pt>
 File: images/old_state/waiting_room/4Player.png Graphic file (type png)
 <use images/old_state/waiting_room/4Player.png>
 Package pdftex.def Info: images/old_state/waiting_room/4Player.png  used on inp
@@ -1509,7 +1509,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/old_state/ingame/Ingame.png, id=324, 1003.75pt x 701.62125pt>
+<images/old_state/ingame/Ingame.png, id=323, 1003.75pt x 701.62125pt>
 File: images/old_state/ingame/Ingame.png Graphic file (type png)
 <use images/old_state/ingame/Ingame.png>
 Package pdftex.def Info: images/old_state/ingame/Ingame.png  used on input line
@@ -1520,13 +1520,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 288--294
 
  []
 
-<images/old_state/ingame/ZoomIn.png, id=325, 1003.75pt x 700.6175pt>
+<images/old_state/ingame/ZoomIn.png, id=324, 1003.75pt x 700.6175pt>
 File: images/old_state/ingame/ZoomIn.png Graphic file (type png)
 <use images/old_state/ingame/ZoomIn.png>
 Package pdftex.def Info: images/old_state/ingame/ZoomIn.png  used on input line
  297.
 (pdftex.def)             Requested size: 375.57782pt x 262.15363pt.
-<images/old_state/ingame/ZoomOut.png, id=326, 1003.75pt x 702.625pt>
+<images/old_state/ingame/ZoomOut.png, id=325, 1003.75pt x 702.625pt>
 File: images/old_state/ingame/ZoomOut.png Graphic file (type png)
 <use images/old_state/ingame/ZoomOut.png>
 Package pdftex.def Info: images/old_state/ingame/ZoomOut.png  used on input lin
@@ -1593,7 +1593,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/old_state/additional/LoginFailure.png, id=342, 1003.75pt x 602.25pt>
+<images/old_state/additional/LoginFailure.png, id=341, 1003.75pt x 602.25pt>
 File: images/old_state/additional/LoginFailure.png Graphic file (type png)
 <use images/old_state/additional/LoginFailure.png>
 Package pdftex.def Info: images/old_state/additional/LoginFailure.png  used on 
@@ -1604,7 +1604,7 @@ Underfull \hbox (badness 1436) in paragraph at lines 312--312
 [][][]|\OT1/phv/m/n/12 Re-lea-se II: Lo-
  []
 
-<images/old_state/additional/WaitingRoomFailure.png, id=343, 1003.75pt x 602.25
+<images/old_state/additional/WaitingRoomFailure.png, id=342, 1003.75pt x 602.25
 pt>
 File: images/old_state/additional/WaitingRoomFailure.png Graphic file (type png
 )
@@ -1617,13 +1617,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 317--317
 [][][]|\OT1/phv/m/n/12 Re-lea-se II:
  []
 
-<images/old_state/additional/LeaveGame.png, id=348, 1003.75pt x 602.25pt>
+<images/old_state/additional/LeaveGame.png, id=347, 1003.75pt x 602.25pt>
 File: images/old_state/additional/LeaveGame.png Graphic file (type png)
 <use images/old_state/additional/LeaveGame.png>
 Package pdftex.def Info: images/old_state/additional/LeaveGame.png  used on inp
 ut line 326.
 (pdftex.def)             Requested size: 142.01639pt x 85.20581pt.
-<images/old_state/additional/Logout.png, id=349, 1003.75pt x 602.25pt>
+<images/old_state/additional/Logout.png, id=348, 1003.75pt x 602.25pt>
 File: images/old_state/additional/Logout.png Graphic file (type png)
 <use images/old_state/additional/Logout.png>
 Package pdftex.def Info: images/old_state/additional/Logout.png  used on input 
@@ -1639,7 +1639,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 321--336
 
  []
 
-<images/old_state/Coverage.png, id=350, 772.8875pt x 54.70438pt>
+<images/old_state/Coverage.png, id=349, 772.8875pt x 54.70438pt>
 File: images/old_state/Coverage.png Graphic file (type png)
 <use images/old_state/Coverage.png>
 Package pdftex.def Info: images/old_state/Coverage.png  used on input line 340.
@@ -1746,7 +1746,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/mockUps/LobbyWatchMode.png, id=363, 1003.75pt x 685.56125pt>
+<images/mockUps/LobbyWatchMode.png, id=362, 1003.75pt x 685.56125pt>
 File: images/mockUps/LobbyWatchMode.png Graphic file (type png)
 <use images/mockUps/LobbyWatchMode.png>
 Package pdftex.def Info: images/mockUps/LobbyWatchMode.png  used on input line 
@@ -1799,7 +1799,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/mockUps/NotReady.png, id=367, 1003.75pt x 703.62875pt>
+<images/mockUps/NotReady.png, id=366, 1003.75pt x 703.62875pt>
 File: images/mockUps/NotReady.png Graphic file (type png)
 <use images/mockUps/NotReady.png>
 Package pdftex.def Info: images/mockUps/NotReady.png  used on input line 359.
@@ -1818,12 +1818,12 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [15 <./images/mockUps/LobbyWatchMode.png>]
-<images/mockUps/Ready.png, id=376, 1003.75pt x 704.6325pt>
+<images/mockUps/Ready.png, id=375, 1003.75pt x 704.6325pt>
 File: images/mockUps/Ready.png Graphic file (type png)
 <use images/mockUps/Ready.png>
 Package pdftex.def Info: images/mockUps/Ready.png  used on input line 365.
 (pdftex.def)             Requested size: 375.57782pt x 263.65594pt.
-<images/mockUps/StartGame.png, id=377, 1003.75pt x 702.625pt>
+<images/mockUps/StartGame.png, id=376, 1003.75pt x 702.625pt>
 File: images/mockUps/StartGame.png Graphic file (type png)
 <use images/mockUps/StartGame.png>
 Package pdftex.def Info: images/mockUps/StartGame.png  used on input line 371.
@@ -1879,7 +1879,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/mockUps/Ingame.png, id=385, 1174.3875pt x 803.0pt>
+<images/mockUps/Ingame.png, id=384, 1174.3875pt x 803.0pt>
 File: images/mockUps/Ingame.png Graphic file (type png)
 <use images/mockUps/Ingame.png>
 Package pdftex.def Info: images/mockUps/Ingame.png  used on input line 379.
@@ -1898,7 +1898,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [17 <./images/mockUps/StartGame.png> <./images/mockUps/Ingame.png>]
-<images/mockUps/Select.png, id=393, 1003.75pt x 686.565pt>
+<images/mockUps/Select.png, id=392, 1003.75pt x 686.565pt>
 File: images/mockUps/Select.png Graphic file (type png)
 <use images/mockUps/Select.png>
 Package pdftex.def Info: images/mockUps/Select.png  used on input line 388.
@@ -1908,7 +1908,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 385--391
 
  []
 
-<images/mockUps/Select2.png, id=394, 1003.75pt x 686.565pt>
+<images/mockUps/Select2.png, id=393, 1003.75pt x 686.565pt>
 File: images/mockUps/Select2.png Graphic file (type png)
 <use images/mockUps/Select2.png>
 Package pdftex.def Info: images/mockUps/Select2.png  used on input line 395.
@@ -1918,7 +1918,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 392--398
 
  []
 
-<images/mockUps/Select3.png, id=395, 1003.75pt x 686.565pt>
+<images/mockUps/Select3.png, id=394, 1003.75pt x 686.565pt>
 File: images/mockUps/Select3.png Graphic file (type png)
 <use images/mockUps/Select3.png>
 Package pdftex.def Info: images/mockUps/Select3.png  used on input line 401.
@@ -1941,13 +1941,13 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [19 <./images/mockUps/Select2.png> <./images/mockUps/Select3.png>]
-<images/mockUps/ConfirmMove.png, id=416, 1003.75pt x 686.565pt>
+<images/mockUps/ConfirmMove.png, id=415, 1003.75pt x 686.565pt>
 File: images/mockUps/ConfirmMove.png Graphic file (type png)
 <use images/mockUps/ConfirmMove.png>
 Package pdftex.def Info: images/mockUps/ConfirmMove.png  used on input line 410
 .
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
-<images/mockUps/ConfirmMove2.png, id=417, 1003.75pt x 686.565pt>
+<images/mockUps/ConfirmMove2.png, id=416, 1003.75pt x 686.565pt>
 File: images/mockUps/ConfirmMove2.png Graphic file (type png)
 <use images/mockUps/ConfirmMove2.png>
 Package pdftex.def Info: images/mockUps/ConfirmMove2.png  used on input line 41
@@ -1962,7 +1962,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [20 <./images/mockUps/ConfirmMove.png>]
-<images/mockUps/Attack.png, id=425, 1003.75pt x 686.565pt>
+<images/mockUps/Attack.png, id=424, 1003.75pt x 686.565pt>
 File: images/mockUps/Attack.png Graphic file (type png)
 <use images/mockUps/Attack.png>
 Package pdftex.def Info: images/mockUps/Attack.png  used on input line 424.
@@ -1987,17 +1987,17 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [21 <./images/mockUps/ConfirmMove2.png> <./images/mockUps/Attack.png>]
-<images/mockUps/GameOver.png, id=437, 1174.3875pt x 803.0pt>
+<images/mockUps/GameOver.png, id=436, 1174.3875pt x 803.0pt>
 File: images/mockUps/GameOver.png Graphic file (type png)
 <use images/mockUps/GameOver.png>
 Package pdftex.def Info: images/mockUps/GameOver.png  used on input line 433.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
-<images/mockUps/GameWon.png, id=438, 1174.3875pt x 803.0pt>
+<images/mockUps/GameWon.png, id=437, 1174.3875pt x 803.0pt>
 File: images/mockUps/GameWon.png Graphic file (type png)
 <use images/mockUps/GameWon.png>
 Package pdftex.def Info: images/mockUps/GameWon.png  used on input line 439.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
-<images/mockUps/SpactatorEnd.png, id=439, 1174.3875pt x 803.0pt>
+<images/mockUps/SpactatorEnd.png, id=438, 1174.3875pt x 803.0pt>
 File: images/mockUps/SpactatorEnd.png Graphic file (type png)
 <use images/mockUps/SpactatorEnd.png>
 Package pdftex.def Info: images/mockUps/SpactatorEnd.png  used on input line 44
@@ -2012,7 +2012,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [22 <./images/mockUps/GameOver.png>]
-<images/mockUps/EndPhase.png, id=449, 1003.75pt x 686.565pt>
+<images/mockUps/EndPhase.png, id=448, 1003.75pt x 686.565pt>
 File: images/mockUps/EndPhase.png Graphic file (type png)
 <use images/mockUps/EndPhase.png>
 Package pdftex.def Info: images/mockUps/EndPhase.png  used on input line 453.
@@ -2120,7 +2120,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/domain_stories/readyStory1.png, id=457, 837.1275pt x 404.51125pt>
+<images/domain_stories/readyStory1.png, id=456, 837.1275pt x 404.51125pt>
 File: images/domain_stories/readyStory1.png Graphic file (type png)
 <use images/domain_stories/readyStory1.png>
 Package pdftex.def Info: images/domain_stories/readyStory1.png  used on input l
@@ -2135,13 +2135,13 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [24 <./images/mockUps/EndPhase.png>]
-<images/domain_stories/readyStory2.png, id=467, 862.22125pt x 403.5075pt>
+<images/domain_stories/readyStory2.png, id=466, 862.22125pt x 403.5075pt>
 File: images/domain_stories/readyStory2.png Graphic file (type png)
 <use images/domain_stories/readyStory2.png>
 Package pdftex.def Info: images/domain_stories/readyStory2.png  used on input l
 ine 471.
 (pdftex.def)             Requested size: 469.47049pt x 219.70096pt.
-<images/domain_stories/readyStory3.png, id=469, 797.98125pt x 607.26875pt>
+<images/domain_stories/readyStory3.png, id=468, 797.98125pt x 607.26875pt>
 File: images/domain_stories/readyStory3.png Graphic file (type png)
 <use images/domain_stories/readyStory3.png>
 Package pdftex.def Info: images/domain_stories/readyStory3.png  used on input l
@@ -2199,7 +2199,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/domain_stories/moveStory1.png, id=479, 857.2025pt x 419.5675pt>
+<images/domain_stories/moveStory1.png, id=478, 857.2025pt x 419.5675pt>
 File: images/domain_stories/moveStory1.png Graphic file (type png)
 <use images/domain_stories/moveStory1.png>
 Package pdftex.def Info: images/domain_stories/moveStory1.png  used on input li
@@ -2214,13 +2214,13 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [26 <./images/domain_stories/readyStory3.png>]
-<images/domain_stories/moveStory2.png, id=487, 871.255pt x 412.54124pt>
+<images/domain_stories/moveStory2.png, id=486, 871.255pt x 412.54124pt>
 File: images/domain_stories/moveStory2.png Graphic file (type png)
 <use images/domain_stories/moveStory2.png>
 Package pdftex.def Info: images/domain_stories/moveStory2.png  used on input li
 ne 493.
 (pdftex.def)             Requested size: 469.47049pt x 222.29054pt.
-<images/domain_stories/moveStory3.png, id=489, 795.97375pt x 658.46pt>
+<images/domain_stories/moveStory3.png, id=488, 795.97375pt x 658.46pt>
 File: images/domain_stories/moveStory3.png Graphic file (type png)
 <use images/domain_stories/moveStory3.png>
 Package pdftex.def Info: images/domain_stories/moveStory3.png  used on input li
@@ -2554,7 +2554,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 557.
+Package pdftex.def Info: images/Logo.png  used on input line 555.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2603,51 +2603,9 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.578 ...subsubsection{Ingame - Einheit angreifen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.578 ...subsubsection{Ingame - Einheit angreifen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.578 ...subsubsection{Ingame - Einheit angreifen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.578 ...subsubsection{Ingame - Einheit angreifen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 581.
+Package pdftex.def Info: images/Logo.png  used on input line 577.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2657,6 +2615,48 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
+l.578 ...subsubsection{Ingame - Einheit angreifen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.578 ...subsubsection{Ingame - Einheit angreifen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.578 ...subsubsection{Ingame - Einheit angreifen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.578 ...subsubsection{Ingame - Einheit angreifen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
 l.591 ...subsection{Ingame - Spielstatus anzeigen}
                                                   
 A number should have been here; I inserted `0'.
@@ -2698,7 +2698,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 601.
+Package pdftex.def Info: images/Logo.png  used on input line 600.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2795,51 +2795,9 @@ Overfull \hbox (8.17993pt too wide) in paragraph at lines 623--624
 ton in der obe-ren Leis-te (sie-he Mockup)
  []
 
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.625 ...       \subsubsection{Ingame - Game Over}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.625 ...       \subsubsection{Ingame - Game Over}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.625 ...       \subsubsection{Ingame - Game Over}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.625 ...       \subsubsection{Ingame - Game Over}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 628.
+Package pdftex.def Info: images/Logo.png  used on input line 624.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -2849,6 +2807,48 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
+l.625 ...       \subsubsection{Ingame - Game Over}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.625 ...       \subsubsection{Ingame - Game Over}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.625 ...       \subsubsection{Ingame - Game Over}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.625 ...       \subsubsection{Ingame - Game Over}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
 l.635 ...        \subsubsection{Ingame - Game Won}
                                                   
 A number should have been here; I inserted `0'.
@@ -2932,7 +2932,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 654.
+Package pdftex.def Info: images/Logo.png  used on input line 648.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3023,57 +3023,58 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.675 ...bsection{Ingame - Einheiteninformationen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.675 ...bsection{Ingame - Einheiteninformationen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.675 ...bsection{Ingame - Einheiteninformationen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.675 ...bsection{Ingame - Einheiteninformationen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 680.
+Package pdftex.def Info: images/Logo.png  used on input line 674.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [35]
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.675 ...bsection{Ingame - Einheiteninformationen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.675 ...bsection{Ingame - Einheiteninformationen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.675 ...bsection{Ingame - Einheiteninformationen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.675 ...bsection{Ingame - Einheiteninformationen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+
 Overfull \hbox (17.23315pt too wide) in paragraph at lines 681--682
  []\OT1/phv/b/n/12 Ziel und Sub-tasks[] \OT1/phv/m/n/12 Be-weg-te der Nuz-ter d
 ie Maus []uber ei-ne Ein-heit, soll-ten al-le verf[]ugbaren
@@ -3205,57 +3206,57 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.703 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.703 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.703 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.703 ...on{Einheiteninformationen im Datenmodell}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 708.
+Package pdftex.def Info: images/Logo.png  used on input line 701.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [36]
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.703 ...on{Einheiteninformationen im Datenmodell}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.703 ...on{Einheiteninformationen im Datenmodell}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.703 ...on{Einheiteninformationen im Datenmodell}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.703 ...on{Einheiteninformationen im Datenmodell}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -3392,14 +3393,14 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/burndown.png, id=622, 1362.08875pt x 590.205pt>
+<images/sprintV/burndown.png, id=618, 1362.08875pt x 590.205pt>
 File: images/sprintV/burndown.png Graphic file (type png)
 <use images/sprintV/burndown.png>
 Package pdftex.def Info: images/sprintV/burndown.png  used on input line 734.
 (pdftex.def)             Requested size: 469.47049pt x 203.4228pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 738.
+Package pdftex.def Info: images/Logo.png  used on input line 737.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3448,14 +3449,14 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/done.png, id=630, 687.06688pt x 214.30063pt>
+<images/sprintV/done.png, id=629, 687.06688pt x 214.30063pt>
 File: images/sprintV/done.png Graphic file (type png)
 <use images/sprintV/done.png>
 Package pdftex.def Info: images/sprintV/done.png  used on input line 742.
 (pdftex.def)             Requested size: 469.47049pt x 146.4288pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 759.
+Package pdftex.def Info: images/Logo.png  used on input line 754.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3546,14 +3547,14 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/toDo.png, id=644, 682.04813pt x 634.37pt>
+<images/sprintV/toDo.png, id=641, 682.04813pt x 634.37pt>
 File: images/sprintV/toDo.png Graphic file (type png)
 <use images/sprintV/toDo.png>
 Package pdftex.def Info: images/sprintV/toDo.png  used on input line 787.
 (pdftex.def)             Requested size: 469.47049pt x 436.66068pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 791.
+Package pdftex.def Info: images/Logo.png  used on input line 790.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -3602,7 +3603,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/coverage.png, id=661, 660.96938pt x 56.21pt>
+<images/sprintV/coverage.png, id=659, 660.96938pt x 56.21pt>
 File: images/sprintV/coverage.png Graphic file (type png)
 <use images/sprintV/coverage.png>
 Package pdftex.def Info: images/sprintV/coverage.png  used on input line 795.
@@ -3615,7 +3616,16 @@ Package pdftex.def Info: images/Logo.png  used on input line 799.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[40 <./images/sprintV/toDo.png> <./images/sprintV/coverage.png>]
+[40 <./images/sprintV/toDo.png>]
+File: images/Logo.png Graphic file (type png)
+<use images/Logo.png>
+Package pdftex.def Info: images/Logo.png  used on input line 799.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[41 <./images/sprintV/coverage.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -3854,7 +3864,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 831.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[41]
+[42]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -3951,7 +3961,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 857.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[42]
+[43]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -4220,7 +4230,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 886.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[43]
+[44]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -4439,7 +4449,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 910.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[44]
+[45]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -4609,7 +4619,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 946.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[45]
+[46]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -4870,7 +4880,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 958.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[46]
+[47]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -5013,7 +5023,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 965.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[47]
+[48]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -5110,7 +5120,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 968.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[48]
+[49]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -5166,7 +5176,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 969.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[49]
+[50]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 969.
  (main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 969.
@@ -5177,22 +5187,21 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 969.
  ) 
 Here is how much of TeX's memory you used:
  13085 strings out of 492895
- 217980 string characters out of 3123735
+ 217972 string characters out of 3123735
  435326 words of memory out of 3000000
- 16415 multiletter control sequences out of 15000+200000
+ 16414 multiletter control sequences out of 15000+200000
  27425 words of font info for 54 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,15n,87p,9112b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
 }<C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr8.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/urw/helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/M
-iKTeX 2.9/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (50 pages, 5537302 bytes).
+cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
+/helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
+pe1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on main.pdf (51 pages, 5529872 bytes).
 PDF statistics:
  1400 PDF objects out of 1440 (max. 8388607)
- 316 named destinations out of 1000 (max. 500000)
+ 317 named destinations out of 1000 (max. 500000)
  1694 words of extra memory for PDF output out of 10000 (max. 10000000)
 

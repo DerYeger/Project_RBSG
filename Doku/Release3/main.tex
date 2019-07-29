@@ -517,20 +517,20 @@
 	        Die User Stories, die vom Product Owner erstellt wurden, sind wie gefolgt aufgebaut: Dem Titel kann entnommen werden zu welcher Szene die Story geh"ort. Anschlie"ssend werden die Story Points und der zugeteilte Entwickler genannt. Danach folgt die Story und das Ziel. Das Ziel fasst die Subtasks, die der Scrum Master erstellt hat, zusammen. Danach werden alle Subtasks aufgelistet.
 	        \subsubsection{Waiting Room - Spielbeitritt anpassen}
 	            \paragraph{Zuteilung}
-	                Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
+	                	Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
 	            \paragraph{Story}
-	            	Karli befindet sich in der Wartreraumszene. Alle anderen Spieler sind bereit. Karli w"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
-	            TODO: Verbindung zur Domain Story
+	            		Karli befindet sich in der Wartreraumszene. Alle anderen Spieler sind bereit. Karli w"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
 	            \paragraph{Ziel und Subtasks}
-	                Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit sind.
-	                \begin{enumerate}[label={}]
-	                	\item \textbf{Armeeauswahl im Warteraum} \hspace{5pt} Die Armeeauswahl soll nur im Warteraum m"oglich sein. Daf"ur muss sie aus der Lobby entfernt und von der Armeeauswahl des Army Managers getrennt werden. Das Deaktivieren der Join/Create Game Buttons muss so angepasst werden, dass diese nur deaktiviert sind, wenn der Spieler keine einzige g"ultige Armee besitzt.
-	                	\item \textbf{Ready-Funktionalit"at} \hspace{5pt} Spieler, welche bereit sind, sollen im Warteraum hervorgehoben werden (siehe Mockup). W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
-	                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den Ingame Controller zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schlie{\ss}en der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
+		         	Diese Tasks dieser User Story umfassen zum Gro{\ss}teil die Domain Story Spielstart.
+	                	Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit sind.
+	                	\begin{enumerate}[label={}]
+		                	\item \textbf{Armeeauswahl im Warteraum} \hspace{5pt} Die Armeeauswahl soll nur im Warteraum m"oglich sein. Daf"ur muss sie aus der Lobby entfernt und von der Armeeauswahl des Army Managers getrennt werden. Das Deaktivieren der Join/Create Game Buttons muss so angepasst werden, dass diese nur deaktiviert sind, wenn der Spieler keine einzige g"ultige Armee besitzt.
+		                	\item \textbf{Ready-Funktionalit"at} \hspace{5pt} Spieler, welche bereit sind, sollen im Warteraum hervorgehoben werden (siehe Mockup). W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
+		                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den Ingame Controller zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schlie{\ss}en der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
 	                \end{enumerate}
             \subsubsection{Ingame - Spielfeld}
 	            \paragraph{Zuteilung}
-	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
+	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
              	\paragraph{Story}
              		Karli befindet sich in der Ingameszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld (einer Einheit). Das Feld wird ausgew"ahlt.
 	            \paragraph{Ziel und Subtasks}
@@ -541,33 +541,33 @@
             		\end{enumerate}
 	        \subsubsection{Ingame - Phase beenden}
 	            \paragraph{Zuteilung}
-	                Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
+	                	Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
              \paragraph{Story}
              	Karli befindet sich in der Ingameszene. Karli klickt auf den Phase-Beenden Button (siehe Mockup). Die Phase wird beendet und die n"achste tritt ein (bzw. der n"achste Spieler ist an der Reihe).
 	            \paragraph{Ziel und Subtasks}
-	                Es sollte einen Button geben, welcher bei Bet\"atigung die aktuelle Phase beendete. Dies sollte nur m\"oglich sein, wenn der Nutzer auch seine Phase beenden konnte, da er an der Reihe war.
+	                	Es sollte einen Button geben, welcher bei Bet\"atigung die aktuelle Phase beendete. Dies sollte nur m\"oglich sein, wenn der Nutzer auch seine Phase beenden konnte, da er an der Reihe war.
 	            	\begin{enumerate}[label={}]
 	            		\item \textbf{Button und Funktionalit"at hinzuf"ugen} \hspace{5pt} Bei der Bet"atigung des Buttons soll die aktuelle Phase beendet und der Server dar"uber informiert werden. Es soll nicht m"oglich sein, den Button zu bet\"atigen, wenn der Benuzter nicht an der Reihe ist.
 	            	\end{enumerate}
             \subsubsection{Ingame - Einheit ausw\"ahlen}
 	            \paragraph{Zuteilung}
-	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
+	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
               	\paragraph{Story}
              		Karli befindet sich in der Ingameszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert (siehe Mockups).
 	            \paragraph{Ziel und Subtasks}
-	                Durch Anklicken einer Einheit sollte diese Ausgew\"ahlt werden. Danach musste die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befand.
+	               	Durch Anklicken einer Einheit sollte diese Ausgew\"ahlt werden. Danach musste die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befand.
 	           		\begin{enumerate}[label={}]
 	           			\item \textbf{Ausgew"ahlte Einheit setzten} \hspace{5pt} Klickt der Anwender auf eine Einheit, soll diese ausgew"ahlt werden (soll im Datenmodell bzw. Controller hinterlegt werden). Zudem soll die Zelle der Einheit farblich hervorgehoben werden (siehe Mockups). Dies soll nur m"oglich sein, wenn der Spieler an der Reihe ist.
 	           			\item \textbf{G"ultige Ziele markieren} \hspace{5pt} G"ultige Bewegungs- und Angriffsziele (Cell, eventuell auch Unit) sollen als solche markiert werden (Property). Zudem sollen sie farblich hervorgehoben werden (siehe Mockup). Weiterhin darf in der Angriffsphase nur der rote Angriffsradius angezeigt werden und in der restlichen Bewegungspunkte Phase nur der blaue Bewegungsradius (siehe MockUps). Blau: \#868cfc f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe selected color im Stylesheet). Rot: \#cf6679 f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe error color im Stylesheet).
 	           		\end{enumerate}
             \subsubsection{Ingame - Einheit bewegen}
 	            \paragraph{Zuteilung}
-	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
+	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
              	\paragraph{Story}
              		Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus, die Karli bewegen m"ochte. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt.
-             	TODO: Verbindung zur Domain Story
 	            \paragraph{Ziel und Subtasks}
-	                F\"ur die Bewegung einer Einheit sollte der k\"urzeste Pfad zum Zielfeld berechnet werden. Anschlie{\ss}end musste eine Nachricht an den Server gesendet und dessen Antwort korrekt verarbeitet werden.
+				Die Tasks dieser Story setzten die Domain Story Bewegen um.
+	                	F\"ur die Bewegung einer Einheit sollte der k\"urzeste Pfad zum Zielfeld berechnet werden. Anschlie{\ss}end musste eine Nachricht an den Server gesendet und dessen Antwort korrekt verarbeitet werden.
 	            	\begin{enumerate}[label={}]
 	            		\item \textbf{Berechnung des k"urzesten Weges} \hspace{5pt} Der Server erwartet einen g"ultigen Weg ohne Hindernisse. Daf"ur soll der Weg berechnet werden, der die geringste Anzahl an MP verbraucht.
 	            		\item \textbf{Zug an Server senden} \hspace{5pt} Der Server soll "uber die Bewegung informiert werden.
@@ -694,7 +694,7 @@
 	            		\item \textbf{Button und Funktionalit"at hinzuf"ugen} \hspace{5pt} Es soll ein Button zur (De-) Aktivierung der Musik hinzugef"ugt werden. Die Funktionalit"at soll die gleiche wie bei Login, Lobby und Warteraum sein. Das hei"sst, dass die Einstellung szenen"ubergreifend erhalten bleiben soll.
 	            	\end{enumerate}
         \subsection{Tasks} \label{Tasks_5}
-            Die Tasks wurden vom Scrum Master erstellt und sind nicht aus Nutzersicht beschreibbar, da sie nur technische Aufgaben waren. Aus diesem Grund unterschieden sich Tasks nur in einer Sache von User Stories. Sie hatten keine Story.
+            Die folgenden Tasks wurden keiner User Story zugeordnet.
             \subsubsection{Servernachrichten}
             	\paragraph{Zuteilung}
             		Diese Task wurde auf 8 Zeitstunden gesch\"atzt und an Omar Sood zugeteilt.
