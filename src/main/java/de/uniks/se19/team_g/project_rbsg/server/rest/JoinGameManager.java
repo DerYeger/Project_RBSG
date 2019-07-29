@@ -43,9 +43,6 @@ public class JoinGameManager {
 
         HttpEntity<?> request = new HttpEntity<Object>("", header);
 
-        System.out.println(finalUrl);
-        System.out.println(String.valueOf(request));
-
         return CompletableFuture.supplyAsync(() -> this.restTemplate.exchange(
                 finalUrl,
                 HttpMethod.GET,
