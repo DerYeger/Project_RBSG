@@ -456,23 +456,23 @@
 			        \end{figure}
 			        \ \\ Es gab ein weiteres Feature, bei dem der Nutzer "uber eine Einheit hovern konnte, und je nachdem "uber welche Einheit der Nutzer hoverte, aktualisierten sich alle Properties und das Bild der gehoverten Einheit in der Sidebar. Die Einheiten des Spielers, der an der Reihe war, sollten in der oberen Box der Sidebar angezeigt werden. Die Einheiten der restlichen Spieler, die nicht an der Reihe waren, sollten in der unteren Box angezeigt werden. Zu Beginn jeder neuen Runde und sollten die beiden Boxen immer wieder leer sein und sich erst wieder f"ullen, wenn "uber eine EInheit gehovert bzw. wenn eine Aktion mit einer Einheit ausgef"uhrt wurde.
 		\subsection{Domain Stories}
-		    Im Folgenden werden die Domain Stories f\"ur den Spielstart und das Ausf\"uhren einer Aktion, konkret die Bewegung einer Einheit, erl\"autert. Die Domain Stories wurden vor der Ver\"offentlichung der Serverdokumentation erstellt. Deshalb weichen die tats\"achlichen Nachrichten leicht von den hier Aufgef\"uhrten ab. \\
+		    Im Folgenden werden die Domain Stories f\"ur den Spielstart und das Ausf\"uhren einer Aktion, konkret die Bewegung einer Einheit, erl\"autert. Die Domain Stories wurden vor der Ver\"offentlichung der Serverdokumentation erstellt. Deshalb wichen die tats\"achlichen Nachrichten leicht von den hier aufgef\"uhrten Nachrichten ab. \\
 		    \subsubsection{Spielstart}
-		    	Der Nutzer tritt einem Spiel \"uber die Lobby bei. Der Client zeigt nun die initiale Spielsituation, die Armeeauswahl und alle Spieler, welche sich im dem Spiel befinden (siehe Abbildung \ref{Domain_Story_Ready_1}).
+		    	Der Nutzer trat einem Spiel \"uber die Lobby bei. Der Client zeigte nun die initiale Spielsituation, die Armeeauswahl und alle Spieler, welche sich im dem Spiel befanden (siehe Abbildung \ref{Domain_Story_Ready_1}).
 			    \begin{figure}[H] 
 			    	\centering
 			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory1.png}
 			    	\caption{Domain Story: Ready 1}
 			    	\label{Domain_Story_Ready_1}
 			    \end{figure}
-			Der Nutzer w\"ahlt eine Armee aus. Die Spielerkarte des Nuzters wird aktualisiert und zeigt nun, dass er bereit ist (siehe Abbildung \ref{Domain_Story_Ready_2}).
+				\ \\ Der Nutzer w\"ahlte eine Armee aus. Die Spielerkarte des Nuzters wurde aktualisiert und zeigte darauf, dass er bereit war (siehe Abbildung \ref{Domain_Story_Ready_2}).
 			    \begin{figure}[H] 
 			    	\centering
 			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory2.png}
 			    	\caption{Domain Story: Ready 2}
 			    	\label{Domain_Story_Ready_2}
 			    \end{figure}
-			Die Anwendung teilt dem Server mit, dass der Nutzer nun bereit ist. Der Server informiert die Anwendung \"uber den Spielstart. Das Spiel startet (siehe Abbildung \ref{Domain_Story_Ready_3}).
+				\ \\ Die Anwendung teilte dem Server dann mit, dass der Nutzer bereit war. Der Server informierte die Anwendung \"uber den Spielstart. Das Spiel startete (siehe Abbildung \ref{Domain_Story_Ready_3}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/readyStory3.png}
@@ -480,21 +480,21 @@
 		    		\label{Domain_Story_Ready_3}
 		    	\end{figure}
 		    \subsubsection{Bewegung}
-		    	Der Nutzer klickt auf eine Einheit, wodurch diese  ausgew\"ahlt wird (siehe Abbildung \ref{Domain_Story_Move_1}).
+		    	Der Nutzer klickte auf eine Einheit, wodurch diese  ausgew\"ahlt wurde (siehe Abbildung \ref{Domain_Story_Move_1}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory1.png}
 		    		\caption{Domain Story: Move 1}
 		    		\label{Domain_Story_Move_1}
 		    	\end{figure}
-			Der Nutzer klickt auf g\"ultiges Zielfeld und best\"atigt die Aktion (siehe Abbildung \ref{Domain_Story_Move_2}).
+				\ \\ Der Nutzer klickte auf g\"ultiges Zielfeld und best\"atigte die Aktion (siehe Abbildung \ref{Domain_Story_Move_2}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory2.png}
 		    		\caption{Domain Story: Move 2}
 		    		\label{Domain_Story_Move_2}
 		    	\end{figure}
-			Die Anwendung sendet eine Nachricht, welche die Bewegung beschreibt, an den Server. Dieser informiert die Anwendung \"uber die Zul\"assigkeit der Aktion. Die Anwendung aktualisiert das Datenmodell und das Benutzerinterface zeigt die neue Position der Einheit (siehe Abbildung \ref{Domain_Story_Move_3}).
+				\ \\ Die Anwendung sandte eine Nachricht, welche die Bewegung beschreibte, an den Server. Dieser informierte die Anwendung \"uber die Zul\"assigkeit der Aktion. Die Anwendung aktualisierte das Datenmodell und das Benutzerinterface zeigte die neue Position der Einheit an (siehe Abbildung \ref{Domain_Story_Move_3}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory3.png}
@@ -715,7 +715,7 @@
        				Waiting Room - Spielbeitritt anpassen & 5 h & 13 h 9 min & - & Omar Sood\\
        				Ingame - Spielfeld & 13 h & 8 h 22 min & - & Georg Siebert\\
        				Ingame - Phase beenden & 3 h & 15 h 20 min & - & Juri Lozowoj \\
-       				Ingame - Einheit ausw"ahlen & 13 h & 8 h 46 min & 4h 14 min & Juri Lozowoj \\
+       				Ingame - Einheit ausw"ahlen & 13 h & 11 h 46 min & 1h 14 min & Juri Lozowoj \\
        				Ingame - Einheit bewegen & 13 h & 11 h 19 min & 35 min & Omar Sood \\
        				Ingame - Einheit angreifen & 5 h & - & 5 h & Omar Sood \\
        				Ingame - Spielstatus anzeigen & 8 h & 18 h 45 min & - & Tobias Klipp \\
@@ -745,24 +745,24 @@
         		\end{figure}
         		\subsubsubsection{Waiting Room - Spielbeitritt anpassen}
 	        		\paragraph{Verlauf}
-	        			TODO: Schreiben
+	        			Diese Story nahm circa acht Stunden mehr in Anspruch (das Team sch"atzte nur f"unf Stunden). Das lag daran, dass das Trennen der neuen Box von der optisch identischen Armeeauswahlbox im Army Manager l"anger als gedacht dauerte. Dabei musste auch die neue Funktionalit"at (unter anderem Arme ausgew"ahlt = Ready) im Warteraum hergestellt werden.
 	        		\paragraph{Ergebnis}
-	        			TODO: Schreiben
+	        			Der Spielstart funktionierte wie gew"unscht. Wenn der Server ein Ready eines Spielers sandte oder der Nutzer eine Armee ausw"ahlte, wurde seine Spielerkarte in der selected color markiert und das Spiel startete, sobald alle Spieler bereit waren. Es fehlte nur noch ein Lade-Indikator, bis der Sever das Spiel startete und ein Szenenwechsel stattfand. Weiterhin musste die Armeeauswahlbox noch auf die richtige Gr"o"sse angepasst werden. Zu diesen beiden Aufgaben wurden Stories erstellt.
        			\subsubsubsection{Ingame - Spielfeld}
 	       			\paragraph{Verlauf}
-	       				TODO: Schreiben
+	       				Diese User Story wurde circa f"unf Stunden fr"uher abgeschlossen, als die 13 Stunden, die gesch"atzt wurden. Das lag daran, dass die Umbauarbeiten vom IngameController zum BattlefieldController und weitere kleinere Util Klassen zum Anzeigen der Assets schneller abgeschlossen wurden, als erwartet wurde. Das Anklicken des Spielfeldes und das Setzen der Markierungen der Felder war auch leicht zu realisieren.
 	       			\paragraph{Ergebnis}
-	       				TODO: Schreiben
+	       				Feldern des Spielfeldes und der darauf eventuell stehenden Einheit lie"ssen sich ausw"ahlen. Dazu wurden Property Bindings eingef"uhrt. Das jeweils ausgew"ahlte Feld wurde hellgrau mit einer Opazit"at hinterlegt. Hoverte der Nutzer "uber das ausgew"ahlte Feld mit einer Einheit, wurde sogar das n"achste Bild des idle Sprites angezeigt.
     			\subsubsubsection{Ingame - Phase beenden}
     				\paragraph{Verlauf}
-    					TODO: Schreiben
+    					Den Button hinzuzuf"ugen und die Funktion herzustellen nahm viel mehr Zeit in Anspruch, als daf"ur vorgesehen war. Es dauerte circa zw"olf Stunden l"anger, als die drei Stunden, die das Team plante. Der Grund daf"ur war, dass der Entwickler nach seiner Scrum Master Rolle im zweiten Release sich erst einmal wieder in die Projektstruktur einlesen musste. Weiterhin gab es immer wieder Probleme mit dem IngameViewTest. Das beheben dieser Probleme nahm viel Zeit in Anspruch.
     				\paragraph{Ergebnis}
-    					TODO: Schreiben
+    					Es gab nun einen Button, mit dem der Nutzer die Phase beenden konnte. Die dementsprechende Nachricht wurde an den Server geschickt. Auﬂerdem wurde der Button immer disabled, wenn der Nutzer nicht an der Reihe war oder wenn der Nutzer noch keine Bewegung in der ersten Phase machte.
     			\subsubsubsection{Ingame - Spielstatus anzeigen}
     				\paragraph{Verlauf}
-    					TODO: Schreiben
+    					F"ur diese Story sah das Team eigentlich nur acht Stunden vor, jedoch wurde zum Ende des f"unften Sprints bereits circa zehn Stunden mehr Zeit investiert. Das lag daran, dass es (l"anger als gedacht) dauerte, die Listener f"uer die Spielerkarten zu implementieren und die Spielerkarten richtig zu positionieren. Weiterhin nahm es Zeit in Anspruch, als es schon zuvor einmal "Anderungen in den MockUps gab, dass zwischen Runden- und Phasenlabel die Phase mit einem Icon dargestellt werden sollte. Dann ergaben sich zum Schluss des Sprints auch noch mehrere Merge Konflikte, da dieser Branch als letztes gemergt werden sollte, da die Arbeit hier l"anger dauerte. Somit waren zwar alle Funktionalit"aten gegeben, jedoch konnte dieser Branch diesen Sprint noch nicht gemergt werden und wurde deshalb doch noch mit in den n"achsten Sprint genommen, um ihn zu finalisieren.
     				\paragraph{Ergebnis}
-    					TODO: Schreiben
+    					Das Ergebnis dieser Story war wie im Ziel beschrieben. Der Button zum Anzeigen der Spielerkarten und die Spielerkarten selbst waren vorhanden. Dazu wurde ein Listener implementiert, der die Spielerkarten aktualisierte. Das Label f"uer die Runden- und Phasenanzeige funktionierte auch und aktualisierte sich, wenn der Sever die entsprechende Nachricht sandte oder der Nutzer "uber den Button von der User Story \glqq Ingame - Phase beenden\grqq\ die Phase bzw. die Runde beendete.
         	\subsubsection{Angefangene Stories}
         		Wie bereits in der Analyse des Burndowns erw\"ahnt wurde, wurden drei bereits begonnene Stories zum Ende des Sprints noch nicht abgeschlossen. Im kommenden Abschnitt wird es einen \"Uberblick geben, wie weit diese bearbeitet wurden.
         		\subsubsubsection{Ingame - Einheit ausw"ahlen}
@@ -772,14 +772,14 @@
         				TODO: Schreiben
         		\subsubsubsection{Ingame - Einheit bewegen}
         			\paragraph{Verlauf}
-        				TODO: Schreiben
+        				Diese Story lag f"ur den f"unften Sprint gut in der Zeit. Von den 13 gesch"atzten Stunden, wurden vom Entwickler zur Zeit nur 35 Minuten als verbleibende Zeit eingetragen, obwohl sogar nur 11 Stunden und 19 Minuten gearbeitet wurde. An sich gab es keine Probleme und die Story m"usste im n"achsten Sprint nur noch finalisiert werden.
         			\paragraph{Stand}
-        				TODO: Schreiben
+        				Die User Story war soweit mit all ihre Funktionalit"aten fertig. Die k"urzesten Pfade wurden berechnet und die Einheiten konnten auf das neue Feld bewegt werden. Der Entwickler wollte im n"achsten Sprint nur noch den Quellcode kontrollieren, Tests schreiben und beheben und Merge Konflikte l"osen, falls sich welche ergeben sollten.
         		\subsubsubsection{Ingame - Minikarte anzeigen}
         			\paragraph{Verlauf}
-        				TODO: Schreiben
+        				Obwohl die Story noch nicht abgeschlossen war, wurde die Zeitsch"atzung diesen Sprint bereits "uberschritten. Es wurden nur acht Stunden gesch"atzt, obwohl schon 25 Minuten mehr gearbeitet wurde. Die Funktionalit"at war allerdings bereits gegeben. Die Story wurde nur noch nicht beendet, da sich ihre zweite Subtask am Ende des Sprints, genauso wie die MockUps ‰nderte (Weitere Informationen folgen dazu noch im Kapitel \ref{changed_user_story_minimap}).
         			\paragraph{Stand}
-        				TODO: Schreiben
+        				Die Minikarte konnte am Ende des f"unften Sprints mit einem Button oben rechts angezeigt werden. Weiterhin zeigte sie das Terrain und die Einheiten der Spieler. Die Story wurde eigentlich abgeschlossen, jedoch sollte die Minikarte im n"achsten Sprint eine feste Position unten in der Sidebar bekommen und Springen "uber das Spielfeld sollte durch Klicken auf die Minikarte m"oglich gemacht werden.
         	\subsubsection{Nicht abgeschlossene Stories/Tasks}
         		Des Weiteren wurden neben den drei bereits angefangenen Stories noch weitere elf Stories beziehungsweise Tasks aufgrund von Zeitgr\"unden nicht angefangen und abgeschlossen (siehe Abbildung \ref{To_Do_5}). Diese Aufgaben waren nicht optional und sollten von unserem Team im n\"achsten Sprint bew\"altigt werden.
         		\begin{figure}[H] 
@@ -812,7 +812,7 @@
     		F\"ur den Fall, dass die Mindestanforderungen vor Ende des Sprints abgeschlossen werden sollten, sollte eine Sidebar zum Spielfeld hinzugef\"ugt werden. Diese sollte es erm\"oglichen Aktionen, wie Bewegen oder Angreifen, zu best\"atigen und abzubrechen. Falls das Team die Umsetzung der oben genannten Features schaffen w"urde, w"aren die Mindestanforderungen jedoch bereits erf\"ullt.
     	\subsection{Ge\"anderte User Stories vom Sprint \RN{5}}
     		Die folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups "anderten.
-    		\subsubsection{Ingame - Minikarte anzeigen}
+    		\subsubsection{Ingame - Minikarte anzeigen} \label{changed_user_story_minimap}
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
    				\paragraph{Ge\"anderte Story}
@@ -882,9 +882,14 @@
    			Im sechsten Sprint wurden weitere Tasks vom Scrum Master erstellt.
    			\subsubsection{Ingame - Best\"atigungsbox in der Sidebar}
    				\paragraph{Zuteilung}
-   					Diese Task wurde auf TODO Zeitstunden gesch"atzt und dan Georg Siebert zugeteilt.
+   					Diese Task wurde auf 3 Zeitstunden gesch"atzt und dan Georg Siebert zugeteilt.
 				\paragraph{Ziel}
 					Es musste eine Box in der Sidebar erstellt werden, die es m"oglich machte, Aktionen zu best"atigen oder abzubrechen (Die Funktionalit"aten sollten erst sp"ater in den untergeordneten User Stories erstellt werden). War der User nicht an der Reihe oder im Beobachtungsmodus, musste diese Box disabled werden. Beziehungsweise sollte dann auf den beiden Buttons der Text und das Icon nicht mehr sichtbar sein.
+			\subsubsection{Spectating - REST Anfrage}
+				\paragraph{Zuteilung}
+					Diese Task wurde auf 1 Zeitstunde gesch"atzt und dan Juri Lozowoj zugeteilt.
+				\paragraph{Ziel}
+					Die REST Anfrage zum Beitreten eines Spiels sollte um einen optionalen Parameter erweitert werden (siehe Serverdoku).
 		\subsection{Bugs}
 			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam. Diese werden hier wie gefolgt beschrieben: Zuerst wird genannt, wer den Bug beheben sollte. Danach wird das Problem beschrieben, das den Bug darstellte. Bearbeitungszeit wurden bei den Bugtasks nicht gesch\"atzt. 
 			\subsubsection{Terminierung sicherstellen}
@@ -907,6 +912,7 @@
 					Dieser Bug sollte von Georg Siebert behoben werden.
 				\paragraph{Problem}
 					Falls ein Spiel bereits voll war, sollte kein Spielbeitritt mehr m\"oglich sein. Daf\"ur sollte der entsprechende Button deaktiviert werden (und aktiviert werden, falls wieder ein Platz frei wurde).
+   	\newpage
     	\subsection{Zeit\"ubersicht}
     		TODO: Intro schreiben
     		\begin{longtable}[H]{p{6cm} c c c c }
@@ -916,27 +922,28 @@
     			\endhead
     			Ingame - Einheit ausw\"ahlen & 13 h & 16 h 29 min & - & Juri Lozowoj \\
     			Ingame - Einheit bewegen & 13 h & 13 h 35 min & - & Omar Sood \\
-    			Ingame - Einheit angreifen & 5 h & - & 5 h & Omar Sood \\
+    			Ingame - Einheit angreifen & 5 h & 3 h 15 min & - & Omar Sood \\
     			Ingame - Chatintegration & 13 h & 2 h & 11 h & Tobias Klipp \\
     			Ingame - Minikarte anzeigen & 8 h & 12 h 14 min & - & Georg Siebert \\
-    			Lobby - Spectating & 5 h & - & 5 h & Juri Lozowoj \\
-    			Ingame - Spectating & 13 h & - & 13 h & Juri Lozowoj \\
+    			Lobby - Spectating & 5 h & 2 h 21 min & - & Juri Lozowoj \\
+    			Ingame - Spectating & 13 h & 2 h 13 min & - & Juri Lozowoj \\
     			Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
     			Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\
     			Ingame - Spectator Over & 2 h & - & 2 h & Tobias Klipp \\
     			Ingame - Einheiteninformationen & 8 h & 1 h & 7 h & Georg Siebert \\
     			Ingame - Spielstatus anzeigen & 8 h & 31 h 30 min & - & Tobias Klipp \\
-    			Ingame - Musiksteuerung & 3 h & 20 min & - & Omar Sood \\
+    			Ingame - Musiksteuerung & 3 h & 21 min & - & Omar Sood \\
     			Ingame - Einheit bewegen nach Bewegung & 5 h & - & 5 h & Omar Sood \\
     			\midrule
-    			Einheiteninformationen im Datenmodell & 5 h & 1 h 27 min & - & Omar Sood \\
-    			Servernachrichten & 8 h & - & - & Omar Sood \\
-    			Ingame - Best\"atigungsbox in der Sidebar & 3 h & - & - & Georg Siebert \\
+    			Einheiteninformationen im Datenmodell & 5 h & 1 h 28 min & - & Omar Sood \\
+    			Servernachrichten & 8 h & 1 min & - & Omar Sood \\
+    			Ingame - Best\"atigungsbox in der Sidebar & 3 h & - & 3 h & Georg Siebert \\
+    			Spectating - REST Anfrage & 1 h & - & 1 h & Juri Lozowoj \\
     			\midrule
-    			Terminierung sicherstellen & - & - & ? & Omar Sood \\
-    			Ingame - Einheit mehrmals ausw\"ahlen & - & - & ? & Juri Lozowoj \\
-    			Spectating - Automatischer Wechsel zum Spielfeld & - & - & ? & Juri Lozowoj \\
-    			Lobby - Spielbeitritt blockieren & - & - & ? & Georg Siebert \\
+    			Terminierung sicherstellen & - & ? & - & Omar Sood \\
+    			Ingame - Einheit mehrmals ausw\"ahlen & - & 1 h & - & Juri Lozowoj \\
+    			Spectating - Automatischer Wechsel zum Spielfeld & - & ? & - & Juri Lozowoj \\
+    			Lobby - Spielbeitritt blockieren & - & ? & - & Georg Siebert \\
     			\caption{Zeit\"ubersicht sechster Sprint}
     		\end{longtable}
     	\subsection{Analyse}
