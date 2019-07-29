@@ -380,9 +380,9 @@
     				\caption{MockUp: Ingame}
     				\label{Ingame_View}
 			    \end{figure}
-		    	\ \\   Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au"sserdem der Musik Button zum ein- und ausschalten der Musik hinzu.
-			    \subsubsubsection{Einheit ausw"ahlen}
-			        Der Server stellte drei Phasen zur Verf"ugung, wenn ein Spieler an der Reihe war. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden musste, eine Angriffsphase, die "ubersprungen werden konnte und eine restliche Bewegungspunktephase, die ebenfalls "ubersprungen werden konnte. \\
+		    	\ \\   Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au\"sserdem der Musik Button zum ein- und ausschalten der Musik hinzu.
+			    \subsubsubsection{Einheit ausw\"ahlen}
+			        Der Server stellte drei Phasen zur Verf\"ugung, wenn ein Spieler an der Reihe war. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden musste, eine Angriffsphase, die \"ubersprungen werden konnte und eine restliche Bewegungspunktephase, die ebenfalls \"ubersprungen werden konnte. \\
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/Select.png}
@@ -402,7 +402,7 @@
     				    \caption{MockUp: Phase 3: Ausw"ahlen}
     				    \label{Select_3}
 			        \end{figure} 
-		            \ \\ In einer gegnerischen Phase sollte die Einheit, die vom Gegner in seinem Client ausgew"ahlt wurde, auch beim Nutzer, w�hrenddessen der Nutzer dem Gegner zuschaute, auf die selbe Art und Weise ausgew"ahlt werden. In Phase 1 sollten zus"atzlich zum Bewegungsradius auch alle m"oglichen Angriffsziele markiert werden (siehe Abbildung \ref{Select_1}). In Phase 2 sollten nur alle m"oglichen Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 sollte ein verk"urzter Bewegungsradius ohne Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_3}), je nachdem wie weit sich eine Einheit noch bewegen konnte.
+		            \ \\ In einer gegnerischen Phase sollte die Einheit, die vom Gegner in seinem Client ausgew"ahlt wurde, auch beim Nutzer, w\"ahrenddessen der Nutzer dem Gegner zuschaute, auf die selbe Art und Weise ausgew"ahlt werden. In Phase 1 sollten zus\"atzlich zum Bewegungsradius auch alle m"oglichen Angriffsziele markiert werden (siehe Abbildung \ref{Select_1}). In Phase 2 sollten nur alle m"oglichen Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 sollte ein verk"urzter Bewegungsradius ohne Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_3}), je nachdem wie weit sich eine Einheit noch bewegen konnte.
                 \subsubsubsection{Einheit bewegen}
                     Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausgew"ahlte und auf ein Feld klickte, sollte die Einheit auf das Feld bewegt werden, sobald der k"urzeste Pfad berechnet und zum Server geschickt wurde. Falls nach der Bewegung noch Bewegungspunkte "ubrig waren, sollte die Einheit weiterhin ausgew"ahlt bleiben und die Bewegungsreichweite dementsprechend verkleinert werden. War ein Gegner an der Reihe und der Server sendete eine bewegte Einheit, dann sollte auch zuerst die Bewegungsreichweite angezeigt werden und danach (kurz verz"ogert) die Einheit bewegt werden. Sp"ater sollte der Nutzer "uber eine Box in der Sidebar die M"oglichkeit haben, seinen Zug doch noch zu widerrufen. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbruch (siehe Abbildung \ref{Move} oder \ref{Move2}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
                     \begin{figure}[H] 
@@ -547,18 +547,18 @@
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte einen Button geben, welcher bei Bet\"atigung die aktuelle Phase beendete. Dies sollte nur m\"oglich sein, wenn der Nutzer auch seine Phase beenden konnte, da er an der Reihe war.
 	            	\begin{enumerate}[label={}]
-	            		\item \textbf{Button und Funktionalit"at hinzuf"ugen} \hspace{5pt} Bei der Bet"atigung des Buttons soll die aktuelle Phase beendet und der Server dar"uber informiert werden. Es soll nicht m"oglich sein, den Button zu bet�tigen, wenn der Benuzter nicht an der Reihe ist.
+	            		\item \textbf{Button und Funktionalit"at hinzuf"ugen} \hspace{5pt} Bei der Bet"atigung des Buttons soll die aktuelle Phase beendet und der Server dar"uber informiert werden. Es soll nicht m"oglich sein, den Button zu bet\"atigen, wenn der Benuzter nicht an der Reihe ist.
 	            	\end{enumerate}
             \subsubsection{Ingame - Einheit ausw\"ahlen}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
               	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli�w"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert (siehe Mockups).
+             		Karli befindet sich in der Ingameszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert (siehe Mockups).
 	            \paragraph{Ziel und Subtasks}
 	                Durch Anklicken einer Einheit sollte diese Ausgew\"ahlt werden. Danach musste die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befand.
 	           		\begin{enumerate}[label={}]
 	           			\item \textbf{Ausgew"ahlte Einheit setzten} \hspace{5pt} Klickt der Anwender auf eine Einheit, soll diese ausgew"ahlt werden (soll im Datenmodell bzw. Controller hinterlegt werden). Zudem soll die Zelle der Einheit farblich hervorgehoben werden (siehe Mockups). Dies soll nur m"oglich sein, wenn der Spieler an der Reihe ist.
-	           			\item \textbf{G"ultige Ziele markieren} \hspace{5pt} G"ultige Bewegungs- und Angriffsziele (Cell, eventuell auch Unit) sollen als solche markiert werden (Property). Zudem sollen sie farblich hervorgehoben werden (siehe Mockup). Weiterhin darf in der Angriffsphase nur der rote Angriffsradius angezeigt werden und in der restlichen Bewegungspunkte Phase nur der blaue Bewegungsradius (siehe MockUps). Blau: \#868cfc f�r den Rahmen, beim Hintergrund 40\% Opacity (siehe selected color im Stylesheet). Rot: \#cf6679 f�r den Rahmen, beim Hintergrund 40\% Opacity (siehe error color im Stylesheet).
+	           			\item \textbf{G"ultige Ziele markieren} \hspace{5pt} G"ultige Bewegungs- und Angriffsziele (Cell, eventuell auch Unit) sollen als solche markiert werden (Property). Zudem sollen sie farblich hervorgehoben werden (siehe Mockup). Weiterhin darf in der Angriffsphase nur der rote Angriffsradius angezeigt werden und in der restlichen Bewegungspunkte Phase nur der blaue Bewegungsradius (siehe MockUps). Blau: \#868cfc f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe selected color im Stylesheet). Rot: \#cf6679 f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe error color im Stylesheet).
 	           		\end{enumerate}
             \subsubsection{Ingame - Einheit bewegen}
 	            \paragraph{Zuteilung}
@@ -573,7 +573,7 @@
 	            		\item \textbf{Zug an Server senden} \hspace{5pt} Der Server soll "uber die Bewegung informiert werden.
 	            		\item \textbf{Antwort des Servers verarbeiten} \hspace{5pt} Die Antwort des Servers soll korrekt verarbeitet werden. Das hei"sst, dass im Erfolgsfall die Bewegung im Datenmodell umgesetzt werden soll und im Fehlerfall der User eine entsprechende Meldung erhalten soll.
 	            		\item \textbf{Klickhandler} \hspace{5pt} Beim Klick auf ein als g"ultiges Bewegungsziel markiertes Feld soll die aktuell ausgew"ahlte Einheit dorthin bewegt werden.
-	            		\item \textbf{Aufr"aumen} \hspace{5pt} Nach der Aktion soll aufger"aumt werden. Das hei"sst, dass die zuvor ausgew"ahlte Einheit, welche die Aktion ausf"uhrt, nicht mehr ausgew�hlt sein soll. Es sollen keine Felder mehr hervorgehoben sein.
+	            		\item \textbf{Aufr"aumen} \hspace{5pt} Nach der Aktion soll aufger"aumt werden. Das hei"sst, dass die zuvor ausgew"ahlte Einheit, welche die Aktion ausf"uhrt, nicht mehr ausgew\"ahlt sein soll. Es sollen keine Felder mehr hervorgehoben sein.
 	            	\end{enumerate}
             \subsubsection{Ingame - Einheit angreifen}
 	            \paragraph{Zuteilung}
@@ -626,7 +626,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karlis Playerkarte f�rbt sich schwarz (Name und Icon). Karli sieht ein Overlay aufgehen, auf welchem Karli gefragt wird, ob Karli das Spiel weiter betrachten m�chte. Karli dr�ckt den Cancel Button. Karli wechselt in die Lobby.
+             		Karli befindet sich in der Ingameszene. Karlis Playerkarte f\"arbt sich schwarz (Name und Icon). Karli sieht ein Overlay aufgehen, auf welchem Karli gefragt wird, ob Karli das Spiel weiter betrachten m\"ochte. Karli dr\"uckt den Cancel Button. Karli wechselt in die Lobby.
 	            \paragraph{Ziel und Subtasks}
 	                Wenn der Nutzer verloren hatte, sollte ein Overlay angezeigt werden. Auf diesem konnte er in die Lobby wechseln oder dem Spiel zuschauen.
 	            	\begin{enumerate}[label={}]
@@ -650,7 +650,7 @@
              	\paragraph{Ziel und Subtasks}
              		Wenn das Spiel vorbei war, sollte dem Nutzer ein Overlay angezeigt werden, durch das er in die Lobby wechselte.
              		\begin{enumerate}[label={}]
-             			\item \textbf{Alert anzeigen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls ein anderer Spieler (und nicht der Nuzter) das Spiel gewonnen hat. Bei Bet"atigung des Buttons soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, m�ssen zuvor eventuell aktive Alerts geschlossen werden.
+             			\item \textbf{Alert anzeigen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls ein anderer Spieler (und nicht der Nuzter) das Spiel gewonnen hat. Bei Bet\"atigung des Buttons soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, m\"ussen zuvor eventuell aktive Alerts geschlossen werden.
              		\end{enumerate}
             \subsubsection{Lobby - Spectating}
 	            \paragraph{Zuteilung}
@@ -666,7 +666,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
              	 \paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli versucht etwas in den Chat zu schreiben. Karli versucht Aktionen mit den Einheiten auszuf�hren. Karlis Aktionen funktionieren nicht. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genie�t das Spiel.
+             		Karli befindet sich in der Ingameszene. Karli versucht etwas in den Chat zu schreiben. Karli versucht Aktionen mit den Einheiten auszuf\"uhren. Karlis Aktionen funktionieren nicht. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genie{\ss}t das Spiel.
 	            \paragraph{Ziel und Subtasks}
 	                Das Spiel sollte so angepasst werden, dass ein Zuschauer weder mit dem Spielfeld interagieren, noch Chatnachrichten schreiben konnte.
 	           		\begin{enumerate}[label={}]
@@ -676,11 +676,11 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli f"ahrt mit seinem Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen �ber die Einheit werden in einem Kontextmen"u angezeigt.
+             		Karli befindet sich in der Ingameszene. Karli f"ahrt mit seinem Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen \"uber die Einheit werden in einem Kontextmen\"u angezeigt.
 	            \paragraph{Ziel und Subtasks}
 	                Bewegte der Nuzter die Maus \"uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einem Kontextmen"u angezeigt werden.
 	            	\begin{enumerate}[label={}]
-	            		\item \textbf{UI Element f�r Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollten beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
+	            		\item \textbf{UI Element f\"ur Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollten beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
 	            		\item \textbf{Informationen bei Mouseover anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll bei einem Mouseover auf einer Einheit eingeblendet werden. Ansonsten soll es wieder ausgeblendet werden.
 	            	\end{enumerate}
             \subsubsection{Ingame - Musiksteuerung}
@@ -831,7 +831,7 @@
    				\paragraph{Ge\"andertes Ziel und Subtasks}
    					Bewegte der Nutzer die Maus \ "uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einer Sidebar angezeigt werden.
    					\begin{enumerate}[label={}]
-   						\item \textbf{UI Element f�r Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollen beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
+   						\item \textbf{UI Element f\"ur Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollen beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
    						\item \textbf{Informationen bei Mouseover anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll bei einem Mouseover auf einer Einheit eingeblendet werden und eingeblendet bleiben, bis "uber eine neue Einheit gehovert wird. Die Einheit, die der Spieler ausgew"ahlt hat, soll in der oberen Box angezeigt werden. Die Einheit, "uber die zuletzt gehovert wurde, soll in der unteren Box angezeigt werden.
    					\end{enumerate}
    		\subsection{\"Ubernommene User Stories aus Sprint \RN{5}}
@@ -860,7 +860,7 @@
   				\paragraph{Story}
   					Karli befindet sich in der Ingameszene. Karli klickt auf eine Einheit. Die Bewegungsreichweite wird angezeigt. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt und bleibt weiterhin ausgew"ahlt, aber der blaue Bewegungsradius hat sich verkleinert. Karli bewegt die Einheit noch einmal auf ein weiteres Feld. Die Bewegungspunkte sind noch nicht aufgebraucht und die Einheit bleibt weiter ausgew"ahlt. Karli hat keine Lust mehr die Einheit zu bewegen und w"ahlt sie ab.
    				\paragraph{Ziel und Subtasks}
-   					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgew�hlt sein, falls sie noch verbleibende Bewegungspunkte besa"ss.
+   					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgew\"ahlt sein, falls sie noch verbleibende Bewegungspunkte besa{\ss}.
    					\begin{enumerate}[label={}]
    						\item \textbf{Einheit ausw"ahlen} \hspace{5pt} Nachdem der Nutzer eine Einheit bewegt hat, soll diese erneut ausgew"ahlt werden, falls sie noch verbleibende Bewegungspunkte besitzt.
    					\end{enumerate}
@@ -880,23 +880,23 @@
     		Eine genauere Beschreibung zu jeder Task befindet sich im Kapitel \ref{Tasks_5}.
    		\subsection{Tasks}
    			Im sechsten Sprint wurden weitere Tasks vom Scrum Master erstellt.
-   			\subsubsection{Ingame - Best�tigungsbox in der Sidebar}
+   			\subsubsection{Ingame - Best\"atigungsbox in der Sidebar}
    				\paragraph{Zuteilung}
    					Diese Task wurde auf TODO Zeitstunden gesch"atzt und dan Georg Siebert zugeteilt.
 				\paragraph{Ziel}
 					Es musste eine Box in der Sidebar erstellt werden, die es m"oglich machte, Aktionen zu best"atigen oder abzubrechen (Die Funktionalit"aten sollten erst sp"ater in den untergeordneten User Stories erstellt werden). War der User nicht an der Reihe oder im Beobachtungsmodus, musste diese Box disabled werden. Beziehungsweise sollte dann auf den beiden Buttons der Text und das Icon nicht mehr sichtbar sein.
 		\subsection{Bugs}
-			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam. Diese werden hier wie gefolgt beschrieben: Zuerst wird genannt, wer den Bug beheben sollte. Danach wird das Problem beschrieben, das den Bug darstellte. Bearbeitungszeit wurden bei den Bugtasks nicht gesch�tzt. 
+			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam. Diese werden hier wie gefolgt beschrieben: Zuerst wird genannt, wer den Bug beheben sollte. Danach wird das Problem beschrieben, das den Bug darstellte. Bearbeitungszeit wurden bei den Bugtasks nicht gesch\"atzt. 
 			\subsubsection{Terminierung sicherstellen}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Omar Sood behoben werden.
 				\paragraph{Problem}
 					Die Terminierung des GameEventSockets musste angepasst werden. Sie sollte nicht doppelt aufgerufen werden. Weiterhin sollte sie immer stattfinden, wenn der Nutzer die Anwendung schloss oder in die Lobby wechselte.
-			\subsubsection{Ingame - Einheit mehrmals ausw�hlen}
+			\subsubsection{Ingame - Einheit mehrmals ausw\"ahlen}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Juri Lozowoj behoben werden.
 				\paragraph{Problem}
-					Falls der Nutzer eine Einheit ausw�hlte, abw�hlte und dann wieder ausw�hlte, ohne vorher eine andere Einheit ausgew�hlt zu haben, wurde sie danach als Angriffs- bzw. Bewegungsziel farblich markiert. Dies sollte nicht stattfinden.
+					Falls der Nutzer eine Einheit ausw\"ahlte, abw\"ahlte und dann wieder ausw\"ahlte, ohne vorher eine andere Einheit ausgew\"ahlt zu haben, wurde sie danach als Angriffs- bzw. Bewegungsziel farblich markiert. Dies sollte nicht stattfinden.
 			\subsubsection{Spectating - Automatischer Wechsel zum Spielfeld}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Juri Lozowoj behoben werden.
@@ -906,7 +906,7 @@
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Georg Siebert behoben werden.
 				\paragraph{Problem}
-					Falls ein Spiel bereits voll war, sollte kein Spielbeitritt mehr m�glich sein. Daf�r sollte der entsprechende Button deaktiviert werden (und aktiviert werden, falls wieder ein Platz frei wurde).
+					Falls ein Spiel bereits voll war, sollte kein Spielbeitritt mehr m\"oglich sein. Daf\"ur sollte der entsprechende Button deaktiviert werden (und aktiviert werden, falls wieder ein Platz frei wurde).
     	\subsection{Zeit\"ubersicht}
     		TODO: Intro schreiben
     		\begin{longtable}[H]{p{6cm} c c c c }
@@ -931,10 +931,10 @@
     			\midrule
     			Einheiteninformationen im Datenmodell & 5 h & 1 h 27 min & - & Omar Sood \\
     			Servernachrichten & 8 h & - & - & Omar Sood \\
-    			Ingame - Best�tigungsbox in der Sidebar & 3 h & - & - & Georg Siebert \\
+    			Ingame - Best\"atigungsbox in der Sidebar & 3 h & - & - & Georg Siebert \\
     			\midrule
     			Terminierung sicherstellen & - & - & ? & Omar Sood \\
-    			Ingame - Einheit mehrmals ausw�hlen & - & - & ? & Juri Lozowoj \\
+    			Ingame - Einheit mehrmals ausw\"ahlen & - & - & ? & Juri Lozowoj \\
     			Spectating - Automatischer Wechsel zum Spielfeld & - & - & ? & Juri Lozowoj \\
     			Lobby - Spielbeitritt blockieren & - & - & ? & Georg Siebert \\
     			\caption{Zeit\"ubersicht sechster Sprint}

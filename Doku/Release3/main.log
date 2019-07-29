@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  29 JUL 2019 11:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  29 JUL 2019 11:11
 entering extended mode
 **./main.tex
 (main.tex
@@ -4173,7 +4173,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.883 ...ngame - Best�tigungsbox in der Sidebar}
+l.883 ...ngame - Best\"atigungsbox in der Sidebar}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4182,7 +4182,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.883 ...ngame - Best�tigungsbox in der Sidebar}
+l.883 ...ngame - Best\"atigungsbox in der Sidebar}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4194,7 +4194,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.883 ...ngame - Best�tigungsbox in der Sidebar}
+l.883 ...ngame - Best\"atigungsbox in der Sidebar}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4203,7 +4203,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.883 ...ngame - Best�tigungsbox in der Sidebar}
+l.883 ...ngame - Best\"atigungsbox in der Sidebar}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4308,7 +4308,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw\"ahlen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4317,7 +4317,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw\"ahlen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4329,7 +4329,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw\"ahlen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4338,7 +4338,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.895 ...on{Ingame - Einheit mehrmals ausw�hlen}
+l.895 ...on{Ingame - Einheit mehrmals ausw\"ahlen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4346,12 +4346,6 @@ I'll assume that you meant to say pt, for printer's points.
 To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
-
-
-Overfull \hbox (27.85962pt too wide) in paragraph at lines 899--900
- []\OT1/phv/b/n/12 Problem[] \OT1/phv/m/n/12 Falls der Nut-zer ei-ne Ein-heit a
-usw[]?`$[]$hlte, abw[]?`$[]$hlte und dann wie-der ausw[]?`$[]$hlte,
- []
 
 ! Missing number, treated as zero.
 <to be read again> 
@@ -5182,10 +5176,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 969.
  ) 
 Here is how much of TeX's memory you used:
- 13084 strings out of 492895
- 217972 string characters out of 3123735
- 436326 words of memory out of 3000000
- 16414 multiletter control sequences out of 15000+200000
+ 13085 strings out of 492895
+ 217980 string characters out of 3123735
+ 435326 words of memory out of 3000000
+ 16415 multiletter control sequences out of 15000+200000
  27425 words of font info for 54 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,15n,87p,9112b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -5196,7 +5190,7 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/urw/helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2
 .9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (50 pages, 5539289 bytes).
+Output written on main.pdf (50 pages, 5537302 bytes).
 PDF statistics:
  1400 PDF objects out of 1440 (max. 8388607)
  316 named destinations out of 1000 (max. 500000)
