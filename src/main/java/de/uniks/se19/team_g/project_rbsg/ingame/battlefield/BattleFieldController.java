@@ -702,20 +702,11 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void configureCells() {
         for (Cell cell: this.context.getGameState().getCells()){
-            cell.isReachableProperty().addListener(((observable, oldValue, newValue) -> {
-                if (newValue) {
-                    cell.getTile().setHighlightingOne(HighlightingOne.MOVE);
-                } else {
-                    cell.getTile().setHighlightingOne(HighlightingOne.NONE);
-                }
-            }));
 
             cell.isAttackableProperty().addListener(((observable, oldValue, newValue) -> {
                 if (newValue) {
-                    cell.getTile().setHighlightingOne(HighlightingOne.ATTACK);
                     setUnitAttackProperty(cell);
                 } else {
-                    cell.getTile().setHighlightingOne(HighlightingOne.NONE);
                     removeUnitAttackProperty(cell);
                 }
             }));
@@ -762,7 +753,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else {
             setMoveRadius(selectedUnit);
         }
-        selectedUnit.getPosition().getTile().setHighlightingOne(HighlightingOne.NONE);
     }
 
     private void setMoveRadius(@NonNull Unit selectedUnit) {
