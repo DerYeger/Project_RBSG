@@ -179,6 +179,7 @@ public class Unit implements Selectable, Hoverable {
         return selected.get() != null;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void setSelectedIn(@Nullable Game game) {
         // note that this should be just a toggle between null and a game, not between two games

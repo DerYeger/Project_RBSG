@@ -11,7 +11,7 @@ import org.springframework.lang.Nullable;
 /**
  * @author Jan Müller
  */
-public class Cell implements Hoverable {
+public class Cell implements Hoverable, Selectable {
 
     @NonNull
     private final String id;
@@ -37,6 +37,8 @@ public class Cell implements Hoverable {
     private SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
 
     private SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
+
+    private ObjectProperty<Game> selectedIn = new SimpleObjectProperty<>();
 
     final private ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
 
@@ -278,6 +280,30 @@ public class Cell implements Hoverable {
 
         if (game != null) {
             game.setHovered(this);
+        }
+    }
+
+    public boolean isSelected() {
+        return selectedIn.get() != null;
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setSelectedIn(@Nullable Game game) {
+        // note that this should be just a toggle between null and a game, not between two games
+        Game lastState = selectedIn.get();
+
+        if (lastState == game) {
+            return;
+        }
+
+        selectedIn.set(game);
+
+        if (lastState != null) {
+            lastState.setSelected(null);
+        }
+        if (game != null) {
+            game.setSelected(this);
         }
     }
 }
