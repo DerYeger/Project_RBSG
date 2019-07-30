@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * @author Jan Müller
  */
-public class Unit {
+public class Unit implements Selectable {
 
     @NonNull
     private final String id;
@@ -22,7 +22,7 @@ public class Unit {
 
     private SimpleObjectProperty<Cell> position = new SimpleObjectProperty<>();
 
-    private SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
+    private ObjectProperty<Game> selected = new SimpleObjectProperty<>();
 
     private SimpleBooleanProperty attackable = new SimpleBooleanProperty(false);
 
@@ -143,16 +143,8 @@ public class Unit {
         return "(" + unitType + ", mp : " + mp + ", hp: " + hp + ")";
     }
 
-    public boolean isSelected() {
-        return selected.get();
-    }
-
-    public SimpleBooleanProperty selectedProperty() {
-        return selected;
-    }
-
     public void setSelected(boolean selected) {
-        this.selected.set(selected);
+        // keep it to not break compiling for now
     }
 
 
@@ -178,5 +170,28 @@ public class Unit {
 
     public void setAttackable(boolean attackable) {
         this.attackable.set(attackable);
+    }
+
+    public boolean isSelected() {
+        return selected.get() != null;
+    }
+
+    @Override
+    public void setSelectedIn(@Nullable Game game) {
+        // note that this should be just a toggle between null and a game, not between two games
+        Game lastState = selected.get();
+
+        if (lastState == game) {
+            return;
+        }
+
+        selected.set(game);
+
+        if (lastState != null) {
+            lastState.setSelected(null);
+        }
+        if (game != null) {
+            game.setSelected(this);
+        }
     }
 }

@@ -278,16 +278,21 @@ public class Game {
 
 
     public Unit getSelectedUnit() {
-        return selectedUnit.get();
+        Selectable selected = getSelected();
+        if (selected instanceof Unit) {
+            return (Unit) selected;
+        } else {
+            return null;
+        }
     }
 
     @Nonnull
-    public ObjectProperty<Unit> selectedUnitProperty() {
+    public ReadOnlyObjectProperty<Unit> selectedUnitProperty() {
         return selectedUnit;
     }
 
     public void setSelectedUnit(Unit selectedUnit) {
-        this.selectedUnit.set(selectedUnit);
+        setSelected(selectedUnit);
     }
 
     public Selectable getSelected() {
