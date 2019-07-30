@@ -193,7 +193,7 @@
 \contentsline {subsubsection}{\numberline {4.10.3}Abgeschlossene Stories}{51}{subsubsection.4.10.3}% 
 \contentsline {subsubsubsection}{\numberline {4.10.3.1}Ingame - Einheit ausw"ahlen}{51}{subsubsubsection.4.10.3.1}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{51}{section*.149}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{51}{section*.150}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{52}{section*.150}% 
 \contentsline {subsubsubsection}{\numberline {4.10.3.2}Ingame - Einheit bewegen}{52}{subsubsubsection.4.10.3.2}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{52}{section*.151}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{52}{section*.152}% 
@@ -206,17 +206,17 @@
 \contentsline {subsubsubsection}{\numberline {4.10.3.5}Ingame - Minikarte anzeigen}{52}{subsubsubsection.4.10.3.5}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{52}{section*.157}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{52}{section*.158}% 
-\contentsline {subsubsubsection}{\numberline {4.10.3.6}Lobby - Spectating}{52}{subsubsubsection.4.10.3.6}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{52}{section*.159}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{52}{section*.160}% 
-\contentsline {subsubsubsection}{\numberline {4.10.3.7}Ingame - Spectating}{52}{subsubsubsection.4.10.3.7}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{52}{section*.161}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{52}{section*.162}% 
-\contentsline {subsubsubsection}{\numberline {4.10.3.8}Ingame - Game Over}{52}{subsubsubsection.4.10.3.8}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{52}{section*.163}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{52}{section*.164}% 
-\contentsline {subsubsubsection}{\numberline {4.10.3.9}Ingame - Game Won}{52}{subsubsubsection.4.10.3.9}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{52}{section*.165}% 
+\contentsline {subsubsubsection}{\numberline {4.10.3.6}Lobby - Spectating}{53}{subsubsubsection.4.10.3.6}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.159}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.160}% 
+\contentsline {subsubsubsection}{\numberline {4.10.3.7}Ingame - Spectating}{53}{subsubsubsection.4.10.3.7}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.161}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.162}% 
+\contentsline {subsubsubsection}{\numberline {4.10.3.8}Ingame - Game Over}{53}{subsubsubsection.4.10.3.8}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.163}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.164}% 
+\contentsline {subsubsubsection}{\numberline {4.10.3.9}Ingame - Game Won}{53}{subsubsubsection.4.10.3.9}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.165}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.166}% 
 \contentsline {subsubsubsection}{\numberline {4.10.3.10}Ingame - Spactator Over}{53}{subsubsubsection.4.10.3.10}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.167}% 
@@ -224,58 +224,59 @@
 \contentsline {subsubsubsection}{\numberline {4.10.3.11}Ingame - Einheiteninformationen}{53}{subsubsubsection.4.10.3.11}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.169}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.170}% 
-\contentsline {subsubsubsection}{\numberline {4.10.3.12}Ingame - Spielstatus anzeigen}{53}{subsubsubsection.4.10.3.12}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.171}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.172}% 
-\contentsline {subsubsubsection}{\numberline {4.10.3.13}Ingame - Musiksteuerung}{53}{subsubsubsection.4.10.3.13}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.173}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.174}% 
-\contentsline {subsubsubsection}{\numberline {4.10.3.14}Ingame - Einheit bewegen nach Bewegung}{53}{subsubsubsection.4.10.3.14}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.175}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.176}% 
-\contentsline {subsubsection}{\numberline {4.10.4}Abgeschlossene Tasks}{53}{subsubsection.4.10.4}% 
-\contentsline {subsubsubsection}{\numberline {4.10.4.1}Waiting Room - Armeeauswahlbox anpassen}{54}{subsubsubsection.4.10.4.1}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.178}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.179}% 
-\contentsline {subsubsubsection}{\numberline {4.10.4.2}Einheiteninformationen im Datenmodell}{54}{subsubsubsection.4.10.4.2}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.180}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.181}% 
-\contentsline {subsubsubsection}{\numberline {4.10.4.3}Servernachrichten}{54}{subsubsubsection.4.10.4.3}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.182}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.183}% 
-\contentsline {subsubsubsection}{\numberline {4.10.4.4}Ingame - Best"atigungsbox in der Sidebar}{54}{subsubsubsection.4.10.4.4}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.184}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.185}% 
-\contentsline {subsubsubsection}{\numberline {4.10.4.5}Spectating - REST Anfrage}{54}{subsubsubsection.4.10.4.5}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.186}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.187}% 
-\contentsline {subsubsubsection}{\numberline {4.10.4.6}Default-Buttons setzen}{54}{subsubsubsection.4.10.4.6}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.188}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{55}{section*.189}% 
-\contentsline {subsubsection}{\numberline {4.10.5}Behobene Bugs}{55}{subsubsection.4.10.5}% 
-\contentsline {subsubsubsection}{\numberline {4.10.5.1}Terminierung sicherstellen}{55}{subsubsubsection.4.10.5.1}% 
-\contentsline {paragraph}{\nonumberline Ursachen}{55}{section*.191}% 
-\contentsline {paragraph}{\nonumberline Fix}{55}{section*.192}% 
-\contentsline {subsubsubsection}{\numberline {4.10.5.2}Ingame - Einheit mehrmals ausw"ahlen}{55}{subsubsubsection.4.10.5.2}% 
-\contentsline {paragraph}{\nonumberline Ursachen}{55}{section*.193}% 
-\contentsline {paragraph}{\nonumberline Fix}{55}{section*.194}% 
-\contentsline {subsubsubsection}{\numberline {4.10.5.3}Spectating - Automatischer Wechsel zum Spielfeld}{55}{subsubsubsection.4.10.5.3}% 
-\contentsline {paragraph}{\nonumberline Ursachen}{55}{section*.195}% 
-\contentsline {paragraph}{\nonumberline Fix}{55}{section*.196}% 
-\contentsline {subsubsubsection}{\numberline {4.10.5.4}Lobby - Spielbeitritt blockieren}{55}{subsubsubsection.4.10.5.4}% 
-\contentsline {paragraph}{\nonumberline Ursachen}{55}{section*.197}% 
-\contentsline {paragraph}{\nonumberline Fix}{55}{section*.198}% 
-\contentsline {subsubsubsection}{\numberline {4.10.5.5}RunLoop bei "Anderungen im Spiel}{56}{subsubsubsection.4.10.5.5}% 
-\contentsline {paragraph}{\nonumberline Ursachen}{56}{section*.199}% 
-\contentsline {paragraph}{\nonumberline Fix}{56}{section*.200}% 
-\contentsline {subsubsubsection}{\numberline {4.10.5.6}CSS Fehler}{56}{subsubsubsection.4.10.5.6}% 
-\contentsline {paragraph}{\nonumberline Ursachen}{56}{section*.201}% 
-\contentsline {paragraph}{\nonumberline Fix}{56}{section*.202}% 
-\contentsline {subsubsection}{\numberline {4.10.6}Angefangen}{56}{subsubsection.4.10.6}% 
-\contentsline {subsubsection}{\numberline {4.10.7}Nicht abgeschlossen}{56}{subsubsection.4.10.7}% 
-\contentsline {subsubsection}{\numberline {4.10.8}Entfernt}{56}{subsubsection.4.10.8}% 
-\contentsline {subsubsection}{\numberline {4.10.9}Fazit}{56}{subsubsection.4.10.9}% 
-\contentsline {section}{\numberline {5}Abschluss Release \textup {\uppercase {iii}}}{57}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Neue MockUps im Verlauf des Releases \textup {\uppercase {iii}}}{57}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Vergleich MockUps mit aktueller Implementation}{57}{subsection.5.2}% 
-\contentsline {section}{\numberline {6}Quellenangaben}{58}{section.6}% 
+\contentsline {subsubsubsection}{\numberline {4.10.3.12}Ingame - Spielstatus anzeigen}{54}{subsubsubsection.4.10.3.12}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.171}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.172}% 
+\contentsline {subsubsubsection}{\numberline {4.10.3.13}Ingame - Musiksteuerung}{54}{subsubsubsection.4.10.3.13}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.173}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.174}% 
+\contentsline {subsubsubsection}{\numberline {4.10.3.14}Ingame - Einheit bewegen nach Bewegung}{54}{subsubsubsection.4.10.3.14}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{54}{section*.175}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{54}{section*.176}% 
+\contentsline {subsubsection}{\numberline {4.10.4}Abgeschlossene Tasks}{54}{subsubsection.4.10.4}% 
+\contentsline {subsubsubsection}{\numberline {4.10.4.1}Waiting Room - Armeeauswahlbox anpassen}{55}{subsubsubsection.4.10.4.1}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{55}{section*.178}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{55}{section*.179}% 
+\contentsline {subsubsubsection}{\numberline {4.10.4.2}Einheiteninformationen im Datenmodell}{55}{subsubsubsection.4.10.4.2}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{55}{section*.180}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{55}{section*.181}% 
+\contentsline {subsubsubsection}{\numberline {4.10.4.3}Servernachrichten}{55}{subsubsubsection.4.10.4.3}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{55}{section*.182}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{55}{section*.183}% 
+\contentsline {subsubsubsection}{\numberline {4.10.4.4}Ingame - Best"atigungsbox in der Sidebar}{55}{subsubsubsection.4.10.4.4}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{55}{section*.184}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{55}{section*.185}% 
+\contentsline {subsubsubsection}{\numberline {4.10.4.5}Spectating - REST Anfrage}{55}{subsubsubsection.4.10.4.5}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{55}{section*.186}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{55}{section*.187}% 
+\contentsline {subsubsubsection}{\numberline {4.10.4.6}Default-Buttons setzen}{55}{subsubsubsection.4.10.4.6}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{55}{section*.188}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{56}{section*.189}% 
+\contentsline {subsubsection}{\numberline {4.10.5}Behobene Bugs}{56}{subsubsection.4.10.5}% 
+\contentsline {subsubsubsection}{\numberline {4.10.5.1}Terminierung sicherstellen}{56}{subsubsubsection.4.10.5.1}% 
+\contentsline {paragraph}{\nonumberline Ursachen}{56}{section*.191}% 
+\contentsline {paragraph}{\nonumberline Fix}{56}{section*.192}% 
+\contentsline {subsubsubsection}{\numberline {4.10.5.2}Ingame - Einheit mehrmals ausw"ahlen}{56}{subsubsubsection.4.10.5.2}% 
+\contentsline {paragraph}{\nonumberline Ursachen}{56}{section*.193}% 
+\contentsline {paragraph}{\nonumberline Fix}{56}{section*.194}% 
+\contentsline {subsubsubsection}{\numberline {4.10.5.3}Lobby - Spielbeitritt blockieren}{56}{subsubsubsection.4.10.5.3}% 
+\contentsline {paragraph}{\nonumberline Ursachen}{56}{section*.195}% 
+\contentsline {paragraph}{\nonumberline Fix}{56}{section*.196}% 
+\contentsline {subsubsubsection}{\numberline {4.10.5.4}RunLoop bei "Anderungen im Spiel}{56}{subsubsubsection.4.10.5.4}% 
+\contentsline {paragraph}{\nonumberline Ursachen}{56}{section*.197}% 
+\contentsline {paragraph}{\nonumberline Fix}{56}{section*.198}% 
+\contentsline {subsubsubsection}{\numberline {4.10.5.5}CSS Fehler}{57}{subsubsubsection.4.10.5.5}% 
+\contentsline {paragraph}{\nonumberline Ursachen}{57}{section*.199}% 
+\contentsline {paragraph}{\nonumberline Fix}{57}{section*.200}% 
+\contentsline {subsubsection}{\numberline {4.10.6}Angefangene Bugtasks}{57}{subsubsection.4.10.6}% 
+\contentsline {subsubsubsection}{\numberline {4.10.6.1}Spectating - Automatischer Wechsel zum Spielfeld}{57}{subsubsubsection.4.10.6.1}% 
+\contentsline {paragraph}{\nonumberline Ursachen}{57}{section*.201}% 
+\contentsline {paragraph}{\nonumberline Stand}{57}{section*.202}% 
+\contentsline {subsubsection}{\numberline {4.10.7}Angefangen}{57}{subsubsection.4.10.7}% 
+\contentsline {subsubsection}{\numberline {4.10.8}Nicht abgeschlossen}{57}{subsubsection.4.10.8}% 
+\contentsline {subsubsection}{\numberline {4.10.9}Entfernt}{57}{subsubsection.4.10.9}% 
+\contentsline {subsubsection}{\numberline {4.10.10}Fazit}{57}{subsubsection.4.10.10}% 
+\contentsline {section}{\numberline {5}Abschluss Release \textup {\uppercase {iii}}}{58}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Neue MockUps im Verlauf des Releases \textup {\uppercase {iii}}}{58}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Vergleich MockUps mit aktueller Implementation}{58}{subsection.5.2}% 
+\contentsline {section}{\numberline {6}Quellenangaben}{59}{section.6}% 
