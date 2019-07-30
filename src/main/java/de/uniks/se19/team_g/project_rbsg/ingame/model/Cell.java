@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,7 +11,7 @@ import org.springframework.lang.Nullable;
 /**
  * @author Jan Müller
  */
-public class Cell {
+public class Cell implements Hoverable {
 
     @NonNull
     private final String id;
@@ -36,6 +37,8 @@ public class Cell {
     private SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
 
     private SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
+
+    final private ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
 
     public Cell(@NonNull final String id) {
         this.id = id;
@@ -251,5 +254,30 @@ public class Cell {
 
     public void setIsAttackable(boolean isAttackable) {
         this.isAttackable.set(isAttackable);
+    }
+
+    @Override
+    public boolean isHovered() {
+        return false;
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setHoveredIn(@Nullable Game game) {
+        Game lastHoveredIn = hoveredIn.get();
+
+        if (game == lastHoveredIn) {
+            return;
+        }
+
+        hoveredIn.set(game);
+
+        if (lastHoveredIn != null) {
+            lastHoveredIn.setHovered(null);
+        }
+
+        if (game != null) {
+            game.setHovered(this);
+        }
     }
 }

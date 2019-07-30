@@ -200,9 +200,10 @@ public class Unit implements Selectable, Hoverable {
 
     @Override
     public boolean isHovered() {
-        return false;
+        return hoveredIn.get() != null;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void setHoveredIn(@Nullable Game game) {
         Game lastHoveredIn = hoveredIn.get();
