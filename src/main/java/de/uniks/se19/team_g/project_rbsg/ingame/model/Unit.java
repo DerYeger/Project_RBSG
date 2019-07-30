@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
 import javafx.beans.property.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -11,7 +12,7 @@ import java.util.Collection;
 /**
  * @author Jan Müller
  */
-public class Unit implements Selectable {
+public class Unit implements Selectable, Hoverable {
 
     @NonNull
     private final String id;
@@ -34,6 +35,8 @@ public class Unit implements Selectable {
     private int hp;
 
     private ArrayList<UnitTypeInfo> canAttack;
+
+    final private ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -192,6 +195,30 @@ public class Unit implements Selectable {
         }
         if (game != null) {
             game.setSelected(this);
+        }
+    }
+
+    @Override
+    public boolean isHovered() {
+        return false;
+    }
+
+    @Override
+    public void setHoveredIn(@Nullable Game game) {
+        Game lastHoveredIn = hoveredIn.get();
+
+        if (game == lastHoveredIn) {
+            return;
+        }
+
+        hoveredIn.set(game);
+
+        if (lastHoveredIn != null) {
+            lastHoveredIn.setHovered(null);
+        }
+
+        if (game != null) {
+            game.setHovered(this);
         }
     }
 }
