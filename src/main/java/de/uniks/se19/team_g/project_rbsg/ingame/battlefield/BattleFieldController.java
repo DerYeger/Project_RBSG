@@ -68,6 +68,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final AlertBuilder alertBuilder;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final MiniMapDrawer miniMapDrawer;
+    private final ChangeListener<Cell> onSelectedUnitMoved = this::onSelectedUnitMoved;
 
     public Button leaveButton;
     public Button zoomOutButton;
@@ -224,10 +225,38 @@ public class BattleFieldController implements RootController, IngameViewControll
         Selectable last,
         Selectable next
     ) {
-        Platform.runLater(() ->miniMapDrawer.drawMinimap(tileMap));
+        Unit selectedUnit = context.getGameState().getSelectedUnit();
+
+        if (last instanceof Unit) {
+            ((Unit) last).positionProperty().removeListener(onSelectedUnitMoved);
+        }
+        if (next instanceof Unit) {
+            ((Unit) next).positionProperty().addListener(onSelectedUnitMoved);
+        }
+
+        Platform.runLater(() -> {
+            miniMapDrawer.drawMinimap(tileMap);
+
+            // in this case, last and current selected units are null, so no update needed
+            if (selectedUnit == null && !(last instanceof Unit)) {
+                return;
+            }
+
+            setCellProperty(selectedUnit);
+        });
+
+
+
 //        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
 //        logger.debug(String.valueOf(zoomableScrollPane.getHeight()));
 //        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
+    }
+
+    private void onSelectedUnitMoved(Observable observable, Cell last, Cell next) {
+        Platform.runLater(() -> {
+            miniMapDrawer.drawMinimap(tileMap);
+            setCellProperty(context.getGameState().getSelectedUnit());
+        });
     }
 
     private boolean isMyUnit(@NonNull Unit unit){
@@ -408,7 +437,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
 
-        // context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
+        context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
@@ -440,8 +469,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else {
             context.getGameState().setSelected(selectable);
         }
-
-        setCellProperty(context.getGameState().getSelectedUnit());
     }
 
     private boolean handleAttack(Tile tile) {
