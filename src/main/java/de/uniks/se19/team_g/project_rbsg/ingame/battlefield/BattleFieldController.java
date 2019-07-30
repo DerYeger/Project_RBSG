@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
@@ -50,6 +51,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
 import javax.validation.constraints.Max;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
@@ -85,6 +87,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button endPhaseButton;
     public Pane endPhaseButtonContainer;
     public VBox root;
+    public Button musicButton;
     private Canvas canvas;
     private ZoomableScrollPane zoomableScrollPane;
     public StackPane battlefieldStackPane;
@@ -138,6 +141,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     @Nonnull
     private final MovementManager movementManager;
+    @Nonnull
+    private final MusicManager musicManager;
 
     private IngameContext context;
 
@@ -147,11 +152,13 @@ public class BattleFieldController implements RootController, IngameViewControll
             @NonNull final AlertBuilder alertBuilder,
             @Nonnull final MovementManager movementManager,
             @NonNull final ChatBuilder chatBuilder,
-            @NonNull final ChatController chatController
+            @NonNull final ChatController chatController,
+            @Nonnull final MusicManager musicManager
     ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.movementManager = movementManager;
+        this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
         this.selectedTile = new SimpleObjectProperty<>(null);
@@ -214,6 +221,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
                 getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
                 40);
+
+        musicManager.initButtonIcons(musicButton);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -617,6 +626,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     public void openChat(){
+
+        Image chatBubbleWhite = getClass().getResource("/assets/icons/operation/chatBubbleWhite.png");
         if(chatPane.isVisible()){
             chatPane.setVisible(false);
             JavaFXUtils.setButtonIcons(
@@ -800,5 +811,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.scaleValueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.hvalueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
+    }
+
+    public void toggleMusic() {
+        musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
     }
 }

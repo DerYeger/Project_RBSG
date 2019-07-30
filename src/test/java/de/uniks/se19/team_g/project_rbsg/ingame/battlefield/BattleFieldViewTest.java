@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
@@ -76,6 +77,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
     @MockBean
     MovementManager movementManager;
+
+    @MockBean
+    MusicManager musicManager;
 
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;

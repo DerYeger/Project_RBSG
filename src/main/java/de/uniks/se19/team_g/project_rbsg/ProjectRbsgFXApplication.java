@@ -9,11 +9,6 @@ import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.beans.property.Property;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
@@ -70,12 +65,7 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
         @SuppressWarnings("unchecked") final Property<Locale> selectedLocale = (Property<Locale>) context.getBean("selectedLocale");
         Objects.requireNonNull(selectedLocale).setValue(Locale.ENGLISH);
 
-        context.getBean(SceneManager.class)
-                .init(primaryStage)
-                .withExceptionHandler(context.getBean(ExceptionHandler.class))
-                .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
-
-        context.getBean(MusicManager.class).init().initMusic();
+        setupMusic();
 
         final AlertBuilder alertBuilder = context.getBean(AlertBuilder.class);
 
@@ -88,7 +78,19 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
                             null);
         });
 
+
+        context.getBean(SceneManager.class)
+                .init(primaryStage)
+                .withExceptionHandler(context.getBean(ExceptionHandler.class))
+                .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+
         primaryStage.show();
+    }
+
+    protected void setupMusic() {
+        MusicManager musicManager = context.getBean(MusicManager.class).init();
+        boolean musicOnStartUp = context.getEnvironment().getProperty("defaults.music_enabled", Boolean.class, true);
+        musicManager.setMusicRunning(musicOnStartUp);
     }
 
     @Override
