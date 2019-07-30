@@ -236,7 +236,7 @@ public class Game {
         return phase;
     }
 
-    public void setPhase(String phase) throws InterruptedException {
+    public void setPhase(String phase) {
         Platform.runLater(()-> {
             this.phase.set(phase);
         });

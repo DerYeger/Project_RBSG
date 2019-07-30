@@ -276,13 +276,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
     }
 
-    private boolean isMyUnit(@Nonnull Unit unit){
-        if (unit.getLeader() == null){
-            return false;
-        }
-        return unit.getLeader().getName().equals(context.getUser().getName());
-    }
-
     private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
     {
         while (c.next())
@@ -777,18 +770,22 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
         Unit unit = cell.getUnit();
-        if (isMyUnit(unit)){
+        if (unit.getLeader().isPlayer()){
             return;
         }
         unit.setAttackable(false);
     }
 
+    /**
+     * duplicated code? why not unit.setAttackable({notPlayerUnit}) ?
+     * @param cell
+     */
     private void setUnitAttackProperty(@Nonnull Cell cell){
         if (cell.getUnit() == null){
             return;
         }
         Unit unit = cell.getUnit();
-        if (isMyUnit(unit)){
+        if (unit.getLeader().isPlayer()){
             return;
         }
         unit.setAttackable(true);
@@ -804,9 +801,10 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
 
-        if ((!isMyUnit(selectedUnit)) || (!this.context.isMyTurn())) {
+        if (!selectedUnit.getLeader().isPlayer() || (!this.context.isMyTurn())) {
             return;
         }
+
         if (this.context.getGameState().isPhase(Game.Phase.attackPhase)) {
             setAttackRadius(selectedUnit);
         } else {
