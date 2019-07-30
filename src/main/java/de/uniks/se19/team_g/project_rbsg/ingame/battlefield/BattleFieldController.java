@@ -732,11 +732,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             // exception
         }
         initPlayerBar();
-        try {
-            initChat();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
@@ -764,6 +759,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureEndPhase();
 
         configureCells();
+
+        try {
+            initChat();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initChat() throws Exception {
@@ -771,7 +772,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         chatPane.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();
         chatPane.setVisible(false);
-        //chatPane.setMinWidth(canvas.getWidth()-miniMapCanvas.getWidth());
     }
 
     public void openChat(){
