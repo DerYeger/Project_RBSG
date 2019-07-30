@@ -20,6 +20,7 @@ public class Tile
     private final Image deckoratorImage;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private final InvalidationListener updateHighlightingOne = this::updateHighlightingOne;
+    private final InvalidationListener updateHighlightingTwo = this::updateHighlightingTwo;
     private HighlightingOne highlightingOne;
     private HighlightingTwo highlightingTwo;
 
@@ -59,6 +60,8 @@ public class Tile
         }
 
         unit.attackableProperty().removeListener(updateHighlightingOne);
+        unit.selectedProperty().removeListener(updateHighlightingTwo);
+        unit.hoveredProperty().removeListener(updateHighlightingTwo);
     }
 
     private void addUnitListener(@Nullable Unit unit) {
@@ -67,16 +70,23 @@ public class Tile
         }
 
         unit.attackableProperty().addListener(updateHighlightingOne);
+        unit.selectedProperty().addListener(updateHighlightingTwo);
+        unit.hoveredProperty().addListener(updateHighlightingTwo);
     }
 
     private void configureHighlighting() {
         cell.isReachableProperty().addListener(updateHighlightingOne);
         cell.isAttackableProperty().addListener(updateHighlightingOne);
+        cell.hoveredProperty().addListener(updateHighlightingTwo);
+        cell.selectedProperty().addListener(updateHighlightingTwo);
     }
 
     private HighlightingOne evaluateHighlightingOne() {
-        if (cell.getUnit() != null && cell.getUnit().isSelected()) {
-            return HighlightingOne.NONE;
+        Unit unit = cell.getUnit();
+        if (unit != null) {
+            if (unit.isSelected()) {
+                return HighlightingOne.NONE;
+            }
         }
 
         if (cell.isIsAttackable()) {
@@ -90,8 +100,28 @@ public class Tile
         return HighlightingOne.NONE;
     }
 
-    private void evaluateHightlightingTwo() {
+    private HighlightingTwo evaluateHightlightingTwo() {
 
+        Unit unit = cell.getUnit();
+
+        if ( unit != null) {
+            if (unit.isSelected() && unit.getLeader().isPlayer()) {
+                return HighlightingTwo.SELECETD_WITH_UNITS;
+            }
+            if (unit.isHovered()) {
+                return HighlightingTwo.HOVERED;
+            }
+        }
+
+        if (cell.isSelected()) {
+            return HighlightingTwo.SELECTED;
+        }
+
+        if (cell.isHovered()) {
+            return HighlightingTwo.HOVERED;
+        }
+
+        return HighlightingTwo.NONE;
     }
 
     public void removeListener(PropertyChangeListener listener)
@@ -114,9 +144,9 @@ public class Tile
         return highlightingTwo;
     }
 
-    public void setHighlightingTwo(HighlightingTwo highlightingTwo)
+    private void updateHighlightingTwo(@SuppressWarnings("unused") Observable observable)
     {
-        this.highlightingTwo = highlightingTwo;
+        this.highlightingTwo = evaluateHightlightingTwo();
 
         //Abusing property changed
         pcs.firePropertyChange("HighlightingTwo", this, this.highlightingTwo);

@@ -208,43 +208,23 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawTile(tile);
     }
 
+    @SuppressWarnings("unused")
     private void onHoveredChanged(
-        @SuppressWarnings("unused") ObservableValue<? extends Hoverable> observableValue,
+        ObservableValue<? extends Hoverable> observableValue,
         Hoverable last,
         Hoverable next
     ) {
-        Tile lastTile = getTileOf(last);
-        Tile nextTile = getTileOf(next);
-
-        if(lastTile != null && lastTile.getHighlightingTwo() == HighlightingTwo.HOVERED) {
-            lastTile.setHighlightingTwo(HighlightingTwo.NONE);
-        }
-
-        if(nextTile != null && nextTile.getHighlightingTwo() == HighlightingTwo.NONE) {
-            nextTile.setHighlightingTwo(HighlightingTwo.HOVERED);
-        }
-
-        miniMapDrawer.drawMinimap(tileMap);
+        // update the mini map on next draw cycle so that it doesn't cause issues with listener order
+        Platform.runLater(() ->miniMapDrawer.drawMinimap(tileMap));
     }
 
+    @SuppressWarnings("unused")
     private void onSelectedChanged(
-        @SuppressWarnings("unused") ObservableValue<? extends Selectable> observableValue,
+        ObservableValue<? extends Selectable> observableValue,
         Selectable last,
         Selectable next
     ) {
-        Tile lastTile = getTileOf(last);
-        Tile nextTile = getTileOf(next);
-
-        if (lastTile != null) {
-            lastTile.setHighlightingTwo(HighlightingTwo.NONE);
-        }
-
-        if ((nextTile != null) && (nextTile.getCell().getUnit() != null) && (isMyUnit(nextTile.getCell().getUnit()))){
-            nextTile.setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
-        } else if(nextTile != null) {
-            nextTile.setHighlightingTwo(HighlightingTwo.SELECTED);
-        }
-        miniMapDrawer.drawMinimap(tileMap);
+        Platform.runLater(() ->miniMapDrawer.drawMinimap(tileMap));
 //        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
 //        logger.debug(String.valueOf(zoomableScrollPane.getHeight()));
 //        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
@@ -428,7 +408,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
 
-        context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
+        // context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
