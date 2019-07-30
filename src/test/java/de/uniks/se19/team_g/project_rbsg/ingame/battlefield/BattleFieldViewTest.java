@@ -256,7 +256,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
-        Assert.assertNull(game.getSelectedUnit());
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
