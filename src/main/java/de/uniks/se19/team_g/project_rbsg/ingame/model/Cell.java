@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -258,7 +259,7 @@ public class Cell implements Hoverable, Selectable {
 
     @Override
     public boolean isHovered() {
-        return false;
+        return hoveredIn.get() != null;
     }
 
     @Override
@@ -313,5 +314,9 @@ public class Cell implements Hoverable, Selectable {
     @Override
     public ObservableBooleanValue selectedProperty() {
         return selectedIn.isNotNull();
+    }
+
+    public ObjectProperty<Game> selectedInProp() {
+        return selectedIn;
     }
 }

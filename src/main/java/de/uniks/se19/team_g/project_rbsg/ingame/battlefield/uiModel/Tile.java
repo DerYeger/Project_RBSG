@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.image.*;
 import org.springframework.lang.Nullable;
 
@@ -17,8 +19,8 @@ public class Tile
 {
     private final Cell cell;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private final InvalidationListener updateHighlightingOne = this::updateHighlightingOne;
-    private final InvalidationListener updateHighlightingTwo = this::updateHighlightingTwo;
+    private final ChangeListener<Object> updateHighlightingOne = this::updateHighlightingOne;
+    private final ChangeListener<Object> updateHighlightingTwo = this::updateHighlightingTwo;
 
     private Image backgroundImage;
     private Image deckoratorImage;
@@ -34,17 +36,21 @@ public class Tile
         highlightingTwo = HighlightingTwo.NONE;
 
         configureUnitDependencies();
-        configureHighlighting();
+        configureCellDependencies();
 
-        updateHighlightingOne(null);
-        updateHighlightingTwo(null);
+        updateHighlightingOne(null, null, null);
+        updateHighlightingTwo(null, null, null);
 
     }
 
     private void configureUnitDependencies() {
         cell.unitProperty().addListener((observable, lastUnit, nextUnit) -> {
+
             clearUnitListener(lastUnit);
             addUnitListener(nextUnit);
+
+            updateHighlightingOne(observable, null, null);
+            updateHighlightingTwo(observable, null, null);
         });
 
         // init
@@ -71,7 +77,7 @@ public class Tile
         unit.hoveredProperty().addListener(updateHighlightingTwo);
     }
 
-    private void configureHighlighting() {
+    private void configureCellDependencies() {
         cell.isReachableProperty().addListener(updateHighlightingOne);
         cell.isAttackableProperty().addListener(updateHighlightingOne);
         cell.hoveredProperty().addListener(updateHighlightingTwo);
@@ -102,8 +108,10 @@ public class Tile
         Unit unit = cell.getUnit();
 
         if ( unit != null) {
-            if (unit.isSelected() && unit.getLeader().isPlayer()) {
-                return HighlightingTwo.SELECETD_WITH_UNITS;
+            if (unit.isSelected()) {
+                return  unit.getLeader().isPlayer() ?
+                    HighlightingTwo.SELECETD_WITH_UNITS
+                    : HighlightingTwo.SELECTED;
             }
             if (unit.isHovered()) {
                 return HighlightingTwo.HOVERED;
@@ -136,7 +144,8 @@ public class Tile
         return highlightingTwo;
     }
 
-    private void updateHighlightingTwo(@SuppressWarnings("unused") Observable observable)
+    @SuppressWarnings("unused")
+    private void updateHighlightingTwo(Observable observable, Object prev, Object next)
     {
         this.highlightingTwo = evaluateHightlightingTwo();
 
@@ -154,7 +163,8 @@ public class Tile
         return highlightingOne;
     }
 
-    private void updateHighlightingOne(@SuppressWarnings("unused") Observable observable)
+    @SuppressWarnings("unused")
+    private void updateHighlightingOne(Observable observable, Object prev, Object next)
     {
         this.highlightingOne = evaluateHighlightingOne();
 
