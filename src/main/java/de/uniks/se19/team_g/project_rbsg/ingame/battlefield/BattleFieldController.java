@@ -64,10 +64,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 60) / 2;
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
 
-    private static final String MOVE_PHASE = "movePhase";
-    private static final String ATTACK_PHASE = "attackPhase";
-    private static final String LAST_MOVE_PHASE = "lastMovePhase";
-
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -90,7 +86,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private Game game;
 
-    private ObservableList<Cell> cells;
     private ObservableList<Unit> units;
 
     private int zoomFactor = 1;
@@ -214,9 +209,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void onHoveredChanged(
-            ObservableValue<? extends Hoverable> observableValue,
-            Hoverable last,
-            Hoverable next
+        @SuppressWarnings("unused") ObservableValue<? extends Hoverable> observableValue,
+        Hoverable last,
+        Hoverable next
     ) {
         Tile lastTile = getTileOf(last);
         Tile nextTile = getTileOf(next);
@@ -233,7 +228,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void onSelectedChanged(
-        ObservableValue<? extends Selectable> observableValue,
+        @SuppressWarnings("unused") ObservableValue<? extends Selectable> observableValue,
         Selectable last,
         Selectable next
     ) {
@@ -259,11 +254,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (unit.getLeader() == null){
             return false;
         }
-        if (unit.getLeader().getName().equals(context.getUser().getName())){
-            return true;
-        } else {
-            return false;
-        }
+        return unit.getLeader().getName().equals(context.getUser().getName());
     }
 
     private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
@@ -289,7 +280,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-
+    @SuppressWarnings("unused")
     private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition, Unit unit)
     {
         if (lastPosition != null)
@@ -303,6 +294,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         miniMapDrawer.drawMinimap(tileMap);
     }
 
+    @SuppressWarnings("unused")
     private void cameraViewChanged(ObservableValue<? extends Number> observableValue, Number number, Number number1)
     {
         miniMapDrawer.drawMinimap(tileMap);
@@ -321,10 +313,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawMap(tileMap);
     }
     private void initPlayerBar(){
-        HashMap<String, Player> playerMap=new HashMap<>();
+        HashMap<String, Player> playerMap = new HashMap<>();
         HashMap<String, Node> playerNodeMap=new HashMap<>();
         HashMap<String, Pane> playerPaneMap=new HashMap<>();
-        ArrayList<Pane> playerCardList = new ArrayList<Pane>();
+        ArrayList<Pane> playerCardList = new ArrayList<>();
 
         playerCardList.add(player1);
         playerCardList.add(player2);
@@ -388,9 +380,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                     return;
                 }
                 if(oldVal.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size())==0){
-                    Platform.runLater(() -> {
-                    roundCount.set(roundCount.get()+1);
-                    });
+                    Platform.runLater(() -> roundCount.set(roundCount.get()+1));
                     roundCounter=0;
                 }
                 roundCounter++;
@@ -437,11 +427,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void canvasHandleMouseMove(MouseEvent event) {
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
-        if (unit != null) {
-            context.getGameState().setHovered(unit);
-        } else {
-            context.getGameState().setHovered(cell);
-        }
+
+        context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
@@ -545,7 +532,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         return true;
     }
 
-    public void leaveGame(ActionEvent actionEvent)
+    public void leaveGame(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         alertBuilder
                 .confirmation(
@@ -559,7 +546,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
-    public void zoomIn(ActionEvent actionEvent)
+    public void zoomIn(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (zoomFactor == 1)
         {
@@ -578,7 +565,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public void zoomOut(ActionEvent actionEvent)
+    public void zoomOut(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (zoomFactor == 2)
         {
@@ -606,7 +593,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                         null);
     }
 
-    public void toggleMap(ActionEvent actionEvent)
+    public void toggleMap(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (miniMapCanvas.visibleProperty().get())
         {
@@ -645,7 +632,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         game = context.getGameState();
         if (game != null) {
-            cells = game.getCells();
+            ObservableList<Cell> cells = game.getCells();
             units = game.getUnits();
 
             mapSize = (int) Math.sqrt(cells.size());
@@ -835,6 +822,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
     }
 
+    @SuppressWarnings("unused")
     private void onNextPlayer(Observable observable, Player lastPlayer, Player nextPlayer) {
         if (context.isMyTurn()) {
             onBeforeUserTurn();
@@ -878,7 +866,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.hvalueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
     }
-    public void openPlayerBar(@Nonnull final ActionEvent event){
+
+    public void openPlayerBar(@SuppressWarnings("unused") ActionEvent event){
         if(!playerBar.visibleProperty().get()){
             playerBar.visibleProperty().setValue(true);
             playerBar.toFront();
