@@ -1,10 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -261,6 +259,11 @@ public class Cell implements Hoverable, Selectable {
     @Override
     public boolean isHovered() {
         return false;
+    }
+
+    @Override
+    public ObservableBooleanValue hoveredProperty() {
+        return hoveredIn.isNotNull();
     }
 
     @SuppressWarnings("Duplicates")
