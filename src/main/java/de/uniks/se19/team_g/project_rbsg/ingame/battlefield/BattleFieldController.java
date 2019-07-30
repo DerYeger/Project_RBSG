@@ -452,7 +452,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         if (handleMovement(tile)) {
-            this.context.getGameState().setSelectedUnit(null);
             return;
         }
 
@@ -533,7 +532,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         selectedUnit.setRemainingMovePoints(
                 selectedUnit.getRemainingMovePoints() - tour.getCost()
         );
-        game.setSelectedUnit(null);
+        if (selectedUnit.getRemainingMovePoints() == 0) {
+            selectedUnit.clearSelection();
+        }
         context.getGameEventManager().sendMessage(command);
 
         return true;
