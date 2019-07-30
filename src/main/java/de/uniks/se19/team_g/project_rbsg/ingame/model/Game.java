@@ -39,6 +39,8 @@ public class Game {
 
     final private ObjectProperty<Selectable> selected = new SimpleObjectProperty<>();
 
+    final private ObjectProperty<Selectable> hovered = new SimpleObjectProperty<>();
+
     public Game(@NonNull final String id) {
         this.id = id;
 
@@ -311,6 +313,32 @@ public class Game {
 
         if (selected != null) {
             selected.setSelectedIn(this);
+        }
+    }
+
+    public Selectable getHovered() {
+        return hovered.get();
+    }
+
+    public ReadOnlyObjectProperty<Selectable> hoveredProperty() {
+        return hovered;
+    }
+
+    public void setHovered(Selectable hovered) {
+        Selectable lastHovered = this.hovered.get();
+
+        if (lastHovered == hovered) {
+            return;
+        }
+
+        this.hovered.set(hovered);
+
+        if (lastHovered != null) {
+            lastHovered.setSelectedIn(null);
+        }
+
+        if (hovered != null) {
+            hovered.setSelectedIn(this);
         }
     }
 
