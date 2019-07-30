@@ -6,9 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import org.junit.Test;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 
 public class TileTest {
 

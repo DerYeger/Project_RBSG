@@ -1,15 +1,16 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import javafx.beans.InvalidationListener;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TileUtils;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import org.springframework.lang.Nullable;
 
-import java.beans.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * @author Georg Siebert
