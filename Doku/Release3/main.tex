@@ -622,7 +622,7 @@
 	            		\item \textbf{Nachrichten senden und empfangen} \hspace{5pt} Hinweis: Es sollte ausreichen, einen Chatnode 1:1 wie im WaitingRoomViewController zu instanziieren. Nachrichten sollen korrekt gesendet und empfangen werden (vgl. Warteraum und Lobbychat, siehe Serverdoku).
 	            		\item \textbf{Ein-/Ausblenden des Chats} \hspace{5pt} "Uber einen Button in der oberen Leiste (siehe Mockup) soll sich der Chat ein- und ausblenden lassen. Der Chat soll bis zur Sidebar rechts gehen. Der Chat ist in einer StackPane "uber dem Spielfeld (und die Sidebar ist ein anderes Element neben dem Spielfeld).
 	            	\end{enumerate}
-            \subsubsection{Ingame - Game Over}
+            \subsubsection{Ingame - Game Over} \label{story_game_over}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
              	\paragraph{Story}
@@ -632,7 +632,7 @@
 	            	\begin{enumerate}[label={}]
 	            		\item \textbf{Alert anlegen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls der Nuzter das Spiel verloren (keine Einheiten) hat UND nicht gleichzeitig ein anderer Spieler dadurch gewinnt (In diesem Fall greift der Spectate Over Alert). Best"atigt der User die Anfrage, soll der Alert geschlossen werden. Tut er dies nicht, soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, m"ussen zuvor eventuell aktive Alerts geschlossen werden.
 	            	\end{enumerate}
-            \subsubsection{Ingame - Game Won}
+            \subsubsection{Ingame - Game Won} \label{story_game_won}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
              	\paragraph{Story}
@@ -642,7 +642,7 @@
 	            	\begin{enumerate}[label={}]
 	            		\item \textbf{Alert anzeigen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls der Nuzter das Spiel gewonnen hat. Bei Bet"atigung des Buttons soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, m"ussen zuvor eventuell aktive Alerts geschlossen werden.
 	            	\end{enumerate}
-             \subsubsection{Ingame - Spectator Over}
+             \subsubsection{Ingame - Spectator Over} \label{story_spactator_over}
              	\paragraph{Zuteilung}
              		Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
            		\paragraph{Story}
@@ -811,7 +811,7 @@
     		\end{itemize}
     		F\"ur den Fall, dass die Mindestanforderungen vor Ende des Sprints abgeschlossen werden sollten, sollte eine Sidebar zum Spielfeld hinzugef\"ugt werden. Diese sollte es erm\"oglichen Aktionen, wie Bewegen oder Angreifen, zu best\"atigen und abzubrechen. Falls das Team die Umsetzung der oben genannten Features schaffen w"urde, w"aren die Mindestanforderungen jedoch bereits erf\"ullt.
     	\subsection{Ge\"anderte User Stories vom Sprint \RN{5}}
-    		Die folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Mockups "anderten.
+    		Die folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung oder Mockups "anderten.
     		\subsubsection{Ingame - Minikarte anzeigen} \label{changed_user_story_minimap}
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
@@ -834,6 +834,21 @@
    						\item \textbf{UI Element f\"ur Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollen beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
    						\item \textbf{Informationen bei Mouseover anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll bei einem Mouseover auf einer Einheit eingeblendet werden und eingeblendet bleiben, bis "uber eine neue Einheit gehovert wird. Die Einheit, die der Spieler ausgew"ahlt hat, soll in der oberen Box angezeigt werden. Die Einheit, "uber die zuletzt gehovert wurde, soll in der unteren Box angezeigt werden.
    					\end{enumerate}
+  				\subsubsection{Ingame - Game Over}
+  					\paragraph{Neue Zuteilung}
+  						Diese User Story wurde auf 2 Storypoints gesch"atzt und an Juri Lozowoj neu zugeteilt.
+					\paragraph{Ziel und Subtasks}
+						Siehe Kapitel \ref{story_game_over}
+				\subsubsection{Ingame - Game Won}
+					\paragraph{Neue Zuteilung}
+						Diese User Story wurde auf 2 Storypoints gesch"atzt und an Juri Lozowoj neu zugeteilt.
+					\paragraph{Ziel und Subtasks}
+						Siehe Kapitel \ref{story_game_won}
+				\subsubsection{Ingame - Spactator Over}
+					\paragraph{Neue Zuteilung}
+						Diese User Story wurde auf 2 Storypoints gesch"atzt und an Juri Lozowoj neu zugeteilt.
+					\paragraph{Ziel und Subtasks}
+						Siehe Kapitel \ref{story_spactator_over}
    		\subsection{\"Ubernommene User Stories aus Sprint \RN{5}}
    			Weiterhin gab es auch User Stories aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden mit in den sechsten Sprint \"ubernommen. Es folgt eine Liste dieser Stories:
    			\begin{itemize}
@@ -867,7 +882,7 @@
    		\subsection{Ge\"anderte Tasks vom Sprint \RN{5}}
    			Die folgenden Tasks des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung "anderte.
    			\subsubsection{Einheiteninformationen im Datenmodell}
-   				\paragraph{Ge"andete Zuteilung}
+   				\paragraph{Neue Zuteilung}
    					Diese Task wurde auf 5 Zeitstunden gesch\"atzt und an Omar Sood zugeteilt.
    				\paragraph{Ziel}
    					Der Entwickler sollte die Enums UnitType und UnitTypeInfo zu einer Enum zusammenf\"ugen und musste darauf achten, dass alle Funktionalit\"aten erhalten blieben.
@@ -880,16 +895,26 @@
     		Eine genauere Beschreibung zu jeder Task befindet sich im Kapitel \ref{Tasks_5}.
    		\subsection{Tasks}
    			Im sechsten Sprint wurden weitere Tasks vom Scrum Master erstellt.
-   			\subsubsection{Ingame - Best\"atigungsbox in der Sidebar}
+   			\subsubsection{Waiting Room - Armeeauswahlbox anpassen}
    				\paragraph{Zuteilung}
-   					Diese Task wurde auf 3 Zeitstunden gesch"atzt und dan Georg Siebert zugeteilt.
+   					Diese Task wurde auf 2 Zeitstunden gesch"atzt und an Tobias Klipp zugeteilt.
+				\paragraph{Ziel}
+					Die Gr"o"sse der Box, in der das Element zur Armeeauswahl lag, sollte an das Element der Armeeauswahlbox angepasst werden.
+			\subsubsection{Ingame - Best\"atigungsbox in der Sidebar}
+				\paragraph{Zuteilung}
+					Diese Task wurde auf 3 Zeitstunden gesch"atzt und an Georg Siebert zugeteilt.
 				\paragraph{Ziel}
 					Es musste eine Box in der Sidebar erstellt werden, die es m"oglich machte, Aktionen zu best"atigen oder abzubrechen (Die Funktionalit"aten sollten erst sp"ater in den untergeordneten User Stories erstellt werden). War der User nicht an der Reihe oder im Beobachtungsmodus, musste diese Box disabled werden. Beziehungsweise sollte dann auf den beiden Buttons der Text und das Icon nicht mehr sichtbar sein.
 			\subsubsection{Spectating - REST Anfrage}
 				\paragraph{Zuteilung}
-					Diese Task wurde auf 1 Zeitstunde gesch"atzt und dan Juri Lozowoj zugeteilt.
+					Diese Task wurde auf 1 Zeitstunde gesch"atzt und an Juri Lozowoj zugeteilt.
 				\paragraph{Ziel}
 					Die REST Anfrage zum Beitreten eines Spiels sollte um einen optionalen Parameter erweitert werden (siehe Serverdoku).
+			\subsubsection{Default-Buttons setzen}
+				\paragraph{Zuteilung}
+					Diese Task wurde auf 3 Zeitstunden gesch"atzt und an Tobias Klipp zugeteilt.
+				\paragraph{Ziel}
+					Es sollten an mehreren Stellen Default-Buttons gesetzt werden, um als Nutzer schneller durch einige Fenster in der Anwendung zu kommen. Beim Best"atigungs-Alert (Confirm-Button), beim Info-Alert (Confirm-Button) und beim Phase beenden Button (Ingameszene) sollten sie gesetzt werden.
 		\subsection{Bugs}
 			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam. Diese werden hier wie gefolgt beschrieben: Zuerst wird genannt, wer den Bug beheben sollte. Danach wird das Problem beschrieben, das den Bug darstellte. Bearbeitungszeit wurden bei den Bugtasks nicht gesch\"atzt. 
 			\subsubsection{Terminierung sicherstellen}
@@ -912,6 +937,16 @@
 					Dieser Bug sollte von Georg Siebert behoben werden.
 				\paragraph{Problem}
 					Falls ein Spiel bereits voll war, sollte kein Spielbeitritt mehr m\"oglich sein. Daf\"ur sollte der entsprechende Button deaktiviert werden (und aktiviert werden, falls wieder ein Platz frei wurde).
+			\subsubsection{RunLoop bei "Anderungen im Spiel}
+				\paragraph{Zuteilung}
+					Dieser Bug sollte von Tobias Klipp behoben werden.
+				\paragraph{Problem}
+					W"ahrend der Nutzer sich im Spiel (Warteraum- oder Ingameszene) befand, konnte es passieren, dass der JavaFX Thread in einen runLoop lief.
+			\subsubsection{CSS Fehler}
+				\paragraph{Zuteilung}
+					Dieser Bug sollte von Tobias Klipp behoben werden.
+				\paragraph{Problem}
+					An verschiedenen Stellen (Create Game Fenster, Ingamechat, Spielerkarten im Warteraum) kam es vor, dass manchmal der Stylesheet nicht richtig geladen oder verwendet wurde. Der eigentlich weiﬂe Text war beispielsweise schwarz oder der selected color Hintergrund (Spielerkarte, falls der Spieler bereit war) wurde durchsichtig.
    	\newpage
     	\subsection{Zeit\"ubersicht}
     		TODO: Intro schreiben
@@ -923,27 +958,31 @@
     			Ingame - Einheit ausw\"ahlen & 13 h & 16 h 29 min & - & Juri Lozowoj \\
     			Ingame - Einheit bewegen & 13 h & 13 h 35 min & - & Omar Sood \\
     			Ingame - Einheit angreifen & 5 h & 3 h 15 min & - & Omar Sood \\
-    			Ingame - Chatintegration & 13 h & 2 h & 11 h & Tobias Klipp \\
+    			Ingame - Chatintegration & 13 h & 5 h & - & Tobias Klipp \\
     			Ingame - Minikarte anzeigen & 8 h & 12 h 14 min & - & Georg Siebert \\
     			Lobby - Spectating & 5 h & 2 h 21 min & - & Juri Lozowoj \\
     			Ingame - Spectating & 13 h & 2 h 13 min & - & Juri Lozowoj \\
-    			Ingame - Game Over & 2 h & - & 2 h & Tobias Klipp \\
-    			Ingame - Game Won & 2 h & - & 2 h & Tobias Klipp \\
-    			Ingame - Spectator Over & 2 h & - & 2 h & Tobias Klipp \\
+    			Ingame - Game Over & 2 h & - & 2 h & Juri Lozowoj \\
+    			Ingame - Game Won & 2 h & - & 2 h & Juri Lozowoj \\
+    			Ingame - Spectator Over & 2 h & - & 2 h & Juri Lozowoj \\
     			Ingame - Einheiteninformationen & 8 h & 1 h & 7 h & Georg Siebert \\
     			Ingame - Spielstatus anzeigen & 8 h & 31 h 30 min & - & Tobias Klipp \\
     			Ingame - Musiksteuerung & 3 h & 21 min & - & Omar Sood \\
     			Ingame - Einheit bewegen nach Bewegung & 5 h & - & 5 h & Omar Sood \\
     			\midrule
+    			Waiting Room - Armeeauswahlbox anpassen & 2 h & 30 min & - & Tobias Klipp \\
     			Einheiteninformationen im Datenmodell & 5 h & 1 h 28 min & - & Omar Sood \\
     			Servernachrichten & 8 h & 1 min & - & Omar Sood \\
     			Ingame - Best\"atigungsbox in der Sidebar & 3 h & - & 3 h & Georg Siebert \\
     			Spectating - REST Anfrage & 1 h & - & 1 h & Juri Lozowoj \\
+    			Default-Buttons setzen & 3 h & - & 3 h & Tobias Klipp \\
     			\midrule
     			Terminierung sicherstellen & - & ? & - & Omar Sood \\
     			Ingame - Einheit mehrmals ausw\"ahlen & - & 1 h & - & Juri Lozowoj \\
     			Spectating - Automatischer Wechsel zum Spielfeld & - & ? & - & Juri Lozowoj \\
     			Lobby - Spielbeitritt blockieren & - & ? & - & Georg Siebert \\
+    			RunLoop bei "Anderungen im Spiel & - & ? & - & Tobias Klipp \\
+    			CSS Fehler & - & ? & - & Tobias Klipp \\
     			\caption{Zeit\"ubersicht sechster Sprint}
     		\end{longtable}
     	\subsection{Analyse}
