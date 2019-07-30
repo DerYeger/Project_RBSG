@@ -369,12 +369,11 @@ public class BattleFieldController implements RootController, IngameViewControll
                 playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
             }
         });
-        this.game.getPlayers().addListener((ListChangeListener) l -> {
+        this.game.getPlayers().addListener((ListChangeListener<Player>) l -> {
             if(!l.next()){
                 return;
             }
-            @SuppressWarnings("unchecked")
-            List<Player> removedPlayer = (List<Player>)l.getRemoved();
+            List<? extends Player> removedPlayer = l.getRemoved();
             Platform.runLater(()->{
                 for(Player player : removedPlayer){
                     playerPaneMap.get(player.getId()).getChildren().remove(0);
@@ -500,15 +499,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         game.setSelectedUnit(null);
 
         return true;
-    }
-
-    private void onUnitSelection(Unit unitClicked){
-        if(unitClicked.equals(game.getSelectedUnit())){
-            game.setSelectedUnit(null);
-            setCellProperty(null);
-        } else {
-            game.setSelectedUnit(unitClicked);
-        }
     }
 
     private boolean handleMovement(Tile tile) {
