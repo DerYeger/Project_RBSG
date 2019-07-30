@@ -39,7 +39,7 @@ public class Game {
 
     final private ObjectProperty<Selectable> selected = new SimpleObjectProperty<>();
 
-    final private ObjectProperty<Selectable> hovered = new SimpleObjectProperty<>();
+    final private ObjectProperty<Hoverable> hovered = new SimpleObjectProperty<>();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -321,16 +321,16 @@ public class Game {
         }
     }
 
-    public Selectable getHovered() {
+    public Hoverable getHovered() {
         return hovered.get();
     }
 
-    public ReadOnlyObjectProperty<Selectable> hoveredProperty() {
+    public ReadOnlyObjectProperty<Hoverable> hoveredProperty() {
         return hovered;
     }
 
-    public void setHovered(Selectable hovered) {
-        Selectable lastHovered = this.hovered.get();
+    public void setHovered(Hoverable hovered) {
+        Hoverable lastHovered = this.hovered.get();
 
         if (lastHovered == hovered) {
             return;
@@ -339,11 +339,11 @@ public class Game {
         this.hovered.set(hovered);
 
         if (lastHovered != null) {
-            lastHovered.setSelectedIn(null);
+            lastHovered.setHoveredIn(null);
         }
 
         if (hovered != null) {
-            hovered.setSelectedIn(this);
+            hovered.setHoveredIn(this);
         }
     }
 
