@@ -7,4 +7,6 @@ public interface Selectable {
     boolean isSelected();
 
     void setSelectedIn(@Nullable Game game);
+
+    default void clearSelection() {setSelectedIn(null);}
 }

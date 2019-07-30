@@ -347,6 +347,8 @@ public class Game {
         }
     }
 
+    public void clearSelection() {setSelected(null);}
+
     public boolean isPhase(Phase phase) {
         return phase.name().equals(getPhase());
     }
