@@ -159,20 +159,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
-        this.selectedTile = new SimpleObjectProperty<>(null);
-        this.hoveredTile = new SimpleObjectProperty<>(null);
         this.roundCount = new SimpleIntegerProperty();
         this.roundCounter = 1;
-    }
-
-    public Tile getHoveredTile()
-    {
-        return hoveredTile.get();
-    }
-
-    public SimpleObjectProperty<Tile> hoveredTileProperty()
-    {
-        return hoveredTile;
     }
 
     public void initialize()
