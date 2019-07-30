@@ -207,6 +207,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Player player = new Player("Karli").setName("Karli").setColor("RED");
         game.withPlayer(player);
         playerUnit.setLeader(player);
+        definition.otherUnit.setLeader(player);
         game.setCurrentPlayer(null);
 
         playerUnit.setMp(3);
@@ -219,8 +220,11 @@ public class BattleFieldViewTest extends ApplicationTest {
         );
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
-        context.getGameState().setPhase("movePhase");
-        WaitForAsyncUtils.waitForFxEvents();
+
+        CompletableFuture.runAsync(
+                () -> context.getGameState().setPhase("movePhase"),
+                Platform::runLater
+        ).get();
 
         revealBattleField(context);
         CompletableFuture.runAsync(
@@ -344,6 +348,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Player player = new Player("Bob").setName("Bob").setColor("RED");
         game.withPlayer(player);
         playerUnit.setLeader(player);
+        definition.otherUnit.setLeader(player);
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
@@ -488,8 +493,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
-        game.withPlayer(player);
+        Player other = new Player("other").setColor("BLUE");
+        game.withPlayers(player, other);
         playerUnit.setLeader(player);
+        definition.otherUnit.setLeader(other);
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
