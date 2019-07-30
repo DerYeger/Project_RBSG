@@ -20,7 +20,9 @@ public class Tile
 {
     private final Cell cell;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
     private final ChangeListener<Object> updateHighlightingOne = this::updateHighlightingOne;
+
     private final ChangeListener<Object> updateHighlightingTwo = this::updateHighlightingTwo;
 
     private Image backgroundImage;
