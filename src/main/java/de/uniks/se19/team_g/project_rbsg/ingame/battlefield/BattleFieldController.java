@@ -453,7 +453,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     protected void handleSelection(Tile tile) {
         Cell cell = tile.getCell();
         Unit unit = cell.getUnit();
-        Selectable selectable = Optional.<Selectable>of(unit).orElse(cell);
+        Selectable selectable = Objects.requireNonNullElse(unit, cell);
 
         if (selectable == context.getGameState().getSelected()) {
             selectable.clearSelection();
