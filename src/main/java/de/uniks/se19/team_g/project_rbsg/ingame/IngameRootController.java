@@ -113,6 +113,7 @@ public class IngameRootController
             ((Terminable) activeComponent.getController()).terminate();
         }
 
+        gameEventManager.terminate();
         ingameContext.tearDown();
     }
 
