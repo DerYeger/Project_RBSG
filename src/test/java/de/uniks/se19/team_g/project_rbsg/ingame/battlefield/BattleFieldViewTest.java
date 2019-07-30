@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -107,7 +108,17 @@ public class BattleFieldViewTest extends ApplicationTest {
         userProvider.set(new User().setName("TestUser"));
 
         IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
-
+        Player player = new Player("123");
+        player.getUnits().addAll(
+                new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"),
+                new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"),
+                new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"),
+                new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"),
+                new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"));
+        player.setColor("RED");
+        player.setName("Test");
+        context.getGameState().getPlayers().add(player);
+        context.getGameState().setCurrentPlayer(player);
         revealBattleField(context);
 
         Assert.assertNotNull(ingameView);
@@ -130,7 +141,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         Button endPhaseButton = lookup("#endPhaseButton").query();
         Assert.assertNotNull(endPhaseButton);
 
-
         Game game = ingameGameProvider.get();
         Unit unit = new Unit("10");
         unit.setHp(10);
@@ -148,12 +158,23 @@ public class BattleFieldViewTest extends ApplicationTest {
         Button button = lookup("#mapButton").query();
         clickOn("#mapButton");
         clickOn("#mapButton");
+        Button ingameInformationsButton = lookup("#ingameInformationsButton").query();
+        Assert.assertNotNull(ingameInformationsButton);
+        HBox playerBar = lookup("#playerBar").query();
+        clickOn("#ingameInformationsButton");
+        Assert.assertTrue(playerBar.isVisible());
+        clickOn("#ingameInformationsButton");
+        Assert.assertTrue(!playerBar.isVisible());
     }
-
 
     private void click(double x, double y) {
         clickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
     }
+
+    private void doubleClick(double x, double y) {
+        doubleClickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
+    }
+
 
     @Test
     public void testMovement() throws ExecutionException, InterruptedException {
@@ -165,7 +186,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         User user = new User();
         user.setName("Karli");
-        Player player = new Player("Karli").setName("Karli");
+        Player player = new Player("Karli").setName("Karli").setColor("RED");
         game.withPlayer(player);
         playerUnit.setLeader(player);
         game.setCurrentPlayer(null);
@@ -181,20 +202,22 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
         context.getGameState().setPhase("movePhase");
-        revealBattleField(context);
+        WaitForAsyncUtils.waitForFxEvents();
 
+        revealBattleField(context);
         CompletableFuture.runAsync(
             () -> game.setCurrentPlayer(player),
             Platform::runLater
         ).get();
+
         Assert.assertEquals(playerUnit.getMp(), playerUnit.getRemainingMovePoints());
 
         context.getGameState().setPhase("movePhase");
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
-        click(75, 150);
+        click(300, 150);
         Assert.assertNull(game.getSelectedUnit());
-        click(125, 150);
+        click(350, 175);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyZeroInteractions(movementManager);
@@ -202,10 +225,10 @@ public class BattleFieldViewTest extends ApplicationTest {
                 .thenReturn(null);
 
         // test unit selection removed if not reachable terrain is clicked
-        click(75, 200);
+        click(300, 200);
         //verify(movementManager).getTour(playerUnit, definition.cells[1][0]);
         Assert.assertNull(game.getSelectedUnit());
-        click(125, 150);
+        click(350, 175);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyNoMoreInteractions(movementManager);
@@ -229,7 +252,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         ).when(gameEventManager).sendMessage(any());
 
         // test move action fired, if reachable terrain is clicked
-        click(75, 150);
+        click(300, 175);
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
@@ -242,8 +265,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         // test no action, if user is not current player
         game.setCurrentPlayer(null);
+        click(350, 150);
         verifyNoMoreInteractions(gameEventManager);
-        click(75, 150);
+        click(350, 150);
 
     }
 
@@ -260,7 +284,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         User user = new User();
         user.setName("Bob");
-        Player player = new Player("Bob").setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
         game.withPlayer(player);
         playerUnit.setLeader(player);
         game.setCurrentPlayer(player);
@@ -286,8 +310,6 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Assert.assertFalse(endPhaseButton.isDisabled());
 
-
-
     }
 
     @Test
@@ -303,7 +325,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         User user = new User();
         user.setName("Bob");
-        Player player = new Player("Bob").setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
         game.withPlayer(player);
         playerUnit.setLeader(player);
         game.setCurrentPlayer(player);
@@ -320,6 +342,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
         context.getGameState().getCells().get(5).setUnit(null);
         context.getGameState().setPhase("movePhase");
+        WaitForAsyncUtils.waitForFxEvents();
+
         Tour tour = new Tour();
 
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(tour);
@@ -363,11 +387,11 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         User user = new User();
         user.setName("Bob");
-        Player player = new Player("Bob").setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("BLUE");
 
         User enemy = new User();
         enemy.setName("Dinkelberg");
-        Player enenymPlayer = new Player("Dinkelberg").setName("Dinkelberg");
+        Player enenymPlayer = new Player("Dinkelberg").setName("Dinkelberg").setColor("RED");
 
         game.withPlayer(player);
         game.withPlayer(enenymPlayer);
@@ -385,13 +409,21 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         context.getUser().setName("Bob");
         revealBattleField(context);
-        context.getGameState().setPhase("attackPhase");
+        Tile unitTile = playerUnit.getPosition().getTile();
 
+        context.getGameState().setPhase("attackPhase");
+        while(context.getGameState().getPhase()==null){
+            sleep(1);
+        }
+        WaitForAsyncUtils.waitForFxEvents();
         Assert.assertFalse(enemyUnit.isAttackable());
         Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         game.setSelectedUnit(playerUnit);
 
@@ -400,18 +432,25 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertTrue(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertTrue(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
-
+        while(context.getGameState().getPhase()!="movePhase"){
+            sleep(1);
+        }
+        WaitForAsyncUtils.waitForFxEvents();
         Assert.assertFalse(enemyUnit.isAttackable());
         Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
         Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
+        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
 
-
-
-
+        context.getGameState().setPhase("movePhase");
+        battleFieldController.setSelectedTile(unitTile);
+        battleFieldController.setSelectedTile(unitTile);
+        Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
     }
 
     @Test
@@ -429,7 +468,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         User user = new User();
         user.setName("Bob");
-        Player player = new Player("Bob").setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
         game.withPlayer(player);
         playerUnit.setLeader(player);
         game.setCurrentPlayer(player);
@@ -446,16 +485,16 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
-        click(125, 200);
-        click( 125, 250);
-        click(125, 200);
+        click(325, 200);
+        click( 325, 250);
+        click(325, 200);
         game.setPhase(Game.Phase.movePhase.name());
-        click(175, 200);
+        click(375, 200);
         verifyZeroInteractions(gameEventManager);
         game.setPhase(Game.Phase.attackPhase.name());
 
-        click(125, 200);
-        click(175, 200);
+        click(325, 225);
+        click(375, 225);
         verify(gameEventManager).api();
         verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
@@ -463,7 +502,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNull(game.getSelectedUnit());
         Assert.assertNull(battleFieldController.getSelectedTile());
     }
-
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions

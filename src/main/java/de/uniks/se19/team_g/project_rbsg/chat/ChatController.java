@@ -1,17 +1,19 @@
 package de.uniks.se19.team_g.project_rbsg.chat;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.chat.command.*;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChuckNorrisCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.command.LeaveCommandHandler;
+import de.uniks.se19.team_g.project_rbsg.chat.command.WhisperCommandHandler;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.scene.control.TabPane;
-import org.springframework.context.annotation.Scope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -166,5 +168,10 @@ public class ChatController {
 
     public void registerChatChannelController(@NonNull final ChatChannelController chatChannelController, @NonNull final String channel) {
         chatChannelControllers.put(channel, chatChannelController);
+    }
+
+
+    public HashMap<String, ChatChannelController> getChatChannelControllers() {
+        return chatChannelControllers;
     }
 }
