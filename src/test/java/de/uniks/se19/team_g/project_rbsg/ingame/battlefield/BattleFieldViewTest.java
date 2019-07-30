@@ -23,7 +23,6 @@ import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -365,7 +364,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(tour);
 
-        clickOn(485, 210);
+        clickOn(520, 210);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Cell cell = definition.cells[0][0];
@@ -374,13 +373,13 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.MOVE, cell.getTile().getHighlightingOne());
 
-        clickOn(485, 210);
+        clickOn(520, 210);
         Assert.assertNull(game.getSelectedUnit());
 
         Assert.assertFalse(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.NONE, cell.getTile().getHighlightingOne());
 
-        clickOn(485, 210);
+        clickOn(520, 210);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Assert.assertTrue(cell.isIsReachable());
@@ -446,7 +445,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
-        clickOn(485, 260);
+        clickOn(520, 260);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Assert.assertTrue(enemyUnit.isAttackable());
