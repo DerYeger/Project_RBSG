@@ -309,4 +309,9 @@ public class Cell implements Hoverable, Selectable {
             game.setSelected(this);
         }
     }
+
+    @Override
+    public ObservableBooleanValue selectedProperty() {
+        return selectedIn.isNotNull();
+    }
 }

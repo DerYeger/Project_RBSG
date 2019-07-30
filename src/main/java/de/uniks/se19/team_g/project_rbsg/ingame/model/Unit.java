@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -200,8 +201,18 @@ public class Unit implements Selectable, Hoverable {
     }
 
     @Override
+    public ObservableBooleanValue selectedProperty() {
+        return selected.isNotNull();
+    }
+
+    @Override
     public boolean isHovered() {
         return hoveredIn.get() != null;
+    }
+
+    @Override
+    public ObservableBooleanValue hoveredProperty() {
+        return hoveredIn.isNotNull();
     }
 
     @SuppressWarnings("Duplicates")
