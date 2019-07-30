@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
 import org.springframework.lang.NonNull;
@@ -24,7 +25,11 @@ public class Unit implements Selectable, Hoverable {
 
     private SimpleObjectProperty<Cell> position = new SimpleObjectProperty<>();
 
-    private ObjectProperty<Game> selected = new SimpleObjectProperty<>();
+    private final ObjectProperty<Game> selected = new SimpleObjectProperty<>();
+    private final BooleanBinding isSelected = selected.isNotNull();
+
+    private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isHovered = hoveredIn.isNotNull();
 
     private SimpleBooleanProperty attackable = new SimpleBooleanProperty(false);
 
@@ -36,8 +41,6 @@ public class Unit implements Selectable, Hoverable {
     private int hp;
 
     private ArrayList<UnitTypeInfo> canAttack;
-
-    final private ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -177,7 +180,7 @@ public class Unit implements Selectable, Hoverable {
     }
 
     public boolean isSelected() {
-        return selected.get() != null;
+        return isSelected.get();
     }
 
     @SuppressWarnings("Duplicates")
@@ -202,17 +205,17 @@ public class Unit implements Selectable, Hoverable {
 
     @Override
     public ObservableBooleanValue selectedProperty() {
-        return selected.isNotNull();
+        return isSelected;
     }
 
     @Override
     public boolean isHovered() {
-        return hoveredIn.get() != null;
+        return isHovered.get();
     }
 
     @Override
     public ObservableBooleanValue hoveredProperty() {
-        return hoveredIn.isNotNull();
+        return isHovered;
     }
 
     @SuppressWarnings("Duplicates")

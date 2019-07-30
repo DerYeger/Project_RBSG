@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableValue;
@@ -31,15 +32,17 @@ public class Cell implements Hoverable, Selectable {
     private Cell right;
     private Cell bottom;
 
-    private SimpleObjectProperty<Unit> unit;
+    private final SimpleObjectProperty<Unit> unit;
 
-    private SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
 
-    private SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
 
-    private ObjectProperty<Game> selectedIn = new SimpleObjectProperty<>();
+    private final ObjectProperty<Game> selectedIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isSelected = selectedIn.isNotNull();
 
-    final private ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
+    private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isHovered = hoveredIn.isNotNull();
 
     public Cell(@NonNull final String id) {
         this.id = id;
@@ -259,12 +262,12 @@ public class Cell implements Hoverable, Selectable {
 
     @Override
     public boolean isHovered() {
-        return hoveredIn.get() != null;
+        return isHovered.get();
     }
 
     @Override
     public ObservableBooleanValue hoveredProperty() {
-        return hoveredIn.isNotNull();
+        return isHovered;
     }
 
     @SuppressWarnings("Duplicates")
@@ -288,7 +291,7 @@ public class Cell implements Hoverable, Selectable {
     }
 
     public boolean isSelected() {
-        return selectedIn.get() != null;
+        return isSelected.get();
     }
 
     @SuppressWarnings("Duplicates")
@@ -313,7 +316,7 @@ public class Cell implements Hoverable, Selectable {
 
     @Override
     public ObservableBooleanValue selectedProperty() {
-        return selectedIn.isNotNull();
+        return isSelected;
     }
 
     public ObjectProperty<Game> selectedInProp() {
