@@ -420,9 +420,18 @@ public class BattleFieldController implements RootController, IngameViewControll
         return tileMap[yPos][xPos];
     }
 
+    protected Cell resolveTargetCell(MouseEvent event) {
+        return resolveTargetTile(event).getCell();
+    }
+
     public void canvasHandleMouseMove(MouseEvent event) {
-        Tile tile = resolveTargetTile(event);
-        hoveredTile.set(tile);
+        Cell cell = resolveTargetCell(event);
+        Unit unit = cell.getUnit();
+        if (unit != null) {
+            context.getGameState().setHovered(unit);
+        } else {
+            context.getGameState().setHovered(cell);
+        }
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
