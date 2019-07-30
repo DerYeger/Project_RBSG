@@ -381,13 +381,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(!playerNodeMap.isEmpty() && this.game.getCurrentPlayer()!=null){
             playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
         }
-        this.game.currentPlayerProperty().addListener((observable, oldVal, newVal) -> {
-            Player oldPlayer = oldVal;
-            if(oldPlayer!=null){
+        this.game.currentPlayerProperty().addListener((observable, oldPlayer, newPlayer) -> {
+            if(oldPlayer !=null){
                 playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
             }
-            if(newVal!=null){
-                Player newPlayer = newVal;
+            if(newPlayer!=null){
                 playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
             }
         });
@@ -678,8 +676,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
         }
 
-        Game gameState = context.getGameState();
-        game = gameState;
+        game = context.getGameState();
         if (game != null) {
             cells = game.getCells();
             units = game.getUnits();
@@ -704,9 +701,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             initMiniMap();
             initPlayerBar();
             miniMapDrawer.setCamera(camera);
-        } else {
-            // exception
-        }
+        }  // exception
+
 
         //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
@@ -901,7 +897,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
     }
     public void openPlayerBar(@Nonnull final ActionEvent event){
-        if(playerBar.visibleProperty().get()==false){
+        if(!playerBar.visibleProperty().get()){
             playerBar.visibleProperty().setValue(true);
             playerBar.toFront();
         }else
