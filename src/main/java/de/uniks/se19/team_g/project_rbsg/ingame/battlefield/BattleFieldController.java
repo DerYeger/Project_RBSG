@@ -1,16 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
@@ -20,7 +17,10 @@ import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -42,11 +42,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -108,6 +107,13 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final MusicManager musicManager;
 
     private IngameContext context;
+    private final ChatBuilder chatBuilder;
+    private ChatController chatController;
+
+    @FXML
+    public Button chatButton;
+    @FXML
+    public StackPane chatPane;
 
     @FXML
     public Button ingameInformationsButton;
@@ -144,14 +150,18 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final SceneManager sceneManager,
             @Nonnull final AlertBuilder alertBuilder,
             @Nonnull final MovementManager movementManager,
+            @Nonnull final ChatBuilder chatBuilder,
+            @Nonnull final ChatController chatController,
             @Nonnull final MusicManager musicManager
-            ) {
+    ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.movementManager = movementManager;
         this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
+        this.chatBuilder=chatBuilder;
+        this.chatController=chatController;
         this.roundCount = new SimpleIntegerProperty();
         this.roundCounter = 1;
     }
@@ -189,6 +199,12 @@ public class BattleFieldController implements RootController, IngameViewControll
                 endPhaseButton,
                 getClass().getResource("/assets/icons/operation/endPhaseWhite.png"),
                 getClass().getResource("/assets/icons/operation/endPhaseBlack.png"),
+                40
+        );
+        JavaFXUtils.setButtonIcons(
+                chatButton,
+                getClass().getResource("/assets/icons/operation/chatBubbleWhite.png"),
+                getClass().getResource("/assets/icons/operation/chatBubbleBlack.png"),
                 40
         );
 
@@ -252,6 +268,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 //        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
     }
 
+    @SuppressWarnings("unused")
     private void onSelectedUnitMoved(Observable observable, Cell last, Cell next) {
         Platform.runLater(() -> {
             miniMapDrawer.drawMinimap(tileMap);
@@ -259,7 +276,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
     }
 
-    private boolean isMyUnit(@NonNull Unit unit){
+    private boolean isMyUnit(@Nonnull Unit unit){
         if (unit.getLeader() == null){
             return false;
         }
@@ -666,7 +683,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             miniMapDrawer.setCamera(camera);
         }  // exception
 
-
         //Add Event handler for actions on canvas
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::canvasHandleMouseMove);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::canvasHandleMouseClicked);
@@ -693,6 +709,41 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureEndPhase();
 
         configureCells();
+
+        try {
+            initChat();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initChat() throws Exception {
+        final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
+        chatPane.getChildren().add(chatComponents.getRoot());
+        chatController = chatComponents.getController();
+        chatPane.setVisible(false);
+    }
+
+    public void openChat(){
+
+        if(chatPane.isVisible()){
+            chatPane.setVisible(false);
+            JavaFXUtils.setButtonIcons(
+                    chatButton,
+                    getClass().getResource("/assets/icons/operation/chatBubbleWhite.png"),
+                    getClass().getResource("/assets/icons/operation/chatBubbleBlack.png"),
+                    40
+            );
+        }
+        else {
+            chatPane.setVisible(true);
+            JavaFXUtils.setButtonIcons(
+                    chatButton,
+                    getClass().getResource("/assets/icons/operation/chatWhite.png"),
+                    getClass().getResource("/assets/icons/operation/chatBlack.png"),
+                    40
+            );
+        }
     }
 
     public Tile getTileOf(Object positioned) {
@@ -721,7 +772,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void removeUnitAttackProperty(@NonNull Cell cell){
+    private void removeUnitAttackProperty(@Nonnull Cell cell){
         if (cell.getUnit() == null){
             return;
         }
@@ -732,7 +783,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         unit.setAttackable(false);
     }
 
-    private void setUnitAttackProperty(@NonNull Cell cell){
+    private void setUnitAttackProperty(@Nonnull Cell cell){
         if (cell.getUnit() == null){
             return;
         }
@@ -763,7 +814,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void setMoveRadius(@NonNull Unit selectedUnit) {
+    private void setMoveRadius(@Nonnull Unit selectedUnit) {
         for(Cell cell: this.context.getGameState().getCells()) {
             if (this.movementManager.getTour(selectedUnit, cell) != null){
                 cell.setIsReachable(true);
@@ -774,7 +825,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
 
-    private void setAttackRadius(@NonNull Unit selectedUnit){
+    private void setAttackRadius(@Nonnull Unit selectedUnit){
         Cell position = selectedUnit.getPosition();
         for (Cell cell: this.context.getGameState().getCells()){
             cell.setIsAttackable(false);
