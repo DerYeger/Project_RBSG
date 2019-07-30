@@ -32,6 +32,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.fxml.FXML;
@@ -43,6 +44,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import org.slf4j.Logger;
@@ -264,7 +267,18 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40);
 
         musicManager.initButtonIcons(musicButton);
+
+        battlefieldStackPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode().equals(KeyCode.ENTER)){
+                endPhase();
+            }
+        }
+    });
     }
+
+
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
     {

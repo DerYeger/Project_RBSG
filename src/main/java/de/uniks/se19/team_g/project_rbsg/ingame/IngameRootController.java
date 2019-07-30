@@ -12,7 +12,10 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,7 +156,6 @@ public class IngameRootController
             }
             root.getChildren().remove(activeComponent.getRoot());
         }
-
         root.getChildren().add(nextComponent.getRoot());
         nextComponent.getRoot().toBack();
         nextComponent.getController().configure(ingameContext);
