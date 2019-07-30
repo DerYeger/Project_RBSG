@@ -314,11 +314,11 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         if (lastPosition != null)
         {
-            tileDrawer.drawTile(tileMap[lastPosition.getY()][lastPosition.getX()]);
+            tileDrawer.drawTile(getTileOf(lastPosition));
         }
         if (newPosition != null)
         {
-            tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
+            tileDrawer.drawTile(getTileOf(newPosition));
         }
         miniMapDrawer.drawMinimap(tileMap);
     }
@@ -685,8 +685,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             tileMap = new Tile[mapSize][mapSize];
 
             for (Cell cell : cells) {
-                tileMap[cell.getY()][cell.getX()] = new Tile(cell);
-                tileMap[cell.getY()][cell.getX()].addListener(highlightingListener);
+                Tile tile = new Tile(cell);
+                tileMap[cell.getY()][cell.getX()] = tile;
+                tile.addListener(highlightingListener);
             }
 
             for (Unit unit : units) {
@@ -730,6 +731,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureEndPhase();
 
         configureCells();
+    }
+
+    protected Tile getTileOf(Cell cell) {
+        return tileMap[cell.getY()][cell.getX()];
     }
 
     private void configureCells() {
