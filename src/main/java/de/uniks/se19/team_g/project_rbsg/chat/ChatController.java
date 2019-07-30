@@ -29,8 +29,6 @@ import static de.uniks.se19.team_g.project_rbsg.chat.ChatClient.*;
 @Scope("prototype")
 public class ChatController {
 
-
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private HashMap<String, ChatChannelController> chatChannelControllers;
