@@ -109,25 +109,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private int mapSize;
     private Camera camera;
 
-    public SimpleObjectProperty<Tile> selectedTileProperty()
-    {
-        return selectedTile;
-    }
-
-    public Tile getSelectedTile()
-    {
-        return selectedTile.get();
-    }
-
-    public void setSelectedTile(@Nullable Tile selectedTile) {
-        this.selectedTile.set(selectedTile);
-    }
-
-    @Nonnull
-    final private SimpleObjectProperty<Tile> selectedTile;
-    @Nonnull
-    final private SimpleObjectProperty<Tile> hoveredTile;
-
     @Nonnull
     private final MovementManager movementManager;
     @Nonnull
