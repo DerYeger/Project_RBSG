@@ -441,7 +441,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             context.getGameState().setSelected(selectable);
         }
 
-        setCellProperty(unit);
+        setCellProperty(context.getGameState().getSelectedUnit());
     }
 
     private boolean handleAttack(Tile tile) {
@@ -667,7 +667,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureCells();
     }
 
-    protected Tile getTileOf(Object positioned) {
+    public Tile getTileOf(Object positioned) {
 
         Cell position;
 

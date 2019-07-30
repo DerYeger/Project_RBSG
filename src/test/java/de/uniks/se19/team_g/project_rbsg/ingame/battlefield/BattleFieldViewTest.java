@@ -257,8 +257,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
         Assert.assertNull(game.getSelectedUnit());
-        SimpleObjectProperty<Tile> selectedTileProperty = battleFieldComponent.getController().selectedTileProperty();
-        Assert.assertNull(selectedTileProperty.get());
 
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
@@ -348,19 +346,23 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(tour);
 
-        game.setSelectedUnit(playerUnit);
+        clickOn(485, 210);
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
+
         Cell cell = definition.cells[0][0];
         Cell target = definition.cells[1][1];
 
         Assert.assertTrue(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.MOVE, cell.getTile().getHighlightingOne());
 
-        game.setSelectedUnit(null);
+        clickOn(485, 210);
+        Assert.assertNull(game.getSelectedUnit());
 
         Assert.assertFalse(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.NONE, cell.getTile().getHighlightingOne());
 
-        game.setSelectedUnit(playerUnit);
+        clickOn(485, 210);
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Assert.assertTrue(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.MOVE, cell.getTile().getHighlightingOne());
@@ -425,7 +427,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
-        game.setSelectedUnit(playerUnit);
+        clickOn(485, 260);
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Assert.assertTrue(enemyUnit.isAttackable());
         Assert.assertTrue(playerUnit.getPosition().getLeft().isIsAttackable());
@@ -448,8 +451,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
 
         context.getGameState().setPhase("movePhase");
-        battleFieldController.setSelectedTile(unitTile);
-        battleFieldController.setSelectedTile(unitTile);
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
     }
 
@@ -500,7 +501,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
 
         Assert.assertNull(game.getSelectedUnit());
-        Assert.assertNull(battleFieldController.getSelectedTile());
     }
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {

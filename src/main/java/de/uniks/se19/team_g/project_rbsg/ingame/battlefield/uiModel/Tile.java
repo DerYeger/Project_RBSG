@@ -43,8 +43,11 @@ public class Tile
         }
 
         configureUnitDependencies();
-
         configureHighlighting();
+
+        updateHighlightingOne(null);
+        updateHighlightingTwo(null);
+
     }
 
     private void configureUnitDependencies() {
@@ -52,6 +55,9 @@ public class Tile
             clearUnitListener(lastUnit);
             addUnitListener(nextUnit);
         });
+
+        // init
+        addUnitListener(cell.getUnit());
     }
 
     private void clearUnitListener(@Nullable Unit unit) {
