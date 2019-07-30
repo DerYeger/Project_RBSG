@@ -37,6 +37,8 @@ public class Game {
 
     final private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
 
+    final private ObjectProperty<Selectable> selected = new SimpleObjectProperty<>();
+
     public Game(@NonNull final String id) {
         this.id = id;
 
@@ -284,6 +286,32 @@ public class Game {
 
     public void setSelectedUnit(Unit selectedUnit) {
         this.selectedUnit.set(selectedUnit);
+    }
+
+    public Selectable getSelected() {
+        return selected.get();
+    }
+
+    public ReadOnlyObjectProperty<Selectable> selectedProperty() {
+        return selected;
+    }
+
+    public void setSelected(@Nullable Selectable selected) {
+        Selectable lastSelected = this.selected.get();
+
+        if (lastSelected == selected) {
+            return;
+        }
+
+        this.selected.set(selected);
+
+        if (lastSelected != null) {
+            lastSelected.setSelectedIn(null);
+        }
+
+        if (selected != null) {
+            selected.setSelectedIn(this);
+        }
     }
 
     public boolean isPhase(Phase phase) {
