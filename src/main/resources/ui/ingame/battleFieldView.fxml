@@ -54,6 +54,11 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </HBox.margin>
                      </Button>
+                     <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button">
+                        <HBox.margin>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </HBox.margin>
+                     </Button>
                      <Button fx:id="mapButton" mnemonicParsing="false" onAction="#toggleMap" styleClass="icon-button" >
                         <HBox.margin>
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -125,6 +130,7 @@
                               <Canvas fx:id="miniMapCanvas" height="250.0" styleClass="miniMap" width="250.0" StackPane.alignment="CENTER" />
                            </children>
                         </StackPane>
+                        <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="260"/>
                      </children>
                   </AnchorPane>
                </children>
