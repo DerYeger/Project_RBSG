@@ -16,11 +16,13 @@ import java.beans.*;
 public class Tile
 {
     private final Cell cell;
-    private final Image backgroundImage;
-    private final Image deckoratorImage;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private final InvalidationListener updateHighlightingOne = this::updateHighlightingOne;
     private final InvalidationListener updateHighlightingTwo = this::updateHighlightingTwo;
+
+    private Image backgroundImage;
+    private Image deckoratorImage;
+
     private HighlightingOne highlightingOne;
     private HighlightingTwo highlightingTwo;
 
@@ -30,17 +32,6 @@ public class Tile
         this.cell = cell;
         highlightingOne = HighlightingOne.NONE;
         highlightingTwo = HighlightingTwo.NONE;
-
-        backgroundImage = TileUtils.getBackgroundImage(cell);
-
-        if (cell.getBiome() == Biome.GRASS)
-        {
-            deckoratorImage = TileUtils.getDecoratorImage();
-        }
-        else
-        {
-            deckoratorImage = null;
-        }
 
         configureUnitDependencies();
         configureHighlighting();
@@ -140,11 +131,6 @@ public class Tile
         pcs.addPropertyChangeListener(listener);
     }
 
-    public Image getBackgroundImage()
-    {
-        return backgroundImage;
-    }
-
     public HighlightingTwo getHighlightingTwo()
     {
         return highlightingTwo;
@@ -179,6 +165,18 @@ public class Tile
 
     public Image getDeckoratorImage()
     {
+
+        if (cell.getBiome() == Biome.GRASS && deckoratorImage == null) {
+            deckoratorImage = TileUtils.getDecoratorImage();
+        }
         return deckoratorImage;
+    }
+
+    public Image getBackgroundImage()
+    {
+        if (backgroundImage == null) {
+            backgroundImage = TileUtils.getBackgroundImage(cell);
+        }
+        return backgroundImage;
     }
 }
