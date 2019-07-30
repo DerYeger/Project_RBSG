@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
@@ -11,7 +12,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Jan Müller
@@ -287,7 +287,7 @@ public class Game {
     }
 
     @Nonnull
-    public ReadOnlyObjectProperty<Unit> selectedUnitProperty() {
+    public ObservableObjectValue<Unit> selectedUnitProperty() {
         return selectedUnit;
     }
 
@@ -299,7 +299,7 @@ public class Game {
         return selected.get();
     }
 
-    public ReadOnlyObjectProperty<Selectable> selectedProperty() {
+    public ObservableObjectValue<Selectable> selectedProperty() {
         return selected;
     }
 
@@ -325,7 +325,7 @@ public class Game {
         return hovered.get();
     }
 
-    public ReadOnlyObjectProperty<Hoverable> hoveredProperty() {
+    public ObservableObjectValue<Hoverable> hoveredProperty() {
         return hovered;
     }
 
