@@ -458,21 +458,21 @@
 		\subsection{Domain Stories}
 		    Im Folgenden werden die Domain Stories f\"ur den Spielstart und das Ausf\"uhren einer Aktion, konkret die Bewegung einer Einheit, erl\"autert. Die Domain Stories wurden vor der Ver\"offentlichung der Serverdokumentation erstellt. Deshalb wichen die tats\"achlichen Nachrichten leicht von den hier aufgef\"uhrten Nachrichten ab. \\
 		    \subsubsection{Spielstart}
-		    	Der Nutzer trat einem Spiel \"uber die Lobby bei. Der Client zeigte nun die initiale Spielsituation, die Armeeauswahl und alle Spieler, welche sich im dem Spiel befanden (siehe Abbildung \ref{Domain_Story_Ready_1}).
+		    	Der Nutzer tritt einem Spiel \"uber die Lobby bei. Der Client zeigt nun die initiale Spielsituation, die Armeeauswahl und alle Spieler, welche sich im dem Spiel befinden (siehe Abbildung \ref{Domain_Story_Ready_1}).
 			    \begin{figure}[H] 
 			    	\centering
 			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory1.png}
 			    	\caption{Domain Story: Ready 1}
 			    	\label{Domain_Story_Ready_1}
 			    \end{figure}
-				\ \\ Der Nutzer w\"ahlte eine Armee aus. Die Spielerkarte des Nuzters wurde aktualisiert und zeigte darauf, dass er bereit war (siehe Abbildung \ref{Domain_Story_Ready_2}).
+				\ \\ Der Nutzer w\"ahlt eine Armee aus. Die Spielerkarte des Nuzters wird aktualisiert und zeigt darauf, dass er bereit ist (siehe Abbildung \ref{Domain_Story_Ready_2}).
 			    \begin{figure}[H] 
 			    	\centering
 			    	\includegraphics[width=\textwidth]{images/domain_stories/readyStory2.png}
 			    	\caption{Domain Story: Ready 2}
 			    	\label{Domain_Story_Ready_2}
 			    \end{figure}
-				\ \\ Die Anwendung teilte dem Server dann mit, dass der Nutzer bereit war. Der Server informierte die Anwendung \"uber den Spielstart. Das Spiel startete (siehe Abbildung \ref{Domain_Story_Ready_3}).
+				\ \\ Die Anwendung teilt dem Server dann mit, dass der Nutzer bereit ist. Der Server informiert die Anwendung \"uber den Spielstart. Das Spiel startet (siehe Abbildung \ref{Domain_Story_Ready_3}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/readyStory3.png}
@@ -480,21 +480,21 @@
 		    		\label{Domain_Story_Ready_3}
 		    	\end{figure}
 		    \subsubsection{Bewegung}
-		    	Der Nutzer klickte auf eine Einheit, wodurch diese  ausgew\"ahlt wurde (siehe Abbildung \ref{Domain_Story_Move_1}).
+		    	Der Nutzer klickt auf eine Einheit, wodurch diese  ausgew\"ahlt wird (siehe Abbildung \ref{Domain_Story_Move_1}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory1.png}
 		    		\caption{Domain Story: Move 1}
 		    		\label{Domain_Story_Move_1}
 		    	\end{figure}
-				\ \\ Der Nutzer klickte auf g\"ultiges Zielfeld und best\"atigte die Aktion (siehe Abbildung \ref{Domain_Story_Move_2}).
+				\ \\ Der Nutzer klickt auf ein g\"ultiges Zielfeld und best\"atigt die Aktion (siehe Abbildung \ref{Domain_Story_Move_2}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory2.png}
 		    		\caption{Domain Story: Move 2}
 		    		\label{Domain_Story_Move_2}
 		    	\end{figure}
-				\ \\ Die Anwendung sandte eine Nachricht, welche die Bewegung beschreibte, an den Server. Dieser informierte die Anwendung \"uber die Zul\"assigkeit der Aktion. Die Anwendung aktualisierte das Datenmodell und das Benutzerinterface zeigte die neue Position der Einheit an (siehe Abbildung \ref{Domain_Story_Move_3}).
+				\ \\ Die Anwendung sendet eine Nachricht, welche die Bewegung beschreibt, an den Server. Dieser informiert die Anwendung \"uber die Zul\"assigkeit der Aktion. Die Anwendung aktualisiert das Datenmodell und das Benutzerinterface zeigt die neue Position der Einheit an (siehe Abbildung \ref{Domain_Story_Move_3}).
 		    	\begin{figure}[H] 
 		    		\centering
 		    		\includegraphics[width=\textwidth]{images/domain_stories/moveStory3.png}
@@ -572,7 +572,7 @@
 	           			\item \textbf{G"ultige Ziele markieren} \hspace{5pt} G"ultige Bewegungs- und Angriffsziele (Cell, eventuell auch Unit) sollen als solche markiert werden (Property). Zudem sollen sie farblich hervorgehoben werden (siehe Mockup). Weiterhin darf in der Angriffsphase nur der rote Angriffsradius angezeigt werden und in der restlichen Bewegungspunkte Phase nur der blaue Bewegungsradius (siehe MockUps). Blau: \#868cfc f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe selected color im Stylesheet). Rot: \#cf6679 f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe error color im Stylesheet).
 	           		\end{enumerate}
            		\paragraph{Verlauf}
-           			Es wurden circa zw"olf Stunden an dieser Story gearbeitet, sodass noch circa eine Stunde zu der gesch"atzten Zeit "ubrig blieb. Die Funktion war bereits gegeben, jedoch wollte der Entwickler im n"achsten Sprint noch nach einem Fehler suchen, bei dem das UI nicht richtig markiert wurde.
+           			Es wurden circa zw"olf Stunden an dieser Story gearbeitet, sodass noch circa eine Stunde zu der gesch"atzten Zeit "ubrig blieb. Die Funktion gab es bereits, jedoch wollte der Entwickler im n"achsten Sprint noch nach einem Fehler suchen, bei dem das UI nicht richtig markiert wurde.
            		\paragraph{Stand}
            			Beim Ausw"ahlen einer Einheit durch Klicken auf ihre Graphik, wurde am Ende des f"unften Sprintes in den beiden Bewegungsphasen die Bewegungsreichweite blau angezeigt. In der Angriffsphase wurden alle Felder um die Einheit rot markiert. Es sollten weitere User Stories erstellt werden, um in der ersten Bewegungsphase auch die m"oglichen Angriffsziele anzuzueigen und um in der Angriffsphase nur die m"oglichen Angriffsziele anzuzeigen. Weiterhin sollte eine weitere Story erstellt werden, um in einer Bewegungsphase eine verk"urzte Bewegungsreichweite anzuzeigen, falls nach einer Bewegung noch Bewegungspunkte "ubrig waren.
             \subsubsection{Ingame - Einheit bewegen} \label{story_move_unit}
@@ -620,7 +620,7 @@
 	            		\item \textbf{Ein-/Ausblenden der Spielerliste} \hspace{5pt} "Uber einen Button in der oberen Leiste (siehe Mockup) soll sich die Spielerliste ein- und ausblenden lassen.
 	            	\end{enumerate}
             	\paragraph{Verlauf}
-            		Zum Ende des f"unften Sprints wurden bereits circa zehn Stunden zu viel Zeit investiert. Das lag daran, dass es (l"anger als gedacht) dauerte, die Listener f"uer die Spielerkarten zu implementieren und die Spielerkarten richtig zu positionieren. Weiterhin nahm es Zeit in Anspruch, als es schon zuvor einmal "Anderungen in den MockUps gab, dass zwischen Runden- und Phasenlabel die Phase mit einem Icon dargestellt werden sollte. Dann ergaben sich zum Schluss des Sprints auch noch mehrere Merge Konflikte, da dieser Branch als letztes gemergt werden sollte, da die Arbeit hier l"anger dauerte. Somit waren zwar alle Funktionalit"aten gegeben, jedoch konnte dieser Branch diesen Sprint noch nicht gemergt werden und wurde deshalb doch noch mit in den n"achsten Sprint genommen, um ihn zu finalisieren.
+            		Zum Ende des f"unften Sprints wurden bereits circa zehn Stunden zu viel Zeit investiert. Das lag daran, dass es (l"anger als gedacht) dauerte, die Listener f"uer die Spielerkarten zu implementieren und die Spielerkarten richtig zu positionieren. Weiterhin nahm es Zeit in Anspruch, als es schon zuvor einmal "Anderungen in den MockUps gab, dass zwischen Runden- und Phasenlabel die Phase mit einem Icon dargestellt werden sollte. Dann ergaben sich zum Schluss des Sprints auch noch mehrere Merge Konflikte, da dieser Branch als letztes gemergt werden sollte, da die Arbeit hier l"anger dauerte. Somit gab es zwar alle Funktionalit"aten, jedoch konnte dieser Branch diesen Sprint noch nicht gemergt werden und wurde deshalb doch noch mit in den n"achsten Sprint genommen, um ihn zu finalisieren.
             	\paragraph{Ergebnis}
             		Das Ergebnis dieser Story war wie im Ziel beschrieben. Der Button zum Anzeigen der Spielerkarten und die Spielerkarten selbst waren vorhanden. Dazu wurde ein Listener implementiert, der die Spielerkarten aktualisierte. Das Label f"uer die Runden- und Phasenanzeige funktionierte auch und aktualisierte sich, wenn der Sever die entsprechende Nachricht sandte oder der Nutzer "uber den Button von der User Story \glqq Ingame - Phase beenden\grqq\ die Phase bzw. die Runde beendete.
             \subsubsection{Ingame - Minikarte anzeigen} \label{story_minimap}
@@ -635,7 +635,7 @@
 	            		\item \textbf{Ein-/Ausblenden der Minikarte} \hspace{5pt} "Uber einen Button in der oberen Leiste (siehe Mockup) soll sich die Minikarte ein- und ausblenden lassen.
 	            	\end{enumerate}
             	\paragraph{Verlauf}
-            		Obwohl die Story noch nicht abgeschlossen wurde, wurde die Zeitsch"atzung diesen Sprint bereits "uberschritten. Es wurden schon 25 Minuten mehr gearbeitet. Die Funktionalit"at war allerdings bereits gegeben. Die Story wurde nur noch nicht beendet, da sich ihre zweite Subtask am Ende des Sprints, genauso wie die MockUps \"anderten (Weitere Informationen folgen dazu im Kapitel \ref{changed_user_story_minimap}).
+            		Obwohl die Story noch nicht abgeschlossen wurde, wurde die Zeitsch"atzung diesen Sprint bereits "uberschritten. Es wurden schon 25 Minuten mehr gearbeitet. Die Funktionalit"at gab es allerdings bereits. Die Story wurde nur noch nicht beendet, da sich ihre zweite Subtask am Ende des Sprints, genauso wie die MockUps \"anderten (Weitere Informationen folgen dazu im Kapitel \ref{changed_user_story_minimap}).
             	\paragraph{Stand}
             		Die Minikarte konnte am Ende des f"unften Sprints mit einem Button oben rechts angezeigt werden. Weiterhin zeigte sie das Terrain und die Einheiten der Spieler. Die Story wurde eigentlich abgeschlossen, jedoch sollte die Minikarte im n"achsten Sprint eine feste Position unten in der Sidebar bekommen und Springen "uber das Spielfeld sollte durch Klicken auf die Minikarte m"oglich gemacht werden.
             \subsubsection{Ingame - Chatintegration} \label{story_chat}
@@ -950,10 +950,10 @@
    				\paragraph{Ziel und Subtasks}
    					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgew\"ahlt sein, falls sie noch verbleibende Bewegungspunkte besa"s.
    					\begin{enumerate}[label={}]
-   						\item \textbf{Einheit ausw"ahlen} \hspace{5pt} Nachdem der Nutzer eine Einheit bewegt hat, soll diese erneut ausgew"ahlt werden, falls sie noch verbleibende Bewegungspunkte besitzt.
+   						\item \textbf{Einheit ausw"ahlen} \hspace{5pt} Nachdem der Nutzer eine Einheit bewegt, soll diese erneut ausgew"ahlt werden, falls sie noch verbleibende Bewegungspunkte besitzt.
    					\end{enumerate}
    				\paragraph{Verlauf}
-   					In dieser Story wurde die Zeitsch"atzung fast genau eingehalten. Der Entwickler brauchte nur 13 Minuten l"anger.
+   					In dieser Story brauchte der Entwickler circa zwei Stunden l"anger, als die Zeit gesch"atzt wurde. Das lag daran, dass der Entwickler zum Ende der Story noch kleinere Bugs finden und beheben musste, bei denen verschiedene Ausnahmef"alle beim Ausw"ahlen einer Einheit nach der Bewegung beachtet werden mussten.
    				\paragraph{Ergebnis}
    					Das Bewegen wurde so erweitert, dass nach einer bereits ausgef"uhrten Bewegung die Einheit immer noch ausgew"ahlt war, wenn noch Bewegungspunkte zur Verf"ugung standen. Dementsprechend verkleinerte sich auch die blaue Bewegungsreichweite in der UI.
    		\subsection{Ge\"anderte Tasks vom Sprint \RN{5}}
@@ -964,9 +964,9 @@
    				\paragraph{Ziel}
    					Siehe Kapitel \ref{task_unit_properties}
    				\paragraph{Verlauf}
-   					Die Umsetzung dieses Tasks verlief deutlich schneller als erwartet. Der Entwickler ben\"otigte nur 1 Stunde und 28 Minuten.
+   					Die Umsetzung dieses Tasks verlief deutlich schneller als erwartet. Der Entwickler ben\"otigte nur 1 Stunde und 28 Minuten, da die Aufgaben doch leichter zu bew"altigen waren und das Test anpassen schnell ging.
    				\paragraph{Ergebnis}
-   					Die Einheiteninformationen liegen nur noch in einer Enumeration vor. Erneute \"Anderungen der Einheiten-IDs f\"uhren nicht mehr zu fehlerhaften Darstellungen und bei \"Anderungen ihrer Namen werden diese als Fallback verwendet.
+   					Die Einheiteninformationen liegen nur noch in einer Enumeration vor. Erneute \"Anderungen der Einheiten-IDs f\"uhrten nicht mehr zu fehlerhaften Darstellungen und bei \"Anderungen ihrer Namen wurden diese als Fallback verwendet.
     	\subsection{\"Ubernommene Tasks aus Sprint \RN{5}}
     		Weiterhin gab es auch Tasks aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden mit in den sechsten Sprint \"ubernommen. F"ur den Aufbau und falls die Tasks abgeschlossen oder angefangen wurden, gilt dasselbe wie im ersten Task Kapitel \ref{Tasks_5}.
 			\subsubsection{Servernachrichten}
@@ -977,7 +977,7 @@
 				\paragraph{Verlauf}
 					Diese Task wurde in Kombination mit der User Story Bewegen bearbeitet. Die Entwicklung verlief schneller als erwartet.
 				\paragraph{Ergebnis}
-					Alle Servernachrichten zum Aktualisieren des Datenmodells werden korrekt verarbeitet.
+					Alle Servernachrichten zum Aktualisieren des Datenmodells wurden korrekt verarbeitet.
    		\subsection{Tasks}
    			Im sechsten Sprint wurden weitere Tasks vom Scrum Master erstellt. F"ur den Aufbau und falls die Tasks abgeschlossen oder angefangen wurden, gilt dasselbe wie im ersten Task Kapitel \ref{Tasks_5}.
    			\subsubsection{Waiting Room - Armeeauswahlbox anpassen}
@@ -986,9 +986,9 @@
 				\paragraph{Ziel}
 					Die Gr"o"se der Box, in der das Element zur Armeeauswahl lag, sollte an das Element der Armeeauswahlbox angepasst werden.
 				\paragraph{Verlauf}
-					Der Entwickler ben\"otigte lediglich 30 Minuten, wodurch die erwartete Entwicklungsdauer um 1 Stunde und 30 Minuten unterschritten wurde.
+					Der Entwickler ben\"otigte lediglich 30 Minuten, wodurch die erwartete Entwicklungsdauer um 1 Stunde und 30 Minuten unterschritten wurde. Das kam daher, da die Werte, die angepasst werden sollten, schnell im Code gefunden wurden.
 				\paragraph{Ergebnis}
-					Die H\"ohe der Armeeauswahlbox wurde angepasst und entspricht den Vorgaben.
+					Die H\"ohe der Armeeauswahlbox wurde angepasst und entsprach den Vorgaben.
 			\subsubsection{Ingame - Best\"atigungsbox in der Sidebar}
 				\paragraph{Zuteilung}
 					Diese Task wurde auf 3 Zeitstunden gesch"atzt und an Georg Siebert zugeteilt.
@@ -1031,7 +1031,7 @@
 				\paragraph{Problem}
 					Falls der Nutzer eine Einheit ausw\"ahlte, abw\"ahlte und dann wieder ausw\"ahlte, ohne vorher eine andere Einheit ausgew\"ahlt zu haben, wurde sie danach als Angriffs- bzw. Bewegungsziel farblich markiert. Dies sollte nicht stattfinden.
 				\paragraph{Fix}
-					Der Entwickler ben\"otigte eine Stunden um das Problem zu beheben. Die Hervorhebung wird nun immer korrekt gesetzt.
+					Der Entwickler ben\"otigte eine Stunden um das Problem zu beheben. Die Hervorhebung wurde danach immer korrekt gesetzt.
 			\subsubsection{Spectating - Automatischer Wechsel zum Spielfeld}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Juri Lozowoj behoben werden.
@@ -1045,7 +1045,7 @@
 				\paragraph{Problem}
 					Falls ein Spiel bereits voll war, sollte kein Spielbeitritt mehr m\"oglich sein. Daf\"ur sollte der entsprechende Button deaktiviert werden (und aktiviert werden, falls wieder ein Platz frei wurde).
 				\paragraph{Fix}
-					Die Behebung dieses Problems dauerte 30 Minuten. Es ist nicht mehr m\"oglich einem vollen Spiel beizutreten.
+					Die Behebung dieses Problems dauerte 30 Minuten. Es war nicht mehr m\"oglich einem vollen Spiel beizutreten.
 			\subsubsection{RunLoop bei "Anderungen im Spiel}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Tobias Klipp behoben werden.
@@ -1078,22 +1078,22 @@
     			Ingame - Game Over & 2 h &  & 2 h & Juri Lozowoj \\
     			Ingame - Game Won & 2 h &  & 2 h & Juri Lozowoj \\
     			Ingame - Spectator Over & 2 h &  & 2 h & Juri Lozowoj \\
-    			Ingame - Einheiteninformationen & 8 h & 1 h & 7 h & Georg Siebert \\
+    			Ingame - Einheiteninformationen & 8 h & 4 h & 4 h & Georg Siebert \\
     			Ingame - Spielstatus anzeigen & 8 h & 31 h 30 min &  & Tobias Klipp \\
     			Ingame - Musiksteuerung & 3 h & 21 min &  & Omar Sood \\
-    			Ingame - Einheit bewegen nach Bewegung & 5 h & 5 h 18 min & & Omar Sood \\
+    			Ingame - Einheit bewegen nach Bewegung & 5 h & 7 h 28 min & & Omar Sood \\
     			\midrule
     			Waiting Room - Armeeauswahlbox anpassen & 2 h & 30 min & & Tobias Klipp \\
     			Einheiteninformationen im Datenmodell & 5 h & 1 h 28 min &  & Omar Sood \\
     			Servernachrichten & 8 h & 1 min &  & Omar Sood \\
     			Ingame - Best\"atigungsbox in der Sidebar & 3 h &  & 3 h & Georg Siebert \\
-    			Spectating - REST Anfrage & 1 h &  & 1 h & Juri Lozowoj \\
+    			Spectating - REST Anfrage & 1 h & 1 h &  & Juri Lozowoj \\
     			Default-Buttons setzen & 3 h &  & 3 h & Tobias Klipp \\
     			\midrule
     			Terminierung sicherstellen & - & 15 min & ? & Omar Sood \\
     			Ingame - Einheit mehrmals ausw\"ahlen & - & 1 h &  & Juri Lozowoj \\
-    			Spectating - Automatischer Wechsel zum Spielfeld & - & ? & ? & Juri Lozowoj \\
-    			Lobby - Spielbeitritt blockieren & - & ? & ? & Georg Siebert \\
+    			Spectating - Automatischer Wechsel zum Spielfeld & - & 2 h 30 min & ? & Juri Lozowoj \\
+    			Lobby - Spielbeitritt blockieren & - & 30 min &  & Georg Siebert \\
     			RunLoop bei "Anderungen im Spiel & - & ? & ? & Tobias Klipp \\
     			CSS Fehler & - & ? & ? & Tobias Klipp \\
     			\caption{Zeit\"ubersicht sechster Sprint}
@@ -1119,7 +1119,7 @@
 	    			\label{Done_Stories_6}
 	    		\end{figure}
     		\subsubsection{Abgeschlossene Tasks}
-    			Die Tasks aus dem Release \RN{3}, die keiner User Story zugeordnet waren, wurden auch alle im Sprint \RN{5} abgeschlossen (siehe Abbildung \ref{Done_Tasks_6}). Dazu geh"oerten die "ubernommenen und die neuen Tasks aus dem Sprint \RN{6}. Diese 6 Tasks werden in der folgenden Abbildung \ref{Done_Tasks_6} noch einmal alle aufgelistet:
+    			Die Tasks aus dem Release \RN{3}, die keiner User Story zugeordnet waren, wurden auch alle im Sprint \RN{5} abgeschlossen (siehe Abbildung \ref{Done_Tasks_6}). Dazu geh"orten die "ubernommenen und die neuen Tasks aus dem Sprint \RN{6}. Diese 6 Tasks werden in der folgenden Abbildung \ref{Done_Tasks_6} noch einmal alle aufgelistet:
     			\begin{figure}[H]
     				\centering
     				\includegraphics[width=\textwidth]{images/sprintVI/doneTasks.png}
