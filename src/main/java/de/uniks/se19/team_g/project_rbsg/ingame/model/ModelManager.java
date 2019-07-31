@@ -2,12 +2,13 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
+import javafx.application.Platform;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
+import java.util.concurrent.Executor;
 
 /**
  * @author Jan Müller
@@ -39,15 +42,20 @@ public class ModelManager implements GameEventHandler {
 
     private ObjectProperty<Game> gameProperty = new SimpleObjectProperty<>();
 
+    @Nonnull
+    private Executor executor = Platform::runLater;
+
     public ModelManager() {
         objectMap = new HashMap<>();
     }
 
-    /**
-     * we need to know somehow, when the game is initialized and ready. why don't we start with a game, though?
-     */
-    public ReadOnlyObjectProperty<Game> gameProperty() {
-        return gameProperty;
+    @Nonnull
+    public Executor getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(@Nonnull Executor executor) {
+        this.executor = executor;
     }
 
     public Game getGame() {
@@ -63,6 +71,11 @@ public class ModelManager implements GameEventHandler {
 
     @Override
     public void handle(@NonNull final ObjectNode node) {
+        executor.execute(() -> doHandle(node));
+
+    }
+
+    protected void doHandle(@NonNull ObjectNode node) {
         switch (node.get("action").asText()) {
             case GAME_INIT_OBJECT:
             case GAME_NEW_OBJECT:

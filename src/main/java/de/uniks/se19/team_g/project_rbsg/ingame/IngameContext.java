@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 @Scope("prototype")
@@ -50,9 +51,13 @@ public class IngameContext {
         gameStateProvider.set(game);
         initialized.set(true);
 
-        userPlayer = game.getPlayers().stream().filter(
+        Optional<Player> userPlayer = game.getPlayers().stream().filter(
                 player -> player.getName().equals(user.getName())
-        ).findAny().orElse(null);
+        ).findAny();
+
+        userPlayer.ifPresent(player -> player.setIsPlayer(true));
+
+        this.userPlayer = userPlayer.orElse(null);
     }
 
     public User getUser() {

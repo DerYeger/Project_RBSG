@@ -30,6 +30,8 @@ public class Player {
 
     final private BooleanProperty isReady = new SimpleBooleanProperty(false);
 
+    private boolean isPlayer = false;
+
     public Player(@NonNull final String id) {
         this.id = id;
 
@@ -152,4 +154,12 @@ public class Player {
     }
 
 
+    public boolean isPlayer() {
+        return isPlayer;
+    }
+
+    public void setIsPlayer(boolean isPlayer) {
+
+        this.isPlayer = isPlayer;
+    }
 }
