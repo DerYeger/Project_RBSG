@@ -541,7 +541,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
-        Player enemy = new Player("Kalr").setName("Karl").setColor("BLUE");
+        Player enemy = new Player("Karl").setName("Karl").setColor("BLUE");
         game.withPlayer(player).withPlayer(enemy);
         playerUnit.setLeader(player);
         game.setCurrentPlayer(player);
