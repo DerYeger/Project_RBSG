@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
@@ -13,9 +13,10 @@ public class UnitInfoBoxBuilder
     private Node unitInfoBox;
     private FXMLLoader fxmlLoader;
 
-    public Node build(ObjectProperty<Unit> unit)
+    public Node build(ReadOnlyObjectProperty<Unit> unit)
     {
         fxmlLoader = new FXMLLoader(getClass().getResource("/ui/ingame/unitInfoBox.fxml"));
+        fxmlLoader.setController(new UnitInfoBoxController());
         try
         {
             unitInfoBox = fxmlLoader.load();
