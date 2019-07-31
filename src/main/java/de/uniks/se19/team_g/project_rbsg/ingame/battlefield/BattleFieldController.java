@@ -822,7 +822,11 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
 
-        if (!selectedUnit.getLeader().isPlayer() || (!this.context.isMyTurn())) {
+        if (
+            selectedUnit.getLeader() == null
+            || !selectedUnit.getLeader().isPlayer()
+            || (!this.context.isMyTurn())
+        ) {
             return;
         }
 
