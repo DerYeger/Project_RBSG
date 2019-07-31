@@ -447,6 +447,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
 
+        if (context.getGameState() == null) {
+            return;
+        }
+
         context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
     }
 
@@ -829,7 +833,11 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
 
-        if (!selectedUnit.getLeader().isPlayer() || (!this.context.isMyTurn())) {
+        if (
+            selectedUnit.getLeader() == null
+            || !selectedUnit.getLeader().isPlayer()
+            || (!this.context.isMyTurn())
+        ) {
             return;
         }
 
@@ -915,11 +923,22 @@ public class BattleFieldController implements RootController, IngameViewControll
         miniMapDrawer.setCanvas(miniMapCanvas, mapSize);
         miniMapDrawer.drawMinimap(tileMap);
     }
+
+    /**
+     * i don't think, we need to remove any listeners at all in the battlefield controller,
+     * since we throw away the whole game anyway.
+     */
     @Override
     public void terminate()
     {
-        context.getGameState().selectedProperty().removeListener(onSelectedChanged);
-        context.getGameState().hoveredProperty().removeListener(onHoveredChanged);
+        @Nullable Game gameState = context.getGameState();
+
+        if (gameState == null) {
+            return;
+        }
+
+        gameState.selectedProperty().removeListener(onSelectedChanged);
+        gameState.hoveredProperty().removeListener(onHoveredChanged);
 
         for (Tile[] tileArray : tileMap)
         {

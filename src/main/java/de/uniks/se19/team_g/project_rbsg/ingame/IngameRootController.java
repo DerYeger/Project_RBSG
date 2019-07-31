@@ -109,11 +109,12 @@ public class IngameRootController
 
     @Override
     public void terminate() {
+        gameEventManager.terminate();
+
         if (activeComponent != null && activeComponent.getController() instanceof Terminable) {
             ((Terminable) activeComponent.getController()).terminate();
         }
 
-        gameEventManager.terminate();
         ingameContext.tearDown();
     }
 
