@@ -721,6 +721,15 @@ public class BattleFieldController implements RootController, IngameViewControll
         }));
         //TODO: Add listeners to the users own units property
         //TODO: If the user lost ALL units AND their loss doesn't cause another player's win show the game lost (priorityConfirmation) alert (Mockup)
+        this.context.getUserPlayer().getUnits().addListener((ListChangeListener<Unit>) unitList -> {
+            if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2){
+                alertBuilder.priorityConfirmation(
+                        AlertBuilder.Text.GAME_LOST,
+                        () -> this.context.getGameData().setSpectatorModus(true),
+                        () -> doLeaveGame()
+                );
+            }
+        });
     }
 
     private void showWinnerLoserAlert(Player winner) {

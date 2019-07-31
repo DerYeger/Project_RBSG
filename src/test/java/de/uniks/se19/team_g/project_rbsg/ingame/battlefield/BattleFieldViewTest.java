@@ -603,6 +603,11 @@ public class BattleFieldViewTest extends ApplicationTest {
                 eq(enemy.getName()));
     }
 
+    @Test
+    public void lostAndChooseSpectate(){
+
+    }
+
 
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
