@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * provides a .model.Game Model that holds the lobby game knowledge like neededPlayerCount
  */
 @Component
-public class GameProvider implements Terminable {
+public class GameProvider {
 
     private Game game;
 
@@ -30,10 +30,5 @@ public class GameProvider implements Terminable {
     public GameProvider clear() {
         game = null;
         return this;
-    }
-
-    @Override
-    public void terminate() {
-        clear();
     }
 }
