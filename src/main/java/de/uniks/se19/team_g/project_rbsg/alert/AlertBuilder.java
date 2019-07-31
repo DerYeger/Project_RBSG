@@ -127,7 +127,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     public void priorityInformation(@NonNull final Text text,
                                     @Nullable final Runnable runnable) {
-        priorityConfirmation(text, runnable, null);
+        priorityInformation(text, runnable, null);
     }
 
     public void priorityInformation(@NonNull final Text text,

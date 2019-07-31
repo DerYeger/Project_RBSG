@@ -604,8 +604,47 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void lostAndChooseSpectate(){
+    public void lostAndChooseSpectate() throws ExecutionException, InterruptedException {
+        BattleFieldController battleFieldController = battleFieldComponent.getController();
 
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+        Unit enemyUnit = definition.otherUnit;
+        Unit thirdUnit = new Unit("LucyCat").setUnitType(UnitTypeInfo._JEEP);
+        thirdUnit.setPosition(definition.cells[2][1]);
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        Player enemy = new Player("Karl").setName("Karl").setColor("BLUE");
+        Player thirdParty = new Player("Lucy").setName("Lucy").setColor("GREEN");
+        game.withPlayer(player).withPlayer(enemy).withPlayer(thirdParty);
+        playerUnit.setLeader(player);
+        enemyUnit.setLeader(enemy);
+        thirdUnit.setLeader(thirdParty);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+
+        revealBattleField(context);
+
+        player.getUnits().removeAll(playerUnit);
+
+        verify(alertBuilder).priorityConfirmation(
+                eq(AlertBuilder.Text.GAME_LOST),
+                any(),
+                any());
     }
 
 
