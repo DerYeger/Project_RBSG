@@ -116,8 +116,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
         UserProvider userProvider = new UserProvider();
-        userProvider.set(new User().setName("TestUser"));
-
+        userProvider.set(new User().setName("Test"));
         IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
         Player player = new Player("123");
         player.getUnits().addAll(
@@ -131,6 +130,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.getGameState().getPlayers().add(player);
         context.getGameState().setCurrentPlayer(player);
         context.setGameEventManager(gameEventManager);
+        context.gameInitialized(ingameGameProvider.get());
         revealBattleField(context);
 
         Assert.assertNotNull(ingameView);
