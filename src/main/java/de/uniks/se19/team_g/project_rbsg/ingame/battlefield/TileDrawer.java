@@ -109,9 +109,11 @@ public class TileDrawer
             }
             if (tile.getHighlightingTwo() == HighlightingTwo.SELECETD_WITH_UNITS)
             {
+                graphicsContext.setFill(selectedWhite);
+                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
                 drawBorderAroundTile(startX, startY, selectedBlue);
             }
-            graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+
 
 
 
