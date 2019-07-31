@@ -25,6 +25,8 @@ public class Game {
 
     final private SimpleBooleanProperty alreadyMovedThisRound = new SimpleBooleanProperty(false);
 
+    final private SimpleBooleanProperty gameStarted = new SimpleBooleanProperty(false);
+
     private ObservableList<Player> players;
 
     private ObservableList<Unit> units;
@@ -357,5 +359,18 @@ public class Game {
         movePhase,
         attackPhase,
         lastMovePhase
+    }
+
+
+    public boolean isGameStarted() {
+        return gameStarted.get();
+    }
+
+    public SimpleBooleanProperty gameStartedProperty() {
+        return gameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted.set(gameStarted);
     }
 }

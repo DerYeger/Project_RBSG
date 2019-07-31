@@ -128,7 +128,7 @@ public class IngameRootController
         }
 
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
-            Platform.runLater(this::mountBattleField);
+            Platform.runLater(() -> mountBattleField());
         }
     }
 
@@ -136,7 +136,7 @@ public class IngameRootController
         alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
     }
 
-    protected void mountBattleField() {
+    public void mountBattleField() {
         mountContent(battleFieldFactory.getObject());
     }
 

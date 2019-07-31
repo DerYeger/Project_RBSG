@@ -176,7 +176,11 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
         }
         if(game != null) {
             gameProvider.set(game);
-                //joinGameManager.joinGame(userProvider.get(), game).get();
+            try {
+                joinGameManager.joinGame(userProvider.get(), game).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
             sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
         }
     }
