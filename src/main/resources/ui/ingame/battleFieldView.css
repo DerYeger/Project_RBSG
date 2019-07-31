@@ -23,3 +23,10 @@
 .actionVBox button {
     -fx-effect:  none;
 }
+
+.playerCardBox {
+    -fx-padding: 5;
+    -fx-spacing: 100;
+    -fx-alignment: center;
+    -fx-background-color: -root-background-color;
+}

@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.termination.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
@@ -55,7 +54,7 @@ public class UnitInfoBoxController implements Initializable
 
     private void hpChanged(ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
     {
-        hpText.set(String.format("%d / %d ", newHp.intValue(), 9000));
+        hpText.set(String.format("%d / %d ", newHp.intValue(), 9001));
     }
 
     private void unitChanged(ObservableValue<? extends Unit> observableValue, Unit oldUnit, Unit newUnit)

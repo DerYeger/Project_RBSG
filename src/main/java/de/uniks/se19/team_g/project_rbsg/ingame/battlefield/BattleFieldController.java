@@ -132,7 +132,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final HashMap<String, Player> playerMap = new HashMap<>();
     private final HashMap<String, Node> playerNodeMap = new HashMap<>();
     private final HashMap<String, Pane> playerPaneMap = new HashMap<>();
-    private final ArrayList<Pane> playerCardList = new ArrayList<Pane>();
+    private final ArrayList<Pane> playerCardList = new ArrayList<>();
     private SimpleIntegerProperty roundCount;
     private int roundCounter;
 
@@ -1022,6 +1022,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.scaleValueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.hvalueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
+
+        game.getPlayers().removeListener(playerListListener);
     }
 
     public void openPlayerBar(@Nonnull final ActionEvent event)
