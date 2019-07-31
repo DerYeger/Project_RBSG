@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * provides a .ingame.waiting_room.Game Model that holds the ingame game state with map, players etc
  */
 @Component
-public class IngameGameProvider implements Terminable {
+public class IngameGameProvider {
 
     private Game game;
 
@@ -31,10 +31,5 @@ public class IngameGameProvider implements Terminable {
     public IngameGameProvider clear() {
         game = null;
         return this;
-    }
-
-    @Override
-    public void terminate() {
-        clear();
     }
 }
