@@ -11,7 +11,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.PlayerUtil;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
@@ -706,8 +705,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         addAlertListeners();
 
-        configurePlayerProperty();
-
         try {
             initChat();
         } catch (Exception e) {
@@ -739,27 +736,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void configurePlayerProperty(){
-        for (Player player: this.context.getGameState().getPlayers()){
-            player.hasLostProperty().addListener(((observable, oldValue, newValue) -> {
-                if ((newValue) && (! player.equals(this.context.getUserPlayer())))  {
-                    PlayerUtil.removePlayer(this.context.getGameState(), player);
-                }
-                if ((newValue) && (player.equals(this.context.getUserPlayer()))){
-                    chooseSpecatating();
-                }
-            }));
-        }
-    }
 
-    private void chooseSpecatating(){
-        alertBuilder.confirmation(
-                AlertBuilder.Text.GAME_LOST,
-                () -> doLeaveGame(),
-                () -> doLeaveGame());
-
-
-    }
 
     private void initChat() throws Exception {
         final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());

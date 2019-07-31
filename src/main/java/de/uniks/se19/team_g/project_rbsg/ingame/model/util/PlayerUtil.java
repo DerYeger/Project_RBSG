@@ -73,7 +73,7 @@ public class PlayerUtil {
 
     private static final String PLAYERS = "allPlayer";
 
-    public static void setPlayerHasLost(@NonNull final ModelManager modelManager,
+    public static void removePlayerFrom(@NonNull final ModelManager modelManager,
                                         @NonNull final String identifier,
                                         @NonNull final String from,
                                         @NonNull final String fieldName,
@@ -83,10 +83,7 @@ public class PlayerUtil {
         switch (fieldName) {
             case PLAYERS:
                 final Game game = modelManager.gameWithId(from);
-                //if (player.getCurrentGame() != null && player.getCurrentGame().equals(game)) player.setCurrentGame(null);
-                if (player.getCurrentGame() != null && player.getCurrentGame().equals(game)){
-                    player.setHasLost(true);
-                }
+                if (player.getCurrentGame() != null && player.getCurrentGame().equals(game)) player.setCurrentGame(null);
                 break;
             default:
                 LOGGER.error("Unknown fieldName for " + from + ": " + fieldName);
@@ -94,9 +91,5 @@ public class PlayerUtil {
         }
 
         if (logging) LOGGER.debug(identifier + " removed from field " + fieldName + " from Object " + from);
-    }
-
-    public static void removePlayer(Game game, Player player){
-        if (player.getCurrentGame() != null && player.getCurrentGame().equals(game)) player.setCurrentGame(null);
     }
 }

@@ -175,7 +175,7 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Player":
-                PlayerUtil.setPlayerHasLost(this, identifier, from, fieldName, true);
+                PlayerUtil.removePlayerFrom(this, identifier, from, fieldName, true);
                 break;
             case "Unit":
                 UnitUtil.removeUnitFrom(this, identifier, from, fieldName, true);

@@ -129,7 +129,6 @@ public class IngameRootController
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
             Platform.runLater(this::mountBattleField);
         }
-        logger.debug(String.valueOf(message));
     }
 
     public void onConnectionClosed() {
