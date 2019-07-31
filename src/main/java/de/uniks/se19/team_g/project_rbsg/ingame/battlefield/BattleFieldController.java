@@ -447,6 +447,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
 
+        if (context.getGameState() == null) {
+            return;
+        }
+
         context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
     }
 
