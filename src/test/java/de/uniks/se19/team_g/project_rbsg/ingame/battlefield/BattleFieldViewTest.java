@@ -562,8 +562,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         verify(alertBuilder).priorityInformation(
                 eq(AlertBuilder.Text.GAME_WON),
-                any(),
-                eq(player.getName()));
+                any());
     }
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
