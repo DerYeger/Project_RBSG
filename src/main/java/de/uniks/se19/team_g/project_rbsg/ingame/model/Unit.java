@@ -1,7 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -11,7 +14,7 @@ import java.util.Collection;
 /**
  * @author Jan Müller
  */
-public class Unit {
+public class Unit implements Selectable, Hoverable {
 
     @NonNull
     private final String id;
@@ -22,7 +25,11 @@ public class Unit {
 
     private SimpleObjectProperty<Cell> position = new SimpleObjectProperty<>();
 
-    private SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
+    private final ObjectProperty<Game> selected = new SimpleObjectProperty<>();
+    private final BooleanBinding isSelected = selected.isNotNull();
+
+    private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isHovered = hoveredIn.isNotNull();
 
     private SimpleBooleanProperty attackable = new SimpleBooleanProperty(false);
 
@@ -143,16 +150,8 @@ public class Unit {
         return "(" + unitType + ", mp : " + mp + ", hp: " + hp + ")";
     }
 
-    public boolean isSelected() {
-        return selected.get();
-    }
-
-    public SimpleBooleanProperty selectedProperty() {
-        return selected;
-    }
-
     public void setSelected(boolean selected) {
-        this.selected.set(selected);
+        // keep it to not break compiling for now
     }
 
 
@@ -178,5 +177,64 @@ public class Unit {
 
     public void setAttackable(boolean attackable) {
         this.attackable.set(attackable);
+    }
+
+    public boolean isSelected() {
+        return isSelected.get();
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setSelectedIn(@Nullable Game game) {
+        // note that this should be just a toggle between null and a game, not between two games
+        Game lastState = selected.get();
+
+        if (lastState == game) {
+            return;
+        }
+
+        selected.set(game);
+
+        if (lastState != null) {
+            lastState.setSelected(null);
+        }
+        if (game != null) {
+            game.setSelected(this);
+        }
+    }
+
+    @Override
+    public ObservableBooleanValue selectedProperty() {
+        return isSelected;
+    }
+
+    @Override
+    public boolean isHovered() {
+        return isHovered.get();
+    }
+
+    @Override
+    public ObservableBooleanValue hoveredProperty() {
+        return isHovered;
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setHoveredIn(@Nullable Game game) {
+        Game lastHoveredIn = hoveredIn.get();
+
+        if (game == lastHoveredIn) {
+            return;
+        }
+
+        hoveredIn.set(game);
+
+        if (lastHoveredIn != null) {
+            lastHoveredIn.setHovered(null);
+        }
+
+        if (game != null) {
+            game.setHovered(this);
+        }
     }
 }

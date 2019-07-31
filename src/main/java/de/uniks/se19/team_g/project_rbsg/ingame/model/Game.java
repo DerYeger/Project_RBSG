@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.lang.NonNull;
@@ -11,7 +12,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Jan Müller
@@ -36,6 +36,10 @@ public class Game {
     final private ObjectProperty<Unit> selectedUnit = new SimpleObjectProperty<>();
 
     final private ObjectProperty<Player> winner = new SimpleObjectProperty<>();
+
+    final private ObjectProperty<Selectable> selected = new SimpleObjectProperty<>();
+
+    final private ObjectProperty<Hoverable> hovered = new SimpleObjectProperty<>();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -232,7 +236,7 @@ public class Game {
         return phase;
     }
 
-    public void setPhase(String phase) throws InterruptedException {
+    public void setPhase(String phase) {
         Platform.runLater(()-> {
             this.phase.set(phase);
         });
@@ -274,17 +278,76 @@ public class Game {
 
 
     public Unit getSelectedUnit() {
-        return selectedUnit.get();
+        Selectable selected = getSelected();
+        if (selected instanceof Unit) {
+            return (Unit) selected;
+        } else {
+            return null;
+        }
     }
 
     @Nonnull
-    public ObjectProperty<Unit> selectedUnitProperty() {
+    public ObservableObjectValue<Unit> selectedUnitProperty() {
         return selectedUnit;
     }
 
     public void setSelectedUnit(Unit selectedUnit) {
-        this.selectedUnit.set(selectedUnit);
+        setSelected(selectedUnit);
     }
+
+    public Selectable getSelected() {
+        return selected.get();
+    }
+
+    public ObservableObjectValue<Selectable> selectedProperty() {
+        return selected;
+    }
+
+    public void setSelected(@Nullable Selectable selected) {
+        Selectable lastSelected = this.selected.get();
+
+        if (lastSelected == selected) {
+            return;
+        }
+
+        this.selected.set(selected);
+
+        if (lastSelected != null) {
+            lastSelected.setSelectedIn(null);
+        }
+
+        if (selected != null) {
+            selected.setSelectedIn(this);
+        }
+    }
+
+    public Hoverable getHovered() {
+        return hovered.get();
+    }
+
+    public ObservableObjectValue<Hoverable> hoveredProperty() {
+        return hovered;
+    }
+
+    public void setHovered(Hoverable hovered) {
+        Hoverable lastHovered = this.hovered.get();
+
+        if (lastHovered == hovered) {
+            return;
+        }
+
+        this.hovered.set(hovered);
+
+        if (lastHovered != null) {
+            lastHovered.setHoveredIn(null);
+        }
+
+        if (hovered != null) {
+            hovered.setHoveredIn(this);
+        }
+    }
+
+    public void clearSelection() {setSelected(null);}
 
     public boolean isPhase(Phase phase) {
         return phase.name().equals(getPhase());
