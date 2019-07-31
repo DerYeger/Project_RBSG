@@ -703,10 +703,31 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureCells();
 
+        addAlertListeners();
+
         try {
             initChat();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void addAlertListeners() {
+        game.winnerProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                //TODO: Check if we are the winner. If yes, show other (priorityInformation) alert (Mockup)
+                showWinnerLoserAlert(newValue);
+            }
+        }));
+        //TODO: Add listeners to the users own units property
+        //TODO: If the user lost ALL units AND their loss doesn't cause another player's win show the game lost (priorityConfirmation) alert (Mockup)
+    }
+
+    private void showWinnerLoserAlert(Player winner) {
+        if (winner.equals(this.context.getUserPlayer())){
+            alertBuilder.priorityInformation(
+                    AlertBuilder.Text.GAME_WON,
+                    () -> doLeaveGame());
         }
     }
 

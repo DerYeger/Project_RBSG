@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 public class IngameRootController
-    implements RootController, Initializable, Terminable
+        implements RootController, Initializable, Terminable
 {
 
     private static Logger logger = LoggerFactory.getLogger(IngameRootController.class);
@@ -126,17 +126,16 @@ public class IngameRootController
             });
             return;
         }
-
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
-            Platform.runLater(() -> mountBattleField());
+            Platform.runLater(this::mountBattleField);
         }
     }
 
     public void onConnectionClosed() {
-        alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
+        alertBuilder.information(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
     }
 
-    public void mountBattleField() {
+    protected void mountBattleField() {
         mountContent(battleFieldFactory.getObject());
     }
 

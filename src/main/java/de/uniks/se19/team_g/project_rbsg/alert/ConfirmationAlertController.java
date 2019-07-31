@@ -44,18 +44,18 @@ public class ConfirmationAlertController extends AlertController {
             }
         });
 
-        cancel.setOnAction(event ->{
+        cancel.setOnAction(event -> {
+            hide();
             if (onCancelRunnable != null) {
                 onCancelRunnable.run();
             }
-            hide();
         });
 
         JavaFXUtils.setButtonIcons(confirm, CONFIRM_WHITE, CONFIRM_BLACK, 40);
         JavaFXUtils.setButtonIcons(cancel, CANCEL_WHITE, CANCEL_BLACK, 40);
     }
 
-    public ConfirmationAlertController andThen(@NonNull final Runnable onConfirmRunnable) {
+    public ConfirmationAlertController andThen(@Nullable final Runnable onConfirmRunnable) {
         this.onConfirmRunnable = onConfirmRunnable;
         return this;
     }
