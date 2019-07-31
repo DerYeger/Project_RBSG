@@ -31,20 +31,18 @@ public class JoinGameManager {
 
         header.set("userKey", user.getUserKey());
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(uri)
-                .queryParam(game.getId());
-        String url = uriBuilder.toUriString().replace("?", "");
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder
+                .fromHttpUrl(uri)
+                .path(game.getId());
 
         if (game.isSpectatorModus()){
-            url = url + spectator;
+            uriBuilder.queryParam("spectator", true);
         }
-
-        final String finalUrl = url;
 
         HttpEntity<?> request = new HttpEntity<Object>("", header);
 
         return CompletableFuture.supplyAsync(() -> this.restTemplate.exchange(
-                finalUrl,
+                uriBuilder.toUriString(),
                 HttpMethod.GET,
                 request,
                 String.class));
