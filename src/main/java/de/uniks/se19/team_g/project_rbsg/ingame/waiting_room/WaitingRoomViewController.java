@@ -158,9 +158,12 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
         chatContainer.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();
+        /* Chat is enbaled for user in spectator modus
+            by commenting in the following lines the chat be disabled again
         if(this.context.getGameData().isSpectatorModus()){
             chatController.getChatChannelControllers().get("General").getInputField().setDisable(true);
         }
+         */
     }
 
     private void initPlayerCardBuilders() {
