@@ -565,6 +565,46 @@ public class BattleFieldViewTest extends ApplicationTest {
                 any());
     }
 
+    @Test
+    public void gameLost() throws ExecutionException, InterruptedException {
+        BattleFieldController battleFieldController = battleFieldComponent.getController();
+
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        Player enemy = new Player("Karl").setName("Karl").setColor("BLUE");
+        game.withPlayer(player).withPlayer(enemy);
+        playerUnit.setLeader(player);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+
+        revealBattleField(context);
+
+        context.getGameState().setWinner(enemy);
+
+        verify(alertBuilder).priorityInformation(
+                eq(AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON),
+                any(),
+                eq(enemy.getName()));
+    }
+
+
+
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions
         // in Platform.runLater() will result in failing tests right away

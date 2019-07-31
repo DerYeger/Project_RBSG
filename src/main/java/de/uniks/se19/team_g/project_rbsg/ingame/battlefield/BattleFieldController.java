@@ -728,8 +728,15 @@ public class BattleFieldController implements RootController, IngameViewControll
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_WON,
                     () -> doLeaveGame());
+        } else {
+            alertBuilder.priorityInformation(
+                    AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON,
+                    () -> doLeaveGame(),
+                    winner.getName());
         }
     }
+
+
 
     private void initChat() throws Exception {
         final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
