@@ -734,7 +734,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else {
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON,
-                    () -> doLeaveGame());
+                    () -> doLeaveGame(),
+                    winner.getName());
         }
     }
 

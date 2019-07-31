@@ -566,8 +566,41 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void gameLost(){
+    public void gameLost() throws ExecutionException, InterruptedException {
+        BattleFieldController battleFieldController = battleFieldComponent.getController();
 
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        Player enemy = new Player("Karl").setName("Karl").setColor("BLUE");
+        game.withPlayer(player).withPlayer(enemy);
+        playerUnit.setLeader(player);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+
+        revealBattleField(context);
+
+        context.getGameState().setWinner(enemy);
+
+        verify(alertBuilder).priorityInformation(
+                eq(AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON),
+                any(),
+                eq(enemy.getName()));
     }
 
 
