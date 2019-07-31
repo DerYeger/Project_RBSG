@@ -220,15 +220,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40);
 
         musicManager.initButtonIcons(musicButton);
-
-        battlefieldStackPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-            if(event.getCode().equals(KeyCode.ENTER)){
-                endPhase();
-            }
-        }
-    });
     }
 
 
@@ -344,6 +335,15 @@ public class BattleFieldController implements RootController, IngameViewControll
         battlefieldStackPane.getChildren().add(0,zoomableScrollPane);
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
+
+        canvas.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode().equals(KeyCode.ENTER)){
+                    endPhase();
+                }
+            }
+        });
     }
     private void initPlayerBar(){
         HashMap<String, Player> playerMap = new HashMap<>();
