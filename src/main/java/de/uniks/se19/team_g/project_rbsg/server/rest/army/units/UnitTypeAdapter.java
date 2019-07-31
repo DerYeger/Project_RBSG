@@ -37,13 +37,8 @@ public class UnitTypeAdapter {
     }
 
     private UnitTypeInfo getTypeInfo(final de.uniks.se19.team_g.project_rbsg.server.rest.army.units.UnitType unitType) {
-        String identifier = "_" + unitType.id;
 
-        try {
-            return UnitTypeInfo.valueOf(identifier);
-        } catch (IllegalArgumentException e) {
-            return UnitTypeInfo.UNKNOWN;
-        }
+        return UnitTypeInfo.resolveType(unitType.type);
     }
 
     private String mapDescription(de.uniks.se19.team_g.project_rbsg.server.rest.army.units.UnitType unitType) {

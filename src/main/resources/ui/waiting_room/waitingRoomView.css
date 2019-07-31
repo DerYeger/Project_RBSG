@@ -46,10 +46,10 @@
 }
 
 .army-pane {
-    -fx-max-width: 80;
-    -fx-max-height: 700;
-    -fx-min-width: 80;
-    -fx-min-height: 700;
+    -fx-max-width: 90;
+    -fx-max-height: 540;
+    -fx-min-width: 90;
+    -fx-min-height: 500;
     -fx-effect: -shadow;
 }
 

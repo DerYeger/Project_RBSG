@@ -134,7 +134,7 @@ public class TranslationButtonsTest extends ApplicationTest
         public GameEventManager gameEventManager() {
             return new GameEventManager(new WebSocketClient()) {
                 @Override
-                public void startSocket(@NonNull final String gameID, @NonNull final String armyID) {
+                public void startSocket(@NonNull final String gameID, @NonNull final String armyID, @NonNull final boolean spectator) {
                 }
             };
         }

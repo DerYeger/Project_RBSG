@@ -360,7 +360,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void toggleSound()
     {
         logger.debug("Pressed the toggleSound button");
-        musicManager.updateMusicButtonIcons(soundButton);
+        musicManager.toggleMusicAndUpdateButtonIconSet(soundButton);
     }
 
     public void logoutUser()

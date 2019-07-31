@@ -1,15 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.UnitType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
@@ -21,31 +19,31 @@ public class TileDrawer
 {
     private static final double CELL_SIZE = 64;
     private static final Color transparentWhite = Color.rgb(255, 255, 255, 0.2);
-    private static final Color movementBlue = Color.rgb(134,140,252, 0.6);
+    private static final Color movementBlue = Color.rgb(134,140,252, 0.4);
     private static final Color selectedWhite = Color.rgb(255, 255, 255, 0.4);
-    private static final Color movementBlueBorder = Color.rgb(51, 51, 255);
+    private static final Color movementBlueBorder = Color.rgb(134, 140, 252);
     private static final Color selectedBlue = Color.rgb(134,140,252);
 
-    private static final Color attackRed = Color.rgb(207,102,121, 0.6);
+    private static final Color attackRed = Color.rgb(207,102,121, 0.4);
     private static final Color attackRedBorder = Color.rgb(207,102,121);
     private static Image grass = new Image("/assets/cells/grass/grass1.png");
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
-    private HashMap<UnitType, Image> unitImagesMap;
+    private HashMap<UnitTypeInfo, Image> unitImagesMap;
 
     public TileDrawer()
     {
         unitImagesMap = new HashMap<>();
 
-        for (UnitType type : UnitType.values())
+        for (UnitTypeInfo type : UnitTypeInfo.values())
         {
-            Image image = new Image(TileUtils.getUnitImagePath(type), CELL_SIZE, CELL_SIZE, false, true);
+            Image image = new Image(type.getImage().toExternalForm(), CELL_SIZE, CELL_SIZE, false, true);
             unitImagesMap.put(type, image);
         }
     }
 
+    @SuppressWarnings("unused")
     public Canvas getCanvas()
     {
         return canvas;
@@ -59,11 +57,9 @@ public class TileDrawer
 
     public void drawMap(Tile[][] map)
     {
-        for (int y = 0; y < map.length; y++)
-        {
-            for (int x = 0; x < map[y].length; x++)
-            {
-                drawTile(map[y][x]);
+        for (Tile[] tiles : map) {
+            for (Tile tile : tiles) {
+                drawTile(tile);
             }
         }
     }
@@ -113,9 +109,11 @@ public class TileDrawer
             }
             if (tile.getHighlightingTwo() == HighlightingTwo.SELECETD_WITH_UNITS)
             {
+                graphicsContext.setFill(selectedWhite);
+                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
                 drawBorderAroundTile(startX, startY, selectedBlue);
             }
-            graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+
 
 
 
@@ -130,10 +128,10 @@ public class TileDrawer
 
     private void drawBorderAroundTile(double startX, double startY, Color borderColer) {
         graphicsContext.setStroke(borderColer);
-        graphicsContext.setLineWidth(4);
-        graphicsContext.strokeLine((startX + 2), (startY + 2), (startX + (CELL_SIZE - 2)), (startY + 2));
-        graphicsContext.strokeLine((startX + (CELL_SIZE - 2)), (startY + 5), startX + (CELL_SIZE - 2), startY + (CELL_SIZE - 2));
-        graphicsContext.strokeLine((startX  + (CELL_SIZE - 2)), startY + (CELL_SIZE - 2), (startX + 2),startY + (CELL_SIZE - 2));
-        graphicsContext.strokeLine((startX + 2), (startY + (CELL_SIZE - 5)), (startX + 2), (startY + 2));
+        graphicsContext.setLineWidth(2);
+        graphicsContext.strokeLine((startX + 1), (startY + 1), (startX + (CELL_SIZE - 1)), (startY + 1));
+        graphicsContext.strokeLine((startX + (CELL_SIZE - 1)), (startY + 1), startX + (CELL_SIZE - 1), startY + (CELL_SIZE - 1));
+        graphicsContext.strokeLine((startX  + (CELL_SIZE - 1)), startY + (CELL_SIZE - 1), (startX + 1),startY + (CELL_SIZE - 1));
+        graphicsContext.strokeLine((startX + 1), (startY + (CELL_SIZE - 1)), (startX + 1), (startY + 1));
     }
 }

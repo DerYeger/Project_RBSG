@@ -40,7 +40,7 @@
               </AnchorPane>
               <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
                   <children>
-                      <VBox fx:id="armySelector" styleClass="army-pane" StackPane.alignment="CENTER_RIGHT" />
+                      <VBox fx:id="armySelector" styleClass="army-pane" StackPane.alignment="CENTER"/>
                   </children>
               </StackPane>
           </children>
