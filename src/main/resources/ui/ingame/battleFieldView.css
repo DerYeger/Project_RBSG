@@ -25,8 +25,8 @@
 }
 
 .playerCardBox {
-    -fx-padding: 5;
-    -fx-spacing: 100;
+    -fx-padding: 5 0 5 0;
+    -fx-spacing: 30;
     -fx-alignment: center;
     -fx-background-color: -root-background-color;
 }

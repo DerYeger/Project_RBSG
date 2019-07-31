@@ -9,7 +9,7 @@ public class MiniMapDrawer
 {
     private final static Color darkgreen = Color.DARKGREEN;
     private final static Color green = Color.GREEN;
-    private final static Color brown = Color.BROWN;
+    private final static Color brown = Color.rgb(101,67,33);
     private final static Color darkblue = Color.DARKBLUE;
     private final static Color white = Color.WHITE;
     private final static Color black = Color.BLACK;
