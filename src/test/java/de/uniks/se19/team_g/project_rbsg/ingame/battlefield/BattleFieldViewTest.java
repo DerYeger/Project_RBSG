@@ -565,6 +565,13 @@ public class BattleFieldViewTest extends ApplicationTest {
                 any());
     }
 
+    @Test
+    public void gameLost(){
+
+    }
+
+
+
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions
         // in Platform.runLater() will result in failing tests right away

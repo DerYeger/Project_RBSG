@@ -33,6 +33,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         CONNECTION_CLOSED("connectionClosed"),
         GAME_OVER("gameOver"),
         GAME_WON("gameWon"),
+        GAME_SOMEBODY_ELSE_WON("elseWon"),
         GAME_LOST("gameLost"),
         INVALID_INPUT("invalidInput"),
         LOGOUT("logout"),
