@@ -39,6 +39,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import org.slf4j.Logger;
@@ -336,14 +337,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
 
-        canvas.setOnKeyReleased(new EventHandler<KeyEvent>() {
+        /*zoomableScrollPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.ENTER)){
+                if(event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get()){
                     endPhase();
                 }
             }
-        });
+        });*/
     }
     private void initPlayerBar(){
         HashMap<String, Player> playerMap = new HashMap<>();
@@ -881,6 +882,15 @@ public class BattleFieldController implements RootController, IngameViewControll
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
         endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
+
+        endPhaseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton().equals(MouseButton.PRIMARY)){
+                    endPhase();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unused")

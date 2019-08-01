@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
 import org.springframework.context.annotation.Scope;
@@ -30,7 +31,7 @@ public class ConfirmationAlertController extends AlertController {
     @FXML
     private Button cancel;
     @FXML
-    private VBox container;
+    private StackPane root;
 
     private static final URL CONFIRM_WHITE = ConfirmationAlertController.class.getResource("/assets/icons/navigation/checkWhite.png");
     private static final URL CONFIRM_BLACK = ConfirmationAlertController.class.getResource("/assets/icons/navigation/checkBlack.png");
@@ -58,8 +59,14 @@ public class ConfirmationAlertController extends AlertController {
             hide();
         });
 
-        container.setOnKeyReleased(event -> {
-            System.out.println("Confirmation alert");
+        root.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                hide();
+                if (onConfirmRunnable != null) {
+                    onConfirmRunnable.run();
+                }
+            }
         });
 
         JavaFXUtils.setButtonIcons(confirm, CONFIRM_WHITE, CONFIRM_BLACK, 40);

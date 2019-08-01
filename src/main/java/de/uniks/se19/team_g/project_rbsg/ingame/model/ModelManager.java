@@ -6,8 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
-import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.slf4j.Logger;
@@ -80,19 +78,13 @@ public class ModelManager implements GameEventHandler {
             case GAME_INIT_OBJECT:
             case GAME_NEW_OBJECT:
                 //may change for future server releases
-                Platform.runLater(()->{
-                    handleInit(node);
-                });
+                handleInit(node);
                 break;
             case GAME_REMOVE_OBJECT:
-                Platform.runLater(()->{
-                    handleRemove(node);
-                });
+                handleRemove(node);
                 break;
             case GAME_CHANGE_OBJECT:
-                Platform.runLater(()-> {
-                    handleChange(node.get("data"));
-                });
+                handleChange(node.get("data"));
                 break;
             default:
                 logger.error("Unknown model message: " + node);
