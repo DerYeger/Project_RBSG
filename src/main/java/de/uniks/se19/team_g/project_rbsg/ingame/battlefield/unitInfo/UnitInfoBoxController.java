@@ -12,14 +12,14 @@ import javax.annotation.*;
 import java.net.*;
 import java.util.*;
 
-public class UnitInfoBoxController implements Initializable
+public class UnitInfoBoxController<T> implements Initializable
 {
     public ImageView unitImageView;
     public VBox firstPropertyContainer;
     public VBox secondPropertyContainer;
     public VBox thirdPropertyContainer;
 
-    private ChangeListener<Unit> unitChangeListener;
+    private ChangeListener<T> unitChangeListener;
     private ChangeListener<Number> hpChangeListener;
 
     private StringProperty hpText = new SimpleStringProperty("No unit selected");
@@ -41,6 +41,7 @@ public class UnitInfoBoxController implements Initializable
         unitChangeListener = this::unitChanged;
         hpChangeListener = this::hpChanged;
 
+
         firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/hpIcon.png").toExternalForm(), hpText));
         secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/mpIcon.png").toExternalForm(), mpText));
         secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
@@ -51,28 +52,27 @@ public class UnitInfoBoxController implements Initializable
         buildNullPreview();
     }
 
+    private void unitChanged(ObservableValue<? extends T> observableValue, T oldHoverable, T newHoverable)
+    {
+        logger.debug("Unit changed!");
+        if(newHoverable instanceof Unit) {
+            Unit newUnit = (Unit) newHoverable;
+            buildPreview(newUnit);
+        }
+        else {
+            buildNullPreview();
+        }
+
+        if(oldHoverable instanceof Unit) {
+            Unit oldUnit = (Unit) oldHoverable;
+            oldUnit.hpProperty().removeListener(hpChangeListener);
+        }
+    }
+
 
     private void hpChanged(ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
     {
         hpText.set(String.format("%d / %d ", newHp.intValue(), 9001));
-    }
-
-    private void unitChanged(ObservableValue<? extends Unit> observableValue, Unit oldUnit, Unit newUnit)
-    {
-        logger.debug("Unit changed!");
-        if (newUnit != null)
-        {
-            buildPreview(newUnit);
-        }
-        else
-        {
-            buildNullPreview();
-        }
-
-        if (oldUnit != null)
-        {
-            oldUnit.hpProperty().removeListener(hpChangeListener);
-        }
     }
 
     private void buildPreview(Unit unit)
@@ -92,8 +92,10 @@ public class UnitInfoBoxController implements Initializable
         mpText.set("-");
     }
 
-    public void bindUnit(@Nonnull final ReadOnlyObjectProperty<Unit> unit)
+    public void bindUnit(@Nonnull final ObservableObjectValue<? extends T> unit)
     {
         unit.addListener(unitChangeListener);
     }
+
+
 }
