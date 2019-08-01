@@ -7,8 +7,10 @@
 }
 
 .sidebarContainer {
-    -fx-padding: 10;
+    -fx-padding: 5 10 10 5;
     -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-max-width: 200px;
 }
 
 .battlefieldContainer {
@@ -29,4 +31,8 @@
     -fx-spacing: 30;
     -fx-alignment: center;
     -fx-background-color: -root-background-color;
+}
+
+.roundInfoBox {
+    -fx-padding: 5;
 }

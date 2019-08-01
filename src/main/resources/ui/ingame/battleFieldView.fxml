@@ -91,9 +91,9 @@
                   <String fx:value="battlefieldContainer" />
                </styleClass>
             </VBox>
-            <VBox fx:id="sidebar" alignment="CENTER" HBox.hgrow="ALWAYS">
+            <VBox fx:id="sidebar" HBox.hgrow="ALWAYS">
                <children>
-               <HBox fx:id="ingameInformationHBox" alignment="CENTER" fillHeight="false" maxHeight="30.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
+               <HBox fx:id="ingameInformationHBox" alignment="CENTER" fillHeight="false" styleClass="roundInfoBox" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
                   <children>
                      <Label fx:id="roundTextLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                         <HBox.margin>
@@ -116,7 +116,7 @@
                      <Insets />
                   </HBox.margin>
                </HBox>
-                  <VBox fx:id="unitInformationContainer" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="unitInformationContainer">
                      <styleClass>
                         <String fx:value="boxSpacing" />
                         <String fx:value="contentVBox" />

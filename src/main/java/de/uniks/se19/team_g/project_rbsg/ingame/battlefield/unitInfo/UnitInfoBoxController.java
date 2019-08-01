@@ -4,8 +4,11 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import org.slf4j.*;
 
 import javax.annotation.*;
@@ -17,7 +20,9 @@ public class UnitInfoBoxController<T> implements Initializable
     public ImageView unitImageView;
     public VBox firstPropertyContainer;
     public VBox secondPropertyContainer;
-    public VBox thirdPropertyContainer;
+    public HBox secondHorizontalContainer;
+    public Pane playerColorPane;
+    public Label hpLabel;
 
     private ChangeListener<T> unitChangeListener;
     private ChangeListener<Number> hpChangeListener;
@@ -41,13 +46,16 @@ public class UnitInfoBoxController<T> implements Initializable
         unitChangeListener = this::unitChanged;
         hpChangeListener = this::hpChanged;
 
+        hpLabel.textProperty().bindBidirectional(hpText);
 
-        firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/hpIcon.png").toExternalForm(), hpText));
-        secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/mpIcon.png").toExternalForm(), mpText));
+        firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/mpIcon.png").toExternalForm(), mpText));
+        firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
+        firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
         secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
-        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
-        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
-        thirdPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
+        secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
+        secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
+
+
 
         buildNullPreview();
     }
@@ -82,6 +90,7 @@ public class UnitInfoBoxController<T> implements Initializable
         unit.hpProperty().addListener(hpChangeListener);
         hpText.set(String.format("%d / %d ", unit.getHp(), 9000));
         mpText.set(String.valueOf(unit.getMp()));
+        playerColorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf(unit.getLeader().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     private void buildNullPreview()
