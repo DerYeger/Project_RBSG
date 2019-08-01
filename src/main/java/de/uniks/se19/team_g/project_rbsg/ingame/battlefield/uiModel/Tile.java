@@ -169,7 +169,7 @@ public class Tile
 
         if ( unit != null) {
             if (unit.isSelected()) {
-                return  unit.getLeader().isPlayer() ?
+                return  unit.getLeader() != null && unit.getLeader().isPlayer() ?
                     HighlightingTwo.SELECETD_WITH_UNITS
                     : HighlightingTwo.SELECTED;
             }

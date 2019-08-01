@@ -447,11 +447,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
 
-        if (context.getGameState() == null) {
-            return;
-        }
-
-        context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
+        Objects.requireNonNullElse(unit, cell).setHoveredIn(context.getGameState());
     }
 
     public void canvasHandleMouseClicked(MouseEvent event) {
@@ -480,7 +476,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (selectable == context.getGameState().getSelected()) {
             selectable.clearSelection();
         } else {
-            context.getGameState().setSelected(selectable);
+            selectable.setSelectedIn(context.getGameState());
         }
     }
 

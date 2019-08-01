@@ -160,6 +160,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         unit.setUnitType(UnitTypeInfo._CHOPPER);
         unit.setGame(game);
         unit.setPosition(game.getCells().get(11));
+        unit.setLeader(player);
 
         game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
 
@@ -304,6 +305,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setLeader(player);
         game.setCurrentPlayer(player);
 
+        definition.otherUnit.setLeader(player);
+
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
                 new GameProvider(),
@@ -391,6 +394,7 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
+    // actually not his responsibility anymore
     public void testAttackRadius() throws ExecutionException, InterruptedException{
         BattleFieldController battleFieldController = battleFieldComponent.getController();
 
@@ -436,24 +440,10 @@ public class BattleFieldViewTest extends ApplicationTest {
             sleep(1);
         }
         WaitForAsyncUtils.waitForFxEvents();
-        Assert.assertFalse(enemyUnit.isAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         clickOn(520, 260);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
-
-        Assert.assertTrue(enemyUnit.isAttackable());
-        Assert.assertTrue(playerUnit.getPosition().getLeft().isIsAttackable());
-        Assert.assertTrue(playerUnit.getPosition().getTop().isIsAttackable());
-        Assert.assertTrue(playerUnit.getPosition().getRight().isIsAttackable());
-        Assert.assertTrue(playerUnit.getPosition().getBottom().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
@@ -461,12 +451,6 @@ public class BattleFieldViewTest extends ApplicationTest {
             sleep(1);
         }
         WaitForAsyncUtils.waitForFxEvents();
-        Assert.assertFalse(enemyUnit.isAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getLeft().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getTop().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getRight().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().getBottom().isIsAttackable());
-        Assert.assertFalse(playerUnit.getPosition().isIsAttackable());
 
         context.getGameState().setPhase("movePhase");
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
@@ -492,6 +476,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.withPlayers(player, other);
         playerUnit.setLeader(player);
         definition.otherUnit.setLeader(other);
+        playerUnit.setCanAttack(Collections.singleton(definition.otherUnit.getUnitType()));
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(

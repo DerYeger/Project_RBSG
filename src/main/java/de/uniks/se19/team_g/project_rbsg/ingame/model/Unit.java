@@ -40,7 +40,7 @@ public class Unit implements Selectable, Hoverable {
     private int mp;
     private int hp;
 
-    private ArrayList<UnitTypeInfo> canAttack;
+    private ArrayList<UnitTypeInfo> canAttack = new ArrayList<>();
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -135,7 +135,8 @@ public class Unit implements Selectable, Hoverable {
     }
 
     public Unit setCanAttack(@NonNull final Collection<UnitTypeInfo> canAttack) {
-        this.canAttack = new ArrayList<>(canAttack);
+        this.canAttack.clear();
+        this.canAttack.addAll(canAttack);
         return this;
     }
 
