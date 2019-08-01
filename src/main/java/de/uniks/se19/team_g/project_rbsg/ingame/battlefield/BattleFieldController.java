@@ -571,7 +571,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         return true;
     }
 
-    public void leaveGame(@SuppressWarnings("unused") ActionEvent actionEvent)
+    public void leaveGame(@SuppressWarnings("unused") MouseEvent mouseEvent)
     {
         alertBuilder
                 .confirmation(
