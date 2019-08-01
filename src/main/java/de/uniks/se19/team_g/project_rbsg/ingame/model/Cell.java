@@ -4,10 +4,11 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author Jan Müller
@@ -331,5 +332,19 @@ public class Cell implements Hoverable, Selectable {
 
     public ObjectProperty<Game> selectedInProp() {
         return selectedIn;
+    }
+
+    public boolean isNeighbor(Cell other) {
+        return other == getRight()
+            || other == getBottom()
+            || other == getLeft()
+            || other == getTop()
+        ;
+    }
+
+    public Stream<Cell> getNeighbors() {
+        return Stream.of(
+            getRight(), getBottom(), getLeft(), getTop()
+        ).filter(Objects::nonNull);
     }
 }

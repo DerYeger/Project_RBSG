@@ -26,6 +26,10 @@ public class TileDrawer
 
     private static final Color attackRed = Color.rgb(207,102,121, 0.4);
     private static final Color attackRedBorder = Color.rgb(207,102,121);
+
+    private static final Color attackBlocked = Color.web("737373", 0.5);
+    private static final Color attackBlockedBorder = Color.web("737373");
+
     private static Image grass = new Image("/assets/cells/grass/grass1.png");
 
     private Canvas canvas;
@@ -80,16 +84,19 @@ public class TileDrawer
             graphicsContext.drawImage(tile.getDeckoratorImage(), startX, startY);
         }
         //Layer 3 Highlighting One -> Move and Attack
-        if (tile.getHighlightingOne() != HighlightingOne.NONE) {
-            if (tile.getHighlightingOne() == HighlightingOne.MOVE) {
-                graphicsContext.setFill(movementBlue);
-                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+        HighlightingOne highlightingOne = tile.getHighlightingOne();
+        if (highlightingOne != HighlightingOne.NONE) {
+            if (highlightingOne == HighlightingOne.MOVE) {
+                drawTileFill(startX, startY, movementBlue);
                 drawBorderAroundTile(startX, startY, movementBlueBorder);
             }
-            if (tile.getHighlightingOne() == HighlightingOne.ATTACK) {
-                graphicsContext.setFill(attackRed);
-                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+            if (highlightingOne == HighlightingOne.ATTACK) {
+                drawTileFill(startX, startY, attackRed);
                 drawBorderAroundTile(startX, startY, attackRedBorder);
+            }
+            if (highlightingOne == HighlightingOne.ATTACK_BLOCKED) {
+                drawTileFill(startX, startY, attackBlocked);
+                drawBorderAroundTile(startX, startY, attackBlockedBorder);
             }
         }
 
@@ -98,19 +105,16 @@ public class TileDrawer
         {
             if (tile.getHighlightingTwo() == HighlightingTwo.HOVERED)
             {
-                graphicsContext.setFill(transparentWhite);
-                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                drawTileFill(startX, startY, transparentWhite);
 
             }
             if (tile.getHighlightingTwo() == HighlightingTwo.SELECTED)
             {
-                graphicsContext.setFill(selectedWhite);
-                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                drawTileFill(startX, startY, selectedWhite);
             }
             if (tile.getHighlightingTwo() == HighlightingTwo.SELECETD_WITH_UNITS)
             {
-                graphicsContext.setFill(selectedWhite);
-                graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                drawTileFill(startX, startY, selectedWhite);
                 drawBorderAroundTile(startX, startY, selectedBlue);
             }
 
@@ -124,6 +128,11 @@ public class TileDrawer
         {
             graphicsContext.drawImage(unitImagesMap.get(tile.getCell().getUnit().getUnitType()), startX, startY);
         }
+    }
+
+    protected void drawTileFill(double startX, double startY, Color attackRed) {
+        graphicsContext.setFill(attackRed);
+        graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
     }
 
     private void drawBorderAroundTile(double startX, double startY, Color borderColer) {

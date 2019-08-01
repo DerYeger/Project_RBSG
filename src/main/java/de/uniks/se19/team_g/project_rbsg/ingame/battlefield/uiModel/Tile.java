@@ -3,12 +3,14 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TileUtils;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.image.Image;
-import org.springframework.lang.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -40,10 +42,16 @@ public class Tile
 
         configureUnitDependencies();
         configureCellDependencies();
+        configureGameDependencies();
 
         updateHighlightingOne(null, null, null);
         updateHighlightingTwo(null, null, null);
 
+    }
+
+    private void configureGameDependencies() {
+        cell.getGame().selectedProperty().addListener(updateHighlightingOne);
+        cell.getGame().phaseProperty().addListener(updateHighlightingOne);
     }
 
     private void configureUnitDependencies() {
@@ -84,19 +92,33 @@ public class Tile
         cell.isReachableProperty().addListener(updateHighlightingOne);
         cell.isAttackableProperty().addListener(updateHighlightingOne);
         cell.hoveredProperty().addListener(updateHighlightingTwo);
-        cell.selectedProperty().addListener(updateHighlightingTwo);
+        cell.selectedProperty().addListener(updateHighlightingOne);
+
+        if (cell.getTop() != null) {
+            cell.getTop().unitProperty().addListener(updateHighlightingOne);
+        }
+        if (cell.getLeft() != null) {
+            cell.getLeft().unitProperty().addListener(updateHighlightingOne);
+        }
+        if (cell.getBottom() != null) {
+            cell.getBottom().unitProperty().addListener(updateHighlightingOne);
+        }
+        if (cell.getRight() != null) {
+            cell.getRight().unitProperty().addListener(updateHighlightingOne);
+        }
     }
 
     private HighlightingOne evaluateHighlightingOne() {
+
         Unit unit = cell.getUnit();
-        if (unit != null) {
-            if (unit.isSelected()) {
-                return HighlightingOne.NONE;
-            }
+
+        if (unit != null && unit.isSelected()) {
+            return HighlightingOne.NONE;
         }
 
-        if (cell.isIsAttackable()) {
-            return HighlightingOne.ATTACK;
+        HighlightingOne highlighting = getAttackHighlighting();
+        if (highlighting != null) {
+            return highlighting;
         }
 
         if (cell.isIsReachable()) {
@@ -104,6 +126,32 @@ public class Tile
         }
 
         return HighlightingOne.NONE;
+    }
+
+    @Nullable
+    private HighlightingOne getAttackHighlighting() {
+        Unit unit = cell.getUnit();
+        Unit selectedUnit = cell.getGame().getSelectedUnit();
+
+        if (selectedUnit == null) {
+            return null;
+        }
+
+        if (
+            cell.getGame().isPhase(Game.Phase.attackPhase)
+            && cell.getGame().getCurrentPlayer().isPlayer()
+        ) {
+            // highlight neighbor fields of selected unit
+            if (!cell.isNeighbor(selectedUnit.getPosition())) {
+                return null;
+            }
+            return selectedUnit.canAttack(unit) ?
+                HighlightingOne.ATTACK
+                : HighlightingOne.ATTACK_BLOCKED
+            ;
+        }
+
+        return null;
     }
 
     private HighlightingTwo evaluateHightlightingTwo() {
@@ -150,10 +198,14 @@ public class Tile
     @SuppressWarnings("unused")
     private void updateHighlightingTwo(Observable observable, Object prev, Object next)
     {
-        this.highlightingTwo = evaluateHightlightingTwo();
+        HighlightingTwo oldValue = highlightingTwo;
+        HighlightingTwo nextValue = evaluateHightlightingTwo();
 
-        //Abusing property changed
-        pcs.firePropertyChange("HighlightingTwo", this, this.highlightingTwo);
+        if (oldValue != nextValue) {
+            this.highlightingTwo = nextValue;
+            //Abusing property changed
+            pcs.firePropertyChange("HighlightingTwo", this, this.highlightingTwo);
+        }
     }
 
     public Cell getCell()
@@ -169,11 +221,14 @@ public class Tile
     @SuppressWarnings("unused")
     private void updateHighlightingOne(Observable observable, Object prev, Object next)
     {
-        this.highlightingOne = evaluateHighlightingOne();
+        HighlightingOne oldVal = this.highlightingOne;
+        HighlightingOne nextVal = evaluateHighlightingOne();
 
-        //Abusing property changed
-
-        pcs.firePropertyChange("HighlightingOne", this, this.highlightingOne);
+        if (oldVal != nextVal) {
+            this.highlightingOne = nextVal;
+            //Abusing property changed
+            pcs.firePropertyChange("HighlightingOne", this, this.highlightingOne);
+        }
     }
 
     public Image getDeckoratorImage()

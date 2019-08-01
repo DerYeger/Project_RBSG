@@ -237,4 +237,10 @@ public class Unit implements Selectable, Hoverable {
             game.setHovered(this);
         }
     }
+
+    public boolean canAttack(Unit unit) {
+        return unit != null
+            && unit.getLeader() != this.leader
+            && canAttack.contains(unit.unitType);
+    }
 }
