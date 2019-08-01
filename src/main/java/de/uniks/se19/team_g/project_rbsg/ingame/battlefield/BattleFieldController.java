@@ -464,6 +464,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
 
+        if (context.getGameState() == null) {
+            return;
+        }
+
         context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
     }
 
@@ -720,12 +724,49 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureCells();
 
+        addAlertListeners();
+
         try {
             initChat();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void addAlertListeners() {
+        game.winnerProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                //TODO: Check if we are the winner. If yes, show other (priorityInformation) alert (Mockup)
+                showWinnerLoserAlert(newValue);
+            }
+        }));
+        //TODO: Add listeners to the users own units property
+        //TODO: If the user lost ALL units AND their loss doesn't cause another player's win show the game lost (priorityConfirmation) alert (Mockup)
+        this.context.getUserPlayer().getUnits().addListener((ListChangeListener<Unit>) unitList -> {
+            if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2){
+                alertBuilder.priorityConfirmation(
+                        AlertBuilder.Text.GAME_LOST,
+                        () -> this.context.getGameData().setSpectatorModus(true),
+                        () -> doLeaveGame()
+                );
+            }
+        });
+    }
+
+    private void showWinnerLoserAlert(Player winner) {
+        if (winner.equals(this.context.getUserPlayer())){
+            alertBuilder.priorityInformation(
+                    AlertBuilder.Text.GAME_WON,
+                    () -> doLeaveGame());
+        } else {
+            alertBuilder.priorityInformation(
+                    AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON,
+                    () -> doLeaveGame(),
+                    winner.getName());
+        }
+    }
+
+
 
     private void initChat() throws Exception {
         final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
@@ -818,7 +859,11 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
 
-        if (!selectedUnit.getLeader().isPlayer() || (!this.context.isMyTurn())) {
+        if (
+            selectedUnit.getLeader() == null
+            || !selectedUnit.getLeader().isPlayer()
+            || (!this.context.isMyTurn())
+        ) {
             return;
         }
 
@@ -913,11 +958,22 @@ public class BattleFieldController implements RootController, IngameViewControll
         miniMapDrawer.setCanvas(miniMapCanvas, mapSize);
         miniMapDrawer.drawMinimap(tileMap);
     }
+
+    /**
+     * i don't think, we need to remove any listeners at all in the battlefield controller,
+     * since we throw away the whole game anyway.
+     */
     @Override
     public void terminate()
     {
-        context.getGameState().selectedProperty().removeListener(onSelectedChanged);
-        context.getGameState().hoveredProperty().removeListener(onHoveredChanged);
+        @Nullable Game gameState = context.getGameState();
+
+        if (gameState == null) {
+            return;
+        }
+
+        gameState.selectedProperty().removeListener(onSelectedChanged);
+        gameState.hoveredProperty().removeListener(onHoveredChanged);
 
         for (Tile[] tileArray : tileMap)
         {

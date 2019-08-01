@@ -6,6 +6,9 @@ import io.rincl.Rincled;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +34,10 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         EXIT("exit"),
         CREATE_GAME_ERROR("createGameError"),
         CONNECTION_CLOSED("connectionClosed"),
+        GAME_OVER("gameOver"),
+        GAME_WON("gameWon"),
+        GAME_SOMEBODY_ELSE_WON("elseWon"),
+        GAME_LOST("gameLost"),
         INVALID_INPUT("invalidInput"),
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
@@ -64,9 +71,18 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     private ApplicationContext context;
 
-    public void confirmation(@NonNull final Text text, @NonNull final Runnable onConfirm, @Nullable final Runnable onCancel) {
+    public void confirmation(@NonNull final Text text,
+                             @Nullable final Runnable onConfirm,
+                             @Nullable final Runnable onCancel) {
+        confirmation(text, onConfirm, onCancel, null);
+    }
+
+    public void confirmation(@NonNull final Text text,
+                             @Nullable final Runnable onConfirm,
+                             @Nullable final Runnable onCancel,
+                             @Nullable final String var) {
         try {
-            ((ConfirmationAlertController) build(text, Type.CONFIRMATION))
+            ((ConfirmationAlertController) build(text, Type.CONFIRMATION, var))
                     .andThen(onConfirm)
                     .orElse(onCancel)
                     .show();
@@ -75,17 +91,36 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         }
     }
 
-    public void information(@NonNull final Text text) {
-        try {
-            build(text, Type.INFO).show();
-        } catch (final AlertCreationException e) {
-            logger.debug("Unable to create alert:" + e.getMessage());
-        }
+    public void priorityConfirmation(@NonNull final Text text,
+                                     @Nullable final Runnable onConfirm,
+                                     @Nullable final Runnable onCancel) {
+        priorityConfirmation(text, onConfirm, onCancel, null);
     }
 
-    public void error(@NonNull final Text text, @Nullable final Runnable runnable) {
+    public void priorityConfirmation(@NonNull final Text text,
+                                     @Nullable final Runnable onConfirm,
+                                     @Nullable final Runnable onCancel,
+                                     @Nullable final String var) {
+        Platform.runLater(() -> {
+            clearActiveAlerts();
+            confirmation(text, onConfirm, onCancel, var);
+        });
+    }
+
+    public void information(@NonNull final Text text) {
+        information(text, null, null);
+    }
+
+    public void information(@NonNull final Text text,
+                            @Nullable final Runnable runnable) {
+        information(text, runnable, null);
+    }
+
+    public void information(@NonNull final Text text,
+                            @Nullable final Runnable runnable,
+                            @Nullable final String var) {
         try {
-            ((InfoAlertController) build(text, Type.INFO))
+            ((InfoAlertController) build(text, Type.INFO, var))
                     .andThen(runnable)
                     .show();
         } catch (final AlertCreationException e) {
@@ -93,7 +128,23 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         }
     }
 
-    public AlertController build(@NonNull final Text text, @NonNull final Type type) throws AlertCreationException {
+    public void priorityInformation(@NonNull final Text text,
+                                    @Nullable final Runnable runnable) {
+        priorityInformation(text, runnable, null);
+    }
+
+    public void priorityInformation(@NonNull final Text text,
+                                    @Nullable final Runnable runnable,
+                                    @Nullable final String var) {
+        Platform.runLater(() -> {
+            clearActiveAlerts();
+            information(text, runnable, var);
+        });
+    }
+
+    public AlertController build(@NonNull final Text text,
+                                 @NonNull final Type type,
+                                 @Nullable final String var) throws AlertCreationException {
         final StackPane target = sceneManager.getAlertTarget();
 
         if (target == null) {
@@ -104,14 +155,27 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
             throw new AlertCreationException("An alert is already active");
         }
 
+        final StringBuilder message = new StringBuilder();
+        if (var != null) {
+            message.append(var).append(' ');
+        }
+        message.append(getResources().getString(text.text));
+
         @SuppressWarnings("unchecked")
         final ViewComponent<AlertController> components = (ViewComponent<AlertController>) context.getBean(type.bean);
         final AlertController controller = components.getController();
         controller.initialize(
-                getResources().getString(text.text),
+                message.toString(),
                 components.getRoot(),
                 target);
         return controller;
+    }
+
+    private void clearActiveAlerts() {
+        final ObservableList<Node> children = sceneManager.getAlertTarget().getChildren();
+        for (int i = 1; i < children.size(); i++) {
+            children.remove(i--);
+        }
     }
 
     @Override
