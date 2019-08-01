@@ -53,3 +53,7 @@ javafx {
 	version = '11.0.2'
 	modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ]
 }
+
+test {
+	maxHeapSize = "8192m"
+}

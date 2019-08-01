@@ -105,6 +105,22 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
     }
 
     @Test
+    public void testGameWonAlert(){
+        final AlertBuilder alertBuilder = context.getBean(AlertBuilder.class);
+        alertBuilder.information(AlertBuilder.Text.GAME_WON);
+        WaitForAsyncUtils.waitForFxEvents();
+
+        final Button confirm = lookup("#confirm").queryButton();
+
+        assertNotNull(confirm);
+        assertNotNull(lookup("Congratulations, you won the game! Going back to the lobby..."));
+
+        clickOn(confirm);
+
+        assertEquals(1, sceneManager.getAlertTarget().getChildren().size());
+    }
+
+    @Test
     public void testConfirmationAlert() {
         final boolean[] confirmedAndCanceled = new boolean[2];
         final AlertBuilder alertBuilder = context.getBean(AlertBuilder.class);

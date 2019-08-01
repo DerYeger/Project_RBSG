@@ -31,6 +31,8 @@ public class ModelManagerTests {
         final String secondUnitMessage = "{\"action\":\"gameInitObject\",\"data\":{\"id\":\"Unit@2\",\"type\":\"Jeep\",\"mp\":1,\"hp\":5,\"canAttack\":[\"Infantry\"],\"game\":\"Game@1\",\"leader\":\"Player@1\",\"position\":\"Grass@1\"}}";
 
         final ModelManager modelManager = new ModelManager();
+        // execute synchronous
+        modelManager.setExecutor(Runnable::run);
 
         final ObjectMapper mapper = new ObjectMapper();
 

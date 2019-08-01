@@ -1,10 +1,16 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import javafx.scene.image.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TileUtils;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.image.Image;
+import org.springframework.lang.Nullable;
 
-import java.beans.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * @author Georg Siebert
@@ -13,9 +19,15 @@ import java.beans.*;
 public class Tile
 {
     private final Cell cell;
-    private final Image backgroundImage;
-    private final Image deckoratorImage;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    private final ChangeListener<Object> updateHighlightingOne = this::updateHighlightingOne;
+
+    private final ChangeListener<Object> updateHighlightingTwo = this::updateHighlightingTwo;
+
+    private Image backgroundImage;
+    private Image deckoratorImage;
+
     private HighlightingOne highlightingOne;
     private HighlightingTwo highlightingTwo;
 
@@ -26,16 +38,98 @@ public class Tile
         highlightingOne = HighlightingOne.NONE;
         highlightingTwo = HighlightingTwo.NONE;
 
-        backgroundImage = TileUtils.getBackgroundImage(cell);
+        configureUnitDependencies();
+        configureCellDependencies();
 
-        if (cell.getBiome() == Biome.GRASS)
-        {
-            deckoratorImage = TileUtils.getDecoratorImage();
+        updateHighlightingOne(null, null, null);
+        updateHighlightingTwo(null, null, null);
+
+    }
+
+    private void configureUnitDependencies() {
+        cell.unitProperty().addListener((observable, lastUnit, nextUnit) -> {
+
+            clearUnitListener(lastUnit);
+            addUnitListener(nextUnit);
+
+            updateHighlightingOne(observable, null, null);
+            updateHighlightingTwo(observable, null, null);
+        });
+
+        // init
+        addUnitListener(cell.getUnit());
+    }
+
+    private void clearUnitListener(@Nullable Unit unit) {
+        if (unit == null) {
+            return;
         }
-        else
-        {
-            deckoratorImage = null;
+
+        unit.attackableProperty().removeListener(updateHighlightingOne);
+        unit.selectedProperty().removeListener(updateHighlightingTwo);
+        unit.hoveredProperty().removeListener(updateHighlightingTwo);
+    }
+
+    private void addUnitListener(@Nullable Unit unit) {
+        if (unit == null) {
+            return;
         }
+
+        unit.attackableProperty().addListener(updateHighlightingOne);
+        unit.selectedProperty().addListener(updateHighlightingTwo);
+        unit.hoveredProperty().addListener(updateHighlightingTwo);
+    }
+
+    private void configureCellDependencies() {
+        cell.isReachableProperty().addListener(updateHighlightingOne);
+        cell.isAttackableProperty().addListener(updateHighlightingOne);
+        cell.hoveredProperty().addListener(updateHighlightingTwo);
+        cell.selectedProperty().addListener(updateHighlightingTwo);
+    }
+
+    private HighlightingOne evaluateHighlightingOne() {
+        Unit unit = cell.getUnit();
+        if (unit != null) {
+            if (unit.isSelected()) {
+                return HighlightingOne.NONE;
+            }
+        }
+
+        if (cell.isIsAttackable()) {
+            return HighlightingOne.ATTACK;
+        }
+
+        if (cell.isIsReachable()) {
+            return HighlightingOne.MOVE;
+        }
+
+        return HighlightingOne.NONE;
+    }
+
+    private HighlightingTwo evaluateHightlightingTwo() {
+
+        Unit unit = cell.getUnit();
+
+        if ( unit != null) {
+            if (unit.isSelected()) {
+                return  unit.getLeader().isPlayer() ?
+                    HighlightingTwo.SELECETD_WITH_UNITS
+                    : HighlightingTwo.SELECTED;
+            }
+            if (unit.isHovered()) {
+                return HighlightingTwo.HOVERED;
+            }
+        }
+
+        if (cell.isSelected()) {
+            return HighlightingTwo.SELECTED;
+        }
+
+        if (cell.isHovered()) {
+            return HighlightingTwo.HOVERED;
+        }
+
+        return HighlightingTwo.NONE;
     }
 
     public void removeListener(PropertyChangeListener listener)
@@ -48,19 +142,15 @@ public class Tile
         pcs.addPropertyChangeListener(listener);
     }
 
-    public Image getBackgroundImage()
-    {
-        return backgroundImage;
-    }
-
     public HighlightingTwo getHighlightingTwo()
     {
         return highlightingTwo;
     }
 
-    public void setHighlightingTwo(HighlightingTwo highlightingTwo)
+    @SuppressWarnings("unused")
+    private void updateHighlightingTwo(Observable observable, Object prev, Object next)
     {
-        this.highlightingTwo = highlightingTwo;
+        this.highlightingTwo = evaluateHightlightingTwo();
 
         //Abusing property changed
         pcs.firePropertyChange("HighlightingTwo", this, this.highlightingTwo);
@@ -76,9 +166,10 @@ public class Tile
         return highlightingOne;
     }
 
-    public void setHighlightingOne(HighlightingOne highlightingOne)
+    @SuppressWarnings("unused")
+    private void updateHighlightingOne(Observable observable, Object prev, Object next)
     {
-        this.highlightingOne = highlightingOne;
+        this.highlightingOne = evaluateHighlightingOne();
 
         //Abusing property changed
 
@@ -87,6 +178,18 @@ public class Tile
 
     public Image getDeckoratorImage()
     {
+
+        if (cell.getBiome() == Biome.GRASS && deckoratorImage == null) {
+            deckoratorImage = TileUtils.getDecoratorImage();
+        }
         return deckoratorImage;
+    }
+
+    public Image getBackgroundImage()
+    {
+        if (backgroundImage == null) {
+            backgroundImage = TileUtils.getBackgroundImage(cell);
+        }
+        return backgroundImage;
     }
 }

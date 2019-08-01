@@ -30,8 +30,7 @@ public class JavaConfig implements ApplicationContextAware {
         return new Terminator()
                 .register(context.getBean(SceneManager.class))
                 .register(context.getBean(UserManager.class))
-                .register(context.getBean(GameProvider.class))
-                .register(context.getBean(IngameGameProvider.class));
+        ;
     }
 
     @Bean

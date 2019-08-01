@@ -1,16 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
  * @author Jan Müller
  */
-public class Cell {
+public class Cell implements Hoverable, Selectable {
 
     @NonNull
     private final String id;
@@ -31,11 +32,17 @@ public class Cell {
     private Cell right;
     private Cell bottom;
 
-    private SimpleObjectProperty<Unit> unit;
+    private final SimpleObjectProperty<Unit> unit;
 
-    private SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
 
-    private SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
+
+    private final ObjectProperty<Game> selectedIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isSelected = selectedIn.isNotNull();
+
+    private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isHovered = hoveredIn.isNotNull();
 
     public Cell(@NonNull final String id) {
         this.id = id;
@@ -251,5 +258,68 @@ public class Cell {
 
     public void setIsAttackable(boolean isAttackable) {
         this.isAttackable.set(isAttackable);
+    }
+
+    @Override
+    public boolean isHovered() {
+        return isHovered.get();
+    }
+
+    @Override
+    public ObservableBooleanValue hoveredProperty() {
+        return isHovered;
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setHoveredIn(@Nullable Game game) {
+        Game lastHoveredIn = hoveredIn.get();
+
+        if (game == lastHoveredIn) {
+            return;
+        }
+
+        hoveredIn.set(game);
+
+        if (lastHoveredIn != null) {
+            lastHoveredIn.setHovered(null);
+        }
+
+        if (game != null) {
+            game.setHovered(this);
+        }
+    }
+
+    public boolean isSelected() {
+        return isSelected.get();
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setSelectedIn(@Nullable Game game) {
+        // note that this should be just a toggle between null and a game, not between two games
+        Game lastState = selectedIn.get();
+
+        if (lastState == game) {
+            return;
+        }
+
+        selectedIn.set(game);
+
+        if (lastState != null) {
+            lastState.setSelected(null);
+        }
+        if (game != null) {
+            game.setSelected(this);
+        }
+    }
+
+    @Override
+    public ObservableBooleanValue selectedProperty() {
+        return isSelected;
+    }
+
+    public ObjectProperty<Game> selectedInProp() {
+        return selectedIn;
     }
 }

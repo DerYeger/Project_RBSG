@@ -36,6 +36,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.util.*;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -164,7 +165,17 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         gameOne.setJoinedPlayer(1);
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertEquals("1/2", playersLabel.textProperty().get());
+        assertThat(playersLabel.textProperty().get(), is("1/2") );
+
+        gameOne.setJoinedPlayer(2);
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertThat(playersLabel.textProperty().get(), is("2/2"));
+
+        Button playersButton = lookup("#joinGameButtongame1").queryButton();
+
+        assertThat(playersButton, notNullValue());
+        assertThat(playersButton.isDisable(), is(true));
 
     }
 }
