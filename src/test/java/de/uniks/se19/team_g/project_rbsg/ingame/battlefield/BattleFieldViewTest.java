@@ -189,11 +189,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         clickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
     }
 
-    private void doubleClick(double x, double y) {
-        doubleClickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
-    }
-
-
     @Test
     public void testMovement() throws ExecutionException, InterruptedException {
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
@@ -529,8 +524,7 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void testGameWon() throws ExecutionException, InterruptedException{
-        BattleFieldController battleFieldController = battleFieldComponent.getController();
+    public void testGameWon(){
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
@@ -556,7 +550,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         context.getUser().setName("Bob");
 
-        revealBattleField(context);
+        battleFieldComponent.getController().configure(context);
 
         context.getGameState().setWinner(player);
 
@@ -566,8 +560,7 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void gameLost() throws ExecutionException, InterruptedException {
-        BattleFieldController battleFieldController = battleFieldComponent.getController();
+    public void testGameLost(){
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
@@ -593,7 +586,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         context.getUser().setName("Bob");
 
-        revealBattleField(context);
+        battleFieldComponent.getController().configure(context);
 
         context.getGameState().setWinner(enemy);
 
@@ -604,8 +597,7 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void lostAndChooseSpectate() throws ExecutionException, InterruptedException {
-        BattleFieldController battleFieldController = battleFieldComponent.getController();
+    public void lostAndChooseSpectate() {
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
@@ -637,8 +629,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         context.getUser().setName("Bob");
 
-        revealBattleField(context);
+        //revealBattleField(context);
 
+        battleFieldComponent.getController().configure(context);
         player.getUnits().removeAll(playerUnit);
 
         verify(alertBuilder).priorityConfirmation(
