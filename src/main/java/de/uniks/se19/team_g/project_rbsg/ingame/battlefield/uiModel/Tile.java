@@ -9,7 +9,6 @@ import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.image.Image;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -40,33 +39,35 @@ public class Tile
         highlightingOne = HighlightingOne.NONE;
         highlightingTwo = HighlightingTwo.NONE;
 
-        configureUnitDependencies();
+        configureSelectionDependencies();
+
+        cell.getGame().hoveredProperty().addListener(updateHighlightingTwo);
+        cell.getGame().phaseProperty().addListener(updateHighlightingOne);
+
         configureCellDependencies();
-        configureGameDependencies();
 
         updateHighlightingOne(null, null, null);
         updateHighlightingTwo(null, null, null);
 
     }
 
-    private void configureGameDependencies() {
+    private void configureSelectionDependencies() {
+
         cell.getGame().selectedProperty().addListener(updateHighlightingOne);
         cell.getGame().selectedProperty().addListener(updateHighlightingTwo);
-        cell.getGame().phaseProperty().addListener(updateHighlightingOne);
-    }
 
-    private void configureUnitDependencies() {
-        cell.unitProperty().addListener((observable, lastUnit, nextUnit) -> {
+        cell.getGame().selectedProperty().addListener((observable, lastSelection, nextSelection) -> {
 
-            clearUnitListener(lastUnit);
-            addUnitListener(nextUnit);
-
-            updateHighlightingOne(observable, null, null);
-            updateHighlightingTwo(observable, null, null);
+            if (lastSelection instanceof Unit) {
+                clearUnitListener((Unit) lastSelection);
+            }
+            if (nextSelection instanceof Unit) {
+                addUnitListener((Unit) nextSelection);
+            }
         });
 
         // init
-        addUnitListener(cell.getUnit());
+        addUnitListener(cell.getGame().getSelectedUnit());
     }
 
     private void clearUnitListener(@Nullable Unit unit) {
@@ -74,8 +75,8 @@ public class Tile
             return;
         }
 
-        unit.selectedProperty().removeListener(updateHighlightingTwo);
-        unit.hoveredProperty().removeListener(updateHighlightingTwo);
+        unit.positionProperty().removeListener(updateHighlightingTwo);
+        unit.attackReadyProperty().removeListener(updateHighlightingTwo);
     }
 
     private void addUnitListener(@Nullable Unit unit) {
@@ -83,8 +84,8 @@ public class Tile
             return;
         }
 
-        unit.selectedProperty().addListener(updateHighlightingTwo);
-        unit.hoveredProperty().addListener(updateHighlightingTwo);
+        unit.positionProperty().addListener(updateHighlightingTwo);
+        unit.attackReadyProperty().addListener(updateHighlightingTwo);
     }
 
     private void configureCellDependencies() {
