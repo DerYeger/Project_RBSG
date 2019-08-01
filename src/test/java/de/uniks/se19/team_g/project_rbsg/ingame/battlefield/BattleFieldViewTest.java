@@ -116,8 +116,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
         UserProvider userProvider = new UserProvider();
-        userProvider.set(new User().setName("TestUser"));
-
+        userProvider.set(new User().setName("Test"));
         IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
         Player player = new Player("123");
         player.getUnits().addAll(
@@ -131,6 +130,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.getGameState().getPlayers().add(player);
         context.getGameState().setCurrentPlayer(player);
         context.setGameEventManager(gameEventManager);
+        context.gameInitialized(ingameGameProvider.get());
         revealBattleField(context);
 
         Assert.assertNotNull(ingameView);
@@ -188,11 +188,6 @@ public class BattleFieldViewTest extends ApplicationTest {
     private void click(double x, double y) {
         clickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
     }
-
-    private void doubleClick(double x, double y) {
-        doubleClickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
-    }
-
 
     @Test
     public void testMovement() throws ExecutionException, InterruptedException {
@@ -527,6 +522,125 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Assert.assertNull(game.getSelectedUnit());
     }
+
+    @Test
+    public void testGameWon(){
+
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        Player enemy = new Player("Karl").setName("Karl").setColor("BLUE");
+        game.withPlayer(player).withPlayer(enemy);
+        playerUnit.setLeader(player);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+
+        battleFieldComponent.getController().configure(context);
+
+        context.getGameState().setWinner(player);
+
+        verify(alertBuilder).priorityInformation(
+                eq(AlertBuilder.Text.GAME_WON),
+                any());
+    }
+
+    @Test
+    public void testGameLost(){
+
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        Player enemy = new Player("Karl").setName("Karl").setColor("BLUE");
+        game.withPlayer(player).withPlayer(enemy);
+        playerUnit.setLeader(player);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+
+        battleFieldComponent.getController().configure(context);
+
+        context.getGameState().setWinner(enemy);
+
+        verify(alertBuilder).priorityInformation(
+                eq(AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON),
+                any(),
+                eq(enemy.getName()));
+    }
+
+    @Test
+    public void lostAndChooseSpectate() {
+
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+        Unit enemyUnit = definition.otherUnit;
+        Unit thirdUnit = new Unit("LucyCat").setUnitType(UnitTypeInfo._JEEP);
+        thirdUnit.setPosition(definition.cells[2][1]);
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        Player enemy = new Player("Karl").setName("Karl").setColor("BLUE");
+        Player thirdParty = new Player("Lucy").setName("Lucy").setColor("GREEN");
+        game.withPlayer(player).withPlayer(enemy).withPlayer(thirdParty);
+        playerUnit.setLeader(player);
+        enemyUnit.setLeader(enemy);
+        thirdUnit.setLeader(thirdParty);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+
+        //revealBattleField(context);
+
+        battleFieldComponent.getController().configure(context);
+        player.getUnits().removeAll(playerUnit);
+
+        verify(alertBuilder).priorityConfirmation(
+                eq(AlertBuilder.Text.GAME_LOST),
+                any(),
+                any());
+    }
+
+
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions

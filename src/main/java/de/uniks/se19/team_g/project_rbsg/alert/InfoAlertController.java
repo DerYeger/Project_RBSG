@@ -46,11 +46,11 @@ public class InfoAlertController extends AlertController {
         });
 
         container.setOnKeyReleased(event -> {
-            /*if (onConfirmRunnable != null) {
+            if (onConfirmRunnable != null) {
                 onConfirmRunnable.run();
             } else {
                 hide();
-            }*/
+            }
             System.out.println("Info alert");
         });
 
