@@ -143,6 +143,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     public HBox ingameInformationHBox;
     @FXML
     public HBox menueBar;
+    @FXML
+    public StackPane rootPane;
 
     private PlayerListController playerListController;
 
@@ -337,14 +339,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
 
-        /*zoomableScrollPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        rootPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if(event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get()){
                     endPhase();
                 }
             }
-        });*/
+        });
     }
     private void initPlayerBar(){
         HashMap<String, Player> playerMap = new HashMap<>();
