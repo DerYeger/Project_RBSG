@@ -151,7 +151,18 @@ public class Tile
             ;
         }
 
-        return null;
+        // highlight all units on battlefield
+        if (
+            unit == null
+            || (unit.getLeader() != null && unit.getLeader().isPlayer())
+        ) {
+            return null;
+        }
+
+        return selectedUnit.canAttack(unit) ?
+                HighlightingOne.ATTACK
+                : HighlightingOne.ATTACK_BLOCKED
+                ;
     }
 
     private HighlightingTwo evaluateHightlightingTwo() {
