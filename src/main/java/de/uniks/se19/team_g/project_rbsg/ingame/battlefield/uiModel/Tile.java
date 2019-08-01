@@ -140,29 +140,28 @@ public class Tile
         if (
             cell.getGame().isPhase(Game.Phase.attackPhase)
             && cell.getGame().getCurrentPlayer().isPlayer()
+            && selectedUnit.getLeader().isPlayer()
         ) {
             // highlight neighbor fields of selected unit
             if (!cell.isNeighbor(selectedUnit.getPosition())) {
                 return null;
             }
             return selectedUnit.canAttack(unit) ?
-                HighlightingOne.ATTACK
-                : HighlightingOne.ATTACK_BLOCKED
+                HighlightingOne.ATTACK : HighlightingOne.ATTACK_BLOCKED
             ;
         }
 
         // highlight all units on battlefield
         if (
             unit == null
-            || (unit.getLeader() != null && unit.getLeader().isPlayer())
+            || unit.getLeader() == selectedUnit.getLeader()
         ) {
             return null;
         }
 
         return selectedUnit.canAttack(unit) ?
-                HighlightingOne.ATTACK
-                : HighlightingOne.ATTACK_BLOCKED
-                ;
+            HighlightingOne.ATTACK : HighlightingOne.ATTACK_BLOCKED
+        ;
     }
 
     private HighlightingTwo evaluateHightlightingTwo() {
