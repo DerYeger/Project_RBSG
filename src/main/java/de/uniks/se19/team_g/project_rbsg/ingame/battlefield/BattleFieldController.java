@@ -495,14 +495,13 @@ public class BattleFieldController implements RootController, IngameViewControll
             || !context.getGameState().isPhase(Game.Phase.attackPhase)
             || Objects.isNull(selectedUnit)
             || selectedUnit.getLeader() != context.getUserPlayer()
-            || Objects.isNull(targetUnit)
-            || !targetCell.isIsAttackable()
-            || targetUnit.getLeader() == context.getUserPlayer()
+            || !selectedUnit.canAttack(targetUnit)
         ) {
             return false;
         }
 
         context.getGameEventManager().api().attack(selectedUnit, targetUnit);
+        selectedUnit.setAttackReady(false);
         game.setSelectedUnit(null);
 
         return true;
@@ -701,11 +700,9 @@ public class BattleFieldController implements RootController, IngameViewControll
                 .addListener((observable, oldUnit, newUnit) -> setCellProperty(newUnit));
 
         this.context.getGameState().phaseProperty()
-                .addListener(((observable, oldValue, newValue) -> setCellProperty(null)));
+                .addListener(this::onNextPhase);
 
         configureEndPhase();
-
-        configureCells();
 
         addAlertListeners();
 
@@ -714,6 +711,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void onNextPhase(Observable observable, String lastPhase, String nextPhase) {
+        setCellProperty(null);
+        game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
     }
 
     private void addAlertListeners() {
@@ -793,51 +795,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         return tileMap[position.getY()][position.getX()];
     }
 
-    private void configureCells() {
-        for (Cell cell: this.context.getGameState().getCells()){
-
-            cell.isAttackableProperty().addListener(((observable, oldValue, newValue) -> {
-                if (newValue) {
-                    setUnitAttackProperty(cell);
-                } else {
-                    removeUnitAttackProperty(cell);
-                }
-            }));
-        }
-    }
-
-    private void removeUnitAttackProperty(@Nonnull Cell cell){
-        if (cell.getUnit() == null){
-            return;
-        }
-        Unit unit = cell.getUnit();
-        if (unit.getLeader().isPlayer()){
-            return;
-        }
-        unit.setAttackable(false);
-    }
-
-    /**
-     * duplicated code? why not unit.setAttackable({notPlayerUnit}) ?
-     * @param cell
-     */
-    private void setUnitAttackProperty(@Nonnull Cell cell){
-        if (cell.getUnit() == null){
-            return;
-        }
-        Unit unit = cell.getUnit();
-        if (unit.getLeader().isPlayer()){
-            return;
-        }
-        unit.setAttackable(true);
-    }
-
     private void setCellProperty(@Nullable Unit selectedUnit) {
         if (selectedUnit == null) {
             for (Cell cell : this.context.getGameState().getCells()) {
                 cell.setIsReachable(false);
-                cell.setIsAttackable(false);
-                removeUnitAttackProperty(cell);
             }
             return;
         }
@@ -850,9 +811,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
 
-        if (this.context.getGameState().isPhase(Game.Phase.attackPhase)) {
-            setAttackRadius(selectedUnit);
-        } else {
+        if (!this.context.getGameState().isPhase(Game.Phase.attackPhase)) {
             setMoveRadius(selectedUnit);
         }
     }
@@ -864,26 +823,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             } else{
                 cell.setIsReachable(false);
             }
-        }
-    }
-
-
-    private void setAttackRadius(@Nonnull Unit selectedUnit){
-        Cell position = selectedUnit.getPosition();
-        for (Cell cell: this.context.getGameState().getCells()){
-            cell.setIsAttackable(false);
-        }
-        if (position.getLeft() != null){
-            position.getLeft().setIsAttackable(true);
-        }
-        if (position.getTop() != null){
-            position.getTop().setIsAttackable(true);
-        }
-        if (position.getRight() != null){
-            position.getRight().setIsAttackable(true);
-        }
-        if (position.getBottom() != null) {
-            position.getBottom().setIsAttackable(true);
         }
     }
 

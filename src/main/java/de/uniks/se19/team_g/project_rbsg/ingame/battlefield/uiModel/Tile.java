@@ -51,6 +51,7 @@ public class Tile
 
     private void configureGameDependencies() {
         cell.getGame().selectedProperty().addListener(updateHighlightingOne);
+        cell.getGame().selectedProperty().addListener(updateHighlightingTwo);
         cell.getGame().phaseProperty().addListener(updateHighlightingOne);
     }
 
@@ -73,7 +74,6 @@ public class Tile
             return;
         }
 
-        unit.attackableProperty().removeListener(updateHighlightingOne);
         unit.selectedProperty().removeListener(updateHighlightingTwo);
         unit.hoveredProperty().removeListener(updateHighlightingTwo);
     }
@@ -83,14 +83,12 @@ public class Tile
             return;
         }
 
-        unit.attackableProperty().addListener(updateHighlightingOne);
         unit.selectedProperty().addListener(updateHighlightingTwo);
         unit.hoveredProperty().addListener(updateHighlightingTwo);
     }
 
     private void configureCellDependencies() {
         cell.isReachableProperty().addListener(updateHighlightingOne);
-        cell.isAttackableProperty().addListener(updateHighlightingOne);
         cell.hoveredProperty().addListener(updateHighlightingTwo);
         cell.selectedProperty().addListener(updateHighlightingOne);
 

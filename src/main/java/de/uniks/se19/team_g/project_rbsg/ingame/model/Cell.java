@@ -258,19 +258,6 @@ public class Cell implements Hoverable, Selectable {
         this.tile = tile;
     }
 
-
-    public boolean isIsAttackable() {
-        return isAttackable.get();
-    }
-
-    public SimpleBooleanProperty isAttackableProperty() {
-        return isAttackable;
-    }
-
-    public void setIsAttackable(boolean isAttackable) {
-        this.isAttackable.set(isAttackable);
-    }
-
     @Override
     public boolean isHovered() {
         return isHovered.get();
