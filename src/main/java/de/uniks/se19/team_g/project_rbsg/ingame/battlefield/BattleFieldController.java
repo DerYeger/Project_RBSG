@@ -345,6 +345,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 if(event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get()){
                     endPhase();
                 }
+                rootPane.setFocusTraversable(true);
             }
         });
     }

@@ -59,16 +59,6 @@ public class ConfirmationAlertController extends AlertController {
             }
         });
 
-        root.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                hide();
-                if (onConfirmRunnable != null) {
-                    onConfirmRunnable.run();
-                }
-            }
-        });
-
         JavaFXUtils.setButtonIcons(confirm, CONFIRM_WHITE, CONFIRM_BLACK, 40);
         JavaFXUtils.setButtonIcons(cancel, CANCEL_WHITE, CANCEL_BLACK, 40);
     }

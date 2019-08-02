@@ -45,15 +45,6 @@ public class InfoAlertController extends AlertController {
             }
         });
 
-        container.setOnKeyReleased(event -> {
-            if (onConfirmRunnable != null) {
-                onConfirmRunnable.run();
-            } else {
-                hide();
-            }
-            System.out.println("Info alert");
-        });
-
         JavaFXUtils.setButtonIcons(confirm, CONFIRM_WHITE, CONFIRM_BLACK, 40);
     }
 

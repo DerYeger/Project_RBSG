@@ -18,8 +18,8 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="10.0">
                <children>
-                  <Button fx:id="confirm" mnemonicParsing="false" styleClass="icon-button" text="Button" />
-                  <Button fx:id="cancel" mnemonicParsing="false" styleClass="icon-button" text="Button" />
+                  <Button fx:id="confirm" defaultButton="true" mnemonicParsing="false" styleClass="icon-button" text="Button" />
+                  <Button fx:id="cancel" cancelButton="true" mnemonicParsing="false" styleClass="icon-button" text="Button" />
                </children>
             </HBox>
          </children>
