@@ -41,6 +41,8 @@
                         <Button fx:id="ingameInformationsButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
                         <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
                         <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button" />
+                        <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar"
+                                styleClass="icon-button" />
                      </children>
                      <VBox.margin>
                         <Insets />
