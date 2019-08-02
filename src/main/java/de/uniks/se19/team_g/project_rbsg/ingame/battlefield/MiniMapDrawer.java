@@ -14,6 +14,8 @@ public class MiniMapDrawer
     private final static Color white = Color.WHITE;
     private final static Color black = Color.BLACK;
     private final static Color transparentWhite = Color.rgb(255, 255, 255, 0.5);
+    private final static int BORDER_OFFSET = 1;
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private Canvas canvas;
     private double xSize = 0;
@@ -106,12 +108,10 @@ public class MiniMapDrawer
                     double startUnitRecX = startX + (CellSizeX / 4);
                     double startUnitRecY = startY + (CellSizeY / 4);
 
-                    int borderOffset = 1;
-
                     gc.setFill(Color.BLACK);
-                    gc.fillRect(startUnitRecX-borderOffset, startUnitRecY-borderOffset,
-                                Math.round(CellSizeX / 2) + borderOffset*2,
-                                Math.round(CellSizeY / 2) + borderOffset*2);
+                    gc.fillRect(startUnitRecX-BORDER_OFFSET, startUnitRecY-BORDER_OFFSET,
+                                Math.round(CellSizeX / 2) + BORDER_OFFSET*2,
+                                Math.round(CellSizeY / 2) + BORDER_OFFSET*2);
 
                     if (actualTile.getCell().getUnit().getLeader() != null)
                     {
