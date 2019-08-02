@@ -4,16 +4,18 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author Jan Müller
  */
 public class Cell implements Hoverable, Selectable {
 
-    @NonNull
+    @Nonnull
     private final String id;
 
     private Tile tile;
@@ -44,7 +46,7 @@ public class Cell implements Hoverable, Selectable {
     private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
     private final BooleanBinding isHovered = hoveredIn.isNotNull();
 
-    public Cell(@NonNull final String id) {
+    public Cell(@Nonnull final String id) {
         this.id = id;
 
         unit = new SimpleObjectProperty<>();
@@ -74,37 +76,45 @@ public class Cell implements Hoverable, Selectable {
         return y;
     }
 
+    @Nullable
     public Cell getLeft() {
         return left;
     }
 
+    @Nullable
     public Cell getTopLeft() {
         if (top == null || left == null) return null;
         return top.getLeft();
     }
 
+    @Nullable
     public Cell getTop() {
         return top;
     }
 
+    @Nullable
     public Cell getTopRight() {
         if (top == null || right == null) return null;
         return top.getRight();
     }
 
+    @Nullable
     public Cell getRight() {
         return right;
     }
 
+    @Nullable
     public Cell getBottomRight() {
         if (bottom == null || right == null) return null;
         return bottom.getRight();
     }
 
+    @Nullable
     public Cell getBottom() {
         return bottom;
     }
 
+    @Nullable
     public Cell getBottomLeft() {
         if (bottom == null || left == null) return null;
         return bottom.getLeft();
@@ -114,6 +124,7 @@ public class Cell implements Hoverable, Selectable {
         return unit;
     }
 
+    @Nullable
     public Unit getUnit() {
         return unit.get();
     }
@@ -131,22 +142,22 @@ public class Cell implements Hoverable, Selectable {
         return this;
     }
 
-    public Cell setBiome(@NonNull final Biome biome) {
+    public Cell setBiome(@Nonnull final Biome biome) {
         this.biome = biome;
         return this;
     }
 
-    public Cell setPassable(@NonNull final boolean passable) {
+    public Cell setPassable(final boolean passable) {
         isPassable = passable;
         return this;
     }
 
-    public Cell setX(@NonNull final int x) {
+    public Cell setX(final int x) {
         this.x = x;
         return this;
     }
 
-    public Cell setY(@NonNull final int y) {
+    public Cell setY(final int y) {
         this.y = y;
         return this;
     }
@@ -247,19 +258,6 @@ public class Cell implements Hoverable, Selectable {
         this.tile = tile;
     }
 
-
-    public boolean isIsAttackable() {
-        return isAttackable.get();
-    }
-
-    public SimpleBooleanProperty isAttackableProperty() {
-        return isAttackable;
-    }
-
-    public void setIsAttackable(boolean isAttackable) {
-        this.isAttackable.set(isAttackable);
-    }
-
     @Override
     public boolean isHovered() {
         return isHovered.get();
@@ -321,5 +319,19 @@ public class Cell implements Hoverable, Selectable {
 
     public ObjectProperty<Game> selectedInProp() {
         return selectedIn;
+    }
+
+    public boolean isNeighbor(Cell other) {
+        return other == getRight()
+            || other == getBottom()
+            || other == getLeft()
+            || other == getTop()
+        ;
+    }
+
+    public Stream<Cell> getNeighbors() {
+        return Stream.of(
+            getRight(), getBottom(), getLeft(), getTop()
+        ).filter(Objects::nonNull);
     }
 }

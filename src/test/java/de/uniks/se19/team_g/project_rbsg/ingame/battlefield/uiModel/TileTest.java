@@ -24,31 +24,33 @@ public class TileTest {
         unitTwo.setLeader(other);
         cell.setUnit(unitOne);
 
+        game.withCells(cell);
+
         Tile sut = new Tile(cell);
 
         assertSame(HighlightingTwo.NONE, sut.getHighlightingTwo());
 
-        game.setSelected(cell);
+        cell.setSelectedIn(game);
         assertSame(HighlightingTwo.SELECTED, sut.getHighlightingTwo());
 
-        game.setSelected(new Cell("2"));
+        new Cell("2").setSelectedIn(game);;
 
         assertSame(HighlightingTwo.NONE, sut.getHighlightingTwo());
 
-        game.setHovered(cell);
+        cell.setHoveredIn(game);
 
         assertSame(HighlightingTwo.HOVERED, sut.getHighlightingTwo());
 
-        game.setHovered(unitTwo);
+        unitTwo.setHoveredIn(game);
         assertSame(HighlightingTwo.NONE, sut.getHighlightingTwo());
 
-        game.setSelected(unitOne);
+        unitOne.setSelectedIn(game);
         assertSame(HighlightingTwo.SELECETD_WITH_UNITS, sut.getHighlightingTwo());
 
-        cell.setUnit(null);
+        unitOne.setPosition(null);
         assertSame(HighlightingTwo.NONE, sut.getHighlightingTwo());
 
-        game.setSelected(unitTwo);
+        unitTwo.setSelectedIn(game);
         assertSame(HighlightingTwo.NONE, sut.getHighlightingTwo());
 
         cell.setUnit(unitTwo);
