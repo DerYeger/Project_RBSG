@@ -31,6 +31,8 @@ public class Tile
     private HighlightingOne highlightingOne;
     private HighlightingTwo highlightingTwo;
 
+    private boolean generatedDecorator = false;
+
     public Tile(Cell cell)
     {
         cell.setTile(this);
@@ -179,8 +181,9 @@ public class Tile
     public Image getDeckoratorImage()
     {
 
-        if (cell.getBiome() == Biome.GRASS && deckoratorImage == null) {
+        if (cell.getBiome() == Biome.GRASS && deckoratorImage == null && !generatedDecorator) {
             deckoratorImage = TileUtils.getDecoratorImage();
+            generatedDecorator = true;
         }
         return deckoratorImage;
     }
