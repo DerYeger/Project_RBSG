@@ -39,7 +39,7 @@ public class Unit implements Selectable, Hoverable {
 
     private int mp;
     private SimpleIntegerProperty hp = new SimpleIntegerProperty();
-
+    private int maxHp;
     private ArrayList<UnitTypeInfo> canAttack;
 
     public Unit(@NonNull final String id) {
@@ -240,5 +240,15 @@ public class Unit implements Selectable, Hoverable {
         if (game != null) {
             game.setHovered(this);
         }
+    }
+
+    public int getMaxHp ()
+    {
+        return maxHp;
+    }
+
+    public void setMaxHp (int maxHp)
+    {
+        this.maxHp = maxHp;
     }
 }

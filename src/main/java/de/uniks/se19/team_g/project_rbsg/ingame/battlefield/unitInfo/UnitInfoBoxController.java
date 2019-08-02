@@ -32,6 +32,8 @@ public class UnitInfoBoxController<T> implements Initializable
     private StringProperty mpText = new SimpleStringProperty("-");
     private StringProperty defaultText = new SimpleStringProperty("-");
 
+    private int maxHp = 0;
+
     private PropertyInfoBuilder propertyInfoBuilder;
     private HashMap<UnitTypeInfo, Image> imageMap = new HashMap<>();
 
@@ -83,7 +85,7 @@ public class UnitInfoBoxController<T> implements Initializable
 
     private void hpChanged (ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
     {
-        hpText.set(String.format("%d / %d ", newHp.intValue(), 9001));
+        hpText.set(String.format("%d / %d ", newHp.intValue(), maxHp));
     }
 
     private void buildPreview (Unit unit)
@@ -99,11 +101,12 @@ public class UnitInfoBoxController<T> implements Initializable
             imageMap.put(unit.getUnitType(), image);
         }
         unitImageView.setImage(image);
+        maxHp = unit.getMaxHp();
         unit.hpProperty().addListener(hpChangeListener);
         hpLabel.setGraphic(new ImageView(new Image(getClass().getResource("/assets/icons/units/hpIcon.png").toExternalForm(),
                                                    40,
                                                    40, false, true)));
-        hpText.set(String.format("%d / %d ", unit.getHp(), 9000));
+        hpText.set(String.format("%d / %d ", unit.getHp(), maxHp));
         mpText.set(String.valueOf(unit.getMp()));
         playerColorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf(unit.getLeader().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
     }

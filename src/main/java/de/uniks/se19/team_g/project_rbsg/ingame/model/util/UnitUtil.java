@@ -33,7 +33,10 @@ public class UnitUtil {
 
         if (data.has(TYPE)) unit.setUnitType(UnitTypeInfo.resolveType(data.get(TYPE).asText()));
         if (data.has(MP)) unit.setMp(data.get(MP).asInt());
-        if (data.has(HP)) unit.setHp(data.get(HP).asInt());
+        if (data.has(HP))  {
+            unit.setHp(data.get(HP).asInt());
+            unit.setMaxHp(data.get(HP).asInt());
+        }
         if (data.has(GAME)) unit.setGame(modelManager.gameWithId(data.get(GAME).asText()));
         if (data.has(LEADER)) unit.setLeader(modelManager.playerWithId(data.get(LEADER).asText()));
         if (data.has(POSITION)) unit.setPosition(modelManager.cellWithId(data.get(POSITION).asText()));

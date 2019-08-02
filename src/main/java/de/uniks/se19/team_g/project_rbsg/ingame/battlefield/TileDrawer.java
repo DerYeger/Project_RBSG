@@ -119,11 +119,15 @@ public class TileDrawer
 
         }
 
-        //Layer 5
+        //Layer 5 Unit
         if (tile.getCell().unitProperty().get() != null)
         {
             graphicsContext.drawImage(unitImagesMap.get(tile.getCell().getUnit().getUnitType()), startX, startY);
         }
+
+        //Layer 6 HP Bar
+
+
     }
 
     private void drawBorderAroundTile(double startX, double startY, Color borderColer) {
