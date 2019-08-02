@@ -2,21 +2,17 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
+import javafx.geometry.*;
+import javafx.scene.control.*;
 import javafx.scene.image.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.*;
 import org.slf4j.*;
 
 import javax.annotation.*;
-import java.awt.*;
 import java.net.*;
 import java.util.*;
 
@@ -42,13 +38,13 @@ public class UnitInfoBoxController<T> implements Initializable
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public UnitInfoBoxController()
+    public UnitInfoBoxController ()
     {
         propertyInfoBuilder = new PropertyInfoBuilder();
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
+    public void initialize (URL location, ResourceBundle resources)
     {
         unitChangeListener = this::unitChanged;
         hpChangeListener = this::hpChanged;
@@ -62,54 +58,57 @@ public class UnitInfoBoxController<T> implements Initializable
         secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
 
 
-
         buildNullPreview();
     }
 
-    private void unitChanged(ObservableValue<? extends T> observableValue, T oldHoverable, T newHoverable)
+    private void unitChanged (ObservableValue<? extends T> observableValue, T oldHoverable, T newHoverable)
     {
-        logger.debug("Unit changed!");
-        if(newHoverable instanceof Unit) {
+        if (newHoverable instanceof Unit)
+        {
             Unit newUnit = (Unit) newHoverable;
             buildPreview(newUnit);
         }
-        else {
+        else
+        {
             buildNullPreview();
         }
 
-        if(oldHoverable instanceof Unit) {
+        if (oldHoverable instanceof Unit)
+        {
             Unit oldUnit = (Unit) oldHoverable;
             oldUnit.hpProperty().removeListener(hpChangeListener);
         }
     }
 
 
-    private void hpChanged(ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
+    private void hpChanged (ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
     {
         hpText.set(String.format("%d / %d ", newHp.intValue(), 9001));
     }
 
-    private void buildPreview(Unit unit)
+    private void buildPreview (Unit unit)
     {
         Image image;
-        if(imageMap.containsKey(unit.getUnitType())) {
+        if (imageMap.containsKey(unit.getUnitType()))
+        {
             image = imageMap.get(unit.getUnitType());
         }
-        else {
+        else
+        {
             image = new Image(unit.getUnitType().getImage().toExternalForm(), 100, 100, false, true);
             imageMap.put(unit.getUnitType(), image);
         }
         unitImageView.setImage(image);
         unit.hpProperty().addListener(hpChangeListener);
         hpLabel.setGraphic(new ImageView(new Image(getClass().getResource("/assets/icons/units/hpIcon.png").toExternalForm(),
-                                           40,
-                                     40, false, true)));
+                                                   40,
+                                                   40, false, true)));
         hpText.set(String.format("%d / %d ", unit.getHp(), 9000));
         mpText.set(String.valueOf(unit.getMp()));
         playerColorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf(unit.getLeader().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
-    private void buildNullPreview()
+    private void buildNullPreview ()
     {
         Image image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm(), 100, 100, false, true);
         unitImageView.setImage(image);
@@ -117,11 +116,11 @@ public class UnitInfoBoxController<T> implements Initializable
         hpLabel.setGraphic(null);
         mpText.set("-");
         playerColorPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.13),
-                                                                                      CornerRadii.EMPTY,
-                                                                                      Insets.EMPTY)));
+                                                                        CornerRadii.EMPTY,
+                                                                        Insets.EMPTY)));
     }
 
-    public void bindUnit(@Nonnull final ObservableObjectValue<? extends T> unit)
+    public void bindUnit (@Nonnull final ObservableObjectValue<? extends T> unit)
     {
         unit.addListener(unitChangeListener);
     }
