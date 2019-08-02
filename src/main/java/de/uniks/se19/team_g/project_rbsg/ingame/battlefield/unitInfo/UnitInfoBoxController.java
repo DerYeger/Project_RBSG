@@ -1,17 +1,22 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.*;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import org.slf4j.*;
 
 import javax.annotation.*;
+import java.awt.*;
 import java.net.*;
 import java.util.*;
 
@@ -32,6 +37,8 @@ public class UnitInfoBoxController<T> implements Initializable
     private StringProperty defaultText = new SimpleStringProperty("-");
 
     private PropertyInfoBuilder propertyInfoBuilder;
+    private HashMap<UnitTypeInfo, Image> imageMap = new HashMap<>();
+
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -46,12 +53,11 @@ public class UnitInfoBoxController<T> implements Initializable
         unitChangeListener = this::unitChanged;
         hpChangeListener = this::hpChanged;
 
+
         hpLabel.textProperty().bindBidirectional(hpText);
 
         firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/mpIcon.png").toExternalForm(), mpText));
         firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
-        firstPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
-        secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
         secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
         secondPropertyContainer.getChildren().add(propertyInfoBuilder.build(getClass().getResource("/assets/icons/units/unknownIcon.png").toExternalForm(), defaultText));
 
@@ -85,9 +91,19 @@ public class UnitInfoBoxController<T> implements Initializable
 
     private void buildPreview(Unit unit)
     {
-        Image image = new Image(unit.getUnitType().getImage().toExternalForm(), 100, 100, false, true);
+        Image image;
+        if(imageMap.containsKey(unit.getUnitType())) {
+            image = imageMap.get(unit.getUnitType());
+        }
+        else {
+            image = new Image(unit.getUnitType().getImage().toExternalForm(), 100, 100, false, true);
+            imageMap.put(unit.getUnitType(), image);
+        }
         unitImageView.setImage(image);
         unit.hpProperty().addListener(hpChangeListener);
+        hpLabel.setGraphic(new ImageView(new Image(getClass().getResource("/assets/icons/units/hpIcon.png").toExternalForm(),
+                                           40,
+                                     40, false, true)));
         hpText.set(String.format("%d / %d ", unit.getHp(), 9000));
         mpText.set(String.valueOf(unit.getMp()));
         playerColorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf(unit.getLeader().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -98,7 +114,11 @@ public class UnitInfoBoxController<T> implements Initializable
         Image image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm(), 100, 100, false, true);
         unitImageView.setImage(image);
         hpText.set("No unit selected");
+        hpLabel.setGraphic(null);
         mpText.set("-");
+        playerColorPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.13),
+                                                                                      CornerRadii.EMPTY,
+                                                                                      Insets.EMPTY)));
     }
 
     public void bindUnit(@Nonnull final ObservableObjectValue<? extends T> unit)

@@ -187,8 +187,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
         JavaFXUtils.setButtonIcons(
                 ingameInformationsButton,
-                getClass().getResource("/assets/icons/operation/accountWhite.png"),
-                getClass().getResource("/assets/icons/operation/accountBlack.png"),
+                getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
+                getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                 40
         );
         JavaFXUtils.setButtonIcons(
@@ -994,11 +994,23 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(!playerBar.visibleProperty().get()){
             playerBar.visibleProperty().setValue(true);
             playerBar.toFront();
+            JavaFXUtils.setButtonIcons(
+                    ingameInformationsButton,
+                    getClass().getResource("/assets/icons/navigation/accountWhite.png"),
+                    getClass().getResource("/assets/icons/navigation/accountBlack.png"),
+                    40
+            );
         }
         else
         {
             playerBar.visibleProperty().setValue(false);
             playerBar.toBack();
+            JavaFXUtils.setButtonIcons(
+                    ingameInformationsButton,
+                    getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
+                    getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
+                    40
+            );
         }
     }
 
