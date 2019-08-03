@@ -145,30 +145,30 @@ public class TileDrawer
             //Layer 6 HP Bar
             if (hpBarVisibility.get())
             {
-                //Drawing HP Bar Border
-                graphicsContext.setFill(Color.BLACK);
-                graphicsContext.fillRect(startX + HP_BORDER_OFFSET, startY + HP_BORDER_OFFSET, (CELL_SIZE - (HP_BORDER_OFFSET * 2)),
-                                         HP_BORDER_HEIGHT);
-
-                //Drawing HP Bar
-                graphicsContext.setFill(Paint.valueOf(unit.getLeader().getColor()));
-
-                double hpBarStartX = startX + HP_BORDER_OFFSET + HP_BORDER_STROKE;
-                double hpBarStartY = startY + HP_BORDER_OFFSET + HP_BORDER_STROKE;
-
-                double maxWidth = CELL_SIZE - ((HP_BORDER_OFFSET + HP_BORDER_STROKE) * 2);
-
-                double hpPercentage = ((double) unit.getHp()) / ((double) unit.getMaxHp());
-                logger.debug(String.valueOf(hpPercentage));
-
-                double resultWidth = maxWidth * hpPercentage;
-                logger.debug(String.valueOf(resultWidth));
-
-                graphicsContext.fillRect(hpBarStartX, hpBarStartY, resultWidth, HP_BAR_HEIGHT);
+                drawHealthBar(startX, startY, unit);
             }
         }
 
 
+    }
+
+    private void drawHealthBar(double startX, double startY, Unit unit)
+    {
+        //Drawing HP Bar Border
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.fillRect(startX + HP_BORDER_OFFSET, startY + HP_BORDER_OFFSET, (CELL_SIZE - (HP_BORDER_OFFSET * 2)),
+                                 HP_BORDER_HEIGHT);
+
+        //Drawing HP Bar
+        graphicsContext.setFill(Paint.valueOf(unit.getLeader().getColor()));
+
+        double hpBarStartX = startX + HP_BORDER_OFFSET + HP_BORDER_STROKE;
+        double hpBarStartY = startY + HP_BORDER_OFFSET + HP_BORDER_STROKE;
+        double maxWidth = CELL_SIZE - ((HP_BORDER_OFFSET + HP_BORDER_STROKE) * 2);
+        double hpPercentage = ((double) unit.getHp()) / ((double) unit.getMaxHp());
+        double resultWidth = maxWidth * hpPercentage;
+
+        graphicsContext.fillRect(hpBarStartX, hpBarStartY, resultWidth, HP_BAR_HEIGHT);
     }
 
     private void drawBorderAroundTile (double startX, double startY, Color borderColer)

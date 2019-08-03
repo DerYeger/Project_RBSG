@@ -126,7 +126,8 @@
                   <VBox>
                      <children>
                         <Button fx:id="actionButton" mnemonicParsing="false" styleClass="icon-with-text" text="Attack" />
-                        <Button fx:id="Cancel" mnemonicParsing="false" styleClass="icon-with-text" text="Cancel" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="icon-with-text"
+                                text="Cancel" />
                      </children>
                      <styleClass>
                         <String fx:value="buttonBox" />

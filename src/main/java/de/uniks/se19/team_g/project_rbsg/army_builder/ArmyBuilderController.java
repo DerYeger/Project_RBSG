@@ -178,6 +178,8 @@ public class ArmyBuilderController implements Initializable, RootController {
                 80
         );
 
+
+
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
 

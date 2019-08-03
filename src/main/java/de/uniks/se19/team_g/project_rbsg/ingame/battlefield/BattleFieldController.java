@@ -75,7 +75,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public VBox root;
     public VBox unitInformationContainer;
     public Button actionButton;
-    public Button Cancel;
+    public Button cancelButton;
     public Button playerButton;
     public Button chatButton;
     public Button musicButton;
@@ -114,6 +114,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<Selectable> onSelectedChanged = this::onSelectedChanged;
     private PlayerListController playerListController;
     private final ListChangeListener<Player> playerListListener = this::playerListChanged;
+    private final ChangeListener<String> phaseChangedListener = this::phaseChanged;
+    private final Property<Locale> selectedLocale;
+
+
     private SimpleIntegerProperty roundCount;
     private int roundCounter;
 
@@ -124,7 +128,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
-            @Nonnull final MusicManager musicManager
+            @Nonnull final MusicManager musicManager,
+            @Nonnull Property<Locale> selectedLocale
     )
     {
         this.sceneManager = sceneManager;
@@ -140,6 +145,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.roundCount = new SimpleIntegerProperty();
         this.roundCounter = 1;
 
+        this.selectedLocale = selectedLocale;
     }
 
     public void initialize ()
@@ -189,6 +195,17 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/navigation/lifeBarBlack.png"),
                 40
         );
+
+        JavaFXUtils.setButtonIcons(
+                cancelButton,
+                getClass().getResource("/assets/icons/navigation/crossWhite.png"),
+                getClass().getResource("/assets/icons/navigation/crossBlack.png"),
+                40
+        );
+
+
+        cancelButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "cancel"));
+
         musicManager.initButtonIcons(musicButton);
     }
 
@@ -309,7 +326,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initPlayerBar ()
     {
-
         playerCardList.add(player1);
         playerCardList.add(player2);
         playerCardList.add(player3);
@@ -362,47 +378,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         this.game.getPlayers().addListener(playerListListener);
 
-//                (ListChangeListener<Player>) l -> {
-//        }
-        this.game.phaseProperty().addListener((observable, oldVal, newVal) ->
-                                              {
-
-                                                  if (oldVal == null)
-                                                  {
-                                                      return;
-                                                  }
-                                                  if (oldVal.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size()) == 0)
-                                                  {
-                                                      Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
-                                                      roundCounter = 0;
-                                                  }
-                                                  roundCounter++;
-                                              });
-
-        this.game.phaseProperty().addListener(((observable, oldValue, newValue) ->
-        {
-            switch (newValue)
-            {
-                case "movePhase":
-                {
-                    Image image = new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm());
-                    phaseImage.imageProperty().setValue(image);
-                }
-                break;
-                case "attackPhase":
-                {
-                    Image image = new Image(getClass().getResource("/assets/icons/operation/swordClashWhite.png").toExternalForm());
-                    phaseImage.imageProperty().setValue(image);
-                }
-                break;
-                case "lastMovePhase":
-                {
-                    Image image = new Image(getClass().getResource("/assets/icons/operation/footprintWhite.png").toExternalForm());
-                    phaseImage.imageProperty().setValue(image);
-                }
-                break;
-            }
-        }));
+        this.game.phaseProperty().addListener(phaseChangedListener);
 
         roundCount.set(0);
         roundCountLabel.textProperty().bind(roundCount.asString());
@@ -429,6 +405,82 @@ public class BattleFieldController implements RootController, IngameViewControll
                                       });
                 }
             }
+        }
+    }
+
+    private void phaseChanged(ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
+    {
+        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size()) == 0)
+        {
+            Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
+            roundCounter = 0;
+        }
+        roundCounter++;
+
+        switch (newPhase)
+        {
+            case "movePhase":
+            {
+                Image image = new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm());
+                phaseImage.imageProperty().setValue(image);
+            }
+            break;
+            case "attackPhase":
+            {
+                Image image = new Image(getClass().getResource("/assets/icons/operation/swordClashWhite.png").toExternalForm());
+                phaseImage.imageProperty().setValue(image);
+            }
+            break;
+            case "lastMovePhase":
+            {
+                Image image = new Image(getClass().getResource("/assets/icons/operation/footprintWhite.png").toExternalForm());
+                phaseImage.imageProperty().setValue(image);
+            }
+            break;
+        }
+
+        if(context.isMyTurn()) {
+            actionButton.setDisable(false);
+            cancelButton.setDisable(false);
+        }
+        else {
+            actionButton.setDisable(true);
+            cancelButton.setDisable(true);
+        }
+        ChangeActionButtonIcon(newPhase);
+    }
+
+    private void ChangeActionButtonIcon(String phase)
+    {
+        switch (phase) {
+            case "movePhase" : {
+                JavaFXUtils.setButtonIcons(actionButton,
+                        getClass().getResource("/assets/icons/operation/footstepsWhite.png"),
+                        getClass().getResource("/assets/icons/operation/footstepsBlack.png"),
+                        40);
+
+                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
+            }
+            break;
+            case "attackPhase" : {
+                JavaFXUtils.setButtonIcons(actionButton,
+                        getClass().getResource("/assets/icons/operation/swordClashWhite.png"),
+                        getClass().getResource("/assets/icons/operation/swordClashBlack.png"),
+                        40);
+
+                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "attack"));
+            }
+            break;
+            case "lastMovePhase" : {
+                JavaFXUtils.setButtonIcons(actionButton,
+                        getClass().getResource("/assets/icons/operation/footprintWhite.png"),
+                        getClass().getResource("/assets/icons/operation/footprintBlack.png"),
+                        40);
+
+                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
+            }
+            break;
+
         }
     }
 
@@ -518,6 +570,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         context.getGameEventManager().api().attack(selectedUnit, targetUnit);
         game.setSelectedUnit(null);
+
+        tileDrawer.drawTile(targetUnit.getPosition().getTile());
 
         return true;
     }
