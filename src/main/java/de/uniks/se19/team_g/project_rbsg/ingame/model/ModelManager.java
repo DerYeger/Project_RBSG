@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.GameChangeObjectEvent;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
@@ -173,5 +174,9 @@ public class ModelManager implements GameEventHandler {
         final String clazz = identifier.substring(0, at_index);
         final String code = identifier.substring(at_index + 1);
         return new Tuple<>(clazz, code);
+    }
+
+    public void addAction(@Nonnull Action action) {
+        executor.execute(action);
     }
 }

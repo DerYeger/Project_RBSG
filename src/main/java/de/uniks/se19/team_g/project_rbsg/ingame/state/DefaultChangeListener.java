@@ -7,6 +7,8 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nullable;
+
 @Component
 public class DefaultChangeListener implements GameEventDispatcher.Listener {
 
@@ -21,20 +23,23 @@ public class DefaultChangeListener implements GameEventDispatcher.Listener {
         GameChangeObjectEvent changeEvent = (GameChangeObjectEvent) gameEvent;
         ModelManager modelManager = dispatcher.getModelManager();
 
-        modelManager.getExecutor().execute(() -> applyChange(changeEvent, modelManager));
+        Action action = actionFromChange(changeEvent, modelManager);
+
+        if (action != null) {
+            modelManager.addAction(action);
+        }
 
     }
 
-    private void applyChange(GameChangeObjectEvent changeEvent, ModelManager modelManager) {
+    @Nullable
+    private Action actionFromChange(GameChangeObjectEvent changeEvent, ModelManager modelManager) {
 
         final Object entity = modelManager.getEntityById(changeEvent.getEntityId());
 
         if (entity == null) {
             logger.error("unknown identity {} changed", changeEvent.getEntityId());
-            return;
+            return null;
         }
-
-        final BeanWrapperImpl beanWrapper = new BeanWrapperImpl(entity);
 
         Object newValue = modelManager.getEntityById(changeEvent.getNewValue());
 
@@ -43,13 +48,14 @@ public class DefaultChangeListener implements GameEventDispatcher.Listener {
         }
 
         try {
-            beanWrapper.setPropertyValue(changeEvent.getFieldName(), newValue);
-            return;
+            return new ActionImpl(changeEvent.getFieldName(), newValue, entity);
         } catch (BeansException e) {
-            logger.error("entity update failed", e);
+            logger.error("can't derive entity update from change event", e);
         }
 
         logger.error("can't update entity of type {}", entity.getClass());
+
+        return null;
 
     }
 }

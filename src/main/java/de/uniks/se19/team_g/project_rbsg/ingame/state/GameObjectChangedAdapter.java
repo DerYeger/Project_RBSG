@@ -2,9 +2,11 @@ package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class GameObjectChangedAdapter implements GameEventDispatcher.Adapter {
 
     @Override
