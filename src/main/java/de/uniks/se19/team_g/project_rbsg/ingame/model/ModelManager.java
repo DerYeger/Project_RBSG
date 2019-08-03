@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.GameChangeObjectEvent;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -44,6 +45,8 @@ public class ModelManager implements GameEventHandler {
 
     @Nonnull
     private Executor executor = Platform::runLater;
+
+    private final History history = new History();
 
     public ModelManager() {
 
@@ -177,6 +180,11 @@ public class ModelManager implements GameEventHandler {
     }
 
     public void addAction(@Nonnull Action action) {
-        executor.execute(action);
+        executor.execute(() -> doAddAction(action));
+    }
+
+    private void doAddAction(Action action) {
+        history.push(action);
+        history.forward();
     }
 }
