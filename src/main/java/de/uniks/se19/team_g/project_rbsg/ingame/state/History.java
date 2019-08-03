@@ -2,12 +2,18 @@ package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class History {
 
     private HistoryEntry head;
     private HistoryEntry tail;
     private Property<HistoryEntry> current = new SimpleObjectProperty<>();
+
+    // just observe the entries read only
+    private ObservableList<HistoryEntry> entries = FXCollections.observableArrayList();
+    private ObservableList<HistoryEntry> roEntries = FXCollections.unmodifiableObservableList(entries);
 
     public void push(Action action) {
         HistoryEntry newEntry = new HistoryEntry();
@@ -21,6 +27,8 @@ public class History {
             newEntry.setPrevious(tail);
             tail = newEntry;
         }
+
+        entries.add(newEntry);
     }
 
     /**
@@ -34,5 +42,9 @@ public class History {
         }
         next.getAction().run();
         this.current.setValue(next);
+    }
+
+    public ObservableList<HistoryEntry> getEntries() {
+        return roEntries;
     }
 }
