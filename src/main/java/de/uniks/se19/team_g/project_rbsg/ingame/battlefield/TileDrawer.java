@@ -1,15 +1,20 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import javafx.beans.property.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.paint.*;
-import org.slf4j.*;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashMap;
 
 /**
  * @author Georg Siebert
@@ -42,7 +47,7 @@ public class TileDrawer
 
     private SimpleBooleanProperty hpBarVisibility;
 
-    public TileDrawer ()
+    public TileDrawer()
     {
         unitImagesMap = new HashMap<>();
 
@@ -57,18 +62,18 @@ public class TileDrawer
 
 
     @SuppressWarnings("unused")
-    public Canvas getCanvas ()
+    public Canvas getCanvas()
     {
         return canvas;
     }
 
-    public void setCanvas (Canvas canvas)
+    public void setCanvas(Canvas canvas)
     {
         this.canvas = canvas;
         this.graphicsContext = canvas.getGraphicsContext2D();
     }
 
-    public void drawMap (Tile[][] map)
+    public void drawMap(Tile[][] map)
     {
         for (Tile[] tiles : map)
         {
@@ -79,7 +84,7 @@ public class TileDrawer
         }
     }
 
-    public void drawTile (Tile tile)
+    public void drawTile(Tile tile)
     {
         int x = tile.getCell().getX();
         int y = tile.getCell().getY();
@@ -157,10 +162,16 @@ public class TileDrawer
         //Drawing HP Bar Border
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillRect(startX + HP_BORDER_OFFSET, startY + HP_BORDER_OFFSET, (CELL_SIZE - (HP_BORDER_OFFSET * 2)),
-                                 HP_BORDER_HEIGHT);
+                HP_BORDER_HEIGHT);
 
         //Drawing HP Bar
-        graphicsContext.setFill(Paint.valueOf(unit.getLeader().getColor()));
+        if (unit.getLeader() != null)
+        {
+            graphicsContext.setFill(Paint.valueOf(unit.getLeader().getColor()));
+        } else
+        {
+            graphicsContext.setFill(Color.PINK);
+        }
 
         double hpBarStartX = startX + HP_BORDER_OFFSET + HP_BORDER_STROKE;
         double hpBarStartY = startY + HP_BORDER_OFFSET + HP_BORDER_STROKE;
@@ -171,7 +182,7 @@ public class TileDrawer
         graphicsContext.fillRect(hpBarStartX, hpBarStartY, resultWidth, HP_BAR_HEIGHT);
     }
 
-    private void drawBorderAroundTile (double startX, double startY, Color borderColer)
+    private void drawBorderAroundTile(double startX, double startY, Color borderColer)
     {
         graphicsContext.setStroke(borderColer);
         graphicsContext.setLineWidth(2);
@@ -181,17 +192,17 @@ public class TileDrawer
         graphicsContext.strokeLine((startX + 1), (startY + (CELL_SIZE - 1)), (startX + 1), (startY + 1));
     }
 
-    public boolean isHpBarVisibility ()
+    public boolean isHpBarVisibility()
     {
         return hpBarVisibility.get();
     }
 
-    public void setHpBarVisibility (boolean hpBarVisibility)
+    public void setHpBarVisibility(boolean hpBarVisibility)
     {
         this.hpBarVisibility.set(hpBarVisibility);
     }
 
-    public SimpleBooleanProperty hpBarVisibilityProperty ()
+    public SimpleBooleanProperty hpBarVisibilityProperty()
     {
         return hpBarVisibility;
     }

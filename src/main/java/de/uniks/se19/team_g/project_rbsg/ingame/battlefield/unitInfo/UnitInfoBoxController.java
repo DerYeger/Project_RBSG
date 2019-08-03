@@ -108,7 +108,12 @@ public class UnitInfoBoxController<T> implements Initializable
                                                    40, false, true)));
         hpText.set(String.format("%d / %d ", unit.getHp(), maxHp));
         mpText.set(String.valueOf(unit.getMp()));
-        playerColorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf(unit.getLeader().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+        if(unit.getLeader() != null) {
+            playerColorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf(unit.getLeader().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+        }
+        else {
+            playerColorPane.setBackground(new Background(new BackgroundFill(Color.PINK, CornerRadii.EMPTY, Insets.EMPTY)));
+        }
     }
 
     private void buildNullPreview ()
