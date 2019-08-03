@@ -38,12 +38,13 @@ public class ModelManager implements GameEventHandler {
     @NonNull
     private final HashMap<String, Object> objectMap;
 
-    private ObjectProperty<Game> gameProperty = new SimpleObjectProperty<>();
+    private ObjectProperty<Game> gameProperty = new SimpleObjectProperty<>(new Game());
 
     @Nonnull
     private Executor executor = Platform::runLater;
 
     public ModelManager() {
+
         objectMap = new HashMap<>();
     }
 
@@ -139,7 +140,7 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Game":
-                gameProperty.set(GameUtil.buildGame(this, identifier, data, true));
+                GameUtil.buildGame(this, identifier, data, true);
                 break;
             case "Player":
                 PlayerUtil.buildPlayer(this, identifier, data, true);
@@ -186,7 +187,8 @@ public class ModelManager implements GameEventHandler {
     }
 
     public Game gameWithId(@NonNull final String id) {
-        return (Game) objectMap.computeIfAbsent(id, g -> new Game(id));
+        gameProperty.get().setId(id);
+        return (Game) objectMap.computeIfAbsent(id, g -> gameProperty.get());
     }
 
     public Player playerWithId(@NonNull final String id) {
