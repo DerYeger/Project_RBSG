@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketCloseHandler;
 import org.apache.http.client.utils.URIBuilder;

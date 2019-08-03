@@ -2,13 +2,14 @@ package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class GameEventDispatcher implements GameEventHandler {
@@ -17,6 +18,8 @@ public class GameEventDispatcher implements GameEventHandler {
     private List<Adapter> adapters = new ArrayList<>();
     private List<Listener> listeners = new ArrayList<>();
     boolean listenersSorted = false;
+
+    private ModelManager modelManager;
 
     @Override
     public void handle(@Nonnull ObjectNode message) {
@@ -39,7 +42,7 @@ public class GameEventDispatcher implements GameEventHandler {
         }
 
         for (Listener listener : listeners) {
-            listener.accept(e);
+            listener.accept(e, modelManager);
         }
     }
 
@@ -52,11 +55,15 @@ public class GameEventDispatcher implements GameEventHandler {
         listenersSorted = false;
     }
 
+    public void setModelManager(ModelManager modelManager) {
+        this.modelManager = modelManager;
+    }
+
     public interface Adapter extends Function<ObjectNode, Optional<GameEvent>> {
         default int getPriority() {return 0;}
     }
 
-    public interface Listener extends Consumer<GameEvent> {
+    public interface Listener extends BiConsumer<GameEvent, ModelManager> {
         default int getPriority() {return 0;}
     }
 }
