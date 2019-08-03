@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.GameChangeObjectEvent;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -30,7 +31,7 @@ public class ModelManager implements GameEventHandler {
     private static final String GAME_INIT_OBJECT = "gameInitObject";
     private static final String GAME_NEW_OBJECT = "gameNewObject";
     private static final String GAME_REMOVE_OBJECT = "gameRemoveObject";
-    public static final String GAME_CHANGE_OBJECT = "gameChangeObject";
+    public static final String GAME_CHANGE_OBJECT = GameChangeObjectEvent.NAME;
 
     @NonNull
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -84,46 +85,9 @@ public class ModelManager implements GameEventHandler {
             case GAME_REMOVE_OBJECT:
                 handleRemove(node);
                 break;
-            case GAME_CHANGE_OBJECT:
-                handleChange(node.get("data"));
-                break;
             default:
                 logger.error("Unknown model message: " + node);
         }
-    }
-
-    private void handleChange(JsonNode data) {
-        final String id = data.get("id").asText();
-
-        final Object entity = getEntityById(id);
-
-        if (entity == null) {
-            logger.error("unknown identity {} changed", id);
-            return;
-        }
-
-        String changedProperty = data.get("fieldName").asText();
-        final JsonNode newValueNode = data.get("newValue");
-
-        if (newValueNode.isValueNode()) {
-            final BeanWrapperImpl beanWrapper = new BeanWrapperImpl(entity);
-            String newValueDescriptor = newValueNode.textValue();
-
-            Object newValue = getEntityById(newValueDescriptor);
-
-            if (newValue == null) {
-                newValue = newValueDescriptor;
-            }
-
-            try {
-                beanWrapper.setPropertyValue(changedProperty, newValue);
-                return;
-            } catch (BeansException e) {
-                logger.error("entity update failed", e);
-            }
-        }
-
-        logger.error("can't update entity of type {}", entity.getClass());
     }
 
     public <T> T getEntityById(String newValueDescriptor) {

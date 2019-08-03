@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class GameEventDispatcher implements GameEventHandler {
@@ -26,7 +27,7 @@ public class GameEventDispatcher implements GameEventHandler {
 
         Optional<GameEvent> gameEvent = adapters.stream()
                 .sorted(Comparator.comparingInt(Adapter::getPriority))
-                .map(adapter -> adapter.apply(message))
+                .map(adapter -> adapter.apply(message, this))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .findFirst()
@@ -42,7 +43,7 @@ public class GameEventDispatcher implements GameEventHandler {
         }
 
         for (Listener listener : listeners) {
-            listener.accept(e, modelManager);
+            listener.accept(e, this);
         }
     }
 
@@ -59,11 +60,15 @@ public class GameEventDispatcher implements GameEventHandler {
         this.modelManager = modelManager;
     }
 
-    public interface Adapter extends Function<ObjectNode, Optional<GameEvent>> {
+    public ModelManager getModelManager() {
+        return modelManager;
+    }
+
+    public interface Adapter extends BiFunction<ObjectNode, GameEventDispatcher, Optional<GameEvent>> {
         default int getPriority() {return 0;}
     }
 
-    public interface Listener extends BiConsumer<GameEvent, ModelManager> {
+    public interface Listener extends BiConsumer<GameEvent, GameEventDispatcher> {
         default int getPriority() {return 0;}
     }
 }
