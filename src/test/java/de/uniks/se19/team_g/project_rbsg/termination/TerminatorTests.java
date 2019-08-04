@@ -62,6 +62,8 @@ public class TerminatorTests {
 
         terminator.terminate();
 
+        Assert.assertTrue(registeredTerminables.isEmpty());
+
         Assert.assertFalse(firstTerminable.hasBeenTerminated);
         Assert.assertTrue(secondTerminable.hasBeenTerminated);
     }

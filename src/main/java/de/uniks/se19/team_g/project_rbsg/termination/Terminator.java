@@ -36,6 +36,7 @@ public class Terminator {
 
     public Terminator terminate() {
         registeredTerminables.forEach(Terminable::terminate);
+        registeredTerminables.clear();
         return this;
     }
 }
