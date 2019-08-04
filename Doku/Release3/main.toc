@@ -268,7 +268,7 @@
 \contentsline {subsubsection}{\numberline {4.8.6}CSS Fehler}{53}{subsubsection.4.8.6}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{53}{section*.222}% 
 \contentsline {paragraph}{\nonumberline Problem}{53}{section*.223}% 
-\contentsline {paragraph}{\nonumberline Fix}{53}{section*.224}% 
+\contentsline {paragraph}{\nonumberline Stand}{53}{section*.224}% 
 \contentsline {subsection}{\numberline {4.9}Zeit\"ubersicht}{54}{subsection.4.9}% 
 \contentsline {subsection}{\numberline {4.10}Analyse}{55}{subsection.4.10}% 
 \contentsline {subsubsection}{\numberline {4.10.1}Burndown}{55}{subsubsection.4.10.1}% 

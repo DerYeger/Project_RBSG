@@ -124,7 +124,7 @@
                     \item Anzeige aller Spieler
                     \item Anzeige der aktuellen Runde und Phase
                     \item Anzeige des Gewinners
- 			\item Spiele verlassen
+ 					\item Spiel verlassen
 			\item Beobachtermodus
                 \end{itemize}
                 \item Client: Lobby
@@ -205,7 +205,7 @@
                     \label{Login_Form}
                 \end{figure}
             \subsubsection{Lobby} \label{LOBBY}
-                Die Lobby zeigte eine Liste von allen Spielern (die nicht im Spiel waren) und allen Spielen an. Diese aktualisierten sich, wenn der Server die entsprechenede Nachricht schickte. Der Nutzer konnte sich "uber die Buttons oben rechts ausloggen, die Sprache "andern oder die Musik an- und ausschalten. Der Chat wurde unten links angezeigt. Rechts sah der Nutzer eine Liste mit allen vollst"andigen Armeen. Hatte der Nutzer keine vollst"andige Armee ausgew"ahlt, konnte er kein Spiel erstellen (siehe Abbildung \ref{Lobby_No_Army_Selected}) und auch keinem Spiel beitreten. \\
+                Die Lobby zeigte eine Liste von allen Spielern (die keinem Spiel beigetreten waren) und allen Spielen an. Diese Liste aktualisierte sich, wenn der Server die entsprechende Nachricht schickte. Der Nutzer konnte sich "uber die Buttons oben rechts ausloggen, die Sprache "andern oder die Musik an- und ausschalten. Der Chat wurde unten links angezeigt. Rechts sah der Nutzer eine Liste mit allen vollst"andigen Armeen. Hatte der Nutzer keine vollst"andige Armee ausgew"ahlt, konnte er kein Spiel erstellen (siehe Abbildung \ref{Lobby_No_Army_Selected}) und auch keinem Spiel beitreten. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/NoArmySelected.png}
@@ -246,7 +246,7 @@
     				\caption{Release \RN{2}: Army Manager Szene: Einheit ausgew"ahlt}
     				\label{Army_Manager_Unit_Selected}
 			    \end{figure}
-			    \ \\ Darunter war der Lore Text der ausgew"ahlten Einheit zu sehen. Oben rechts waren Buttons, um zur"uck zur Lobby zu gehen, um die Musik ein- oder auszuschalten und ein Button, der die Properties in einem Overlay erkl"arte (siehe Abbildung \ref{Property_Infoo}). Unten rechts befanden sich Buttons, um eine Armee komplett zu l"oschen, \\
+			    \ \\ Darunter war der Lore Text der ausgew"ahlten Einheit. Oben rechts waren Buttons, um zur"uck zur Lobby zu gehen und um die Musik ein- oder auszuschalten. Plus ein Button, der die Properties in einem Overlay erkl"arte (siehe Abbildung \ref{Property_Infoo}). Unten rechts befanden sich Buttons, um eine Armee komplett zu l"oschen, \\
 			    \begin{figure}[H]
                     \centering
                     \begin{minipage}{0.6\textwidth}
@@ -262,7 +262,7 @@
                         \label{Edit_Army}
                     \end{minipage}
                 \end{figure}
-                \ \\ um sie zu speichern (wurde disabled, wenn sich nichts "anderte (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}). Wenn der Nutzer aber etwas "anderte wurde der Button wieder enabled (siehe Abbildung \ref{Army_Manager_Ready_To_Save})). Es gab dort in der Ecke einen weiteren Button, um den Armeenamen zu "andern oder das Icon zu wechseln. Dazu "offnet sich ein weiteres Overlay (siehe Abbildung \ref{Edit_Army}). \\
+                \ \\ um sie zu speichern (wurde disabled, wenn sich nichts "anderte (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}). Wenn der Nutzer aber etwas "anderte wurde der Button wieder enabled (siehe Abbildung \ref{Army_Manager_Ready_To_Save}). Es gab dort in der Ecke einen weiteren Button, um den Armeenamen zu "andern oder das Icon zu wechseln. Dazu "offnet sich ein weiteres Overlay (siehe Abbildung \ref{Edit_Army}). \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/ArmyReadyToSave.png}
@@ -270,7 +270,7 @@
     				\label{Army_Manager_Ready_To_Save}
 			    \end{figure}
 	        \subsubsection{Waiting Room (Gamelobby)} \label{WAITING_ROOM}
-                Trat der Nutzer dem Warteraum bei, dann sah er oben rechts verschiedene Buttons. Einmal einen Button zum Verlassen des Spiels in die Lobby, einen Button, um die Musik ein- und auszuschalten, und einen Button, um Informationen anzuzeigen. Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise auf das Spielfeld (Ingame). Oben in der Mitte wurde die Kartenvorschau angezeigt. \\
+                Trat der Nutzer dem Warteraum bei, dann sah er oben rechts verschiedene Buttons. Einmal einen Button zum Verlassen des Spiels zur"uck in die Lobby, einen Button, um die Musik ein- und auszuschalten, und einen Button, um Informationen anzuzeigen. Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise auf das Spielfeld (Ingame). Oben in der Mitte wurde die Kartenvorschau angezeigt. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/2Player.png}
@@ -283,7 +283,7 @@
     				\caption{Release \RN{2}: Waiting Room Szene: 4 Spieler}
     				\label{Waiting_Room_4}
 			    \end{figure}
-			    \ \\ Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten fanden sich der Name und die Farbe des jeweiligen Spielers vor. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Unten war der Chat und daneben eine freie Pane f"ur ein Minigame, dass noch implementiert werden sollte.
+			    \ \\ Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten befanden sich der Name und die Farbe des jeweiligen Spielers. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Unten war der Chat und daneben eine freie Pane f"ur ein Minigame, dass noch implementiert werden sollte.
 	        \subsubsection{Ingame}
 	            Die Ingameszene zeigte bisher nur die Karte und das initiale Spielgeschehen. Die initialen Einheiten wurden auch angezeigt. Weiterhin gab es einen Button, der zur"uck in die Lobby navigierte. Zwei weitere Buttons kontrollierten das Zoomen auf dem Spielfeld (siehe Abbildung \ref{Ingame}, \ref{Ingame_In} und \ref{Ingame_Out}). \\
 	            \begin{figure}[H] 
@@ -318,7 +318,7 @@
                         \label{Game_Failure}
                     \end{center}
                 \end{wrapfigure}
-		        \ \\ Weiterhin wurde seit den ersten beiden Releases ein Dark Theme Styling implementiert, wie auf allen vorangegangenen Abbildungen zu sehen ist. Musik und Internationalisierung waren zwar optional, aber funktionierten in jeder Szene. Der Nutzer konnte auch nach Belieben Chuck Norris Zitate "uber den Chat-Befehl \glqq \textbackslash chuckMe\grqq\ im Chat versenden und es wurde auch mit einem Zeitstempel vor jeder Nachricht angezeigt, wann sie verschickt wurde. Wenn der Nutzer eine private Nachricht bekam, wurde dies auf dem neu aufgegangenem Tab mit der secondary Farbe signalisiert. Die Kartenvorschau im Warteraum war auch optional, genauso wie das Zoomen Ingame. Den Armeenamen, sowie das Icon dazu "andern zu k"onnen, war auch optional. Der Autojoin nach dem Create Game wurde auch nicht verlangt, funktioniert aber bestens. Ein weiteres sehr wichtiges Feature war, dass der Client den Spieler Fehlermeldungen (siehe Abbildung \ref{Login_Failure} und \ref{Game_Failure}) schickte, wenn der Server einen Websocket unerwartet schlo"s. Der Nutzer wurde je nach Fehler in den Login oder die Lobby zur"uckgeschickt. Au"serdem gab es ein Fenster, in dem sich der Nutzer noch einmal entscheiden konnte, ob er sich wirklich ausloggen oder ob er wirklich das Spiel verlassen mochte (siehe Abbildung \ref{Leave_Game} und \ref{Logout}). \\
+		        \ \\ Weiterhin wurde seit den ersten beiden Releases ein Dark Theme Styling implementiert, wie auf allen vorangegangenen Abbildungen zu sehen war. Musik und Internationalisierung waren zwar optional, aber funktionierten in jeder Szene. Der Nutzer konnte auch nach Belieben Chuck Norris Zitate "uber den Chat-Befehl \glqq \textbackslash chuckMe\grqq\ im Chat versenden und es wurde auch mit einem Zeitstempel vor jeder Nachricht angezeigt, wann sie verschickt wurde. Wenn der Nutzer eine private Nachricht bekam, wurde dies auf dem neu aufgegangenem Tab mit der secondary Farbe signalisiert. Die Kartenvorschau im Warteraum war auch optional, genauso wie das Zoomen Ingame. Den Armeenamen, sowie das Icon dazu "andern zu k"onnen, war auch optional. Der Autojoin nach dem Create Game wurde auch nicht verlangt, funktionierte aber bestens. Ein weiteres sehr wichtiges Feature war, dass der Client den Spieler Fehlermeldungen (siehe Abbildung \ref{Login_Failure} und \ref{Game_Failure}) schickte, wenn der Server einen Websocket unerwartet schloss. Der Nutzer wurde je nach Fehler in den Login oder die Lobby zur"uckgeschickt. Au"serdem gab es ein Fenster, in dem sich der Nutzer noch einmal entscheiden konnte, ob er sich wirklich ausloggen oder ob er wirklich das Spiel verlassen m"ochte (siehe Abbildung \ref{Leave_Game} und \ref{Logout}). \\
 		        \begin{figure}[H]
                     \centering
                     \begin{minipage}{0.55\textwidth}
@@ -343,9 +343,9 @@
 			    \end{figure}
     \newpage
 	    \subsection{MockUps}
-	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zur Lobby und zum Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergeben haben (Ein Kontextmen"u wurde durch die Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
+	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zur Lobby und zum Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergaben (Ein Kontextmen"u wurde durch die Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
 	        \subsubsection{Lobby}
-	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubt einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
+	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubte, einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
 	            \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/LobbyWatchMode.png}
@@ -353,7 +353,7 @@
     				\label{Watch_Mode}
 			    \end{figure}
 		    \subsubsection{Waiting Room (Gamelobby)}
-		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlt (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indikator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps waren auch zwei optionale Features zu sehen. Dies war einmal das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. Und au"serdem sollte oben in der Mitte der Name des Spiels angezeigt werden (siehe auf den MockUps mit Beispielnamen \glqq Enhanced Wars\grqq). \\
+		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlte (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Playercard in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indikator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps waren auch zwei optionale Features zu sehen. Dies war einmal das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. Und au"serdem sollte oben in der Mitte der Name des Spiels angezeigt werden (siehe auf den MockUps mit Beispielnamen \glqq Enhanced Wars\grqq). \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/NotReady.png}
@@ -380,7 +380,7 @@
     				\caption{MockUp: Ingame}
     				\label{Ingame_View}
 			    \end{figure}
-		    	\ \\   Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au"serdem der Musik Button zum ein- und ausschalten der Musik hinzu.
+		    	\ \\   Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Playercard mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au"serdem der Musik Button zum Ein- und Ausschalten der Musik hinzu.
 			    \subsubsubsection{Einheit ausw\"ahlen}
 			        Der Server stellte drei Phasen zur Verf\"ugung, wenn ein Spieler an der Reihe war. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden musste, eine Angriffsphase, die \"ubersprungen werden konnte und eine restliche Bewegungspunktephase, die ebenfalls \"ubersprungen werden konnte. \\
 			        \begin{figure}[H] 
@@ -404,7 +404,7 @@
 			        \end{figure} 
 		            \ \\ In einer gegnerischen Phase sollte die Einheit, die vom Gegner in seinem Client ausgew"ahlt wurde, auch beim Nutzer, w\"ahrenddessen der Nutzer dem Gegner zuschaute, auf die selbe Art und Weise ausgew"ahlt werden. In Phase 1 sollten zus\"atzlich zum Bewegungsradius auch alle m"oglichen Angriffsziele markiert werden (siehe Abbildung \ref{Select_1}). In Phase 2 sollten nur alle m"oglichen Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 sollte ein verk"urzter Bewegungsradius ohne Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_3}), je nachdem wie weit sich eine Einheit noch bewegen konnte.
                 \subsubsubsection{Einheit bewegen}
-                    Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausgew"ahlte und auf ein Feld klickte, sollte die Einheit auf das Feld bewegt werden, sobald der k"urzeste Pfad berechnet und zum Server geschickt wurde. Falls nach der Bewegung noch Bewegungspunkte "ubrig waren, sollte die Einheit weiterhin ausgew"ahlt bleiben und die Bewegungsreichweite dementsprechend verkleinert werden. War ein Gegner an der Reihe und der Server sendete eine bewegte Einheit, dann sollte auch zuerst die Bewegungsreichweite angezeigt werden und danach (kurz verz"ogert) die Einheit bewegt werden. Sp"ater sollte der Nutzer "uber eine Box in der Sidebar die M"oglichkeit haben, seinen Zug doch noch zu widerrufen. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbruch (siehe Abbildung \ref{Move} oder \ref{Move2}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
+                    Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausw"ahlte und auf ein Feld klickte, sollte die Einheit auf das Feld bewegt werden, sobald der k"urzeste Pfad berechnet und zum Server geschickt wurde. Falls nach der Bewegung noch Bewegungspunkte "ubrig waren, sollte die Einheit weiterhin ausgew"ahlt bleiben und die Bewegungsreichweite dementsprechend verkleinert werden. War ein Gegner an der Reihe und der Server sendete eine bewegte Einheit, dann sollte auch zuerst die Bewegungsreichweite angezeigt werden und danach (kurz verz"ogert) die Einheit bewegt werden. Sp"ater sollte der Nutzer "uber eine Box in der Sidebar die M"oglichkeit haben, seinen Zug doch noch zu widerrufen. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Move} oder \ref{Move2}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
                     \begin{figure}[H] 
                     	\centering
                     	\includegraphics[width=0.8\textwidth]{images/mockUps/ConfirmMove.png}
@@ -425,9 +425,9 @@
     				    \caption{MockUp: Angreifen best"atigen}
     				    \label{Attack}
 			        \end{figure}
-		        	\ \\ War ein Gegner an der Reihe und der Server sendete eine angegriffene Einheit, dann sollten auch zuerst die m"oglichen Angriffsziele angezeigt werden und danach (kurz verz"ogert) sollte die Einheit angreifen. Sp"ater sollte dies auch noch "uber ein Box in der Sidebar best"atigt werden, um dem Nutzer die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbruch (siehe Abbildung \ref{Attack}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
+		        	\ \\ War ein Gegner an der Reihe und der Server sendete eine angegriffene Einheit, dann sollten auch zuerst die m"oglichen Angriffsziele angezeigt werden und danach (kurz verz"ogert) sollte die Einheit angreifen. Sp"ater sollte dies auch noch "uber eine Box in der Sidebar best"atigt werden, um dem Nutzer die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Attack}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
 			    \subsubsubsection{Spielende}
-			        Wenn ein Spieler verlor, da er keine Einheiten mehr hatte, sollte sich das Icon und der Name in seiner Playercard schwarz f"arben. Bei diesem Nutzer sollte ein Overlay angezeigt werden, in dem stand, dass er verloren hatte. Au"serdem konnte er "uber das Overlay entscheiden, ob er sich zur"uck in die Lobby ging oder dem Spiel als Spectator beitrat (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig war, gewann er das Spiel. Diesem Nutzer sollte auch ein Overlay angezeigt werden, durch das er zur"uck zur Lobby wechselte (siehe Abbildung \ref{Game_Won}). Bei anderen Nutzern, die sich im Spectatormodus befanden, sollte auch ein "ahnliches Overlay mit der gleichen Funktionalit"at angezeigt werden (siehe Abbildung \ref{Spactator_End}).
+			        Wenn ein Spieler verlor, da er keine Einheiten mehr hatte, sollte sich das Icon und der Name in seiner Playercard schwarz f"arben. Bei diesem Nutzer sollte ein Overlay angezeigt werden, in dem stand, dass er verlor. Au"serdem konnte er "uber das Overlay entscheiden, ob er sich zur"uck in die Lobby ging oder dem Spiel als Spectator beitrat (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig war, gewann er das Spiel. Diesem Nutzer sollte auch ein Overlay angezeigt werden, durch das er zur"uck zur Lobby wechselte (siehe Abbildung \ref{Game_Won}). Bei anderen Nutzern, die sich im Spectatormodus befanden, sollte auch ein "ahnliches Overlay mit der gleichen Funktionalit"at angezeigt werden (siehe Abbildung \ref{Spactator_End}).
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/GameOver.png}
@@ -1095,7 +1095,7 @@
 					Dieser Bug sollte von Tobias Klipp behoben werden.
 				\paragraph{Problem}
 					An verschiedenen Stellen (Create Game Fenster, Ingamechat, Spielerkarten im Warteraum) kam es vor, dass manchmal der Stylesheet nicht richtig geladen oder verwendet wurde. Der eigentlich wei{\ss}e Text war beispielsweise schwarz oder der selected color Hintergrund (Spielerkarte, falls der Spieler bereit war) wurde durchsichtig.
-				\paragraph{Fix}
+				\paragraph{Stand}
 					TODO: Schreiben
    	\newpage
     	\subsection{Zeit\"ubersicht}
@@ -1175,7 +1175,7 @@
     				\label{Fixed_Bugs_6}
     			\end{figure}
     		\subsubsection{Angefangene Bugtasks}
-    			Des Weiteren gab es auch noch eine Bugtask, die im Release \RN{3} noch nicht behoben werden konnte (siehe Abbildung \ref{Fixed_Bugs_6}). Dies war der Bug \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq. Das lag daran, dass zum Beheben dieses Bugs ein Serverupdate n"otig war, das erst f"ur das n"achste Release angek"undigt wurde.
+    			Des Weiteren gab es auch noch zwei Bugtasks, die im Release \RN{3} noch nicht behoben werden konnten (siehe Abbildung \ref{Fixed_Bugs_6}). Dies war einmal der Bug \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq. Und der andere Bug, der nicht behoben wurde, war \glqq CSS Fehler\grqq. Der Wechsel zum Spielfeld konnte nicht behoben werden, da es f"ur diesen Bug erst noch im n"achsten Release ein Serverupdate geben sollte. Der CSS Fehler sollte im n"achsten Release behoben werden, da der Entwickler dies gegen Ende des Releases aus Zeitgr"unden nicht mehr schaffte und da der Bug keine Funktionalit"aten einschr"ankte.
 	    	\subsubsection{Angefangen}
 	    		TODO: Schreiben oder Kapitel l"oschen
 	    	\subsubsection{Fazit}
