@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
@@ -55,6 +56,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -71,7 +73,8 @@ import static org.mockito.Mockito.*;
         ChatTabManager.class,
         UserProvider.class,
         ChatCommandManager.class,
-        GameEventManager.class
+        GameEventManager.class,
+        LocaleConfig.class
 })
 public class BattleFieldViewTest extends ApplicationTest {
 
@@ -168,22 +171,20 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(25, 150);
         click(75, 150);
 
-        Button button = lookup("#mapButton").query();
-        clickOn("#mapButton");
-        clickOn("#mapButton");
+
         Button ingameInformationsButton = lookup("#ingameInformationsButton").query();
         Assert.assertNotNull(ingameInformationsButton);
         HBox playerBar = lookup("#playerBar").query();
         clickOn("#ingameInformationsButton");
         Assert.assertTrue(playerBar.isVisible());
         clickOn("#ingameInformationsButton");
-        Assert.assertTrue(!playerBar.isVisible());
+        Assert.assertFalse(playerBar.isVisible());
         Button chatButton = lookup("#chatButton").query();
         StackPane chatPane = lookup("#chatPane").query();
         clickOn("#chatButton");
         Assert.assertTrue(chatPane.isVisible());
         clickOn("#chatButton");
-        Assert.assertTrue(!chatPane.isVisible());
+        Assert.assertFalse(chatPane.isVisible());
     }
 
     private void click(double x, double y) {
@@ -233,9 +234,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.getGameState().setPhase("movePhase");
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
-        click(300, 150);
+        click(150, 125);
         Assert.assertNull(game.getSelectedUnit());
-        click(350, 175);
+        click(200, 150);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyZeroInteractions(movementManager);
@@ -243,10 +244,10 @@ public class BattleFieldViewTest extends ApplicationTest {
                 .thenReturn(null);
 
         // test unit selection removed if not reachable terrain is clicked
-        click(300, 200);
+        click(150, 175);
         //verify(movementManager).getTour(playerUnit, definition.cells[1][0]);
         Assert.assertNull(game.getSelectedUnit());
-        click(350, 175);
+        click(200, 150);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyNoMoreInteractions(movementManager);
@@ -270,7 +271,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         ).when(gameEventManager).sendMessage(any());
 
         // test move action fired, if reachable terrain is clicked
-        click(300, 175);
+        click(150, 125);
 
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
@@ -281,9 +282,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         // test no action, if user is not current player
         game.setCurrentPlayer(null);
-        click(350, 125);
+        click(200, 75);
         //verifyNoMoreInteractions(gameEventManager);
-        click(350, 175);
+        click(200, 125);
 
     }
 
@@ -367,7 +368,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(tour);
 
-        clickOn(520, 210);
+        click(200, 150);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Cell cell = definition.cells[0][0];
@@ -376,13 +377,13 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.MOVE, cell.getTile().getHighlightingOne());
 
-        clickOn(520, 210);
+        click(200, 150);
         Assert.assertNull(game.getSelectedUnit());
 
         Assert.assertFalse(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.NONE, cell.getTile().getHighlightingOne());
 
-        clickOn(520, 210);
+        click(200, 150);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Assert.assertTrue(cell.isIsReachable());
@@ -442,7 +443,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
-        clickOn(520, 260);
+        click(200, 200);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
@@ -491,16 +492,16 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
-        click(350, 200);
-        click( 350, 250);
-        click(350, 200);
+        click(200, 200);
+        click( 200, 250);
+        click(200, 200);
         game.setPhase(Game.Phase.movePhase.name());
-        click(400, 200);
+        click(250, 200);
         //verifyZeroInteractions(gameEventManager);
         game.setPhase(Game.Phase.attackPhase.name());
 
-        click(350, 225);
-        click(400, 225);
+        click(200, 200);
+        click(250, 200);
         verify(gameEventManager).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);

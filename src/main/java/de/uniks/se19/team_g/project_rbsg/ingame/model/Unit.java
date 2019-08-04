@@ -38,7 +38,8 @@ public class Unit implements Selectable, Hoverable {
     final private SimpleIntegerProperty remainingMovePoints = new SimpleIntegerProperty(0);
 
     private int mp;
-    private int hp;
+    private SimpleIntegerProperty hp = new SimpleIntegerProperty();
+    private int maxHp;
 
     private ArrayList<UnitTypeInfo> canAttack = new ArrayList<>();
 
@@ -75,6 +76,10 @@ public class Unit implements Selectable, Hoverable {
     }
 
     public int getHp() {
+        return hp.get();
+    }
+
+    public SimpleIntegerProperty hpProperty() {
         return hp;
     }
 
@@ -130,7 +135,7 @@ public class Unit implements Selectable, Hoverable {
     }
 
     public Unit setHp(@NonNull final int hp) {
-        this.hp = hp;
+        this.hp.set(hp);
         return this;
     }
 
@@ -227,13 +232,22 @@ public class Unit implements Selectable, Hoverable {
         }
     }
 
+    public int getMaxHp ()
+    {
+        return maxHp;
+    }
+
+    public void setMaxHp (int maxHp)
+    {
+        this.maxHp = maxHp;
+    }
+
     public boolean canAttack(Unit unit) {
         return unit != null
             && isAttackReady()
             && unit.getLeader() != this.leader
             && canAttack.contains(unit.unitType);
     }
-
     public boolean isAttackReady() {
         return attackReady.get();
     }

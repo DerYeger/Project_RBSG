@@ -4,10 +4,15 @@ import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
@@ -18,11 +23,17 @@ import java.util.HashMap;
 public class TileDrawer
 {
     private static final double CELL_SIZE = 64;
+    private static final int HP_BORDER_OFFSET = 2;
+    private static final int HP_BORDER_HEIGHT = 9;
+    private static final int HP_BORDER_STROKE = 2;
+    private static final int HP_BAR_HEIGHT = 5;
+
+
     private static final Color transparentWhite = Color.rgb(255, 255, 255, 0.2);
-    private static final Color movementBlue = Color.rgb(134,140,252, 0.4);
+    private static final Color movementBlue = Color.rgb(134, 140, 252, 0.4);
     private static final Color selectedWhite = Color.rgb(255, 255, 255, 0.4);
     private static final Color movementBlueBorder = Color.rgb(134, 140, 252);
-    private static final Color selectedBlue = Color.rgb(134,140,252);
+    private static final Color selectedBlue = Color.rgb(134, 140, 252);
 
     private static final Color attackRed = Color.rgb(207,102,121, 0.4);
     private static final Color attackRedBorder = Color.rgb(207,102,121);
@@ -36,6 +47,10 @@ public class TileDrawer
     private GraphicsContext graphicsContext;
     private HashMap<UnitTypeInfo, Image> unitImagesMap;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    private SimpleBooleanProperty hpBarVisibility;
+
     public TileDrawer()
     {
         unitImagesMap = new HashMap<>();
@@ -45,7 +60,10 @@ public class TileDrawer
             Image image = new Image(type.getImage().toExternalForm(), CELL_SIZE, CELL_SIZE, false, true);
             unitImagesMap.put(type, image);
         }
+
+        hpBarVisibility = new SimpleBooleanProperty(true);
     }
+
 
     @SuppressWarnings("unused")
     public Canvas getCanvas()
@@ -61,8 +79,10 @@ public class TileDrawer
 
     public void drawMap(Tile[][] map)
     {
-        for (Tile[] tiles : map) {
-            for (Tile tile : tiles) {
+        for (Tile[] tiles : map)
+        {
+            for (Tile tile : tiles)
+            {
                 drawTile(tile);
             }
         }
@@ -119,15 +139,48 @@ public class TileDrawer
             }
 
 
-
-
         }
 
-        //Layer 5
-        if (tile.getCell().unitProperty().get() != null)
+        Unit unit = tile.getCell().unitProperty().get();
+
+        //Layer 5 Unit
+        if (unit != null)
         {
-            graphicsContext.drawImage(unitImagesMap.get(tile.getCell().getUnit().getUnitType()), startX, startY);
+            graphicsContext.drawImage(unitImagesMap.get(unit.getUnitType()), startX, startY);
+
+            //Layer 6 HP Bar
+            if (hpBarVisibility.get())
+            {
+                drawHealthBar(startX, startY, unit);
+            }
         }
+
+
+    }
+
+    private void drawHealthBar(double startX, double startY, Unit unit)
+    {
+        //Drawing HP Bar Border
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.fillRect(startX + HP_BORDER_OFFSET, startY + HP_BORDER_OFFSET, (CELL_SIZE - (HP_BORDER_OFFSET * 2)),
+                HP_BORDER_HEIGHT);
+
+        //Drawing HP Bar
+        if (unit.getLeader() != null)
+        {
+            graphicsContext.setFill(Paint.valueOf(unit.getLeader().getColor()));
+        } else
+        {
+            graphicsContext.setFill(Color.PINK);
+        }
+
+        double hpBarStartX = startX + HP_BORDER_OFFSET + HP_BORDER_STROKE;
+        double hpBarStartY = startY + HP_BORDER_OFFSET + HP_BORDER_STROKE;
+        double maxWidth = CELL_SIZE - ((HP_BORDER_OFFSET + HP_BORDER_STROKE) * 2);
+        double hpPercentage = ((double) unit.getHp()) / ((double) unit.getMaxHp());
+        double resultWidth = maxWidth * hpPercentage;
+
+        graphicsContext.fillRect(hpBarStartX, hpBarStartY, resultWidth, HP_BAR_HEIGHT);
     }
 
     protected void drawTileFill(double startX, double startY, Color attackRed) {
@@ -140,7 +193,22 @@ public class TileDrawer
         graphicsContext.setLineWidth(2);
         graphicsContext.strokeLine((startX + 1), (startY + 1), (startX + (CELL_SIZE - 1)), (startY + 1));
         graphicsContext.strokeLine((startX + (CELL_SIZE - 1)), (startY + 1), startX + (CELL_SIZE - 1), startY + (CELL_SIZE - 1));
-        graphicsContext.strokeLine((startX  + (CELL_SIZE - 1)), startY + (CELL_SIZE - 1), (startX + 1),startY + (CELL_SIZE - 1));
+        graphicsContext.strokeLine((startX + (CELL_SIZE - 1)), startY + (CELL_SIZE - 1), (startX + 1), startY + (CELL_SIZE - 1));
         graphicsContext.strokeLine((startX + 1), (startY + (CELL_SIZE - 1)), (startX + 1), (startY + 1));
+    }
+
+    public boolean isHpBarVisibility()
+    {
+        return hpBarVisibility.get();
+    }
+
+    public void setHpBarVisibility(boolean hpBarVisibility)
+    {
+        this.hpBarVisibility.set(hpBarVisibility);
+    }
+
+    public SimpleBooleanProperty hpBarVisibilityProperty()
+    {
+        return hpBarVisibility;
     }
 }
