@@ -26,7 +26,8 @@
 <?import java.net.URL?>
 <?import java.lang.String?>
 
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane"
+           fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>

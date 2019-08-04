@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
@@ -72,7 +73,8 @@ import static org.mockito.Mockito.*;
         ChatTabManager.class,
         UserProvider.class,
         ChatCommandManager.class,
-        GameEventManager.class
+        GameEventManager.class,
+        LocaleConfig.class
 })
 public class BattleFieldViewTest extends ApplicationTest {
 
