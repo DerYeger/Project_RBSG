@@ -368,7 +368,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(tour);
 
-        clickOn(520, 210);
+        click(200, 150);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Cell cell = definition.cells[0][0];
@@ -377,13 +377,13 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.MOVE, cell.getTile().getHighlightingOne());
 
-        clickOn(520, 210);
+        click(200, 150);
         Assert.assertNull(game.getSelectedUnit());
 
         Assert.assertFalse(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.NONE, cell.getTile().getHighlightingOne());
 
-        clickOn(520, 210);
+        click(200, 150);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Assert.assertTrue(cell.isIsReachable());
@@ -443,7 +443,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
-        clickOn(520, 260);
+        click(200, 200);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
