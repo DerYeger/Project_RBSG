@@ -97,7 +97,14 @@ public class UnitInfoBoxController<T> implements Initializable
         }
         else
         {
-            image = new Image(unit.getUnitType().getImage().toExternalForm(), 100, 100, false, true);
+            if(unit.getUnitType() != null) {
+                image = new Image(unit.getUnitType().getImage().toExternalForm(), 100, 100,
+                        false, true);
+            }
+            else {
+                image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm(),
+                        100, 100, false, true);
+            }
             imageMap.put(unit.getUnitType(), image);
         }
         unitImageView.setImage(image);
