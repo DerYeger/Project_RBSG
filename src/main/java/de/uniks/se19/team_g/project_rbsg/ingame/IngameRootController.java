@@ -153,7 +153,6 @@ public class IngameRootController
             }
             root.getChildren().remove(activeComponent.getRoot());
         }
-
         root.getChildren().add(nextComponent.getRoot());
         nextComponent.getRoot().toBack();
         nextComponent.getController().configure(ingameContext);

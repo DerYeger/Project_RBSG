@@ -1,41 +1,55 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.alert.*;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.component.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.termination.*;
-import de.uniks.se19.team_g.project_rbsg.util.*;
-import io.rincl.*;
-import javafx.application.*;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.beans.binding.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
-import javafx.beans.value.*;
-import javafx.collections.*;
-import javafx.event.*;
-import javafx.geometry.*;
-import javafx.scene.*;
-import javafx.scene.canvas.*;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.input.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Controller;
 
-import javax.annotation.*;
-import java.beans.*;
+import javax.annotation.Nonnull;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.*;
 
 /**
@@ -112,6 +126,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     private IngameContext context;
     private final ChangeListener<Cell> onSelectedUnitMoved = this::onSelectedUnitMoved;
     private final ChangeListener<Selectable> onSelectedChanged = this::onSelectedChanged;
+    @FXML
+    public StackPane rootPane;
+
     private PlayerListController playerListController;
     private final ListChangeListener<Player> playerListListener = this::playerListChanged;
     private final ChangeListener<String> phaseChangedListener = this::phaseChanged;
@@ -209,7 +226,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         musicManager.initButtonIcons(musicButton);
     }
 
-    private void highlightingChanged (PropertyChangeEvent propertyChangeEvent)
+
+
+    private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
     {
         Tile tile = (Tile) propertyChangeEvent.getOldValue();
         tileDrawer.drawTile(tile);
@@ -322,6 +341,16 @@ public class BattleFieldController implements RootController, IngameViewControll
         battlefieldStackPane.getChildren().add(0, zoomableScrollPane);
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
+
+        rootPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get()){
+                    endPhase();
+                }
+                rootPane.setFocusTraversable(true);
+            }
+        });
     }
 
     private void initPlayerBar ()
@@ -502,12 +531,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         Cell cell = resolveTargetCell(event);
         Unit unit = cell.getUnit();
 
-        if (context.getGameState() == null)
-        {
-            return;
-        }
-
-        context.getGameState().setHovered(Objects.requireNonNullElse(unit, cell));
+        Objects.requireNonNullElse(unit, cell).setHoveredIn(context.getGameState());
     }
 
     public void canvasHandleMouseClicked (MouseEvent event)
@@ -541,10 +565,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (selectable == context.getGameState().getSelected())
         {
             selectable.clearSelection();
-        }
-        else
-        {
-            context.getGameState().setSelected(selectable);
+        } else {
+            selectable.setSelectedIn(context.getGameState());
         }
     }
 
@@ -556,19 +578,17 @@ public class BattleFieldController implements RootController, IngameViewControll
         Unit targetUnit = targetCell.getUnit();
 
         if (
-                !context.isMyTurn()
-                        || !context.getGameState().isPhase(Game.Phase.attackPhase)
-                        || Objects.isNull(selectedUnit)
-                        || selectedUnit.getLeader() != context.getUserPlayer()
-                        || Objects.isNull(targetUnit)
-                        || !targetCell.isIsAttackable()
-                        || targetUnit.getLeader() == context.getUserPlayer()
-        )
-        {
+               !context.isMyTurn()
+            || !context.getGameState().isPhase(Game.Phase.attackPhase)
+            || Objects.isNull(selectedUnit)
+            || selectedUnit.getLeader() != context.getUserPlayer()
+            || !selectedUnit.canAttack(targetUnit)
+        ) {
             return false;
         }
 
         context.getGameEventManager().api().attack(selectedUnit, targetUnit);
+        selectedUnit.setAttackReady(false);
         game.setSelectedUnit(null);
 
         tileDrawer.drawTile(targetUnit.getPosition().getTile());
@@ -630,7 +650,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         return true;
     }
 
-    public void leaveGame (@SuppressWarnings("unused") ActionEvent actionEvent)
+    public void leaveGame(@SuppressWarnings("unused") MouseEvent mouseEvent)
     {
         alertBuilder
                 .confirmation(
@@ -760,11 +780,9 @@ public class BattleFieldController implements RootController, IngameViewControll
                 .addListener((observable, oldUnit, newUnit) -> setCellProperty(newUnit));
 
         this.context.getGameState().phaseProperty()
-                .addListener(((observable, oldValue, newValue) -> setCellProperty(null)));
+                .addListener(this::onNextPhase);
 
         configureEndPhase();
-
-        configureCells();
 
         unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty()));
         unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty()));
@@ -772,7 +790,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         try
         {
             addAlertListeners();
-
             initChat();
         }
         catch (Exception e)
@@ -781,12 +798,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void addAlertListeners ()
-    {
-        game.winnerProperty().addListener(((observable, oldValue, newValue) ->
-        {
-            if (newValue != null)
-            {
+    private void onNextPhase(Observable observable, String lastPhase, String nextPhase) {
+        setCellProperty(null);
+        game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
+    }
+
+    private void addAlertListeners() {
+        game.winnerProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue != null) {
                 //TODO: Check if we are the winner. If yes, show other (priorityInformation) alert (Mockup)
                 showWinnerLoserAlert(newValue);
             }
@@ -874,67 +893,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         return tileMap[position.getY()][position.getX()];
     }
 
-    private void configureCells ()
-    {
-        for (Cell cell : this.context.getGameState().getCells())
-        {
 
-            cell.isAttackableProperty().addListener(((observable, oldValue, newValue) ->
-            {
-                if (newValue)
-                {
-                    setUnitAttackProperty(cell);
-                }
-                else
-                {
-                    removeUnitAttackProperty(cell);
-                }
-            }));
-        }
-    }
-
-    private void removeUnitAttackProperty (@Nonnull Cell cell)
-    {
-        if (cell.getUnit() == null)
-        {
-            return;
-        }
-        Unit unit = cell.getUnit();
-        if (unit.getLeader().isPlayer())
-        {
-            return;
-        }
-        unit.setAttackable(false);
-    }
-
-    /**
-     * duplicated code? why not unit.setAttackable({notPlayerUnit}) ?
-     *
-     * @param cell
-     */
-    private void setUnitAttackProperty (@Nonnull Cell cell)
-    {
-        if (cell.getUnit() == null)
-        {
-            return;
-        }
-        Unit unit = cell.getUnit();
-        if (unit.getLeader().isPlayer())
-        {
-            return;
-        }
-        unit.setAttackable(true);
-    }
-
-    private void setCellProperty (@Nullable Unit selectedUnit)
-    {
-        if (selectedUnit == null)
-        {
-            for (Cell cell : this.context.getGameState().getCells())
-            {
+    private void setCellProperty(@Nullable Unit selectedUnit) {
+        if (selectedUnit == null) {
+            for (Cell cell : this.context.getGameState().getCells()) {
                 cell.setIsReachable(false);
-                cell.setIsAttackable(false);
-                removeUnitAttackProperty(cell);
             }
             return;
         }
@@ -948,12 +911,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             return;
         }
 
-        if (this.context.getGameState().isPhase(Game.Phase.attackPhase))
-        {
-            setAttackRadius(selectedUnit);
-        }
-        else
-        {
+
+        if (!this.context.getGameState().isPhase(Game.Phase.attackPhase)) {
             setMoveRadius(selectedUnit);
         }
     }
@@ -974,32 +933,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
 
-    private void setAttackRadius (@Nonnull Unit selectedUnit)
-    {
-        Cell position = selectedUnit.getPosition();
-        for (Cell cell : this.context.getGameState().getCells())
-        {
-            cell.setIsAttackable(false);
-        }
-        if (position.getLeft() != null)
-        {
-            position.getLeft().setIsAttackable(true);
-        }
-        if (position.getTop() != null)
-        {
-            position.getTop().setIsAttackable(true);
-        }
-        if (position.getRight() != null)
-        {
-            position.getRight().setIsAttackable(true);
-        }
-        if (position.getBottom() != null)
-        {
-            position.getBottom().setIsAttackable(true);
-        }
-    }
-
-    private void miniMapHandleMouseClick (MouseEvent mouseEvent)
+    private void miniMapHandleMouseClick(MouseEvent mouseEvent)
     {
         int xPos = miniMapDrawer.getXPostionOnMap(mouseEvent.getX());
         int yPos = miniMapDrawer.getYPostionOnMap(mouseEvent.getY());
@@ -1025,9 +959,16 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
-        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) ->
-        {
-        }));
+        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
+
+        endPhaseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton().equals(MouseButton.PRIMARY)){
+                    endPhase();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unused")

@@ -1,10 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.cells_url.BiomUrls;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableIntegerValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -31,7 +31,7 @@ public class Unit implements Selectable, Hoverable {
     private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
     private final BooleanBinding isHovered = hoveredIn.isNotNull();
 
-    private SimpleBooleanProperty attackable = new SimpleBooleanProperty(false);
+    private BooleanProperty attackReady = new SimpleBooleanProperty(true);
 
     private UnitTypeInfo unitType;
 
@@ -40,7 +40,8 @@ public class Unit implements Selectable, Hoverable {
     private int mp;
     private SimpleIntegerProperty hp = new SimpleIntegerProperty();
     private int maxHp;
-    private ArrayList<UnitTypeInfo> canAttack;
+
+    private ArrayList<UnitTypeInfo> canAttack = new ArrayList<>();
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -139,7 +140,8 @@ public class Unit implements Selectable, Hoverable {
     }
 
     public Unit setCanAttack(@NonNull final Collection<UnitTypeInfo> canAttack) {
-        this.canAttack = new ArrayList<>(canAttack);
+        this.canAttack.clear();
+        this.canAttack.addAll(canAttack);
         return this;
     }
 
@@ -169,18 +171,6 @@ public class Unit implements Selectable, Hoverable {
 
     public void setRemainingMovePoints(int remainingMovePoints) {
         this.remainingMovePoints.set(remainingMovePoints);
-    }
-
-    public boolean isAttackable() {
-        return attackable.get();
-    }
-
-    public SimpleBooleanProperty attackableProperty() {
-        return attackable;
-    }
-
-    public void setAttackable(boolean attackable) {
-        this.attackable.set(attackable);
     }
 
     public boolean isSelected() {
@@ -250,5 +240,23 @@ public class Unit implements Selectable, Hoverable {
     public void setMaxHp (int maxHp)
     {
         this.maxHp = maxHp;
+    }
+
+    public boolean canAttack(Unit unit) {
+        return unit != null
+            && isAttackReady()
+            && unit.getLeader() != this.leader
+            && canAttack.contains(unit.unitType);
+    }
+    public boolean isAttackReady() {
+        return attackReady.get();
+    }
+
+    public ObservableBooleanValue attackReadyProperty() {
+        return attackReady;
+    }
+
+    public void setAttackReady(boolean attackReady) {
+        this.attackReady.set(attackReady);
     }
 }

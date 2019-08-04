@@ -25,7 +25,11 @@ public abstract class AlertController {
 
     public void show() {
         if (!target.getChildren().contains(alert)) {
-            Platform.runLater(() -> target.getChildren().add(alert));
+            Platform.runLater(() -> {
+                target.getChildren().add(alert);
+                alert.setFocusTraversable(true);
+                alert.requestFocus();
+            });
         }
     }
 

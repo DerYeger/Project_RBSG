@@ -305,7 +305,8 @@ public class Game {
         return selected;
     }
 
-    public void setSelected(@Nullable Selectable selected) {
+    // use selecteable .setSelectedIn to enforce a fix direction because of listener fire order
+    void setSelected(@Nullable Selectable selected) {
         Selectable lastSelected = this.selected.get();
 
         if (lastSelected == selected) {
@@ -331,7 +332,7 @@ public class Game {
         return hovered;
     }
 
-    public void setHovered(Hoverable hovered) {
+    void setHovered(Hoverable hovered) {
         Hoverable lastHovered = this.hovered.get();
 
         if (lastHovered == hovered) {
