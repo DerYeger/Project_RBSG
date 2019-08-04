@@ -492,16 +492,16 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
-        click(350, 200);
-        click( 350, 250);
-        click(350, 200);
+        click(200, 200);
+        click( 200, 250);
+        click(200, 200);
         game.setPhase(Game.Phase.movePhase.name());
-        click(400, 200);
+        click(250, 200);
         //verifyZeroInteractions(gameEventManager);
         game.setPhase(Game.Phase.attackPhase.name());
 
-        click(350, 225);
-        click(400, 225);
+        click(200, 200);
+        click(250, 200);
         verify(gameEventManager).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
