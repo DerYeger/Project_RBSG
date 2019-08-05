@@ -62,7 +62,8 @@ public class MovementBehaviour implements Behaviour {
                         enemyPositions
                                 .stream()
                                 .mapToDouble(other -> distance(c, other))
-                                .sum(), c));
+                                .sum(),
+                        c));
 
         final Double minDistance = distanceMap
                 .keySet()
