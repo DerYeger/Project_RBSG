@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
@@ -87,8 +88,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private ChatBuilder chatBuilder;
     private ChatController chatController;
     private CreateGameFormBuilder createGameFormBuilder;
+    private CreditsFormBuilder creditsFormBuilder;
 
     private Node gameForm;
+    private Node creditsForm;
 
     public StackPane mainStackPane;
     public Button soundButton;
@@ -96,6 +99,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Button creditsButton;
     public Pane createGameButtonContainer;
     public Button armyBuilderLink;
     public GridPane mainGridPane;
@@ -201,6 +205,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             getClass().getResource("/assets/icons/army/rallyTroopsWhite.png"),
             getClass().getResource("/assets/icons/army/rallyTroopsBlack.png"),
             LobbyViewController.ICON_SIZE
+        );
+        JavaFXUtils.setButtonIcons(
+                creditsButton,
+                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
+                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
+                LobbyViewController.ICON_SIZE
         );
 
         musicManager.initButtonIcons(soundButton);
@@ -314,6 +324,26 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             mainStackPane.getChildren().add(gameForm);
         } else if ((this.gameForm != null) && (mainStackPane.getChildren().contains(this.gameForm))){
             this.gameForm.setVisible(true);
+        }
+
+    }
+
+    public void showCredits(){
+        if(mainStackPane == null) {
+            return;
+        }
+        if (this.creditsForm == null) {
+            try {
+                this.creditsForm = this.creditsFormBuilder.getCreditsForm();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((this.creditsForm != null) && (!mainStackPane.getChildren().contains(this.creditsForm))) {
+            mainStackPane.getChildren().add(creditsForm);
+        } else if ((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm))){
+            this.creditsForm.setVisible(true);
         }
 
     }
