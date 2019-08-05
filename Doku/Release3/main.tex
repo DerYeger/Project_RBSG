@@ -404,7 +404,7 @@
 			        \end{figure} 
 		            \ \\ In einer gegnerischen Phase sollte die Einheit, die vom Gegner in seinem Client ausgew"ahlt wurde, auch beim Nutzer, w\"ahrenddessen der Nutzer dem Gegner zuschaute, auf die selbe Art und Weise ausgew"ahlt werden. In Phase 1 sollten zus\"atzlich zum Bewegungsradius auch alle m"oglichen Angriffsziele markiert werden (siehe Abbildung \ref{Select_1}). In Phase 2 sollten nur alle m"oglichen Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 sollte ein verk"urzter Bewegungsradius ohne Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_3}), je nachdem wie weit sich eine Einheit noch bewegen konnte.
                 \subsubsubsection{Einheit bewegen}
-                    Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausw"ahlte und auf ein Feld klickte, sollte die Einheit auf das Feld bewegt werden, sobald der k"urzeste Pfad berechnet und zum Server geschickt wurde. Falls nach der Bewegung noch Bewegungspunkte "ubrig waren, sollte die Einheit weiterhin ausgew"ahlt bleiben und die Bewegungsreichweite dementsprechend verkleinert werden. War ein Gegner an der Reihe und der Server sendete eine bewegte Einheit, dann sollte auch zuerst die Bewegungsreichweite angezeigt werden und danach (kurz verz"ogert) die Einheit bewegt werden. Sp"ater sollte der Nutzer "uber eine Box in der Sidebar die M"oglichkeit haben, seinen Zug doch noch zu widerrufen. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Move} oder \ref{Move2}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
+                    Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausw"ahlte und auf ein Feld klickte, sollte die Einheit auf das Feld bewegt werden, sobald der k"urzeste Pfad berechnet und zum Server geschickt wurde. Falls nach der Bewegung noch Bewegungspunkte "ubrig waren, sollte die Einheit weiterhin ausgew"ahlt bleiben und die Bewegungsreichweite dementsprechend verkleinert werden. War ein Gegner an der Reihe und der Server sandte eine bewegte Einheit, dann sollte auch zuerst die Bewegungsreichweite angezeigt werden und danach (kurz verz"ogert) die Einheit bewegt werden. Sp"ater sollte der Nutzer "uber eine Box in der Sidebar die M"oglichkeit haben, seinen Zug doch noch zu widerrufen. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Move} oder \ref{Move2}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
                     \begin{figure}[H] 
                     	\centering
                     	\includegraphics[width=0.8\textwidth]{images/mockUps/ConfirmMove.png}
@@ -425,7 +425,7 @@
     				    \caption{MockUp: Angreifen best"atigen}
     				    \label{Attack}
 			        \end{figure}
-		        	\ \\ War ein Gegner an der Reihe und der Server sendete eine angegriffene Einheit, dann sollten auch zuerst die m"oglichen Angriffsziele angezeigt werden und danach (kurz verz"ogert) sollte die Einheit angreifen. Sp"ater sollte dies auch noch "uber eine Box in der Sidebar best"atigt werden, um dem Nutzer die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Attack}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
+		        	\ \\ War ein Gegner an der Reihe und der Server sandte eine angegriffene Einheit, dann sollten auch zuerst die m"oglichen Angriffsziele angezeigt werden und danach (kurz verz"ogert) sollte die Einheit angreifen. Sp"ater sollte dies auch noch "uber eine Box in der Sidebar best"atigt werden, um dem Nutzer die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Attack}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
 			    \subsubsubsection{Spielende}
 			        Wenn ein Spieler verlor, da er keine Einheiten mehr hatte, sollte sich das Icon und der Name in seiner Playercard schwarz f"arben. Bei diesem Nutzer sollte ein Overlay angezeigt werden, in dem stand, dass er verlor. Au"serdem konnte er "uber das Overlay entscheiden, ob er sich zur"uck in die Lobby ging oder dem Spiel als Spectator beitrat (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig war, gewann er das Spiel. Diesem Nutzer sollte auch ein Overlay angezeigt werden, durch das er zur"uck zur Lobby wechselte (siehe Abbildung \ref{Game_Won}). Bei anderen Nutzern, die sich im Spectatormodus befanden, sollte auch ein "ahnliches Overlay mit der gleichen Funktionalit"at angezeigt werden (siehe Abbildung \ref{Spectator_End}).
 			        \begin{figure}[H] 
@@ -969,7 +969,7 @@
    				\paragraph{Verlauf}
    					Der Entwickler ben\"otigte zur Umsetzung die gesch\"atzte Zeit von 3 Stunden.
    				\paragraph{Ergebnis}
-		   			Die Ziel wurde umgesetzt. G\"ultigte Angriffsziele wurden rot und ung\"ultige grau markiert.
+		   			Das Ziel wurde umgesetzt. G\"ultigte Angriffsziele wurden rot und ung\"ultige grau markiert.
 		   	\subsubsection{Ingame - Einheit ausw"ahlen - Bewegungsphase}
 		   		\paragraph{Zuteilung}
 		   			Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
@@ -1034,7 +1034,7 @@
 				\paragraph{Verlauf}
 					Der Entwickler ben\"otigte zur Bearbeitung dieses Tasks eine Stunde.
 				\paragraph{Ergebnis}
-					Der Client sendete nun eine der Serverdokumentation entsprechende REST-Anfrage, auch wenn diese nicht ben\"otigt wurde.
+					Der Client sandte nun eine der Serverdokumentation entsprechende REST-Anfrage, auch wenn diese nicht ben\"otigt wurde.
 			\subsubsection{Default-Buttons setzen}
 				\paragraph{Zuteilung}
 					Diese Task wurde auf 3 Zeitstunden gesch"atzt und an Tobias Klipp zugeteilt.
@@ -1052,7 +1052,7 @@
 				\paragraph{Verlauf}
 					Die Umsetzung dauerte lediglich 5 Minuten.
 				\paragraph{Ergebnis}
-					Nach Absprache mit dem PO wurde das Ziel leicht ge\"andert. Einheiten waren weiterhin ausw\"ahlbar, jedoch wurden alle Angriffsziele ung\"ultig.
+					Nach Absprache mit dem Product Owner wurde das Ziel leicht ge\"andert. Einheiten waren weiterhin ausw\"ahlbar, jedoch wurden alle Angriffsziele ung\"ultig.
 		\subsection{Bugs}
 			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam. Diese werden hier wie gefolgt beschrieben: Zuerst wird genannt, wer den Bug beheben sollte. Danach wird das Problem beschrieben, das den Bug darstellte. Bearbeitungszeit wurden bei den Bugtasks nicht gesch\"atzt. Falls der Bug in diesem Sprint behoben werden konnte, wird ein Fix dokumentiert. Ansonsten wird der aktuelle Stand dokumentiert.
 			\subsubsection{Terminierung sicherstellen}
@@ -1099,43 +1099,43 @@
 					Es konnte keine L\"osung vor Ende des Releases gefunden werden.
    	\newpage
     	\subsection{Zeit\"ubersicht}
-    		TODO: Intro schreiben
-    		\begin{longtable}[H]{p{6cm} c c c c }
+    		Die folgende Tabelle zeigt alle Stories, Tasks und Bugs (Trennstriche grenzen die drei Kategorien von einander ab), die in diesem Sprint bearbeitet werden sollten. Es wurden alle Issues bis auf die letzten beiden Bugs im Sprint \RN{6} fertiggestellt.
+    		\begin{longtable}[H]{p{9cm} c c c }
     			\label{Time_2}
-    			\textbf{User Story/Task/Bug} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
+    			\textbf{Issue: User Story/Task/Bug} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Entwickler} \\
     			\toprule
     			\endhead
-    			Ingame - Einheit ausw\"ahlen & 13 h & 16 h 29 min &  & Juri Lozowoj \\
-    			Ingame - Einheit bewegen & 13 h & 13 h 35 min &  & Omar Sood \\
-    			Ingame - Einheit angreifen & 5 h & 3 h 15 min &  & Omar Sood \\
-    			Ingame - Chatintegration & 13 h & 5 h &  & Tobias Klipp \\
-    			Ingame - Minikarte anzeigen & 8 h & 12 h 14 min &  & Georg Siebert \\
-    			Lobby - Spectating & 5 h & 2 h 21 min &  & Juri Lozowoj \\
-    			Ingame - Spectating & 13 h & 2 h 13 min &  & Juri Lozowoj \\
-    			Ingame - Game Over & 2 h & 1 h  & & Juri Lozowoj \\
-    			Ingame - Game Won & 2 h & 2 h 6 min & & Juri Lozowoj \\
-    			Ingame - Spectator Over & 2 h & 3 h 17 min & & Juri Lozowoj \\
-    			Ingame - Einheiteninformationen & 8 h & 4 h & 4 h & Georg Siebert \\
-    			Ingame - Spielstatus anzeigen & 8 h & 31 h 30 min &  & Tobias Klipp \\
-    			Ingame - Musiksteuerung & 3 h & 21 min &  & Omar Sood \\
-    			Ingame - Einheit bewegen nach Bewegung & 5 h & 7 h 28 min & & Omar Sood \\
-    			Ingame - Einheit ausw"ahlen - Angriffsphase & 3 h & 3 h & & Omar Sood \\
-    			Ingame - Einheit ausw"ahlen - Bewegungsphase & 5 h & 55 min & & Omar Sood \\
+    			Ingame - Einheit ausw\"ahlen & 13 h & 16 h 29 min & Juri Lozowoj \\
+    			Ingame - Einheit bewegen & 13 h & 13 h 35 min & Omar Sood \\
+    			Ingame - Einheit angreifen & 5 h & 3 h 15 min & Omar Sood \\
+    			Ingame - Chatintegration & 13 h & 5 h & Tobias Klipp \\
+    			Ingame - Minikarte anzeigen & 8 h & 12 h 14 min & Georg Siebert \\
+    			Lobby - Spectating & 5 h & 2 h 21 min & Juri Lozowoj \\
+    			Ingame - Spectating & 13 h & 2 h 13 min &  Juri Lozowoj \\
+    			Ingame - Game Over & 2 h & 1 h  & Juri Lozowoj \\
+    			Ingame - Game Won & 2 h & 2 h 6 min & Juri Lozowoj \\
+    			Ingame - Spectator Over & 2 h & 3 h 17 min & Juri Lozowoj \\
+    			Ingame - Einheiteninformationen & 8 h & 13 h & Georg Siebert \\
+    			Ingame - Spielstatus anzeigen & 8 h & 31 h 30 min &  Tobias Klipp \\
+    			Ingame - Musiksteuerung & 3 h & 21 min &  Omar Sood \\
+    			Ingame - Einheit bewegen nach Bewegung & 5 h & 7 h 28 min & Omar Sood \\
+    			Ingame - Einheit ausw"ahlen - Angriffsphase & 3 h & 3 h & Omar Sood \\
+    			Ingame - Einheit ausw"ahlen - Bewegungsphase & 5 h & 55 min & Omar Sood \\
     			\midrule
-    			Waiting Room - Armeeauswahlbox anpassen & 2 h & 30 min & & Tobias Klipp \\
-    			Einheiteninformationen im Datenmodell & 5 h & 1 h 28 min &  & Omar Sood \\
-    			Servernachrichten & 8 h & 1 min &  & Omar Sood \\
-    			Ingame - Best\"atigungsbox in der Sidebar & 3 h &  & 3 h & Georg Siebert \\
-    			Spectating - REST Anfrage & 1 h & 1 h &  & Juri Lozowoj \\
-    			Default-Buttons setzen & 3 h & 3 h 15 min & & Tobias Klipp \\
-    			Ingame - Nicht ausw"ahlbar - Angriffsphase & 3 h & 5 min & & Omar Sood \\
+    			Waiting Room - Armeeauswahlbox anpassen & 2 h & 30 min & Tobias Klipp \\
+    			Einheiteninformationen im Datenmodell & 5 h & 1 h 28 min & Omar Sood \\
+    			Servernachrichten & 8 h & 1 min & Omar Sood \\
+    			Ingame - Best\"atigungsbox in der Sidebar & 3 h & 30 min & Georg Siebert \\
+    			Spectating - REST Anfrage & 1 h & 1 h & Juri Lozowoj \\
+    			Default-Buttons setzen & 3 h & 3 h 15 min & Tobias Klipp \\
+    			Ingame - Nicht ausw"ahlbar - Angriffsphase & 3 h & 5 min & Omar Sood \\
     			\midrule
-    			Terminierung sicherstellen & - & 1 h 54 min &  & Omar Sood \\
-    			Ingame - Einheit mehrmals ausw\"ahlen & - & 1 h &  & Juri Lozowoj \\
-    			Spectating - Automatischer Wechsel zum Spielfeld & - & 2 h 30 min & ? & Juri Lozowoj \\
-    			Lobby - Spielbeitritt blockieren & - & 30 min &  & Georg Siebert \\
-    			RunLoop bei "Anderungen im Spiel & - & 0 &  & Tobias Klipp \\
-    			CSS Fehler & - & 1 h 30 min & ? & Tobias Klipp \\
+    			Terminierung sicherstellen & - & 1 h 54 min & Omar Sood \\
+    			Ingame - Einheit mehrmals ausw\"ahlen & - & 1 h & Juri Lozowoj \\
+    			Lobby - Spielbeitritt blockieren & - & 30 min & Georg Siebert \\
+    			RunLoop bei "Anderungen im Spiel & - & 0 & Tobias Klipp \\
+    			Spectating - Autom. Wechsel zum Spielfeld & - & 2 h 30 min & Juri Lozowoj \\
+    			CSS Fehler & - & 1 h 30 min & Tobias Klipp \\
     			\caption{Zeit\"ubersicht sechster Sprint}
     		\end{longtable}
     	\subsection{Analyse}
@@ -1150,8 +1150,9 @@
 	    		\end{figure}
 	    	\subsubsection{Ausrei"ser}
 	    		TODO: Schreiben oder Kapitel l"oschen
+	    		\newline Bzw. ist das ein Ausreiser nach dem 26.7 und vor dem 2.8 @Jan?
 	    	\subsubsection{Abgeschlossene Stories}
-	    		Alle restlichen User Stories aus dem Release \RN{3} wurden im Sprint \RN{5} abgeschlossen (siehe Abbildung \ref{Done_Stories_6}). Diese 16 Stories werden in der folgenden Abbildung \ref{Done_Stories_6} noch einmal alle aufgelistet:
+	    		Alle restlichen User Stories aus dem Release \RN{3} wurden im Sprint \RN{5} abgeschlossen (siehe Abbildung \ref{Done_Stories_6}). Diese 15 Stories werden in der folgenden Abbildung \ref{Done_Stories_6} noch einmal alle aufgelistet:
 	    		\begin{figure}[H]
 	    			\centering
 	    			\includegraphics[width=\textwidth]{images/sprintVI/doneStories.png}
@@ -1162,22 +1163,26 @@
     			Die Tasks aus dem Release \RN{3}, die keiner User Story zugeordnet waren, wurden auch alle im Sprint \RN{5} abgeschlossen (siehe Abbildung \ref{Done_Tasks_6}). Dazu geh"orten die "ubernommenen und die neuen Tasks aus dem Sprint \RN{6}. Diese sieben Tasks werden in der folgenden Abbildung \ref{Done_Tasks_6} noch einmal alle aufgelistet:
     			\begin{figure}[H]
     				\centering
-    				\includegraphics[width=\textwidth]{images/sprintVI/doneTasks.png}
+    				\includegraphics[width=0.8\textwidth]{images/sprintVI/doneTasks.png}
     				\caption{Sprint \RN{6}: Abgeschlossene Tasks}
     				\label{Done_Tasks_6}
     			\end{figure}
     		\subsubsection{Behobene Bugs}
-    			Es gab immer einmal wieder Bugs im Release \RN{3}. Diese konnten fast alle behoben werden (siehe Abbildung \ref{Fixed_Bugs_6}). Alle 6 Bugs werden in der folgenden Abbildung \ref{Done_Tasks_6} noch einmal aufgelistet:
+    			Es gab immer einmal wieder Bugs im Release \RN{3}. Diese konnten fast alle behoben werden (siehe Abbildung \ref{Fixed_Bugs_6}). Die vier behobenen Bugs werden in der folgenden Abbildung \ref{Done_Tasks_6} noch einmal aufgelistet:
     			\begin{figure}[H]
     				\centering
-    				\includegraphics[width=\textwidth]{images/sprintVI/bugs.png}
+    				\includegraphics[width=0.8\textwidth]{images/sprintVI/fixedBugs.png}
     				\caption{Sprint \RN{6}: Behobene Bugs}
     				\label{Fixed_Bugs_6}
     			\end{figure}
     		\subsubsection{Angefangene Bugtasks}
-    			Des Weiteren gab es auch noch zwei Bugtasks, die im Release \RN{3} noch nicht behoben werden konnten (siehe Abbildung \ref{Fixed_Bugs_6}). Dies war einmal der Bug \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq. Und der andere Bug, der nicht behoben wurde, war \glqq CSS Fehler\grqq. Der Wechsel zum Spielfeld konnte nicht behoben werden, da es f"ur diesen Bug erst noch im n"achsten Release ein Serverupdate geben sollte. Der CSS Fehler sollte im n"achsten Release behoben werden, da der Entwickler dies gegen Ende des Releases aus Zeitgr"unden nicht mehr schaffte und da der Bug keine Funktionalit"aten einschr"ankte.
-	    	\subsubsection{Angefangen}
-	    		TODO: Schreiben oder Kapitel l"oschen
+    			Des Weiteren gab es auch noch zwei Bugtasks, die im Release \RN{3} noch nicht behoben werden konnten (siehe Abbildung \ref{Open_Bugs_6}). Dies war einmal der Bug \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq. Und der andere Bug, der nicht behoben wurde, war \glqq CSS Fehler\grqq. Der Wechsel zum Spielfeld konnte nicht behoben werden, da es f"ur diesen Bug erst noch im n"achsten Release ein Serverupdate geben sollte. Der CSS Fehler sollte im n"achsten Release behoben werden, da der Entwickler dies gegen Ende des Releases aus Zeitgr"unden nicht mehr schaffte und da der Bug keine Funktionalit"aten einschr"ankte.
+    			\begin{figure}[H]
+    				\centering
+    				\includegraphics[width=0.8\textwidth]{images/sprintVI/openBugs.png}
+    				\caption{Sprint \RN{6}: Offene Bugs}
+    				\label{Open_Bugs_6}
+    			\end{figure}
 	    	\subsubsection{Fazit}
 	    		TODO: Schreiben
 	    		\begin{figure}[H] 
