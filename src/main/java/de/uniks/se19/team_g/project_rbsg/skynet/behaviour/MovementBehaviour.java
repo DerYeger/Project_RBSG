@@ -58,12 +58,12 @@ public class MovementBehaviour implements Behaviour {
 
         allowedTours
                 .keySet()
-                .forEach(c -> distanceMap.put(
+                .forEach(cell -> distanceMap.put(
                         enemyPositions
                                 .stream()
-                                .mapToDouble(other -> distance(c, other))
+                                .mapToDouble(other -> distance(cell, other))
                                 .sum(),
-                        c));
+                        cell));
 
         final Double minDistance = distanceMap
                 .keySet()
