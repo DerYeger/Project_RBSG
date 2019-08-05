@@ -204,7 +204,7 @@
 \contentsline {paragraph}{\nonumberline Zuteilung}{50}{section*.174}% 
 \contentsline {paragraph}{\nonumberline Story}{50}{section*.175}% 
 \contentsline {paragraph}{\nonumberline Ziel und Subtasks}{50}{section*.176}% 
-\contentsline {paragraph}{\nonumberline Verlauf}{50}{section*.177}% 
+\contentsline {paragraph}{\nonumberline Verlauf}{51}{section*.177}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{51}{section*.178}% 
 \contentsline {subsection}{\numberline {4.5}Ge\"anderte Tasks vom Sprint \textup {\uppercase {v}}}{51}{subsection.4.5}% 
 \contentsline {subsubsection}{\numberline {4.5.1}Einheiteninformationen im Datenmodell}{51}{subsubsection.4.5.1}% 
@@ -218,7 +218,7 @@
 \contentsline {paragraph}{\nonumberline Ziel}{51}{section*.184}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{51}{section*.185}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{51}{section*.186}% 
-\contentsline {subsection}{\numberline {4.7}Tasks}{51}{subsection.4.7}% 
+\contentsline {subsection}{\numberline {4.7}Tasks}{52}{subsection.4.7}% 
 \contentsline {subsubsection}{\numberline {4.7.1}Waiting Room - Armeeauswahlbox anpassen}{52}{subsubsection.4.7.1}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{52}{section*.187}% 
 \contentsline {paragraph}{\nonumberline Ziel}{52}{section*.188}% 
@@ -233,9 +233,9 @@
 \contentsline {paragraph}{\nonumberline Zuteilung}{52}{section*.195}% 
 \contentsline {paragraph}{\nonumberline Ziel}{52}{section*.196}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{52}{section*.197}% 
-\contentsline {paragraph}{\nonumberline Ergebnis}{52}{section*.198}% 
-\contentsline {subsubsection}{\numberline {4.7.4}Default-Buttons setzen}{52}{subsubsection.4.7.4}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{52}{section*.199}% 
+\contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.198}% 
+\contentsline {subsubsection}{\numberline {4.7.4}Default-Buttons setzen}{53}{subsubsection.4.7.4}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{53}{section*.199}% 
 \contentsline {paragraph}{\nonumberline Ziel}{53}{section*.200}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{53}{section*.201}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{53}{section*.202}% 
@@ -248,10 +248,10 @@
 \contentsline {subsubsection}{\numberline {4.8.1}Terminierung sicherstellen}{53}{subsubsection.4.8.1}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{53}{section*.207}% 
 \contentsline {paragraph}{\nonumberline Problem}{53}{section*.208}% 
-\contentsline {paragraph}{\nonumberline Fix}{53}{section*.209}% 
-\contentsline {subsubsection}{\numberline {4.8.2}Ingame - Einheit mehrmals ausw\"ahlen}{53}{subsubsection.4.8.2}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{53}{section*.210}% 
-\contentsline {paragraph}{\nonumberline Problem}{53}{section*.211}% 
+\contentsline {paragraph}{\nonumberline Fix}{54}{section*.209}% 
+\contentsline {subsubsection}{\numberline {4.8.2}Ingame - Einheit mehrmals ausw\"ahlen}{54}{subsubsection.4.8.2}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{54}{section*.210}% 
+\contentsline {paragraph}{\nonumberline Problem}{54}{section*.211}% 
 \contentsline {paragraph}{\nonumberline Fix}{54}{section*.212}% 
 \contentsline {subsubsection}{\numberline {4.8.3}Spectating - Automatischer Wechsel zum Spielfeld}{54}{subsubsection.4.8.3}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{54}{section*.213}% 
@@ -265,21 +265,21 @@
 \contentsline {paragraph}{\nonumberline Zuteilung}{54}{section*.219}% 
 \contentsline {paragraph}{\nonumberline Problem}{54}{section*.220}% 
 \contentsline {paragraph}{\nonumberline Fix}{54}{section*.221}% 
-\contentsline {subsubsection}{\numberline {4.8.6}CSS Fehler}{54}{subsubsection.4.8.6}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{54}{section*.222}% 
-\contentsline {paragraph}{\nonumberline Problem}{54}{section*.223}% 
-\contentsline {paragraph}{\nonumberline Stand}{54}{section*.224}% 
-\contentsline {subsection}{\numberline {4.9}Zeit\"ubersicht}{55}{subsection.4.9}% 
-\contentsline {subsection}{\numberline {4.10}Analyse}{56}{subsection.4.10}% 
-\contentsline {subsubsection}{\numberline {4.10.1}Burndown}{56}{subsubsection.4.10.1}% 
-\contentsline {subsubsection}{\numberline {4.10.2}Ausrei"ser}{56}{subsubsection.4.10.2}% 
-\contentsline {subsubsection}{\numberline {4.10.3}Abgeschlossene Stories}{56}{subsubsection.4.10.3}% 
-\contentsline {subsubsection}{\numberline {4.10.4}Abgeschlossene Tasks}{57}{subsubsection.4.10.4}% 
-\contentsline {subsubsection}{\numberline {4.10.5}Behobene Bugs}{57}{subsubsection.4.10.5}% 
-\contentsline {subsubsection}{\numberline {4.10.6}Angefangene Bugtasks}{58}{subsubsection.4.10.6}% 
-\contentsline {subsubsection}{\numberline {4.10.7}Angefangen}{58}{subsubsection.4.10.7}% 
-\contentsline {subsubsection}{\numberline {4.10.8}Fazit}{58}{subsubsection.4.10.8}% 
-\contentsline {section}{\numberline {5}Abschluss Release \textup {\uppercase {iii}}}{59}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Neue MockUps im Verlauf des Releases \textup {\uppercase {iii}}}{59}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Vergleich MockUps mit aktueller Implementation}{59}{subsection.5.2}% 
-\contentsline {section}{\numberline {6}Quellenangaben}{60}{section.6}% 
+\contentsline {subsubsection}{\numberline {4.8.6}CSS Fehler}{55}{subsubsection.4.8.6}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{55}{section*.222}% 
+\contentsline {paragraph}{\nonumberline Problem}{55}{section*.223}% 
+\contentsline {paragraph}{\nonumberline Stand}{55}{section*.224}% 
+\contentsline {subsection}{\numberline {4.9}Zeit\"ubersicht}{56}{subsection.4.9}% 
+\contentsline {subsection}{\numberline {4.10}Analyse}{57}{subsection.4.10}% 
+\contentsline {subsubsection}{\numberline {4.10.1}Burndown}{57}{subsubsection.4.10.1}% 
+\contentsline {subsubsection}{\numberline {4.10.2}Ausrei"ser}{57}{subsubsection.4.10.2}% 
+\contentsline {subsubsection}{\numberline {4.10.3}Abgeschlossene Stories}{57}{subsubsection.4.10.3}% 
+\contentsline {subsubsection}{\numberline {4.10.4}Abgeschlossene Tasks}{58}{subsubsection.4.10.4}% 
+\contentsline {subsubsection}{\numberline {4.10.5}Behobene Bugs}{58}{subsubsection.4.10.5}% 
+\contentsline {subsubsection}{\numberline {4.10.6}Angefangene Bugtasks}{59}{subsubsection.4.10.6}% 
+\contentsline {subsubsection}{\numberline {4.10.7}Angefangen}{59}{subsubsection.4.10.7}% 
+\contentsline {subsubsection}{\numberline {4.10.8}Fazit}{59}{subsubsection.4.10.8}% 
+\contentsline {section}{\numberline {5}Abschluss Release \textup {\uppercase {iii}}}{60}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Neue MockUps im Verlauf des Releases \textup {\uppercase {iii}}}{60}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Vergleich MockUps mit aktueller Implementation}{60}{subsection.5.2}% 
+\contentsline {section}{\numberline {6}Quellenangaben}{61}{section.6}% 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  5 AUG 2019 10:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  5 AUG 2019 11:23
 entering extended mode
 **./main.tex
 (main.tex
@@ -4834,51 +4834,9 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 1014.
+Package pdftex.def Info: images/Logo.png  used on input line 1011.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -4888,6 +4846,48 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
+l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.1011 ...Waiting Room - Armeeauswahlbox anpassen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
 l.1020 ...game - Best\"atigungsbox in der Sidebar}
                                                   
 A number should have been here; I inserted `0'.
@@ -4962,48 +4962,6 @@ look up `weird error' in the index to The TeXbook.)
                    }
 l.1029 ...subsubsection{Spectating - REST Anfrage}
                                                   
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.1038 			\subsubsection{Default-Buttons setzen}
-                                                
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.1038 			\subsubsection{Default-Buttons setzen}
-                                                
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.1038 			\subsubsection{Default-Buttons setzen}
-                                                
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.1038 			\subsubsection{Default-Buttons setzen}
-                                                
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -5013,7 +4971,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 1043.
+Package pdftex.def Info: images/Logo.png  used on input line 1038.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -5023,6 +4981,54 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
+l.1038 			\subsubsection{Default-Buttons setzen}
+                                                
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.1038 			\subsubsection{Default-Buttons setzen}
+                                                
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.1038 			\subsubsection{Default-Buttons setzen}
+                                                
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.1038 			\subsubsection{Default-Buttons setzen}
+                                                
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+
+Overfull \hbox (18.93625pt too wide) in paragraph at lines 1046--1047
+ []\OT1/phv/b/n/12 Ergebnis[] \OT1/phv/m/n/12 Al-le Alerts so-wie der Pha-se be
+-en-den But-ton lie-en sich mit der Best[]atigungstaste
+ []
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
 l.1047 ...ame - Nicht ausw"ahlbar - Angriffsphase}
                                                   
 A number should have been here; I inserted `0'.
@@ -5138,48 +5144,6 @@ look up `weird error' in the index to The TeXbook.)
 <to be read again> 
                    }
 l.1058 ...ubsubsection{Terminierung sicherstellen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5190,7 +5154,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 1072.
+Package pdftex.def Info: images/Logo.png  used on input line 1065.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
@@ -5200,6 +5164,48 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
+l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
+                                                  
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.1065 ...n{Ingame - Einheit mehrmals ausw\"ahlen}
+                                                  
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
 l.1072 ...g - Automatischer Wechsel zum Spielfeld}
                                                   
 A number should have been here; I inserted `0'.
@@ -5367,13 +5373,22 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
-Package pdftex.def Info: images/Logo.png  used on input line 1100.
+Package pdftex.def Info: images/Logo.png  used on input line 1096.
 (pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
 
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [54]
+File: images/Logo.png Graphic file (type png)
+<use images/Logo.png>
+Package pdftex.def Info: images/Logo.png  used on input line 1100.
+(pdftex.def)             Requested size: 56.33415pt x 32.25014pt.
+
+Overfull \vbox (18.47517pt too high) has occurred while \output is active []
+
+
+[55]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -5464,7 +5479,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 1140.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[55]
+[56]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -5549,7 +5564,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/burndown.png, id=905, 376.40625pt x 109.1578pt>
+<images/sprintVI/burndown.png, id=909, 376.40625pt x 109.1578pt>
 File: images/sprintVI/burndown.png Graphic file (type png)
 <use images/sprintVI/burndown.png>
 Package pdftex.def Info: images/sprintVI/burndown.png  used on input line 1147.
@@ -5639,7 +5654,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/doneStories.png, id=908, 376.40625pt x 109.1578pt>
+<images/sprintVI/doneStories.png, id=912, 376.40625pt x 109.1578pt>
 File: images/sprintVI/doneStories.png Graphic file (type png)
 <use images/sprintVI/doneStories.png>
 Package pdftex.def Info: images/sprintVI/doneStories.png  used on input line 11
@@ -5653,7 +5668,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 1161.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[56 <./images/sprintVI/burndown.png>]
+[57 <./images/sprintVI/burndown.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -5696,7 +5711,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/doneTasks.png, id=918, 376.40625pt x 109.1578pt>
+<images/sprintVI/doneTasks.png, id=922, 376.40625pt x 109.1578pt>
 File: images/sprintVI/doneTasks.png Graphic file (type png)
 <use images/sprintVI/doneTasks.png>
 Package pdftex.def Info: images/sprintVI/doneTasks.png  used on input line 1165
@@ -5744,7 +5759,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/bugs.png, id=921, 376.40625pt x 109.1578pt>
+<images/sprintVI/bugs.png, id=925, 376.40625pt x 109.1578pt>
 File: images/sprintVI/bugs.png Graphic file (type png)
 <use images/sprintVI/bugs.png>
 Package pdftex.def Info: images/sprintVI/bugs.png  used on input line 1173.
@@ -5799,7 +5814,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 1179.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[57 <./images/sprintVI/doneStories.png> <./images/sprintVI/doneTasks.png> <./im
+[58 <./images/sprintVI/doneStories.png> <./images/sprintVI/doneTasks.png> <./im
 ages/sprintVI/bugs.png>]
 ! Missing number, treated as zero.
 <to be read again> 
@@ -5885,7 +5900,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/coverage.png, id=932, 376.40625pt x 109.1578pt>
+<images/sprintVI/coverage.png, id=936, 376.40625pt x 109.1578pt>
 File: images/sprintVI/coverage.png Graphic file (type png)
 <use images/sprintVI/coverage.png>
 Package pdftex.def Info: images/sprintVI/coverage.png  used on input line 1185.
@@ -5899,7 +5914,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 1189.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[58 <./images/sprintVI/coverage.png>]
+[59 <./images/sprintVI/coverage.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -6042,7 +6057,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 1196.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[59]
+[60]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -6136,7 +6151,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 48.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[60])
+[61])
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
@@ -6196,7 +6211,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 1200.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[61]
+[62]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 1200.
  (main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1200.
@@ -6211,8 +6226,8 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1200.
  ) 
 Here is how much of TeX's memory you used:
- 13363 strings out of 492895
- 221417 string characters out of 3123735
+ 13364 strings out of 492895
+ 221424 string characters out of 3123735
  435326 words of memory out of 3000000
  16562 multiletter control sequences out of 15000+200000
  27425 words of font info for 54 fonts, out of 3000000 for 9000
@@ -6224,9 +6239,9 @@ cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
 /helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/f
 onts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (62 pages, 5642706 bytes).
+Output written on main.pdf (63 pages, 5644978 bytes).
 PDF statistics:
- 1967 PDF objects out of 2073 (max. 8388607)
- 443 named destinations out of 1000 (max. 500000)
+ 1971 PDF objects out of 2073 (max. 8388607)
+ 444 named destinations out of 1000 (max. 500000)
  2583 words of extra memory for PDF output out of 10000 (max. 10000000)
 

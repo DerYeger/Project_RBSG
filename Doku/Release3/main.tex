@@ -948,7 +948,7 @@
   				\paragraph{Story}
   					Karli befindet sich in der Ingameszene. Karli klickt auf eine Einheit. Die Bewegungsreichweite wird angezeigt. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt und bleibt weiterhin ausgew"ahlt, aber der blaue Bewegungsradius hat sich verkleinert. Karli bewegt die Einheit noch einmal auf ein weiteres Feld. Die Bewegungspunkte sind noch nicht aufgebraucht und die Einheit bleibt weiter ausgew"ahlt. Karli hat keine Lust mehr die Einheit zu bewegen und w"ahlt sie ab.
    				\paragraph{Ziel und Subtasks}
-   					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgew\"ahlt sein, falls sie noch verbleibende Bewegungspunkte besa"s.
+   					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgew\"ahlt sein, falls sie noch verbleibende Bewegungspunkte besa{\ss}.
    					\begin{enumerate}[label={}]
    						\item \textbf{Einheit ausw"ahlen} \hspace{5pt} Nachdem der Nutzer eine Einheit bewegt, soll diese erneut ausgew"ahlt werden, falls sie noch verbleibende Bewegungspunkte besitzt.
    					\end{enumerate}
@@ -967,9 +967,9 @@
    						\item \textbf{Zielmarkierung "andern} \hspace{5pt} Es sollen nicht mehr alle benachbarten Felder, sondern nur noch g"ultige Angriffsziele farblich markiert werden.
    					\end{enumerate}
    				\paragraph{Verlauf}
-   					TODO: Schreiben
+   					Der Entwickler ben\"otigte zur Umsetzung die gesch\"atzte Zeit von 3 Stunden.
    				\paragraph{Ergebnis}
-		   			TODO: Schreiben
+		   			Die Ziel wurde umgesetzt. G\"ultigte Angriffsziele wurden rot und ung\"ultige grau markiert.
 		   	\subsubsection{Ingame - Einheit ausw"ahlen - Bewegungsphase}
 		   		\paragraph{Zuteilung}
 		   			Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
@@ -981,9 +981,9 @@
 		   				\item \textbf{M"ogliche Angriffsziele markieren} \hspace{5pt} Es soll nicht nur die Bewegungsreichweite angezeigt werden, sondern auch alle g"ultigen Angriffsziele.
 		   			\end{enumerate}
 		   		\paragraph{Verlauf}
-		   			TODO: Schreiben
+		   			Der Entwickler implementierte die Funktionalit\"at in 55 Minuten und unterschritt damit die erwartete Zeit deutlich.
 		   		\paragraph{Ergebnis}
-		   			TODO: Schreiben
+		   			G\"ultige Angriffsziele wurden auch in der Bewegungsphase rot markiert.
    		\subsection{Ge\"anderte Tasks vom Sprint \RN{5}}
    			Die folgenden Tasks des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung "anderte. F"ur den Aufbau und falls die Tasks abgeschlossen oder angefangen wurden, gilt dasselbe wie im ersten Task Kapitel \ref{Tasks_5}.
    			\subsubsection{Einheiteninformationen im Datenmodell}
@@ -1023,36 +1023,36 @@
 				\paragraph{Ziel}
 					Es musste eine Box in der Sidebar erstellt werden, die es m"oglich machte, Aktionen zu best"atigen oder abzubrechen (Die Funktionalit"aten sollten erst sp"ater in den untergeordneten User Stories erstellt werden). War der User nicht an der Reihe oder im Beobachtungsmodus, musste diese Box disabled werden. Beziehungsweise sollte dann auf den beiden Buttons der Text und das Icon nicht mehr sichtbar sein.
 				\paragraph{Verlauf}
-					TODO: Schreiben
+					Die Umsetzung des Tasks dauerte 30 Minuten, womit die erwartete Zeit um 2 Stunden und 30 Minuten unterschritten wurde.
 				\paragraph{Ergebnis}
-					TODO: Schreiben
+					Das Ziel wurde umgesetzt. 
 			\subsubsection{Spectating - REST Anfrage}
 				\paragraph{Zuteilung}
 					Diese Task wurde auf 1 Zeitstunde gesch"atzt und an Juri Lozowoj zugeteilt.
 				\paragraph{Ziel}
 					Die REST Anfrage zum Beitreten eines Spiels sollte um einen optionalen Parameter erweitert werden (siehe Serverdoku).
 				\paragraph{Verlauf}
-					TODO: Schreiben
+					Der Entwickler ben\"otigte zur Bearbeitung dieses Tasks eine Stunde.
 				\paragraph{Ergebnis}
-					TODO: Schreiben
+					Der Client sendete nun eine der Serverdokumentation entsprechende REST-Anfrage, auch wenn diese nicht ben\"otigt wurde.
 			\subsubsection{Default-Buttons setzen}
 				\paragraph{Zuteilung}
 					Diese Task wurde auf 3 Zeitstunden gesch"atzt und an Tobias Klipp zugeteilt.
 				\paragraph{Ziel}
 					Es sollten an mehreren Stellen Default-Buttons gesetzt werden, um als Nutzer schneller durch einige Fenster in der Anwendung zu kommen. Beim Best"atigungs-Alert (Confirm-Button), beim Info-Alert (Confirm-Button) und beim Phase beenden Button (Ingameszene) sollten sie gesetzt werden.
 				\paragraph{Verlauf}
-					TODO: Schreiben
+					Die Implementierung dauerte 15 Minuten l\"anger als erwartet.
 				\paragraph{Ergebnis}
-					TODO: Schreiben
+					Alle Alerts sowie der Phase beenden Button lie{\ss}en sich mit der Best\"atigungstaste bedienen. Zus\"atzlich wurde das Bedienen des Abbrechen Buttons beim Best"atigungs-Alert mit der Escape Taste erm\"oglicht.
 			\subsubsection{Ingame - Nicht ausw"ahlbar - Angriffsphase}
 				\paragraph{Zuteilung}
 					Diese Task wurde auf 3 Zeitstunden gesch"atzt und an Omar Sood zugeteilt.
 				\paragraph{Ziel}
 					Einheiten konnten nicht mehrmals angreifen. Deshalb sollten Einheiten, welche bereits einen Angriff t\"atigten, w\"ahrend dieser Angriffsphase nicht mehr ausw\"ahlbar sein.
 				\paragraph{Verlauf}
-					TODO: Schreiben
+					Die Umsetzung dauerte lediglich 5 Minuten.
 				\paragraph{Ergebnis}
-					TODO: Schreiben
+					Nach Absprache mit dem PO wurde das Ziel leicht ge\"andert. Einheiten waren weiterhin ausw\"ahlbar, jedoch wurden alle Angriffsziele ung\"ultig.
 		\subsection{Bugs}
 			Bugstasks zum Beheben von Problemen wurden vom Scrum Master erstellt, da im Verlauf der Entwicklung und beim Testen des Clients der ein oder andere Fehler aufkam. Diese werden hier wie gefolgt beschrieben: Zuerst wird genannt, wer den Bug beheben sollte. Danach wird das Problem beschrieben, das den Bug darstellte. Bearbeitungszeit wurden bei den Bugtasks nicht gesch\"atzt. Falls der Bug in diesem Sprint behoben werden konnte, wird ein Fix dokumentiert. Ansonsten wird der aktuelle Stand dokumentiert.
 			\subsubsection{Terminierung sicherstellen}
@@ -1061,7 +1061,7 @@
 				\paragraph{Problem}
 					Die Terminierung des GameEventSockets musste angepasst werden. Sie sollte nicht doppelt aufgerufen werden. Weiterhin sollte sie immer stattfinden, wenn der Nutzer die Anwendung schloss oder in die Lobby wechselte.
 				\paragraph{Fix}
-					TODO: Schreiben
+					Der Bug wurde vollst\"andig behoben.
 			\subsubsection{Ingame - Einheit mehrmals ausw\"ahlen}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Juri Lozowoj behoben werden.
@@ -1075,7 +1075,7 @@
 				\paragraph{Problem}
 					Falls der Nutzer einem Spiel als Beobachter beitrat und dieses bereits startete, wechselte der Client nicht zum Spielfeld. Falls also das Spiel bereits startete (sollte an den vorhandenen Einheiten, der aktuellen Phase oder dem aktuellen Spieler am Datenmodell zu erkennen sein), sollte ein automatischer Wechsel zum Spielfeld stattfinden.
 				\paragraph{Stand}
-					TODO: Schreiben
+					Das Problem lie{\ss} sich nicht beheben. Es stellte sich als serverseitiges Problem heraus und dieser wurde erst nach Ende des 3. Releases aktualisiert.
 			\subsubsection{Lobby - Spielbeitritt blockieren}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Georg Siebert behoben werden.
@@ -1089,14 +1089,14 @@
 				\paragraph{Problem}
 					W"ahrend der Nutzer sich im Spiel (Warteraum- oder Ingameszene) befand, konnte es passieren, dass der JavaFX Thread in einen runLoop lief.
 				\paragraph{Fix}
-					TODO: Schreiben
+					Der Fehler wurde durch \"Anderungen am Datenmodell au{\ss}erhalb des UI-Threads verursacht. Alle Aktualisierungen des Modells wurden deshalb in den UI-Thread verlegt, wodurch das Problem behoben wurde.
 			\subsubsection{CSS Fehler}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Tobias Klipp behoben werden.
 				\paragraph{Problem}
 					An verschiedenen Stellen (Create Game Fenster, Ingamechat, Spielerkarten im Warteraum) kam es vor, dass manchmal der Stylesheet nicht richtig geladen oder verwendet wurde. Der eigentlich wei{\ss}e Text war beispielsweise schwarz oder der selected color Hintergrund (Spielerkarte, falls der Spieler bereit war) wurde durchsichtig.
 				\paragraph{Stand}
-					TODO: Schreiben
+					Es konnte keine L\"osung vor Ende des Releases gefunden werden.
    	\newpage
     	\subsection{Zeit\"ubersicht}
     		TODO: Intro schreiben
