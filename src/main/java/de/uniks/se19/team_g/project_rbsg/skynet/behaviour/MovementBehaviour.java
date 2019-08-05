@@ -10,10 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import org.springframework.lang.NonNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MovementBehaviour implements Behaviour {
@@ -54,30 +51,34 @@ public class MovementBehaviour implements Behaviour {
     }
 
     private Cell getOptimalTarget(@NonNull final ArrayList<Cell> enemyPositions, @NonNull final Map<Cell, Tour> allowedTours) throws BehaviourException {
-        final Map<Double, Cell> distanceMap = new HashMap<>();
-
-        allowedTours
-                .keySet()
-                .forEach(cell -> distanceMap.put(
-                        enemyPositions
-                                .stream()
-                                .mapToDouble(other -> distance(cell, other))
-                                .sum(),
-                        cell));
-
-        final Double minDistance = distanceMap
+        return allowedTours
                 .keySet()
                 .stream()
-                .mapToDouble(d -> d)
-                .min()
-                .orElseThrow(BehaviourException::new);
-
-        return distanceMap.get(minDistance);
+                .map(cell ->
+                        new Pair(
+                                cell,
+                                enemyPositions
+                                        .stream()
+                                        .mapToDouble(other -> distance(cell, other))
+                                        .sum()))
+                .min(Comparator.comparingDouble(p -> p.distanceSum))
+                .orElseThrow(BehaviourException::new)
+                .cell;
     }
 
     private double distance(@NonNull final Cell first, @NonNull final Cell second) {
         return Math.sqrt(
                 Math.pow(first.getX() - second.getX(), 2)
                         + Math.pow(first.getY() - second.getY(), 2));
+    }
+
+    private static class Pair {
+        final Cell cell;
+        final Double distanceSum;
+
+        Pair(@NonNull final Cell cell, @NonNull final Double distanceSum) {
+            this.cell = cell;
+            this.distanceSum = distanceSum;
+        }
     }
 }
