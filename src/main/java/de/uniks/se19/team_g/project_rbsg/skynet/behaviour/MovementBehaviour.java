@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 public class MovementBehaviour implements Behaviour {
 
     @Override
-    public Optional<Action> apply(@NonNull final Game game, @NonNull final Player player) {
+    public Optional<Action> apply(@NonNull final Game game,
+                                  @NonNull final Player player) {
         try {
             final Unit unit = getFirstUnitWithRemainingMP(player);
             final Map<Cell, Tour> allowedTours = new MovementEvaluator().getAllowedTours(unit);
@@ -39,7 +40,8 @@ public class MovementBehaviour implements Behaviour {
                 .orElseThrow(BehaviourException::new);
     }
 
-    private ArrayList<Cell> getEnemyPositions(@NonNull final Game game, @NonNull final Player player) throws BehaviourException {
+    private ArrayList<Cell> getEnemyPositions(@NonNull final Game game,
+                                              @NonNull final Player player) throws BehaviourException {
         final ArrayList<Cell> enemyPositions = game
                 .getUnits()
                 .stream()
@@ -50,7 +52,8 @@ public class MovementBehaviour implements Behaviour {
         return enemyPositions;
     }
 
-    private Cell getOptimalTarget(@NonNull final ArrayList<Cell> enemyPositions, @NonNull final Map<Cell, Tour> allowedTours) throws BehaviourException {
+    private Cell getOptimalTarget(@NonNull final ArrayList<Cell> enemyPositions,
+                                  @NonNull final Map<Cell, Tour> allowedTours) throws BehaviourException {
         return allowedTours
                 .keySet()
                 .stream()
@@ -66,7 +69,8 @@ public class MovementBehaviour implements Behaviour {
                 .cell;
     }
 
-    private double distance(@NonNull final Cell first, @NonNull final Cell second) {
+    private double distance(@NonNull final Cell first,
+                            @NonNull final Cell second) {
         return Math.sqrt(
                 Math.pow(first.getX() - second.getX(), 2)
                         + Math.pow(first.getY() - second.getY(), 2));
