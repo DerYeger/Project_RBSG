@@ -427,7 +427,7 @@
 			        \end{figure}
 		        	\ \\ War ein Gegner an der Reihe und der Server sendete eine angegriffene Einheit, dann sollten auch zuerst die m"oglichen Angriffsziele angezeigt werden und danach (kurz verz"ogert) sollte die Einheit angreifen. Sp"ater sollte dies auch noch "uber eine Box in der Sidebar best"atigt werden, um dem Nutzer die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Attack}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
 			    \subsubsubsection{Spielende}
-			        Wenn ein Spieler verlor, da er keine Einheiten mehr hatte, sollte sich das Icon und der Name in seiner Playercard schwarz f"arben. Bei diesem Nutzer sollte ein Overlay angezeigt werden, in dem stand, dass er verlor. Au"serdem konnte er "uber das Overlay entscheiden, ob er sich zur"uck in die Lobby ging oder dem Spiel als Spectator beitrat (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig war, gewann er das Spiel. Diesem Nutzer sollte auch ein Overlay angezeigt werden, durch das er zur"uck zur Lobby wechselte (siehe Abbildung \ref{Game_Won}). Bei anderen Nutzern, die sich im Spectatormodus befanden, sollte auch ein "ahnliches Overlay mit der gleichen Funktionalit"at angezeigt werden (siehe Abbildung \ref{Spactator_End}).
+			        Wenn ein Spieler verlor, da er keine Einheiten mehr hatte, sollte sich das Icon und der Name in seiner Playercard schwarz f"arben. Bei diesem Nutzer sollte ein Overlay angezeigt werden, in dem stand, dass er verlor. Au"serdem konnte er "uber das Overlay entscheiden, ob er sich zur"uck in die Lobby ging oder dem Spiel als Spectator beitrat (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig war, gewann er das Spiel. Diesem Nutzer sollte auch ein Overlay angezeigt werden, durch das er zur"uck zur Lobby wechselte (siehe Abbildung \ref{Game_Won}). Bei anderen Nutzern, die sich im Spectatormodus befanden, sollte auch ein "ahnliches Overlay mit der gleichen Funktionalit"at angezeigt werden (siehe Abbildung \ref{Spectator_End}).
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/GameOver.png}
@@ -442,9 +442,9 @@
 			        \end{figure}
 			        \begin{figure}[H] 
     				    \centering
-    				    \includegraphics[width=0.8\textwidth]{images/mockUps/SpactatorEnd.png}
+    				    \includegraphics[width=0.8\textwidth]{images/mockUps/SpectatorEnd.png}
     				    \caption{MockUp: Beobachtungsmodus: Spiel vorbei}
-    				    \label{Spactator_End}
+    				    \label{Spectator_End}
 			        \end{figure}
 			    \subsubsubsection{Weitere Features}
 			        Es sollte f"ur den Nutzer m"oglich sein, "uber einen Button die Phase beenden zu k"onnen und in die n"achste zu wechseln. Nach Beenden aller drei Phasen, musste auch die Runde beendet werden. Wenn ein Gegner an der Reihe war, musste der Phase beenden Button disabled sein. Beim Beenden der Phasen sollte immer ein Overlay angezeigt werden (siehe Abbildung \ref{Phase_End}). \\
@@ -669,7 +669,7 @@
 	            	\begin{enumerate}[label={}]
 	            		\item \textbf{Alert anzeigen} \hspace{5pt} Der im Mockup zu sehende Alert soll angezeigt werden, falls der Nuzter das Spiel gewonnen hat. Bei Bet"atigung des Buttons soll in die Lobby gewechselt werden. Achtung: Es kann immer nur ein Alert aktiv sein. Um daher sicherzustellen, dass dieser Alert angezeigt wird, m"ussen zuvor eventuell aktive Alerts geschlossen werden.
 	            	\end{enumerate}
-             \subsubsection{Ingame - Spectator Over} \label{story_spactator_over}
+             \subsubsection{Ingame - Spectator Over} \label{story_spectator_over}
              	\paragraph{Zuteilung}
              		Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
            		\paragraph{Story}
@@ -683,7 +683,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Lobbyszene.  Karli sieht die Spielliste und m"ochte dieses mal nicht selbst spielen. Karli dr"uckt auf den Spactator-Button. Karli wird in den Warteraumszene weitergeleitet.
+             		Karli befindet sich in der Lobbyszene.  Karli sieht die Spielliste und m"ochte dieses mal nicht selbst spielen. Karli dr"uckt auf den Spectator-Button. Karli wird in den Warteraumszene weitergeleitet.
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte ein Button hinzugef\"ugt werden, der einen Spielbeitritt als Beobachter erm\"oglichte.
 	            	\begin{enumerate}[label={}]
@@ -828,44 +828,44 @@
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
 				\paragraph{Ge\"anderte Story}
-					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt (siehe MockUps).
+					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt.
    				\paragraph{Ge\"andertes Ziel und Subtasks}
    					Bewegte der Nutzer die Maus \ "uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einer Sidebar angezeigt werden.
    					\begin{enumerate}[label={}]
-   						\item \textbf{UI Element f\"ur Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden (siehe Mockups). Die Informationen sollen beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das idle gif der Einheit.
+   						\item \textbf{UI Element f\"ur Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden. Die Informationen sollen beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das Bild der Einheit.
    						\item \textbf{Informationen bei Mouseover anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll bei einem Mouseover auf einer Einheit eingeblendet werden und eingeblendet bleiben, bis "uber eine neue Einheit gehovert wird. Die Einheit, die der Spieler ausgew"ahlt hat, soll in der oberen Box angezeigt werden. Die Einheit, "uber die zuletzt gehovert wurde, soll in der unteren Box angezeigt werden.
    					\end{enumerate}
    				\paragraph{Verlauf}
-   					TODO: Schreiben
+   					Der Entwickler ben\"otigte 5 Stunden l\"anger als erwartet.
    				\paragraph{Ergebnis}
-   					TODO: Schreiben
+   					Das Ziel wurde umgesetzt. Zus\"atslich wurden das Spiel um ein- und ausschaltbare Lebensbalken f\"ur Einheiten erweitert.
   				\subsubsection{Ingame - Game Over}
   					\paragraph{Neue Zuteilung}
   						Diese User Story wurde auf 2 Storypoints gesch"atzt und an Juri Lozowoj neu zugeteilt.
 					\paragraph{Story, Ziel und Subtasks}
 						Siehe Kapitel \ref{story_game_over}
 					\paragraph{Verlauf}
-						TODO: Schreiben
+						Der Entwickler ben\"otigte eine Stunde zur Implementierung des Overlays.
 					\paragraph{Ergebnis}
-						TODO: Schreiben
+						Das Ziel wurde umgesetzt.
 				\subsubsection{Ingame - Game Won}
 					\paragraph{Neue Zuteilung}
 						Diese User Story wurde auf 2 Storypoints gesch"atzt und an Juri Lozowoj neu zugeteilt.
 					\paragraph{Story, Ziel und Subtasks}
 						Siehe Kapitel \ref{story_game_won}
 					\paragraph{Verlauf}
-						TODO: Schreiben
+						Die gesch\"atzte Entwicklungsdauer wurde um 6 Minuten \"uberschritten.
 					\paragraph{Ergebnis}
-						TODO: Schreiben
-				\subsubsection{Ingame - Spactator Over}
+						Das Ziel wurde umgesetzt.
+				\subsubsection{Ingame - Spectator Over}
 					\paragraph{Neue Zuteilung}
 						Diese User Story wurde auf 2 Storypoints gesch"atzt und an Juri Lozowoj neu zugeteilt.
 					\paragraph{Story, Ziel und Subtasks}
-						Siehe Kapitel \ref{story_spactator_over}
+						Siehe Kapitel \ref{story_spectator_over}
 					\paragraph{Verlauf}
-						TODO: Schreiben
+						Die Entwicklung dauerte 1 Stunde und 17 Minuten l\"anger als erwartet.
 					\paragraph{Ergebnis}
-						TODO: Schreiben
+						Das Ziel wurde umgesetzt.
    		\subsection{\"Ubernommene User Stories aus Sprint \RN{5}}
    			Weiterhin gab es auch User Stories aus dem f\"unften Sprint, welche noch nicht abgeschlossen wurden. Diese wurden mit in den sechsten Sprint \"ubernommen. F"ur den Aufbau und falls die Stories abgeschlossen oder angefangen wurden, gilt dasselbe wie im ersten User Story Kapitel \ref{User_Stories_5}.
    			\subsubsection{Ingame - Einheit ausw\"ahlen}

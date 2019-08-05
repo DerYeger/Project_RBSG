@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  5 AUG 2019 11:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  5 AUG 2019 11:45
 entering extended mode
 **./main.tex
 (main.tex
@@ -1999,20 +1999,24 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [22 <./images/mockUps/ConfirmMove2.png> <./images/mockUps/Attack.png>]
-<images/mockUps/GameOver.png, id=468, 1174.3875pt x 803.0pt>
+
+LaTeX Warning: Reference `Spectator_End' on page 23 undefined on input line 430
+.
+
+<images/mockUps/GameOver.png, id=467, 1174.3875pt x 803.0pt>
 File: images/mockUps/GameOver.png Graphic file (type png)
 <use images/mockUps/GameOver.png>
 Package pdftex.def Info: images/mockUps/GameOver.png  used on input line 433.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
-<images/mockUps/GameWon.png, id=469, 1174.3875pt x 803.0pt>
+<images/mockUps/GameWon.png, id=468, 1174.3875pt x 803.0pt>
 File: images/mockUps/GameWon.png Graphic file (type png)
 <use images/mockUps/GameWon.png>
 Package pdftex.def Info: images/mockUps/GameWon.png  used on input line 439.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
-<images/mockUps/SpactatorEnd.png, id=470, 1174.3875pt x 803.0pt>
-File: images/mockUps/SpactatorEnd.png Graphic file (type png)
-<use images/mockUps/SpactatorEnd.png>
-Package pdftex.def Info: images/mockUps/SpactatorEnd.png  used on input line 44
+<images/mockUps/SpectatorEnd.png, id=469, 1174.3875pt x 803.0pt>
+File: images/mockUps/SpectatorEnd.png Graphic file (type png)
+<use images/mockUps/SpectatorEnd.png>
+Package pdftex.def Info: images/mockUps/SpectatorEnd.png  used on input line 44
 5.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 File: images/Logo.png Graphic file (type png)
@@ -2024,7 +2028,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [23 <./images/mockUps/GameOver.png>]
-<images/mockUps/EndPhase.png, id=480, 1003.75pt x 686.565pt>
+<images/mockUps/EndPhase.png, id=478, 1003.75pt x 686.565pt>
 File: images/mockUps/EndPhase.png Graphic file (type png)
 <use images/mockUps/EndPhase.png>
 Package pdftex.def Info: images/mockUps/EndPhase.png  used on input line 453.
@@ -2042,7 +2046,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 456.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[24 <./images/mockUps/GameWon.png> <./images/mockUps/SpactatorEnd.png>]
+[24 <./images/mockUps/GameWon.png> <./images/mockUps/SpectatorEnd.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -2132,7 +2136,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/domain_stories/readyStory1.png, id=489, 837.1275pt x 404.51125pt>
+<images/domain_stories/readyStory1.png, id=488, 837.1275pt x 404.51125pt>
 File: images/domain_stories/readyStory1.png Graphic file (type png)
 <use images/domain_stories/readyStory1.png>
 Package pdftex.def Info: images/domain_stories/readyStory1.png  used on input l
@@ -2147,13 +2151,13 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [25 <./images/mockUps/EndPhase.png>]
-<images/domain_stories/readyStory2.png, id=498, 862.22125pt x 403.5075pt>
+<images/domain_stories/readyStory2.png, id=497, 862.22125pt x 403.5075pt>
 File: images/domain_stories/readyStory2.png Graphic file (type png)
 <use images/domain_stories/readyStory2.png>
 Package pdftex.def Info: images/domain_stories/readyStory2.png  used on input l
 ine 471.
 (pdftex.def)             Requested size: 469.47049pt x 219.70096pt.
-<images/domain_stories/readyStory3.png, id=500, 797.98125pt x 607.26875pt>
+<images/domain_stories/readyStory3.png, id=499, 797.98125pt x 607.26875pt>
 File: images/domain_stories/readyStory3.png Graphic file (type png)
 <use images/domain_stories/readyStory3.png>
 Package pdftex.def Info: images/domain_stories/readyStory3.png  used on input l
@@ -2211,7 +2215,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/domain_stories/moveStory1.png, id=510, 857.2025pt x 419.5675pt>
+<images/domain_stories/moveStory1.png, id=509, 857.2025pt x 419.5675pt>
 File: images/domain_stories/moveStory1.png Graphic file (type png)
 <use images/domain_stories/moveStory1.png>
 Package pdftex.def Info: images/domain_stories/moveStory1.png  used on input li
@@ -2226,13 +2230,13 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [27 <./images/domain_stories/readyStory3.png>]
-<images/domain_stories/moveStory2.png, id=518, 871.255pt x 412.54124pt>
+<images/domain_stories/moveStory2.png, id=517, 871.255pt x 412.54124pt>
 File: images/domain_stories/moveStory2.png Graphic file (type png)
 <use images/domain_stories/moveStory2.png>
 Package pdftex.def Info: images/domain_stories/moveStory2.png  used on input li
 ne 493.
 (pdftex.def)             Requested size: 469.47049pt x 222.29054pt.
-<images/domain_stories/moveStory3.png, id=520, 795.97375pt x 658.46pt>
+<images/domain_stories/moveStory3.png, id=519, 795.97375pt x 658.46pt>
 File: images/domain_stories/moveStory3.png Graphic file (type png)
 <use images/domain_stories/moveStory3.png>
 Package pdftex.def Info: images/domain_stories/moveStory3.png  used on input li
@@ -2922,7 +2926,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 <to be read again> 
                    }
 l.672 ...  \subsubsection{Ingame - Spectator Over}
-                                                   \label{story_spactator_over}
+                                                   \label{story_spectator_over}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -2931,7 +2935,7 @@ look up `weird error' in the index to The TeXbook.)
 <to be read again> 
                    }
 l.672 ...  \subsubsection{Ingame - Spectator Over}
-                                                   \label{story_spactator_over}
+                                                   \label{story_spectator_over}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -2943,7 +2947,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 <to be read again> 
                    }
 l.672 ...  \subsubsection{Ingame - Spectator Over}
-                                                   \label{story_spactator_over}
+                                                   \label{story_spectator_over}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -2952,7 +2956,7 @@ look up `weird error' in the index to The TeXbook.)
 <to be read again> 
                    }
 l.672 ...  \subsubsection{Ingame - Spectator Over}
-                                                   \label{story_spactator_over}
+                                                   \label{story_spectator_over}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -3422,7 +3426,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/burndown.png, id=674, 1362.08875pt x 590.205pt>
+<images/sprintV/burndown.png, id=673, 1362.08875pt x 590.205pt>
 File: images/sprintV/burndown.png Graphic file (type png)
 <use images/sprintV/burndown.png>
 Package pdftex.def Info: images/sprintV/burndown.png  used on input line 760.
@@ -3478,7 +3482,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/doneIssues.png, id=685, 687.06688pt x 214.30063pt>
+<images/sprintV/doneIssues.png, id=684, 687.06688pt x 214.30063pt>
 File: images/sprintV/doneIssues.png Graphic file (type png)
 <use images/sprintV/doneIssues.png>
 Package pdftex.def Info: images/sprintV/doneIssues.png  used on input line 769.
@@ -3577,7 +3581,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/openIssues.png, id=696, 682.04813pt x 634.37pt>
+<images/sprintV/openIssues.png, id=695, 682.04813pt x 634.37pt>
 File: images/sprintV/openIssues.png Graphic file (type png)
 <use images/sprintV/openIssues.png>
 Package pdftex.def Info: images/sprintV/openIssues.png  used on input line 784.
@@ -3634,7 +3638,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintV/coverage.png, id=704, 660.96938pt x 56.21pt>
+<images/sprintV/coverage.png, id=703, 660.96938pt x 56.21pt>
 File: images/sprintV/coverage.png Graphic file (type png)
 <use images/sprintV/coverage.png>
 Package pdftex.def Info: images/sprintV/coverage.png  used on input line 792.
@@ -3977,7 +3981,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.860 				\subsubsection{Ingame - Spactator Over}
+l.860 				\subsubsection{Ingame - Spectator Over}
                                                  
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3986,7 +3990,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.860 				\subsubsection{Ingame - Spactator Over}
+l.860 				\subsubsection{Ingame - Spectator Over}
                                                  
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3998,7 +4002,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.860 				\subsubsection{Ingame - Spactator Over}
+l.860 				\subsubsection{Ingame - Spectator Over}
                                                  
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4007,7 +4011,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.860 				\subsubsection{Ingame - Spactator Over}
+l.860 				\subsubsection{Ingame - Spectator Over}
                                                  
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4015,6 +4019,10 @@ I'll assume that you meant to say pt, for printer's points.
 To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
+
+
+LaTeX Warning: Reference `story_spectator_over' on page 46 undefined on input l
+ine 864.
 
 ! Missing number, treated as zero.
 <to be read again> 
@@ -5564,7 +5572,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/burndown.png, id=909, 376.40625pt x 109.1578pt>
+<images/sprintVI/burndown.png, id=907, 376.40625pt x 109.1578pt>
 File: images/sprintVI/burndown.png Graphic file (type png)
 <use images/sprintVI/burndown.png>
 Package pdftex.def Info: images/sprintVI/burndown.png  used on input line 1147.
@@ -5654,7 +5662,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/doneStories.png, id=912, 376.40625pt x 109.1578pt>
+<images/sprintVI/doneStories.png, id=910, 376.40625pt x 109.1578pt>
 File: images/sprintVI/doneStories.png Graphic file (type png)
 <use images/sprintVI/doneStories.png>
 Package pdftex.def Info: images/sprintVI/doneStories.png  used on input line 11
@@ -5711,7 +5719,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/doneTasks.png, id=922, 376.40625pt x 109.1578pt>
+<images/sprintVI/doneTasks.png, id=920, 376.40625pt x 109.1578pt>
 File: images/sprintVI/doneTasks.png Graphic file (type png)
 <use images/sprintVI/doneTasks.png>
 Package pdftex.def Info: images/sprintVI/doneTasks.png  used on input line 1165
@@ -5759,7 +5767,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/bugs.png, id=925, 376.40625pt x 109.1578pt>
+<images/sprintVI/bugs.png, id=923, 376.40625pt x 109.1578pt>
 File: images/sprintVI/bugs.png Graphic file (type png)
 <use images/sprintVI/bugs.png>
 Package pdftex.def Info: images/sprintVI/bugs.png  used on input line 1173.
@@ -5900,7 +5908,7 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/sprintVI/coverage.png, id=936, 376.40625pt x 109.1578pt>
+<images/sprintVI/coverage.png, id=934, 376.40625pt x 109.1578pt>
 File: images/sprintVI/coverage.png Graphic file (type png)
 <use images/sprintVI/coverage.png>
 Package pdftex.def Info: images/sprintVI/coverage.png  used on input line 1185.
@@ -6221,15 +6229,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1200.
  ) 
 Here is how much of TeX's memory you used:
- 13364 strings out of 492895
- 221424 string characters out of 3123735
+ 13366 strings out of 492895
+ 221461 string characters out of 3123735
  435326 words of memory out of 3000000
- 16562 multiletter control sequences out of 15000+200000
+ 16564 multiletter control sequences out of 15000+200000
  27425 words of font info for 54 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,15n,87p,9112b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -6239,9 +6250,9 @@ cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
 /helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/f
 onts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (63 pages, 5644978 bytes).
+Output written on main.pdf (63 pages, 5645032 bytes).
 PDF statistics:
- 1971 PDF objects out of 2073 (max. 8388607)
+ 1969 PDF objects out of 2073 (max. 8388607)
  444 named destinations out of 1000 (max. 500000)
  2583 words of extra memory for PDF output out of 10000 (max. 10000000)
 

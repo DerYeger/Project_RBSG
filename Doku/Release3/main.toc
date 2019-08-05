@@ -141,7 +141,7 @@
 \contentsline {paragraph}{\nonumberline Story, Ziel und Subtasks}{46}{section*.125}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{46}{section*.126}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{46}{section*.127}% 
-\contentsline {subsubsection}{\numberline {4.2.5}Ingame - Spactator Over}{46}{subsubsection.4.2.5}% 
+\contentsline {subsubsection}{\numberline {4.2.5}Ingame - Spectator Over}{46}{subsubsection.4.2.5}% 
 \contentsline {paragraph}{\nonumberline Neue Zuteilung}{46}{section*.128}% 
 \contentsline {paragraph}{\nonumberline Story, Ziel und Subtasks}{46}{section*.129}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{46}{section*.130}% 
