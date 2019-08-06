@@ -29,6 +29,11 @@ public class Skynet {
     }
 
     public void turn() {
+        if (!game.getCurrentPlayer().equals(player) || game.getPhase().equals("attackPhase")) {
+            //ignore for now
+            return;
+        }
+
         final Optional<Action> action = currentBehaviour.apply(game, player);
         if (action.isEmpty()) {
             //ignore for now
