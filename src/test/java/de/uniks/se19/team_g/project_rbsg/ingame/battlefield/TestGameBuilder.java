@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class TestGameBuilder {
 
@@ -73,10 +74,13 @@ public class TestGameBuilder {
         Unit chubbyCharles = definition.playerUnit;
         definition.playerUnit
                 .setUnitType(UnitTypeInfo._HEAVY_TANK)
-                .setLeader(new Player("skynet"));
+                .setLeader(new Player("skynet"))
+                .setCanAttack(Collections.singletonList(UnitTypeInfo._CHOPPER))
+                .setAttackReady(true);
         Unit enemy = definition.otherUnit
-                .setLeader(new Player("enemy"));
-        enemy.setUnitType(UnitTypeInfo._CHOPPER);
+                .setUnitType(UnitTypeInfo._CHOPPER)
+                .setLeader(new Player("enemy"))
+                .setGame(game);
         chubbyCharles.setMp(4);
         game.withUnit(chubbyCharles);
         Cell[][] cells = definition.cells;
