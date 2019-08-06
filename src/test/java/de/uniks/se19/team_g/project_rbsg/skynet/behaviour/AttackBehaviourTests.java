@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class AttackBehaviourTests {
 
     @Test
-    public void testBehaviour() {
+    public void testAttackBehaviour() {
         final TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
         final Game game = definition.game;
         final Unit unit = definition.playerUnit;

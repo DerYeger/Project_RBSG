@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class MovementBehaviourTests {
 
     @Test
-    public void testBehaviour() {
+    public void testMovementBehaviour() {
         final Player player = new Player("skynet");
         final Unit unit = new Unit("testUnit")
                 .setRemainingMovePoints(5);
