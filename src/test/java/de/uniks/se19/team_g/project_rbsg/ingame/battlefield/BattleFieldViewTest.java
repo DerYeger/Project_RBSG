@@ -505,7 +505,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         click(200, 200);
         click(250, 200);
-        verify(gameEventManager).api();
+        verify(gameEventManager, times(2)).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
 
