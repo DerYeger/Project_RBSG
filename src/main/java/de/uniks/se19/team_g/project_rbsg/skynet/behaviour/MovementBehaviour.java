@@ -27,7 +27,7 @@ public class MovementBehaviour implements Behaviour {
                                   @NonNull final Player player) {
         try {
             final Unit unit = getFirstUnitWithRemainingMP(player);
-            final Map<Cell, Tour> allowedTours = new MovementEvaluator().getAllowedTours(unit);
+            final Map<Cell, Tour> allowedTours = getValidTours(unit);
 
             final Cell target = getOptimalTarget(getEnemyPositions(game, player), allowedTours);
 
@@ -59,6 +59,15 @@ public class MovementBehaviour implements Behaviour {
                                         .getUnit()
                                         .getLeader()
                                         .equals(unit.getLeader()));
+    }
+
+    private Map<Cell, Tour> getValidTours(@NonNull final Unit unit) {
+        return new MovementEvaluator()
+                .getAllowedTours(unit)
+                .entrySet()
+                .stream()
+                .filter(e -> e.getValue().getTarget().getUnit() == null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private ArrayList<Cell> getEnemyPositions(@NonNull final Game game,
