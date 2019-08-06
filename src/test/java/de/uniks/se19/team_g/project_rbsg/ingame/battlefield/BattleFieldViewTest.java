@@ -197,7 +197,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
-        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        IngameApi ingameApi = new IngameApi();
+        GameEventManager gameEventManager = mock(GameEventManager.class);
+        when(gameEventManager.api()).thenReturn(ingameApi);
+        ingameApi.setGameEventManager(gameEventManager);
 
         User user = new User();
         user.setName("Karli");
