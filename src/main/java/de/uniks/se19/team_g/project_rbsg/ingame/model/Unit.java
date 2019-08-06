@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @author Jan Müller
@@ -259,5 +260,14 @@ public class Unit implements Selectable, Hoverable {
 
     public void setAttackReady(boolean attackReady) {
         this.attackReady.set(attackReady);
+    }
+
+    public ArrayList<Unit> getNeighbors() {
+        return position.get()
+                .getNeighbors()
+                .stream()
+                .filter(cell -> cell.getUnit() != null)
+                .map(Cell::getUnit)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
