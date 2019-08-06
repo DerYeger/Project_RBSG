@@ -31,7 +31,7 @@ public class MovementBehaviour implements Behaviour {
 
             final Cell target = getOptimalTarget(getEnemyPositions(game, player), allowedTours);
 
-            return Optional.of(new MovementAction(unit, allowedTours.get(target).getPath()));
+            return Optional.of(new MovementAction(unit, allowedTours.get(target)));
         } catch (final BehaviourException e) {
             logger.info(e.getMessage());
         }
@@ -42,9 +42,23 @@ public class MovementBehaviour implements Behaviour {
         return player
                 .getUnits()
                 .stream()
-                .filter(u -> u.getRemainingMovePoints() > 0)
+                .filter(this::isMoveableUnit)
                 .findFirst()
                 .orElseThrow(() -> new MovementBehaviourException("No unit has remaining MP"));
+    }
+
+    private boolean isMoveableUnit(@NonNull final Unit unit) {
+        return unit.getRemainingMovePoints() > 0 &&
+                unit
+                .getPosition()
+                        .getNeighbors()
+                        .stream()
+                        .noneMatch(neighbor ->
+                                neighbor.getUnit() != null
+                                        && !neighbor
+                                        .getUnit()
+                                        .getLeader()
+                                        .equals(unit.getLeader()));
     }
 
     private ArrayList<Cell> getEnemyPositions(@NonNull final Game game,
