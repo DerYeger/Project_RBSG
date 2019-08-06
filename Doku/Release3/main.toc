@@ -280,11 +280,18 @@
 \contentsline {section}{\numberline {5}Abschluss Release \textup {\uppercase {iii}}}{60}{section.5}% 
 \contentsline {subsection}{\numberline {5.1}Lobby}{60}{subsection.5.1}% 
 \contentsline {subsection}{\numberline {5.2}Waiting Room (Gamelobby)}{61}{subsection.5.2}% 
-\contentsline {subsection}{\numberline {5.3}Ingame}{65}{subsection.5.3}% 
-\contentsline {subsubsection}{\numberline {5.3.1}Einheit ausw"ahlen}{66}{subsubsection.5.3.1}% 
-\contentsline {subsubsection}{\numberline {5.3.2}Einheit bewegen}{69}{subsubsection.5.3.2}% 
-\contentsline {subsubsection}{\numberline {5.3.3}Einheit angreifen}{69}{subsubsection.5.3.3}% 
-\contentsline {subsubsection}{\numberline {5.3.4}Spielende}{69}{subsubsection.5.3.4}% 
-\contentsline {subsubsection}{\numberline {5.3.5}Weitere Features}{72}{subsubsection.5.3.5}% 
-\contentsline {subsection}{\numberline {5.4}Fazit}{75}{subsection.5.4}% 
-\contentsline {section}{\numberline {6}Quellenangaben}{76}{section.6}% 
+\contentsline {subsection}{\numberline {5.3}Ingame}{64}{subsection.5.3}% 
+\contentsline {subsubsection}{\numberline {5.3.1}Einheit ausw"ahlen}{65}{subsubsection.5.3.1}% 
+\contentsline {subsubsubsection}{\numberline {5.3.1.1}Phase 1 - Bewegungsphase}{66}{subsubsubsection.5.3.1.1}% 
+\contentsline {subsubsubsection}{\numberline {5.3.1.2}Phase 2 - Angriffsphase}{67}{subsubsubsection.5.3.1.2}% 
+\contentsline {subsubsubsection}{\numberline {5.3.1.3}Phase 3 - Bewegungsphase}{68}{subsubsubsection.5.3.1.3}% 
+\contentsline {subsubsection}{\numberline {5.3.2}Einheit bewegen und angreifen}{69}{subsubsection.5.3.2}% 
+\contentsline {subsubsection}{\numberline {5.3.3}Spielende}{69}{subsubsection.5.3.3}% 
+\contentsline {subsubsubsection}{\numberline {5.3.3.1}Spiel gewonnen}{69}{subsubsubsection.5.3.3.1}% 
+\contentsline {subsubsubsection}{\numberline {5.3.3.2}Spiel verloren}{71}{subsubsubsection.5.3.3.2}% 
+\contentsline {subsubsubsection}{\numberline {5.3.3.3}Beobachtungsmodus Ende}{72}{subsubsubsection.5.3.3.3}% 
+\contentsline {subsubsection}{\numberline {5.3.4}Weitere Features}{73}{subsubsection.5.3.4}% 
+\contentsline {subsubsubsection}{\numberline {5.3.4.1}Phase Ende}{74}{subsubsubsection.5.3.4.1}% 
+\contentsline {subsubsubsection}{\numberline {5.3.4.2}Weitere hinzugekommene Features}{74}{subsubsubsection.5.3.4.2}% 
+\contentsline {subsection}{\numberline {5.4}Fazit}{76}{subsection.5.4}% 
+\contentsline {section}{\numberline {6}Quellenangaben}{77}{section.6}% 

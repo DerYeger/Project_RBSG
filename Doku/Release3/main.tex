@@ -107,7 +107,7 @@
     		    \item \includegraphics[width=0.05\textwidth]{images/avatars/tobias.png} \ Tobias Klipp
     		\end{enumerate}
         \end{itemize}
-        \subsection{Releaseanforderungen}
+        \subsection{Releaseanforderungen} \label{FEATURE_REQUESTS}
             Folgende Mindestanforderungen wurden vereinbart:
             \begin{enumerate}
                 \item Client: Waiting Room (Gamelobby)
@@ -829,12 +829,12 @@
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
 				\paragraph{Ge\"anderte Story}
-					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Mouse-Courser "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt.
+					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Maus "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt.
    				\paragraph{Ge\"andertes Ziel und Subtasks}
    					Bewegte der Nutzer die Maus \ "uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einer Sidebar angezeigt werden.
    					\begin{enumerate}[label={}]
    						\item \textbf{UI Element f\"ur Informationen erstellen} \hspace{5pt} Es soll ein UI Element zur Anzeige der Informationen erstellt werden. Die Informationen sollen beinhalten: Alle Attribute der Einheit (nur bei den HP eine max/zurzeit Anzeige) und das Bild der Einheit.
-   						\item \textbf{Informationen bei Mouseover anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll bei einem Mouseover auf einer Einheit eingeblendet werden und eingeblendet bleiben, bis "uber eine neue Einheit gehovert wird. Die Einheit, die der Spieler ausgew"ahlt hat, soll in der oberen Box angezeigt werden. Die Einheit, "uber die zuletzt gehovert wurde, soll in der unteren Box angezeigt werden.
+   						\item \textbf{Informationen beim Hovern anzeigen} \hspace{5pt} Das bereits erstellte UI Element soll beim Hovern "uber einer Einheit eingeblendet werden und eingeblendet bleiben, bis "uber eine neue Einheit gehovert wird. Die Einheit, die der Spieler ausgew"ahlt, soll in der oberen Box angezeigt werden. Die Einheit, "uber die er zuletzt hovert, soll in der unteren Box angezeigt werden.
    					\end{enumerate}
    				\paragraph{Verlauf}
    					Der Entwickler ben\"otigte 5 Stunden l\"anger als erwartet.
@@ -875,7 +875,7 @@
    				\paragraph{Story, Ziel und Subtasks}
    					Siehe Kapitel \ref{story_select_unit}
    				\paragraph{Verlauf}
-   					An dieser Story wurde im Sprint \RN{5} schon circa zw"olf Stunden gearbeitet. Diesen Sprint brauchte der Enwickler noch circa vier Stunden l"anger, um ein Problem zu beheben. Dies dauerte so lange, da Klickevents im UI gedebuggt werden mussten. Damit dauerte die Story circa drei und eine halbe Stunde l"anger.
+   					An dieser Story wurde im Sprint \RN{5} schon circa zw"olf Stunden gearbeitet. Diesen Sprint brauchte der Enwickler noch circa vier Stunden l"anger, um ein Problem zu beheben. Dies dauerte so lange, da Klickevents im UI gedebuggt werden mussten. Damit dauerte die Story circa 3,5 Stunde l"anger.
    				\paragraph{Ergebnis}
    					Die Story wurde eigentlich schon im Sprint \RN{5} abgeschlossen, aber in diesem Sprint behob der Enwickler noch das Problem , dass die UI falsch markiert wurde, wenn eine Einheit ausgew"ahlt wurde. Schlussendlich konnten Einheiten ohne Probleme bewegt werden.
    			\subsubsection{Ingame - Einheit bewegen}
@@ -1191,7 +1191,7 @@
 	    		\end{figure} 
 	\newpage
 	\section{Abschluss Release \RN{3}}
-		Das dritte Release endete am 4.8.2018. Im letzten Kapitel werden die MockUps mit der aktuellen Implementation verglichen. Dabei wird insbesondere auf Unterschiede und fehlende Features eingegangen werden.
+		Das dritte Release endete am 4.8.2018. Im letzten Kapitel werden die MockUps mit der aktuellen Implementation verglichen. Dabei wird insbesondere auf Unterschiede und fehlende Features eingegangen werden. Zuerst wird jedes Mal noch einmal das MockUp gezeigt, danach ein Bild vom Endstand des Releases. "Uber dem MockUp sollen jedes Mal die gesetzten Ziele stehen und "uber dem Endstand soll der Vergleich kommen.
 		\subsection{Lobby}
 			Es wurde gefordert, einem Beobachtungsmodus beitreten zu k"onnen. Au{\ss}erdem sollte die Armeeauswahlbox entfernt werden.
 			\begin{figure}[H] 
@@ -1209,53 +1209,43 @@
 				\label{End_Watch_Mode}
 			\end{figure}
 		\subsection{Waiting Room (Gamelobby)}
-			Es wurde gefordert, ein Ready Signal geben zu k"onnen. Darauf sollte die Spielerkarte in der secondary Farbe angezeigt werden. Das Icon und die Schrift sollte sich schwarz f"arben. Die Armeeauswahlbox sollte von der Lobby in den Warteraum umgezogen werden. Ein Indikator sollte laden, wenn das Spiel dabei war zu starten. Optionals waren das TicTacToe Spiel und der Spielname oben in der Mitte der Szene.
+			Es wurde gefordert, ein Ready Signal geben zu k"onnen. Darauf sollte die Spielerkarte in der secondary Farbe angezeigt werden. Das Icon und die Schrift sollte sich schwarz f"arben. Die Armeeauswahlbox sollte von der Lobby in den Warteraum umgezogen werden. Optionals waren das TicTacToe Spiel und der Spielname oben in der Mitte der Szene.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/mockUps/NotReady.png}
 				\caption{MockUp: Nutzer nicht bereit}
 				\label{Not_Ready_2}
 			\end{figure}
-			\ \\ Auf den folgenden zwei Abbildungen \ref{End_Not_Ready} und \ref{End_Ready} ist zu erkennen, dass alles umgesetzt wurde bis auf die schwarze Schrift, wenn ein Spieler bereit war. Weiterhin fehlten die optionalen Features, da aus Zeitgr"unden zuerst einmal alle geforderten Features umgesetzt wurden. Wenn eine Armee ausgew"ahlt wurde, wurde das Icon in einem hellen Grauton hinterlegt, da diese Helligkeit besser zu verschiedenfarbigen Icons passte.
+			\ \\ Auf der folgenden Abbildung \ref{End_Not_Ready} ist zu erkennen, dass alle Features umgesetzt wurden bis auf die schwarze Schrift, wenn ein Spieler bereit war. Weiterhin fehlten die optionalen Features, da aus Zeitgr"unden zuerst einmal alle geforderten Features umgesetzt wurden. Wenn eine Armee ausgew"ahlt wurde, wurde das Icon in einem hellen Grauton hinterlegt, da diese Helligkeit besser zu verschiedenfarbigen Icons passte.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/endOfRelease/NotReady.png}
 				\caption{Endstand Release \RN{3}: Nutzer nicht bereit}
 				\label{End_Not_Ready}
 			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.8\textwidth]{images/mockUps/Ready.png}
-				\caption{MockUp: Nutzer bereit}
-				\label{Ready_2}
-			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.8\textwidth]{images/endOfRelease/Ready.png}
-				\caption{Endstand Release \RN{3}: Nutzer bereit}
-				\label{End_Ready}
-			\end{figure}
+			\ \\  Au{\ss}erdem gab es ein optionales Feature, dass ein Indikator laden sollte, wenn das Spiel dabei war zu starten.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/mockUps/StartGame.png}
 				\caption{MockUp: Spielstart}
 				\label{Game_Start_2}
 			\end{figure}
-			\ \\ Auf der folgenden Abbildung \ref{End_Game_Start} ist zu erkennen, dass beim Spielstart zum Ende des Releases noch kein Indikator lud, da dies ebenfalls als optional eingestuft wurde und somit noch nicht implementiert wurde.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/endOfRelease/StartGame.png}
 				\caption{Endstand Release \RN{3}: Spielstart}
 				\label{End_Game_Start}
 			\end{figure}
+			\ \\ Auf der Abbildung \ref{End_Game_Start} ist zu erkennen, dass beim Spielstart zum Ende des Releases noch kein Indikator lud, da dies optional war und somit noch nicht implementiert wurde.
 		\subsection{Ingame}
-			TODO: Schreiben
+			Es wurde gefordert, den Chat und die Spieler "uber einen Button einblenden zu k"onnen. Weiterhin sollten die Minikarte, Einheiteninformationen und ein Besta"atigen/Abbrechen Button in einer Sidebar enthalten sein. "Uber dieser Sidebar sollte die aktuelle Runde und Phase eingeblendet werden. Der aktuelle Spieler sollte in der secondary Farbe hinterlegt werden. Ein Musik Button sollte in der oberen Leiste hinzugef"ugt werden.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/mockUps/Ingame.png}
 				\caption{MockUp: Ingame}
 				\label{Ingame_View_2}
 			\end{figure}
+			\ \\ Wie auf den Abbildungen \ref{End_Ingame_View} und \ref{End_Ingame_View_2} zu sehen ist, wurden alle Features implementiert. Der einzige Unterschied lag darin, dass die UI au{\ss}erlich ein wenig abwich. Die Buttons in der oberen Leiste wurden in einer anderen Reihenfolge angeordent. Die Sidebar wurde ein wenig kleiner und dementsprechend auch alle Zellen der Einheiteninformationen. Die Minikarte war kleiner und der Besta"atigen/Abbrechen Button wurde in der primary Farbe hinterlegt (anstatt in Grau). Zus"atzlich wurde die Spielerfarbe bei den Einheiteninformationen angezeigt. Das Runden- und Phasenlabel lag ein wenig weiter unten. Die Spielerkarten waren ein wenig d"unner und da sie zusammen nicht die ganze Breite des Spielfeldes einnahmen, wurden sie mittig platziert.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/endOfRelease/Ingame.png}
@@ -1268,120 +1258,144 @@
 				\caption{Endstand Release \RN{3}: Ingame (Buttons nicht gedr"uckt)}
 				\label{End_Ingame_View_2}
 			\end{figure}
-			\subsubsection{Einheit ausw"ahlen}
-				TODO: Schreiben
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/mockUps/Select.png}
-					\caption{MockUp: Phase 1: Ausw"ahlen}
-					\label{Select_1_2}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/Select.png}
-					\caption{Endstand Release \RN{3}: Phase 1: Ausw"ahlen}
-					\label{End_Select_1}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/mockUps/Select3.png}
-					\caption{MockUp: Phase 2: Ausw"ahlen}
-					\label{Select_2_2}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/Select3.png}
-					\caption{Endstand Release \RN{3}: Phase 2: Ausw"ahlen}
-					\label{End_Select_2}
-				\end{figure} 
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/mockUps/Select2.png}
-					\caption{MockUp: Phase 3: Ausw"ahlen}
-					\label{Select_3_2}
-				\end{figure} 
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/Select2.png}
-					\caption{Endstand Release \RN{3}: Phase 3: Ausw"ahlen}
-					\label{End_Select_3_2}
-				\end{figure} 
-			\subsubsection{Einheit bewegen}
-				TODO: Schreiben, MockUps wurden nicht umgesetzt
-			\subsubsection{Einheit angreifen}
-				TODO: Schreiben, MockUps wurden nicht umgesetzt
+			\subsubsection{Einheit ausw"ahlen} \label{END_SELECT}
+				Da es drei Phasen in einer Runde eines Spielers gab, wird dieses Kapitel der "Ubersicht halber kleiner geteilt. Ein Unterschied zur Zielsetzung war es in allen Phasen, dass die UI Markierungen eigentlich auch in den gegnerischen Phasen funktionieren sollte, wenn der Nutzer nicht an der Reihe war. Am Ende des Releases sah der Nutzer aber in den gegnerischen Phasen nur, wie sich Einheiten bewegten oder angegriffen wurden. Am Ende des dritten Releases wurde zus"atzlich noch das ausgew"ahlte Feld (bzw. die Einheit darauf) hellgrau hinterlegt. Das zuletzt gehoverte Feld wurde auch hellgrau hinterlegt. Die zuletzt gehoverte Einheit wurde in der unteren Einheitenbox in der Sidebar angezeigt und die ausgew"ahlte Einheit in der oberen Box (siehe bspw. Abbildung \ref{End_Ingame_View_2}).
+				\subsubsubsection{Phase 1 - Bewegungsphase}
+					In der ersten Phase sollten eigentlich nur die Bewegungsreichweite und alle m"oglichen Angriffsziele in dieser Reichweite angezeigt werden.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/mockUps/Select.png}
+						\caption{MockUp: Phase 1: Ausw"ahlen}
+						\label{Select_1_2}
+					\end{figure}
+					\ \\ Die Bewegungsreichweite wurde korrekt angezeigt. Jedoch werden alle m"oglichen Angriffsziele auf der gesamten Karte rot markiert (siehe Abbildung \ref{End_Select_1}). Ein weiteres zus"atzliches Feature war es, dass wenn der Nutzer nicht alle Bewegungspunkte aufbrauchte, die Einheit weiterhin ausgew"ahlt blieb und die Bewegungsreichweite sich in der UI verkleinerte. Waren die Punkte bei Null wurde die Einheit automatisch abgew"ahlt.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/Select.png}
+						\caption{Endstand Release \RN{3}: Phase 1: Ausw"ahlen}
+						\label{End_Select_1}
+					\end{figure}
+				\subsubsubsection{Phase 2 - Angriffsphase}
+					In der zweiten Phase sollte nur die m"oglichen Angriffsziele rot markiert werden.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/mockUps/Select3.png}
+						\caption{MockUp: Phase 2: Ausw"ahlen}
+						\label{Select_2_2}
+					\end{figure}
+					\ \\ Es wurde zur Funktionalit"at der zweiten Phase nur erg"anzt, dass wenn eine Einheit neben der angreifenden Einheit nicht angegriffen werden konnte oder dort ein leeres Feld war, dieses Feld grau hinterlegt wurde (siehe Abbildung \ref{End_Select_2}). Wurde eine Einheit ausgew"ahlt, die bereits angriff, dann wurden alle Nachbarfelder grau angezeigt.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/Select3.png}
+						\caption{Endstand Release \RN{3}: Phase 2: Ausw"ahlen}
+						\label{End_Select_2}
+					\end{figure}
+				\subsubsubsection{Phase 3 - Bewegungsphase}
+					In der dritten Phase sollte nur die Bewegungsreichweite angezeigt werden.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/mockUps/Select2.png}
+						\caption{MockUp: Phase 3: Ausw"ahlen}
+						\label{Select_3_2}
+					\end{figure}
+					\ \\ Die dritte Phase verhielt sich genauso wie die erste Phase (siehe Abbildung \ref{End_Select_3_2}). Also gab es hier auch kleine "Anderungen hingegen des MockUps.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/Select2.png}
+						\caption{Endstand Release \RN{3}: Phase 3: Ausw"ahlen}
+						\label{End_Select_3_2}
+					\end{figure} 
+			\subsubsection{Einheit bewegen und angreifen}
+				Das Ausw"ahlen der Einheiten funktionierte wie vorgesehen, sogar in den Bewegungsphasen blieben die Einheiten ausgew"ahlt, wenn noch Bewegungspunkte "ubrig waren, wie schon im vorherigen Kapitel beschrieben. Die MockUps von Einheit bewegen und angreifen wurden allerdings nicht umgesetzt (siehe Kapitel 2.3.3.2 und 2.3.3.3). Geplant war es, den Besta"atigen/Abbrechen Button in der Sidebar zu benutzen, um Aktionen kontrollierter zu steuern. Wenn der Nutzer eine Einheit bewegen oder angreifen wollte, sollte zur Best"atigung ein Icon auf dem Feld erscheinen, auf das der Nutzer laufen wollte oder eine Einheit angreifen wollte. Die Buttons in der Sidebar waren also zum Ende des Releases ohne Funktion, aber die User Stories daf"ur wurden mit ins n"achste Release "ubernommen.
 			\subsubsection{Spielende}
-				TODO: Schreiben
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/mockUps/GameOver.png}
-					\caption{MockUp: Spiel verloren}
-					\label{Game_Lost_2}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/GameOver.png}
-					\caption{Endstand Release \RN{3}: Spiel verloren}
-					\label{End_Game_Lost}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/mockUps/GameWon.png}
-					\caption{MockUp: Spiel gewonnen}
-					\label{Game_Won_2}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/GameWon.png}
-					\caption{Endstand Release \RN{3}: Spiel gewonnen}
-					\label{End_Game_Won}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/mockUps/SpectatorEnd.png}
-					\caption{MockUp: Beobachtungsmodus: Spiel vorbei}
-					\label{Spectator_End_2}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/SpectatorEnd.png}
-					\caption{Endstand Release \RN{3}: Beobachtungsmodus: Spiel vorbei}
-					\label{End_Spectator_End}
-				\end{figure}
+				Wenn ein Spieler aus dem Spiel ausschied, sollte sich sein Icon und sein Name auf der Spielerkarte schwarz f"arben. Dies wurde umgesetzt (siehe bspw. Abbildung \ref{End_Game_Won} oder \ref{End_Spectator_End}). Des Weiteren sollten bei den verschiedenen Spielenden verschiedene Overlays angezeigt werden.
+				\subsubsubsection{Spiel gewonnen}
+					Wenn alle Spieler bis auf der Nutzer aus dem Spiel ausgeschieden waren, sollte ein Overlay angezeigt werden, das den Nutzer informierte, dass er gewan. Danach sollte es ihn zur Lobby zur"uck schicken.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/mockUps/GameOver.png}
+						\caption{MockUp: Spiel verloren}
+						\label{Game_Lost_2}
+					\end{figure}
+					\ \\ Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den MockUps aus (vgl. Abbildung \ref{Game_Lost_2} und \ref{End_Game_Lost}).
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/GameOver.png}
+						\caption{Endstand Release \RN{3}: Spiel verloren}
+						\label{End_Game_Lost}
+					\end{figure}
+				\subsubsubsection{Spiel verloren}
+					Wenn der Nutzer aus dem Spiel ausgeschieden war, sollte ein Overlay angezeigt werden, das den Nutzer informierte, dass er verlor. Danach sollte es ihm die M"oglichkeit geben, entweder das Spiel weiter zu betrachten oder zur Lobby zur"uck zu gehen. Wenn der Nutzer der vorletzte Spieler im Spiel war, sollte das Overlay vom Beobachtungsmodus Ende angezeigt werden.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/mockUps/GameWon.png}
+						\caption{MockUp: Spiel gewonnen}
+						\label{Game_Won_2}
+					\end{figure}
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/GameWon.png}
+						\caption{Endstand Release \RN{3}: Spiel gewonnen}
+						\label{End_Game_Won}
+					\end{figure}
+					\ \\ Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den MockUps aus (vgl. Abbildung \ref{Game_Won_2} und \ref{End_Game_Won}).
+				\subsubsubsection{Beobachtungsmodus Ende}
+					Wenn alle Spieler bis auf einen Spieler aus dem Spiel ausgeschieden waren, sollte dem Nutzer ein Overlay angezeigt werden, das ihn informierte, dass ein Spieler gewan. Danach sollte es ihn zur Lobby zur"uck schicken.
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/mockUps/SpectatorEnd.png}
+						\caption{MockUp: Beobachtungsmodus: Spiel vorbei}
+						\label{Spectator_End_2}
+					\end{figure}
+					\ \\ Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den MockUps aus (vgl. Abbildung \ref{Spectator_End_2} und \ref{End_Spectator_End}).
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/SpectatorEnd.png}
+						\caption{Endstand Release \RN{3}: Beobachtungsmodus: Spiel vorbei}
+						\label{End_Spectator_End}
+					\end{figure}
 			\subsubsection{Weitere Features}
-				TODO: Schreiben
+				Alle geplanten weiteren Features wie das Phase Ende und die Einheiteninformationen in der Sidebar, wenn eine Einheit ausgew"ahlt oder gehovert wurde (wie bereits zuvor in Kapitel \ref{END_SELECT} beschrieben), wurden umgesetzt.
 				\begin{figure}[H] 
 					\centering
 					\includegraphics[width=0.8\textwidth]{images/mockUps/EndPhase.png}
 					\caption{MockUp: Phase beenden}
 					\label{Phase_End_2}
 				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/EndPhase.png}
-					\caption{Endstand Release \RN{3}: Phase beenden}
-					\label{End_Phase_End}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/SelectEnemy.png}
-					\caption{Endstand Release \RN{3}: Gegner ausw"ahlen}
-					\label{End_Select_Enemy}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/HealthbarDown.png}
-					\caption{Endstand Release \RN{3}: Lebensbalken}
-					\label{End_Healthbar_Down}
-				\end{figure}
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{images/endOfRelease/Failure.png}
-					\caption{Endstand Release \RN{3}: Ingame Fehler}
-					\label{End_Failure}
-				\end{figure}
+				\subsubsubsection{Phase Ende}
+					Der Nutzer sollte "uber einen Button in der oberen Leiste die Phase beenden k"onnen. Dazu sollte ein Overlay angezeigt werden und der Button sollte in gegnerischen Runden disabled sein. Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den MockUps aus (vgl. Abbildung \ref{Phase_End_2} und \ref{End_Phase_End}).
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/EndPhase.png}
+						\caption{Endstand Release \RN{3}: Phase beenden}
+						\label{End_Phase_End}
+					\end{figure}
+				\subsubsubsection{Weitere hinzugekommene Features}
+					Es gab auch noch ein paar neue Features, die im Verlauf des Releases \RN{3} hinzukamen, die in diesem Kapitel mit MockUps erw"ahnt werden sollen.
+					\vspace{0.3cm} \newline
+					Egal in welcher Phase der Nutzer war oder ob ein Gegner an der Reihe war, es war immer m"oglich auf eine gegnerische Einheit zu klicken und alle m"oglichen Angriffsziele dieser ausgew"ahlten Einheit rot hinterlegt zu sehen. Nicht angreifbare Einheiten wurden grau hinterlegt (siehe Abbildung \ref{End_Select_Enemy}).
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/SelectEnemy.png}
+						\caption{Endstand Release \RN{3}: Gegner ausw"ahlen}
+						\label{End_Select_Enemy}
+					\end{figure}
+					\ \\ Ein weiteres nicht geplantes Feature war der Lebensbalken "uber jeder Einheit, der dem Nutzer leichter Bescheid gab, zu welchem Spieler die Einheit geh"orte. Weiterhin nahm die Farbe in dem Balken ab, wenn die Einheit weniger Lebenspunkte hatte (siehe Abbildung \ref{End_Healthbar_Down}).
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/HealthbarDown.png}
+						\caption{Endstand Release \RN{3}: Lebensbalken}
+						\label{End_Healthbar_Down}
+					\end{figure}
+					\ \\ Die Fehlerbehandlung wurde in die Ingameszene erweitert und falls das Spiel unerwartet vom Server geschlossen wurde, wurde ein Overlay angezeigt, dass den Nutzer in die Lobby schickte (siehe Abbildung \ref{End_Failure}).
+					\begin{figure}[H] 
+						\centering
+						\includegraphics[width=0.8\textwidth]{images/endOfRelease/Failure.png}
+						\caption{Endstand Release \RN{3}: Ingame Fehler}
+						\label{End_Failure}
+					\end{figure}
 		\subsection{Fazit}
-			TODO: Schreiben
+			Im Ganzen betrachtet, setzte das Team im Release \RN{3} alle Anfordrungen vom Kunden (siehe Kapitel \ref{FEATURE_REQUESTS}) um. Dies ist auch auf den vorangegangenen Screenshots aus dem Client gut zu sehen. Es wurden nur einige optionale Features, wie das Minispiel, der Spielname und der Indikator im Warteraum und die Icons zum Best"atigen von Aktionen in der Ingameszene noch nicht umgesetzt, aber sollten mit in das Release \RN{4} genommen werden.
 	\newpage
 	\section{Quellenangaben}
 		\listoffigures
