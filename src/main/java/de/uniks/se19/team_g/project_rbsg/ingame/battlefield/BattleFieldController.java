@@ -12,6 +12,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
@@ -49,6 +51,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -88,8 +91,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Pane endPhaseButtonContainer;
     public VBox root;
     public VBox unitInformationContainer;
-    public Button actionButton;
-    public Button cancelButton;
+    //TODO readd
+//    public Button actionButton;
+//    public Button cancelButton;
+    public Button skynetTurnButton;
     public Button playerButton;
     public Button chatButton;
     public Button musicButton;
@@ -132,6 +137,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private SimpleIntegerProperty roundCount;
     private int roundCounter;
     private final ChangeListener<String> phaseChangedListener = this::phaseChanged;
+
+    private Skynet skynet;
 
     @Autowired
     public BattleFieldController(
@@ -208,15 +215,16 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
 
-        JavaFXUtils.setButtonIcons(
-                cancelButton,
-                getClass().getResource("/assets/icons/navigation/crossWhite.png"),
-                getClass().getResource("/assets/icons/navigation/crossBlack.png"),
-                40
-        );
-
-
-        cancelButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "cancel"));
+        //TODO readd
+//        JavaFXUtils.setButtonIcons(
+//                cancelButton,
+//                getClass().getResource("/assets/icons/navigation/crossWhite.png"),
+//                getClass().getResource("/assets/icons/navigation/crossBlack.png"),
+//                40
+//        );
+//
+//
+//        cancelButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "cancel"));
 
         musicManager.initButtonIcons(musicButton);
     }
@@ -465,55 +473,57 @@ public class BattleFieldController implements RootController, IngameViewControll
             break;
         }
 
-        if (context.isMyTurn())
-        {
-            actionButton.setDisable(false);
-            cancelButton.setDisable(false);
-        } else
-        {
-            actionButton.setDisable(true);
-            cancelButton.setDisable(true);
-        }
-        ChangeActionButtonIcon(newPhase);
+        //TODO readd
+//        if (context.isMyTurn())
+//        {
+//            actionButton.setDisable(false);
+//            cancelButton.setDisable(false);
+//        } else
+//        {
+//            actionButton.setDisable(true);
+//            cancelButton.setDisable(true);
+//        }
+//        ChangeActionButtonIcon(newPhase);
     }
 
-    private void ChangeActionButtonIcon(String phase)
-    {
-        switch (phase)
-        {
-            case "movePhase":
-            {
-                JavaFXUtils.setButtonIcons(actionButton,
-                        getClass().getResource("/assets/icons/operation/footstepsWhite.png"),
-                        getClass().getResource("/assets/icons/operation/footstepsBlack.png"),
-                        40);
-
-                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
-            }
-            break;
-            case "attackPhase":
-            {
-                JavaFXUtils.setButtonIcons(actionButton,
-                        getClass().getResource("/assets/icons/operation/swordClashWhite.png"),
-                        getClass().getResource("/assets/icons/operation/swordClashBlack.png"),
-                        40);
-
-                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "attack"));
-            }
-            break;
-            case "lastMovePhase":
-            {
-                JavaFXUtils.setButtonIcons(actionButton,
-                        getClass().getResource("/assets/icons/operation/footprintWhite.png"),
-                        getClass().getResource("/assets/icons/operation/footprintBlack.png"),
-                        40);
-
-                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
-            }
-            break;
-
-        }
-    }
+    //TODO readd
+//    private void ChangeActionButtonIcon(String phase)
+//    {
+//        switch (phase)
+//        {
+//            case "movePhase":
+//            {
+//                JavaFXUtils.setButtonIcons(actionButton,
+//                        getClass().getResource("/assets/icons/operation/footstepsWhite.png"),
+//                        getClass().getResource("/assets/icons/operation/footstepsBlack.png"),
+//                        40);
+//
+//                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
+//            }
+//            break;
+//            case "attackPhase":
+//            {
+//                JavaFXUtils.setButtonIcons(actionButton,
+//                        getClass().getResource("/assets/icons/operation/swordClashWhite.png"),
+//                        getClass().getResource("/assets/icons/operation/swordClashBlack.png"),
+//                        40);
+//
+//                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "attack"));
+//            }
+//            break;
+//            case "lastMovePhase":
+//            {
+//                JavaFXUtils.setButtonIcons(actionButton,
+//                        getClass().getResource("/assets/icons/operation/footprintWhite.png"),
+//                        getClass().getResource("/assets/icons/operation/footprintBlack.png"),
+//                        40);
+//
+//                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
+//            }
+//            break;
+//
+//        }
+//    }
 
     protected Tile resolveTargetTile(MouseEvent event)
     {
@@ -795,6 +805,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             e.printStackTrace();
         }
+
+        initSkynet();
+        initSkynetButtons();
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
@@ -809,12 +822,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (newValue != null)
             {
-                //TODO: Check if we are the winner. If yes, show other (priorityInformation) alert (Mockup)
                 showWinnerLoserAlert(newValue);
             }
         }));
-        //TODO: Add listeners to the users own units property
-        //TODO: If the user lost ALL units AND their loss doesn't cause another player's win show the game lost (priorityConfirmation) alert (Mockup)
         this.context.getUserPlayer().getUnits().addListener((ListChangeListener<Unit>) unitList ->
         {
             if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
@@ -1084,4 +1094,15 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         tileDrawer.drawMap(tileMap);
     }
+
+    private void initSkynet() {
+        skynet = new Skynet(new ActionExecutor(context.getGameEventManager()), game, context.getUserPlayer());
+    }
+
+    private void initSkynetButtons() {
+        final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlane.png");
+        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 50);
+        skynetTurnButton.setOnAction((event) -> skynet.turn());
+    }
+
 }
