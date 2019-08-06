@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 
@@ -101,6 +102,51 @@ public class TestGameBuilder {
         cells[1][1].setBiome(Biome.WATER);
         cells[1][0].setPassable(false);
         cells[1][0].setBiome(Biome.MOUNTAIN);
+
+        game.withCells(
+                Arrays.stream(cells)
+                        .flatMap(Arrays::stream)
+                        .toArray(Cell[]::new)
+        );
+
+        return definition;
+    }
+
+    public static Definition skynetMoveTestGame(@NonNull final Player player,
+                                                @NonNull final Unit testUnit) {
+        final Definition definition = new Definition(new Cell[5][5]);
+
+        final Game game = definition.game;
+        player.setCurrentGame(game);
+        final Player enemy = new Player("enemy").setCurrentGame(game);
+        final Unit playerUnit = definition.playerUnit
+                .setLeader(player)
+                .setGame(game);
+        testUnit.setLeader(player)
+                .setGame(game);
+        final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game);
+
+        final Cell[][] cells = definition.cells;
+        for (int row = 0; row < 5; row++) {
+            for (int column = 0; column < 5; column++) {
+                final Cell cell = new Cell(String.format("%d:%d", row, column));
+                cell.setBiome(Biome.GRASS);
+                cell.setPassable(true);
+                cell.setX(column);
+                cell.setY(row);
+                cells[row][column] = cell;
+                if (row > 0) {
+                    cell.setTop(cells[row-1][column]);
+                }
+                if (column > 0) {
+                    cell.setLeft(cells[row][column-1]);
+                }
+            }
+        }
+
+        testUnit.setPosition(cells[0][0]);
+        playerUnit.setPosition(cells[0][1]);
+        enemyUnit.setPosition(cells[4][4]);
 
         game.withCells(
                 Arrays.stream(cells)
