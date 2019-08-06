@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
@@ -1087,7 +1088,11 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initSkynet() {
-        skynet = new Skynet(new ActionExecutor(context.getGameEventManager().api()), game, context.getUserPlayer());
+        skynet = new Skynet(new ActionExecutor(context.getGameEventManager().api()),
+                game,
+                context.getUserPlayer())
+        .setCurrentBehaviour(new MovementBehaviour());
+
     }
 
     private void initSkynetButtons() {
