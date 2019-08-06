@@ -6,7 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import org.springframework.lang.NonNull;
 
 import java.util.Optional;
@@ -18,7 +17,7 @@ public class Skynet {
     private final Player player;
 
     //PLACEHOLDER
-    private Behaviour currentBehaviour = new MovementBehaviour();
+    private Behaviour currentBehaviour;
 
     public Skynet(@NonNull final ActionExecutor actionExecutor,
                   @NonNull final Game game,
@@ -28,10 +27,15 @@ public class Skynet {
         this.player = player;
     }
 
-    public void turn() {
-        if (!game.getCurrentPlayer().equals(player) || game.getPhase().equals("attackPhase")) {
+    public Skynet setCurrentBehaviour(@NonNull final Behaviour behaviour) {
+        currentBehaviour = behaviour;
+        return this;
+    }
+
+    public Skynet turn() {
+        if (currentBehaviour == null || !game.getCurrentPlayer().equals(player) || game.getPhase().equals("attackPhase")) {
             //ignore for now
-            return;
+            return this;
         }
 
         final Optional<Action> action = currentBehaviour.apply(game, player);
@@ -40,5 +44,7 @@ public class Skynet {
         } else if (action.get() instanceof MovementAction) {
             actionExecutor.execute((MovementAction) action.get());
         }
+
+        return this;
     }
 }
