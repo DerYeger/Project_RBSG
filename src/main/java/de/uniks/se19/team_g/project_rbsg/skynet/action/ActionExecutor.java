@@ -1,21 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.action;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
-import org.springframework.context.annotation.Scope;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
-@Component
-@Scope("prototype")
 public class ActionExecutor {
 
-    private final GameEventManager gameEventManager;
+    private final IngameApi api;
 
-    public ActionExecutor(@NonNull final GameEventManager gameEventManager) {
-        this.gameEventManager = gameEventManager;
+    public ActionExecutor(@NonNull final IngameApi api) {
+        this.api = api;
     }
 
-    public void execute(@NonNull final Action action) {
-        gameEventManager.sendMessage(action.getServerCommand());
+    public void execute(@NonNull final MovementAction action) {
+        api.move(action.unit, action.tour);
     }
 }

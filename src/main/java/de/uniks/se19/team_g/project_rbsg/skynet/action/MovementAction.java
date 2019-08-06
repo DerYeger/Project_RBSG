@@ -1,26 +1,25 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.action;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import org.springframework.lang.NonNull;
 
-import java.util.List;
 import java.util.Map;
 
 public class MovementAction implements Action {
 
-    private final Unit unit;
-    private final List<Cell> path;
+    public final Unit unit;
+    public final Tour tour;
 
     public MovementAction(@NonNull final Unit unit,
-                          @NonNull final List<Cell> path) {
+                          @NonNull final Tour tour) {
         this.unit = unit;
-        this.path = path;
+        this.tour = tour;
     }
 
     @Override
     public Map<String, Object> getServerCommand() {
-        return CommandBuilder.moveUnit(unit, path);
+        return CommandBuilder.moveUnit(unit, tour.getPath());
     }
 }
