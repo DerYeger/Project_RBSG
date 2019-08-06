@@ -71,8 +71,11 @@ public class TestGameBuilder {
 
         Game game = definition.game;
         Unit chubbyCharles = definition.playerUnit;
-        definition.playerUnit.setUnitType(UnitTypeInfo._HEAVY_TANK);
-        Unit enemy = definition.otherUnit;
+        definition.playerUnit
+                .setUnitType(UnitTypeInfo._HEAVY_TANK)
+                .setLeader(new Player("skynet"));
+        Unit enemy = definition.otherUnit
+                .setLeader(new Player("enemy"));
         enemy.setUnitType(UnitTypeInfo._CHOPPER);
         chubbyCharles.setMp(4);
         game.withUnit(chubbyCharles);
