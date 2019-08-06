@@ -238,10 +238,9 @@ public class Game {
         return phase;
     }
 
-    public void setPhase(String phase) {
-        Platform.runLater(()-> {
-            this.phase.set(phase);
-        });
+    public Game setPhase(String phase) {
+        this.phase.set(phase);
+        return this;
     }
 
     public Game setCurrentPlayer(Player player) {

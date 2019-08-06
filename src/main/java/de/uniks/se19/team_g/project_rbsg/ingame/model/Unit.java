@@ -169,8 +169,9 @@ public class Unit implements Selectable, Hoverable {
         return remainingMovePoints;
     }
 
-    public void setRemainingMovePoints(int remainingMovePoints) {
+    public Unit setRemainingMovePoints(int remainingMovePoints) {
         this.remainingMovePoints.set(remainingMovePoints);
+        return this;
     }
 
     public boolean isSelected() {
