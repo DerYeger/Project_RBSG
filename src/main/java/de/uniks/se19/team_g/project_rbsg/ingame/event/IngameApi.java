@@ -20,19 +20,10 @@ public class IngameApi {
     }
 
     public void move(@NonNull final Unit unit, @NonNull final Tour tour) {
-        unit.setRemainingMovePoints(unit.getRemainingMovePoints() - tour.getCost());
-        if (unit.getRemainingMovePoints() == 0)
-        {
-            unit.clearSelection();
-        }
         gameEventManager.sendMessage(CommandBuilder.moveUnit(unit, tour.getPath()));
-        unit.getGame().setInitiallyMoved(true);
     }
 
     public void attack(Unit attacker, Unit target) {
-        attacker.setAttackReady(false)
-                .getGame()
-                .setSelectedUnit(null);
         gameEventManager.sendMessage(buildAttack(attacker, target));
     }
 

@@ -14,6 +14,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -141,6 +143,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<String> phaseChangedListener = this::phaseChanged;
 
     private Skynet skynet;
+    private ActionExecutor actionExecutor;
 
     @Autowired
     public BattleFieldController(
@@ -598,14 +601,13 @@ public class BattleFieldController implements RootController, IngameViewControll
                         || Objects.isNull(selectedUnit)
                         || selectedUnit.getLeader() != context.getUserPlayer()
                         || !selectedUnit.canAttack(targetUnit)
+                        || targetUnit == null
         )
         {
             return false;
         }
 
-        context.getGameEventManager().api().attack(selectedUnit, targetUnit);
-
-        tileDrawer.drawTile(targetUnit.getPosition().getTile());
+        actionExecutor.execute(new AttackAction(selectedUnit, targetUnit));
 
         return true;
     }
@@ -650,7 +652,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             return false;
         }
 
-        context.getGameEventManager().api().move(selectedUnit, tour);
+        actionExecutor.execute(new MovementAction(selectedUnit, tour));
 
         return true;
     }
@@ -797,6 +799,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             e.printStackTrace();
         }
 
+        initActionExecutor();
         initSkynet();
         initSkynetButtons();
     }
@@ -1086,9 +1089,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawMap(tileMap);
     }
 
-    private void initSkynet() {
-        final ActionExecutor actionExecutor = new ActionExecutor(context.getGameEventManager().api())
+    private void initActionExecutor() {
+        actionExecutor = new ActionExecutor(context.getGameEventManager().api())
                 .setTileDrawer(tileDrawer);
+    }
+
+    private void initSkynet() {
         skynet = new Skynet(actionExecutor,
                 game,
                 context.getUserPlayer())
