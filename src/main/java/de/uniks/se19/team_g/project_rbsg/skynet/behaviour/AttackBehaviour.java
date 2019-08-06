@@ -18,7 +18,8 @@ public class AttackBehaviour implements Behaviour {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public Optional<Action> apply(@NonNull final Game game, @NonNull final Player player) {
+    public Optional<Action> apply(@NonNull final Game game,
+                                  @NonNull final Player player) {
         try {
             final Tuple<Unit, Unit> tuple = player
                     .getUnits()
