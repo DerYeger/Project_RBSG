@@ -42,12 +42,12 @@ public class MovementBehaviour implements Behaviour {
         return player
                 .getUnits()
                 .stream()
-                .filter(this::isMoveableUnit)
+                .filter(this::isMovableUnit)
                 .findFirst()
-                .orElseThrow(() -> new MovementBehaviourException("No unit has remaining MP"));
+                .orElseThrow(() -> new MovementBehaviourException("No movable unit left"));
     }
 
-    private boolean isMoveableUnit(@NonNull final Unit unit) {
+    private boolean isMovableUnit(@NonNull final Unit unit) {
         return unit.getRemainingMovePoints() > 0 &&
                 unit
                 .getPosition()
