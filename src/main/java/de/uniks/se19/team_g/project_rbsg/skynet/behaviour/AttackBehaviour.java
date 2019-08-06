@@ -27,7 +27,7 @@ public class AttackBehaviour implements Behaviour {
                     .map(unit -> new Tuple<>(unit, getAttackTarget(unit)))
                     .filter(t -> t.first != t.second)
                     .findFirst()
-                    .orElseThrow(() -> new AttackBehaviourException("message"));
+                    .orElseThrow(() -> new AttackBehaviourException("No unit can attack"));
             return Optional.of(new AttackAction(tuple.first, tuple.second));
         } catch (final AttackBehaviourException e) {
             logger.info(e.getMessage());
