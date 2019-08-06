@@ -24,6 +24,7 @@ public class AttackBehaviour implements Behaviour {
             final Tuple<Unit, Unit> tuple = player
                     .getUnits()
                     .stream()
+                    .filter(unit -> unit.attackReadyProperty().get())
                     .map(unit -> new Tuple<>(unit, getAttackTarget(unit)))
                     .filter(t -> t.first != t.second)
                     .findFirst()
@@ -39,7 +40,7 @@ public class AttackBehaviour implements Behaviour {
         return unit
                 .getNeighbors()
                 .stream()
-                .filter(other -> !other.getLeader().equals(unit.getLeader()))
+                .filter(unit::canAttack)
                 .findFirst()
                 .orElse(unit);
     }
