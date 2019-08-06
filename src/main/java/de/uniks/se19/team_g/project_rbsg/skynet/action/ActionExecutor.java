@@ -14,4 +14,8 @@ public class ActionExecutor {
     public void execute(@NonNull final MovementAction action) {
         api.move(action.unit, action.tour);
     }
+
+    public void execute(@NonNull final AttackAction action) {
+        api.attack(action.unit, action.target);
+    }
 }
