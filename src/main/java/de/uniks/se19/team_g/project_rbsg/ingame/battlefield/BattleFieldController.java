@@ -650,16 +650,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             return false;
         }
 
-        Map<String, Object> command = CommandBuilder.moveUnit(selectedUnit, tour.getPath());
-        game.setInitiallyMoved(true);
-        selectedUnit.setRemainingMovePoints(
-                selectedUnit.getRemainingMovePoints() - tour.getCost()
-        );
-        if (selectedUnit.getRemainingMovePoints() == 0)
-        {
-            selectedUnit.clearSelection();
-        }
-        context.getGameEventManager().sendMessage(command);
+        context.getGameEventManager().api().move(selectedUnit, tour);
 
         return true;
     }
@@ -1096,7 +1087,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initSkynet() {
-        skynet = new Skynet(new ActionExecutor(context.getGameEventManager()), game, context.getUserPlayer());
+        skynet = new Skynet(new ActionExecutor(context.getGameEventManager().api()), game, context.getUserPlayer());
     }
 
     private void initSkynetButtons() {
