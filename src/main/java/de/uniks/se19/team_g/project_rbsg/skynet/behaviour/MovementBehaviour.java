@@ -95,7 +95,7 @@ public class MovementBehaviour implements Behaviour {
     }
 
     private Double smallestDistance(@NonNull final Cell cell,
-                               @NonNull final ArrayList<Cell> enemyPositions) {
+                                    @NonNull final ArrayList<Cell> enemyPositions) {
         return enemyPositions
                 .stream()
                 .mapToDouble(other -> distance(cell, other))
