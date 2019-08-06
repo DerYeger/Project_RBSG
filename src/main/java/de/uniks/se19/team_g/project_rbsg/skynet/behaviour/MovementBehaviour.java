@@ -8,13 +8,19 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.BehaviourException;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.MovementBehaviourException;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class MovementBehaviour implements Behaviour {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public Optional<Action> apply(@NonNull final Game game,
@@ -26,42 +32,42 @@ public class MovementBehaviour implements Behaviour {
             final Cell target = getOptimalTarget(getEnemyPositions(game, player), allowedTours);
 
             return Optional.of(new MovementAction(unit, allowedTours.get(target).getPath()));
-        } catch (final BehaviourException ignored) {
-            
+        } catch (final BehaviourException e) {
+            logger.info(e.getMessage());
         }
         return Optional.empty();
     }
 
-    private Unit getFirstUnitWithRemainingMP(@NonNull final Player player) throws BehaviourException {
+    private Unit getFirstUnitWithRemainingMP(@NonNull final Player player) throws MovementBehaviourException {
         return player
                 .getUnits()
                 .stream()
                 .filter(u -> u.getRemainingMovePoints() > 0)
                 .findFirst()
-                .orElseThrow(BehaviourException::new);
+                .orElseThrow(() -> new MovementBehaviourException("No unit has remaining MP"));
     }
 
     private ArrayList<Cell> getEnemyPositions(@NonNull final Game game,
-                                              @NonNull final Player player) throws BehaviourException {
+                                              @NonNull final Player player) throws MovementBehaviourException {
         final ArrayList<Cell> enemyPositions = game
                 .getUnits()
                 .stream()
                 .filter(u -> !u.getLeader().equals(player))
                 .map(Unit::getPosition)
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (enemyPositions.size() < 1) throw new BehaviourException();
+        if (enemyPositions.size() < 1) throw new MovementBehaviourException("No enemy units present");
         return enemyPositions;
     }
 
     private Cell getOptimalTarget(@NonNull final ArrayList<Cell> enemyPositions,
-                                  @NonNull final Map<Cell, Tour> allowedTours) throws BehaviourException {
+                                  @NonNull final Map<Cell, Tour> allowedTours) throws MovementBehaviourException {
         return allowedTours
                 .keySet()
                 .stream()
                 .map(cell -> new Tuple<>(cell, distanceSum(cell, enemyPositions)))
                 .filter(pair -> pair.second > 0)
                 .min(Comparator.comparingDouble(p -> p.second))
-                .orElseThrow(BehaviourException::new)
+                .orElseThrow(() -> new MovementBehaviourException("No target cell found"))
                 .first;
     }
 
