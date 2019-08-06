@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TestGameBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
@@ -11,8 +10,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class AttackBehaviourTests {
 
@@ -34,5 +32,20 @@ public class AttackBehaviourTests {
 
         assertEquals(unit, attackAction.unit);
         assertEquals(definition.otherUnit, attackAction.target);
+    }
+
+    @Test
+    public void testAttackBehaviourException() {
+        final Player player = new Player("skynet");
+        final Unit unit = new Unit("testUnit")
+                .setRemainingMovePoints(0);
+        final TestGameBuilder.Definition definition = TestGameBuilder.skynetMoveTestGame(player, unit);
+        final Game game = definition.game;
+
+        final AttackBehaviour attackBehaviour = new AttackBehaviour();
+
+        final Optional<Action> action = attackBehaviour.apply(game, player);
+
+        assertFalse(action.isPresent());
     }
 }
