@@ -258,8 +258,9 @@ public class Unit implements Selectable, Hoverable {
         return attackReady;
     }
 
-    public void setAttackReady(boolean attackReady) {
+    public Unit setAttackReady(boolean attackReady) {
         this.attackReady.set(attackReady);
+        return this;
     }
 
     public ArrayList<Unit> getNeighbors() {
