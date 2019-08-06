@@ -604,8 +604,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         context.getGameEventManager().api().attack(selectedUnit, targetUnit);
-        selectedUnit.setAttackReady(false);
-        game.setSelectedUnit(null);
 
         tileDrawer.drawTile(targetUnit.getPosition().getTile());
 
@@ -1089,7 +1087,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initSkynet() {
-        skynet = new Skynet(new ActionExecutor(context.getGameEventManager().api()),
+        final ActionExecutor actionExecutor = new ActionExecutor(context.getGameEventManager().api())
+                .setTileDrawer(tileDrawer);
+        skynet = new Skynet(actionExecutor,
                 game,
                 context.getUserPlayer())
         .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")

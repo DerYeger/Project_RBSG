@@ -30,6 +30,9 @@ public class IngameApi {
     }
 
     public void attack(Unit attacker, Unit target) {
+        attacker.setAttackReady(false)
+                .getGame()
+                .setSelectedUnit(null);
         gameEventManager.sendMessage(buildAttack(attacker, target));
     }
 
