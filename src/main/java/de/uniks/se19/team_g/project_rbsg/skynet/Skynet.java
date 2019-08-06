@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import org.springframework.lang.NonNull;
@@ -29,11 +30,10 @@ public class Skynet {
 
     public void turn() {
         final Optional<Action> action = currentBehaviour.apply(game, player);
-        if (action.isPresent()) {
-            actionExecutor.execute(action.get());
-        } else {
+        if (action.isEmpty()) {
             //ignore for now
+        } else if (action.get() instanceof MovementAction) {
+            actionExecutor.execute((MovementAction) action.get());
         }
-
     }
 }
