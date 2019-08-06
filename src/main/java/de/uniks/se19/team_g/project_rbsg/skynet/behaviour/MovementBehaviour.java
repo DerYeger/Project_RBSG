@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import org.springframework.lang.NonNull;
 
 import java.util.*;
@@ -57,16 +58,20 @@ public class MovementBehaviour implements Behaviour {
         return allowedTours
                 .keySet()
                 .stream()
-                .map(cell ->
-                        new Pair(
-                                cell,
-                                enemyPositions
-                                        .stream()
-                                        .mapToDouble(other -> distance(cell, other))
-                                        .sum()))
-                .min(Comparator.comparingDouble(p -> p.distanceSum))
+                .map(cell -> new Tuple<>(cell, distanceSum(cell, enemyPositions)))
+                .filter(pair -> pair.second > 0)
+                .min(Comparator.comparingDouble(p -> p.second))
                 .orElseThrow(BehaviourException::new)
-                .cell;
+                .first;
+    }
+
+    private Double distanceSum(@NonNull final Cell cell,
+                               @NonNull final ArrayList<Cell> enemyPositions) {
+        return enemyPositions
+                .stream()
+                .mapToDouble(other -> distance(cell, other))
+                .min()
+                .orElse(0);
     }
 
     private double distance(@NonNull final Cell first,
@@ -74,15 +79,5 @@ public class MovementBehaviour implements Behaviour {
         return Math.sqrt(
                 Math.pow(first.getX() - second.getX(), 2)
                         + Math.pow(first.getY() - second.getY(), 2));
-    }
-
-    private static class Pair {
-        final Cell cell;
-        final Double distanceSum;
-
-        Pair(@NonNull final Cell cell, @NonNull final Double distanceSum) {
-            this.cell = cell;
-            this.distanceSum = distanceSum;
-        }
     }
 }
