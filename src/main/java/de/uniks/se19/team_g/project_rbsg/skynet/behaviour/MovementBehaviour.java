@@ -64,14 +64,14 @@ public class MovementBehaviour implements Behaviour {
         return allowedTours
                 .keySet()
                 .stream()
-                .map(cell -> new Tuple<>(cell, distanceSum(cell, enemyPositions)))
+                .map(cell -> new Tuple<>(cell, smallestDistance(cell, enemyPositions)))
                 .filter(pair -> pair.second > 0)
                 .min(Comparator.comparingDouble(p -> p.second))
                 .orElseThrow(() -> new MovementBehaviourException("No target cell found"))
                 .first;
     }
 
-    private Double distanceSum(@NonNull final Cell cell,
+    private Double smallestDistance(@NonNull final Cell cell,
                                @NonNull final ArrayList<Cell> enemyPositions) {
         return enemyPositions
                 .stream()
