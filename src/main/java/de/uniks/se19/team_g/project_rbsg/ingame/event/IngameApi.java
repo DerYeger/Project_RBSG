@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.Nonnull;
 
@@ -15,6 +17,16 @@ public class IngameApi {
 
     public GameEventManager getGameEventManager() {
         return gameEventManager;
+    }
+
+    public void move(@NonNull final Unit unit, @NonNull final Tour tour) {
+        unit.setRemainingMovePoints(unit.getRemainingMovePoints() - tour.getCost());
+        if (unit.getRemainingMovePoints() == 0)
+        {
+            unit.clearSelection();
+        }
+        gameEventManager.sendMessage(CommandBuilder.moveUnit(unit, tour.getPath()));
+        unit.getGame().setInitiallyMoved(true);
     }
 
     public void attack(Unit attacker, Unit target) {
