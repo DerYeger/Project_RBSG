@@ -23,7 +23,7 @@ public class AttackBehaviourTests {
 
         final AttackBehaviour attackBehaviour = new AttackBehaviour();
 
-        final Optional<Action> action = attackBehaviour.apply(game, player);
+        final Optional<AttackAction> action = attackBehaviour.apply(game, player);
 
         assertTrue(action.isPresent());
         assertTrue(action.get() instanceof AttackAction);
@@ -44,7 +44,7 @@ public class AttackBehaviourTests {
 
         final AttackBehaviour attackBehaviour = new AttackBehaviour();
 
-        final Optional<Action> action = attackBehaviour.apply(game, player);
+        final Optional<AttackAction> action = attackBehaviour.apply(game, player);
 
         assertFalse(action.isPresent());
     }

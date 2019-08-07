@@ -25,7 +25,7 @@ public class MovementBehaviourTests {
 
         final MovementBehaviour movementBehaviour = new MovementBehaviour();
 
-        final Optional<Action> action = movementBehaviour.apply(game, player);
+        final Optional<MovementAction> action = movementBehaviour.apply(game, player);
 
         assertTrue(action.isPresent());
         assertTrue(action.get() instanceof MovementAction);
@@ -50,7 +50,7 @@ public class MovementBehaviourTests {
 
         final MovementBehaviour movementBehaviour = new MovementBehaviour();
 
-        final Optional<Action> action = movementBehaviour.apply(game, player);
+        final Optional<MovementAction> action = movementBehaviour.apply(game, player);
 
         assertFalse(action.isPresent());
     }
