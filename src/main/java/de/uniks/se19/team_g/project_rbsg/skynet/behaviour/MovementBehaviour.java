@@ -23,7 +23,7 @@ public class MovementBehaviour implements Behaviour {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public Optional<Action> apply(@NonNull final Game game,
+    public Optional<MovementAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
             final Unit unit = getFirstUnitWithRemainingMP(player);
