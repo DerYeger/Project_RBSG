@@ -60,14 +60,14 @@
 \contentsline {paragraph}{\nonumberline Ziel und Subtasks}{34}{section*.67}% 
 \contentsline {subsubsection}{\numberline {3.2.7}Ingame - Spielstatus anzeigen}{34}{subsubsection.3.2.7}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{34}{section*.68}% 
-\contentsline {paragraph}{\nonumberline Story}{35}{section*.69}% 
+\contentsline {paragraph}{\nonumberline Story}{34}{section*.69}% 
 \contentsline {paragraph}{\nonumberline Ziel und Subtasks}{35}{section*.70}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{35}{section*.71}% 
 \contentsline {paragraph}{\nonumberline Ergebnis}{35}{section*.72}% 
 \contentsline {subsubsection}{\numberline {3.2.8}Ingame - Minikarte anzeigen}{35}{subsubsection.3.2.8}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{35}{section*.73}% 
 \contentsline {paragraph}{\nonumberline Story}{35}{section*.74}% 
-\contentsline {paragraph}{\nonumberline Ziel und Subtasks}{36}{section*.75}% 
+\contentsline {paragraph}{\nonumberline Ziel und Subtasks}{35}{section*.75}% 
 \contentsline {paragraph}{\nonumberline Verlauf}{36}{section*.76}% 
 \contentsline {paragraph}{\nonumberline Stand}{36}{section*.77}% 
 \contentsline {subsubsection}{\numberline {3.2.9}Ingame - Chatintegration}{36}{subsubsection.3.2.9}% 
@@ -76,7 +76,7 @@
 \contentsline {paragraph}{\nonumberline Ziel und Subtasks}{36}{section*.80}% 
 \contentsline {subsubsection}{\numberline {3.2.10}Ingame - Game Over}{36}{subsubsection.3.2.10}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{36}{section*.81}% 
-\contentsline {paragraph}{\nonumberline Story}{37}{section*.82}% 
+\contentsline {paragraph}{\nonumberline Story}{36}{section*.82}% 
 \contentsline {paragraph}{\nonumberline Ziel und Subtasks}{37}{section*.83}% 
 \contentsline {subsubsection}{\numberline {3.2.11}Ingame - Game Won}{37}{subsubsection.3.2.11}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{37}{section*.84}% 
@@ -86,8 +86,8 @@
 \contentsline {paragraph}{\nonumberline Zuteilung}{37}{section*.87}% 
 \contentsline {paragraph}{\nonumberline Story}{37}{section*.88}% 
 \contentsline {paragraph}{\nonumberline Ziel und Subtasks}{37}{section*.89}% 
-\contentsline {subsubsection}{\numberline {3.2.13}Lobby - Spectating}{38}{subsubsection.3.2.13}% 
-\contentsline {paragraph}{\nonumberline Zuteilung}{38}{section*.90}% 
+\contentsline {subsubsection}{\numberline {3.2.13}Lobby - Spectating}{37}{subsubsection.3.2.13}% 
+\contentsline {paragraph}{\nonumberline Zuteilung}{37}{section*.90}% 
 \contentsline {paragraph}{\nonumberline Story}{38}{section*.91}% 
 \contentsline {paragraph}{\nonumberline Ziel und Subtasks}{38}{section*.92}% 
 \contentsline {subsubsection}{\numberline {3.2.14}Ingame - Spectating}{38}{subsubsection.3.2.14}% 

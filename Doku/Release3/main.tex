@@ -88,7 +88,7 @@
     	\vspace{0.3cm} \newline
         Das Modul ist in vier Releases mit jeweils zwei Sprints unterteilt. Das Projekt begann am 13.5.2019 und wird bis zum 1.9.2019 laufen. Ein Client f"ur einen Klon vom Klassiker \glqq Advanced Wars\grqq\ soll entwickelt werden. Dabei ist das Team "uber die vier Releases immer in einen Scrum Master, einen Product Owner und mehrere Developer eingeteilt.
         \vspace{0.3cm} \newline
-        Die Dokumentation umfasst eine Einleitung in das Release, Zusammenfassuneng beider Sprints und eine abschlie"sende Releaseanalyse. In der Einleitung werden die Anforderungen des Kunden, der letzte Standpunkt und die Mockups erl"autert. In den Sprintdokumentationen werden jeweils kurz das Ziel dargelegt und alle User Stories, Tasks oder Bugs aufgelistet. Am Ende gibt es eine Zeit\"ubersicht mit einer Analyse des Sprints. Das letzte Kapitel mit der Releaseanalyse zeigt auf, ob das Resultat den Anforderungen entspricht und ob das Team effektiv arbeitete.
+        Die Dokumentation umfasst eine Einleitung in das Release, Zusammenfassungen beider Sprints und eine abschlie"sende Releaseanalyse. In der Einleitung werden die Anforderungen des Kunden, der letzte Standpunkt und die Mockups erl"autert. In den Sprintdokumentationen werden jeweils kurz das Ziel dargelegt und alle User Stories, Tasks oder Bugs aufgelistet. Am Ende gibt es eine Zeit\"ubersicht mit einer Analyse des Sprints. Das letzte Kapitel mit der Releaseanalyse zeigt auf, ob das Resultat den Anforderungen entspricht und ob das Team effektiv arbeitete.
     \newpage
     \tableofcontents
     \newpage
@@ -233,7 +233,7 @@
     				\label{Lobby_Language}
 			    \end{figure}
 		    \subsubsection{Army Manager}
-		        Im Army Manager gab es eine Liste der Einheiten, die der Nutzer w"ahlen konnte, und eine Liste der Einheiten, die sich der aktuell ausgew"ahlten Armee befanden. In der Mitte stand der Name der ausgew"ahlten Armee, ein Plus (+) und ein Minus (-) Button, um Einheiten der Armee hinzuzuf"ugen oder um sie zu entfernen und ein Z"ahler, der anzeigte, wie viele Einheiten bereits in der Armee waren. Neben der Einheitenliste war eine Vorschau der aktuell ausgew"ahlten Einheit. Neben diesem Feld wurden die Eigenschaften der Einheit angezeigt und welche Einheitentypen die ausgew"ahlte Einheit angreifen konnte. War keine Einheit ausgew\"ahlt wurden Platzhalter angezeigt (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), ansonsten Zahlenwerte (siehe Abbildung \ref{Army_Manager_Unit_Selected}). \\
+		        Im Army Manager gab es eine Liste der Einheiten, die der Nutzer w"ahlen konnte, und eine Liste der Einheiten, die sich in der aktuell ausgew"ahlten Armee befanden. In der Mitte stand der Name der ausgew"ahlten Armee, ein Plus (+) und ein Minus (-) Button, um Einheiten der Armee hinzuzuf"ugen oder um sie zu entfernen und ein Z"ahler, der anzeigte, wie viele Einheiten bereits in der Armee waren. Neben der Einheitenliste war eine Vorschau der aktuell ausgew"ahlten Einheit. Neben diesem Feld wurden die Eigenschaften der Einheit angezeigt und welche Einheitentypen die ausgew"ahlte Einheit angreifen konnte. War keine Einheit ausgew\"ahlt wurden Platzhalter angezeigt (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), ansonsten Zahlenwerte (siehe Abbildung \ref{Army_Manager_Unit_Selected}). \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/NoUnitSelected.png}
@@ -262,7 +262,7 @@
                         \label{Edit_Army}
                     \end{minipage}
                 \end{figure}
-                \ \\ Der Speichern Button blieb deaktiviert (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}) bis die Armee ver\"andert wurde (siehe Abbildung \ref{Army_Manager_Ready_To_Save}). Ein weiterer Button erm\"oglichte das "Andern des Armeenamens oder -icons. Dazu "offnete sich ein weiteres Overlay (siehe Abbildung \ref{Edit_Army}). \\
+                \ \\ Der Speichern Button blieb deaktiviert (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), bis die Armee ver\"andert wurde (siehe Abbildung \ref{Army_Manager_Ready_To_Save}). Ein weiterer Button erm\"oglichte das "Andern des Armeenamens oder -icons. Dazu "offnete sich ein weiteres Overlay (siehe Abbildung \ref{Edit_Army}). \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/ArmyReadyToSave.png}
@@ -270,7 +270,7 @@
     				\label{Army_Manager_Ready_To_Save}
 			    \end{figure}
 	        \subsubsection{Warteraum} \label{WAITING_ROOM}
-                Trat der Nutzer dem Warteraum bei sah er oben rechts verschiedene Buttons zum Verlassen des Spiels, zum Ein- und Ausschalten der Musik und zum Anzeigen von Informationen. \\
+                Trat der Nutzer dem Warteraum bei, sah er oben rechts verschiedene Buttons zum Verlassen des Spiels, zum Ein- und Ausschalten der Musik und zum Anzeigen von Informationen. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/2Player.png}
@@ -283,7 +283,7 @@
     				\caption{Release \RN{2}: Warteraumszene: 4 Spieler}
     				\label{Waiting_Room_4}
 			    \end{figure}
-			    \ \\  Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise zum Spielfeld. Oben in der Mitte wurde die Kartenvorschau angezeigt.  Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten befanden sich der Name und die Farbe des jeweiligen Spielers. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Darunter war der Chat und daneben eine freies Feld f"ur ein Minispiel, welches noch implementiert werden sollte.
+			    \ \\  Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise zum Spielfeld. Oben in der Mitte wurde die Kartenvorschau angezeigt. Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten befanden sich der Name und die Farbe des jeweiligen Spielers. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Darunter war der Chat und daneben eine freies Feld f"ur ein Minispiel, welches noch implementiert werden sollte.
 	        \subsubsection{Ingame}
 	            Die Spielszene zeigte bisher nur die Karte und das initiale Spielgeschehen. Die initialen Einheiten wurden ebenfalls angezeigt. Weiterhin gab es einen Button zum Verlassen des Spiels. Zwei weitere Buttons kontrollierten das Zoomen auf dem Spielfeld (siehe Abbildung \ref{Ingame}, \ref{Ingame_In} und \ref{Ingame_Out}). \\
 	            \begin{figure}[H] 
@@ -353,7 +353,7 @@
     				\label{Watch_Mode}
 			    \end{figure}
 		    \subsubsection{Warteraum}
-		        Da der Warteraum im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Setzen von Spielern als bereit hinzugef"ugt werden. Dies sollte passieren, wenn der Nuzter eine Armee ausw"ahlte (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Warteraum umgezogen werden. Spielerkarten von bereiten Spielern solltenfarblich hervorgehoben werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler bereit waren, sollte ein Overlay angezeigt werden, in dem ein Indikator lud, bis zur Spielszene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den Mockups waren auch zwei optionale Features, das TicTacToe Spiel unten rechts und der Spielname in der Mitte des Spiels (siehe auf den Mockups mit Beispielnamen \glqq Enhanced Wars\grqq), zu sehen. \\
+		        Da der Warteraum im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Setzen von Spielern als bereit hinzugef"ugt werden. Dies sollte passieren, wenn der Nuzter eine Armee ausw"ahlte (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Warteraum umgezogen werden. Spielerkarten von bereiten Spielern sollten farblich hervorgehoben werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler bereit waren, sollte ein Overlay angezeigt werden, in dem ein Indikator lud, bis zur Spielszene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den Mockups waren auch zwei optionale Features, das TicTacToe Spiel unten rechts und der Spielname in der Mitte des Spiels (siehe auf den Mockups mit Beispielnamen \glqq Enhanced Wars\grqq), zu sehen. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockups/NotReady.png}
@@ -389,7 +389,7 @@
     				    \caption{Mockup: Phase 1: Ausw"ahlen}
     				    \label{Select_1}
 			        \end{figure}
-			        \ \\ Nachdem alle drei Phasen vom aktiven Spieler beendet wurden, war die Runde des Spielers vorbei. Wenn der Nutzer selbst an der Reihe war und in einer seiner drei Phasen auf eine Einheit klickte, sollte der Bewegungsradius oder Angriffsradius angezeigt werden. Klickte der Nutzer wieder auf die bereits ausgew"ahlte Einheit, auf eine andere Einheit oder auf ein freies Feld sollte die Einheit nicht mehr ausgew"ahlt sein. \\
+			        \ \\ Nachdem alle drei Phasen vom aktiven Spieler beendet wurden, war die Runde des Spielers vorbei. Wenn der Nutzer selbst an der Reihe war und in einer seiner drei Phasen auf eine Einheit klickte, sollte der Bewegungsradius oder Angriffsradius angezeigt werden. Klickte der Nutzer wieder auf die bereits ausgew"ahlte Einheit, auf eine andere Einheit oder auf ein freies Feld, sollte die Einheit nicht mehr ausgew"ahlt sein. \\
                     \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockups/Select3.png}
@@ -523,13 +523,13 @@
 		         		Die Tasks der User Story umfassen zum Gro"steil die Domain Story Spielstart. Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit waren.
 	                	\begin{enumerate}[label={}]
 		                	\item \textbf{Armeeauswahl im Warteraum} \hspace{5pt} Die Armeeauswahl soll nur im Warteraum m"oglich sein. Daf"ur muss sie aus der Lobby entfernt und von der Armeeauswahl des Army Managers getrennt werden. Das Deaktivieren der Join/Create Game Buttons muss so angepasst werden, dass diese nur deaktiviert sind, wenn der Spieler keine einzige g"ultige Armee besitzt.
-		                	\item \textbf{Ready-Funktionalit"at} \hspace{5pt} Spieler, die bereit sind, sollen im Warteraum hervorgehoben werden. W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
+		                	\item \textbf{Bereit-Funktionalit"at} \hspace{5pt} Spieler, die bereit sind, sollen im Warteraum hervorgehoben werden. W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
 		                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den IngameController zur Verf"ugung stehen. Bei einem Wechsel zur Lobby oder beim Schlie"sen der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.
 	                \end{enumerate}
                 \paragraph{Verlauf}
                 	Diese Story nahm circa acht Stunden mehr als erwartet in Anspruch. Das lag daran, dass das Trennen der neuen Box von der optisch identischen Armeeauswahlbox im Army Manager l"anger als gedacht dauerte. Dabei musste auch die neue Funktionalit"at des Bereitsetztens im Warteraum hergestellt werden.
                 \paragraph{Ergebnis}
-                	Der Spielstart funktionierte wie gew"unscht. Wenn der Server ein Ready eines Spielers sandte oder der Nutzer eine Armee ausw"ahlte, wurde seine Spielerkarte in der selected color markiert und das Spiel startete, sobald alle Spieler bereit waren. Es fehlte nur noch ein Lade-Indikator, bis der Sever das Spiel startete und ein Szenenwechsel stattfand. Weiterhin musste die Armeeauswahlbox noch auf die richtige Gr"o"se angepasst werden. Zu diesen beiden Aufgaben wurden Stories erstellt.
+                	Der Spielstart funktionierte wie gew"unscht. Wenn der Server ein Bereit eines Spielers sandte oder der Nutzer eine Armee ausw"ahlte, wurde seine Spielerkarte in der selected color markiert und das Spiel startete, sobald alle Spieler bereit waren. Es fehlte nur noch ein Lade-Indikator, bis der Sever das Spiel startete und ein Szenenwechsel stattfand. Weiterhin musste die Armeeauswahlbox noch auf die richtige Gr"o"se angepasst werden. Zu diesen beiden Aufgaben wurden Stories erstellt.
             \subsubsection{Ingame - Spielfeld}
 	            \paragraph{Zuteilung}
 	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
@@ -1172,7 +1172,7 @@
     				\label{Fixed_Bugs_6}
     			\end{figure}
     		\subsubsection{Angefangene Bugtasks}
-    			Es gab jedoch zwei Bugs, welche im Release \RN{3} nicht behoben werden konnten (siehe Abbildung \ref{Open_Bugs_6}). Diese waren \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq und \glqq CSS Fehler\grqq. Der Wechsel zum Spielfeld konnte nicht behoben werden, da ein Serverupdate n\"otig war welches nicht mehr im Release \RN{3} stattfand. Der CSS Fehler konnte mangels Entwicklungszeit nicht mehr behoben werden. Zudem trat am Ende des Release \RN{3} ein neuer Bug auf f\"ur den kein Issue mehr erstellt wurde. Dabei handelt es sich um einen Fehler welcher beim Verlassen eines Spiels unter bestimmten Umst\"anden auftrat, jedoch nicht zu einem Absturz der Anwendung f\"uhrte.
+    			Es gab jedoch zwei Bugs, welche im Release \RN{3} nicht behoben werden konnten (siehe Abbildung \ref{Open_Bugs_6}). Diese waren \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq und \glqq CSS Fehler\grqq. Der Wechsel zum Spielfeld konnte nicht behoben werden, da ein Serverupdate n\"otig war welches nicht mehr im Release \RN{3} stattfand. Der CSS Fehler konnte mangels fehlender Entwicklungszeit nicht mehr behoben werden. Zudem trat am Ende des Release \RN{3} ein neuer Bug auf f\"ur den kein Issue mehr erstellt wurde. Dabei handelt es sich um einen Fehler welcher beim Verlassen eines Spiels unter bestimmten Umst\"anden auftrat, jedoch nicht zu einem Absturz der Anwendung f\"uhrte.
     			\begin{figure}[H]
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/sprintVI/openBugs.png}
@@ -1189,7 +1189,7 @@
 	    		\end{figure} 
 	\newpage
 	\section{Abschluss Release \RN{3}}
-		Das dritte Release endete am 4.8.2018. Im letzten Kapitel werden die Mockups mit der aktuellen Implementation verglichen. Dabei wird insbesondere auf Unterschiede und fehlende Features eingegangen. Es werden jeweils das Mockup gezeigt und ein Bild vom Endstand des Releases gezeigt. "Uber dem Mockup stehen die gesetzten Ziele und "uber dem Endstand der Vergleich.
+		Das dritte Release endete am 4.8.2018. Im letzten Kapitel werden die Mockups mit der aktuellen Implementation verglichen. Dabei wird insbesondere auf Unterschiede und fehlende Features eingegangen. Es werden jeweils das Mockup und ein Bild vom Endstand des Releases gezeigt. "Uber dem Mockup stehen die gesetzten Ziele und "uber dem Endstand der Vergleich.
 		\subsection{Lobby}
 			Es wurde gefordert, einem Spiel als Beobachter beitreten zu k"onnen. Au{\ss}erdem sollte die Armeeauswahlbox entfernt werden.
 			\begin{figure}[H] 
@@ -1207,7 +1207,7 @@
 				\label{End_Watch_Mode}
 			\end{figure}
 		\subsection{Warteraum}
-			Es wurde gefordert, ein Ready Signal senden zu k"onnen. Die Spielerkarten von bereiten Spielern sollten farblich hervorgehoben werden. Icon und Spielername sollten sich schwarz f"arben. Die Armeeauswahlbox sollte von der Lobby in den Warteraum umgezogen werden. Optional waren das TicTacToe Spiel und der Spielname oben in der Mitte der Szene.
+			Es wurde gefordert, ein Bereit Signal senden zu k"onnen. Die Spielerkarten von bereiten Spielern sollten farblich hervorgehoben werden. Icon und Spielername sollten sich schwarz f"arben. Die Armeeauswahlbox sollte von der Lobby in den Warteraum umgezogen werden. Optional waren das TicTacToe Spiel und der Spielname oben in der Mitte der Szene.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/mockups/NotReady.png}
@@ -1304,7 +1304,7 @@
 						\label{End_Select_3_2}
 					\end{figure} 
 			\subsubsection{Einheit bewegen und angreifen}
-				Das Ausw"ahlen der Einheiten funktionierte wie vorgesehen. In den Bewegungsphasen blieben die Einheiten ausgew"ahlt, wenn noch Bewegungspunkte "ubrig waren, wie schon im vorherigen Kapitel beschrieben. Die Mockups von Einheit bewegen und angreifen wurden allerdings nicht umgesetzt (siehe Kapitel 2.3.3.2 und 2.3.3.3). Geplant war es, die Buttons zum Best"atigen undAbbrechen in der Sidebar zu benutzen, um Aktionen kontrollierter zu steuern. Wenn der Nutzer eine Einheit bewegen oder angreifen wollte, sollte zur Best"atigung ein Icon auf dem Feld erscheinen, auf das der Nutzer laufen wollte oder eine Einheit angreifen wollte. Die Buttons in der Sidebar waren also zum Ende des Releases ohne Funktion, aber die User Stories daf"ur wurden mit ins n"achste Release "ubernommen.
+				Das Ausw"ahlen der Einheiten funktionierte wie vorgesehen. In den Bewegungsphasen blieben die Einheiten ausgew"ahlt, wenn noch Bewegungspunkte "ubrig waren, wie schon im vorherigen Kapitel beschrieben. Die Mockups von Einheit bewegen und angreifen wurden allerdings nicht umgesetzt (siehe Kapitel 2.3.3.2 und 2.3.3.3). Geplant war es, die Buttons zum Best"atigen und Abbrechen in der Sidebar zu benutzen, um Aktionen kontrollierter zu steuern. Wenn der Nutzer eine Einheit bewegen oder angreifen wollte, sollte zur Best"atigung ein Icon auf dem Feld erscheinen, auf das der Nutzer laufen wollte oder eine Einheit angreifen wollte. Die Buttons in der Sidebar waren also zum Ende des Releases ohne Funktion, aber die User Stories daf"ur wurden mit ins n"achste Release "ubernommen.
 			\subsubsection{Spielende}
 				Wenn ein Spieler aus dem Spiel ausschied, sollte sich Icon und Name auf seiner Spielerkarte schwarz f"arben. Dies wurde umgesetzt (siehe beispielsweise Abbildung \ref{End_Game_Won} oder \ref{End_Spectator_End}). Des Weiteren sollten bei den verschiedenen Spielenden verschiedene Overlays angezeigt werden.
 				\subsubsubsection{Spiel gewonnen}
@@ -1371,7 +1371,7 @@
 				\subsubsubsection{Weitere hinzugekommene Features}
 					Es gab mehrere neue Features, die im Verlauf des Releases \RN{3} hinzukamen, die in diesem Kapitel mit Mockups erw"ahnt werden sollen.
 					\vspace{0.3cm} \newline
-					Egal in welcher Phase der Nutzer sich befand oder ob ein Gegner an der Reihe war, es war immer m"oglich auf eine gegnerische Einheit zu klicken und alle m"oglichen Angriffsziele dieser ausgew"ahlten Einheit rot hinterlegt zu sehen. Nicht angreifbare Einheiten wurden grau hinterlegt (siehe Abbildung \ref{End_Select_Enemy}).
+					Egal in welcher Phase der Nutzer sich befand oder ob ein Gegner an der Reihe war, es war immer m"oglich, auf eine gegnerische Einheit zu klicken und alle m"oglichen Angriffsziele dieser ausgew"ahlten Einheit rot hinterlegt zu sehen. Nicht angreifbare Einheiten wurden grau hinterlegt (siehe Abbildung \ref{End_Select_Enemy}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/SelectEnemy.png}
