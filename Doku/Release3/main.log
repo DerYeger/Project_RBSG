@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  7 AUG 2019 13:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  7 AUG 2019 13:27
 entering extended mode
 **./main.tex
 (main.tex
@@ -4981,6 +4981,12 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 
+Overfull \hbox (5.62857pt too wide) in paragraph at lines 1043--1044
+\OT1/phv/m/n/12 (Confirm-Button), beim Info-Alert (Confirm-Button) und beim Pha
+-se be-en-den But-ton (Spiel-
+ []
+
+
 Overfull \hbox (18.93625pt too wide) in paragraph at lines 1047--1048
  []\OT1/phv/b/n/12 Ergebnis[] \OT1/phv/m/n/12 Al-le Alerts so-wie der Pha-se be
 -en-den But-ton lie-en sich mit der Best[]atigungstaste
@@ -5288,6 +5294,12 @@ I'll assume that you meant to say pt, for printer's points.
 To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
+
+
+Overfull \hbox (0.64989pt too wide) in paragraph at lines 1091--1092
+ []\OT1/phv/b/n/12 Problem[] \OT1/phv/m/n/12 W[]ahrend der Nut-zer sich im Spie
+l (Warteraum- oder Spiel-sze-ne) be-fand, konn-
+ []
 
 ! Missing number, treated as zero.
 <to be read again> 
@@ -6633,7 +6645,7 @@ cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
 /helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/f
 onts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (79 pages, 9189362 bytes).
+Output written on main.pdf (79 pages, 9189315 bytes).
 PDF statistics:
  2220 PDF objects out of 2487 (max. 8388607)
  499 named destinations out of 1000 (max. 500000)

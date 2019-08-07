@@ -289,19 +289,19 @@
 	            \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/Ingame.png}
-    				\caption{Release \RN{2}: Ingame Szene}
+    				\caption{Release \RN{2}: Spielszene}
     				\label{Ingame}
 			    \end{figure}
 			    \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/ZoomIn.png}
-    				\caption{Release \RN{2}: Ingame Szene: Zoom In}
+    				\caption{Release \RN{2}: Spielszene: Zoom In}
     				\label{Ingame_In}
 			    \end{figure}
 			    \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/ZoomOut.png}
-    				\caption{Release \RN{2}: Ingame Szene: Zoom Out}
+    				\caption{Release \RN{2}: Spielszene: Zoom Out}
     				\label{Ingame_Out}
 			    \end{figure}
 	\newpage
@@ -512,7 +512,7 @@
 	            \item Einheiten auszuw"ahlen, zu bewegen und anzugreifen
 	            \item Den Spielstatus zu sehen und Phasen zu beenden
 	        \end{itemize}
-	        Falls die Entwicklung schneller als erwartet voranschreiten sollte, w"urden der Ingamechat und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden "uber 80 Storypoints abgearbeitet werden, was bei vier Entwicklern als ein guter Fortschritt gewertet werden k"onnte.
+	        Falls die Entwicklung schneller als erwartet voranschreiten sollte, w"urden der Spielchat und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden "uber 80 Storypoints abgearbeitet werden, was bei vier Entwicklern als ein guter Fortschritt gewertet werden k"onnte.
 	    \subsection{User Stories} \label{User_Stories_5}
 	        Die User Stories, die vom Product Owner erstellt wurden, sind wie folgt aufgebaut: Dem Titel kann entnommen werden, zu welcher Szene die Story geh"orte. Anschlie"send werden die Story Points und der zugeteilte Entwickler genannt. Danach folgt die Story und das Ziel. Das Ziel fasst die Subtasks, die der Scrum Master erstellte, zusammen. Danach werden alle Subtasks aufgelistet. Falls die Story abgeschlossen wurde, wird der Verlauf und das Ergebnis dokumentiert. Falls die Story nur angefangen wurde, wird der Verlauf und der Stand dokumentiert.
 	        \subsubsection{Warteraum - Spielbeitritt anpassen}
@@ -525,7 +525,7 @@
 	                	\begin{enumerate}[label={}]
 		                	\item \textbf{Armeeauswahl im Warteraum} \hspace{5pt} Die Armeeauswahl soll nur im Warteraum m"oglich sein. Daf"ur muss sie aus der Lobby entfernt und von der Armeeauswahl des Army Managers getrennt werden. Das Deaktivieren der Join/Create Game Buttons muss so angepasst werden, dass diese nur deaktiviert sind, wenn der Spieler keine einzige g"ultige Armee besitzt.
 		                	\item \textbf{Ready-Funktionalit"at} \hspace{5pt} Spieler, die bereit sind, sollen im Warteraum hervorgehoben werden. W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
-		                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den Ingame Controller zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schlie"sen der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
+		                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den IngameController zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schlie"sen der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
 	                \end{enumerate}
                 \paragraph{Verlauf}
                 	Diese Story nahm circa acht Stunden mehr in Anspruch. Das lag daran, dass das Trennen der neuen Box von der optisch identischen Armeeauswahlbox im Army Manager l"anger als gedacht dauerte. Dabei musste auch die neue Funktionalit"at (unter anderem Arme ausgew"ahlt = Ready) im Warteraum hergestellt werden.
@@ -535,7 +535,7 @@
 	            \paragraph{Zuteilung}
 	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld (einer Einheit). Das Feld wird ausgew"ahlt.
+             		Karli befindet sich in der Spielszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld (einer Einheit). Das Feld wird ausgew"ahlt.
 	            \paragraph{Ziel und Subtasks}
 			   		Das Spielfeld sollte die Einheiten anzeigen. Jedes Feld musste anklickbar sein.
 	            	 \begin{enumerate}[label={}]
@@ -550,7 +550,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli klickt auf den Phase-Beenden Button. Die Phase wird beendet und die n"achste tritt ein (bzw. der n"achste Spieler ist an der Reihe).
+             		Karli befindet sich in der Spielszene. Karli klickt auf den Phase-Beenden Button. Die Phase wird beendet und die n"achste tritt ein (bzw. der n"achste Spieler ist an der Reihe).
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte einen Button geben, welcher bei Bet\"atigung die aktuelle Phase beendete. Dies sollte nur m\"oglich sein, wenn der Nutzer an der Reihe war.
 	            	\begin{enumerate}[label={}]
@@ -564,7 +564,7 @@
 	            \paragraph{Zuteilung}
 	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
               	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert.
+             		Karli befindet sich in der Spielszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. G"ultige Bewegungsziele werden blau und g"ultige Angriffsziele rot markiert.
 	            \paragraph{Ziel und Subtasks}
 	               	Durch Anklicken einer Einheit sollte diese ausgew\"ahlt werden. Danach musste die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befand.
 	           		\begin{enumerate}[label={}]
@@ -579,7 +579,7 @@
 	            \paragraph{Zuteilung}
 	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus, die Karli bewegen m"ochte. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt.
+             		Karli befindet sich in der Spielszene. Karli w"ahlt eine Einheit aus, die Karli bewegen m"ochte. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt.
 	            \paragraph{Ziel und Subtasks}
 				Die Tasks dieser Story setzten die Domain Story Bewegen um.
 	                	F\"ur die Bewegung einer Einheit sollte der k\"urzeste Pfad zum Zielfeld berechnet werden. Anschlie"send musste eine Nachricht an den Server gesendet und dessen Antwort korrekt verarbeitet werden.
@@ -598,7 +598,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli w"ahlt eine Einheit aus. Karli sieht alle Felder mit Einheiten in Rot, die angegriffen werden k"onnen. Karli w"ahlt eine gegnerische Einheit auf diesen Feldern aus. Die Einheit wird angegriffen.
+             		Karli befindet sich in der Spielszene. Karli w"ahlt eine Einheit aus. Karli sieht alle Felder mit Einheiten in Rot, die angegriffen werden k"onnen. Karli w"ahlt eine gegnerische Einheit auf diesen Feldern aus. Die Einheit wird angegriffen.
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte m\"oglich sein, gegnerische Einheiten anzugreifen. Entsprechende Nachrichten sollten an den Server gesendet und dessen Antworten korrekt verarbeitet werden.
             		\begin{enumerate}[label={}]
@@ -611,7 +611,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli sieht eine Runden- und Phasenanzeige. Karli klickt auf den Spieler-Anzeigen Button. Die Anzeige der Spieler wird eingeblendet. Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. Mockup).
+             		Karli befindet sich in der Spielszene. Karli sieht eine Runden- und Phasenanzeige. Karli klickt auf den Spieler-Anzeigen Button. Die Anzeige der Spieler wird eingeblendet. Der aktive Spieler ist hervorgehoben (in der selected-Color siehe Stylesheet bzw. Mockup).
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte einen Button zum Ein- und Ausblenden der Spielerinformationen implementiert werden. Der aktive Spieler sollte hervorgehoben werden.
 	            	\begin{enumerate}[label={}]
@@ -627,7 +627,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. In der rechten oberen Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt den Minikarte Button. Die Minikarte wird ausgeblendet.
+             		Karli befindet sich in der Spielszene. In der rechten oberen Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt den Minikarte Button. Die Minikarte wird ausgeblendet.
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte eine Minikarte implementiert werden, die \"uber einen Button ein- und ausgeblendet werden konnte.
 	            	\begin{enumerate}[label={}]
@@ -642,7 +642,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli dr"uckt den Chat-Einblenden Button. Der Chat wird angezeigt. Karli schreibt eine Nachricht. Die Nachricht wird im Chat f"ur alle Spieler im Spiel angezeigt. Bob schreibt eine Nachricht. Karli kann Bobs Nachricht lesen.
+             		Karli befindet sich in der Spielszene. Karli dr"uckt den Chat-Einblenden Button. Der Chat wird angezeigt. Karli schreibt eine Nachricht. Die Nachricht wird im Chat f"ur alle Spieler im Spiel angezeigt. Bob schreibt eine Nachricht. Karli kann Bobs Nachricht lesen.
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte einen Button zum Ein- und Ausblenden des Chats implementiert werden.
 	            	\begin{enumerate}[label={}]
@@ -653,7 +653,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karlis Playerkarte f\"arbt sich schwarz (Name und Icon). Karli sieht ein Overlay aufgehen, auf welchem Karli gefragt wird, ob Karli das Spiel weiter betrachten m\"ochte. Karli dr\"uckt den Cancel Button. Karli wechselt in die Lobby.
+             		Karli befindet sich in der Spielszene. Karlis Playerkarte f\"arbt sich schwarz (Name und Icon). Karli sieht ein Overlay aufgehen, auf welchem Karli gefragt wird, ob Karli das Spiel weiter betrachten m\"ochte. Karli dr\"uckt den Cancel Button. Karli wechselt in die Lobby.
 	            \paragraph{Ziel und Subtasks}
 	                Wenn der Nutzer verlor, sollte ein Overlay angezeigt werden. Auf diesem konnte er in die Lobby wechseln oder dem Spiel zuschauen.
 	            	\begin{enumerate}[label={}]
@@ -663,7 +663,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen. Karli wechselt in die Lobby.
+             		Karli befindet sich in der Spielszene. Karli besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen. Karli wechselt in die Lobby.
 	            \paragraph{Ziel und Subtasks}
                     Wenn der Nutzer gewann, sollte ein Overlay angezeigt werden, das ihn in die Lobby wechseln lie"s.
 	            	\begin{enumerate}[label={}]
@@ -673,7 +673,7 @@
              	\paragraph{Zuteilung}
              		Diese User Story wurde auf 2 Storypoints gesch\"atzt und an Tobias Klipp zugeteilt.
            		\paragraph{Story}
-           			Karli befindet sich in der Ingameszene. Bob besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen. Karli wechselt in die Lobby.
+           			Karli befindet sich in der Spielszene. Bob besiegt die letzte gegnerische Einheit. Karli sieht ein Overlay aufgehen. Karli wechselt in die Lobby.
              	\paragraph{Ziel und Subtasks}
              		Wenn das Spiel vorbei war, sollte dem Nutzer ein Overlay angezeigt werden, durch das er in die Lobby wechselte.
              		\begin{enumerate}[label={}]
@@ -693,17 +693,17 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Juri Lozowoj zugeteilt.
              	 \paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli versucht etwas in den Chat zu schreiben. Karli versucht Aktionen mit den Einheiten auszuf\"uhren. Karlis Aktionen funktionieren nicht. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genie"st das Spiel.
+             		Karli befindet sich in der Spielszene. Karli versucht etwas in den Chat zu schreiben. Karli versucht Aktionen mit den Einheiten auszuf\"uhren. Karlis Aktionen funktionieren nicht. Karli merkt aber, dass alles andere funktioniert, holt Popcorn und genie"st das Spiel.
 	            \paragraph{Ziel und Subtasks}
 	                Das Spiel sollte so angepasst werden, dass ein Zuschauer weder mit dem Spielfeld interagieren, noch Chatnachrichten schreiben konnte.
 	           		\begin{enumerate}[label={}]
-	           			\item \textbf{Zuschauerfunktionalit"at hinzuf"ugen} \hspace{5pt} Die Szene soll der regul"aren Ingameszene (ohne Runde-Beenden Button) entsprechen. Der Benutzer soll jedoch keine Aktionen ausf"uhren k"onnen oder Nachricht absenden k"onnen. Das Lesen von Chatnachrichten soll m"oglich sein.
+	           			\item \textbf{Zuschauerfunktionalit"at hinzuf"ugen} \hspace{5pt} Die Szene soll der regul"aren Spielszene (ohne Runde-Beenden Button) entsprechen. Der Benutzer soll jedoch keine Aktionen ausf"uhren k"onnen oder Nachricht absenden k"onnen. Das Lesen von Chatnachrichten soll m"oglich sein.
 	           		\end{enumerate}
             \subsubsection{Ingame - Einheiteninformationen} \label{story_unit_properties}
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene. Karli f"ahrt mit seinem Maus "uber eine Einheit. Alle wichtigen Informationen \"uber die Einheit werden in einem Kontextmen\"u angezeigt.
+             		Karli befindet sich in der Spielszene. Karli f"ahrt mit seinem Maus "uber eine Einheit. Alle wichtigen Informationen \"uber die Einheit werden in einem Kontextmen\"u angezeigt.
 	            \paragraph{Ziel und Subtasks}
 	                Bewegte der Nutzer die Maus \"uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einem Kontextmen"u angezeigt werden.
 	            	\begin{enumerate}[label={}]
@@ -714,7 +714,7 @@
 	            \paragraph{Zuteilung}
 	                Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Ingameszene und die Musik spielt. Karli klickt auf den Musik Button. Die Musik wird ausgeschaltet.
+             		Karli befindet sich in der Spielszene und die Musik spielt. Karli klickt auf den Musik Button. Die Musik wird ausgeschaltet.
 	            \paragraph{Ziel und Subtasks}
 	                Es sollte ein Musik Button hinzugef\"ugt werden, mit dem sich die Musik genauso bedienen lie"s wie in den restlichen Szenen.
 	            	\begin{enumerate}[label={}]
@@ -801,7 +801,7 @@
     		Es sollte nach dem sechsten Sprint m\"oglich sein:
     		\begin{itemize}
     			\item Alle Features aus dem Sprint \RN{5} (siehe Kapitel \ref{Sprintgoal_5}) zu verwenden
-    			\item Einen Ingame Chat zu benutzen
+    			\item Einen Spielchat zu benutzen
     			\item Verschiedene Overlays beim Spielende zu sehen
     			\item Einem Spiel als Beobachter beizutreten
     			\item Einheiteninformationen in einer Sidebar einzusehen
@@ -814,7 +814,7 @@
     			 \paragraph{Zuteilung}
     				Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt. Diese Story wurde bereits im Sprint \RN{5} angefangen.
    				\paragraph{Ge\"anderte Story}
-   					Karli befindet sich in der Ingameszene. In der rechten unteren Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minikarte. Der Sichtbereich "andert sich zu dieser Stelle.
+   					Karli befindet sich in der Spielszene. In der rechten unteren Ecke sieht Karli die Minikarte, welche neben dem Terrain auch alle Einheiten anzeigt. Karli dr"uckt auf eine Stelle in der Minikarte. Der Sichtbereich "andert sich zu dieser Stelle.
     			\paragraph{Ge\"andertes Ziel und Subtasks}
     				Es sollte eine Minikarte implementiert werden. \"Uber die Minikarte sollte es m\"oglich sein, den Sichtbereich zu wechseln.
     				\begin{enumerate}[label={}]
@@ -829,7 +829,7 @@
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 8 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
 				\paragraph{Ge\"anderte Story}
-					Karli befindet sich in der Ingameszene. Karli f"ahrt mit Karlis Maus "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt.
+					Karli befindet sich in der Spielszene. Karli f"ahrt mit Karlis Maus "uber eine Einheit. Alle wichtigen Informationen "uber die Einheit werden in der Sidebar angezeigt.
    				\paragraph{Ge\"andertes Ziel und Subtasks}
    					Bewegte der Nutzer die Maus \ "uber eine Einheit, sollten alle verf\"ugbaren Informationen dieser Einheit in einer Sidebar angezeigt werden.
    					\begin{enumerate}[label={}]
@@ -913,7 +913,7 @@
 				\paragraph{Verlauf}
 					Die Chatintegration wurde circa acht Stunden schneller abgeschlossen. Das lag daran, dass viele bereits vorhandene Chat Komponenten verwendet werden konnten.
 				\paragraph{Ergebnis}
-					Der Ingamechat war "uber einen Button ausblendbar. Alle Spieler, die im Spiel waren konnten nun in unserem Client mit einander chatten. Der Chat wurde, wie auf den Mockups, unten links positioniert.
+					Der Spielchat war "uber einen Button ausblendbar. Alle Spieler, die im Spiel waren konnten nun in unserem Client mit einander chatten. Der Chat wurde, wie auf den Mockups, unten links positioniert.
 			\subsubsection{Lobby - Spectating}
 				\paragraph{Zuteilung}
 					Diese User Story wurde auf 5 Storypoints gesch"atzt und an Juri Lozowoj zugeteilt.
@@ -929,25 +929,25 @@
 				\paragraph{Story, Ziel und Subtasks}
 					Siehe Kapitel \ref{story_ingame_spectating}
 				\paragraph{Verlauf}
-					Diese Story wurde bereits nach circa zwei Stunden abgeschlossen und brauchte deshalb viel weniger Zeit. Das lag daran, da das disablen von Aktionen und Buttons in der Ingameszene schnell erledigt war.
+					Diese Story wurde bereits nach circa zwei Stunden abgeschlossen und brauchte deshalb viel weniger Zeit. Das lag daran, da das disablen von Aktionen und Buttons in der Spielszene schnell erledigt war.
 				\paragraph{Ergebnis}
-					War der Nutzer als Beobachter in der Ingameszene, dann konnte er keine Aktionen (wie Bewegen und Angreifen) auf dem Spielfeld mehr durchf"uhren und auch keine Phasen mehr beenden.
+					War der Nutzer als Beobachter in der Spielszene, dann konnte er keine Aktionen (wie Bewegen und Angreifen) auf dem Spielfeld mehr durchf"uhren und auch keine Phasen mehr beenden.
 			\subsubsection{Ingame - Musiksteuerung}
 				\paragraph{Zuteilung}
 					Diese User Story wurde auf 3 Storypoints gesch"atzt und an Omar Sood zugeteilt.
 				\paragraph{Story, Ziel und Subtasks}
 					Siehe Kapitel \ref{story_music}
 				\paragraph{Verlauf}
-					Die Musik lie"s sich nach 21 Minuten in der Ingameszene bereits wieder steuern und die Story wurde viel schneller abgeschlossen. Es musste nur ein Button in der Szene hinzugef"ugt werden, da die Musik an sich bereits funktionierte.
+					Die Musik lie"s sich nach 21 Minuten in der Spielszene bereits wieder steuern und die Story wurde viel schneller abgeschlossen. Es musste nur ein Button in der Szene hinzugef"ugt werden, da die Musik an sich bereits funktionierte.
 				\paragraph{Ergebnis}
-					Die Musik hatte nun einen Button, um jene auch in der Ingameszene ein- und ausschalten zu k"onnen.
+					Die Musik hatte nun einen Button, um jene auch in der Spielszene ein- und ausschalten zu k"onnen.
    		\subsection{User Stories}
    			Im sechsten Sprint wurden weitere User Stories vom Product Owner erstellt. F"ur den Aufbau und falls die Stories abgeschlossen oder angefangen wurden, gilt dasselbe wie im ersten User Story Kapitel \ref{User_Stories_5}.
    			\subsubsection{Ingame - Einheit bewegen nach Bewegung}
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
   				\paragraph{Story}
-  					Karli befindet sich in der Ingameszene. Karli klickt auf eine Einheit. Die Bewegungsreichweite wird angezeigt. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt und bleibt weiterhin ausgew"ahlt, aber der blaue Bewegungsradius hat sich verkleinert. Karli bewegt die Einheit noch einmal auf ein weiteres Feld. Die Bewegungspunkte sind noch nicht aufgebraucht und die Einheit bleibt weiter ausgew"ahlt. Karli hat keine Lust mehr die Einheit zu bewegen und w"ahlt sie ab.
+  					Karli befindet sich in der Spielszene. Karli klickt auf eine Einheit. Die Bewegungsreichweite wird angezeigt. Karli klickt auf ein Feld in Bewegungsreichweite. Die Einheit wird bewegt und bleibt weiterhin ausgew"ahlt, aber der blaue Bewegungsradius hat sich verkleinert. Karli bewegt die Einheit noch einmal auf ein weiteres Feld. Die Bewegungspunkte sind noch nicht aufgebraucht und die Einheit bleibt weiter ausgew"ahlt. Karli hat keine Lust mehr die Einheit zu bewegen und w"ahlt sie ab.
    				\paragraph{Ziel und Subtasks}
    					Nachdem der Nutzer eine Einheit bewegte, sollte diese erneut ausgew\"ahlt sein, falls sie noch verbleibende Bewegungspunkte besa{\ss}.
    					\begin{enumerate}[label={}]
@@ -961,7 +961,7 @@
    				\paragraph{Zuteilung}
    					Diese User Story wurde auf 3 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
    				\paragraph{Story}
-   					Karli befindet sich in der Ingameszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. Nur die g\"ultigen Angriffsziele, das hei"st, Felder bzw. Einheiten, welche in Reichweite sind, einem Gegner geh\"oren und von der ausgew\"ahlten Einheit angegriffen werden k\"onnen, werden rot markiert.
+   					Karli befindet sich in der Spielszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. Nur die g\"ultigen Angriffsziele, das hei"st, Felder bzw. Einheiten, welche in Reichweite sind, einem Gegner geh\"oren und von der ausgew\"ahlten Einheit angegriffen werden k\"onnen, werden rot markiert.
    				\paragraph{Ziel und Subtasks}
    					Nachdem der Nutzer in der Angriffsphase eine Einheit anklickte, sollten nur alle g\"ultigen Angriffsziele rot markiert werden.
    					\begin{enumerate}[label={}]
@@ -975,7 +975,7 @@
 		   		\paragraph{Zuteilung}
 		   			Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
 		   		\paragraph{Story}
-		   			Karli befindet sich in der Ingameszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. Neben der Bewegungsreichweite werden zus\"atzlich noch die g\"ultigen Angriffsziele rot markiert.
+		   			Karli befindet sich in der Spielszene. Karli w\"ahlt eine Einheit durch Klicken auf ihre Graphik aus. Neben der Bewegungsreichweite werden zus\"atzlich noch die g\"ultigen Angriffsziele rot markiert.
 		   		\paragraph{Ziel und Subtasks}
 		   			Nachdem der Nutzer in der Bewegungsphase eine Einheit anklickte, sollten auch alle g\"ultigen Angriffsziele in der Bewegungsreichweite rot markiert werden.
 		   			\begin{enumerate}[label={}]
@@ -1040,7 +1040,7 @@
 				\paragraph{Zuteilung}
 					Diese Task wurde auf 3 Zeitstunden gesch"atzt und an Tobias Klipp zugeteilt.
 				\paragraph{Ziel}
-					Es sollten an mehreren Stellen Default-Buttons gesetzt werden, um als Nutzer schneller durch einige Fenster in der Anwendung zu kommen. Beim Best"atigungs-Alert (Confirm-Button), beim Info-Alert (Confirm-Button) und beim Phase beenden Button (Ingameszene) sollten sie gesetzt werden.
+					Es sollten an mehreren Stellen Default-Buttons gesetzt werden, um als Nutzer schneller durch einige Fenster in der Anwendung zu kommen. Beim Best"atigungs-Alert (Confirm-Button), beim Info-Alert (Confirm-Button) und beim Phase beenden Button (Spielszene) sollten sie gesetzt werden.
 				\paragraph{Verlauf}
 					Die Implementierung dauerte 15 Minuten l\"anger als erwartet.
 				\paragraph{Ergebnis}
@@ -1088,14 +1088,14 @@
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Tobias Klipp behoben werden.
 				\paragraph{Problem}
-					W"ahrend der Nutzer sich im Spiel (Warteraum- oder Ingameszene) befand, konnte es passieren, dass der JavaFX Thread in einen runLoop lief.
+					W"ahrend der Nutzer sich im Spiel (Warteraum- oder Spielszene) befand, konnte es passieren, dass der JavaFX Thread in einen runLoop lief.
 				\paragraph{Fix}
 					Der Fehler wurde durch \"Anderungen am Datenmodell au{\ss}erhalb des UI-Threads verursacht. Alle Aktualisierungen des Modells wurden deshalb in den UI-Thread verlegt, wodurch das Problem behoben wurde.
 			\subsubsection{CSS Fehler}
 				\paragraph{Zuteilung}
 					Dieser Bug sollte von Tobias Klipp behoben werden.
 				\paragraph{Problem}
-					An verschiedenen Stellen (Create Game Fenster, Ingamechat, Spielerkarten im Warteraum) kam es vor, dass manchmal der Stylesheet nicht richtig geladen oder verwendet wurde. Der eigentlich wei{\ss}e Text war beispielsweise schwarz oder der selected color Hintergrund (Spielerkarte, falls der Spieler bereit war) wurde durchsichtig.
+					An verschiedenen Stellen (Create Game Fenster, Spielchat, Spielerkarten im Warteraum) kam es vor, dass manchmal der Stylesheet nicht richtig geladen oder verwendet wurde. Der eigentlich wei{\ss}e Text war beispielsweise schwarz oder der selected color Hintergrund (Spielerkarte, falls der Spieler bereit war) wurde durchsichtig.
 				\paragraph{Stand}
 					Es konnte keine L\"osung vor Ende des Releases gefunden werden.
    	\newpage
@@ -1387,7 +1387,7 @@
 						\caption{Endstand Release \RN{3}: Lebensbalken}
 						\label{End_Healthbar_Down}
 					\end{figure}
-					\ \\ Die Fehlerbehandlung wurde in die Ingameszene erweitert und falls das Spiel unerwartet vom Server geschlossen wurde, wurde ein Overlay angezeigt, dass den Nutzer in die Lobby schickte (siehe Abbildung \ref{End_Failure}).
+					\ \\ Die Fehlerbehandlung wurde in die Spielszene erweitert und falls das Spiel unerwartet vom Server geschlossen wurde, wurde ein Overlay angezeigt, dass den Nutzer in die Lobby schickte (siehe Abbildung \ref{End_Failure}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/Failure.png}
@@ -1395,7 +1395,7 @@
 						\label{End_Failure}
 					\end{figure}
 		\subsection{Fazit}
-			Im Ganzen betrachtet, setzte das Team im Release \RN{3} alle Anfordrungen vom Kunden (siehe Kapitel \ref{FEATURE_REQUESTS}) um. Dies ist auch auf den vorangegangenen Screenshots aus dem Client gut zu sehen. Es wurden nur einige optionale Features, wie das Minispiel, der Spielname und der Indikator im Warteraum und die Icons zum Best"atigen von Aktionen in der Ingameszene noch nicht umgesetzt, aber sollten mit in das Release \RN{4} genommen werden.
+			Im Ganzen betrachtet, setzte das Team im Release \RN{3} alle Anfordrungen vom Kunden (siehe Kapitel \ref{FEATURE_REQUESTS}) um. Dies ist auch auf den vorangegangenen Screenshots aus dem Client gut zu sehen. Es wurden nur einige optionale Features, wie das Minispiel, der Spielname und der Indikator im Warteraum und die Icons zum Best"atigen von Aktionen in der Spielszene noch nicht umgesetzt, aber sollten mit in das Release \RN{4} genommen werden.
 	\newpage
 	\section{Quellenangaben}
 		\listoffigures

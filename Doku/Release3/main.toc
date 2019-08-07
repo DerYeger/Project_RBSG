@@ -97,7 +97,7 @@
 \contentsline {subsubsection}{\numberline {3.2.15}Ingame - Einheiteninformationen}{38}{subsubsection.3.2.15}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{38}{section*.96}% 
 \contentsline {paragraph}{\nonumberline Story}{38}{section*.97}% 
-\contentsline {paragraph}{\nonumberline Ziel und Subtasks}{39}{section*.98}% 
+\contentsline {paragraph}{\nonumberline Ziel und Subtasks}{38}{section*.98}% 
 \contentsline {subsubsection}{\numberline {3.2.16}Ingame - Musiksteuerung}{39}{subsubsection.3.2.16}% 
 \contentsline {paragraph}{\nonumberline Zuteilung}{39}{section*.99}% 
 \contentsline {paragraph}{\nonumberline Story}{39}{section*.100}% 
