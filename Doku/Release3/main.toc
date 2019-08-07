@@ -9,7 +9,7 @@
 \contentsline {subsubsection}{\numberline {2.2.4}Waiting Room (Gamelobby)}{12}{subsubsection.2.2.4}% 
 \contentsline {subsubsection}{\numberline {2.2.5}Ingame}{13}{subsubsection.2.2.5}% 
 \contentsline {subsubsection}{\numberline {2.2.6}Weitere Features}{15}{subsubsection.2.2.6}% 
-\contentsline {subsection}{\numberline {2.3}MockUps}{16}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.3}Mockups}{16}{subsection.2.3}% 
 \contentsline {subsubsection}{\numberline {2.3.1}Lobby}{16}{subsubsection.2.3.1}% 
 \contentsline {subsubsection}{\numberline {2.3.2}Waiting Room (Gamelobby)}{16}{subsubsection.2.3.2}% 
 \contentsline {subsubsection}{\numberline {2.3.3}Ingame}{18}{subsubsection.2.3.3}% 

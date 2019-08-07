@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  7 AUG 2019 13:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  7 AUG 2019 13:16
 entering extended mode
 **./main.tex
 (main.tex
@@ -1657,7 +1657,7 @@ mages/old_state/additional/Logout.png> <./images/old_state/Coverage.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.345 	    \subsection{MockUps}
+l.345 	    \subsection{Mockups}
                                
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -1666,7 +1666,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.345 	    \subsection{MockUps}
+l.345 	    \subsection{Mockups}
                                
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -1678,7 +1678,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.345 	    \subsection{MockUps}
+l.345 	    \subsection{Mockups}
                                
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -1687,7 +1687,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.345 	    \subsection{MockUps}
+l.345 	    \subsection{Mockups}
                                
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -1695,12 +1695,6 @@ I'll assume that you meant to say pt, for printer's points.
 To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
-
-
-Overfull \hbox (1.5364pt too wide) in paragraph at lines 346--347
-\OT1/phv/m/n/12 Aufgrund der Re-lea-se-an-for-de-run-gen wur-den f[]ur das Kun-
-den-tref-fen am 1.7.2019 MockUps
- []
 
 ! Missing number, treated as zero.
 <to be read again> 
@@ -1744,10 +1738,10 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/mockUps/LobbyWatchMode.png, id=418, 1003.75pt x 685.56125pt>
-File: images/mockUps/LobbyWatchMode.png Graphic file (type png)
-<use images/mockUps/LobbyWatchMode.png>
-Package pdftex.def Info: images/mockUps/LobbyWatchMode.png  used on input line 
+<images/mockups/LobbyWatchMode.png, id=418, 1003.75pt x 685.56125pt>
+File: images/mockups/LobbyWatchMode.png Graphic file (type png)
+<use images/mockups/LobbyWatchMode.png>
+Package pdftex.def Info: images/mockups/LobbyWatchMode.png  used on input line 
 351.
 (pdftex.def)             Requested size: 375.57782pt x 256.51994pt.
 
@@ -1797,10 +1791,10 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/mockUps/NotReady.png, id=422, 1003.75pt x 703.62875pt>
-File: images/mockUps/NotReady.png Graphic file (type png)
-<use images/mockUps/NotReady.png>
-Package pdftex.def Info: images/mockUps/NotReady.png  used on input line 359.
+<images/mockups/NotReady.png, id=422, 1003.75pt x 703.62875pt>
+File: images/mockups/NotReady.png Graphic file (type png)
+<use images/mockups/NotReady.png>
+Package pdftex.def Info: images/mockups/NotReady.png  used on input line 359.
 (pdftex.def)             Requested size: 375.57782pt x 263.28036pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 356--362
@@ -1815,16 +1809,16 @@ Package pdftex.def Info: images/Logo.png  used on input line 362.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[16 <./images/mockUps/LobbyWatchMode.png>]
-<images/mockUps/Ready.png, id=431, 1003.75pt x 704.6325pt>
-File: images/mockUps/Ready.png Graphic file (type png)
-<use images/mockUps/Ready.png>
-Package pdftex.def Info: images/mockUps/Ready.png  used on input line 365.
+[16 <./images/mockups/LobbyWatchMode.png>]
+<images/mockups/Ready.png, id=431, 1003.75pt x 704.6325pt>
+File: images/mockups/Ready.png Graphic file (type png)
+<use images/mockups/Ready.png>
+Package pdftex.def Info: images/mockups/Ready.png  used on input line 365.
 (pdftex.def)             Requested size: 375.57782pt x 263.65594pt.
-<images/mockUps/StartGame.png, id=432, 1003.75pt x 702.625pt>
-File: images/mockUps/StartGame.png Graphic file (type png)
-<use images/mockUps/StartGame.png>
-Package pdftex.def Info: images/mockUps/StartGame.png  used on input line 371.
+<images/mockups/StartGame.png, id=432, 1003.75pt x 702.625pt>
+File: images/mockups/StartGame.png Graphic file (type png)
+<use images/mockups/StartGame.png>
+Package pdftex.def Info: images/mockups/StartGame.png  used on input line 371.
 (pdftex.def)             Requested size: 375.57782pt x 262.90477pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
@@ -1834,7 +1828,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 375.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[17 <./images/mockUps/NotReady.png> <./images/mockUps/Ready.png>]
+[17 <./images/mockups/NotReady.png> <./images/mockups/Ready.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -1877,10 +1871,10 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-<images/mockUps/Ingame.png, id=440, 1174.3875pt x 803.0pt>
-File: images/mockUps/Ingame.png Graphic file (type png)
-<use images/mockUps/Ingame.png>
-Package pdftex.def Info: images/mockUps/Ingame.png  used on input line 379.
+<images/mockups/Ingame.png, id=440, 1174.3875pt x 803.0pt>
+File: images/mockups/Ingame.png Graphic file (type png)
+<use images/mockups/Ingame.png>
+Package pdftex.def Info: images/mockups/Ingame.png  used on input line 379.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 376--382
@@ -1895,31 +1889,31 @@ Package pdftex.def Info: images/Logo.png  used on input line 384.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[18 <./images/mockUps/StartGame.png> <./images/mockUps/Ingame.png>]
-<images/mockUps/Select.png, id=449, 1003.75pt x 686.565pt>
-File: images/mockUps/Select.png Graphic file (type png)
-<use images/mockUps/Select.png>
-Package pdftex.def Info: images/mockUps/Select.png  used on input line 388.
+[18 <./images/mockups/StartGame.png> <./images/mockups/Ingame.png>]
+<images/mockups/Select.png, id=449, 1003.75pt x 686.565pt>
+File: images/mockups/Select.png Graphic file (type png)
+<use images/mockups/Select.png>
+Package pdftex.def Info: images/mockups/Select.png  used on input line 388.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 385--391
 
  []
 
-<images/mockUps/Select3.png, id=450, 1003.75pt x 686.565pt>
-File: images/mockUps/Select3.png Graphic file (type png)
-<use images/mockUps/Select3.png>
-Package pdftex.def Info: images/mockUps/Select3.png  used on input line 395.
+<images/mockups/Select3.png, id=450, 1003.75pt x 686.565pt>
+File: images/mockups/Select3.png Graphic file (type png)
+<use images/mockups/Select3.png>
+Package pdftex.def Info: images/mockups/Select3.png  used on input line 395.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 392--398
 
  []
 
-<images/mockUps/Select2.png, id=451, 1003.75pt x 686.565pt>
-File: images/mockUps/Select2.png Graphic file (type png)
-<use images/mockUps/Select2.png>
-Package pdftex.def Info: images/mockUps/Select2.png  used on input line 401.
+<images/mockups/Select2.png, id=451, 1003.75pt x 686.565pt>
+File: images/mockups/Select2.png Graphic file (type png)
+<use images/mockups/Select2.png>
+Package pdftex.def Info: images/mockups/Select2.png  used on input line 401.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
@@ -1929,7 +1923,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 404.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[19 <./images/mockUps/Select.png>]
+[19 <./images/mockups/Select.png>]
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
 Package pdftex.def Info: images/Logo.png  used on input line 406.
@@ -1938,17 +1932,17 @@ Package pdftex.def Info: images/Logo.png  used on input line 406.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[20 <./images/mockUps/Select3.png> <./images/mockUps/Select2.png>]
-<images/mockUps/ConfirmMove.png, id=471, 1003.75pt x 686.565pt>
-File: images/mockUps/ConfirmMove.png Graphic file (type png)
-<use images/mockUps/ConfirmMove.png>
-Package pdftex.def Info: images/mockUps/ConfirmMove.png  used on input line 410
+[20 <./images/mockups/Select3.png> <./images/mockups/Select2.png>]
+<images/mockups/ConfirmMove.png, id=471, 1003.75pt x 686.565pt>
+File: images/mockups/ConfirmMove.png Graphic file (type png)
+<use images/mockups/ConfirmMove.png>
+Package pdftex.def Info: images/mockups/ConfirmMove.png  used on input line 410
 .
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
-<images/mockUps/ConfirmMove2.png, id=472, 1003.75pt x 686.565pt>
-File: images/mockUps/ConfirmMove2.png Graphic file (type png)
-<use images/mockUps/ConfirmMove2.png>
-Package pdftex.def Info: images/mockUps/ConfirmMove2.png  used on input line 41
+<images/mockups/ConfirmMove2.png, id=472, 1003.75pt x 686.565pt>
+File: images/mockups/ConfirmMove2.png Graphic file (type png)
+<use images/mockups/ConfirmMove2.png>
+Package pdftex.def Info: images/mockups/ConfirmMove2.png  used on input line 41
 6.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 File: images/Logo.png Graphic file (type png)
@@ -1959,11 +1953,11 @@ Package pdftex.def Info: images/Logo.png  used on input line 420.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[21 <./images/mockUps/ConfirmMove.png>]
-<images/mockUps/Attack.png, id=480, 1003.75pt x 686.565pt>
-File: images/mockUps/Attack.png Graphic file (type png)
-<use images/mockUps/Attack.png>
-Package pdftex.def Info: images/mockUps/Attack.png  used on input line 424.
+[21 <./images/mockups/ConfirmMove.png>]
+<images/mockups/Attack.png, id=480, 1003.75pt x 686.565pt>
+File: images/mockups/Attack.png Graphic file (type png)
+<use images/mockups/Attack.png>
+Package pdftex.def Info: images/mockups/Attack.png  used on input line 424.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 421--427
@@ -1978,21 +1972,21 @@ Package pdftex.def Info: images/Logo.png  used on input line 429.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[22 <./images/mockUps/ConfirmMove2.png> <./images/mockUps/Attack.png>]
-<images/mockUps/GameOver.png, id=492, 1174.3875pt x 803.0pt>
-File: images/mockUps/GameOver.png Graphic file (type png)
-<use images/mockUps/GameOver.png>
-Package pdftex.def Info: images/mockUps/GameOver.png  used on input line 433.
+[22 <./images/mockups/ConfirmMove2.png> <./images/mockups/Attack.png>]
+<images/mockups/GameOver.png, id=492, 1174.3875pt x 803.0pt>
+File: images/mockups/GameOver.png Graphic file (type png)
+<use images/mockups/GameOver.png>
+Package pdftex.def Info: images/mockups/GameOver.png  used on input line 433.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
-<images/mockUps/GameWon.png, id=493, 1174.3875pt x 803.0pt>
-File: images/mockUps/GameWon.png Graphic file (type png)
-<use images/mockUps/GameWon.png>
-Package pdftex.def Info: images/mockUps/GameWon.png  used on input line 439.
+<images/mockups/GameWon.png, id=493, 1174.3875pt x 803.0pt>
+File: images/mockups/GameWon.png Graphic file (type png)
+<use images/mockups/GameWon.png>
+Package pdftex.def Info: images/mockups/GameWon.png  used on input line 439.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
-<images/mockUps/SpectatorEnd.png, id=494, 1174.3875pt x 803.0pt>
-File: images/mockUps/SpectatorEnd.png Graphic file (type png)
-<use images/mockUps/SpectatorEnd.png>
-Package pdftex.def Info: images/mockUps/SpectatorEnd.png  used on input line 44
+<images/mockups/SpectatorEnd.png, id=494, 1174.3875pt x 803.0pt>
+File: images/mockups/SpectatorEnd.png Graphic file (type png)
+<use images/mockups/SpectatorEnd.png>
+Package pdftex.def Info: images/mockups/SpectatorEnd.png  used on input line 44
 5.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 File: images/Logo.png Graphic file (type png)
@@ -2003,11 +1997,11 @@ Package pdftex.def Info: images/Logo.png  used on input line 448.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[23 <./images/mockUps/GameOver.png>]
-<images/mockUps/EndPhase.png, id=504, 1003.75pt x 686.565pt>
-File: images/mockUps/EndPhase.png Graphic file (type png)
-<use images/mockUps/EndPhase.png>
-Package pdftex.def Info: images/mockUps/EndPhase.png  used on input line 453.
+[23 <./images/mockups/GameOver.png>]
+<images/mockups/EndPhase.png, id=504, 1003.75pt x 686.565pt>
+File: images/mockups/EndPhase.png Graphic file (type png)
+<use images/mockups/EndPhase.png>
+Package pdftex.def Info: images/mockups/EndPhase.png  used on input line 453.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 450--456
@@ -2022,7 +2016,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 456.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[24 <./images/mockUps/GameWon.png> <./images/mockUps/SpectatorEnd.png>]
+[24 <./images/mockups/GameWon.png> <./images/mockups/SpectatorEnd.png>]
 ! Missing number, treated as zero.
 <to be read again> 
                    }
@@ -2126,7 +2120,7 @@ Package pdftex.def Info: images/Logo.png  used on input line 468.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[25 <./images/mockUps/EndPhase.png>]
+[25 <./images/mockups/EndPhase.png>]
 <images/domain_stories/readyStory2.png, id=522, 862.22125pt x 403.5075pt>
 File: images/domain_stories/readyStory2.png Graphic file (type png)
 <use images/domain_stories/readyStory2.png>
@@ -5875,9 +5869,9 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-File: images/mockUps/LobbyWatchMode.png Graphic file (type png)
-<use images/mockUps/LobbyWatchMode.png>
-Package pdftex.def Info: images/mockUps/LobbyWatchMode.png  used on input line 
+File: images/mockups/LobbyWatchMode.png Graphic file (type png)
+<use images/mockups/LobbyWatchMode.png>
+Package pdftex.def Info: images/mockups/LobbyWatchMode.png  used on input line 
 1199.
 (pdftex.def)             Requested size: 375.57782pt x 256.51994pt.
 File: images/Logo.png Graphic file (type png)
@@ -5938,9 +5932,9 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-File: images/mockUps/NotReady.png Graphic file (type png)
-<use images/mockUps/NotReady.png>
-Package pdftex.def Info: images/mockUps/NotReady.png  used on input line 1215.
+File: images/mockups/NotReady.png Graphic file (type png)
+<use images/mockups/NotReady.png>
+Package pdftex.def Info: images/mockups/NotReady.png  used on input line 1215.
 (pdftex.def)             Requested size: 375.57782pt x 263.28036pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
@@ -5957,9 +5951,9 @@ File: images/endOfRelease/NotReady.png Graphic file (type png)
 Package pdftex.def Info: images/endOfRelease/NotReady.png  used on input line 1
 222.
 (pdftex.def)             Requested size: 375.57782pt x 262.90477pt.
-File: images/mockUps/StartGame.png Graphic file (type png)
-<use images/mockUps/StartGame.png>
-Package pdftex.def Info: images/mockUps/StartGame.png  used on input line 1229.
+File: images/mockups/StartGame.png Graphic file (type png)
+<use images/mockups/StartGame.png>
+Package pdftex.def Info: images/mockups/StartGame.png  used on input line 1229.
 
 (pdftex.def)             Requested size: 375.57782pt x 262.90477pt.
 File: images/Logo.png Graphic file (type png)
@@ -6020,9 +6014,9 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-File: images/mockUps/Ingame.png Graphic file (type png)
-<use images/mockUps/Ingame.png>
-Package pdftex.def Info: images/mockUps/Ingame.png  used on input line 1244.
+File: images/mockups/Ingame.png Graphic file (type png)
+<use images/mockups/Ingame.png>
+Package pdftex.def Info: images/mockups/Ingame.png  used on input line 1244.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
@@ -6105,9 +6099,9 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [65 <./images/endOfRelease/Ingame.png> <./images/endOfRelease/Ingame2.png>]
-File: images/mockUps/Select.png Graphic file (type png)
-<use images/mockUps/Select.png>
-Package pdftex.def Info: images/mockUps/Select.png  used on input line 1267.
+File: images/mockups/Select.png Graphic file (type png)
+<use images/mockups/Select.png>
+Package pdftex.def Info: images/mockups/Select.png  used on input line 1267.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 <images/endOfRelease/Select.png, id=1021, 1003.75pt x 696.6025pt>
 File: images/endOfRelease/Select.png Graphic file (type png)
@@ -6124,9 +6118,9 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [66]
-File: images/mockUps/Select3.png Graphic file (type png)
-<use images/mockUps/Select3.png>
-Package pdftex.def Info: images/mockUps/Select3.png  used on input line 1282.
+File: images/mockups/Select3.png Graphic file (type png)
+<use images/mockups/Select3.png>
+Package pdftex.def Info: images/mockups/Select3.png  used on input line 1282.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 <images/endOfRelease/Select3.png, id=1030, 1003.75pt x 695.59875pt>
 File: images/endOfRelease/Select3.png Graphic file (type png)
@@ -6143,9 +6137,9 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [67 <./images/endOfRelease/Select.png>]
-File: images/mockUps/Select2.png Graphic file (type png)
-<use images/mockUps/Select2.png>
-Package pdftex.def Info: images/mockUps/Select2.png  used on input line 1297.
+File: images/mockups/Select2.png Graphic file (type png)
+<use images/mockups/Select2.png>
+Package pdftex.def Info: images/mockups/Select2.png  used on input line 1297.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 <images/endOfRelease/Select2.png, id=1038, 1003.75pt x 695.59875pt>
 File: images/endOfRelease/Select2.png Graphic file (type png)
@@ -6246,9 +6240,9 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-File: images/mockUps/GameOver.png Graphic file (type png)
-<use images/mockUps/GameOver.png>
-Package pdftex.def Info: images/mockUps/GameOver.png  used on input line 1316.
+File: images/mockups/GameOver.png Graphic file (type png)
+<use images/mockups/GameOver.png>
+Package pdftex.def Info: images/mockups/GameOver.png  used on input line 1316.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
@@ -6265,9 +6259,9 @@ File: images/endOfRelease/GameOver.png Graphic file (type png)
 Package pdftex.def Info: images/endOfRelease/GameOver.png  used on input line 1
 323.
 (pdftex.def)             Requested size: 375.57782pt x 263.28036pt.
-File: images/mockUps/GameWon.png Graphic file (type png)
-<use images/mockUps/GameWon.png>
-Package pdftex.def Info: images/mockUps/GameWon.png  used on input line 1331.
+File: images/mockups/GameWon.png Graphic file (type png)
+<use images/mockups/GameWon.png>
+Package pdftex.def Info: images/mockups/GameWon.png  used on input line 1331.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 File: images/Logo.png Graphic file (type png)
 <use images/Logo.png>
@@ -6293,9 +6287,9 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [71 <./images/endOfRelease/GameWon.png>]
-File: images/mockUps/SpectatorEnd.png Graphic file (type png)
-<use images/mockUps/SpectatorEnd.png>
-Package pdftex.def Info: images/mockUps/SpectatorEnd.png  used on input line 13
+File: images/mockups/SpectatorEnd.png Graphic file (type png)
+<use images/mockups/SpectatorEnd.png>
+Package pdftex.def Info: images/mockups/SpectatorEnd.png  used on input line 13
 46.
 (pdftex.def)             Requested size: 375.57782pt x 256.80597pt.
 <images/endOfRelease/SpectatorEnd.png, id=1077, 1003.75pt x 700.6175pt>
@@ -6355,9 +6349,9 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
-File: images/mockUps/EndPhase.png Graphic file (type png)
-<use images/mockUps/EndPhase.png>
-Package pdftex.def Info: images/mockUps/EndPhase.png  used on input line 1361.
+File: images/mockups/EndPhase.png Graphic file (type png)
+<use images/mockups/EndPhase.png>
+Package pdftex.def Info: images/mockups/EndPhase.png  used on input line 1361.
 (pdftex.def)             Requested size: 375.57782pt x 256.89552pt.
 <images/endOfRelease/EndPhase.png, id=1087, 1003.75pt x 695.59875pt>
 File: images/endOfRelease/EndPhase.png Graphic file (type png)
@@ -6639,7 +6633,7 @@ cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
 /helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/f
 onts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (79 pages, 9189565 bytes).
+Output written on main.pdf (79 pages, 9189564 bytes).
 PDF statistics:
  2220 PDF objects out of 2487 (max. 8388607)
  499 named destinations out of 1000 (max. 500000)
