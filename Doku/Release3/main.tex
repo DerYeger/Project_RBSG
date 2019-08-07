@@ -353,7 +353,7 @@
     				\label{Watch_Mode}
 			    \end{figure}
 		    \subsubsection{Waiting Room (Gamelobby)}
-		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Ready geben hinzugef"ugt werden. Dies sollte bei uns passieren, wenn man eine Armee ausw"ahlte (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Waiting Room umgezogen werden. Spieler, die bereits bereit waren, sollten in ihrer Spielerkarte in der secondary Farbe hinterlegt werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler das Ready gaben, wurde ein Overlay angezeigt, in dem ein Indikator lud, bis zur Ingame Szene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den MockUps waren auch zwei optionale Features zu sehen. Dies war einmal das TicTacToe Spiel unten rechts, das gegebenenfalls implementiert werden sollte. Und au"serdem sollte oben in der Mitte der Name des Spiels angezeigt werden (siehe auf den MockUps mit Beispielnamen \glqq Enhanced Wars\grqq). \\
+		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Setzen von Spielern als bereit hinzugef"ugt werden. Dies sollte passieren, wenn der Nuzter eine Armee ausw"ahlte (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Warteraum umgezogen werden. Spielerkarten von bereiten Spielern solltenfarblich hervorgehoben werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler bereit waren, sollte ein Overlay angezeigt werden, in dem ein Indikator lud, bis zur Spielszene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den Mockups waren auch zwei optionale Features, das TicTacToe Spiel unten rechts und der Spielname in der Mitte des Spiels (siehe auf den Mockups mit Beispielnamen \glqq Enhanced Wars\grqq), zu sehen. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/NotReady.png}
@@ -373,23 +373,23 @@
     				\label{Game_Start}
 			    \end{figure}
 		    \subsubsection{Ingame}
-		        Bisher zeigte die Ingame Szene nur das initiale Spielgeschehen. In diesem Release sollte diese Szene haupts"achlich erweitert werden. Chat, die Minikarte und die Spieler mussten angezeigt werden. \\
+		        Bisher zeigte die Spielszene nur das initiale Spielgeschehen. In diesem Release sollte diese Szene um den Chat, die Minikarte sowie die Spieler erweitert werden. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/Ingame.png}
     				\caption{MockUp: Ingame}
     				\label{Ingame_View}
 			    \end{figure}
-		    	\ \\   Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen und Overlays "uber dem Spielfeld sein. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar war eine neue feste Box rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen/Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Spielerkarte mit der secondary Farbe hinterlegt werden. In der oberen Leiste kam au"serdem der Musik Button zum Ein- und Ausschalten der Musik hinzu.
+		    	\ \\   Der Chat und die Spielerkarten sollten auch "uber die jeweiligen Buttons oben in der Leiste eingeklappt werden k"onnen. Die Minikarte sollte unten rechts unter der Sidebar angezeigt werden. Die Sidebar befand sich rechts neben dem Spielfeld. Diese sollte die Einheiteninformationen und die Best"atigen und Abbrechen Buttons enthalten. Die aktuelle Runde und die aktuelle Phase sollten oben "uber der Sidebar angezeigt werden. Der aktuelle Spieler sollte in seiner Spielerkarte farblich hervorgehoben werden. In der oberen Leiste kam au"serdem der Musik Button zum Ein- und Ausschalten der Musik hinzu.
 			    \subsubsubsection{Einheit ausw\"ahlen}
-			        Der Server stellte drei Phasen zur Verf\"ugung, wenn ein Spieler an der Reihe war. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden musste, eine Angriffsphase, die \"ubersprungen werden konnte und eine restliche Bewegungspunktephase, die ebenfalls \"ubersprungen werden konnte. \\
+			        Der Server stellte drei Phasen zur Verf\"ugung, wenn ein Spieler an der Reihe war. Eine Bewegungsphase, in der mindestens eine Einheit bewegt werden musste, eine Angriffsphase, die \"ubersprungen werden konnte und eine Phase zum Verwenden der restlichen Bewegungspunktephase, die ebenfalls \"ubersprungen werden konnte. \\
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/Select.png}
     				    \caption{MockUp: Phase 1: Ausw"ahlen}
     				    \label{Select_1}
 			        \end{figure}
-			        \ \\ Nachdem alle drei Phasen vom aktiven Spieler beendet wurden, war die Runde des Spielers vorbei. Wenn der Nutzer selbst an der Reihe war und in einer seiner drei Phasen auf eine Einheit klickte, sollte der Bewegungsradius oder Angriffsradius angezeigt werden. Klickte der Nutzer wieder auf die bereits ausgew"ahlte Einheit, auf eine andere Einheit oder auf ein freies Feld, dann sollte die Einheit nicht mehr ausgew"ahlt sein. \\
+			        \ \\ Nachdem alle drei Phasen vom aktiven Spieler beendet wurden, war die Runde des Spielers vorbei. Wenn der Nutzer selbst an der Reihe war und in einer seiner drei Phasen auf eine Einheit klickte, sollte der Bewegungsradius oder Angriffsradius angezeigt werden. Klickte der Nutzer wieder auf die bereits ausgew"ahlte Einheit, auf eine andere Einheit oder auf ein freies Feld sollte die Einheit nicht mehr ausgew"ahlt sein. \\
                     \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/Select3.png}
@@ -402,9 +402,9 @@
     				    \caption{MockUp: Phase 3: Ausw"ahlen}
     				    \label{Select_3}
 			        \end{figure} 
-		            \ \\ In einer gegnerischen Phase sollte die Einheit, die vom Gegner in seinem Client ausgew"ahlt wurde, auch beim Nutzer, w\"ahrenddessen der Nutzer dem Gegner zuschaute, auf die selbe Art und Weise ausgew"ahlt werden. In Phase 1 sollten zus\"atzlich zum Bewegungsradius auch alle m"oglichen Angriffsziele markiert werden (siehe Abbildung \ref{Select_1}). In Phase 2 sollten nur alle m"oglichen Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 sollte ein verk"urzter Bewegungsradius ohne Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_3}), je nachdem wie weit sich eine Einheit noch bewegen konnte.
+		            \ \\ In einer gegnerischen Phase sollte die Einheit, die vom Gegner in seinem Client ausgew"ahlt wurde, auch beim Nutzer auf die selbe Art und Weise ausgew"ahlt werden. In Phase 1 sollten zus\"atzlich zum Bewegungsradius auch alle m"oglichen Angriffsziele markiert werden (siehe Abbildung \ref{Select_1}). In Phase 2 sollten nur alle m"oglichen Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_2}). In Phase 3 sollte ein verk"urzter Bewegungsradius ohne Angriffsziele angezeigt werden (siehe Abbildung \ref{Select_3}), je nachdem wie weit sich eine Einheit noch bewegen konnte.
                 \subsubsubsection{Einheit bewegen}
-                    Nachdem der Nutzer in Phase 1 oder 3 eine Einheit ausw"ahlte und auf ein Feld klickte, sollte die Einheit auf das Feld bewegt werden, sobald der k"urzeste Pfad berechnet und zum Server geschickt wurde. Falls nach der Bewegung noch Bewegungspunkte "ubrig waren, sollte die Einheit weiterhin ausgew"ahlt bleiben und die Bewegungsreichweite dementsprechend verkleinert werden. War ein Gegner an der Reihe und der Server sandte eine bewegte Einheit, dann sollte auch zuerst die Bewegungsreichweite angezeigt werden und danach (kurz verz"ogert) die Einheit bewegt werden. Sp"ater sollte der Nutzer "uber eine Box in der Sidebar die M"oglichkeit haben, seinen Zug doch noch zu widerrufen. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Move} oder \ref{Move2}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
+                    Nachdem der Nutzer in einer der Bewegungsphasen eine Einheit ausw"ahlte und auf ein Feld klickte, sollte die Einheit auf das Feld bewegt werden. Dazu sollte der k"urzeste Pfad berechnet und zum Server geschickt werden. Falls nach der Bewegung noch Bewegungspunkte "ubrig waren, sollte die Einheit weiterhin ausgew"ahlt bleiben und die Bewegungsreichweite dementsprechend verkleinert werden. War ein Gegner an der Reihe und der Server sandte die Bewegung einer Einheit, sollte auch zuerst die Bewegungsreichweite angezeigt werden und nach einer kurzen Verz\"ogerung die Einheit bewegt werden. Sp"ater sollte der Nutzer "uber eine Box in der Sidebar die M"oglichkeit haben, seinen Zug zu widerrufen. Dabei sollte auf dem angeklickten Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Move} oder \ref{Move2}). War ein Gegner an der Reihe wurden der Text und das Icon in der Box nicht angezeigt.
                     \begin{figure}[H] 
                     	\centering
                     	\includegraphics[width=0.8\textwidth]{images/mockUps/ConfirmMove.png}
@@ -418,16 +418,16 @@
 	                	\label{Move2}
 	                \end{figure}
 			    \subsubsubsection{Einheit angreifen}
-			        Nachdem der Nutzer in Phase 2 eine Einheit ausgew"ahlte und alle m"oglichen Angriffsziele angezeigt wurden, konnte er eine gegnerische Einheit neben ihm ausw"ahlen (insofern eine vorhanden war) und sie angreifen. \\
+			        Nachdem der Nutzer in der Angriffsphase eine Einheit ausw"ahlte und alle m"oglichen Angriffsziele angezeigt wurden, konnte er m\"ogliche Angriffsziele anklicken und angreifen. \\
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/Attack.png}
     				    \caption{MockUp: Angreifen best"atigen}
     				    \label{Attack}
 			        \end{figure}
-		        	\ \\ War ein Gegner an der Reihe und der Server sandte eine angegriffene Einheit, dann sollten auch zuerst die m"oglichen Angriffsziele angezeigt werden und danach (kurz verz"ogert) sollte die Einheit angreifen. Sp"ater sollte dies auch noch "uber eine Box in der Sidebar best"atigt werden, um dem Nutzer die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Dabei sollte auf dem geklicktem Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Attack}). War ein Gegner an der Reihe, wurde der Text und das Icon in der Box nicht angezeigt.
+		        	\ \\ War ein Gegner an der Reihe und der Server sandte eine angegriffene Einheit, dann sollten auch zuerst die m"oglichen Angriffsziele angezeigt werden und nach einer kurzen Verz\"ogerung sollte die Einheit angreifen. Sp"ater sollte dies auch noch "uber eine Box in der Sidebar best"atigt werden, um dem Nutzer die M"oglichkeit zu geben, seinen Angriff doch nicht durchzuf"uhren. Dabei sollte auf dem angeklickten Feld ein Icon angezeigt werden, bis der Nutzer die Aktion best"atigte oder abbrach (siehe Abbildung \ref{Attack}). War ein Gegner an der Reihe, wurden der Text und das Icon in der Box nicht angezeigt.
 			    \subsubsubsection{Spielende}
-			        Wenn ein Spieler verlor, da er keine Einheiten mehr hatte, sollte sich das Icon und der Name in seiner Spielerkarte schwarz f"arben. Bei diesem Nutzer sollte ein Overlay angezeigt werden, in dem stand, dass er verlor. Au"serdem konnte er "uber das Overlay entscheiden, ob er zur"uck in die Lobby gehen oder dem Spiel als Spectator beitreten wollte (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig war, gewann er das Spiel. Diesem Nutzer sollte auch ein Overlay angezeigt werden, durch das er zur"uck zur Lobby wechselte (siehe Abbildung \ref{Game_Won}). Bei anderen Nutzern, die sich im Spectatormodus befanden, sollte auch ein "ahnliches Overlay mit der gleichen Funktionalit"at angezeigt werden (siehe Abbildung \ref{Spectator_End}).
+			        Wenn ein Spieler verlor, da er keine Einheiten mehr hatte, sollte sich Icon und Name seiner Spielerkarte schwarz f"arben. Der Client dieses Nutzers sollte ein Overlay angezeigen, welches ihm mitteilte, dass er verloren hatte. Au"serdem konnte er "uber das Overlay entscheiden, ob er zur"uck in die Lobby gehen oder in dem Spiel als Zuschauer bleiben wollte (siehe Abbildung \ref{Game_Lost}). Wenn nur noch ein Spieler "ubrig war, gewann dieser das Spiel. Diesem Nutzer sollte auch ein Overlay angezeigt werden, durch das er zur"uck zur Lobby wechselte (siehe Abbildung \ref{Game_Won}). Bei anderen Nutzern, die sich im Zuschauermodus befanden, sollte auch ein "ahnliches Overlay mit der gleichen Funktionalit"at angezeigt werden (siehe Abbildung \ref{Spectator_End}).
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/GameOver.png}
@@ -447,14 +447,14 @@
     				    \label{Spectator_End}
 			        \end{figure}
 			    \subsubsubsection{Weitere Features}
-			        Es sollte f"ur den Nutzer m"oglich sein, "uber einen Button die Phase beenden zu k"onnen und in die n"achste zu wechseln. Nach Beenden aller drei Phasen, musste auch die Runde beendet werden. Wenn ein Gegner an der Reihe war, musste der Phase-Beenden-Button disabled sein. Beim Beenden der Phasen sollte immer ein Overlay angezeigt werden (siehe Abbildung \ref{Phase_End}). \\
+			        Es sollte f"ur den Nutzer m"oglich sein, "uber einen Button die Phase beenden zu k"onnen und in die n"achste zu wechseln. Nach Beenden aller drei Phasen, musste auch die Runde beendet werden. W\"ahrend ein Gegner an der Reihe war, war der Phase-Beenden-Button deaktiviert. Beim Beenden der Phasen sollte immer ein Overlay angezeigt werden (siehe Abbildung \ref{Phase_End}). \\
 			        \begin{figure}[H] 
     				    \centering
     				    \includegraphics[width=0.8\textwidth]{images/mockUps/EndPhase.png}
     				    \caption{MockUp: Phase beenden}
     				    \label{Phase_End}
 			        \end{figure}
-			        \ \\ Es gab ein weiteres Feature, bei dem der Nutzer "uber eine Einheit hovern konnte, und je nachdem "uber welche Einheit der Nutzer hoverte, aktualisierten sich alle Properties und das Bild der gehoverten Einheit in der Sidebar. Die Einheiten des Spielers, der an der Reihe war, sollten in der oberen Box der Sidebar angezeigt werden. Die Einheiten der restlichen Spieler, die nicht an der Reihe waren, sollten in der unteren Box angezeigt werden. Zu Beginn jeder neuen Runde sollten die beiden Boxen wieder leer sein und sich wieder f"ullen, wenn "uber eine Einheit gehovert bzw. wenn eine Aktion mit einer Einheit ausgef"uhrt wurde.
+			        \ \\ Es gab ein weiteres Feature, bei dem der Nutzer "uber eine Einheit hovern konnte und deren Eigenschaften in der Sidebar angezeigt wurden. Die Einheiten des Spielers, der an der Reihe war, sollten in der oberen Box der Sidebar angezeigt werden. Die Einheiten der restlichen Spieler, die nicht an der Reihe waren, sollten in der unteren Box angezeigt werden. Zu Beginn jeder neuen Runde sollten die beiden Boxen leer sein und sich erst wieder f"ullen, wenn "uber eine Einheit gehovert beziehungsweise wenn eine Aktion mit einer Einheit ausgef"uhrt wurde.
 		\subsection{Domain Stories}
 		    Im Folgenden werden die Domain Stories f\"ur den Spielstart und das Ausf\"uhren einer Aktion, konkret die Bewegung einer Einheit, erl\"autert. Die Domain Stories wurden vor der Ver\"offentlichung der Serverdokumentation erstellt. Deshalb wichen die tats\"achlichen Nachrichten leicht von den hier aufgef\"uhrten Nachrichten ab. \\
 		    \subsubsection{Spielstart}
