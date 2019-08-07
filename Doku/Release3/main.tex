@@ -504,7 +504,7 @@
 	\newpage
 	\section{Sprint \RN{5}}
 	    Der f"unfte Sprint erstreckte sich "uber dem Zeitraum vom 8.7.2019 bis zum 21.7.2019. Es wurden 116 Storypoints f"ur alle User Stories gesch"atzt.
-	    \subsection{Sprintziel} \label{Sprintgoal_5}
+	    \subsection{Sprintziele} \label{Sprintgoal_5}
 	        Es sollte nach dem f"unften Sprint m"oglich sein:
 	        \begin{itemize}
 	            \item Einem Spiel beizutreten
@@ -512,7 +512,6 @@
 	            \item Einheiten auszuw"ahlen, zu bewegen und anzugreifen
 	            \item Den Spielstatus zu sehen und Phasen zu beenden
 	        \end{itemize}
-	        Falls die Entwicklung schneller als erwartet voranschreiten sollte, w"urden der Spielchat und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden "uber 80 Storypoints abgearbeitet werden, was bei vier Entwicklern als ein guter Fortschritt gewertet werden k"onnte.
 	    \subsection{User Stories} \label{User_Stories_5}
 	        Die User Stories, die vom Product Owner erstellt wurden, sind wie folgt aufgebaut: Dem Titel kann entnommen werden, zu welcher Szene die Story geh"orte. Anschlie"send werden die Story Points und der zugeteilte Entwickler genannt. Danach folgt die Story und das Ziel. Das Ziel fasst die Subtasks, die der Scrum Master erstellte, zusammen. Danach werden alle Subtasks aufgelistet. Falls die Story abgeschlossen wurde, wird der Verlauf und das Ergebnis dokumentiert. Falls die Story nur angefangen wurde, wird der Verlauf und der Stand dokumentiert.
 	        \subsubsection{Warteraum - Spielbeitritt anpassen}
@@ -521,25 +520,25 @@
 	            \paragraph{Story}
 	            		Karli befindet sich in der Warteraumszene. Alle anderen Spieler sind bereit. Karli w"ahlt eine Armee aus. Da nun alle Spieler bereit sind, startet das Spiel (und es findet ein Szenenwechsel statt).
 	            \paragraph{Ziel und Subtasks}
-		         		Diese Tasks der User Story umfassen zum Gro"steil die Domain Story Spielstart. Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit waren.
+		         		Die Tasks der User Story umfassen zum Gro"steil die Domain Story Spielstart. Der Spielbeitritt sollte an die Server\"anderungen angepasst werden. Das Ausw\"ahlen einer Armee sollte dem Server ein Bereit-Signal senden und das Spiel sollte starten, sobald alle Spieler bereit waren.
 	                	\begin{enumerate}[label={}]
 		                	\item \textbf{Armeeauswahl im Warteraum} \hspace{5pt} Die Armeeauswahl soll nur im Warteraum m"oglich sein. Daf"ur muss sie aus der Lobby entfernt und von der Armeeauswahl des Army Managers getrennt werden. Das Deaktivieren der Join/Create Game Buttons muss so angepasst werden, dass diese nur deaktiviert sind, wenn der Spieler keine einzige g"ultige Armee besitzt.
 		                	\item \textbf{Ready-Funktionalit"at} \hspace{5pt} Spieler, die bereit sind, sollen im Warteraum hervorgehoben werden. W"ahlt ein Spieler eine Armee aus, signalisiert er gleichzeitig auch, dass er nun bereit ist.
-		                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den IngameController zur Verf"ugung stehen. (Bei einem Wechsel zur Lobby oder beim Schlie"sen der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.)
+		                	\item \textbf{Spielstart} \hspace{5pt} Sobald alle Spieler bereit sind (oder der Server eine entsprechende Nachricht sendet), soll das Spiel starten und ein entsprechender Szenenwechsel erfolgen. Der Websocket darf dabei nicht mehr terminiert werden, sondern soll f"ur den IngameController zur Verf"ugung stehen. Bei einem Wechsel zur Lobby oder beim Schlie"sen der Anwendung muss der Socket nat"urlich weiterhin terminiert werden.
 	                \end{enumerate}
                 \paragraph{Verlauf}
-                	Diese Story nahm circa acht Stunden mehr in Anspruch. Das lag daran, dass das Trennen der neuen Box von der optisch identischen Armeeauswahlbox im Army Manager l"anger als gedacht dauerte. Dabei musste auch die neue Funktionalit"at (unter anderem Arme ausgew"ahlt = Ready) im Warteraum hergestellt werden.
+                	Diese Story nahm circa acht Stunden mehr als erwartet in Anspruch. Das lag daran, dass das Trennen der neuen Box von der optisch identischen Armeeauswahlbox im Army Manager l"anger als gedacht dauerte. Dabei musste auch die neue Funktionalit"at des Bereitsetztens im Warteraum hergestellt werden.
                 \paragraph{Ergebnis}
                 	Der Spielstart funktionierte wie gew"unscht. Wenn der Server ein Ready eines Spielers sandte oder der Nutzer eine Armee ausw"ahlte, wurde seine Spielerkarte in der selected color markiert und das Spiel startete, sobald alle Spieler bereit waren. Es fehlte nur noch ein Lade-Indikator, bis der Sever das Spiel startete und ein Szenenwechsel stattfand. Weiterhin musste die Armeeauswahlbox noch auf die richtige Gr"o"se angepasst werden. Zu diesen beiden Aufgaben wurden Stories erstellt.
             \subsubsection{Ingame - Spielfeld}
 	            \paragraph{Zuteilung}
 	                	Diese User Story wurde auf 13 Storypoints gesch\"atzt und an Georg Siebert zugeteilt.
              	\paragraph{Story}
-             		Karli befindet sich in der Spielszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld (einer Einheit). Das Feld wird ausgew"ahlt.
+             		Karli befindet sich in der Spielszene. Karli sieht die Einheiten auf dem Spielfeld. Karli klickt auf ein Feld einer Einheit. Das Feld wird ausgew"ahlt.
 	            \paragraph{Ziel und Subtasks}
 			   		Das Spielfeld sollte die Einheiten anzeigen. Jedes Feld musste anklickbar sein.
 	            	 \begin{enumerate}[label={}]
-	            		\item \textbf{Einheiten anzeigen} \hspace{5pt} Die Einheiten sollen angezeigt werden. "Andert sich die Position einer Einheit (im Datenmodell), soll sich auch das Spielfeld entsprechend aktualisieren.
+	            		\item \textbf{Einheiten anzeigen} \hspace{5pt} Die Einheiten sollen angezeigt werden. "Andert sich die Position einer Einheit im Datenmodell, soll sich auch das Spielfeld entsprechend aktualisieren.
 	            		\item \textbf{OnClick-Extensionpoints} \hspace{5pt} Es soll m"oglich sein, beim Anklicken eines Feldes Methoden mit der Referenz der darunterliegenden Datenstruktur (der Cell Instanz) aufzurufen.
             		\end{enumerate}
             	\paragraph{Verlauf}
@@ -568,8 +567,8 @@
 	            \paragraph{Ziel und Subtasks}
 	               	Durch Anklicken einer Einheit sollte diese ausgew\"ahlt werden. Danach musste die Bewegungs- und Angriffsreichweite sichtbar sein, je nachdem in welcher Phase der Nutzer sich befand.
 	           		\begin{enumerate}[label={}]
-	           			\item \textbf{Ausgew"ahlte Einheit setzen} \hspace{5pt} Klickt der Anwender auf eine Einheit, soll diese ausgew"ahlt werden (soll im Datenmodell bzw. Controller hinterlegt werden). Zudem soll die Zelle der Einheit farblich hervorgehoben werden. Dies soll nur m"oglich sein, wenn der Spieler an der Reihe ist.
-	           			\item \textbf{G"ultige Ziele markieren} \hspace{5pt} G"ultige Bewegungs- und Angriffsziele (Cell, eventuell auch Unit) sollen als solche markiert werden (Property). Zudem sollen sie farblich hervorgehoben werden. Weiterhin darf in der Angriffsphase nur der rote Angriffsradius angezeigt werden und in der restlichen Bewegungspunkte Phase nur der blaue Bewegungsradius. Blau: \#868cfc f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe selected color im Stylesheet). Rot: \#cf6679 f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe error color im Stylesheet).
+	           			\item \textbf{Ausgew"ahlte Einheit setzen} \hspace{5pt} Klickt der Anwender auf eine Einheit, soll diese ausgew"ahlt und im Datenmodell hinterlegt werden. Zudem soll die Zelle der Einheit farblich hervorgehoben werden. Dies soll nur m"oglich sein, wenn der Spieler an der Reihe ist.
+	           			\item \textbf{G"ultige Ziele markieren} \hspace{5pt} G"ultige Bewegungs- und Angriffsziele, Felder und Einheiten, sollen als solche markiert werden. Zudem sollen sie farblich hervorgehoben werden. Weiterhin darf in der Angriffsphase nur der rote Angriffsradius angezeigt werden und in der restlichen Bewegungspunkte Phase nur der blaue Bewegungsradius. Blau: \#868cfc f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe selected color im Stylesheet). Rot: \#cf6679 f\"ur den Rahmen, beim Hintergrund 40\% Opacity (siehe error color im Stylesheet).
 	           		\end{enumerate}
            		\paragraph{Verlauf}
            			Es wurden circa zw"olf Stunden an dieser Story gearbeitet, sodass noch circa eine Stunde zu der gesch"atzten Zeit "ubrig blieb. Die Funktion gab es bereits, jedoch wollte der Entwickler im n"achsten Sprint noch nach einem Fehler suchen, bei dem das UI nicht richtig markiert wurde.
@@ -787,7 +786,7 @@
         			\label{To_Do_5}
         		\end{figure}
         	\subsubsection{Fazit}
-        		Die Ziele des Sprints wurden verfehlt. Um die Mindestanforderungen zu erreichen, m"usste das Entwicklerteam seine Produktivit\"at im sechsten Sprint deutlich steigern. Da die C0 Abdeckung (siehe Abbildung \ref{Coverage_5}) zum Ende des f\"unften Sprints bereits 79\% betrug, gab es bei der Qualit\"atssicherung keine Defizite.
+        		Die Ziele des Sprints wurden verfehlt. Um die Mindestanforderungen zu erreichen, musste das Entwicklerteam seine Produktivit\"at im sechsten Sprint deutlich steigern. Da die C0 Abdeckung (siehe Abbildung \ref{Coverage_5}) zum Ende des f\"unften Sprints bereits 79\% betrug, gab es bei der Qualit\"atssicherung keine Defizite.
         		\begin{figure}[H] 
         			\centering
         			\includegraphics[width=\textwidth]{images/sprintV/coverage.png}
@@ -797,7 +796,7 @@
     \newpage
     \section{Sprint \RN{6}}
     	Der sechste Sprint erstreckte sich \"uber dem Zeitraum vom 22.7.2019 bis zum 4.8.2019. Er umfasste 87 Storypoints.
-    	\subsection{Sprintziel}
+    	\subsection{Sprintziele}
     		Es sollte nach dem sechsten Sprint m\"oglich sein:
     		\begin{itemize}
     			\item Alle Features aus dem Sprint \RN{5} (siehe Kapitel \ref{Sprintgoal_5}) zu verwenden
@@ -807,7 +806,6 @@
     			\item Einheiteninformationen in einer Sidebar einzusehen
     			\item Die Musik auch im Spiel ein- und auszuschalten
     		\end{itemize}
-    		F\"ur den Fall, dass die Mindestanforderungen vor Ende des Sprints abgeschlossen werden sollten, sollte eine Sidebar zum Spielfeld hinzugef\"ugt werden. Diese sollte es erm\"oglichen Aktionen, wie Bewegen oder Angreifen, zu best\"atigen und abzubrechen. Falls das Team die Umsetzung der oben genannten Features schaffen w"urde, w"aren die Mindestanforderungen jedoch bereits erf\"ullt.
     	\subsection{Ge\"anderte User Stories vom Sprint \RN{5}}
     		Die folgenden Stories des f\"unften Sprints wurden aktualisiert, da sich ihre Zuteilung oder Mockups "anderten. F"ur den Aufbau und falls die Stories abgeschlossen oder angefangen wurden, gilt dasselbe wie im ersten User Story Kapitel \ref{User_Stories_5}.
     		\subsubsection{Ingame - Minikarte anzeigen} \label{changed_user_story_minimap}
@@ -1158,7 +1156,7 @@
 	    			\label{Done_Stories_6}
 	    		\end{figure}
     		\subsubsection{Abgeschlossene Tasks}
-    			Die Tasks aus dem Release \RN{3}, die keiner User Story zugeordnet waren, wurden auch alle im Sprint \RN{6} abgeschlossen (siehe Abbildung \ref{Done_Tasks_6}). Dazu geh"orten die "ubernommenen und die neuen Tasks aus dem Sprint \RN{6}. Diese sieben Tasks werden in der folgenden Abbildung \ref{Done_Tasks_6} noch einmal aufgelistet:
+    			Alle Tasks aus dem Release \RN{3}, die keiner User Story zugeordnet waren, wurden auch ebenfalls im Sprint \RN{6} abgeschlossen (siehe Abbildung \ref{Done_Tasks_6}). Dazu geh"orten die aus Sprint \RN{5} "ubernommenen sowie neu erstellten Tasks. Diese sieben Tasks werden in der folgenden Abbildung \ref{Done_Tasks_6} noch einmal aufgelistet:
     			\begin{figure}[H]
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/sprintVI/doneTasks.png}
@@ -1174,7 +1172,7 @@
     				\label{Fixed_Bugs_6}
     			\end{figure}
     		\subsubsection{Angefangene Bugtasks}
-    			Es gab jedoch zwei Bugtasks, welche im Release \RN{3} nicht behoben werden konnten (siehe Abbildung \ref{Open_Bugs_6}). Dies waren \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq und \glqq CSS Fehler\grqq. Der Wechsel zum Spielfeld konnte nicht behoben werden, da ein Serverupdate n\"otig war welches nicht mehr im Release \RN{3} stattfand. Der CSS Fehler konnte mangels Entwicklungszeit nicht mehr behoben werden. Zudem trat am Ende des Release \RN{3} ein neuer Bug auf f\"ur den kein Issue mehr erstellt wurde. Dabei handelt es sich um einen Fehler welcher beim Verlassen eines Spiels unter bestimmten Umst\"anden auftrat, jedoch nicht zu einem Absturz der Anwendung f\"uhrte.
+    			Es gab jedoch zwei Bugs, welche im Release \RN{3} nicht behoben werden konnten (siehe Abbildung \ref{Open_Bugs_6}). Diese waren \glqq Spectating - Automatischer Wechsel zum Spielfeld\grqq und \glqq CSS Fehler\grqq. Der Wechsel zum Spielfeld konnte nicht behoben werden, da ein Serverupdate n\"otig war welches nicht mehr im Release \RN{3} stattfand. Der CSS Fehler konnte mangels Entwicklungszeit nicht mehr behoben werden. Zudem trat am Ende des Release \RN{3} ein neuer Bug auf f\"ur den kein Issue mehr erstellt wurde. Dabei handelt es sich um einen Fehler welcher beim Verlassen eines Spiels unter bestimmten Umst\"anden auftrat, jedoch nicht zu einem Absturz der Anwendung f\"uhrte.
     			\begin{figure}[H]
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/sprintVI/openBugs.png}
@@ -1191,9 +1189,9 @@
 	    		\end{figure} 
 	\newpage
 	\section{Abschluss Release \RN{3}}
-		Das dritte Release endete am 4.8.2018. Im letzten Kapitel werden die Mockups mit der aktuellen Implementation verglichen. Dabei wird insbesondere auf Unterschiede und fehlende Features eingegangen werden. Zuerst wird jedes Mal noch einmal das Mockup gezeigt, danach ein Bild vom Endstand des Releases. "Uber dem Mockup sollen jedes Mal die gesetzten Ziele stehen und "uber dem Endstand soll der Vergleich kommen.
+		Das dritte Release endete am 4.8.2018. Im letzten Kapitel werden die Mockups mit der aktuellen Implementation verglichen. Dabei wird insbesondere auf Unterschiede und fehlende Features eingegangen. Es werden jeweils das Mockup gezeigt und ein Bild vom Endstand des Releases gezeigt. "Uber dem Mockup stehen die gesetzten Ziele und "uber dem Endstand der Vergleich.
 		\subsection{Lobby}
-			Es wurde gefordert, einem Beobachtungsmodus beitreten zu k"onnen. Au{\ss}erdem sollte die Armeeauswahlbox entfernt werden.
+			Es wurde gefordert, einem Spiel als Beobachter beitreten zu k"onnen. Au{\ss}erdem sollte die Armeeauswahlbox entfernt werden.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/mockups/LobbyWatchMode.png}
@@ -1201,7 +1199,7 @@
 				\label{Watch_Mode_2}
 			\end{figure}
 	\newpage
-			\ \\ Wie auf der folgenden Abbildung \ref{End_Watch_Mode} zu sehen ist, wurden alle Anforderungen an der Lobby umgesetzt. Der Button zum Beitreten des Beobachtungsmodus wurde direkt neben den Button zum Beitreten des Spiels platziert.
+			\ \\ Wie auf der folgenden Abbildung \ref{End_Watch_Mode} zu sehen ist, wurden alle Anforderungen an der Lobby umgesetzt. Der Button zum Beitreten des Beobachtungsmodus wurde direkt neben dem Button zum Beitreten des Spiels platziert.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/endOfRelease/LobbyWatchMode.png}
@@ -1209,14 +1207,14 @@
 				\label{End_Watch_Mode}
 			\end{figure}
 		\subsection{Warteraum}
-			Es wurde gefordert, ein Ready Signal geben zu k"onnen. Darauf sollte die Spielerkarte in der secondary Farbe angezeigt werden. Das Icon und die Schrift sollte sich schwarz f"arben. Die Armeeauswahlbox sollte von der Lobby in den Warteraum umgezogen werden. Optionals waren das TicTacToe Spiel und der Spielname oben in der Mitte der Szene.
+			Es wurde gefordert, ein Ready Signal senden zu k"onnen. Die Spielerkarten von bereiten Spielern sollten farblich hervorgehoben werden. Icon und Spielername sollten sich schwarz f"arben. Die Armeeauswahlbox sollte von der Lobby in den Warteraum umgezogen werden. Optional waren das TicTacToe Spiel und der Spielname oben in der Mitte der Szene.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/mockups/NotReady.png}
 				\caption{Mockup: Nutzer nicht bereit}
 				\label{Not_Ready_2}
 			\end{figure}
-			\ \\ Auf der folgenden Abbildung \ref{End_Not_Ready} ist zu erkennen, dass alle Features umgesetzt wurden bis auf die schwarze Schrift, wenn ein Spieler bereit war. Weiterhin fehlten die optionalen Features, da aus Zeitgr"unden zuerst einmal alle geforderten Features umgesetzt wurden. Wenn eine Armee ausgew"ahlt wurde, wurde das Icon in einem hellen Grauton hinterlegt, da diese Helligkeit besser zu verschiedenfarbigen Icons passte.
+			\ \\ Auf der folgenden Abbildung \ref{End_Not_Ready} ist zu erkennen, dass alle Features umgesetzt wurden bis auf die schwarze Schrift, wenn ein Spieler bereit war. Weiterhin fehlten die optionalen Features, da aus Zeitgr"unden die Mindestanforderungen priorisiert wurden. Wenn eine Armee ausgew"ahlt wurde, wurde das Icon in einem hellen Grauton hinterlegt, da diese Helligkeit besser zu verschiedenfarbigen Icons passte.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/endOfRelease/NotReady.png}
@@ -1238,14 +1236,14 @@
 			\end{figure}
 			\ \\ Auf der Abbildung \ref{End_Game_Start} ist zu erkennen, dass beim Spielstart zum Ende des Releases noch kein Indikator lud, da dies optional war und somit noch nicht implementiert wurde.
 		\subsection{Ingame}
-			Es wurde gefordert, den Chat und die Spieler "uber einen Button einblenden zu k"onnen. Weiterhin sollten die Minikarte, Einheiteninformationen und ein Besta"atigen/Abbrechen Button in einer Sidebar enthalten sein. "Uber dieser Sidebar sollte die aktuelle Runde und Phase eingeblendet werden. Der aktuelle Spieler sollte in der secondary Farbe hinterlegt werden. Ein Musik Button sollte in der oberen Leiste hinzugef"ugt werden.
+			Es wurde gefordert, den Chat und die Spieler "uber einen Button einblenden zu k"onnen. Weiterhin sollten die Minikarte, Einheiteninformationen, sowie Best"atigen und Abbrechen Buttons in einer Sidebar enthalten sein. "Uber dieser Sidebar sollte die aktuelle Runde und Phase eingeblendet werden. Der aktuelle Spieler sollte in der secondary Farbe hinterlegt werden. Ein Musik Button sollte in der oberen Leiste hinzugef"ugt werden.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/mockups/Ingame.png}
 				\caption{Mockup: Ingame}
 				\label{Ingame_View_2}
 			\end{figure}
-			\ \\ Wie auf den Abbildungen \ref{End_Ingame_View} und \ref{End_Ingame_View_2} zu sehen ist, wurden alle Features implementiert. Der einzige Unterschied lag darin, dass die UI au{\ss}erlich ein wenig abwich. Die Buttons in der oberen Leiste wurden in einer anderen Reihenfolge angeordent. Die Sidebar wurde ein wenig kleiner und dementsprechend auch alle Zellen der Einheiteninformationen. Die Minikarte war kleiner und der Besta"atigen/Abbrechen Button wurde in der primary Farbe hinterlegt (anstatt in Grau). Zus"atzlich wurde die Spielerfarbe bei den Einheiteninformationen angezeigt. Das Runden- und Phasenlabel lag ein wenig weiter unten. Die Spielerkarten waren ein wenig d"unner und da sie zusammen nicht die ganze Breite des Spielfeldes einnahmen, wurden sie mittig platziert.
+			\ \\ Wie auf den Abbildungen \ref{End_Ingame_View} und \ref{End_Ingame_View_2} zu sehen ist, wurden alle Features implementiert. Der einzige Unterschied lag darin, dass die UI \"au{\ss}erlich ein wenig abwich. Die Buttons in der oberen Leiste wurden in einer anderen Reihenfolge angeordent. Die Sidebar wurde ein wenig kleiner und dementsprechend auch alle Zellen der Einheiteninformationen. Die Minikarte war kleiner und die Buttons zum Best"atigen und Abbrechen wurden in einer anderen Farbe hinterlegt. Zus"atzlich wurde die Spielerfarbe bei den Einheiteninformationen angezeigt. Die Runden- und Phasenanzeige lag etwas weiter unten. Die Spielerkarten waren ein wenig d"unner und da sie zusammen nicht die ganze Breite des Spielfeldes einnahmen, wurden sie mittig platziert.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/endOfRelease/Ingame.png}
@@ -1259,7 +1257,7 @@
 				\label{End_Ingame_View_2}
 			\end{figure}
 			\subsubsection{Einheit ausw"ahlen} \label{END_SELECT}
-				Da es drei Phasen in einer Runde eines Spielers gab, wird dieses Kapitel der "Ubersicht halber kleiner geteilt. Ein Unterschied zur Zielsetzung war es in allen Phasen, dass die UI Markierungen eigentlich auch in den gegnerischen Phasen funktionieren sollte, wenn der Nutzer nicht an der Reihe war. Am Ende des Releases sah der Nutzer aber in den gegnerischen Phasen nur, wie sich Einheiten bewegten oder angegriffen wurden. Am Ende des dritten Releases wurde zus"atzlich noch das ausgew"ahlte Feld (bzw. die Einheit darauf) hellgrau hinterlegt. Das zuletzt gehoverte Feld wurde auch hellgrau hinterlegt. Die zuletzt gehoverte Einheit wurde in der unteren Einheitenbox in der Sidebar angezeigt und die ausgew"ahlte Einheit in der oberen Box (siehe bspw. Abbildung \ref{End_Ingame_View_2}).
+				Da es drei Phasen in einer Runde eines Spielers gab, wird dieses Kapitel der "Ubersicht halber unterteilt. Ein Unterschied zur Zielsetzung war es in allen Phasen, dass die UI Markierungen eigentlich auch in den gegnerischen Phasen funktionieren sollten, also auch wenn der Nutzer nicht an der Reihe war. Am Ende des Releases sah der Nutzer aber in den gegnerischen Phasen nur, wie sich Einheiten bewegten oder angegriffen wurden. Am Ende des dritten Releases wurde zus"atzlich noch das ausgew"ahlte Feld beziheungsweise die Einheit darauf hellgrau hinterlegt. Das zuletzt markierte Feld wurde auch hellgrau hinterlegt. Die zuletzt markierte Einheit wurde in der unteren Einheitenbox in der Sidebar angezeigt und die ausgew"ahlte Einheit in der oberen Box (siehe bspw. Abbildung \ref{End_Ingame_View_2}).
 				\subsubsubsection{Phase 1 - Bewegungsphase}
 					In der ersten Phase sollten eigentlich nur die Bewegungsreichweite und alle m"oglichen Angriffsziele in dieser Reichweite angezeigt werden.
 					\begin{figure}[H] 
@@ -1268,7 +1266,7 @@
 						\caption{Mockup: Phase 1: Ausw"ahlen}
 						\label{Select_1_2}
 					\end{figure}
-					\ \\ Die Bewegungsreichweite wurde korrekt angezeigt. Jedoch werden alle m"oglichen Angriffsziele auf der gesamten Karte rot markiert (siehe Abbildung \ref{End_Select_1}). Ein weiteres zus"atzliches Feature war es, dass wenn der Nutzer nicht alle Bewegungspunkte aufbrauchte, die Einheit weiterhin ausgew"ahlt blieb und die Bewegungsreichweite sich in der UI verkleinerte. Waren die Punkte bei Null wurde die Einheit automatisch abgew"ahlt.
+					\ \\ Die Bewegungsreichweite wurde korrekt angezeigt. Jedoch werden alle m"oglichen Angriffsziele auf der gesamten Karte rot markiert (siehe Abbildung \ref{End_Select_1}). Ein weiteres zus"atzliches Feature war, dass wenn der Nutzer nicht alle Bewegungspunkte aufbrauchte, die Einheit weiterhin ausgew"ahlt blieb und die Bewegungsreichweite sich in der UI verkleinerte. Waren die Punkte bei Null wurde die Einheit automatisch abgew"ahlt.
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/Select.png}
@@ -1306,18 +1304,18 @@
 						\label{End_Select_3_2}
 					\end{figure} 
 			\subsubsection{Einheit bewegen und angreifen}
-				Das Ausw"ahlen der Einheiten funktionierte wie vorgesehen, sogar in den Bewegungsphasen blieben die Einheiten ausgew"ahlt, wenn noch Bewegungspunkte "ubrig waren, wie schon im vorherigen Kapitel beschrieben. Die Mockups von Einheit bewegen und angreifen wurden allerdings nicht umgesetzt (siehe Kapitel 2.3.3.2 und 2.3.3.3). Geplant war es, den Besta"atigen/Abbrechen Button in der Sidebar zu benutzen, um Aktionen kontrollierter zu steuern. Wenn der Nutzer eine Einheit bewegen oder angreifen wollte, sollte zur Best"atigung ein Icon auf dem Feld erscheinen, auf das der Nutzer laufen wollte oder eine Einheit angreifen wollte. Die Buttons in der Sidebar waren also zum Ende des Releases ohne Funktion, aber die User Stories daf"ur wurden mit ins n"achste Release "ubernommen.
+				Das Ausw"ahlen der Einheiten funktionierte wie vorgesehen. In den Bewegungsphasen blieben die Einheiten ausgew"ahlt, wenn noch Bewegungspunkte "ubrig waren, wie schon im vorherigen Kapitel beschrieben. Die Mockups von Einheit bewegen und angreifen wurden allerdings nicht umgesetzt (siehe Kapitel 2.3.3.2 und 2.3.3.3). Geplant war es, die Buttons zum Best"atigen undAbbrechen in der Sidebar zu benutzen, um Aktionen kontrollierter zu steuern. Wenn der Nutzer eine Einheit bewegen oder angreifen wollte, sollte zur Best"atigung ein Icon auf dem Feld erscheinen, auf das der Nutzer laufen wollte oder eine Einheit angreifen wollte. Die Buttons in der Sidebar waren also zum Ende des Releases ohne Funktion, aber die User Stories daf"ur wurden mit ins n"achste Release "ubernommen.
 			\subsubsection{Spielende}
-				Wenn ein Spieler aus dem Spiel ausschied, sollte sich sein Icon und sein Name auf der Spielerkarte schwarz f"arben. Dies wurde umgesetzt (siehe bspw. Abbildung \ref{End_Game_Won} oder \ref{End_Spectator_End}). Des Weiteren sollten bei den verschiedenen Spielenden verschiedene Overlays angezeigt werden.
+				Wenn ein Spieler aus dem Spiel ausschied, sollte sich Icon und Name auf seiner Spielerkarte schwarz f"arben. Dies wurde umgesetzt (siehe beispielsweise Abbildung \ref{End_Game_Won} oder \ref{End_Spectator_End}). Des Weiteren sollten bei den verschiedenen Spielenden verschiedene Overlays angezeigt werden.
 				\subsubsubsection{Spiel gewonnen}
-					Wenn alle Spieler bis auf der Nutzer aus dem Spiel ausgeschieden waren, sollte ein Overlay angezeigt werden, das den Nutzer informierte, dass er gewan. Danach sollte es ihn zur Lobby zur"uck schicken.
+					Wenn alle Spieler bis auf den Nutzer aus dem Spiel ausgeschieden waren, sollte ein Overlay angezeigt werden. Dieses informierte den Nutzer dar\"uber, dass er gewann. Danach sollte es ihn zur Lobby zur"uck schicken.
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/mockups/GameOver.png}
 						\caption{Mockup: Spiel verloren}
 						\label{Game_Lost_2}
 					\end{figure}
-					\ \\ Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den Mockups aus (vgl. Abbildung \ref{Game_Lost_2} und \ref{End_Game_Lost}).
+					\ \\ Die geplante Funktionalit\"at wurde umgesetzt. Die Benutzeroberfl\"ache entsprach den Mockups (vgl. Abbildung \ref{Game_Lost_2} und \ref{End_Game_Lost}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/GameOver.png}
@@ -1325,7 +1323,7 @@
 						\label{End_Game_Lost}
 					\end{figure}
 				\subsubsubsection{Spiel verloren}
-					Wenn der Nutzer aus dem Spiel ausgeschieden war, sollte ein Overlay angezeigt werden, das den Nutzer informierte, dass er verlor. Danach sollte es ihm die M"oglichkeit geben, entweder das Spiel weiter zu betrachten oder zur Lobby zur"uck zu gehen. Wenn der Nutzer der vorletzte Spieler im Spiel war, sollte das Overlay vom Beobachtungsmodus Ende angezeigt werden.
+					Wenn der Nutzer aus dem Spiel ausgeschieden war, sollte ein Overlay angezeigt werden. Dieses informierte den Nutzer dar\"uber, dass er verloren hatte. Danach sollte es ihm die M"oglichkeit geben, entweder das Spiel weiter zu beobachten oder zur Lobby zur"uck zu gehen. Wenn der Nutzer der vorletzte Spieler im Spiel war, sollte das Overlay vom Beobachtungsmodus Ende angezeigt werden.
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/mockups/GameWon.png}
@@ -1338,16 +1336,16 @@
 						\caption{Endstand Release \RN{3}: Spiel gewonnen}
 						\label{End_Game_Won}
 					\end{figure}
-					\ \\ Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den Mockups aus (vgl. Abbildung \ref{Game_Won_2} und \ref{End_Game_Won}).
+					\ \\ \ Die geplante Funktionalit\"at wurde umgesetzt. Die Benutzeroberfl\"ache entsprach den Mockups (vgl. Abbildung \ref{Game_Won_2} und \ref{End_Game_Won}).
 				\subsubsubsection{Beobachtungsmodus Ende}
-					Wenn alle Spieler bis auf einen Spieler aus dem Spiel ausgeschieden waren, sollte dem Nutzer ein Overlay angezeigt werden, das ihn informierte, dass ein Spieler gewan. Danach sollte es ihn zur Lobby zur"uck schicken.
+					Wenn alle Spieler bis auf einen Spieler aus dem Spiel ausgeschieden waren, sollte ein Overlay angezeigt werden. Dieses informierte den Nutzer dar\"uber, dass ein Spieler gewann. Danach sollte es ihn zur Lobby zur"uck schicken.
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/mockups/SpectatorEnd.png}
 						\caption{Mockup: Beobachtungsmodus: Spiel vorbei}
 						\label{Spectator_End_2}
 					\end{figure}
-					\ \\ Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den Mockups aus (vgl. Abbildung \ref{Spectator_End_2} und \ref{End_Spectator_End}).
+					\ \\ Die geplante Funktionalit\"at wurde umgesetzt. Die Benutzeroberfl\"ache entsprach den Mockups \ref{Spectator_End_2} und \ref{End_Spectator_End}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/SpectatorEnd.png}
@@ -1355,15 +1353,15 @@
 						\label{End_Spectator_End}
 					\end{figure}
 			\subsubsection{Weitere Features}
-				Alle geplanten weiteren Features wie das Phase Ende und die Einheiteninformationen in der Sidebar, wenn eine Einheit ausgew"ahlt oder gehovert wurde (wie bereits zuvor in Kapitel \ref{END_SELECT} beschrieben), wurden umgesetzt.
+				Alle geplanten weiteren Features wie das Phasenende und die Einheiteninformationen in der Sidebar wurden umgesetzt.
 				\begin{figure}[H] 
 					\centering
 					\includegraphics[width=0.8\textwidth]{images/mockups/EndPhase.png}
 					\caption{Mockup: Phase beenden}
 					\label{Phase_End_2}
 				\end{figure}
-				\subsubsubsection{Phase Ende}
-					Der Nutzer sollte "uber einen Button in der oberen Leiste die Phase beenden k"onnen. Dazu sollte ein Overlay angezeigt werden und der Button sollte in gegnerischen Runden deaktiviert sein. Alles funktionierte, wie es geplant wurde. Die UI sah auch genauso wie auf den Mockups aus (vgl. Abbildung \ref{Phase_End_2} und \ref{End_Phase_End}).
+				\subsubsubsection{Phasenende}
+					Der Nutzer sollte "uber einen Button in der oberen Leiste die Phase beenden k"onnen. Dazu sollte ein Overlay angezeigt werden und der Button sollte in gegnerischen Runden deaktiviert sein. Alles funktionierte, wie es geplant wurde. Die Benutzeroberfl\"ache entsprach den Mockups (vgl. Abbildung \ref{Phase_End_2} und \ref{End_Phase_End}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/EndPhase.png}
@@ -1371,23 +1369,23 @@
 						\label{End_Phase_End}
 					\end{figure}
 				\subsubsubsection{Weitere hinzugekommene Features}
-					Es gab auch noch ein paar neue Features, die im Verlauf des Releases \RN{3} hinzukamen, die in diesem Kapitel mit Mockups erw"ahnt werden sollen.
+					Es gab mehrere neue Features, die im Verlauf des Releases \RN{3} hinzukamen, die in diesem Kapitel mit Mockups erw"ahnt werden sollen.
 					\vspace{0.3cm} \newline
-					Egal in welcher Phase der Nutzer war oder ob ein Gegner an der Reihe war, es war immer m"oglich auf eine gegnerische Einheit zu klicken und alle m"oglichen Angriffsziele dieser ausgew"ahlten Einheit rot hinterlegt zu sehen. Nicht angreifbare Einheiten wurden grau hinterlegt (siehe Abbildung \ref{End_Select_Enemy}).
+					Egal in welcher Phase der Nutzer sich befand oder ob ein Gegner an der Reihe war, es war immer m"oglich auf eine gegnerische Einheit zu klicken und alle m"oglichen Angriffsziele dieser ausgew"ahlten Einheit rot hinterlegt zu sehen. Nicht angreifbare Einheiten wurden grau hinterlegt (siehe Abbildung \ref{End_Select_Enemy}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/SelectEnemy.png}
 						\caption{Endstand Release \RN{3}: Gegner ausw"ahlen}
 						\label{End_Select_Enemy}
 					\end{figure}
-					\ \\ Ein weiteres nicht geplantes Feature war der Lebensbalken "uber jeder Einheit, der dem Nutzer leichter Bescheid gab, zu welchem Spieler die Einheit geh"orte. Weiterhin nahm die Farbe in dem Balken ab, wenn die Einheit weniger Lebenspunkte hatte (siehe Abbildung \ref{End_Healthbar_Down}).
+					\ \\ Ein weiteres nicht geplantes Feature war der Lebensbalken "uber jeder Einheit, der dem Nutzer besser dar\"uber informierte, zu welchem Spieler eine Einheit geh"orte. Weiterhin nahm die L\"ange des Balkens ab, wenn die Einheit weniger Lebenspunkte hatte (siehe Abbildung \ref{End_Healthbar_Down}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/HealthbarDown.png}
 						\caption{Endstand Release \RN{3}: Lebensbalken}
 						\label{End_Healthbar_Down}
 					\end{figure}
-					\ \\ Die Fehlerbehandlung wurde in die Spielszene erweitert und falls das Spiel unerwartet vom Server geschlossen wurde, wurde ein Overlay angezeigt, dass den Nutzer in die Lobby schickte (siehe Abbildung \ref{End_Failure}).
+					\ \\ Die Fehlerbehandlung der Spielszene wurde erweitert und falls das Spiel unerwartet vom Server geschlossen wurde \"offnete sich ein Overlay. Dieses schickte den Nutzer in die Lobby (siehe Abbildung \ref{End_Failure}).
 					\begin{figure}[H] 
 						\centering
 						\includegraphics[width=0.8\textwidth]{images/endOfRelease/Failure.png}
@@ -1395,7 +1393,7 @@
 						\label{End_Failure}
 					\end{figure}
 		\subsection{Fazit}
-			Im Ganzen betrachtet, setzte das Team im Release \RN{3} alle Anfordrungen vom Kunden (siehe Kapitel \ref{FEATURE_REQUESTS}) um. Dies ist auch auf den vorangegangenen Screenshots aus dem Client gut zu sehen. Es wurden nur einige optionale Features, wie das Minispiel, der Spielname und der Indikator im Warteraum und die Icons zum Best"atigen von Aktionen in der Spielszene noch nicht umgesetzt, aber sollten mit in das Release \RN{4} genommen werden.
+			Das Team setzte im Release \RN{3} alle Anforderungen vom Kunden (siehe Kapitel \ref{FEATURE_REQUESTS}) um. Dies ist auch auf den vorangegangenen Screenshots aus dem Client gut zu sehen. Es wurden nur einige optionale Features, wie das Minispiel, der Spielname und der Indikator im Warteraum und die Icons zum Best"atigen von Aktionen in der Spielszene noch nicht umgesetzt, aber sollten mit in das Release \RN{4} genommen werden.
 	\newpage
 	\section{Quellenangaben}
 		\listoffigures
