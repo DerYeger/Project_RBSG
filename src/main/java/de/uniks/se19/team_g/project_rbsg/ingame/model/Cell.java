@@ -7,7 +7,9 @@ import javafx.beans.value.ObservableBooleanValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -329,9 +331,10 @@ public class Cell implements Hoverable, Selectable {
         ;
     }
 
-    public Stream<Cell> getNeighbors() {
-        return Stream.of(
-            getRight(), getBottom(), getLeft(), getTop()
-        ).filter(Objects::nonNull);
+    public ArrayList<Cell> getNeighbors() {
+        return Stream
+                .of(getRight(), getBottom(), getLeft(), getTop())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

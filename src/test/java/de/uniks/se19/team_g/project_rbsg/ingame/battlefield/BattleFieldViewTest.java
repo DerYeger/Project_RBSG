@@ -23,6 +23,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -197,7 +198,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
-        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        IngameApi ingameApi = new IngameApi();
+        GameEventManager gameEventManager = mock(GameEventManager.class);
+        when(gameEventManager.api()).thenReturn(ingameApi);
+        ingameApi.setGameEventManager(gameEventManager);
 
         User user = new User();
         user.setName("Karli");
@@ -469,7 +473,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
-
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
@@ -502,7 +505,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         click(200, 200);
         click(250, 200);
-        verify(gameEventManager).api();
+        verify(gameEventManager, times(1)).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
 
