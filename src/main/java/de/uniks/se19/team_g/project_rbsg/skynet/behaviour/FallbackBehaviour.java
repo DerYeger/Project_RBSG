@@ -11,6 +11,6 @@ public class FallbackBehaviour implements Behaviour {
 
     @Override
     public Optional<PassAction> apply(@NonNull final Game game, @NonNull final Player player) {
-        return Optional.of(new PassAction());
+        return Optional.of(new PassAction(game));
     }
 }

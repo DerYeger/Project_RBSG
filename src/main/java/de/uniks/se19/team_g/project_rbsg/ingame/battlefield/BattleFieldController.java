@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -716,8 +717,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void doEndPhase()
     {
-        this.context.getGameEventManager().sendEndPhaseCommand();
-        this.context.getGameState().clearSelection();
+        actionExecutor.execute(new PassAction(game));
     }
 
     @Override

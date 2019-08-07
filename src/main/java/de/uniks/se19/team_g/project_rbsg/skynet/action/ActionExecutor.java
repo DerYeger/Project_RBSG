@@ -44,6 +44,7 @@ public class ActionExecutor {
     }
 
     public void execute(@NonNull final PassAction action) {
-
+        api.endPhase();
+        action.game.clearSelection();
     }
 }
