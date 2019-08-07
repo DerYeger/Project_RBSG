@@ -2,11 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.skynet;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.FallbackBehaviour;
 import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
@@ -28,6 +26,7 @@ public class Skynet {
         this.player = player;
 
         behaviours = new HashMap<>();
+        behaviours.put("fallback", new FallbackBehaviour());
     }
 
     public Skynet addBehaviour(@NonNull final Behaviour behaviour,
@@ -47,10 +46,10 @@ public class Skynet {
         final Behaviour currentBehaviour = getCurrentBehaviour();
         if (currentBehaviour == null) return this;
 
-        final Optional<Action> action = currentBehaviour.apply(game, player);
+        final Optional<? extends Action> action = currentBehaviour.apply(game, player);
 
         if (action.isEmpty()) {
-            //ignore for now
+            actionExecutor.execute((PassAction) behaviours.get("fallback").apply(game, player).get());
         } else if (action.get() instanceof MovementAction) {
             actionExecutor.execute((MovementAction) action.get());
         } else if (action.get() instanceof AttackAction) {
