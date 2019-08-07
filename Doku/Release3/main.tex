@@ -178,7 +178,7 @@
     				\caption{Release \RN{2}: Login Szene}
     				\label{Login}
 			    \end{figure}
-			    \ \\ Versuchte der Nutzer sich anzumelden oder zu registrieren, erschien ein Lade-Indikator (siehe Abbildung \ref{Login_Form}) und die Buttons und Textfelder wurden disabled. Machte der Nutzer dabei einen Fehler oder konnte keine Verbindung zum Server hergestellt werden, erschien eine Fehlermeldung (siehe Abbildung \ref{Login_Form}). Der Login war internationalisiert und der Untertitel \glqq Enhanced Wars\grqq\ war animiert. Weiterhin konnte der Nutzer die Musik "uber den Musik Button in der Ecke ein- und ausschalten. \\
+			    \ \\ Versuchte der Nutzer sich anzumelden oder zu registrieren, erschien ein Lade-Indikator (siehe Abbildung \ref{Login_Form}) und die Buttons und Textfelder wurden deaktiviert. Machte der Nutzer dabei einen Fehler, oder konnte keine Verbindung zum Server hergestellt werden, erschien eine Fehlermeldung (siehe Abbildung \ref{Login_Form}). Der Login war internationalisiert und der Untertitel \glqq Enhanced Wars\grqq\ war animiert. Weiterhin konnte der Nutzer die Musik "uber den Musik Button in der Ecke ein- und ausschalten. \\
 			    \begin{figure}[H]
                     \centering
                     \begin{subfigure}[h]{0.3\linewidth}
@@ -205,7 +205,7 @@
                     \label{Login_Form}
                 \end{figure}
             \subsubsection{Lobby} \label{LOBBY}
-                Die Lobby zeigte eine Liste von allen Spielern (die keinem Spiel beigetreten waren) und allen Spielen an. Diese Liste aktualisierte sich, wenn der Server die entsprechende Nachricht schickte. Der Nutzer konnte sich "uber die Buttons oben rechts ausloggen, die Sprache "andern oder die Musik an- und ausschalten. Der Chat wurde unten links angezeigt. Rechts sah der Nutzer eine Liste mit allen vollst"andigen Armeen. Hatte der Nutzer keine vollst"andige Armee ausgew"ahlt, konnte er kein Spiel erstellen (siehe Abbildung \ref{Lobby_No_Army_Selected}) und auch keinem Spiel beitreten. \\
+                Die Lobby zeigte eine Liste von allen Spielern, welche sich ebenfalls in der Lobby befanden, und allen Spielen an. Diese Listen aktualisierten sich, wenn der Server eine entsprechende Nachricht schickte. Der Nutzer konnte sich "uber die Buttons oben rechts ausloggen, die Sprache "andern oder die Musik an- und ausschalten. Der Chat wurde unten links angezeigt. Rechts sah der Nutzer eine Liste mit allen vollst"andigen Armeen. Hatte der Nutzer keine vollst"andige Armee ausgew"ahlt, konnte er kein Spiel erstellen (siehe Abbildung \ref{Lobby_No_Army_Selected}) und auch keinem Spiel beitreten. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/NoArmySelected.png}
@@ -219,7 +219,7 @@
                     \caption{Release \RN{2}: Create Game Formular}
                     \label{Create_Game}
                 \end{wrapfigure}
-			    \ \vspace{0.5cm} \\ Hatte der Nutzer aber eine Armee ausgew"ahlt, konnte er ein Spiel erstellen oder einem Spiel beitreten (siehe Abbildung \ref{Create_Game} oder \ref{Lobby_Language}). Spiel erstellen funktionierte "uber den Create Game Button (siehe Abbildung \ref{Lobby_Army_Selected}). Der Nutzer hatte die Auswahl zwischen einem 2-Spieler-Spiel und einem 4-Spieler-Spiel. Danach wurde ein Autojoin gerufen und der Nutzer trat dem Spiel automatisch bei. Die Lobby war auch internationalisiert (vgl. Abbildung \ref{Lobby_Army_Selected} mit \ref{Lobby_Language}). \\
+			    \ \vspace{0.5cm} \\ Hatte der Nutzer aber eine Armee ausgew"ahlt, konnte er ein Spiel erstellen oder einem Spiel beitreten (siehe Abbildung \ref{Create_Game} oder \ref{Lobby_Language}). Spiel erstellen funktionierte "uber den Create Game Button (siehe Abbildung \ref{Lobby_Army_Selected}). Der Nutzer hatte die Auswahl zwischen einem 2-Spieler-Spiel und einem 4-Spieler-Spiel. Erstellte er ein Spiel trat er diesem automatisch bei. Die Lobby war auch internationalisiert (vgl. Abbildung \ref{Lobby_Army_Selected} mit \ref{Lobby_Language}). \\
 			    \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/lobby/ArmySelected.png}
@@ -233,7 +233,7 @@
     				\label{Lobby_Language}
 			    \end{figure}
 		    \subsubsection{Army Manager}
-		        Im Army Manager gab es eine Liste der Einheiten, die der Nutzer w"ahlen konnte, und eine Liste der Einheiten, die in der gerade rechts ausgew"ahlten Armee waren. In der Mitte stand der Name der ausgew"ahlten Armee, ein Plus (+) und ein Minus (-) Button, um Einheiten der Armee hinzuzuf"ugen oder um sie zu l"oschen und ein Z"ahler, der anzeigte, wie viele Einheiten bereits in der Armee waren. Neben der Einheitenliste war eine Vorschau der gerade ausgew"ahlten Einheit. Neben diesem Feld wurden die Properties der Einheit angezeigt und welche Einheiten die ausgew"ahlte Einheit angreifen konnte. Hier stand bei keiner Auswahl in jedem Feld ein Fragezeichen (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), ansonsten Zahlenwerte (siehe Abbildung \ref{Army_Manager_Unit_Selected}). \\
+		        Im Army Manager gab es eine Liste der Einheiten, die der Nutzer w"ahlen konnte, und eine Liste der Einheiten, die sich der aktuell ausgew"ahlten Armee befanden. In der Mitte stand der Name der ausgew"ahlten Armee, ein Plus (+) und ein Minus (-) Button, um Einheiten der Armee hinzuzuf"ugen oder um sie zu entfernen und ein Z"ahler, der anzeigte, wie viele Einheiten bereits in der Armee waren. Neben der Einheitenliste war eine Vorschau der aktuell ausgew"ahlten Einheit. Neben diesem Feld wurden die Eigenschaften der Einheit angezeigt und welche Einheitentypen die ausgew"ahlte Einheit angreifen konnte. War keine Einheit ausgew\"ahlt wurden Platzhalter angezeigt (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}), ansonsten Zahlenwerte (siehe Abbildung \ref{Army_Manager_Unit_Selected}). \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/NoUnitSelected.png}
@@ -246,7 +246,7 @@
     				\caption{Release \RN{2}: Army Manager Szene: Einheit ausgew"ahlt}
     				\label{Army_Manager_Unit_Selected}
 			    \end{figure}
-			    \ \\ Darunter war der Lore Text der ausgew"ahlten Einheit. Oben rechts waren Buttons, um zur"uck zur Lobby zu gehen und um die Musik ein- oder auszuschalten. Plus ein Button, der die Properties in einem Overlay erkl"arte (siehe Abbildung \ref{Property_Infoo}). Unten rechts befanden sich Buttons, um eine Armee komplett zu l"oschen, \\
+			    \ \\ Darunter befand sich der Lore Text der ausgew"ahlten Einheit. Oben links befanden sich Buttons zum Verlassen des ArmyBuilders, zum Ein- oder Ausschalten der Musik, sowie zum Anzeigen eines Overlays, welches die Eigenschaften der Einheiten erkl"arte (siehe Abbildung \ref{Property_Infoo}). Unten rechts befanden sich Buttons zum L\"oschen und Speichern von Armeen. \\
 			    \begin{figure}[H]
                     \centering
                     \begin{minipage}{0.5\textwidth}
@@ -262,7 +262,7 @@
                         \label{Edit_Army}
                     \end{minipage}
                 \end{figure}
-                \ \\ um sie zu speichern (wurde disabled, wenn sich nichts "anderte (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}). Wenn der Nutzer aber etwas "anderte wurde der Button wieder enabled (siehe Abbildung \ref{Army_Manager_Ready_To_Save}). Es gab dort in der Ecke einen weiteren Button, um den Armeenamen zu "andern oder das Icon zu wechseln. Dazu "offnet sich ein weiteres Overlay (siehe Abbildung \ref{Edit_Army}). \\
+                \ \\ Der Speichern Button blieb deaktiviert (siehe Abbildung \ref{Army_Manager_No_Unit_Selected}) bis die Armee ver\"andert wurde (siehe Abbildung \ref{Army_Manager_Ready_To_Save}). Ein weiterer Button erm\"oglichte das "Andern des Armeenamens oder -icons. Dazu "offnete sich ein weiteres Overlay (siehe Abbildung \ref{Edit_Army}). \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/army_manager/ArmyReadyToSave.png}
@@ -270,7 +270,7 @@
     				\label{Army_Manager_Ready_To_Save}
 			    \end{figure}
 	        \subsubsection{Waiting Room (Gamelobby)} \label{WAITING_ROOM}
-                Trat der Nutzer dem Warteraum bei, dann sah er oben rechts verschiedene Buttons. Einmal einen Button zum Verlassen des Spiels zur"uck in die Lobby, einen Button, um die Musik ein- und auszuschalten, und einen Button, um Informationen anzuzeigen. \\
+                Trat der Nutzer dem Warteraum bei sah er oben rechts verschiedene Buttons zum Verlassen des Spiels, zum Ein- und Ausschalten der Musik und zum Anzeigen von Informationen. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/2Player.png}
@@ -283,9 +283,9 @@
     				\caption{Release \RN{2}: Waiting Room Szene: 4 Spieler}
     				\label{Waiting_Room_4}
 			    \end{figure}
-			    \ \\  Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise auf das Spielfeld (Ingame). Oben in der Mitte wurde die Kartenvorschau angezeigt.  Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten befanden sich der Name und die Farbe des jeweiligen Spielers. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Unten war der Chat und daneben eine freie Pane f"ur ein Minigame, dass noch implementiert werden sollte.
+			    \ \\  Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise zum Spielfeld. Oben in der Mitte wurde die Kartenvorschau angezeigt.  Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten befanden sich der Name und die Farbe des jeweiligen Spielers. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Darunter war der Chat und daneben eine freies Feld f"ur ein Minispiel, welches noch implementiert werden sollte.
 	        \subsubsection{Ingame}
-	            Die Ingameszene zeigte bisher nur die Karte und das initiale Spielgeschehen. Die initialen Einheiten wurden auch angezeigt. Weiterhin gab es einen Button, der zur"uck in die Lobby navigierte. Zwei weitere Buttons kontrollierten das Zoomen auf dem Spielfeld (siehe Abbildung \ref{Ingame}, \ref{Ingame_In} und \ref{Ingame_Out}). \\
+	            Die Spielszene zeigte bisher nur die Karte und das initiale Spielgeschehen. Die initialen Einheiten wurden ebenfalls angezeigt. Weiterhin gab es einen Button zum Verlassen des Spiels. Zwei weitere Buttons kontrollierten das Zoomen auf dem Spielfeld (siehe Abbildung \ref{Ingame}, \ref{Ingame_In} und \ref{Ingame_Out}). \\
 	            \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/ingame/Ingame.png}
@@ -318,7 +318,7 @@
                         \label{Game_Failure}
                     \end{center}
                 \end{wrapfigure}
-		        \ \\ Weiterhin wurde seit den ersten beiden Releases ein Dark Theme Styling implementiert, wie auf allen vorangegangenen Abbildungen zu sehen war. Musik und Internationalisierung waren zwar optional, aber funktionierten in jeder Szene. Der Nutzer konnte auch nach Belieben Chuck Norris Zitate "uber den Chat-Befehl \glqq \textbackslash chuckMe\grqq\ im Chat versenden und es wurde auch mit einem Zeitstempel vor jeder Nachricht angezeigt, wann sie verschickt wurde. Wenn der Nutzer eine private Nachricht bekam, wurde dies auf dem neu aufgegangenem Tab mit der secondary Farbe signalisiert. Die Kartenvorschau im Warteraum war auch optional, genauso wie das Zoomen Ingame. Den Armeenamen, sowie das Icon dazu "andern zu k"onnen, war auch optional. Der Autojoin nach dem Create Game wurde auch nicht verlangt, funktionierte aber bestens. Ein weiteres sehr wichtiges Feature war, dass der Client den Spieler Fehlermeldungen (siehe Abbildung \ref{Login_Failure} und \ref{Game_Failure}) schickte, wenn der Server einen Websocket unerwartet schloss. Der Nutzer wurde je nach Fehler in den Login oder die Lobby zur"uckgeschickt. Au"serdem gab es ein Fenster, in dem sich der Nutzer noch einmal entscheiden konnte, ob er sich wirklich ausloggen oder ob er wirklich das Spiel verlassen m"ochte (siehe Abbildung \ref{Leave_Game} und \ref{Logout}). \\
+		        \ \\ Weiterhin wurde seit den ersten beiden Releases ein Dark Theme Styling implementiert, wie auf allen vorangegangenen Abbildungen zu sehen war. Musik und Internationalisierung waren zwar optional, aber funktionierten in jeder Szene. Der Nutzer konnte auch nach Belieben Chuck Norris Zitate "uber den Chatbefehl \glqq /chuckMe\grqq\ im Chat versenden. Chatnachrichten wurden zudem mit einem Zeitstempel versehen. Wenn der Nutzer eine private Nachricht in einem nicht aktiven Tab erhielt, wurde dieser mit einem farbigen Punkt markiert. Die Kartenvorschau im Warteraum, das Zoomen im Spiel, das \"Andern der Armeenamen und -icons waren optional. Der Autojoin nach Erstellen eines Spiels war ebenfalls optional. Ein weiteres Feature war, dass der Client dem Nutzer Fehlermeldungen (siehe Abbildung \ref{Login_Failure} und \ref{Game_Failure}) zeigte, wenn der Server die Verbindung unerwartet schloss. Der Nutzer wurde je nach Fehler in den Login oder die Lobby zur"uckgeschickt. Au{\ss}erdem gab es ein Fenster, in dem sich der Nutzer noch einmal entscheiden konnte, ob er sich wirklich ausloggen oder das Spiel verlassen m"ochte (siehe Abbildung \ref{Leave_Game} und \ref{Logout}). \\
 		        \begin{figure}[H]
                     \centering
                     \begin{minipage}{0.55\textwidth}
@@ -343,9 +343,9 @@
 			    \end{figure}
     \newpage
 	    \subsection{MockUps}
-	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Ingame Szene erstellt. Weiterhin gab es auch noch MockUps zur Lobby und zum Waiting Room. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps auch noch einmal angepasst, da sich grundlegende \"Anderungen ergaben (Ein Kontextmen"u wurde durch die Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
+	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 MockUps zu der neuen Spielszene erstellt. Weiterhin gab es MockUps zur Lobby und zum Warteraum. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die MockUps noch einmal angepasst, da sich grundlegende \"Anderungen ergaben. Das Kontextmen"u wurde durch die Sidebar ersetzt. Die MockUps waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
 	        \subsubsection{Lobby}
-	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubte, einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden (und in den Waiting Room verlegt werden). \\
+	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubte, einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden und in den Waiting Room verlegt werden. \\
 	            \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockUps/LobbyWatchMode.png}
