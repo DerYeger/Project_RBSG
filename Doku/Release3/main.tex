@@ -110,7 +110,7 @@
         \subsection{Releaseanforderungen} \label{FEATURE_REQUESTS}
             Folgende Mindestanforderungen wurden vereinbart:
             \begin{enumerate}
-                \item Client: Waiting Room (Gamelobby)
+                \item Client: Warteraum
                 \begin{itemize}
                     \item Chatfunktion
                     \item Armeeauswahl
@@ -157,7 +157,7 @@
                     \item[$\ast$] Konfigurieren eigener Armeen
                     \item[$\ast$] Speichern von Armeen lokal und auf dem Server
                 \end{itemize}
-                \item Waiting Room (Gamelobby)
+                \item Warteraum
                 \begin{itemize}
                     \item[$\ast$] Chatfunktion
                     \item[$\ast$] Anzeige der beigetretenen Spieler 
@@ -269,18 +269,18 @@
     				\caption{Release \RN{2}: Army Manager Szene: Speicherbar}
     				\label{Army_Manager_Ready_To_Save}
 			    \end{figure}
-	        \subsubsection{Waiting Room (Gamelobby)} \label{WAITING_ROOM}
+	        \subsubsection{Warteraum} \label{WAITING_ROOM}
                 Trat der Nutzer dem Warteraum bei sah er oben rechts verschiedene Buttons zum Verlassen des Spiels, zum Ein- und Ausschalten der Musik und zum Anzeigen von Informationen. \\
                 \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/2Player.png}
-    				\caption{Release \RN{2}: Waiting Room Szene: 2 Spieler}
+    				\caption{Release \RN{2}: Warteraumszene: 2 Spieler}
     				\label{Waiting_Room_2}
 			    \end{figure}
 			    \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/old_state/waiting_room/4Player.png}
-    				\caption{Release \RN{2}: Waiting Room Szene: 4 Spieler}
+    				\caption{Release \RN{2}: Warteraumszene: 4 Spieler}
     				\label{Waiting_Room_4}
 			    \end{figure}
 			    \ \\  Da dieser Button noch keine spezielle Funktion hatte, wechselte der Nutzer mit diesem testweise zum Spielfeld. Oben in der Mitte wurde die Kartenvorschau angezeigt.  Links und rechts daneben waren die Spielerkarten zu sehen. Je nachdem ob der Nutzer ein 2-Spieler-Spiel oder ein 4-Spieler-Spiel startete, befanden sich dort zwei oder vier Spielerkarten (siehe Abbildung \ref{Waiting_Room_2} und \ref{Waiting_Room_4}). Auf den Spielerkarten befanden sich der Name und die Farbe des jeweiligen Spielers. Waren noch nicht genug Spieler dem Spiel beigetreten, wurden Lade-Indikatoren in den Spielerkarten angezeigt. Darunter war der Chat und daneben eine freies Feld f"ur ein Minispiel, welches noch implementiert werden sollte.
@@ -345,15 +345,15 @@
 	    \subsection{Mockups}
 	        Aufgrund der Releaseanforderungen wurden f"ur das Kundentreffen am 1.7.2019 Mockups zu der neuen Spielszene erstellt. Weiterhin gab es Mockups zur Lobby und zum Warteraum. Diese wurden nach dem Erscheinen der Serverdokumentation noch erweitert. Im sechsten Sprint wurden die Mockups noch einmal angepasst, da sich grundlegende \"Anderungen ergaben. Das Kontextmen"u wurde durch die Sidebar ersetzt. Die Mockups waren im Stil des Dark Theme und sollten an die UI aus den vorherigen Releases ankn"upfen.
 	        \subsubsection{Lobby}
-	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubte, einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden und in den Waiting Room verlegt werden. \\
+	           Es wurde gefordert, in der Lobby ein Button hinzuzuf"ugen, der es dem Nutzer erlaubte, einem Beobachtungsmodus beizutreten. Des Weiteren sollte die Armeeauswahl aus der Lobby entfernt werden und in den Warteraum verlegt werden. \\
 	            \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockups/LobbyWatchMode.png}
     				\caption{Mockup: Beobachtungsmodus Lobby}
     				\label{Watch_Mode}
 			    \end{figure}
-		    \subsubsection{Waiting Room (Gamelobby)}
-		        Da der Waiting Room im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Setzen von Spielern als bereit hinzugef"ugt werden. Dies sollte passieren, wenn der Nuzter eine Armee ausw"ahlte (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Warteraum umgezogen werden. Spielerkarten von bereiten Spielern solltenfarblich hervorgehoben werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler bereit waren, sollte ein Overlay angezeigt werden, in dem ein Indikator lud, bis zur Spielszene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den Mockups waren auch zwei optionale Features, das TicTacToe Spiel unten rechts und der Spielname in der Mitte des Spiels (siehe auf den Mockups mit Beispielnamen \glqq Enhanced Wars\grqq), zu sehen. \\
+		    \subsubsection{Warteraum}
+		        Da der Warteraum im Release \RN{2} (siehe Kapitel \ref{WAITING_ROOM}) schon gr"o"stenteils vorhanden war, musste nur noch das Setzen von Spielern als bereit hinzugef"ugt werden. Dies sollte passieren, wenn der Nuzter eine Armee ausw"ahlte (siehe Abbildung \ref{Ready}). Die Armeeauswahl musste deswegen von der Lobby in den Warteraum umgezogen werden. Spielerkarten von bereiten Spielern solltenfarblich hervorgehoben werden und die Icons sollten sich schwarz f"arben. Wenn alle Spieler bereit waren, sollte ein Overlay angezeigt werden, in dem ein Indikator lud, bis zur Spielszene gewechselt wurde (siehe Abbildung \ref{Game_Start}). Auf den Mockups waren auch zwei optionale Features, das TicTacToe Spiel unten rechts und der Spielname in der Mitte des Spiels (siehe auf den Mockups mit Beispielnamen \glqq Enhanced Wars\grqq), zu sehen. \\
 		        \begin{figure}[H] 
     				\centering
     				\includegraphics[width=0.8\textwidth]{images/mockups/NotReady.png}
@@ -515,7 +515,7 @@
 	        Falls die Entwicklung schneller als erwartet voranschreiten sollte, w"urden der Ingamechat und das Spielende noch implementiert werden. Sollten alle Ziele abgeschlossen werden, w"urden "uber 80 Storypoints abgearbeitet werden, was bei vier Entwicklern als ein guter Fortschritt gewertet werden k"onnte.
 	    \subsection{User Stories} \label{User_Stories_5}
 	        Die User Stories, die vom Product Owner erstellt wurden, sind wie folgt aufgebaut: Dem Titel kann entnommen werden, zu welcher Szene die Story geh"orte. Anschlie"send werden die Story Points und der zugeteilte Entwickler genannt. Danach folgt die Story und das Ziel. Das Ziel fasst die Subtasks, die der Scrum Master erstellte, zusammen. Danach werden alle Subtasks aufgelistet. Falls die Story abgeschlossen wurde, wird der Verlauf und das Ergebnis dokumentiert. Falls die Story nur angefangen wurde, wird der Verlauf und der Stand dokumentiert.
-	        \subsubsection{Waiting Room - Spielbeitritt anpassen}
+	        \subsubsection{Warteraum - Spielbeitritt anpassen}
 	            \paragraph{Zuteilung}
 	                	Diese User Story wurde auf 5 Storypoints gesch\"atzt und an Omar Sood zugeteilt.
 	            \paragraph{Story}
@@ -740,7 +740,7 @@
        				\textbf{User Story} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Noch Zeit} & \textbf{Entwickler} \\
        				\toprule
        				\endhead
-       				Waiting Room - Spielbeitritt anpassen & 5 h & 13 h 9 min &  & Omar Sood\\
+       				Warteraum - Spielbeitritt anpassen & 5 h & 13 h 9 min &  & Omar Sood\\
        				Ingame - Spielfeld & 13 h & 8 h 22 min &  & Georg Siebert\\
        				Ingame - Phase beenden & 3 h & 15 h 20 min &  & Juri Lozowoj \\
        				Ingame - Einheit ausw"ahlen & 13 h & 11 h 46 min & 1h 14 min & Juri Lozowoj \\
@@ -1009,7 +1009,7 @@
 					Alle Servernachrichten zum Aktualisieren des Datenmodells wurden korrekt verarbeitet.
    		\subsection{Tasks}
    			Im sechsten Sprint wurden weitere Tasks vom Scrum Master erstellt. F"ur den Aufbau und falls die Tasks abgeschlossen oder angefangen wurden, gilt dasselbe wie im ersten Task Kapitel \ref{Tasks_5}.
-   			\subsubsection{Waiting Room - Armeeauswahlbox anpassen}
+   			\subsubsection{Warteraum - Armeeauswahlbox anpassen}
    				\paragraph{Zuteilung}
    					Diese Task wurde auf 2 Zeitstunden gesch"atzt und an Tobias Klipp zugeteilt.
 				\paragraph{Ziel}
@@ -1123,7 +1123,7 @@
     			Ingame - Einheit ausw"ahlen - Angriffsphase & 3 h & 3 h & Omar Sood \\
     			Ingame - Einheit ausw"ahlen - Bewegungsphase & 5 h & 55 min & Omar Sood \\
     			\midrule
-    			Waiting Room - Armeeauswahlbox anpassen & 2 h & 30 min & Tobias Klipp \\
+    			Warteraum - Armeeauswahlbox anpassen & 2 h & 30 min & Tobias Klipp \\
     			Einheiteninformationen im Datenmodell & 5 h & 1 h 28 min & Omar Sood \\
     			Servernachrichten & 8 h & 1 min & Omar Sood \\
     			Ingame - Best\"atigungsbox in der Sidebar & 3 h & 30 min & Georg Siebert \\
@@ -1208,7 +1208,7 @@
 				\caption{Endstand Release \RN{3}: Beobachtungsmodus Lobby}
 				\label{End_Watch_Mode}
 			\end{figure}
-		\subsection{Waiting Room (Gamelobby)}
+		\subsection{Warteraum}
 			Es wurde gefordert, ein Ready Signal geben zu k"onnen. Darauf sollte die Spielerkarte in der secondary Farbe angezeigt werden. Das Icon und die Schrift sollte sich schwarz f"arben. Die Armeeauswahlbox sollte von der Lobby in den Warteraum umgezogen werden. Optionals waren das TicTacToe Spiel und der Spielname oben in der Mitte der Szene.
 			\begin{figure}[H] 
 				\centering

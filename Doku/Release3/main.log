@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  7 AUG 2019 13:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.25)  7 AUG 2019 13:21
 entering extended mode
 **./main.tex
 (main.tex
@@ -1389,8 +1389,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 265--271
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.272 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                   \label{WAITING_ROOM}
+l.272 	        \subsubsection{Warteraum}
+                                         \label{WAITING_ROOM}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -1398,8 +1398,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.272 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                   \label{WAITING_ROOM}
+l.272 	        \subsubsection{Warteraum}
+                                         \label{WAITING_ROOM}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -1410,8 +1410,8 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.272 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                   \label{WAITING_ROOM}
+l.272 	        \subsubsection{Warteraum}
+                                         \label{WAITING_ROOM}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -1419,8 +1419,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.272 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                   \label{WAITING_ROOM}
+l.272 	        \subsubsection{Warteraum}
+                                         \label{WAITING_ROOM}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -1752,8 +1752,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 348--354
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.355 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                  
+l.355 		    \subsubsection{Warteraum}
+                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -1761,8 +1761,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.355 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                  
+l.355 		    \subsubsection{Warteraum}
+                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -1773,8 +1773,8 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.355 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                  
+l.355 		    \subsubsection{Warteraum}
+                                     
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -1782,8 +1782,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.355 ... \subsubsection{Waiting Room (Gamelobby)}
-                                                  
+l.355 		    \subsubsection{Warteraum}
+                                     
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -2364,7 +2364,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.518 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...ction{Warteraum - Spielbeitritt anpassen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2373,7 +2373,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.518 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...ction{Warteraum - Spielbeitritt anpassen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2385,7 +2385,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.518 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...ction{Warteraum - Spielbeitritt anpassen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2394,7 +2394,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.518 ...on{Waiting Room - Spielbeitritt anpassen}
+l.518 ...ction{Warteraum - Spielbeitritt anpassen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4806,7 +4806,7 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.1012 ...Waiting Room - Armeeauswahlbox anpassen}
+l.1012 ...on{Warteraum - Armeeauswahlbox anpassen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4815,7 +4815,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.1012 ...Waiting Room - Armeeauswahlbox anpassen}
+l.1012 ...on{Warteraum - Armeeauswahlbox anpassen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4827,7 +4827,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.1012 ...Waiting Room - Armeeauswahlbox anpassen}
+l.1012 ...on{Warteraum - Armeeauswahlbox anpassen}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4836,7 +4836,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.1012 ...Waiting Room - Armeeauswahlbox anpassen}
+l.1012 ...on{Warteraum - Armeeauswahlbox anpassen}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -5893,8 +5893,8 @@ line 1207.
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.1211 		\subsection{Waiting Room (Gamelobby)}
-                                              
+l.1211 		\subsection{Warteraum}
+                               
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -5902,8 +5902,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.1211 		\subsection{Waiting Room (Gamelobby)}
-                                              
+l.1211 		\subsection{Warteraum}
+                               
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -5914,8 +5914,8 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.1211 		\subsection{Waiting Room (Gamelobby)}
-                                              
+l.1211 		\subsection{Warteraum}
+                               
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
@@ -5923,8 +5923,8 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.1211 		\subsection{Waiting Room (Gamelobby)}
-                                              
+l.1211 		\subsection{Warteraum}
+                               
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
 I'll assume that you meant to say pt, for printer's points.
@@ -6633,7 +6633,7 @@ cm/cmsy10.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
 /helvetic/uhvb8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb><C:/Users/janmu/AppData/Local/Programs/MiKTeX 2.9/f
 onts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on main.pdf (79 pages, 9189564 bytes).
+Output written on main.pdf (79 pages, 9189362 bytes).
 PDF statistics:
  2220 PDF objects out of 2487 (max. 8388607)
  499 named destinations out of 1000 (max. 500000)
