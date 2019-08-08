@@ -14,8 +14,6 @@
 .creditsPane{
     -fx-alignment: center;
     -fx-background-color: -root-background-color;
-    -fx-max-width: infinite;
-    -fx-max-height: infinite
 }
 
 .labelBox{
