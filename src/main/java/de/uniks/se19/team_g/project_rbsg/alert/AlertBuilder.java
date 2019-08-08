@@ -149,7 +149,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
             throw new AlertCreationException("No target");
         }
 
-        if (target.getChildren().size() > 2) {
+        if (target.getChildren().size() > 1) {
             throw new AlertCreationException("An alert is already active");
         }
 
