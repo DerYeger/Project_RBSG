@@ -24,17 +24,19 @@ public class CreditsFormBuilder {
         this.fxmlLoader = fxmlLoader;
     }
 
-    public Node getCreditsForm() throws IOException{
+    public Node getCreditsForm(String board, String icons, String music, String units, String frameworks) throws IOException{
         if (this.creditsForm == null){
             fxmlLoader.setLocation(CreditsFormBuilder.class.getResource("/ui/lobby/credits/credits.fxml"));
             creditsForm = fxmlLoader.load();
             //init missing so far
             creditsController = fxmlLoader.getController();
             creditsController.setRootNode(creditsForm);
+            creditsController.init(board, icons, music, units, frameworks);
         }
         creditsForm.setVisible(true);
         return creditsForm;
     }
+
 
     public CreditsController getCreditsController() {
         return creditsController;

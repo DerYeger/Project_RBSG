@@ -118,6 +118,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final ChatController chatController,
             @Nonnull final LobbyChatClient lobbyChatClient,
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
+            @NonNull final CreditsFormBuilder creditsFormBuilder,
             @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
             @NonNull final AlertBuilder alertBuilder,
@@ -140,6 +141,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.gameManager = gameManager;
 
         this.createGameFormBuilder = createGameFormBuilder;
+        this.creditsFormBuilder = creditsFormBuilder;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
@@ -334,7 +336,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
         if (this.creditsForm == null) {
             try {
-                this.creditsForm = this.creditsFormBuilder.getCreditsForm();
+                this.creditsForm = this.creditsFormBuilder.getCreditsForm("board", "icons", "music", "units", "frameworks");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -342,8 +344,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
         if ((this.creditsForm != null) && (!mainStackPane.getChildren().contains(this.creditsForm))) {
             mainStackPane.getChildren().add(creditsForm);
-        } else if ((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm))){
+        } else if ((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm)) && !this.creditsForm.isVisible()){
             this.creditsForm.setVisible(true);
+        } else if (((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm))) && this.creditsForm.isVisible()){
+            this.creditsForm.setVisible(false);
         }
 
     }
