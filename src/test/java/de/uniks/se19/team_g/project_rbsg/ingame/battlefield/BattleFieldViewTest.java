@@ -145,13 +145,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         clickOn("#leaveButton");
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
-        clickOn("#zoomOutButton");
-        clickOn("#zoomOutButton");
+        for(int i = 0; i < 6; i++) clickOn("#zoomOutButton");
         Button zoomIn = lookup("#zoomInButton").query();
         Assert.assertNotNull(zoomIn);
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
+        for(int i = 0; i < 12; i++) clickOn("#zoomInButton");
         clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
