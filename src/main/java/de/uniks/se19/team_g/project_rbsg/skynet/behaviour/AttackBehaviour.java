@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.AttackBehaviourException;
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ public class AttackBehaviour implements Behaviour {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public Optional<Action> apply(@NonNull final Game game,
+    public Optional<AttackAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
             final Unit unit = player

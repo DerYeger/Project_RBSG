@@ -169,10 +169,6 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         webSocketClient.sendMessage(leaveGameCommand());
     }
 
-    public void sendEndPhaseCommand() {
-        webSocketClient.sendMessage(endPhaseCommand());
-    }
-
     public void setOnConnectionClosed(@Nonnull Runnable onConnectionClosed) {
         this.onConnectionClosed = onConnectionClosed;
     }

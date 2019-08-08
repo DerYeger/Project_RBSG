@@ -83,32 +83,6 @@ public class GameEventManagerTests {
         Assert.assertEquals(message, testGameEventHandler.handledMessage.toString());
     }
 
-
-    @Test
-    public void testSendEndPhaseCommand(){
-
-        GameEventManager gameEventManager = new GameEventManager(new WebSocketClient() {
-            ObjectNode objectNode = new ObjectMapper()
-                    .createObjectNode()
-                    .put("messageType", "command")
-                    .put("action", "nextPhase");
-
-            @Override
-            public void sendMessage(final Object message) {
-                Assert.assertEquals(objectNode, message);
-            }
-
-            @Override
-            public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws Exception{
-
-            }
-        });
-
-
-        gameEventManager.sendEndPhaseCommand();
-
-    }
-
     @Test
     public void defaultConstructor() {
         GameEventManager gameEventManager = new GameEventManager(new WebSocketClient());

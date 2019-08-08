@@ -11,7 +11,6 @@ public class IngameApi {
     private GameEventManager gameEventManager;
 
     public void setGameEventManager(@Nonnull GameEventManager gameEventManager) {
-
         this.gameEventManager = gameEventManager;
     }
 
@@ -35,6 +34,10 @@ public class IngameApi {
         attackCommand.data.toAttackId = target.getId();
 
         return attackCommand;
+    }
+
+    public void endPhase() {
+        gameEventManager.sendMessage(CommandBuilder.endPhaseCommand());
     }
 
     public static class BasicCommand {

@@ -42,4 +42,9 @@ public class ActionExecutor {
             tileDrawer.drawTile(action.target.getPosition().getTile());
         }
     }
+
+    public void execute(@NonNull final PassAction action) {
+        api.endPhase();
+        action.game.clearSelection();
+    }
 }

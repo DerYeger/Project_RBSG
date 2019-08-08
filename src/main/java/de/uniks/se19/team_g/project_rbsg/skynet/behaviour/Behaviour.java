@@ -10,5 +10,5 @@ import java.util.Optional;
 @FunctionalInterface
 public interface Behaviour {
 
-    Optional<Action> apply(@NonNull final Game game, @NonNull final Player player);
+    Optional<? extends Action> apply(@NonNull final Game game, @NonNull final Player player);
 }
