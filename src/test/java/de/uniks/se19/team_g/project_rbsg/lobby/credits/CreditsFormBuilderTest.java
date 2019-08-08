@@ -52,7 +52,7 @@ public class CreditsFormBuilderTest extends ApplicationTest {
     @Test
     public void testCreditsForm() throws IOException {
 
-        final Node creditsForm = context.getBean(CreditsFormBuilder.class).getCreditsForm();
+        final Node creditsForm = context.getBean(CreditsFormBuilder.class).getCreditsForm("board", "icons", "music", "units", "frameworks");
         Assert.assertNotNull(creditsForm);
     }
 }

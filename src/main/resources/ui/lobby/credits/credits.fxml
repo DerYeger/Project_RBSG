@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#hideCredits" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsController">
    <children>
       <ScrollPane hvalue="0.5" minHeight="-Infinity" minWidth="-Infinity" styleClass="credits" StackPane.alignment="CENTER">
         <content>
@@ -45,7 +45,7 @@
                      </children>
                      <stylesheets>
                         <URL value="@credits.css" />
-                        <URL value="@../darkTheme.css" />
+                        <URL value="@../../darkTheme.css" />
                      </stylesheets>
                      <opaqueInsets>
                         <Insets />
@@ -54,12 +54,12 @@
                </children>
                <stylesheets>
                   <URL value="@credits.css" />
-                  <URL value="@../darkTheme.css" />
+                  <URL value="@../../darkTheme.css" />
                </stylesheets></AnchorPane>
         </content>
          <stylesheets>
             <URL value="@credits.css" />
-            <URL value="@../darkTheme.css" />
+            <URL value="@../../darkTheme.css" />
          </stylesheets>
       </ScrollPane>
    </children>
