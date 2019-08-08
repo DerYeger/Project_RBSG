@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -49,6 +51,8 @@ import org.testfx.util.WaitForAsyncUtils;
         RestTemplate.class,
         LocaleConfig.class,
         UnitPropertyController.class,
+        AlertBuilder.class,
+        SceneManager.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
 
