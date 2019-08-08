@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
@@ -32,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -70,6 +72,8 @@ public class ArmyBuilderController implements Initializable, RootController {
     private final SceneManager sceneManager;
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
+    @NonNull
+    private final AlertBuilder alertBuilder;
     public StackPane root;
     public VBox content;
     public HBox topContentContainer;
@@ -104,7 +108,6 @@ public class ArmyBuilderController implements Initializable, RootController {
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
 
-
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
             @Nonnull ArmyBuilderState viewState,
@@ -115,7 +118,8 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable Function<VBox, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
-            @Nonnull PersistentArmyManager persistantArmyManager
+            @Nonnull PersistentArmyManager persistantArmyManager,
+            @NonNull AlertBuilder alertBuilder
     ) {
         this.appState = appState;
         this.viewState = viewState;
@@ -127,6 +131,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
         this.persistantArmyManager = persistantArmyManager;
+        this.alertBuilder = alertBuilder;
     }
 
     @Override
@@ -247,15 +252,18 @@ public class ArmyBuilderController implements Initializable, RootController {
             return;
         }
         if(viewState.unsavedUpdates.get()==true){
-            try {
-                persistantArmyManager.saveArmies(appState.armies);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            alertBuilder.confirmation(
+                    AlertBuilder.Text.UNSAVED_ARMY,
+                    () -> {
+                            this.saveArmies();
+                            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+                    },
+                    null
+                    );
         }
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+        else{
+            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+        }
     }
 
     public void saveArmies() {

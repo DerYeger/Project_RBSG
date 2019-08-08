@@ -40,7 +40,8 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         NO_CONNECTION("noConnection"),
         PERMISSION_ERROR("permissionError"),
         END_PHASE("endPhase"),
-        UNKNOWN_ERROR("unknownError");
+        UNKNOWN_ERROR("unknownError"),
+        UNSAVED_ARMY("unsaved_army");
 
         @NonNull
         private final String text;
@@ -148,7 +149,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
             throw new AlertCreationException("No target");
         }
 
-        if (target.getChildren().size() > 1) {
+        if (target.getChildren().size() > 2) {
             throw new AlertCreationException("An alert is already active");
         }
 
