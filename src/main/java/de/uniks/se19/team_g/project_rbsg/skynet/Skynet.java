@@ -62,4 +62,9 @@ public class Skynet {
     private Behaviour getCurrentBehaviour() {
         return behaviours.get(game.getPhase());
     }
+
+    public void StartBot()
+    {
+        
+    }
 }

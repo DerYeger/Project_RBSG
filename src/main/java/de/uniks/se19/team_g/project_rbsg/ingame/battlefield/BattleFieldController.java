@@ -96,7 +96,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Pane endPhaseButtonContainer;
     public VBox root;
     public VBox unitInformationContainer;
-    //TODO readd
+    //TODO: readd
 //    public Button actionButton;
 //    public Button cancelButton;
     public Button skynetTurnButton;
@@ -119,6 +119,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     public HBox ingameInformationHBox;
     public StackPane rootPane;
+    public Button skynetButton;
     private ChatController chatController;
     private Game game;
     private ObservableList<Cell> cells;
@@ -1105,8 +1106,17 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initSkynetButtons() {
         final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlane.png");
-        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 50);
+        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 40);
         skynetTurnButton.setOnAction((event) -> skynet.turn());
+
+        JavaFXUtils.setButtonIcons(
+                skynetButton,
+                getClass().getResource("/assets/icons/operation/skynetWhite.png"),
+                getClass().getResource("/assets/icons/operation/skynetBlack.png"),
+                40
+        );
+
+        skynetButton.setOnAction((event -> skynet.StartBot()));
     }
 
 }
