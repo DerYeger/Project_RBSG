@@ -6,7 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.AttackBehaviourException;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -21,27 +20,30 @@ public class AttackBehaviour implements Behaviour {
     public Optional<Action> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
-            final Tuple<Unit, Unit> tuple = player
+            final Unit unit = player
                     .getUnits()
                     .stream()
-                    .filter(unit -> unit.attackReadyProperty().get())
-                    .map(unit -> new Tuple<>(unit, getAttackTarget(unit)))
-                    .filter(t -> t.first != t.second)
+                    .filter(this::canAttackAnyTarget)
                     .findFirst()
                     .orElseThrow(() -> new AttackBehaviourException("No unit can attack"));
-            return Optional.of(new AttackAction(tuple.first, tuple.second));
+            final Unit target = unit
+                    .getNeighbors()
+                    .stream()
+                    .filter(unit::canAttack)
+                    .findFirst()
+                    .orElseThrow(() -> new AttackBehaviourException("An unexpected error occurred"));
+            return Optional.of(new AttackAction(unit, target));
         } catch (final AttackBehaviourException e) {
             logger.info(e.getMessage());
         }
         return Optional.empty();
     }
 
-    private Unit getAttackTarget(@NonNull final Unit unit) {
-        return unit
-                .getNeighbors()
-                .stream()
-                .filter(unit::canAttack)
-                .findFirst()
-                .orElse(unit);
+    private boolean canAttackAnyTarget(@NonNull final Unit unit) {
+        return unit.attackReadyProperty().get()
+                &&
+                unit.getNeighbors()
+                        .stream()
+                        .anyMatch(unit::canAttack);
     }
 }
