@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -22,12 +20,7 @@
  @author Keanu Stückrad
  !-->
 
-<?import javafx.scene.image.ImageView?>
-<?import java.net.URL?>
-<?import java.lang.String?>
-
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane"
-           fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -42,8 +35,7 @@
                         <Button fx:id="ingameInformationsButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
                         <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
                         <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button" />
-                        <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar"
-                                styleClass="icon-button" />
+                        <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -125,16 +117,29 @@
                         <String fx:value="contentVBox" />
                      </styleClass></VBox>
                   <VBox>
-                     <children>
-                        <Button fx:id="actionButton" mnemonicParsing="false" styleClass="icon-with-text" text="Attack" />
-                        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="icon-with-text"
-                                text="Cancel" />
-                     </children>
                      <styleClass>
                         <String fx:value="buttonBox" />
                         <String fx:value="contentVBox" />
                         <String fx:value="elevation-2" />
                      </styleClass>
+                     <children>
+                        <GridPane fx:id="buttonGrid">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="skynetTurnButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="3" />
+                           </children>
+                        </GridPane>
+                     </children>
                   </VBox>
                   <StackPane fx:id="miniMapStackPane" prefHeight="150.0" prefWidth="200.0">
                      <children>

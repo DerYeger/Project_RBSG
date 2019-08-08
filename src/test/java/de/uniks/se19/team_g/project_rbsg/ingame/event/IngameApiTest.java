@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class IngameApiTest extends ApplicationTest {
     public void attack() {
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
-        Unit attacker = new Unit("1");
+        Unit attacker = new Unit("1").setGame(new Game("game"));
         Unit target = new Unit("2");
         IngameApi.AttackCommand command = new IngameApi.AttackCommand();
 
