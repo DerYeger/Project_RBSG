@@ -218,6 +218,8 @@ public class PersistantArmyTest {
 
         for(UserProvider userProvider : providerList) {
             ArrayList<Army> armyList=new ArrayList<>();
+            ArrayList<Army> armies = new ArrayList<>();
+            
             armies=new ArrayList<>();
 
             SaveFileStrategy fileStrategy = new SaveFileStrategy(userProvider);
