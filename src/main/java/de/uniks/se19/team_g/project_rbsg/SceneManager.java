@@ -185,23 +185,16 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         this.stage.setFullScreen(true);
     }
 
-    public void stageListener(ChangeListener<Number> changedListener) {
-        stage.heightProperty().addListener(changedListener);
-        stage.widthProperty().addListener(changedListener);
-        stage.maxHeightProperty().addListener(changedListener);
-        stage.maxWidthProperty().addListener(changedListener);
-        stage.minHeightProperty().addListener(changedListener);
-        stage.minWidthProperty().addListener(changedListener);
-        stage.xProperty().addListener(changedListener);
-        stage.yProperty().addListener(changedListener);
-    }
-
     public ReadOnlyDoubleProperty getStageHeightProperty() {
         return stage.heightProperty();
     }
 
     public ReadOnlyDoubleProperty getStageWidhtProperty() {
         return stage.widthProperty();
+    }
+
+    public boolean isStageInit() {
+        return this.stage != null;
     }
 
 }

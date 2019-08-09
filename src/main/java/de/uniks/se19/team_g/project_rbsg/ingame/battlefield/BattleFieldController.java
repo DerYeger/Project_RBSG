@@ -240,10 +240,11 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initListenersForFullscreen() {
-        sceneManager.stageListener(cameraViewChangedListener);
         sceneManager.getStageHeightProperty().addListener(heightStageListener);
+        sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
         sceneManager.getStageWidhtProperty().addListener(widthStageListener);
         sceneManager.getStageWidhtProperty().addListener(disableOverlaysListener);
+        sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
         openWhenResizedPlayer = false;
         openWhenResizedChat = false;
     }
@@ -830,7 +831,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         initActionExecutor();
         initSkynet();
         initSkynetButtons();
-        initListenersForFullscreen();
+        if(sceneManager.isStageInit()) initListenersForFullscreen();
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
