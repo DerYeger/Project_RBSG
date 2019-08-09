@@ -173,5 +173,6 @@ public class ArmyDetailController implements Initializable {
             army.units.remove(unit);
             army.setUnsavedUpdates(true);
         }
+        armyBuilderState.selectedUnit.set(null);
     }
 }

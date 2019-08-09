@@ -44,7 +44,7 @@
             <Insets bottom="20.0" />
          </padding>
         </HBox>
-        <ListView fx:id="armySquadList" maxHeight="320.0" maxWidth="1.7976931348623157E308" minHeight="320.0" minWidth="-Infinity" orientation="HORIZONTAL" styleClass="default-horizontal" VBox.vgrow="NEVER">
+        <ListView fx:id="armySquadList" maxHeight="220.0" maxWidth="1.7976931348623157E308" minHeight="220.0" minWidth="-Infinity" orientation="HORIZONTAL" styleClass="default-horizontal" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
          </VBox.margin></ListView>
