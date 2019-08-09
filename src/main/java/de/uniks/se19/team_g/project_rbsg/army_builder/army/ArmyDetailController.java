@@ -121,17 +121,14 @@ public class ArmyDetailController implements Initializable {
             boolean dirtyList = false;
             while (change.next()) {
                 for (Unit unit : change.getRemoved()) {
-                    //final String key = unit.id.get();
-                    //final SquadViewModel squadViewModel = squadMap.get(key);
                     final SquadViewModel squadViewModel = squadMap.get(unit);
                     squadViewModel.members.remove(unit);
-                    /*if (squadViewModel.members.size() == 0) {
-                        squadMap.remove(key);
+                    if (squadViewModel.members.size() == 0) {
+                        squadMap.remove(unit);
                         dirtyList = true;
-                    }*/
+                    }
                 }
                 for (Unit unit : change.getAddedSubList()) {
-                    //final String key = unit.id.get();
                     if (!squadMap.containsKey(unit)) {
                         squadMap.put(unit, new SquadViewModel());
                         dirtyList = true;
@@ -152,9 +149,7 @@ public class ArmyDetailController implements Initializable {
 
     private void initializeSquadList(Army army, ObservableList<SquadViewModel> squadList, Map<Unit, SquadViewModel> squadMap) {
         for (Unit unit : army.units) {
-            //if (!squadMap.containsKey(unit.id.get())) {
-                squadMap.put(unit, new SquadViewModel());
-            //}
+            squadMap.put(unit, new SquadViewModel());
             squadMap.get(unit).members.add(unit);
         }
         squadList.setAll(squadMap.values());
