@@ -77,4 +77,8 @@ public class ArmySelectorController implements Initializable, Rincled {
     private void updateLabel() {
         armiesLabel.setText(getResources().getString("army"));
     }
+
+    public void unselect(){
+        listView.getSelectionModel().clearSelection();
+    }
 }
