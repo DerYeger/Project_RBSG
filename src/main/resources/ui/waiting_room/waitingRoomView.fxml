@@ -27,10 +27,11 @@
                       <Pane fx:id="player4Pane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="258.0" />
                       <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
                           <children>
-                              <Pane fx:id="miniGamePane" styleClass="mini-game-pane" StackPane.alignment="CENTER" />
+                              <Pane styleClass="mini-game-pane" StackPane.alignment="CENTER"/>
+                              <Button fx:id="readyButton" mnemonicParsing="false" onAction="#setReady" styleClass="icon-button-giant" StackPane.alignment="CENTER"/>
                           </children>
                       </StackPane>
-                      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0">
+                      <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0">
                           <children>
                               <Pane fx:id="mapPreviewPane" styleClass="map-preview-pane" StackPane.alignment="TOP_CENTER" />
                           </children>
