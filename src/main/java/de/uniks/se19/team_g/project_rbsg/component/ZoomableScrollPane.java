@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.component;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import javafx.beans.property.*;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -16,6 +17,8 @@ public class ZoomableScrollPane extends ScrollPane {
     //private double zoomIntensity = 0.02;
     private Node target;
     private Node zoomNode;
+
+    public double zoomOutScale = 0.6;
 
     public ZoomableScrollPane(Node target) {
         super();
@@ -69,7 +72,7 @@ public class ZoomableScrollPane extends ScrollPane {
         double valX = this.getHvalue() * (innerBounds.getWidth() - viewportBounds.getWidth());
         double valY = this.getVvalue() * (innerBounds.getHeight() - viewportBounds.getHeight());
         if(target.getScaleX() > 1.4 && wheelDelta > 0) return;
-        if(target.getScaleX() < 0.5 && wheelDelta < 0) return;
+        if(target.getScaleX() < zoomOutScale && wheelDelta < 0) return;
         setScaleValue(scaleValue.get() * zoomFactor);
         updateScale();
         this.layout(); // refresh ScrollPane scroll positions & target bounds
@@ -115,6 +118,10 @@ public class ZoomableScrollPane extends ScrollPane {
     public void setZoomIntensity(double zoomIntensity)
     {
         this.zoomIntensity.set(zoomIntensity);
+    }
+
+    public void setZoomOutScale(double newVal, double oldVal) {
+        this.zoomOutScale *= (newVal/oldVal);
     }
 }
 
