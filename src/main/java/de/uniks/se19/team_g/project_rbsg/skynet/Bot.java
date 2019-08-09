@@ -43,9 +43,7 @@ public class Bot implements Runnable
         Thread currentThread = Thread.currentThread();
         while (currentThread == myThread)
         {
-            Platform.runLater(() -> {
-                skynet.turn();
-            });
+            Platform.runLater(() -> skynet.turn());
             try
             {
                 Thread.sleep(TIMER);
