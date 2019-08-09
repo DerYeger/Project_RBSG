@@ -68,8 +68,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-    private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH / 2;
-    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 60) / 2;
+    private static final int ZOOMPANE_WIDTH_CENTER = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
+    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
 
     private final SceneManager sceneManager;
@@ -132,7 +132,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
     private int mapSize;
-    private int zoomFactor = 1;
     private Camera camera;
     private IngameContext context;
     private final ChangeListener<Cell> onSelectedUnitMoved = this::onSelectedUnitMoved;
@@ -674,36 +673,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void zoomIn(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-        if (zoomFactor == 1)
-        {
             zoomableScrollPane.onScroll(20.0, ZOOMPANE_CENTER);
-            zoomFactor++;
-        } else if (zoomFactor == 0)
-        {
-            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
-            zoomFactor++;
-        } else if (zoomFactor == -1 && context.getGameData().getNeededPlayer() == 4)
-        {
-            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
-            zoomFactor++;
-        }
     }
 
     public void zoomOut(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-        if (zoomFactor == 2)
-        {
             zoomableScrollPane.onScroll(-20.0, ZOOMPANE_CENTER);
-            zoomFactor--;
-        } else if (zoomFactor == 1)
-        {
-            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
-            zoomFactor--;
-        } else if (zoomFactor == 0 && context.getGameData().getNeededPlayer() == 4)
-        {
-            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
-            zoomFactor--;
-        }
     }
 
     public void endPhase()
