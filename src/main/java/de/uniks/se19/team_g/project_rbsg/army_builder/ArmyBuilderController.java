@@ -256,19 +256,19 @@ public class ArmyBuilderController implements Initializable, RootController {
                     AlertBuilder.Text.UNSAVED_ARMY,
                     () -> {
                             this.saveArmies();
-                            openLobby();
+                            moveToLobby();
                         },
                     () -> {
-                            openLobby();
+                            moveToLobby();
                     }
                     );
         }
         else{
-            openLobby();
+            moveToLobby();
         }
     }
 
-    private void openLobby(){
+    private void moveToLobby(){
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
