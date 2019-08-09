@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.skynet;
 
+import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +43,9 @@ public class Bot implements Runnable
         Thread currentThread = Thread.currentThread();
         while (currentThread == myThread)
         {
-            skynet.turn();
+            Platform.runLater(() -> {
+                skynet.turn();
+            });
             try
             {
                 Thread.sleep(TIMER);
