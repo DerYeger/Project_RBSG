@@ -1,11 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import com.sun.javafx.PlatformUtil;
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
@@ -75,6 +77,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
     private final AlertBuilder alertBuilder;
+    private final EmailManager emailManager;
 
     private final ObjectFactory<GameListViewCell> gameListCellFactory;
     @Nonnull
@@ -145,6 +148,8 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.musicManager = musicManager;
+
+        this.emailManager = new EmailManager();
     }
 
     public Lobby getLobby()
@@ -412,37 +417,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void sendButReport(ActionEvent actionEvent)
     {
-        String subject = "Bug%20Report";
-        String operation = "mailto:siebertgeorg@t-online.de?subject="+subject;
-
-        logger.debug("Email operation: " + operation);
-        Desktop desktop;
-
-        if(Desktop.isDesktopSupported() && (desktop = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
-            try
-            {
-                URI mailto = new URI(operation);
-                desktop.mail(mailto);
-            } catch (URISyntaxException | IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        else {
-            logger.debug("Desktop is not supported on this system.");
-            String os = System.getProperty("os.name");
-            if(os.contains("Windows")) {
-                Runtime rt = Runtime.getRuntime();
-                try
-                {
-                    Process pr = rt.exec("cmd /c start " + operation);
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-
+        emailManager.mailTo();
     }
 }
