@@ -258,7 +258,9 @@ public class ArmyBuilderController implements Initializable, RootController {
                             this.saveArmies();
                             sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
                     },
-                    null
+                    () -> {
+                            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+                    }
                     );
         }
         else{
