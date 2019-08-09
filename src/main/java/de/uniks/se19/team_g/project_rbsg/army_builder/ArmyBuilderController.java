@@ -256,16 +256,20 @@ public class ArmyBuilderController implements Initializable, RootController {
                     AlertBuilder.Text.UNSAVED_ARMY,
                     () -> {
                             this.saveArmies();
-                            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
-                    },
+                            openLobby();
+                        },
                     () -> {
-                            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+                            openLobby();
                     }
                     );
         }
         else{
-            sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
+            openLobby();
         }
+    }
+
+    private void openLobby(){
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
     public void saveArmies() {
