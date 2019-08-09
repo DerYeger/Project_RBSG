@@ -10,7 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
@@ -57,7 +56,10 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Keanu Stückrad
@@ -1046,6 +1048,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
 
         game.getPlayers().removeListener(playerListListener);
+
+        if (skynet.isBotRunning())
+        {
+            skynet.stopBot();
+        }
     }
 
     public void openPlayerBar(@SuppressWarnings("unused") ActionEvent event)
@@ -1090,21 +1097,24 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawMap(tileMap);
     }
 
-    private void initActionExecutor() {
+    private void initActionExecutor()
+    {
         actionExecutor = new ActionExecutor(context.getGameEventManager().api())
                 .setTileDrawer(tileDrawer);
     }
 
-    private void initSkynet() {
+    private void initSkynet()
+    {
         skynet = new Skynet(actionExecutor,
                 game,
                 context.getUserPlayer())
-        .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")
-        .addBehaviour(new AttackBehaviour(), "attackPhase");
+                .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")
+                .addBehaviour(new AttackBehaviour(), "attackPhase");
 
     }
 
-    private void initSkynetButtons() {
+    private void initSkynetButtons()
+    {
         final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlane.png");
         JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 40);
         skynetTurnButton.setOnAction((event) -> skynet.turn());
@@ -1116,7 +1126,19 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
 
-        skynetButton.setOnAction((event -> skynet.StartBot()));
+        skynetButton.setOnAction(this::startBot);
     }
+
+    private void startBot(ActionEvent actionEvent)
+    {
+        if (skynet.isBotRunning())
+        {
+            skynet.stopBot();
+        } else
+        {
+            skynet.startBot();
+        }
+    }
+
 
 }
