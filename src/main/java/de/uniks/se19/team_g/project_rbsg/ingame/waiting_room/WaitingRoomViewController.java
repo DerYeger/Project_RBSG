@@ -20,6 +20,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.Preview
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
@@ -34,6 +35,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -64,6 +66,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final int ICON_SIZE = 40;
+    private boolean ready;
+    private boolean selectButtonDoubleClicked;
 
     public Pane player1Pane;
     public Pane player2Pane;
@@ -71,11 +75,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public Pane player4Pane;
     public Pane chatContainer;
     public Pane mapPreviewPane;
-    public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public VBox armySelector;
     public Button soundButton;
     public Button leaveButton;
-    public Button showInfoButton;
+    public Button readyButton;
     public AnchorPane root;
 
     // TODO: Ask Jan, wether this can be removed
@@ -144,6 +147,14 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public void initialize() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
+        ready = false;
+        selectButtonDoubleClicked = false;
+        JavaFXUtils.setButtonIcons(
+                readyButton,
+                getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
+                getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                200
+        );
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -263,11 +274,29 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     protected void configureArmySelection() {
+        readyButton.setDisable(true);
         armySelectorController = armySelectorComponent.apply(armySelector);
 
         selectedArmy.addListener((observable, oldValue, newValue) -> {
-            context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
-            context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
+                JavaFXUtils.setButtonIcons(
+                        readyButton,
+                        getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
+                        getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                        200
+                );
+                readyButton.setDisable(false);
+                ready = false;
+                if(selectButtonDoubleClicked) {
+                    Army army = new Army();
+                    army.id.set("notReady");
+                    for (int i = 0; i < ApplicationState.ARMY_MAX_UNIT_COUNT; i++) {
+                        army.units.add(new Unit());
+                    }
+                    readyButton.setDisable(true);
+                    newValue = army;
+                    selectButtonDoubleClicked = false;
+                }
+                context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
         });
 
         /*
@@ -283,6 +312,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
         if(this.context.getGameData().isSpectatorModus()){
             armySelector.setDisable(true);
+            readyButton.setDisable(true);
         }
     }
 
@@ -349,6 +379,22 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void mayStartGame() {
         logger.debug("trigger game start");
         context.getGameEventManager().sendMessage(CommandBuilder.startGame());
+    }
+
+    public void setReady(@SuppressWarnings("unused") ActionEvent actionEvent) {
+        if(ready) {
+            selectButtonDoubleClicked = true;
+            armySelectorController.unselect();
+        } else {
+            JavaFXUtils.setButtonIcons(
+                    readyButton,
+                    getClass().getResource("/assets/icons/navigation/checkWhiteBig.png"),
+                    getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
+                    200
+            );
+            context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
+            ready = true;
+        }
     }
 
 }
