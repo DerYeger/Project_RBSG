@@ -75,13 +75,22 @@ public class SkynetTests {
 
     @Test
     public void testSkynetFallbackMove() {
+        testSkynetFallbackWithParams(1, false);
+    }
+
+    @Test
+    public void testSkynetFallbackPass() {
+        testSkynetFallbackWithParams(0, true);
+    }
+
+    private void testSkynetFallbackWithParams(final int remainingMovePoints, final boolean initiallyMoved) {
         final Player player = new Player("skynet");
         final Unit unit = new Unit("testUnit")
-                .setRemainingMovePoints(1);
+                .setRemainingMovePoints(remainingMovePoints);
         final TestGameBuilder.Definition definition = TestGameBuilder.skynetMoveTestGame(player, unit);
         final Game game = definition.game
                 .setCurrentPlayer(player)
-                .setInitiallyMoved(false)
+                .setInitiallyMoved(initiallyMoved)
                 .setPhase("movePhase");
 
         game.setSelectedUnit(unit);
@@ -100,6 +109,32 @@ public class SkynetTests {
         assertNull(game.getSelected());
 
         verify(api).endPhase();
+    }
+
+    @Test
+    public void testSkynetFallbackFailure() {
+        final Player player = new Player("skynet");
+        final Unit unit = new Unit("testUnit")
+                .setRemainingMovePoints(0);
+        final TestGameBuilder.Definition definition = TestGameBuilder.skynetMoveTestGame(player, unit);
+        final Game game = definition.game
+                .setCurrentPlayer(player)
+                .setInitiallyMoved(false)
+                .setPhase("movePhase");
+
+        game.setSelectedUnit(unit);
+
+        final ActionExecutor actionExecutor = mock(ActionExecutor.class);
+        final MovementBehaviour movementBehaviour = mock(MovementBehaviour.class);
+        final Skynet skynet = new Skynet(actionExecutor, game, player)
+                .addBehaviour(movementBehaviour, "movePhase");
+
+        when(movementBehaviour.apply(game, player))
+                .thenReturn(Optional.empty());
+
+        skynet.turn();
+
+        verifyNoMoreInteractions(actionExecutor);
     }
 
     @Test
