@@ -23,10 +23,10 @@ public class FallbackBehaviour implements Behaviour {
     @Override
     public Optional<FallbackAction> apply(@NonNull final Game game, @NonNull final Player player) {
         try {
-            if (!game.getInitiallyMoved()) {
-                return Optional.of(getFallbackMoveAction(game, player));
-            } else {
+            if (game.getInitiallyMoved()) {
                 return Optional.of(getPassAction(game));
+            } else {
+                return Optional.of(getFallbackMoveAction(game, player));
             }
         } catch (final FallbackBehaviourException e) {
             logger.info(e.getMessage());
