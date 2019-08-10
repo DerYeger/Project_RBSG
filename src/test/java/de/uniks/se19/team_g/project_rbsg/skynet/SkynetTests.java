@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 public class SkynetTests {
 
     @Test
-    public void testSkynetMoveTurn() {
+    public void testSkynetMove() {
         final Player player = new Player("skynet");
         final Unit unit = new Unit("testUnit")
                 .setRemainingMovePoints(5);
@@ -48,7 +48,7 @@ public class SkynetTests {
     }
 
     @Test
-    public void testSkynetAttackTurn() {
+    public void testSkynetAttack() {
         final TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
 
         final Unit unit = definition.playerUnit;
@@ -74,13 +74,14 @@ public class SkynetTests {
     }
 
     @Test
-    public void testSkynetFallbackTurn() {
+    public void testSkynetFallbackMove() {
         final Player player = new Player("skynet");
         final Unit unit = new Unit("testUnit")
-                .setRemainingMovePoints(0);
+                .setRemainingMovePoints(1);
         final TestGameBuilder.Definition definition = TestGameBuilder.skynetMoveTestGame(player, unit);
         final Game game = definition.game
                 .setCurrentPlayer(player)
+                .setInitiallyMoved(false)
                 .setPhase("movePhase");
 
         game.setSelectedUnit(unit);
