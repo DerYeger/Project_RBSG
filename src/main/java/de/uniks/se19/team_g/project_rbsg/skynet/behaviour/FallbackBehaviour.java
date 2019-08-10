@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.MovementEvaluator;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 public class FallbackBehaviour implements Behaviour {
@@ -52,13 +54,24 @@ public class FallbackBehaviour implements Behaviour {
                 && !movementEvaluator.getValidTours(unit).isEmpty();
     }
 
-    private Tour getTour(@NonNull final Unit unit) {
+    private Tour getTour(@NonNull final Unit unit) throws FallbackBehaviourException {
         return movementEvaluator
                 .getValidTours(unit)
                 .entrySet()
-                .iterator()
-                .next()
+                .stream()
+                .max(Comparator.comparingLong(entry -> getNeighboringEnemyCount(entry.getKey(), unit.getLeader())))
+                .orElseThrow(() -> new FallbackBehaviourException("An unexpected error occurred"))
                 .getValue();
+    }
+
+    private long getNeighboringEnemyCount(@NonNull final Cell cell,
+                                         @NonNull final Player player) {
+        return cell
+                .getNeighbors()
+                .stream()
+                .map(Cell::getUnit)
+                .filter(unit -> unit.getLeader() == null || !unit.getLeader().equals(player))
+                .count();
     }
 
     private FallbackAction getPassAction(@NonNull final Game game) {

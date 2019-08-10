@@ -9,7 +9,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import org.junit.Test;
@@ -107,6 +106,7 @@ public class SkynetTests {
         skynet.turn();
 
         assertNull(game.getSelected());
+        assertFalse(unit.getNeighbors().isEmpty());
 
         verify(api).endPhase();
     }
