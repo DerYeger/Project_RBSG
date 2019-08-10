@@ -1,9 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -23,13 +20,12 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -61,7 +57,7 @@ import java.util.function.Function;
  */
 @Scope("prototype")
 @Controller
-public class WaitingRoomViewController implements RootController, IngameViewController {
+public class WaitingRoomViewController implements RootController, IngameViewController, Rincled {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -79,6 +75,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public Button soundButton;
     public Button leaveButton;
     public Button readyButton;
+    public Pane readyButtonContainer;
     public AnchorPane root;
 
     // TODO: Ask Jan, wether this can be removed
@@ -105,6 +102,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public ModelManager modelManager;
 
     private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
+    private SimpleBooleanProperty disabledReadyButton = new SimpleBooleanProperty();
 
     /**
      * keep reference for WeakReferences further down the road
@@ -149,6 +147,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         setPlayerCardNodes();
         ready = false;
         selectButtonDoubleClicked = false;
+        disabledReadyButton.set(false);
         JavaFXUtils.setButtonIcons(
                 readyButton,
                 getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
@@ -160,6 +159,12 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 ICON_SIZE
+        );
+        JavaFXUtils.bindButtonDisableWithTooltip(
+                readyButton,
+                readyButtonContainer,
+                new SimpleStringProperty(getResources().getString("readyTooltip")),
+                disabledReadyButton
         );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
@@ -274,7 +279,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     protected void configureArmySelection() {
-        readyButton.setDisable(true);
         armySelectorController = armySelectorComponent.apply(armySelector);
 
         selectedArmy.addListener((observable, oldValue, newValue) -> {
@@ -284,7 +288,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                         getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
                         200
                 );
-                readyButton.setDisable(false);
+                disabledReadyButton.set(true);
                 ready = false;
                 if(selectButtonDoubleClicked) {
                     Army army = new Army();
@@ -292,7 +296,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                     for (int i = 0; i < ApplicationState.ARMY_MAX_UNIT_COUNT; i++) {
                         army.units.add(new Unit());
                     }
-                    readyButton.setDisable(true);
+                    disabledReadyButton.set(false);
                     newValue = army;
                     selectButtonDoubleClicked = false;
                 }

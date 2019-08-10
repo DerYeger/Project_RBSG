@@ -28,7 +28,11 @@
                       <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
                           <children>
                               <Pane styleClass="mini-game-pane" StackPane.alignment="CENTER"/>
-                              <Button fx:id="readyButton" mnemonicParsing="false" onAction="#setReady" styleClass="icon-button-giant" StackPane.alignment="CENTER"/>
+                              <Pane fx:id="readyButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity">
+                                  <children>
+                                    <Button fx:id="readyButton" mnemonicParsing="false" onAction="#setReady" styleClass="icon-button-giant" StackPane.alignment="CENTER"/>
+                                  </children>
+                              </Pane>
                           </children>
                       </StackPane>
                       <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0">
