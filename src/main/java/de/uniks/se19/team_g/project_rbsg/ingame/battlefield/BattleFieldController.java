@@ -805,30 +805,37 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else if(keyEvent.getCode().equals(KeyCode.Q)){
             selectPreviousUnit(currentIndex);
         }
-
     }
 
     private void selectNextUnit(int currentIndex) {
+        Unit nextSelected;
         if ((currentIndex  + 1) <  this.context.getUserPlayer().getUnits().size()){
-            Unit nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex + 1);
-            game.setSelectedUnit(nextSelected);
-            nextSelected.setSelected(true);
+            nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex + 1);
+
         } else {
-            game.setSelectedUnit(this.context.getUserPlayer().getUnits().get(0));
-            this.context.getUserPlayer().getUnits().get(0).setSelected(true);
+            nextSelected = this.context.getUserPlayer().getUnits().get(0);
         }
+        game.setSelectedUnit(nextSelected);
+        nextSelected.setSelected(true);
+        Cell cell = nextSelected.getPosition();
+        zoomableScrollPane.setHvalue(cell.getX());
+        zoomableScrollPane.setVvalue(cell.getY());
     }
 
     private void selectPreviousUnit(int currentIndex){
+        Unit nextSelected;
         if ((currentIndex - 1) >= 0) {
-            Unit nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex - 1);
-            game.setSelectedUnit(nextSelected);
-            nextSelected.setSelected(true);
+            nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex - 1);
+
         } else {
             int lastIndex = this.context.getUserPlayer().getUnits().size() - 1;
-            game.setSelectedUnit(this.context.getUserPlayer().getUnits().get(lastIndex));
-            this.context.getUserPlayer().getUnits().get(lastIndex).setSelected(true);
+            nextSelected = this.context.getUserPlayer().getUnits().get(lastIndex);
         }
+        game.setSelectedUnit(nextSelected);
+        nextSelected.setSelected(true);
+        Cell cell = nextSelected.getPosition();
+        zoomableScrollPane.setHvalue(cell.getX());
+        zoomableScrollPane.setVvalue(cell.getY());
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)

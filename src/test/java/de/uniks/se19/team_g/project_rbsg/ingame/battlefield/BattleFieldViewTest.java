@@ -345,6 +345,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Unit secondUnit = new Unit("id").setUnitType(UnitTypeInfo._JEEP);
         secondUnit.setLeader(player);
+        secondUnit.setPosition(definition.cells[1][1]);
         game.withUnit(secondUnit);
 
         game.withPlayer(player);
@@ -364,7 +365,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
         WaitForAsyncUtils.waitForFxEvents();
         Platform.runLater(() -> game.setSelectedUnit(playerUnit));
-
+        WaitForAsyncUtils.waitForFxEvents();
         press(KeyCode.E);
         release(KeyCode.E);
         Assert.assertSame(secondUnit, game.getSelectedUnit());
