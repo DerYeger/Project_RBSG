@@ -817,9 +817,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         game.setSelectedUnit(nextSelected);
         nextSelected.setSelected(true);
+
         Cell cell = nextSelected.getPosition();
-        zoomableScrollPane.setHvalue(cell.getX());
-        zoomableScrollPane.setVvalue(cell.getY());
+        camera.TryToCenterToPostition(cell.getX(), cell.getY());
     }
 
     private void selectPreviousUnit(int currentIndex){
@@ -834,8 +834,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         game.setSelectedUnit(nextSelected);
         nextSelected.setSelected(true);
         Cell cell = nextSelected.getPosition();
-        zoomableScrollPane.setHvalue(cell.getX());
-        zoomableScrollPane.setVvalue(cell.getY());
+        camera.TryToCenterToPostition(cell.getX(), cell.getY());
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
