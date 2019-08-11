@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root maxHeight="495.0" maxWidth="1040.0" minHeight="495.0" minWidth="1040.0" stylesheets="@../darkTheme.css" type="HBox" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController">
-    <VBox maxHeight="495.0" maxWidth="1040.0" minHeight="495.0" minWidth="1040.0" HBox.hgrow="ALWAYS">
+    <VBox maxHeight="495.0" maxWidth="1040.0" minHeight="495.0" minWidth="1040.0" HBox.hgrow="ALWAYS" >
         <HBox alignment="BOTTOM_CENTER" maxHeight="175.0" maxWidth="1020.0" minHeight="175.0" minWidth="1020.0">
             <HBox alignment="CENTER_LEFT" maxWidth="395.0" minWidth="395.0">
                 <Label fx:id="armyNameLabel" maxWidth="300.0" style="-fx-font-weight: bold;" styleClass="army" text="Name">
@@ -19,7 +19,7 @@
                <Insets left="10.0" />
             </HBox.margin>
             </HBox>
-         <HBox alignment="CENTER" maxWidth="190.0" minWidth="190.0" spacing="10.0" HBox.hgrow="ALWAYS">
+         <HBox alignment="CENTER" maxWidth="190.0" minWidth="190.0" spacing="10.0" HBox.hgrow="ALWAYS" >
             <children>
                  <Button fx:id="incrementButton" mnemonicParsing="false" onAction="#onAddUnit" styleClass="icon-button-big" text="+" />
                  <Button fx:id="decrementButton" mnemonicParsing="false" onAction="#onRemoveUnit" styleClass="icon-button-big" text="-" />
@@ -46,7 +46,7 @@
         </HBox>
         <ListView fx:id="armySquadList" maxHeight="90.0" maxWidth="1.7976931348623157E308" minHeight="90.0" minWidth="-Infinity" orientation="HORIZONTAL" styleClass="default-horizontal" VBox.vgrow="NEVER">
          <VBox.margin>
-            <Insets />
+            <Insets top="50.0" bottom="50.0"/>
          </VBox.margin>
         </ListView>
     </VBox>
