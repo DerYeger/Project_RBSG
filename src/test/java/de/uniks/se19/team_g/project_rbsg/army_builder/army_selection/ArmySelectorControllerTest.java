@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
@@ -28,12 +29,13 @@ import java.util.function.Function;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-    ArmySelectorConfig.class,
-    ArmySelectorCellFactory.class,
-    FXMLLoaderFactory.class,
-    ArmySelectorController.class,
-    ArmySelectorCellController.class,
-    LocaleConfig.class
+        ArmySelectorConfig.class,
+        ArmySelectorCellFactory.class,
+        FXMLLoaderFactory.class,
+        ArmySelectorController.class,
+        ArmySelectorCellController.class,
+        LocaleConfig.class,
+        ApplicationState.class
 })
 public class ArmySelectorControllerTest extends ApplicationTest {
 
