@@ -38,7 +38,7 @@ public class BotTest extends ApplicationTest
 
         skynet.stopBot();
 
-        Thread.sleep(750);
+        Thread.sleep(2000);
 
         assertFalse(skynet.isBotRunning());
 

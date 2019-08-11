@@ -92,7 +92,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button hpBarButton;
     public Button zoomOutButton;
     public Button zoomInButton;
-    public Button mapButton;
     public Canvas miniMapCanvas;
     public Button endPhaseButton;
     public Pane endPhaseButtonContainer;
@@ -109,7 +108,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     public AnchorPane overlayAnchorPane;
     public StackPane miniMapStackPane;
     public StackPane chatPane;
-    public Button ingameInformationsButton;
     public HBox playerBar;
     public Pane player1;
     public Pane player2;
@@ -132,6 +130,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<Hoverable> onHoveredChanged = this::onHoveredChanged;
     private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
     private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
+    private final ChangeListener<Number> stageSizeListener = this::stageSizeChanged;
+    private final ChangeListener<Number> disableOverlaysListener = this::disableOverlaysChanged;
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
     private int mapSize;
@@ -147,6 +147,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private Skynet skynet;
     private ActionExecutor actionExecutor;
+    private boolean openWhenResizedPlayer, openWhenResizedChat;
 
     @Autowired
     public BattleFieldController(
@@ -198,7 +199,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
         JavaFXUtils.setButtonIcons(
-                ingameInformationsButton,
+                playerButton,
                 getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
                 getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                 40
@@ -237,6 +238,56 @@ public class BattleFieldController implements RootController, IngameViewControll
         musicManager.initButtonIcons(musicButton);
     }
 
+    private void initListenersForFullscreen() {
+        sceneManager.getStageHeightProperty().addListener(stageSizeListener);
+        sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
+        sceneManager.getStageWidhtProperty().addListener(stageSizeListener);
+        sceneManager.getStageWidhtProperty().addListener(disableOverlaysListener);
+        sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
+        openWhenResizedPlayer = false;
+        openWhenResizedChat = false;
+        zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
+        zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
+    }
+
+    private void disableOverlaysChanged(
+            @SuppressWarnings("unused") ObservableValue<? extends Number> observableValue,
+            @SuppressWarnings("unused") Number oldVal,
+            Number newVal
+    )
+    {
+        if((double) newVal < 1040)
+        {
+            if (playerBar.visibleProperty().get()){
+                openPlayerBar(null);
+                openWhenResizedPlayer = true;
+            }
+            if(chatPane.visibleProperty().get()){
+                openChat();
+                openWhenResizedChat = true;
+            }
+            playerButton.setDisable(true);
+            chatButton.setDisable(true);
+        }
+        else
+        {
+            if(openWhenResizedPlayer) {
+                openPlayerBar(null);
+                openWhenResizedPlayer = false;
+            }
+            if (openWhenResizedChat) {
+                openChat();
+                openWhenResizedChat = false;
+            }
+            playerButton.setDisable(false);
+            chatButton.setDisable(false);
+        }
+    }
+
+    private void stageSizeChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
+        double change = (double) newVal < (double) oldVal ? -((double) newVal / (double) oldVal) : (double) oldVal / (double) newVal;
+        zoomableScrollPane.onScroll(change, ZOOMPANE_CENTER);
+    }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
     {
@@ -780,6 +831,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         initActionExecutor();
         initSkynet();
         initSkynetButtons();
+        if(sceneManager.isStageInit()) initListenersForFullscreen();
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
@@ -1037,7 +1089,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerBar.visibleProperty().setValue(true);
             playerBar.toFront();
             JavaFXUtils.setButtonIcons(
-                    ingameInformationsButton,
+                    playerButton,
                     getClass().getResource("/assets/icons/navigation/accountWhite.png"),
                     getClass().getResource("/assets/icons/navigation/accountBlack.png"),
                     40
@@ -1047,7 +1099,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerBar.visibleProperty().setValue(false);
             playerBar.toBack();
             JavaFXUtils.setButtonIcons(
-                    ingameInformationsButton,
+                    playerButton,
                     getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
                     getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                     40
