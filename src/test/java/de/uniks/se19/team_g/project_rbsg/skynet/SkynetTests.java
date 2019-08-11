@@ -9,7 +9,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import org.junit.Test;
@@ -22,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class SkynetTests {
 
     @Test
-    public void testSkynetMoveTurn() {
+    public void testSkynetMove() {
         final Player player = new Player("skynet");
         final Unit unit = new Unit("testUnit")
                 .setRemainingMovePoints(5);
@@ -48,7 +47,7 @@ public class SkynetTests {
     }
 
     @Test
-    public void testSkynetAttackTurn() {
+    public void testSkynetAttack() {
         final TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
 
         final Unit unit = definition.playerUnit;
@@ -74,13 +73,23 @@ public class SkynetTests {
     }
 
     @Test
-    public void testSkynetFallbackTurn() {
+    public void testSkynetFallbackMove() {
+        testSkynetFallbackWithParams(1, false);
+    }
+
+    @Test
+    public void testSkynetFallbackPass() {
+        testSkynetFallbackWithParams(0, true);
+    }
+
+    private void testSkynetFallbackWithParams(final int remainingMovePoints, final boolean initiallyMoved) {
         final Player player = new Player("skynet");
         final Unit unit = new Unit("testUnit")
-                .setRemainingMovePoints(0);
+                .setRemainingMovePoints(remainingMovePoints);
         final TestGameBuilder.Definition definition = TestGameBuilder.skynetMoveTestGame(player, unit);
         final Game game = definition.game
                 .setCurrentPlayer(player)
+                .setInitiallyMoved(initiallyMoved)
                 .setPhase("movePhase");
 
         game.setSelectedUnit(unit);
@@ -97,8 +106,35 @@ public class SkynetTests {
         skynet.turn();
 
         assertNull(game.getSelected());
+        assertFalse(unit.getNeighbors().isEmpty());
 
         verify(api).endPhase();
+    }
+
+    @Test
+    public void testSkynetFallbackFailure() {
+        final Player player = new Player("skynet");
+        final Unit unit = new Unit("testUnit")
+                .setRemainingMovePoints(0);
+        final TestGameBuilder.Definition definition = TestGameBuilder.skynetMoveTestGame(player, unit);
+        final Game game = definition.game
+                .setCurrentPlayer(player)
+                .setInitiallyMoved(false)
+                .setPhase("movePhase");
+
+        game.setSelectedUnit(unit);
+
+        final ActionExecutor actionExecutor = mock(ActionExecutor.class);
+        final MovementBehaviour movementBehaviour = mock(MovementBehaviour.class);
+        final Skynet skynet = new Skynet(actionExecutor, game, player)
+                .addBehaviour(movementBehaviour, "movePhase");
+
+        when(movementBehaviour.apply(game, player))
+                .thenReturn(Optional.empty());
+
+        skynet.turn();
+
+        verifyNoMoreInteractions(actionExecutor);
     }
 
     @Test
