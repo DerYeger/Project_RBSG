@@ -10,7 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
@@ -57,7 +56,10 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Keanu Stückrad
@@ -126,8 +128,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private TileDrawer tileDrawer;
     private final PropertyChangeListener highlightingListener = this::highlightingChanged;
     private Tile[][] tileMap;
-    private final ChangeListener<Hoverable> onHoveredChanged = this::onHoveredChanged;
-    private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
+    private final ChangeListener<Hoverable> onHoveredChanged = (observableValue, last, next) -> onHoveredChanged(observableValue, last, next);
+    private final ListChangeListener<Unit> unitListListener = c -> unitListChanged(c);
     private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
@@ -361,7 +363,10 @@ public class BattleFieldController implements RootController, IngameViewControll
                 }
                 rootPane.setFocusTraversable(true);
             }
+
+
         });
+
     }
 
     private void initPlayerBar()
@@ -777,6 +782,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.hvalueProperty().addListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().addListener(cameraViewChangedListener);
 
+        rootPane.addEventHandler(KeyEvent.KEY_PRESSED, this::switchThroughUnits);
+
+        //canvas.addEventHandler(KeyEvent.KEY_PRESSED, this::switchThroughUnits);
+
         miniMapCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::miniMapHandleMouseClick);
 
         this.context.getGameState().selectedUnitProperty()
@@ -802,6 +811,48 @@ public class BattleFieldController implements RootController, IngameViewControll
         initActionExecutor();
         initSkynet();
         initSkynetButtons();
+
+
+    }
+
+    private void switchThroughUnits(KeyEvent keyEvent){
+        if(this.context.getGameState().getSelectedUnit() == null){
+            return;
+        }
+        Unit selectedUnit = this.context.getGameState().getSelectedUnit();
+        if(selectedUnit.getLeader() != this.context.getUserPlayer()){
+            return;
+        }
+        int currentIndex = this.context.getUserPlayer().getUnits().indexOf(selectedUnit);
+        if (keyEvent.getCode().equals(KeyCode.E)){
+            selectNextUnit(currentIndex);
+        } else if(keyEvent.getCode().equals(KeyCode.Q)){
+            selectPreviousUnit(currentIndex);
+        }
+
+    }
+
+    private void selectNextUnit(int currentIndex) {
+        if ((currentIndex  + 1) <  this.context.getUserPlayer().getUnits().size()){
+            Unit nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex + 1);
+            game.setSelectedUnit(nextSelected);
+            nextSelected.setSelected(true);
+        } else {
+            game.setSelectedUnit(this.context.getUserPlayer().getUnits().get(0));
+            this.context.getUserPlayer().getUnits().get(0).setSelected(true);
+        }
+    }
+
+    private void selectPreviousUnit(int currentIndex){
+        if ((currentIndex - 1) >= 0) {
+            Unit nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex - 1);
+            game.setSelectedUnit(nextSelected);
+            nextSelected.setSelected(true);
+        } else {
+            int lastIndex = this.context.getUserPlayer().getUnits().size() - 1;
+            game.setSelectedUnit(this.context.getUserPlayer().getUnits().get(lastIndex));
+            this.context.getUserPlayer().getUnits().get(lastIndex).setSelected(true);
+        }
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
