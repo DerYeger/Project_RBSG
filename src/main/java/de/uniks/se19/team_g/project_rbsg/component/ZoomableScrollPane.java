@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.component;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import javafx.beans.property.*;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -18,7 +17,10 @@ public class ZoomableScrollPane extends ScrollPane {
     private Node target;
     private Node zoomNode;
 
-    public double zoomOutScale = 0.6;
+    private double zoomOutScale = 0.8;
+
+    private SimpleBooleanProperty disablePlusZoom = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty disableMinusZoom = new SimpleBooleanProperty(false);
 
     public ZoomableScrollPane(Node target) {
         super();
@@ -75,6 +77,16 @@ public class ZoomableScrollPane extends ScrollPane {
         if(target.getScaleX() < zoomOutScale && wheelDelta < 0) return;
         setScaleValue(scaleValue.get() * zoomFactor);
         updateScale();
+        if(target.getScaleX() > 1.4 && wheelDelta > 0) {
+            disablePlusZoom.set(true);
+        } else {
+            disablePlusZoom.set(false);
+        }
+        if(target.getScaleX() < zoomOutScale && wheelDelta < 0) {
+            disableMinusZoom.set(true);
+        } else {
+            disableMinusZoom.set(false);
+        }
         this.layout(); // refresh ScrollPane scroll positions & target bounds
 
         // convert target coordinates to zoomTarget coordinates
@@ -123,6 +135,15 @@ public class ZoomableScrollPane extends ScrollPane {
     public void setZoomOutScale(double newVal, double oldVal) {
         this.zoomOutScale *= (newVal/oldVal);
     }
+
+    public SimpleBooleanProperty getDisablePlusZoom(){
+        return disablePlusZoom;
+    }
+
+    public SimpleBooleanProperty getDisableMinusZoom(){
+        return disableMinusZoom;
+    }
+
 }
 
 
