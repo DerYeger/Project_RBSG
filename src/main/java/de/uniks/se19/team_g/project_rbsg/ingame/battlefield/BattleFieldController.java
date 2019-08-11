@@ -247,6 +247,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
         openWhenResizedPlayer = false;
         openWhenResizedChat = false;
+        zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
+        zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
     }
 
     private void disableOverlaysChanged(
@@ -285,7 +287,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void stageSizeChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
         zoomableScrollPane.setZoomOutScale((double) newVal, (double) oldVal);
-        double change = (double) newVal > (double) oldVal ? -1.5 : 1.5;
+        double change = (double) newVal < (double) oldVal ? -0.25 : 0.75;
         zoomableScrollPane.onScroll(change, ZOOMPANE_CENTER);
     }
 
