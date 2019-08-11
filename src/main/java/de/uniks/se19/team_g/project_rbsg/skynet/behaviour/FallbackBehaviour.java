@@ -70,7 +70,7 @@ public class FallbackBehaviour implements Behaviour {
                 .getNeighbors()
                 .stream()
                 .map(Cell::getUnit)
-                .filter(unit -> unit.getLeader() == null || !unit.getLeader().equals(player))
+                .filter(unit -> unit != null && !player.getUnits().contains(unit))
                 .count();
     }
 
