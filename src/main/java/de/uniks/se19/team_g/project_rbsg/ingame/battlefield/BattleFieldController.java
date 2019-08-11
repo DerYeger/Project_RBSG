@@ -130,8 +130,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<Hoverable> onHoveredChanged = this::onHoveredChanged;
     private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
     private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
-    private final ChangeListener<Number> heightStageListener = this::stageSizeChanged;
-    private final ChangeListener<Number> widthStageListener = this::stageSizeChanged;
+    private final ChangeListener<Number> stageSizeListener = this::stageSizeChanged;
     private final ChangeListener<Number> disableOverlaysListener = this::disableOverlaysChanged;
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
@@ -240,9 +239,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initListenersForFullscreen() {
-        sceneManager.getStageHeightProperty().addListener(heightStageListener);
+        sceneManager.getStageHeightProperty().addListener(stageSizeListener);
         sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
-        sceneManager.getStageWidhtProperty().addListener(widthStageListener);
+        sceneManager.getStageWidhtProperty().addListener(stageSizeListener);
         sceneManager.getStageWidhtProperty().addListener(disableOverlaysListener);
         sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
         openWhenResizedPlayer = false;
@@ -286,8 +285,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void stageSizeChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
-        zoomableScrollPane.setZoomOutScale((double) newVal, (double) oldVal);
-        double change = (double) newVal < (double) oldVal ? -0.25 : 0.75;
+        double change = (double) newVal < (double) oldVal ? -((double) newVal / (double) oldVal) : (double) oldVal / (double) newVal;
         zoomableScrollPane.onScroll(change, ZOOMPANE_CENTER);
     }
 
