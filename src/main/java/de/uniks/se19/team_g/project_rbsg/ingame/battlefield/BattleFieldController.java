@@ -70,8 +70,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-    private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH / 2;
-    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 60) / 2;
+    private static final int ZOOMPANE_WIDTH_CENTER = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
+    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
 
     private final SceneManager sceneManager;
@@ -98,7 +98,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Pane endPhaseButtonContainer;
     public VBox root;
     public VBox unitInformationContainer;
-    //TODO readd
+    //TODO: readd
 //    public Button actionButton;
 //    public Button cancelButton;
     public Button skynetTurnButton;
@@ -121,6 +121,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     public HBox ingameInformationHBox;
     public StackPane rootPane;
+    public Button skynetButton;
     private ChatController chatController;
     private Game game;
     private ObservableList<Cell> cells;
@@ -134,7 +135,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
     private int mapSize;
-    private int zoomFactor = 1;
     private Camera camera;
     private IngameContext context;
     private final ChangeListener<Cell> onSelectedUnitMoved = this::onSelectedUnitMoved;
@@ -679,36 +679,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void zoomIn(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-        if (zoomFactor == 1)
-        {
             zoomableScrollPane.onScroll(20.0, ZOOMPANE_CENTER);
-            zoomFactor++;
-        } else if (zoomFactor == 0)
-        {
-            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
-            zoomFactor++;
-        } else if (zoomFactor == -1 && context.getGameData().getNeededPlayer() == 4)
-        {
-            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
-            zoomFactor++;
-        }
     }
 
     public void zoomOut(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-        if (zoomFactor == 2)
-        {
             zoomableScrollPane.onScroll(-20.0, ZOOMPANE_CENTER);
-            zoomFactor--;
-        } else if (zoomFactor == 1)
-        {
-            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
-            zoomFactor--;
-        } else if (zoomFactor == 0 && context.getGameData().getNeededPlayer() == 4)
-        {
-            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
-            zoomFactor--;
-        }
     }
 
     public void endPhase()
@@ -1096,6 +1072,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
 
         game.getPlayers().removeListener(playerListListener);
+
+        if (skynet.isBotRunning())
+        {
+            skynet.stopBot();
+        }
     }
 
     public void openPlayerBar(@SuppressWarnings("unused") ActionEvent event)
@@ -1140,24 +1121,48 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawMap(tileMap);
     }
 
-    private void initActionExecutor() {
+    private void initActionExecutor()
+    {
         actionExecutor = new ActionExecutor(context.getGameEventManager().api())
                 .setTileDrawer(tileDrawer);
     }
 
-    private void initSkynet() {
+    private void initSkynet()
+    {
         skynet = new Skynet(actionExecutor,
                 game,
                 context.getUserPlayer())
-        .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")
-        .addBehaviour(new AttackBehaviour(), "attackPhase");
+                .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")
+                .addBehaviour(new AttackBehaviour(), "attackPhase");
 
     }
 
-    private void initSkynetButtons() {
+    private void initSkynetButtons()
+    {
         final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlane.png");
-        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 50);
+        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 40);
         skynetTurnButton.setOnAction((event) -> skynet.turn());
+
+        JavaFXUtils.setButtonIcons(
+                skynetButton,
+                getClass().getResource("/assets/icons/operation/skynetWhite.png"),
+                getClass().getResource("/assets/icons/operation/skynetBlack.png"),
+                40
+        );
+
+        skynetButton.setOnAction(this::startBot);
     }
+
+    private void startBot(ActionEvent actionEvent)
+    {
+        if (skynet.isBotRunning())
+        {
+            skynet.stopBot();
+        } else
+        {
+            skynet.startBot();
+        }
+    }
+
 
 }
