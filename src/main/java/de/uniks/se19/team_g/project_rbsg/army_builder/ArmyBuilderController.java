@@ -12,15 +12,20 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailCont
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPropertyInfoListBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableListValue;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -39,6 +44,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -95,18 +101,20 @@ public class ArmyBuilderController implements Initializable, RootController {
     @Nonnull
     PersistentArmyManager persistantArmyManager;
 
-
     @SuppressWarnings("FieldCanBeLocal")
     private ChangeListener<Unit> onSelectionUpdated;
 
     private Node infoView;
     private UnitPropertyInfoListBuilder unitPropertyInfoListBuilder;
+    private List<Army> oldArmies;
 
     /*
      * do NOT. i repeat. do NOT inline the army selector. We need the reference so that the selected listener won't get removed.
      */
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
+
+    @Nonnull private final GetArmiesService getArmiesService;
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
@@ -119,7 +127,8 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
             @Nonnull PersistentArmyManager persistantArmyManager,
-            @NonNull AlertBuilder alertBuilder
+            @NonNull AlertBuilder alertBuilder,
+            @NonNull GetArmiesService getArmiesService
     ) {
         this.appState = appState;
         this.viewState = viewState;
@@ -132,6 +141,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.unitDetailViewFactory = unitDetailViewFactory;
         this.persistantArmyManager = persistantArmyManager;
         this.alertBuilder = alertBuilder;
+        this.getArmiesService=getArmiesService;
     }
 
     @Override
@@ -182,8 +192,6 @@ public class ArmyBuilderController implements Initializable, RootController {
                 getClass().getResource("/assets/icons/operation/editBlack.png"),
                 80
         );
-
-
 
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
@@ -259,7 +267,9 @@ public class ArmyBuilderController implements Initializable, RootController {
                             moveToLobby();
                         },
                     () -> {
-                            moveToLobby();
+                        moveToLobby();
+                        appState.armies.addAll(getArmiesService.loadArmies());
+                        appState.armies.remove(0,7);
                     }
                     );
         }
