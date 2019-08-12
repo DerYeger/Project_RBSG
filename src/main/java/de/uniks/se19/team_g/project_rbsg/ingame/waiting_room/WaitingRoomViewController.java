@@ -36,6 +36,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
@@ -69,6 +70,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public Pane player2Pane;
     public Pane player3Pane;
     public Pane player4Pane;
+    public Label gameName;
     public Pane chatContainer;
     public Pane mapPreviewPane;
     public Pane miniGamePane; // TODO Tic-Tac-Toe?
@@ -142,6 +144,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     public void initialize() {
+        gameName.textProperty().setValue(gameProvider.get().getName());
         initPlayerCardBuilders();
         setPlayerCardNodes();
         JavaFXUtils.setButtonIcons(
