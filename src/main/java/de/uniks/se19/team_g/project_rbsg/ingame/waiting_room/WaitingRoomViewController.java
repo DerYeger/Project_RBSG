@@ -293,9 +293,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                 if(selectButtonDoubleClicked) {
                     Army army = new Army();
                     army.id.set("notReady");
-                    for (int i = 0; i < ApplicationState.ARMY_MAX_UNIT_COUNT; i++) {
-                        army.units.add(new Unit());
-                    }
                     disabledReadyButton.set(false);
                     newValue = army;
                     selectButtonDoubleClicked = false;
