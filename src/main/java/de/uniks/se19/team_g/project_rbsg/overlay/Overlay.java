@@ -21,12 +21,12 @@ public abstract class Overlay {
 
     protected abstract void init();
 
-    public void show() {
-        target.showOverlay(this);
-    }
-
     public Node getNode() {
         return node;
+    }
+
+    public void show() {
+        target.showOverlay(this);
     }
 
     public void hide() {
