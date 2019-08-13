@@ -32,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -109,6 +110,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     public HBox ingameInformationHBox;
     public StackPane rootPane;
+    public ListView history;
     private ChatController chatController;
     private Game game;
     private ObservableList<Cell> cells;
