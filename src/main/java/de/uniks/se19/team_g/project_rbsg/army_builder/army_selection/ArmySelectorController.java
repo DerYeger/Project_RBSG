@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import io.rincl.Rincled;
 import javafx.beans.property.Property;
@@ -15,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.layout.HBox;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
@@ -36,12 +38,16 @@ public class ArmySelectorController implements Initializable, Rincled {
     @SuppressWarnings("FieldCanBeLocal")
     @Nullable
     private ListChangeListener<? super Army> fixSelectionOnSelectedRemoved;
+    @NonNull
+    private ApplicationState appState;
 
     public ArmySelectorController(
-            ArmySelectorCellFactory cellFactory
+            ArmySelectorCellFactory cellFactory,
+            @NonNull ApplicationState applicationState
 
     ) {
         this.cellFactory = cellFactory;
+        this.appState=applicationState;
     }
 
     public void setSelection(ObservableList<Army> armies, Property<Army> selection)
@@ -63,7 +69,13 @@ public class ArmySelectorController implements Initializable, Rincled {
 
         selectionModel.selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    selection.setValue(newValue);
+                    if(newValue==null){
+                        selection.setValue(appState.armies.get(0));
+                    }
+                    else
+                    {
+                        selection.setValue(newValue);
+                    }
                 }
         );
     }
