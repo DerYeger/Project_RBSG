@@ -13,21 +13,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.WeakListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Component
 public class ArmyDetailController implements Initializable {
@@ -47,6 +46,9 @@ public class ArmyDetailController implements Initializable {
 
     public Button incrementButton;
     public Button decrementButton;
+
+    public Button moveLeftButton;
+    public Button moveRightButton;
 
     // we want to hold a reference to our change listener so that we can add a weak list change listener and not get garbage collected to early
     // @See ApplicationState
@@ -76,6 +78,18 @@ public class ArmyDetailController implements Initializable {
                 decrementButton,
                 getClass().getResource("/assets/icons/operation/removeWhite.png"),
                 getClass().getResource("/assets/icons/operation/removeBlack.png"),
+                80
+        );
+        JavaFXUtils.setButtonIcons(
+                moveLeftButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                80
+        );
+        JavaFXUtils.setButtonIcons(
+                moveRightButton,
+                getClass().getResource("/assets/icons/navigation/arrowForwardWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowForwardBlack.png"),
                 80
         );
         appState.selectedArmy.addListener(new WeakChangeListener<>(selectedArmyListener));
@@ -174,5 +188,16 @@ public class ArmyDetailController implements Initializable {
             army.setUnsavedUpdates(true);
         }
         armyBuilderState.selectedUnit.set(null);
+    }
+    public void moveUnitLeft(ActionEvent event){
+        moveUnit(false);
+    }
+    public void moveUnitRight(ActionEvent event){
+        moveUnit(true);
+    }
+    public void moveUnit(boolean leftOrRight){
+        //false is left true is right
+        List<Unit> unitList = appState.selectedArmy.get().units;
+
     }
 }

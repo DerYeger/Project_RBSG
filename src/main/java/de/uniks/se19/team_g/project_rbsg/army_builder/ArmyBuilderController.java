@@ -90,9 +90,6 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     public HBox modalContainer;
 
-    public Button moveLeftButton;
-    public Button moveRightButton;
-
     @Nonnull
     PersistentArmyManager persistantArmyManager;
 
@@ -182,20 +179,6 @@ public class ArmyBuilderController implements Initializable, RootController {
                 getClass().getResource("/assets/icons/operation/editBlack.png"),
                 80
         );
-        JavaFXUtils.setButtonIcons(
-                moveLeftButton,
-                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
-                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
-                80
-        );
-        JavaFXUtils.setButtonIcons(
-                moveRightButton,
-                getClass().getResource("/assets/icons/navigation/arrowForwardWhite"),
-                getClass().getResource("/assets/icons/navigation/arrowForwardBlack.png"),
-                80
-        );
-
-
 
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
@@ -319,17 +302,5 @@ public class ArmyBuilderController implements Initializable, RootController {
 
         modalContainer.getChildren().setAll( editArmyComponent.<Node>getRoot());
         modalContainer.setVisible(true);
-    }
-
-    public void moveLeft(MouseEvent event){
-        moveUnit(false);
-    }
-    public void moveRight(MouseEvent event){
-        moveUnit(true);
-    }
-    public void moveUnit(boolean leftOrRight){
-        //false is left true is right
-        List<Unit> unitList = appState.selectedArmy.get().units;
-
     }
 }
