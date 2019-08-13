@@ -17,27 +17,27 @@
                <children>
                   <VBox alignment="CENTER" styleClass="labelBox" AnchorPane.leftAnchor="0.0">
                      <children>
-                        <HBox alignment="CENTER">
+                        <HBox alignment="CENTER" styleClass="box" stylesheets="@credits.css">
                            <children>
                               <Label fx:id="boardLabel" text="Label" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER">
+                        <HBox alignment="CENTER" styleClass="box" stylesheets="@credits.css">
                            <children>
                               <Label fx:id="iconLabel" text="Label" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER">
+                        <HBox alignment="CENTER" styleClass="box" stylesheets="@credits.css">
                            <children>
                               <Label fx:id="unitLabel" text="Label" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER">
+                        <HBox alignment="CENTER" styleClass="box" stylesheets="@credits.css">
                            <children>
                               <Label fx:id="musicLabel" text="Label" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER">
+                        <HBox alignment="CENTER" styleClass="box" stylesheets="@credits.css">
                            <children>
                               <Label fx:id="frameworkLabel" text="Label" />
                            </children>
