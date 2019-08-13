@@ -1,7 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
@@ -13,10 +16,12 @@ import java.nio.file.Paths;
 @Component
 public class SaveFileStrategy {
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private UserProvider userProvider;
 
-    String fileName = "armies.json";
+    String fileName;
 
-    public SaveFileStrategy() {
+    public SaveFileStrategy(@NonNull UserProvider userProvider) {
+        this.userProvider = userProvider;
     }
 
     @Nonnull
@@ -59,7 +64,10 @@ public class SaveFileStrategy {
      * @return
      */
     String getRelativeFileName() {
-        return Paths.get("rbsg/", fileName).toString();
+        if(fileName==null){
+            fileName=""+userProvider.get().getName().hashCode();
+        }
+        return Paths.get("rbsg/",  fileName+ ".json").toString();
     }
 
     public void setFilename(String fileName) {
