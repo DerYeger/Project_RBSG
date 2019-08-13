@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;

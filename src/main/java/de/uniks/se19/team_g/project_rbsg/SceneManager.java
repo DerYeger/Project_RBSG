@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import io.rincl.*;
 import javafx.application.Platform;
@@ -25,7 +27,7 @@ import java.util.HashMap;
  * @author Jan Müller
  */
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
+public class SceneManager implements ApplicationContextAware, Rincled, OverlayTargetProvider, Terminable {
 
     public enum SceneIdentifier {
         LOGIN("loginScene"),
@@ -125,22 +127,14 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private Scene sceneFromParent(@NonNull final Parent parent)
     {
-        return new Scene(parent);
+        return new Scene(OverlayTarget.of(parent));
     }
 
-    public StackPane getAlertTarget() {
-        if (stage == null) {
-            logger.error("Stage not initialised");
-            return null;
-        }
-
-        try {
-            return (StackPane) stage.getScene().getRoot();
-        } catch (final ClassCastException e) {
-            e.printStackTrace();
-            logger.error("Root of Scene " + stage.getScene() + " is not a StackPane");
-        }
-        return null;
+    @Override
+    public OverlayTarget getOverlayTarget() {
+        final Parent root = stage.getScene().getRoot();
+        if (!(root instanceof OverlayTarget)) return null;
+        return (OverlayTarget) root;
     }
 
     public void withRootController(@NonNull final RootController rootController, @Nullable final SceneIdentifier identifier) {

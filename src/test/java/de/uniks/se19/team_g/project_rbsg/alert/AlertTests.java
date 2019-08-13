@@ -1,8 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.alert;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.AlertConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.OverlayConfiguration;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.ConfirmationAlert;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.InfoAlert;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
@@ -37,11 +41,11 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = {
         AlertTests.ContextConfiguration.class,
         SceneManagerConfig.class,
-        AlertConfig.class,
+        OverlayConfiguration.class,
         SceneManager.class,
         AlertBuilder.class,
-        InfoAlertController.class,
-        ConfirmationAlertController.class
+        InfoAlert.class,
+        ConfirmationAlert.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class AlertTests extends ApplicationTest implements ApplicationContextAware {
@@ -83,7 +87,7 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
         Rincl.setLocale(Locale.ENGLISH);
         sceneManager = context.getBean(SceneManager.class);
         sceneManager.init(stage);
-        scene = new Scene(new StackPane(new Pane()), 350, 150);
+        scene = new Scene(OverlayTarget.of(new Pane()), 350, 150);
         stage.setScene(scene);
         stage.show();
     }
@@ -97,11 +101,12 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
         final Button confirm = lookup("#confirm").queryButton();
         assertNotNull(confirm);
         assertNotNull(lookup("Invalid input"));
+        assertEquals(1, sceneManager.getOverlayTarget().overlayCount());
 
         clickOn(confirm);
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertEquals(1, sceneManager.getAlertTarget().getChildren().size());
+        assertEquals(0, sceneManager.getOverlayTarget().overlayCount());
     }
 
     @Test
@@ -114,10 +119,11 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
 
         assertNotNull(confirm);
         assertNotNull(lookup("Congratulations, you won the game! Going back to the lobby..."));
+        assertEquals(1, sceneManager.getOverlayTarget().overlayCount());
 
         clickOn(confirm);
 
-        assertEquals(1, sceneManager.getAlertTarget().getChildren().size());
+        assertEquals(0, sceneManager.getOverlayTarget().overlayCount());
     }
 
     @Test
@@ -145,12 +151,13 @@ public class AlertTests extends ApplicationTest implements ApplicationContextAwa
 
         final Button cancel = lookup("#cancel").queryButton();
         assertNotNull(cancel);
+        assertEquals(1, sceneManager.getOverlayTarget().overlayCount());
 
         WaitForAsyncUtils.waitForFxEvents();
         clickOn(cancel);
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertEquals(1, sceneManager.getAlertTarget().getChildren().size());
+        assertEquals(0, sceneManager.getOverlayTarget().overlayCount());
         assertTrue(confirmedAndCanceled[0]);
         assertTrue(confirmedAndCanceled[1]);
     }

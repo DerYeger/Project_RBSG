@@ -1,7 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.alert;
+package de.uniks.se19.team_g.project_rbsg.overlay.alert;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.overlay.Overlay;
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -24,14 +27,12 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @NonNull
-    private final SceneManager sceneManager;
+    private final OverlayTargetProvider overlayTargetProvider;
 
     public enum Text {
         EXIT("exit"),
         CREATE_GAME_ERROR("createGameError"),
         CONNECTION_CLOSED("connectionClosed"),
-        GAME_OVER("gameOver"),
         GAME_WON("gameWon"),
         GAME_SOMEBODY_ELSE_WON("elseWon"),
         GAME_LOST("gameLost"),
@@ -39,10 +40,8 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
         PERMISSION_ERROR("permissionError"),
-        END_PHASE("endPhase"),
-        UNKNOWN_ERROR("unknownError");
+        END_PHASE("endPhase");
 
-        @NonNull
         private final String text;
 
         Text(@NonNull final String text) {
@@ -51,10 +50,9 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
     }
 
     public enum Type {
-        CONFIRMATION("confirmationAlert"),
-        INFO("infoAlert");
+        CONFIRMATION("confirmationAlertView"),
+        INFO("infoAlertView");
 
-        @NonNull
         private final String bean;
 
         Type(@NonNull final String bean) {
@@ -62,8 +60,8 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         }
     }
 
-    public AlertBuilder(@NonNull final SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
+    public AlertBuilder(@NonNull final OverlayTargetProvider overlayTargetProvider) {
+        this.overlayTargetProvider = overlayTargetProvider;
     }
 
     private ApplicationContext context;
@@ -79,11 +77,11 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                              @Nullable final Runnable onCancel,
                              @Nullable final String var) {
         try {
-            ((ConfirmationAlertController) build(text, Type.CONFIRMATION, var))
+            ((ConfirmationAlert) build(text, Type.CONFIRMATION, var))
                     .andThen(onConfirm)
                     .orElse(onCancel)
                     .show();
-        } catch (final AlertCreationException e) {
+        } catch (final AlertException e) {
             logger.debug("Unable to create alert: " + e.getMessage());
         }
     }
@@ -99,7 +97,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                                      @Nullable final Runnable onCancel,
                                      @Nullable final String var) {
         Platform.runLater(() -> {
-            clearActiveAlerts();
+            overlayTargetProvider.getOverlayTarget().hideAllOverlays();
             confirmation(text, onConfirm, onCancel, var);
         });
     }
@@ -117,10 +115,10 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                             @Nullable final Runnable runnable,
                             @Nullable final String var) {
         try {
-            ((InfoAlertController) build(text, Type.INFO, var))
+            ((InfoAlert) build(text, Type.INFO, var))
                     .andThen(runnable)
                     .show();
-        } catch (final AlertCreationException e) {
+        } catch (final AlertException e) {
             logger.debug("Unable to create alert:" + e.getMessage());
         }
     }
@@ -134,22 +132,22 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                                     @Nullable final Runnable runnable,
                                     @Nullable final String var) {
         Platform.runLater(() -> {
-            clearActiveAlerts();
+            overlayTargetProvider.getOverlayTarget().hideAllOverlays();
             information(text, runnable, var);
         });
     }
 
-    public AlertController build(@NonNull final Text text,
-                                 @NonNull final Type type,
-                                 @Nullable final String var) throws AlertCreationException {
-        final StackPane target = sceneManager.getAlertTarget();
+    public Overlay build(@NonNull final Text text,
+                         @NonNull final Type type,
+                         @Nullable final String var) throws AlertException {
+        final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
 
         if (target == null) {
-            throw new AlertCreationException("No target");
+            throw new AlertException("No target available");
         }
 
         if (target.getChildren().size() > 1) {
-            throw new AlertCreationException("An alert is already active");
+            throw new AlertException("An alert is already active");
         }
 
         final StringBuilder message = new StringBuilder();
@@ -159,20 +157,13 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         message.append(getResources().getString(text.text));
 
         @SuppressWarnings("unchecked")
-        final ViewComponent<AlertController> components = (ViewComponent<AlertController>) context.getBean(type.bean);
-        final AlertController controller = components.getController();
+        final ViewComponent<Overlay> components = (ViewComponent<Overlay>) context.getBean(type.bean);
+        final Overlay controller = components.getController();
         controller.initialize(
                 message.toString(),
                 components.getRoot(),
                 target);
         return controller;
-    }
-
-    private void clearActiveAlerts() {
-        final ObservableList<Node> children = sceneManager.getAlertTarget().getChildren();
-        for (int i = 1; i < children.size(); i++) {
-            children.remove(i--);
-        }
     }
 
     @Override
