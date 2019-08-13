@@ -21,13 +21,14 @@ import java.util.stream.Collectors;
 public class MovementBehaviour implements Behaviour {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final MovementEvaluator movementEvaluator = new MovementEvaluator();
 
     @Override
     public Optional<MovementAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
             final Unit unit = getFirstUnitWithRemainingMP(player);
-            final Map<Cell, Tour> allowedTours = getValidTours(unit);
+            final Map<Cell, Tour> allowedTours = movementEvaluator.getValidTours(unit);
 
             final Cell target = getOptimalTarget(getEnemyPositions(game, player), allowedTours);
 
@@ -59,15 +60,6 @@ public class MovementBehaviour implements Behaviour {
                                         .getUnit()
                                         .getLeader()
                                         .equals(unit.getLeader()));
-    }
-
-    private Map<Cell, Tour> getValidTours(@NonNull final Unit unit) {
-        return new MovementEvaluator()
-                .getAllowedTours(unit)
-                .entrySet()
-                .stream()
-                .filter(e -> e.getValue().getTarget().getUnit() == null)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private ArrayList<Cell> getEnemyPositions(@NonNull final Game game,
