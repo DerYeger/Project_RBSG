@@ -119,7 +119,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                     .andThen(runnable)
                     .show();
         } catch (final AlertException e) {
-            logger.debug("Unable to create alert:" + e.getMessage());
+            logger.debug("Unable to create alert: " + e.getMessage());
         }
     }
 
@@ -133,6 +133,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                                     @Nullable final String var) {
         Platform.runLater(() -> {
             overlayTargetProvider.getOverlayTarget().hideAllOverlays();
+            System.out.println(overlayTargetProvider.getOverlayTarget().overlayCount());
             information(text, runnable, var);
         });
     }
@@ -146,13 +147,15 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
             throw new AlertException("No target available");
         }
 
-        if (target.getChildren().size() > 1) {
+        if (!target.canShowOverlay()) {
             throw new AlertException("An alert is already active");
         }
 
         final StringBuilder message = new StringBuilder();
         if (var != null) {
-            message.append(var).append(' ');
+            message
+                    .append(var)
+                    .append(' ');
         }
         message.append(getResources().getString(text.text));
 

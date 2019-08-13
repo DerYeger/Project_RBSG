@@ -47,4 +47,8 @@ public class OverlayTarget extends StackPane {
     public int overlayCount() {
         return overlays.size();
     }
+
+    public boolean canShowOverlay() {
+        return overlays.size() < maxCurrentOverlays;
+    }
 }
