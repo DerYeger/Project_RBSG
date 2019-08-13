@@ -169,12 +169,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(75, 150);
 
 
-        Button ingameInformationsButton = lookup("#ingameInformationsButton").query();
+        Button ingameInformationsButton = lookup("#playerButton").query();
         Assert.assertNotNull(ingameInformationsButton);
         HBox playerBar = lookup("#playerBar").query();
-        clickOn("#ingameInformationsButton");
+        clickOn("#playerButton");
         Assert.assertTrue(playerBar.isVisible());
-        clickOn("#ingameInformationsButton");
+        clickOn("#playerButton");
         Assert.assertFalse(playerBar.isVisible());
         Button chatButton = lookup("#chatButton").query();
         StackPane chatPane = lookup("#chatPane").query();

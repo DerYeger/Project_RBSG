@@ -5,6 +5,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.FallbackBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.FallbackBehaviourException;
+import de.uniks.se19.team_g.project_rbsg.skynet.exception.SkynetExcpetion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -57,26 +59,20 @@ public class Skynet
 
     public Skynet turn()
     {
-        if (!game.getCurrentPlayer().equals(player))
-        {
-            //ignore for now
-            return this;
-        }
+        try {
+            if (!game.getCurrentPlayer().equals(player)) {
+                throw new SkynetExcpetion("Not my turn");
+            }
 
-        final Behaviour currentBehaviour = getCurrentBehaviour();
-        if (currentBehaviour == null) return this;
+            final Behaviour currentBehaviour = getCurrentBehaviour();
 
-        final Optional<? extends Action> action = currentBehaviour.apply(game, player);
+            if (currentBehaviour == null) {
+                throw new SkynetExcpetion("No behaviour configured");
+            }
 
-        if (action.isEmpty())
-        {
-            actionExecutor.execute((PassAction) behaviours.get("fallback").apply(game, player).get());
-        } else if (action.get() instanceof MovementAction)
-        {
-            actionExecutor.execute((MovementAction) action.get());
-        } else if (action.get() instanceof AttackAction)
-        {
-            actionExecutor.execute((AttackAction) action.get());
+            query(currentBehaviour);
+        } catch (final SkynetExcpetion e) {
+            logger.info(e.getMessage());
         }
 
         return this;
@@ -85,6 +81,21 @@ public class Skynet
     private Behaviour getCurrentBehaviour()
     {
         return behaviours.get(game.getPhase());
+    }
+
+    private void query(@NonNull final Behaviour behaviour) throws SkynetExcpetion {
+        final Optional<? extends Action> action = behaviour.apply(game, player);
+
+        if (action.isPresent())
+        {
+            actionExecutor.execute(action.get());
+        } else {
+            final Action fallback = behaviours
+                    .get("fallback")
+                    .apply(game, player)
+                    .orElseThrow(() -> new SkynetExcpetion("Skynet stalled. No fallback available"));
+            actionExecutor.execute(fallback);
+        }
     }
 
     public void startBot()

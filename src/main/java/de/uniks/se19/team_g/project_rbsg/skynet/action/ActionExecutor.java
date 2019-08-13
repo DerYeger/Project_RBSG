@@ -24,8 +24,19 @@ public class ActionExecutor
         return this;
     }
 
+    public void execute(@NonNull final Action action) {
+        if (action instanceof FallbackAction) {
+            executeFallback((FallbackAction) action);
+        } else if (action instanceof MovementAction) {
+            executeMove((MovementAction) action);
+        } else if (action instanceof AttackAction) {
+            executeAttack((AttackAction) action);
+        } else if (action instanceof PassAction) {
+            executePass((PassAction) action);
+        }
+    }
 
-    public void execute(@NonNull final MovementAction action)
+    private void executeMove(@NonNull final MovementAction action)
     {
         final Unit unit = action.unit;
         final Tour tour = action.tour;
@@ -38,7 +49,7 @@ public class ActionExecutor
         unit.getGame().setInitiallyMoved(true);
     }
 
-    public void execute(@NonNull final AttackAction action)
+    private void executeAttack(@NonNull final AttackAction action)
     {
         action.unit.setAttackReady(false)
                 .getGame()
@@ -52,7 +63,14 @@ public class ActionExecutor
         }
     }
 
-    public void execute(@NonNull final PassAction action)
+    private void executeFallback(@NonNull final FallbackAction fallbackAction) {
+        execute(fallbackAction.getAction());
+        if (fallbackAction.getNextAction().isPresent()) {
+            execute(fallbackAction.getNextAction().get());
+        }
+    }
+
+    private void executePass(@NonNull final PassAction action)
     {
         api.endPhase();
         action.game.clearSelection();
