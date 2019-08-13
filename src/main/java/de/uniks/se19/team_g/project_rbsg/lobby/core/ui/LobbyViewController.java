@@ -377,6 +377,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
             createGameFormBuilder.getCreateGameController().updateLabels();
         }
+
+        if(creditsFormBuilder != null && creditsFormBuilder.getCreditsController() != null) {
+            creditsFormBuilder.getCreditsController().updateLabels();
+        }
     }
 
     public void changeLangToDE()
