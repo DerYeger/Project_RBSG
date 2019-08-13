@@ -317,7 +317,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if (this.gameForm == null) {
             try {
                 this.gameForm = this.createGameFormBuilder.getCreateGameForm();
-
+                createGameFormBuilder.getCreateGameController().setLobbyViewController(this);
             } catch (IOException e) {
                 e.printStackTrace();
             }

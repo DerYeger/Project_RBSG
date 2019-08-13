@@ -1,0 +1,5 @@
+.loadingScreenPane{
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-pref-height: 600;
+    -fx-pref-width: 600;
+}
