@@ -18,14 +18,14 @@ public class OverlayConfiguration {
     @Bean
     @Scope("prototype")
     public ViewComponent<ConfirmationAlert> confirmationAlertView(@NonNull final FXMLLoader fxmlLoader) {
-        fxmlLoader.setLocation(getClass().getResource("/ui/alert/confirmationAlert.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/ui/overlay/alert/confirmationAlert.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 
     @Bean
     @Scope("prototype")
     public ViewComponent<InfoAlert> infoAlertView(@NonNull final FXMLLoader fxmlLoader) {
-        fxmlLoader.setLocation(getClass().getResource("/ui/alert/infoAlert.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/ui/overlay/alert/infoAlert.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 }

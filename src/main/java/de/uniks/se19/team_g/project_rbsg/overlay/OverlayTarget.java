@@ -23,8 +23,8 @@ public class OverlayTarget extends StackPane {
     public OverlayTarget showOverlay(@NonNull final Overlay overlay) {
         Platform.runLater(() -> {
             if (overlays.size() < maxCurrentOverlays) {
-                overlays.add(overlay);
                 getChildren().add(overlay.getNode());
+                overlays.add(overlay);
             }
         });
         return this;
@@ -32,8 +32,8 @@ public class OverlayTarget extends StackPane {
 
     public OverlayTarget hideOverlay(@NonNull final Overlay overlay) {
         Platform.runLater(() -> {
-            overlays.remove(overlay);
             getChildren().remove(overlay.getNode());
+            overlays.remove(overlay);
         });
         return this;
     }
