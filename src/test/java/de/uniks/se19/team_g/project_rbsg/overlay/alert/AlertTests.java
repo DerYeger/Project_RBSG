@@ -1,19 +1,15 @@
-package de.uniks.se19.team_g.project_rbsg.alert;
+package de.uniks.se19.team_g.project_rbsg.overlay.alert;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.OverlayConfiguration;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.ConfirmationAlert;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.InfoAlert;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
