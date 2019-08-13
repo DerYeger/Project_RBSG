@@ -49,6 +49,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
@@ -811,8 +812,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         rootPane.addEventHandler(KeyEvent.KEY_PRESSED, this::switchThroughUnits);
 
-        //canvas.addEventHandler(KeyEvent.KEY_PRESSED, this::switchThroughUnits);
-
         miniMapCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::miniMapHandleMouseClick);
 
         this.context.getGameState().selectedUnitProperty()
@@ -851,13 +850,16 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         int currentIndex = this.context.getUserPlayer().getUnits().indexOf(selectedUnit);
         if (keyEvent.getCode().equals(KeyCode.E)){
-            selectNextUnit(currentIndex);
+            getNextUnit(currentIndex);
         } else if(keyEvent.getCode().equals(KeyCode.Q)){
-            selectPreviousUnit(currentIndex);
+            getPreviousUnit(currentIndex);
         }
     }
 
-    private void selectNextUnit(int currentIndex) {
+    private void getNextUnit(@NonNull int currentIndex) {
+        if (this.context.getUserPlayer().getUnits().isEmpty()){
+            return;
+        }
         Unit nextSelected;
         if ((currentIndex  + 1) <  this.context.getUserPlayer().getUnits().size()){
             nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex + 1);
@@ -865,14 +867,13 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else {
             nextSelected = this.context.getUserPlayer().getUnits().get(0);
         }
-        game.setSelectedUnit(nextSelected);
-        nextSelected.setSelected(true);
-
-        Cell cell = nextSelected.getPosition();
-        camera.TryToCenterToPostition(cell.getX(), cell.getY());
+        selectNextAndCenterCamera(nextSelected);
     }
 
-    private void selectPreviousUnit(int currentIndex){
+    private void getPreviousUnit(@NonNull int currentIndex){
+        if (this.context.getUserPlayer().getUnits().isEmpty()){
+            return;
+        }
         Unit nextSelected;
         if ((currentIndex - 1) >= 0) {
             nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex - 1);
@@ -880,6 +881,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         } else {
             int lastIndex = this.context.getUserPlayer().getUnits().size() - 1;
             nextSelected = this.context.getUserPlayer().getUnits().get(lastIndex);
+        }
+        selectNextAndCenterCamera(nextSelected);
+    }
+
+
+    private void selectNextAndCenterCamera(@Nullable Unit nextSelected) {
+        if (nextSelected == null){
+            return;
         }
         game.setSelectedUnit(nextSelected);
         nextSelected.setSelected(true);

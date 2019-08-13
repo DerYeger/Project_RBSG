@@ -342,11 +342,17 @@ public class BattleFieldViewTest extends ApplicationTest {
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
+        playerUnit.setLeader(player);
 
-        Unit secondUnit = new Unit("id").setUnitType(UnitTypeInfo._JEEP);
+        Unit secondUnit = new Unit("second").setUnitType(UnitTypeInfo._JEEP);
         secondUnit.setLeader(player);
         secondUnit.setPosition(definition.cells[1][1]);
         game.withUnit(secondUnit);
+
+        Unit thirddUnit = new Unit("third").setUnitType(UnitTypeInfo._JEEP);
+        thirddUnit.setLeader(player);
+        thirddUnit.setPosition(definition.cells[2][1]);
+        game.withUnit(thirddUnit);
 
         game.withPlayer(player);
         playerUnit.setLeader(player);
@@ -372,16 +378,18 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         press(KeyCode.E);
         release(KeyCode.E);
-        Assert.assertSame(playerUnit, game.getSelectedUnit());
+        Assert.assertSame(thirddUnit, game.getSelectedUnit());
 
         press(KeyCode.Q);
         release(KeyCode.Q);
-        Assert.assertSame(secondUnit, game.getSelectedUnit());
+        press(KeyCode.Q);
+        release(KeyCode.Q);
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
 
-        playerUnit.setLeader(null);
+        secondUnit.setLeader(null);
         press(KeyCode.E);
         release(KeyCode.E);
-        Assert.assertSame(secondUnit, game.getSelectedUnit());
+        Assert.assertSame(thirddUnit, game.getSelectedUnit());
     }
 
     @Test
