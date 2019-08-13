@@ -17,7 +17,9 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -147,26 +149,7 @@ public class GetArmiesService {
             }
         }
 
-        return performanceBoostedArmySort(mergedArmies); // ;-)
-    }
-
-    private ArrayList<Army> performanceBoostedArmySort(ArrayList<Army> armies){
-        ArrayList<Army> sortedArmies = new ArrayList<>();
-        int smallest=0;
-        int smallestHash = armies.get(smallest).id.get().hashCode();
-        while(armies.size()>0) {
-            for (int i = 0; i < armies.size(); i++) {
-                int armyHash = armies.get(i).id.get().hashCode();
-                if (smallestHash > armyHash) {
-                    smallest = i;
-                    smallestHash = armyHash;
-                }
-            }
-            sortedArmies.add(armies.get(smallest));
-            armies.remove(armies.get(smallest));
-            smallest=0;
-        }
-        return sortedArmies;
+        return mergedArmies;
     }
 
     public static class Response extends RBSGDataResponse<List<Response.Army>> {

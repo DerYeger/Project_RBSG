@@ -40,8 +40,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         NO_CONNECTION("noConnection"),
         PERMISSION_ERROR("permissionError"),
         END_PHASE("endPhase"),
-        UNKNOWN_ERROR("unknownError"),
-        UNSAVED_ARMY("unsaved_army");
+        UNKNOWN_ERROR("unknownError");
 
         @NonNull
         private final String text;
