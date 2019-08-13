@@ -27,6 +27,7 @@ import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -50,6 +51,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Function;
 
 
@@ -102,6 +104,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public ModelManager modelManager;
 
     private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
+    private final Property<Locale> selectedLocale;
 
     /**
      * keep reference for WeakReferences further down the road
@@ -126,8 +129,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             @Nonnull final PreviewMapBuilder previewMapBuilder,
             @Nonnull final AlertBuilder alertBuilder,
             @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent,
-            @Nonnull final ModelManager modelManager
+            @Nonnull final ModelManager modelManager,
+            @Nonnull final Property<Locale> selectedLocale
     ) {
+        this.selectedLocale = selectedLocale;
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
@@ -181,8 +186,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     private void setPlayerCardNodes() {
-        player1Pane.getChildren().add(playerCard.buildPlayerCard());
-        player2Pane.getChildren().add(playerCard2.buildPlayerCard());
+        player1Pane.getChildren().add(playerCard.buildPlayerCard(selectedLocale));
+        player2Pane.getChildren().add(playerCard2.buildPlayerCard(selectedLocale));
         playerCard2.switchColumns();
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
@@ -190,8 +195,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
             AnchorPane.setTopAnchor(player2Pane, 102.0);
-            player3Pane.getChildren().add(playerCard3.buildPlayerCard());
-            player4Pane.getChildren().add(playerCard4.buildPlayerCard());
+            player3Pane.getChildren().add(playerCard3.buildPlayerCard(selectedLocale));
+            player4Pane.getChildren().add(playerCard4.buildPlayerCard(selectedLocale));
             playerCard4.switchColumns();
         } else {
             AnchorPane.setTopAnchor(player1Pane, 180.0);
