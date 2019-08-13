@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPro
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
@@ -25,6 +26,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -87,6 +89,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button editArmyButton;
 
     public HBox modalContainer;
+
+    public Button moveLeftButton;
+    public Button moveRightButton;
 
     @Nonnull
     PersistentArmyManager persistantArmyManager;
@@ -175,6 +180,18 @@ public class ArmyBuilderController implements Initializable, RootController {
                 editArmyButton,
                 getClass().getResource("/assets/icons/operation/editWhite.png"),
                 getClass().getResource("/assets/icons/operation/editBlack.png"),
+                80
+        );
+        JavaFXUtils.setButtonIcons(
+                moveLeftButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                80
+        );
+        JavaFXUtils.setButtonIcons(
+                moveRightButton,
+                getClass().getResource("/assets/icons/navigation/arrowForwardWhite"),
+                getClass().getResource("/assets/icons/navigation/arrowForwardBlack.png"),
                 80
         );
 
@@ -302,5 +319,17 @@ public class ArmyBuilderController implements Initializable, RootController {
 
         modalContainer.getChildren().setAll( editArmyComponent.<Node>getRoot());
         modalContainer.setVisible(true);
+    }
+
+    public void moveLeft(MouseEvent event){
+        moveUnit(false);
+    }
+    public void moveRight(MouseEvent event){
+        moveUnit(true);
+    }
+    public void moveUnit(boolean leftOrRight){
+        //false is left true is right
+        List<Unit> unitList = appState.selectedArmy.get().units;
+
     }
 }
