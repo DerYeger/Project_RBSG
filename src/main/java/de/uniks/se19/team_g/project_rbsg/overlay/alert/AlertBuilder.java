@@ -79,7 +79,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                     .orElse(onCancel)
                     .show();
         } catch (final OverlayException e) {
-            logger.debug("Unable to create alert: " + e.getMessage());
+            logger.info("Unable to create alert: " + e.getMessage());
         }
     }
 

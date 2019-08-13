@@ -1,13 +1,23 @@
 package de.uniks.se19.team_g.project_rbsg.overlay;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincled;
+import javafx.scene.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
 public class MenuBuilder implements ApplicationContextAware, Rincled {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private ApplicationContext context;
 
@@ -17,7 +27,15 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
         this.overlayTargetProvider = overlayTargetProvider;
     }
 
-    public Menu battlefieldMenu() throws OverlayException {
+    public void battlefieldMenu(@NonNull final List<Tuple<String, Node>> entries) {
+        try {
+            menu(entries).show();
+        } catch (final OverlayException e) {
+            logger.info("Unable to create menu: " + e.getMessage());
+        }
+    }
+
+    private Menu menu(@NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
         final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
 
         if (target == null) {
@@ -31,10 +49,14 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
         @SuppressWarnings("unchecked")
         final ViewComponent<Menu> components = (ViewComponent<Menu>) context.getBean("menuView");
         final Menu menu = components.getController();
-        menu.initialize(
-                getResources().getString("menu"),
-                components.getRoot(),
-                target);
+
+        menu
+                .withEntries(entries)
+                .initialize(
+                        getResources().getString("menu"),
+                        components.getRoot(),
+                        target
+                );
         return menu;
     }
 

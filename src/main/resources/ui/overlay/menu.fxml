@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="de.uniks.se19.team_g.project_rbsg.overlay.Menu"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.Label?>
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="de.uniks.se19.team_g.project_rbsg.overlay.Menu">
+    <VBox fx:id="container" alignment="CENTER" prefHeight="600.0" prefWidth="200.0" styleClass="container">
+        <children>
+            <Label fx:id="label" styleClass="label"></Label>
+        </children>
+        <stylesheets>
+            <URL value="@../darkTheme.css" />
+            <URL value="@menu.css" />
+        </stylesheets>
+    </VBox>
+</StackPane>
 
-</VBox>
