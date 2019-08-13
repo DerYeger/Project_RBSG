@@ -23,6 +23,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -144,13 +145,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         clickOn("#leaveButton");
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
-        clickOn("#zoomOutButton");
-        clickOn("#zoomOutButton");
+        for(int i = 0; i < 6; i++) clickOn("#zoomOutButton");
         Button zoomIn = lookup("#zoomInButton").query();
         Assert.assertNotNull(zoomIn);
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
+        for(int i = 0; i < 12; i++) clickOn("#zoomInButton");
         clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
@@ -172,12 +170,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(75, 150);
 
 
-        Button ingameInformationsButton = lookup("#ingameInformationsButton").query();
+        Button ingameInformationsButton = lookup("#playerButton").query();
         Assert.assertNotNull(ingameInformationsButton);
         HBox playerBar = lookup("#playerBar").query();
-        clickOn("#ingameInformationsButton");
+        clickOn("#playerButton");
         Assert.assertTrue(playerBar.isVisible());
-        clickOn("#ingameInformationsButton");
+        clickOn("#playerButton");
         Assert.assertFalse(playerBar.isVisible());
         Button chatButton = lookup("#chatButton").query();
         StackPane chatPane = lookup("#chatPane").query();
@@ -197,7 +195,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
-        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        IngameApi ingameApi = new IngameApi();
+        GameEventManager gameEventManager = mock(GameEventManager.class);
+        when(gameEventManager.api()).thenReturn(ingameApi);
+        ingameApi.setGameEventManager(gameEventManager);
 
         User user = new User();
         user.setName("Karli");
@@ -469,7 +470,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
-
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
@@ -502,7 +502,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         click(200, 200);
         click(250, 200);
-        verify(gameEventManager).api();
+        verify(gameEventManager, times(1)).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
 

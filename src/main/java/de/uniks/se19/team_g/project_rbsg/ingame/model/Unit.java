@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @author Jan Müller
@@ -169,8 +170,9 @@ public class Unit implements Selectable, Hoverable {
         return remainingMovePoints;
     }
 
-    public void setRemainingMovePoints(int remainingMovePoints) {
+    public Unit setRemainingMovePoints(int remainingMovePoints) {
         this.remainingMovePoints.set(remainingMovePoints);
+        return this;
     }
 
     public boolean isSelected() {
@@ -256,7 +258,17 @@ public class Unit implements Selectable, Hoverable {
         return attackReady;
     }
 
-    public void setAttackReady(boolean attackReady) {
+    public Unit setAttackReady(boolean attackReady) {
         this.attackReady.set(attackReady);
+        return this;
+    }
+
+    public ArrayList<Unit> getNeighbors() {
+        return position.get()
+                .getNeighbors()
+                .stream()
+                .filter(cell -> cell.getUnit() != null)
+                .map(Cell::getUnit)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

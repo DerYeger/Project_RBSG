@@ -146,9 +146,12 @@ public class IngameRootController
 
     protected void mountBattleField() {
         mountContent(battleFieldFactory.getObject());
+        sceneManager.setResizeableTrue();
+        sceneManager.setFullscreen();
     }
 
     protected void mountWaitingRoom() {
+        sceneManager.setResizeableFalse();
         mountContent(waitingRoomFactory.getObject());
     }
 
