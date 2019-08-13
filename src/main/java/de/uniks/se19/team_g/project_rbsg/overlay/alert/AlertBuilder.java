@@ -1,15 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.alert;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayException;
 import de.uniks.se19.team_g.project_rbsg.overlay.Overlay;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import io.rincl.Rincled;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -81,7 +78,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                     .andThen(onConfirm)
                     .orElse(onCancel)
                     .show();
-        } catch (final AlertException e) {
+        } catch (final OverlayException e) {
             logger.debug("Unable to create alert: " + e.getMessage());
         }
     }
@@ -118,7 +115,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
             ((InfoAlert) build(text, Type.INFO, var))
                     .andThen(runnable)
                     .show();
-        } catch (final AlertException e) {
+        } catch (final OverlayException e) {
             logger.debug("Unable to create alert: " + e.getMessage());
         }
     }
@@ -140,15 +137,15 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
 
     public Overlay build(@NonNull final Text text,
                          @NonNull final Type type,
-                         @Nullable final String var) throws AlertException {
+                         @Nullable final String var) throws OverlayException {
         final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
 
         if (target == null) {
-            throw new AlertException("No target available");
+            throw new OverlayException("No target available");
         }
 
         if (!target.canShowOverlay()) {
-            throw new AlertException("An alert is already active");
+            throw new OverlayException("An overlay is already active");
         }
 
         final StringBuilder message = new StringBuilder();
