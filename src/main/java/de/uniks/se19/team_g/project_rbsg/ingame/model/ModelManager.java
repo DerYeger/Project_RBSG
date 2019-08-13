@@ -187,4 +187,8 @@ public class ModelManager implements GameEventHandler {
         history.push(action);
         history.forward();
     }
+
+    public History getHistory() {
+        return history;
+    }
 }

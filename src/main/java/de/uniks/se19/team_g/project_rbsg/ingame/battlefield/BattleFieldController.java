@@ -8,9 +8,12 @@ import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.ActionCell;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewProvider;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
@@ -120,7 +123,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     public HBox ingameInformationHBox;
     public StackPane rootPane;
-    public ListView history;
+    public VBox history;
     public Button skynetButton;
     private ChatController chatController;
     private Game game;
@@ -150,6 +153,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Skynet skynet;
     private ActionExecutor actionExecutor;
     private boolean openWhenResizedPlayer, openWhenResizedChat;
+    private HistoryViewProvider historyViewProvider;
 
     @Autowired
     public BattleFieldController(
@@ -405,17 +409,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
 
-        rootPane.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent event)
+        rootPane.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
             {
-                if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
-                {
-                    endPhase();
-                }
-                rootPane.setFocusTraversable(true);
+                endPhase();
             }
+            rootPane.setFocusTraversable(true);
         });
     }
 
@@ -756,6 +755,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         this.context = context;
 
+        configureHistory();
+
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
         if (context.getGameState().getCurrentPlayer() != null)
         {
@@ -836,6 +837,20 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(sceneManager.isStageInit()) initListenersForFullscreen();
     }
 
+    @Autowired
+    public void setHistoryViewProvider(HistoryViewProvider historyViewProvider) {
+
+        this.historyViewProvider = historyViewProvider;
+    }
+
+    private void configureHistory() {
+        if (historyViewProvider == null) {
+            return;
+        }
+
+        historyViewProvider.mountHistory(history, context);
+    }
+
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
     {
         setCellProperty(null);
@@ -858,7 +873,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
                         () -> this.context.getGameData().setSpectatorModus(true),
-                        () -> doLeaveGame()
+                        this::doLeaveGame
                 );
             }
         });
@@ -870,12 +885,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_WON,
-                    () -> doLeaveGame());
+                    this::doLeaveGame);
         } else
         {
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON,
-                    () -> doLeaveGame(),
+                    this::doLeaveGame,
                     winner.getName());
         }
     }
@@ -1002,15 +1017,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
         }));
 
-        endPhaseButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
+        endPhaseButton.setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY))
             {
-                if (event.getButton().equals(MouseButton.PRIMARY))
-                {
-                    endPhase();
-                }
+                endPhase();
             }
         });
     }

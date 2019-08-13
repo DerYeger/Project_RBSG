@@ -35,11 +35,7 @@
                   </HBox>
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox>
-                           <children>
-                              <ListView fx:id="history" fixedCellSize="40.0" />
-                           </children>
-                        </VBox>
+                        <VBox fx:id="history" />
                         <StackPane fx:id="battlefieldStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                            <children>
                               <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">

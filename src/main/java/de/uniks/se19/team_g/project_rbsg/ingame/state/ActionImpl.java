@@ -29,4 +29,20 @@ public class ActionImpl implements Action {
 
         beanWrapper.setPropertyValue(fieldName, nextValue);
     }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public Object getNextValue() {
+        return nextValue;
+    }
+
+    public Object getEntity() {
+        return beanWrapper.getWrappedInstance();
+    }
+
+    public Object getPreviousValue() {
+        return previousValue;
+    }
 }

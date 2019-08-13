@@ -97,6 +97,8 @@ public class IngameRootController
 
         final Game gameData = Objects.requireNonNull(ingameContext.getGameData());
 
+        ingameContext.setModelManager(modelManager);
+
         gameEventManager.setOnConnectionClosed(this::onConnectionClosed);
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this::handleGameEvents);
