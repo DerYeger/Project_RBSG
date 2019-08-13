@@ -87,6 +87,8 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Autowired UserProvider userProvider;
 
+    @MockBean Property<java.util.Locale> selectedLocale;
+
 
     @TestConfiguration
     static class ContextConfiguration {
