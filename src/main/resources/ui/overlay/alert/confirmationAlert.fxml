@@ -24,7 +24,7 @@
             </HBox>
          </children>
          <stylesheets>
-            <URL value="@../darkTheme.css" />
+            <URL value="@../../darkTheme.css" />
             <URL value="@alert.css" />
          </stylesheets>
       </VBox>
