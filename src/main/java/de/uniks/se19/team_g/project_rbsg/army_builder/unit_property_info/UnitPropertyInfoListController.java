@@ -18,7 +18,7 @@ public class UnitPropertyInfoListController {
     private Node root;
 
     private UnitPropertyInfoCellBuilder health;
-    // private UnitPropertyInfoCellBuilder physicalResistance;
+    private UnitPropertyInfoCellBuilder movement;
     // private UnitPropertyInfoCellBuilder magicResistance;
     // private UnitPropertyInfoCellBuilder speed;
     // private UnitPropertyInfoCellBuilder attack;
@@ -33,14 +33,15 @@ public class UnitPropertyInfoListController {
         );
         initBuilders();
         infoBox.getChildren().addAll(
-                health.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), "magicDefense")
+                health.buildInfoCellNode(new Image("/assets/icons/units/hpIcon.png"), "health"),
+                movement.buildInfoCellNode(new Image("/assets/icons/units/mpIcon.png"),  "movement")
                 // More Properties
         );
     }
 
     private void initBuilders() {
         health = new UnitPropertyInfoCellBuilder();
-        // physicalResistance = new UnitPropertyInfoCellBuilder();
+        movement = new UnitPropertyInfoCellBuilder();
         // magicResistance = new UnitPropertyInfoCellBuilder();
         // speed = new UnitPropertyInfoCellBuilder();
         // attack = new UnitPropertyInfoCellBuilder();
