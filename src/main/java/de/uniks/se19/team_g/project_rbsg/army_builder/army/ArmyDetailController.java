@@ -190,14 +190,24 @@ public class ArmyDetailController implements Initializable {
         armyBuilderState.selectedUnit.set(null);
     }
     public void moveUnitLeft(ActionEvent event){
-        moveUnit(false);
+        moveUnit(-1);
     }
     public void moveUnitRight(ActionEvent event){
-        moveUnit(true);
+        moveUnit(1);
     }
-    public void moveUnit(boolean leftOrRight){
+    public void moveUnit(int leftOrRight){
         //false is left true is right
         List<Unit> unitList = appState.selectedArmy.get().units;
-
+        Unit selected = armyBuilderState.selectedUnit.get();
+        Unit neighbour;
+        for(int i=0; i<unitList.size();i++){
+            if(unitList.get(i).equals(selected) && i>0){
+                neighbour=unitList.get(i+leftOrRight);
+                unitList.remove(i+leftOrRight);
+                unitList.set(i+leftOrRight, selected);
+                unitList.remove(i);
+                unitList.set(i, neighbour);
+            }
+        }
     }
 }
