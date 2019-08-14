@@ -37,7 +37,8 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
         PERMISSION_ERROR("permissionError"),
-        END_PHASE("endPhase");
+        END_PHASE("endPhase"),
+        UNSAVED_ARMY("unsaved_army");
 
         private final String text;
 
