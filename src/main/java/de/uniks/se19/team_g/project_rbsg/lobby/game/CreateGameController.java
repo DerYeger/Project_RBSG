@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -67,7 +68,7 @@ public class CreateGameController implements Rincled
     private Node root;
 
     private LobbyViewController lobbyViewController;
-    private Node loadingScreenForm;
+    private GridPane loadingScreenForm;
     public LoadingScreenFormBuilder loadingScreenFormBuilder;
 
     @Nonnull
@@ -214,12 +215,13 @@ public class CreateGameController implements Rincled
     public void showLoadingScreen(){
         if(loadingScreenForm == null){
             try{
-                this.loadingScreenForm = this.loadingScreenFormBuilder.getLoadingScreenForm();
+                this.loadingScreenForm = (GridPane) this.loadingScreenFormBuilder.getLoadingScreenForm();
             } catch (IOException e){
                 e.printStackTrace();
             }
         }
         if((this.loadingScreenForm != null) && (!this.lobbyViewController.mainStackPane.getChildren().contains(this.loadingScreenForm))){
+            loadingScreenForm.setPrefSize(this.lobbyViewController.mainStackPane.getWidth() ,this.lobbyViewController.mainStackPane.getHeight());
             this.lobbyViewController.mainStackPane.getChildren().add(this.loadingScreenForm);
         }
 

@@ -1,7 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.loading_screen;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +19,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
 
@@ -26,6 +31,13 @@ import java.io.IOException;
         LoadingScreenBuilderTest.ContextConfiguration.class
 })
 public class LoadingScreenBuilderTest extends ApplicationTest {
+
+    private Stage stage;
+
+    @Override
+    public void start(Stage stage) {
+        this.stage = stage;
+    }
 
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
@@ -50,9 +62,19 @@ public class LoadingScreenBuilderTest extends ApplicationTest {
     public ApplicationContext context;
 
     @Test
-    public void testCreditsForm() throws IOException {
+    public void testCreditsForm() throws IOException, InterruptedException {
 
         final Node loadingScreenForm = context.getBean(LoadingScreenFormBuilder.class).getLoadingScreenForm();
         Assert.assertNotNull(loadingScreenForm);
+
+        HBox root = new HBox();
+        Platform.runLater(() -> {
+
+            stage.setScene(new Scene(root));
+            root.getChildren().add(loadingScreenForm);
+            stage.show();
+        });
+        WaitForAsyncUtils.waitForFxEvents();
+        System.out.println("Hello");
     }
 }
