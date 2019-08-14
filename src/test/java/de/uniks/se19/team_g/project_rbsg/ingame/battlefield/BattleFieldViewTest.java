@@ -23,6 +23,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -90,6 +91,9 @@ public class BattleFieldViewTest extends ApplicationTest {
     AlertBuilder alertBuilder;
 
     @MockBean
+    MenuBuilder menuBuilder;
+
+    @MockBean
     MovementManager movementManager;
 
     @MockBean
@@ -139,9 +143,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
-        Button leave = lookup("#leaveButton").query();
-        Assert.assertNotNull(leave);
-        clickOn("#leaveButton");
+        Button menu = lookup("#menuButton").query();
+        Assert.assertNotNull(menu);
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
         for(int i = 0; i < 6; i++) clickOn("#zoomOutButton");
@@ -445,7 +448,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
-        click(200, 200);
+        click(150, 200);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
@@ -493,16 +496,16 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
-        click(200, 200);
-        click( 200, 250);
-        click(200, 200);
+        click(150, 200);
+        click( 150, 250);
+        click(150, 200);
         game.setPhase(Game.Phase.movePhase.name());
-        click(250, 200);
+        click(200, 200);
         //verifyZeroInteractions(gameEventManager);
         game.setPhase(Game.Phase.attackPhase.name());
 
+        click(150, 200);
         click(200, 200);
-        click(250, 200);
         verify(gameEventManager, times(1)).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
