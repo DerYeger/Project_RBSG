@@ -1,5 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg.overlay;
+package de.uniks.se19.team_g.project_rbsg.overlay.menu;
 
+import de.uniks.se19.team_g.project_rbsg.overlay.Overlay;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
