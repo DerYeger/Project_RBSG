@@ -267,9 +267,9 @@ public class ArmyBuilderController implements Initializable, RootController {
                             moveToLobby();
                         },
                     () -> {
-                        moveToLobby();
                         appState.armies.addAll(getArmiesService.loadArmies());
                         appState.armies.remove(0,7);
+                        moveToLobby();
                     }
                     );
         }
