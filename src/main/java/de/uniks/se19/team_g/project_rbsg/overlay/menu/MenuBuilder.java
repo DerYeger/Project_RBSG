@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincled;
+import javafx.beans.property.Property;
 import javafx.scene.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class MenuBuilder implements ApplicationContextAware, Rincled {
@@ -30,15 +32,15 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
         this.overlayTargetProvider = overlayTargetProvider;
     }
 
-    public void battlefieldMenu(@NonNull final List<Tuple<String, Node>> entries) {
+    public void battlefieldMenu(@NonNull final Property<Locale> selectedLocale, @NonNull final List<Tuple<String, Node>> entries) {
         try {
-            menu(entries).show();
+            menu(selectedLocale, entries).show();
         } catch (final OverlayException e) {
             logger.info("Unable to create menu: " + e.getMessage());
         }
     }
 
-    private Menu menu(@NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
+    private Menu menu(@NonNull final Property<Locale> selectedLocale, @NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
         final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
 
         if (target == null) {
@@ -52,11 +54,11 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
         @SuppressWarnings("unchecked")
         final ViewComponent<Menu> components = (ViewComponent<Menu>) context.getBean("menuView");
         final Menu menu = components.getController();
-
         menu
+                .setLocale(selectedLocale)
                 .setEntries(entries)
                 .initialize(
-                        getResources().getString("menu"),
+                        "menu",
                         components.getRoot(),
                         target
                 );

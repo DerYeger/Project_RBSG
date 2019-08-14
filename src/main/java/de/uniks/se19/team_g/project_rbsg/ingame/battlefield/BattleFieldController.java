@@ -1181,6 +1181,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         leaveGameButton.setOnAction(this::leaveGame);
         entries.add(new Tuple<>("leaveGame", leaveGameButton));
 
-        menuBuilder.battlefieldMenu(entries);
+        menuBuilder.battlefieldMenu(selectedLocale, entries);
     }
 }
