@@ -21,6 +21,7 @@ import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -58,10 +59,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Keanu Stückrad
@@ -106,7 +104,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button skynetTurnButton;
     public Button playerButton;
     public Button chatButton;
-    public Button musicButton;
     public StackPane battlefieldStackPane;
     public AnchorPane overlayAnchorPane;
     public StackPane miniMapStackPane;
@@ -239,8 +236,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 //
 //
 //        cancelButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "cancel"));
-
-        musicManager.initButtonIcons(musicButton);
     }
 
     private void initListenersForFullscreen() {
@@ -719,7 +714,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void leaveGame(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         alertBuilder
-                .confirmation(
+                .priorityConfirmation(
                         AlertBuilder.Text.EXIT,
                         this::doLeaveGame,
                         null);
@@ -1112,11 +1107,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public void toggleMusic()
-    {
-        musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
-    }
-
     public void toggleHpBar(ActionEvent actionEvent)
     {
         if (tileDrawer.isHpBarVisibility())
@@ -1174,6 +1164,21 @@ public class BattleFieldController implements RootController, IngameViewControll
 
 
     public void showMenu(final ActionEvent actionEvent) {
-        menuBuilder.battlefieldMenu(new ArrayList<>());
+        final List<Tuple<String, Node>> entries = new ArrayList<>();
+
+        entries.add(new Tuple<>("music", musicManager.newButton()));
+
+        final Button leaveGameButton = new Button();
+        leaveGameButton.getStyleClass().add("icon-button");
+        JavaFXUtils.setButtonIcons(
+                leaveGameButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                40
+        );
+        leaveGameButton.setOnAction(this::leaveGame);
+        entries.add(new Tuple<>("leaveGame", leaveGameButton));
+
+        menuBuilder.battlefieldMenu(entries);
     }
 }
