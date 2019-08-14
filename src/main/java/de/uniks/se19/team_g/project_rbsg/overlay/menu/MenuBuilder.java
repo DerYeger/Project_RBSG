@@ -54,12 +54,13 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
         final Menu menu = components.getController();
 
         menu
-                .withEntries(entries)
+                .setEntries(entries)
                 .initialize(
                         getResources().getString("menu"),
                         components.getRoot(),
                         target
                 );
+
         return menu;
     }
 

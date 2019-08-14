@@ -28,9 +28,8 @@ public class Menu extends Overlay {
     @FXML
     private Label label;
 
-    public Menu withEntries(@NonNull final List<Tuple<String, Node>> entries) {
+    public Menu setEntries(@NonNull final List<Tuple<String, Node>> entries) {
         this.entries = entries;
-
         return this;
     }
 
