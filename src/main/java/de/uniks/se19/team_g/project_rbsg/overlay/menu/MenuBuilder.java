@@ -27,20 +27,23 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
     private ApplicationContext context;
 
     private OverlayTargetProvider overlayTargetProvider;
+    private final Property<Locale> selectedLocale;
 
-    public MenuBuilder(@NonNull final OverlayTargetProvider overlayTargetProvider) {
+    public MenuBuilder(@NonNull final OverlayTargetProvider overlayTargetProvider,
+                       @NonNull final Property<Locale> selectedLocale) {
         this.overlayTargetProvider = overlayTargetProvider;
+        this.selectedLocale = selectedLocale;
     }
 
-    public void battlefieldMenu(@NonNull final Property<Locale> selectedLocale, @NonNull final List<Tuple<String, Node>> entries) {
+    public void battlefieldMenu(@NonNull final List<Tuple<String, Node>> entries) {
         try {
-            menu(selectedLocale, entries).show();
+            menu(entries).show();
         } catch (final OverlayException e) {
             logger.info("Unable to create menu: " + e.getMessage());
         }
     }
 
-    private Menu menu(@NonNull final Property<Locale> selectedLocale, @NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
+    private Menu menu(@NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
         final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
 
         if (target == null) {

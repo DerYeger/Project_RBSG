@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.menu;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.OverlayConfiguration;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
@@ -32,26 +33,29 @@ import java.util.Locale;
 import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        OverlayConfiguration.class,
         FXMLLoaderFactory.class,
-        Menu.class
+        LocaleConfig.class,
+        Menu.class,
+        OverlayConfiguration.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class MenuTests extends ApplicationTest implements ApplicationContextAware, OverlayTargetProvider {
 
     private static final Property<Locale> locale = new SimpleObjectProperty<>(Locale.ENGLISH);
 
-    private MenuBuilder menuBuilder = new MenuBuilder(this);
+    private MenuBuilder menuBuilder;
     private OverlayTarget overlayTarget;
 
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
+        @SuppressWarnings("unchecked")
+        final Property<Locale> selectedLocale = (Property<Locale>) applicationContext.getBean("selectedLocale");
+        menuBuilder = new MenuBuilder(this, selectedLocale);
         menuBuilder.setApplicationContext(applicationContext);
     }
 
     @Override
     public void start(@NonNull final Stage stage) {
-        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         Rincl.setLocale(Locale.ENGLISH);
         overlayTarget = OverlayTarget.of(new Pane());
         final Scene scene = new Scene(overlayTarget, 400, 200);
@@ -67,7 +71,7 @@ public class MenuTests extends ApplicationTest implements ApplicationContextAwar
     @Test
     public void testMenuCreation() {
         final Tuple<String, Node> entry = new Tuple<>("music", new Button("Hello there"));
-        menuBuilder.battlefieldMenu(locale, Collections.singletonList(entry));
+        menuBuilder.battlefieldMenu(Collections.singletonList(entry));
 
         WaitForAsyncUtils.waitForFxEvents();
 
