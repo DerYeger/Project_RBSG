@@ -20,7 +20,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="118.0" spacing="10.0" styleClass="root-background-color">
                      <children>
-                        <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button" />
+                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="icon-button" />
                         <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button" />
                         <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button" />
                         <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" />
