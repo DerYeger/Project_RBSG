@@ -2,12 +2,14 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class MovementEvaluator {
@@ -77,5 +79,13 @@ public class MovementEvaluator {
             tour.setCost(currentCost);
             updateNeighbors(cell, unit, nextPath, tours, currentCost);
         }
+    }
+
+    public Map<Cell, Tour> getValidTours(@NonNull final Unit unit) {
+        return getAllowedTours(unit)
+                .entrySet()
+                .stream()
+                .filter(e -> e.getValue().getTarget().getUnit() == null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }

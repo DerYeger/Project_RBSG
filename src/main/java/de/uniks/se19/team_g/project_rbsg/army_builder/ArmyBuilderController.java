@@ -106,7 +106,6 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     private Node infoView;
     private UnitPropertyInfoListBuilder unitPropertyInfoListBuilder;
-    private List<Army> oldArmies;
 
     /*
      * do NOT. i repeat. do NOT inline the army selector. We need the reference so that the selected listener won't get removed.

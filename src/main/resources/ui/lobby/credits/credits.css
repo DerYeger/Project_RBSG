@@ -1,0 +1,38 @@
+*{
+    -fx-background-color: -root-background-color;
+}
+
+.credits{
+    -fx-border-width: 2;
+    -fx-border-color: -default-border-color;
+    -fx-background-color: -root-background-color;
+    -fx-pref-width: 1000;
+    -fx-pref-height: 600;
+    -fx-alignment: center;
+}
+
+.creditsPane{
+    -fx-alignment: center;
+    -fx-background-color: -root-background-color;
+}
+
+.labelBox{
+    -fx-spacing: 30;
+    -fx-alignment: center;
+    -fx-background-color: -root-background-color;
+}
+
+.box{
+    -fx-alignment: center;
+}
+
+.label{
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(255,255,0);
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+
+

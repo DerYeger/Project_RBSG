@@ -59,7 +59,7 @@ public class LoadArmiesTest {
 
         @Bean
         public SaveFileStrategy saveFileStrategy() {
-            final SaveFileStrategy fileStrategy = new SaveFileStrategy();
+            final SaveFileStrategy fileStrategy = new SaveFileStrategy(null);
             fileStrategy.setFilename(".testArmies.json");
             return fileStrategy;
         }
