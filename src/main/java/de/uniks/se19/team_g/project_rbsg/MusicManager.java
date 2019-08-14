@@ -83,4 +83,13 @@ public class MusicManager {
             stopMusic();
         }
     }
+
+    public Button newButton() {
+        final Button musicButton = new Button();
+        musicButton.getStyleClass().add("icon-button");
+        musicButton.setOnAction(event -> toggleMusicAndUpdateButtonIconSet(musicButton));
+        initButtonIcons(musicButton);
+
+        return musicButton;
+    }
 }
