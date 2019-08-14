@@ -218,7 +218,6 @@ public class CreateGameController implements Rincled
             } catch (IOException e){
                 e.printStackTrace();
             }
-
         }
         if((this.loadingScreenForm != null) && (!this.lobbyViewController.mainStackPane.getChildren().contains(this.loadingScreenForm))){
             this.lobbyViewController.mainStackPane.getChildren().add(this.loadingScreenForm);
