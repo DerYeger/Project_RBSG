@@ -1,6 +1,6 @@
 .container {
     -fx-background-color: -root-background-color;
-    -fx-padding: 10;
+    -fx-padding: 20 50 20 50 20;
     -fx-max-width: 350;
     -fx-max-height: 150;
     -fx-border-color: white;

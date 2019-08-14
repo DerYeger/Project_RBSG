@@ -7,7 +7,7 @@
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="de.uniks.se19.team_g.project_rbsg.overlay.menu.Menu">
-    <VBox fx:id="container" alignment="CENTER" prefHeight="600.0" prefWidth="200.0" styleClass="container">
+    <VBox fx:id="container" alignment="CENTER" prefHeight="600.0" prefWidth="150.0" styleClass="container">
         <children>
             <Label fx:id="label" styleClass="label"></Label>
         </children>
