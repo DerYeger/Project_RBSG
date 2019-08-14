@@ -11,6 +11,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
@@ -49,6 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
@@ -76,6 +78,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+    private final MenuBuilder menuBuilder;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final MiniMapDrawer miniMapDrawer;
     private final ChatBuilder chatBuilder;
@@ -88,7 +91,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final HashMap<String, Pane> playerPaneMap = new HashMap<>();
     private final ArrayList<Pane> playerCardList = new ArrayList<>();
     private final Property<Locale> selectedLocale;
-    public Button leaveButton;
+    public Button menuButton;
     public Button hpBarButton;
     public Button zoomOutButton;
     public Button zoomInButton;
@@ -153,6 +156,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public BattleFieldController(
             @Nonnull final SceneManager sceneManager,
             @Nonnull final AlertBuilder alertBuilder,
+            @NonNull final MenuBuilder menuBuilder,
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
@@ -162,6 +166,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+        this.menuBuilder = menuBuilder;
         this.movementManager = movementManager;
         this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
@@ -179,9 +184,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void initialize()
     {
         JavaFXUtils.setButtonIcons(
-                leaveButton,
-                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
-                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                menuButton,
+                getClass().getResource("/assets/icons/navigation/menuWhite.png"),
+                getClass().getResource("/assets/icons/navigation/menuBlack.png"),
                 40
         );
 
@@ -1168,4 +1173,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
 
+    public void showMenu(final ActionEvent actionEvent) {
+        menuBuilder.battlefieldMenu(new ArrayList<>());
+    }
 }
