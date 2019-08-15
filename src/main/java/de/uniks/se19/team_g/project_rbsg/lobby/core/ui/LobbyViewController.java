@@ -75,7 +75,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final SceneManager sceneManager;
     private final UserProvider userProvider;
     private final LobbyChatClient lobbyChatClient;
-    private final MusicManager musicManager;
     private final LogoutManager logoutManager;
     private final AlertBuilder alertBuilder;
     private final MenuBuilder menuBuilder;
@@ -124,7 +123,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final LobbyChatClient lobbyChatClient,
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
             @NonNull final CreditsFormBuilder creditsFormBuilder,
-            @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
             @NonNull final AlertBuilder alertBuilder,
             @NonNull final MenuBuilder menuBuilder,
@@ -155,7 +153,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
-        this.musicManager = musicManager;
     }
 
     public Lobby getLobby()
@@ -431,8 +428,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void showMenu(final ActionEvent actionEvent) {
         final List<Tuple<String, Node>> entries = new ArrayList<>();
 
-        entries.add(new Tuple<>("music", musicManager.newButton()));
-
         final Button creditsButton = new Button();
         creditsButton.getStyleClass().add("icon-button");
         JavaFXUtils.setButtonIcons(
@@ -444,6 +439,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         creditsButton.setOnAction(event -> showCredits());
         entries.add(new Tuple<>("credits", creditsButton));
 
-        menuBuilder.battlefieldMenu(entries);
+        menuBuilder.lobbyMenu(entries);
     }
 }

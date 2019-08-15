@@ -82,8 +82,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChatBuilder chatBuilder;
     @Nonnull
     private final MovementManager movementManager;
-    @Nonnull
-    private final MusicManager musicManager;
     private final HashMap<String, Player> playerMap = new HashMap<>();
     private final HashMap<String, Node> playerNodeMap = new HashMap<>();
     private final HashMap<String, Pane> playerPaneMap = new HashMap<>();
@@ -157,7 +155,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
-            @Nonnull final MusicManager musicManager,
             @Nonnull Property<Locale> selectedLocale
     )
     {
@@ -165,7 +162,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.alertBuilder = alertBuilder;
         this.menuBuilder = menuBuilder;
         this.movementManager = movementManager;
-        this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
 
@@ -1162,8 +1158,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void showMenu(final ActionEvent actionEvent) {
         final List<Tuple<String, Node>> entries = new ArrayList<>();
-
-        entries.add(new Tuple<>("music", musicManager.newButton()));
 
         final Button leaveGameButton = new Button();
         leaveGameButton.getStyleClass().add("icon-button");

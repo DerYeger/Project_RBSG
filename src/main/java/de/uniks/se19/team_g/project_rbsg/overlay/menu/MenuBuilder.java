@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.menu;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayException;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
@@ -26,13 +27,24 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
 
     private ApplicationContext context;
 
-    private OverlayTargetProvider overlayTargetProvider;
+    private final OverlayTargetProvider overlayTargetProvider;
     private final Property<Locale> selectedLocale;
+    private final MusicManager musicManager;
 
     public MenuBuilder(@NonNull final OverlayTargetProvider overlayTargetProvider,
-                       @NonNull final Property<Locale> selectedLocale) {
+                       @NonNull final Property<Locale> selectedLocale,
+                       @NonNull final MusicManager musicManager) {
         this.overlayTargetProvider = overlayTargetProvider;
         this.selectedLocale = selectedLocale;
+        this.musicManager = musicManager;
+    }
+
+    public void lobbyMenu(@NonNull final List<Tuple<String, Node>> entries) {
+        try {
+            menu(entries).show();
+        } catch (final OverlayException e) {
+            logger.info("Unable to create menu: " + e.getMessage());
+        }
     }
 
     public void battlefieldMenu(@NonNull final List<Tuple<String, Node>> entries) {
@@ -45,7 +57,7 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
 
     private Menu menu(@NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
         final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
-
+        entries.add(0, new Tuple<>("music", musicManager.newButton()));
         if (target == null) {
             throw new OverlayException("No target available");
         }
