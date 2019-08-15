@@ -17,9 +17,11 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.application.Platform;
@@ -32,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import org.slf4j.Logger;
@@ -45,6 +48,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -73,6 +78,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final MusicManager musicManager;
     private final LogoutManager logoutManager;
     private final AlertBuilder alertBuilder;
+    private final MenuBuilder menuBuilder;
 
     private final ObjectFactory<GameListViewCell> gameListCellFactory;
     @Nonnull
@@ -94,12 +100,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private Node creditsForm;
 
     public StackPane mainStackPane;
-    public Button soundButton;
+    public Button menuButton;
     public Button logoutButton;
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
-    public Button creditsButton;
     public Pane createGameButtonContainer;
     public Button armyBuilderLink;
     public GridPane mainGridPane;
@@ -122,6 +127,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
             @NonNull final AlertBuilder alertBuilder,
+            @NonNull final MenuBuilder menuBuilder,
             @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
             @Nonnull final Property<Locale> selectedLocale,
             @Nullable final ApplicationState appState,
@@ -130,6 +136,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
         this.alertBuilder = alertBuilder;
+        this.menuBuilder = menuBuilder;
         this.gameListCellFactory = gameListCellFactory;
         this.selectedLocale = selectedLocale;
         this.appState = appState;
@@ -191,6 +198,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
         JavaFXUtils.setButtonIcons(
+                menuButton,
+                getClass().getResource("/assets/icons/navigation/menuWhite.png"),
+                getClass().getResource("/assets/icons/navigation/menuBlack.png"),
+                40
+        );
+
+        JavaFXUtils.setButtonIcons(
             createGameButton,
             getClass().getResource("/assets/icons/navigation/addCircleWhite.png"),
             getClass().getResource("/assets/icons/navigation/addCircleBlack.png"),
@@ -208,14 +222,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             getClass().getResource("/assets/icons/army/rallyTroopsBlack.png"),
             LobbyViewController.ICON_SIZE
         );
-        JavaFXUtils.setButtonIcons(
-                creditsButton,
-                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
-                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
-                LobbyViewController.ICON_SIZE
-        );
-
-        musicManager.initButtonIcons(soundButton);
 
         setBackgroundImage();
 
@@ -238,6 +244,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if (Objects.nonNull(appState) && appState.notifications.size() > 0) {
             showNotifications();
         }
+
+        mainStackPane.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ESCAPE)) {
+                showMenu(null);
+            }
+            mainStackPane.setFocusTraversable(true);
+        });
     }
 
     private void showNotifications() {
@@ -330,7 +343,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     }
 
-    public void showCredits(){
+    public void showCredits() {
         if(mainStackPane == null) {
             return;
         }
@@ -395,12 +408,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         updateLabels(Locale.ENGLISH);
     }
 
-    public void toggleSound()
-    {
-        logger.debug("Pressed the toggleSound button");
-        musicManager.toggleMusicAndUpdateButtonIconSet(soundButton);
-    }
-
     public void logoutUser()
     {
         alertBuilder
@@ -419,5 +426,24 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public void goToArmyBuilder(ActionEvent actionEvent)
     {
         sceneManager.setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
+    }
+
+    public void showMenu(final ActionEvent actionEvent) {
+        final List<Tuple<String, Node>> entries = new ArrayList<>();
+
+        entries.add(new Tuple<>("music", musicManager.newButton()));
+
+        final Button creditsButton = new Button();
+        creditsButton.getStyleClass().add("icon-button");
+        JavaFXUtils.setButtonIcons(
+                creditsButton,
+                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
+                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
+                LobbyViewController.ICON_SIZE
+        );
+        creditsButton.setOnAction(event -> showCredits());
+        entries.add(new Tuple<>("credits", creditsButton));
+
+        menuBuilder.battlefieldMenu(entries);
     }
 }
