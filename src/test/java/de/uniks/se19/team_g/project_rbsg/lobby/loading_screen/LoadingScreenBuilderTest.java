@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.loading_screen;
 
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -51,7 +53,7 @@ public class LoadingScreenBuilderTest extends ApplicationTest {
 
     @Test
     public void testLoadingScreenForm() throws IOException, InterruptedException {
-
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final Node loadingScreenForm = context.getBean(LoadingScreenFormBuilder.class).getLoadingScreenForm();
         Assert.assertNotNull(loadingScreenForm);
     }
