@@ -5,7 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.ActionImpl;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
@@ -56,9 +56,9 @@ public class HistoryViewTest extends ApplicationTest {
         Unit chubbyCharles = new Unit ("chubbyCharles");
 
         Action action0 = Mockito.mock(Action.class);
-        Action action1 = new ActionImpl("position", null, dickBird);
-        Action action2 = new ActionImpl("position", null, chubbyCharles);
-        Action action3 = new ActionImpl("position", null, dickBird);
+        Action action1 = new UpdateAction("position", null, dickBird);
+        Action action2 = new UpdateAction("position", null, chubbyCharles);
+        Action action3 = new UpdateAction("position", null, dickBird);
 
         IngameContext context = new IngameContext(
                 new UserProvider(),
@@ -72,8 +72,8 @@ public class HistoryViewTest extends ApplicationTest {
         history.push(action2);
         Mockito.when(modelManager.getHistory()).thenReturn(history);
         Mockito.when(actionRenderer.supports(action0)).thenReturn(false);
-        Mockito.when(actionRenderer.supports(Mockito.any(ActionImpl.class))).thenReturn(true);
-        Mockito.when(actionRenderer.render(Mockito.any(ActionImpl.class))).thenReturn(new Label("entry"));
+        Mockito.when(actionRenderer.supports(Mockito.any(UpdateAction.class))).thenReturn(true);
+        Mockito.when(actionRenderer.render(Mockito.any(UpdateAction.class))).thenReturn(new Label("entry"));
         context.setModelManager(modelManager);
 
         VBox root = new VBox();

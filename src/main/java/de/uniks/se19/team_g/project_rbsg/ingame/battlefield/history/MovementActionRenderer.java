@@ -3,7 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.ActionImpl;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -47,7 +47,7 @@ public class MovementActionRenderer implements ActionRenderer {
 
         if (!supports(action)) return null;
 
-        ActionImpl actionImpl = (ActionImpl) action;
+        UpdateAction actionImpl = (UpdateAction) action;
         Unit unit = (Unit) actionImpl.getEntity();
         Cell cell = (Cell) actionImpl.getNextValue();
 
@@ -61,10 +61,10 @@ public class MovementActionRenderer implements ActionRenderer {
 
     @Override
     public boolean supports(Action action) {
-        if ( !(action instanceof ActionImpl)) {
+        if ( !(action instanceof UpdateAction)) {
             return false;
         }
-        ActionImpl actionImpl = (ActionImpl) action;
+        UpdateAction actionImpl = (UpdateAction) action;
         return actionImpl.getEntity() instanceof Unit
             && actionImpl.getNextValue() instanceof Cell;
     }

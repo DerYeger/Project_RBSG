@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.ingame.state;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +47,7 @@ public class DefaultChangeListener implements GameEventDispatcher.Listener {
         }
 
         try {
-            return new ActionImpl(changeEvent.getFieldName(), newValue, entity);
+            return new UpdateAction(changeEvent.getFieldName(), newValue, entity);
         } catch (BeansException e) {
             logger.error("can't derive entity update from change event", e);
         }

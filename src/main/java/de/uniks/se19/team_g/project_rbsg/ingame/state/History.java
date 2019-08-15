@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.annotation.Nonnull;
+
 public class History {
 
     private HistoryEntry head;
@@ -53,6 +55,35 @@ public class History {
         current.getAction().undo();
         current.setApplied(false);
         this.current.setValue(current.getPrevious());
+    }
+
+    public void timeTravel(@Nonnull HistoryEntry target)
+    {
+        if (target.isApplied()) {
+            doTimeTravelBackwards(target);
+        } else {
+            doTimeTravelForward(target);
+        }
+    }
+
+    private void doTimeTravelForward(@Nonnull HistoryEntry target) {
+        while (current.getValue() != null && current.getValue().getNext() != null) {
+            forward();
+        }
+
+        if (current.getValue() != target) {
+            throw new IllegalStateException("couldn't travel back to target");
+        }
+    }
+
+    private void doTimeTravelBackwards(@Nonnull HistoryEntry target) {
+        while (current.getValue() != null && current.getValue() != target) {
+            back();
+        }
+
+        if (current.getValue() != target) {
+            throw new IllegalStateException("couldn't travel back to target");
+        }
     }
 
     public ObservableList<HistoryEntry> getEntries() {
