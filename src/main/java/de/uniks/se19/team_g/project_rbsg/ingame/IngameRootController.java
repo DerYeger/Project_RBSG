@@ -57,8 +57,6 @@ public class IngameRootController
 
     private ViewComponent<? extends IngameViewController> activeComponent;
 
-    private boolean battleFieldMountedFlag = false;
-
     public IngameRootController(
             @Nonnull ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory,
             @Nonnull ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory,
@@ -147,7 +145,6 @@ public class IngameRootController
         mountContent(battleFieldFactory.getObject());
         sceneManager.setResizeableTrue();
         sceneManager.setFullscreen();
-        battleFieldMountedFlag = true;
     }
 
     protected void mountWaitingRoom() {
