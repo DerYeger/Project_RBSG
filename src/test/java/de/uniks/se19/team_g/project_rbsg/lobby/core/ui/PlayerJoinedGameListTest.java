@@ -13,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
 import io.rincl.*;
@@ -47,12 +48,13 @@ import static org.hamcrest.CoreMatchers.*;
         UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
+        MenuBuilder.class,
+        LocaleConfig.class,
         LobbyViewController.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        LocaleConfig.class,
         GameListViewCell.class,
         AlertBuilder.class
     }

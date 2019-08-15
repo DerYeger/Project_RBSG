@@ -1,18 +1,16 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.menu;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.OverlayConfiguration;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import io.rincl.Rincl;
-import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.Test;
@@ -27,10 +25,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         FXMLLoaderFactory.class,
@@ -50,7 +50,7 @@ public class MenuTests extends ApplicationTest implements ApplicationContextAwar
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         @SuppressWarnings("unchecked")
         final Property<Locale> selectedLocale = (Property<Locale>) applicationContext.getBean("selectedLocale");
-        menuBuilder = new MenuBuilder(this, selectedLocale);
+        menuBuilder = new MenuBuilder(this, selectedLocale, mock(CreditsBuilder.class), new MusicManager());
         menuBuilder.setApplicationContext(applicationContext);
     }
 
@@ -70,8 +70,7 @@ public class MenuTests extends ApplicationTest implements ApplicationContextAwar
 
     @Test
     public void testMenuCreation() {
-        final Tuple<String, Node> entry = new Tuple<>("music", new Button("Hello there"));
-        menuBuilder.battlefieldMenu(Collections.singletonList(entry));
+        menuBuilder.battlefieldMenu(new ArrayList<>());
 
         WaitForAsyncUtils.waitForFxEvents();
 

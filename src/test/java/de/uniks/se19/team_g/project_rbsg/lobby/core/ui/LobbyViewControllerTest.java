@@ -1,16 +1,15 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import org.junit.Test;
 import org.springframework.beans.factory.ObjectFactory;
@@ -33,11 +32,10 @@ public class LobbyViewControllerTest {
                 mock(ChatController.class),
                 mock(LobbyChatClient.class),
                 mock(CreateGameFormBuilder.class),
-                mock(CreditsBuilder.class),
-                mock(MusicManager.class),
                 mock(DefaultLogoutManager.class),
                 mock(AlertBuilder.class),
-                mock,
+                mock(MenuBuilder.class),
+                null,
                 null,
                 null,
                 null

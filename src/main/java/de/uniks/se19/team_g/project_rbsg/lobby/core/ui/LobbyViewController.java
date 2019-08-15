@@ -93,7 +93,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private ChatBuilder chatBuilder;
     private ChatController chatController;
     private CreateGameFormBuilder createGameFormBuilder;
-    private CreditsBuilder creditsBuilder;
 
     private Node gameForm;
     private Node creditsForm;
@@ -122,7 +121,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final ChatController chatController,
             @Nonnull final LobbyChatClient lobbyChatClient,
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
-            @NonNull final CreditsBuilder creditsBuilder,
             @Nonnull final LogoutManager logoutManager,
             @NonNull final AlertBuilder alertBuilder,
             @NonNull final MenuBuilder menuBuilder,
@@ -146,7 +144,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.gameManager = gameManager;
 
         this.createGameFormBuilder = createGameFormBuilder;
-        this.creditsBuilder = creditsBuilder;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);

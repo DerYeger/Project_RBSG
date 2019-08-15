@@ -26,6 +26,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
@@ -74,6 +75,8 @@ import static org.junit.Assert.assertNotNull;
         SceneManager.class,
         JoinGameManager.class,
         CreateGameFormBuilder.class,
+        MenuBuilder.class,
+        LocaleConfig.class,
         CreditsBuilder.class,
         LobbyViewController.class,
         MusicManager.class,

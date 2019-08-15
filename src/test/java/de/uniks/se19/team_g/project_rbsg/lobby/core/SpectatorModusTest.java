@@ -29,6 +29,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
@@ -70,6 +71,8 @@ import java.util.Collection;
         SceneManager.class,
         GameListViewCell.class,
         CreateGameFormBuilder.class,
+        MenuBuilder.class,
+        LocaleConfig.class,
         CreditsBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
