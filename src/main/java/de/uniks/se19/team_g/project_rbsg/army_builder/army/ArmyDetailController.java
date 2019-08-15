@@ -50,6 +50,8 @@ public class ArmyDetailController implements Initializable {
     public Button moveLeftButton;
     public Button moveRightButton;
 
+    private HashMap<Army, HashMap<Unit, SquadViewModel>> armyMap;
+
     // we want to hold a reference to our change listener so that we can add a weak list change listener and not get garbage collected to early
     // @See ApplicationState
     @SuppressWarnings("FieldCanBeLocal")
@@ -64,6 +66,7 @@ public class ArmyDetailController implements Initializable {
         this.armyBuilderState = armyBuilderState;
         this.cellFactory = armySquadCellFactory;
         selectedArmyListener = this::onSelectedArmyUpdate;
+        armyMap = new HashMap<>();
     }
 
     @Override
@@ -123,11 +126,13 @@ public class ArmyDetailController implements Initializable {
 
     private void bindSquadList(Army army) {
         final ObservableList<SquadViewModel> squadList = FXCollections.observableArrayList();
-        final Map<Unit, SquadViewModel> squadMap = new HashMap<>();
+        final HashMap<Unit, SquadViewModel> squadMap = new HashMap<>();
         armySquadList.setItems(squadList);
 
         initializeSquadList(army, squadList, squadMap);
         addArmyUnitChangeListener(army, squadList, squadMap);
+
+        armyMap.put(army, squadMap);
     }
 
     private void addArmyUnitChangeListener(Army army, ObservableList<SquadViewModel> squadList, Map<Unit, SquadViewModel> squadMap) {
@@ -197,16 +202,21 @@ public class ArmyDetailController implements Initializable {
     }
     public void moveUnit(int leftOrRight){
         //false is left true is right
-        List<Unit> unitList = appState.selectedArmy.get().units;
+        HashMap<Unit, SquadViewModel> squadMap = armyMap.get(appState.selectedArmy.get());
         Unit selected = armyBuilderState.selectedUnit.get();
-        Unit neighbour;
-        for(int i=0; i<unitList.size();i++){
-            if(unitList.get(i).equals(selected) && i>0){
-                neighbour=unitList.get(i+leftOrRight);
-                unitList.remove(i+leftOrRight);
-                unitList.set(i+leftOrRight, selected);
-                unitList.remove(i);
-                unitList.set(i, neighbour);
+        SquadViewModel selectedModel = squadMap.get(selected);
+        ObservableList squadList = armySquadList.getItems();
+        SquadViewModel neighbour;
+        for(int i=0; i<squadList.size();i++){
+            if(squadList.get(i).equals(selectedModel)){
+                if(i==0 && leftOrRight==-1 || i==squadList.size() && leftOrRight==1){
+                    return;
+                }
+                neighbour=(SquadViewModel) squadList.get(i+leftOrRight);
+                Unit neighbourUnit = neighbour.members.get(0);
+                neighbour.members.set(0, selected);
+                selectedModel.members.set(0, neighbourUnit);
+                i=squadList.size();
             }
         }
     }
