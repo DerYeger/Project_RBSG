@@ -837,7 +837,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(sceneManager.isStageInit()) initListenersForFullscreen();
     }
 
-    @Autowired
+    @Autowired(required = false)
     public void setHistoryViewProvider(HistoryViewProvider historyViewProvider) {
 
         this.historyViewProvider = historyViewProvider;
