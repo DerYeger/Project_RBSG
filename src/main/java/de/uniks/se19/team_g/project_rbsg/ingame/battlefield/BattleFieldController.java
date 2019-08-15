@@ -403,19 +403,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
 
-        rootPane.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent event)
+        rootPane.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
             {
-                if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
-                {
-                    endPhase();
-                } else if (event.getCode().equals(KeyCode.ESCAPE)) {
-                    showMenu(null);
-                }
-                rootPane.setFocusTraversable(true);
+                endPhase();
+            } else if (event.getCode().equals(KeyCode.ESCAPE)) {
+                showMenu(null);
             }
+            rootPane.setFocusTraversable(true);
         });
     }
 
