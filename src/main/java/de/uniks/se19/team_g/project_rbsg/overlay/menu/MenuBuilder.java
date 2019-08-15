@@ -7,9 +7,9 @@ import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
-import io.rincl.Rincled;
 import javafx.beans.property.Property;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Component
-public class MenuBuilder implements ApplicationContextAware, Rincled {
+public class MenuBuilder implements ApplicationContextAware {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -30,7 +30,6 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
 
     private final OverlayTargetProvider overlayTargetProvider;
     private final Property<Locale> selectedLocale;
-    @NonNull
     private final CreditsBuilder creditsBuilder;
     private final MusicManager musicManager;
 
@@ -44,8 +43,22 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
         this.musicManager = musicManager;
     }
 
+    private Node languageDropdown() {
+        final ComboBox<Locale> languages = new ComboBox<>();
+
+        languages.getItems().add(Locale.GERMAN);
+        languages.getItems().add(Locale.ENGLISH);
+
+        languages.getSelectionModel().select(selectedLocale.getValue());
+
+        languages.valueProperty().bindBidirectional(selectedLocale);
+
+        return languages;
+    }
+
     public void lobbyMenu(@NonNull final List<Tuple<String, Node>> entries) {
         try {
+            entries.add(0, new Tuple<>("language", languageDropdown()));
             entries.add(0, new Tuple<>("credits", creditsBuilder.newButton()));
             menu(entries).show();
         } catch (final OverlayException e) {
