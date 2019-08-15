@@ -184,8 +184,13 @@ public class ModelManager implements GameEventHandler {
     }
 
     private void doAddAction(Action action) {
+        boolean isLatest = history.isLatest();
         history.push(action);
-        history.forward();
+
+        if (isLatest) {
+            history.forward();
+        }
+
     }
 
     public History getHistory() {
