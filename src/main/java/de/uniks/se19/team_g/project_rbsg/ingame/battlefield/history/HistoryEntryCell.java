@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.HistoryEntry;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Color;
 
 public class HistoryEntryCell extends ListCell<HistoryEntry> {
@@ -35,8 +37,7 @@ public class HistoryEntryCell extends ListCell<HistoryEntry> {
         Color borderColor = renderData.getAssociatedColor();
 
         if (borderColor != null) {
-            renderedBorder = new Border(
-                    null, null, null, new BorderStroke(borderColor, null, null, null)
+            renderedBorder = new Border(new BorderStroke(borderColor, BorderStrokeStyle.SOLID, null, new BorderWidths(0, 0, 0, 10))
             );
         } else {
             renderedBorder = null;

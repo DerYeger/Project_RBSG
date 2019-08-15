@@ -436,12 +436,9 @@
 .list-view.history {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-border-width: 0 0 0 5;
 }
 
 .list-view.history .list-cell {
-    -fx-border-width: 0 0 0 10;
-    -fx-border-color: transparent;
     -fx-background-color: transparent;
     -fx-background-insets: 0 0 0 10;
 }
@@ -451,6 +448,7 @@
 }
 
 .list-view.history  .list-cell:selected:filled {
+    -fx-border-width: 0 0 0 10;
     -fx-border-style: solid;
     -fx-border-color: transparent transparent, transparent, -primary-background-color;
 }
