@@ -22,14 +22,21 @@ public class HistoryEntryCell extends ListCell<HistoryEntry> {
 
     @Override
     protected void updateItem(HistoryEntry item, boolean empty) {
-        super.updateItem(item, empty);
 
-        if (isEmpty()) {
+
+        if (empty) {
             renderedBorder = null;
             setGraphic(null);
             setBorder(null);
+            super.updateItem(item, true);
             return;
         }
+
+        if (getItem() == item) {
+            return;
+        }
+        super.updateItem(item, false);
+
 
         HistoryRenderData renderData = actionRenderer.render(item.getAction());
         setGraphic(renderData.getGraphic());
