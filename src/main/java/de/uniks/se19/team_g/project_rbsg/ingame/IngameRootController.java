@@ -57,6 +57,8 @@ public class IngameRootController
 
     private ViewComponent<? extends IngameViewController> activeComponent;
 
+    private boolean battleFieldMountedFlag = false;
+
     public IngameRootController(
             @Nonnull ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory,
             @Nonnull ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory,
@@ -130,6 +132,11 @@ public class IngameRootController
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
             Platform.runLater(this::mountBattleField);
         }
+        logger.debug(String.valueOf(message));
+
+        if (triedToStartTheGame(message)){
+            Platform.runLater(this::mountBattleField);
+        }
     }
 
     public void onConnectionClosed() {
@@ -140,6 +147,7 @@ public class IngameRootController
         mountContent(battleFieldFactory.getObject());
         sceneManager.setResizeableTrue();
         sceneManager.setFullscreen();
+        battleFieldMountedFlag = true;
     }
 
     protected void mountWaitingRoom() {
@@ -161,6 +169,12 @@ public class IngameRootController
         nextComponent.getController().configure(ingameContext);
         activeComponent = nextComponent;
     }
+
+    private boolean triedToStartTheGame(ObjectNode message){
+        return message.get("action").asText().equals("inGameError")
+                && message.get("data").asText().equals("Let a real player do this.");
+    }
+
 
     private void leave() {
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);

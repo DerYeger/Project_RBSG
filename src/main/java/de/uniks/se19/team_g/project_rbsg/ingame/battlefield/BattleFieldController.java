@@ -832,6 +832,15 @@ public class BattleFieldController implements RootController, IngameViewControll
         initSkynet();
         initSkynetButtons();
         if(sceneManager.isStageInit()) initListenersForFullscreen();
+
+        configureSpectatorModus();
+    }
+
+    private void configureSpectatorModus() {
+        if (this.context.getGameData().isSpectatorModus()){
+            skynetButton.setDisable(true);
+            skynetTurnButton.setDisable(true);
+        }
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
@@ -849,17 +858,26 @@ public class BattleFieldController implements RootController, IngameViewControll
                 showWinnerLoserAlert(newValue);
             }
         }));
+        if (this.context.getUserPlayer() == null){
+            return;
+        }
         this.context.getUserPlayer().getUnits().addListener((ListChangeListener<Unit>) unitList ->
         {
             if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
             {
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
-                        () -> this.context.getGameData().setSpectatorModus(true),
+                        () -> changeToSpectator(),
                         () -> doLeaveGame()
                 );
             }
         });
+    }
+
+    private void changeToSpectator() {
+        this.context.getGameData().setSpectatorModus(true);
+        skynetButton.setDisable(true);
+        skynetTurnButton.setDisable(true);
     }
 
     private void showWinnerLoserAlert(Player winner)
