@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="mainStackPane" prefHeight="3000.0" styleClass="body" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
+<StackPane fx:id="mainStackPane" prefHeight="3000.0" styleClass="body" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
    <children>
       <GridPane fx:id="mainGridPane" styleClass="main-grid-pane" StackPane.alignment="TOP_LEFT">
          <children>
@@ -34,12 +34,6 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="creditsButton" mnemonicParsing="false" onAction="#showCredits" styleClass="icon-button" />
-                        <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
                         <Button fx:id="enButton" mnemonicParsing="false" onAction="#changeLangToEN" styleClass="disable-button">
                            <HBox.margin>
                               <Insets left="5.0" />
@@ -88,6 +82,7 @@
                   </HBox>
                </children>
             </VBox>
+            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="icon-button" text="Button" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" percentWidth="70.0" />
