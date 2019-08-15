@@ -149,7 +149,26 @@ public class GetArmiesService {
             }
         }
 
-        return mergedArmies;
+        return performanceBoostedArmySort(mergedArmies); // ;-)
+    }
+
+    private ArrayList<Army> performanceBoostedArmySort(ArrayList<Army> armies){
+        ArrayList<Army> sortedArmies = new ArrayList<>();
+        int smallest=0;
+        int smallestHash = armies.get(smallest).id.get().hashCode();
+        while(armies.size()>0) {
+            for (int i = 0; i < armies.size(); i++) {
+                int armyHash = armies.get(i).id.get().hashCode();
+                if (smallestHash > armyHash) {
+                    smallest = i;
+                    smallestHash = armyHash;
+                }
+            }
+            sortedArmies.add(armies.get(smallest));
+            armies.remove(armies.get(smallest));
+            smallest=0;
+        }
+        return sortedArmies;
     }
 
     public static class Response extends RBSGDataResponse<List<Response.Army>> {

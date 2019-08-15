@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
@@ -87,8 +88,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private ChatBuilder chatBuilder;
     private ChatController chatController;
     private CreateGameFormBuilder createGameFormBuilder;
+    private CreditsFormBuilder creditsFormBuilder;
 
     private Node gameForm;
+    private Node creditsForm;
 
     public StackPane mainStackPane;
     public Button soundButton;
@@ -96,6 +99,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public Button enButton;
     public Button deButton;
     public Button createGameButton;
+    public Button creditsButton;
     public Pane createGameButtonContainer;
     public Button armyBuilderLink;
     public GridPane mainGridPane;
@@ -114,6 +118,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final ChatController chatController,
             @Nonnull final LobbyChatClient lobbyChatClient,
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
+            @NonNull final CreditsFormBuilder creditsFormBuilder,
             @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
             @NonNull final AlertBuilder alertBuilder,
@@ -136,6 +141,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.gameManager = gameManager;
 
         this.createGameFormBuilder = createGameFormBuilder;
+        this.creditsFormBuilder = creditsFormBuilder;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
@@ -202,6 +208,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             getClass().getResource("/assets/icons/army/rallyTroopsBlack.png"),
             LobbyViewController.ICON_SIZE
         );
+        JavaFXUtils.setButtonIcons(
+                creditsButton,
+                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
+                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
+                LobbyViewController.ICON_SIZE
+        );
 
         musicManager.initButtonIcons(soundButton);
 
@@ -256,9 +268,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         CompletableFuture.supplyAsync(gameManager::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
     }
 
-    private void setBackgroundImage()
+    public void setBackgroundImage()
     {
-        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.jpg")),
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.png")),
                                           ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
 
         mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,
@@ -305,7 +317,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         if (this.gameForm == null) {
             try {
                 this.gameForm = this.createGameFormBuilder.getCreateGameForm();
-
+                createGameFormBuilder.getCreateGameController().setLobbyViewController(this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -314,6 +326,28 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             mainStackPane.getChildren().add(gameForm);
         } else if ((this.gameForm != null) && (mainStackPane.getChildren().contains(this.gameForm))){
             this.gameForm.setVisible(true);
+        }
+
+    }
+
+    public void showCredits(){
+        if(mainStackPane == null) {
+            return;
+        }
+        if (this.creditsForm == null) {
+            try {
+                this.creditsForm = this.creditsFormBuilder.getCreditsForm("board", "icons", "music", "units", "frameworks");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((this.creditsForm != null) && (!mainStackPane.getChildren().contains(this.creditsForm))) {
+            mainStackPane.getChildren().add(creditsForm);
+        } else if ((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm)) && !this.creditsForm.isVisible()){
+            this.creditsForm.setVisible(true);
+        } else if (((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm))) && this.creditsForm.isVisible()){
+            this.creditsForm.setVisible(false);
         }
 
     }
@@ -342,6 +376,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
             createGameFormBuilder.getCreateGameController().updateLabels();
+            createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController().updateLabels();
+        }
+
+        if(creditsFormBuilder != null && creditsFormBuilder.getCreditsController() != null) {
+            creditsFormBuilder.getCreditsController().updateLabels();
         }
     }
 
