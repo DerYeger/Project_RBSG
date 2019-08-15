@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
@@ -75,6 +76,11 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         public CreateGameFormBuilder createGameController()
         {
             return Mockito.mock(CreateGameFormBuilder.class);
+        }
+
+        @Bean
+        public CreditsFormBuilder creditsFormBuilder() {
+            return Mockito.mock(CreditsFormBuilder.class);
         }
 
         @Bean

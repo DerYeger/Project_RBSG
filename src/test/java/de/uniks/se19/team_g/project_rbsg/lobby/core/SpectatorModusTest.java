@@ -19,6 +19,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -69,6 +70,7 @@ import java.util.Collection;
         SceneManager.class,
         GameListViewCell.class,
         CreateGameFormBuilder.class,
+        CreditsFormBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
@@ -104,6 +106,12 @@ public class SpectatorModusTest extends ApplicationTest {
         public CreateGameController createGameController()
         {
             return Mockito.mock(CreateGameController.class);
+        }
+
+        @Bean
+        public CreditsFormBuilder creditsFormBuilder()
+        {
+            return Mockito.mock(CreditsFormBuilder.class);
         }
 
         @Bean

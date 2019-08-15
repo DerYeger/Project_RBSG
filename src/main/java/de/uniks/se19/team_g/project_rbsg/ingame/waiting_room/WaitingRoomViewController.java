@@ -1,9 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -20,20 +17,21 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.Preview
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -59,11 +57,13 @@ import java.util.function.Function;
  */
 @Scope("prototype")
 @Controller
-public class WaitingRoomViewController implements RootController, IngameViewController {
+public class WaitingRoomViewController implements RootController, IngameViewController, Rincled {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final int ICON_SIZE = 40;
+    private boolean ready;
+    private boolean selectButtonDoubleClicked;
 
     public Pane player1Pane;
     public Pane player2Pane;
@@ -71,11 +71,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public Pane player4Pane;
     public Pane chatContainer;
     public Pane mapPreviewPane;
-    public Pane miniGamePane; // TODO Tic-Tac-Toe?
     public VBox armySelector;
     public Button soundButton;
     public Button leaveButton;
-    public Button showInfoButton;
+    public Button readyButton;
+    public Pane readyButtonContainer;
     public AnchorPane root;
 
     // TODO: Ask Jan, wether this can be removed
@@ -102,6 +102,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public ModelManager modelManager;
 
     private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
+    private SimpleBooleanProperty disabledReadyButton = new SimpleBooleanProperty();
 
     /**
      * keep reference for WeakReferences further down the road
@@ -144,11 +145,26 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public void initialize() {
         initPlayerCardBuilders();
         setPlayerCardNodes();
+        ready = false;
+        selectButtonDoubleClicked = false;
+        disabledReadyButton.set(false);
+        JavaFXUtils.setButtonIcons(
+                readyButton,
+                getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
+                getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                200
+        );
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 ICON_SIZE
+        );
+        JavaFXUtils.bindButtonDisableWithTooltip(
+                readyButton,
+                readyButtonContainer,
+                new SimpleStringProperty(getResources().getString("readyTooltip")),
+                disabledReadyButton
         );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
@@ -266,8 +282,22 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         armySelectorController = armySelectorComponent.apply(armySelector);
 
         selectedArmy.addListener((observable, oldValue, newValue) -> {
-            context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
-            context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
+                JavaFXUtils.setButtonIcons(
+                        readyButton,
+                        getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
+                        getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                        200
+                );
+                disabledReadyButton.set(true);
+                ready = false;
+                if(selectButtonDoubleClicked) {
+                    Army army = new Army();
+                    army.id.set("notReady");
+                    disabledReadyButton.set(false);
+                    newValue = army;
+                    selectButtonDoubleClicked = false;
+                }
+                context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
         });
 
         /*
@@ -283,6 +313,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
         if(this.context.getGameData().isSpectatorModus()){
             armySelector.setDisable(true);
+            readyButton.setDisable(true);
         }
     }
 
@@ -349,6 +380,22 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void mayStartGame() {
         logger.debug("trigger game start");
         context.getGameEventManager().sendMessage(CommandBuilder.startGame());
+    }
+
+    public void setReady(@SuppressWarnings("unused") ActionEvent actionEvent) {
+        if(ready) {
+            selectButtonDoubleClicked = true;
+            armySelectorController.unselect();
+        } else {
+            JavaFXUtils.setButtonIcons(
+                    readyButton,
+                    getClass().getResource("/assets/icons/navigation/checkWhiteBig.png"),
+                    getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
+                    200
+            );
+            context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
+            ready = true;
+        }
     }
 
 }

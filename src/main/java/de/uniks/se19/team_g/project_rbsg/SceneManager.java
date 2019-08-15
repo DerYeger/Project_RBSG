@@ -1,9 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import io.rincl.*;
+import io.rincl.Rincled;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
@@ -55,7 +54,9 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
-        stage.setResizable(false);
+        stage.setMinHeight(780);
+        stage.setMinWidth(640);
+        setResizeableFalse();
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
         return this;
@@ -70,6 +71,10 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         if (stage == null) {
             logger.error("Stage not initialised");
             return;
+        } else {
+            stage.setHeight(ProjectRbsgFXApplication.HEIGHT);
+            stage.setWidth(ProjectRbsgFXApplication.WIDTH);
+            setResizeableFalse();
         }
 
         handleCaching(useCaching, cacheIdentifier);
@@ -166,4 +171,29 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
     public void setApplicationContext(@NonNull final ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
     }
+
+    public void setResizeableTrue(){
+        this.stage.setResizable(true);
+    }
+
+    public void setResizeableFalse(){
+        this.stage.setResizable(false);
+    }
+
+    public void setFullscreen() {
+        this.stage.setFullScreen(true);
+    }
+
+    public ReadOnlyDoubleProperty getStageHeightProperty() {
+        return stage.heightProperty();
+    }
+
+    public ReadOnlyDoubleProperty getStageWidhtProperty() {
+        return stage.widthProperty();
+    }
+
+    public boolean isStageInit() {
+        return this.stage != null;
+    }
+
 }

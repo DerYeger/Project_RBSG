@@ -145,13 +145,10 @@ public class BattleFieldViewTest extends ApplicationTest {
         clickOn("#leaveButton");
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
-        clickOn("#zoomOutButton");
-        clickOn("#zoomOutButton");
+        for(int i = 0; i < 6; i++) clickOn("#zoomOutButton");
         Button zoomIn = lookup("#zoomInButton").query();
         Assert.assertNotNull(zoomIn);
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
-        clickOn("#zoomInButton");
+        for(int i = 0; i < 12; i++) clickOn("#zoomInButton");
         clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
@@ -173,12 +170,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(75, 150);
 
 
-        Button ingameInformationsButton = lookup("#ingameInformationsButton").query();
+        Button ingameInformationsButton = lookup("#playerButton").query();
         Assert.assertNotNull(ingameInformationsButton);
         HBox playerBar = lookup("#playerBar").query();
-        clickOn("#ingameInformationsButton");
+        clickOn("#playerButton");
         Assert.assertTrue(playerBar.isVisible());
-        clickOn("#ingameInformationsButton");
+        clickOn("#playerButton");
         Assert.assertFalse(playerBar.isVisible());
         Button chatButton = lookup("#chatButton").query();
         StackPane chatPane = lookup("#chatPane").query();

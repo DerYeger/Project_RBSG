@@ -145,7 +145,6 @@
 
 .button.icon-button:disabled {
     -fx-background-color: -disabled-background-color;
-    -fx-opacity: 100;
 }
 
 .button.icon-button-big {
@@ -163,6 +162,28 @@
 
 .button.icon-button-big:hover {
     -fx-background-color: -primary-lighter-background-color;
+}
+
+.button.icon-button-giant {
+    -fx-min-height: 200px;
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-max-height: 200px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+}
+
+.button.icon-button-giant:hover {
+    -fx-background-color: -primary-lighter-background-color;
+}
+
+.button.icon-button-giant:disabled {
+    -fx-background-color: -disabled-background-color;
+    -fx-opacity: 100;
 }
 
 .button.disable-button {

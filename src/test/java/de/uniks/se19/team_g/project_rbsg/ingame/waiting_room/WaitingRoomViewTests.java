@@ -222,7 +222,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         InOrder inOrder = inOrder(gameEventManager);
         inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.changeArmy(army)));
-        inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.readyToPlay()));
     }
 
     @Test

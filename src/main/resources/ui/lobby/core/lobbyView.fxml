@@ -19,7 +19,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
+
+<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
    <children>
       <StackPane fx:id="mainStackPane" prefHeight="3000.0" styleClass="body">
          <children>
@@ -41,6 +42,7 @@
                      <children>
                         <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
                            <children>
+                              <Button fx:id="creditsButton" mnemonicParsing="false" onAction="#showCredits" styleClass="icon-button" />
                               <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button">
                                  <HBox.margin>
                                     <Insets left="5.0" />

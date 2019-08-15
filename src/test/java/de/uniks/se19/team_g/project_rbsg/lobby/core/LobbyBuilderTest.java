@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
@@ -137,6 +138,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     chatController(),
                     new LobbyChatClient(new WebSocketClient(), userProvider()),
                     new CreateGameFormBuilder(new FXMLLoader()),
+                    new CreditsFormBuilder(new FXMLLoader()),
                     new MusicManager(),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())),
                     new AlertBuilder(sceneManager),
