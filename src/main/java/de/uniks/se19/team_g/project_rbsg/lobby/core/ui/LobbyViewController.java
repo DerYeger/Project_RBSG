@@ -268,7 +268,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         CompletableFuture.supplyAsync(gameManager::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
     }
 
-    private void setBackgroundImage()
+    public void setBackgroundImage()
     {
         Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.jpg")),
                                           ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);

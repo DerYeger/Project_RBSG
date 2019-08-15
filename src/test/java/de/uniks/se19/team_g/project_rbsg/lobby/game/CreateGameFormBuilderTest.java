@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenController;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import io.rincl.*;
@@ -31,6 +33,8 @@ import java.io.IOException;
         CreateGameController.class,
         GameCreator.class,
         UserProvider.class,
+        LoadingScreenFormBuilder.class,
+        LoadingScreenController.class
 })
 public class CreateGameFormBuilderTest extends ApplicationTest {
 

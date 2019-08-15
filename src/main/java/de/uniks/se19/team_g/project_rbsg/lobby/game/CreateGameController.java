@@ -160,11 +160,13 @@ public class CreateGameController implements Rincled
             gameRequestAnswerPromise
                     .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
                     .exceptionally(exception -> {
+                        closeLoadingScreen();
                         handleGameRequestErrors(AlertBuilder.Text.NO_CONNECTION);
                         return null;
                     });
 
         } else if((this.gameName.getText() == null) || this.gameName.getText().equals("")){
+            closeLoadingScreen();
             handleGameRequestErrors(AlertBuilder.Text.INVALID_INPUT);
         }
 
