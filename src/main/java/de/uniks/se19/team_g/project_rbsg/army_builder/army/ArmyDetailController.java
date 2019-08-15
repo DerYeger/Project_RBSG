@@ -221,6 +221,8 @@ public class ArmyDetailController implements Initializable {
                 i=squadList.size();
                 squadMap.put(neighbourUnit, selectedModel);
                 squadMap.put(selected, neighbour);
+                armyBuilderState.selectedUnit.set(selected);
+                armySquadList.refresh();
             }
         }
     }
