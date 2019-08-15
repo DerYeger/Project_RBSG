@@ -122,10 +122,6 @@ public class UnitDetailController implements Initializable {
         if (propertyViewComponentFactory != null) {
             addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
             addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
         }
     }
 
