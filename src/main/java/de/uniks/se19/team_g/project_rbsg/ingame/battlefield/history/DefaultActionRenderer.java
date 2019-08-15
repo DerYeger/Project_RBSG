@@ -32,7 +32,7 @@ public abstract class DefaultActionRenderer implements ActionRenderer {
         return fxmlLoader;
     }
 
-    protected Pair<DefaultHistoryCellController, HBox> loadCell() {
+    protected <T> Pair<T, HBox> loadCell() {
         FXMLLoader fxmlLoader = getFXMLLoader();
 
         return new Pair<>(fxmlLoader.getController(), fxmlLoader.getRoot());

@@ -28,12 +28,11 @@ public class MovementActionRenderer extends DefaultActionRenderer {
     protected HistoryRenderData doRender(Action action) {
         UpdateAction actionImpl = (UpdateAction) action;
         Unit unit = (Unit) actionImpl.getEntity();
-        Cell cell = (Cell) actionImpl.getNextValue();
 
         FXMLLoader fxmlLoader = getFXMLLoader();
         DefaultHistoryCellController controller = fxmlLoader.getController();
-        controller.primaryIcon.setImage(unit.getUnitType().getIconImage());
-        controller.secondaryIcon.setImage(getMoveIcon());
+        controller.primaryIcon.setImage(getMoveIcon());
+        controller.secondaryIcon.setImage(unit.getUnitType().getIconImage());
 
         Node root = fxmlLoader.getRoot();
 
