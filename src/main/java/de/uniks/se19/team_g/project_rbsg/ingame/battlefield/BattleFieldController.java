@@ -41,6 +41,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -411,6 +412,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
             rootPane.setFocusTraversable(true);
         });
+
     }
 
     private void initPlayerBar()
@@ -804,6 +806,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.hvalueProperty().addListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().addListener(cameraViewChangedListener);
 
+        rootPane.addEventHandler(KeyEvent.KEY_PRESSED, this::switchThroughUnits);
+
         miniMapCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::miniMapHandleMouseClick);
 
         this.context.getGameState().selectedUnitProperty()
@@ -844,6 +848,62 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         historyViewProvider.mountHistory(history, context);
+    }
+
+    private void switchThroughUnits(KeyEvent keyEvent){
+        if(this.context.getGameState().getSelectedUnit() == null){
+            return;
+        }
+        Unit selectedUnit = this.context.getGameState().getSelectedUnit();
+        if(selectedUnit.getLeader() != this.context.getUserPlayer()){
+            return;
+        }
+        int currentIndex = this.context.getUserPlayer().getUnits().indexOf(selectedUnit);
+        if (keyEvent.getCode().equals(KeyCode.E)){
+            getNextUnit(currentIndex);
+        } else if(keyEvent.getCode().equals(KeyCode.Q)){
+            getPreviousUnit(currentIndex);
+        }
+    }
+
+    private void getNextUnit(int currentIndex) {
+        if (this.context.getUserPlayer().getUnits().isEmpty()){
+            return;
+        }
+        Unit nextSelected;
+        if ((currentIndex  + 1) <  this.context.getUserPlayer().getUnits().size()){
+            nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex + 1);
+
+        } else {
+            nextSelected = this.context.getUserPlayer().getUnits().get(0);
+        }
+        selectNextAndCenterCamera(nextSelected);
+    }
+
+    private void getPreviousUnit(int currentIndex){
+        if (this.context.getUserPlayer().getUnits().isEmpty()){
+            return;
+        }
+        Unit nextSelected;
+        if ((currentIndex - 1) >= 0) {
+            nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex - 1);
+
+        } else {
+            int lastIndex = this.context.getUserPlayer().getUnits().size() - 1;
+            nextSelected = this.context.getUserPlayer().getUnits().get(lastIndex);
+        }
+        selectNextAndCenterCamera(nextSelected);
+    }
+
+
+    private void selectNextAndCenterCamera(@Nullable Unit nextSelected) {
+        if (nextSelected == null){
+            return;
+        }
+        game.setSelectedUnit(nextSelected);
+        nextSelected.setSelected(true);
+        Cell cell = nextSelected.getPosition();
+        camera.TryToCenterToPostition(cell.getX(), cell.getY());
     }
 
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
@@ -1119,7 +1179,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
     }
 
-    public void toggleHpBar(ActionEvent actionEvent)
+    public void toggleHpBar(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (tileDrawer.isHpBarVisibility())
         {

@@ -40,6 +40,7 @@ public class LobbyViewControllerTest {
                 mock,
                 null,
                 null,
+                null,
                 null
         );
 
