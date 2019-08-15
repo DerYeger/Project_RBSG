@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.overlay.Overlay;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.Credits;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Menu;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.ConfirmationAlert;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.InfoAlert;
@@ -34,6 +36,13 @@ public class OverlayConfiguration {
     @Scope("prototype")
     public ViewComponent<Menu> menuView(@NonNull final FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/overlay/menu/menu.fxml"));
+        return ViewComponent.fromLoader(fxmlLoader);
+    }
+
+    @Bean
+    @Scope("prototype")
+    public ViewComponent<Credits> creditsView(@NonNull final FXMLLoader fxmlLoader) {
+        fxmlLoader.setLocation(getClass().getResource("/ui/overlay/credits/credits.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
     }
 }

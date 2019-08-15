@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.credits;
+package de.uniks.se19.team_g.project_rbsg.overlay.credits;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,11 +21,11 @@ import java.io.IOException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         FXMLLoader.class,
-        CreditsFormBuilder.class,
-        CreditsController.class,
-        CreditsFormBuilderTest.ContextConfiguration.class
+        CreditsBuilder.class,
+        Credits.class,
+        CreditsBuilderTest.ContextConfiguration.class
 })
-public class CreditsFormBuilderTest extends ApplicationTest {
+public class CreditsBuilderTest extends ApplicationTest {
 
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
@@ -52,7 +52,7 @@ public class CreditsFormBuilderTest extends ApplicationTest {
     @Test
     public void testCreditsForm() throws IOException {
 
-        final Node creditsForm = context.getBean(CreditsFormBuilder.class).getCreditsForm("board", "icons", "music", "units", "frameworks");
+        final Node creditsForm = context.getBean(CreditsBuilder.class).getCreditsForm("board", "icons", "music", "units", "frameworks");
         Assert.assertNotNull(creditsForm);
     }
 }

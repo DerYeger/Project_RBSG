@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.overlay;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
 import org.springframework.lang.NonNull;
 

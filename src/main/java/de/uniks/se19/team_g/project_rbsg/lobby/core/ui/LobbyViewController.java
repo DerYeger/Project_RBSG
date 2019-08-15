@@ -9,7 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
@@ -93,7 +93,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private ChatBuilder chatBuilder;
     private ChatController chatController;
     private CreateGameFormBuilder createGameFormBuilder;
-    private CreditsFormBuilder creditsFormBuilder;
+    private CreditsBuilder creditsBuilder;
 
     private Node gameForm;
     private Node creditsForm;
@@ -122,7 +122,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final ChatController chatController,
             @Nonnull final LobbyChatClient lobbyChatClient,
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
-            @NonNull final CreditsFormBuilder creditsFormBuilder,
+            @NonNull final CreditsBuilder creditsBuilder,
             @Nonnull final LogoutManager logoutManager,
             @NonNull final AlertBuilder alertBuilder,
             @NonNull final MenuBuilder menuBuilder,
@@ -146,7 +146,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.gameManager = gameManager;
 
         this.createGameFormBuilder = createGameFormBuilder;
-        this.creditsFormBuilder = creditsFormBuilder;
+        this.creditsBuilder = creditsBuilder;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
@@ -340,28 +340,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     }
 
-    public void showCredits() {
-        if(mainStackPane == null) {
-            return;
-        }
-        if (this.creditsForm == null) {
-            try {
-                this.creditsForm = this.creditsFormBuilder.getCreditsForm("board", "icons", "music", "units", "frameworks");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((this.creditsForm != null) && (!mainStackPane.getChildren().contains(this.creditsForm))) {
-            mainStackPane.getChildren().add(creditsForm);
-        } else if ((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm)) && !this.creditsForm.isVisible()){
-            this.creditsForm.setVisible(true);
-        } else if (((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm))) && this.creditsForm.isVisible()){
-            this.creditsForm.setVisible(false);
-        }
-
-    }
-
     public void terminate()
     {
         lobbyChatClient.terminate();
@@ -386,10 +364,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
             createGameFormBuilder.getCreateGameController().updateLabels();
-        }
-
-        if(creditsFormBuilder != null && creditsFormBuilder.getCreditsController() != null) {
-            creditsFormBuilder.getCreditsController().updateLabels();
         }
     }
 
@@ -427,17 +401,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void showMenu(final ActionEvent actionEvent) {
         final List<Tuple<String, Node>> entries = new ArrayList<>();
-
-        final Button creditsButton = new Button();
-        creditsButton.getStyleClass().add("icon-button");
-        JavaFXUtils.setButtonIcons(
-                creditsButton,
-                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
-                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
-                LobbyViewController.ICON_SIZE
-        );
-        creditsButton.setOnAction(event -> showCredits());
-        entries.add(new Tuple<>("credits", creditsButton));
 
         menuBuilder.lobbyMenu(entries);
     }
