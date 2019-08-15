@@ -55,6 +55,7 @@ public class HistoryViewTest extends ApplicationTest {
         Unit dickBird = new Unit("dickBird");
         Unit chubbyCharles = new Unit ("chubbyCharles");
 
+        Action action0 = Mockito.mock(Action.class);
         Action action1 = new ActionImpl("position", null, dickBird);
         Action action2 = new ActionImpl("position", null, chubbyCharles);
         Action action3 = new ActionImpl("position", null, dickBird);
@@ -66,10 +67,13 @@ public class HistoryViewTest extends ApplicationTest {
         );
 
         History history = new History();
+        history.push(action0);
         history.push(action1);
         history.push(action2);
         Mockito.when(modelManager.getHistory()).thenReturn(history);
-        Mockito.when(actionRenderer.render(Mockito.any())).thenReturn(new Label("entry"));
+        Mockito.when(actionRenderer.supports(action0)).thenReturn(false);
+        Mockito.when(actionRenderer.supports(Mockito.any(ActionImpl.class))).thenReturn(true);
+        Mockito.when(actionRenderer.render(Mockito.any(ActionImpl.class))).thenReturn(new Label("entry"));
         context.setModelManager(modelManager);
 
         VBox root = new VBox();
@@ -93,13 +97,20 @@ public class HistoryViewTest extends ApplicationTest {
                 .lookup(nonEmptyMatcher).queryAll().size());
 
         CompletableFuture.runAsync(
-                () -> history.push(action3),
+                () -> {
+                    history.push(action3);
+                    history.push(action0);
+                },
                 Platform::runLater
         ).get();
 
         Assert.assertEquals( 3, lookup("#history .list-cell")
                 .lookup(nonEmptyMatcher).queryAll().size());
 
+        Mockito.verify(
+                actionRenderer,
+                Mockito.times(5)
+        ).supports(Mockito.any());
         Mockito.verify(
                 actionRenderer,
                 Mockito.times(3)

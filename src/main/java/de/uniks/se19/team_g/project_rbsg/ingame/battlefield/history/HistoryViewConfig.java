@@ -8,8 +8,8 @@ public class HistoryViewConfig {
 
     @Bean
     public ActionRenderer actionRenderer(
-
+        MovementActionRenderer movementActionRenderer
     ) {
-        return new MovementActionRenderer();
+        return movementActionRenderer;
     }
 }

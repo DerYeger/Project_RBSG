@@ -388,6 +388,27 @@
 
 }
 
+
+.list-view.verticalHidden .scroll-bar:vertical .increment-arrow,
+.list-view.verticalHidden .scroll-bar:vertical .decrement-arrow,
+.list-view.verticalHidden .scroll-bar:vertical .decrement-button,
+.list-view.verticalHidden .scroll-bar:vertical .decrement-button,
+.list-view.verticalHidden .scroll-bar:vertical,
+.list-view.verticalHidden .scroll-bar:vertical {
+    -fx-scale-x: 0;
+    -fx-padding: 0px;
+}
+
+.list-view.verticalHidden .scroll-bar:horizontal .increment-arrow,
+.list-view.verticalHidden .scroll-bar:horizontal .decrement-arrow,
+.list-view.verticalHidden .scroll-bar:horizontal .decrement-button,
+.list-view.verticalHidden .scroll-bar:horizontal .decrement-button,
+.list-view.verticalHidden .scroll-bar:horizontal,
+.list-view.verticalHidden .scroll-bar:horizontal {
+    -fx-scale-x: 0;
+    -fx-padding: 0px;
+}
+
 /*------------------ListView-Additionals------------------*/
 
 .list-view .thumb {
