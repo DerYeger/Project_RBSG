@@ -23,7 +23,6 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -57,7 +56,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -550,6 +548,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
         Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
@@ -562,16 +561,18 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setLeader(player);
         game.setCurrentPlayer(player);
 
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
         context.getUser().setName("Bob");
-
+        //context.getGameData().setSpectatorModus(false);
         battleFieldComponent.getController().configure(context);
 
         context.getGameState().setWinner(enemy);
