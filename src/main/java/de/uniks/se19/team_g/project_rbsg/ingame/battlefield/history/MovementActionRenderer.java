@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -58,7 +59,7 @@ public class MovementActionRenderer implements ActionRenderer {
 
         Node root = fxmlLoader.getRoot();
 
-        return new HistoryRenderData(root, unit.getLeader());
+        return new HistoryRenderData(root, Color.web(unit.getLeader().getColor()));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.HistoryEntry;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Border;
@@ -33,12 +32,11 @@ public class HistoryEntryCell extends ListCell<HistoryEntry> {
         HistoryRenderData renderData = actionRenderer.render(item.getAction());
         setGraphic(renderData.getGraphic());
 
-        Player affectedPlayer = renderData.getAffectedPlayer();
+        Color borderColor = renderData.getAssociatedColor();
 
-        if (affectedPlayer != null) {
-            Color playerColor = Color.web(affectedPlayer.getColor());
+        if (borderColor != null) {
             renderedBorder = new Border(
-                    null, null, null, new BorderStroke(playerColor, null, null, null)
+                    null, null, null, new BorderStroke(borderColor, null, null, null)
             );
         } else {
             renderedBorder = null;
