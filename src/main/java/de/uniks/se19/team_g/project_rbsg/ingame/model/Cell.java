@@ -1,18 +1,23 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Jan Müller
  */
-public class Cell {
+public class Cell implements Hoverable, Selectable {
 
-    @NonNull
+    @Nonnull
     private final String id;
 
     private Tile tile;
@@ -31,13 +36,19 @@ public class Cell {
     private Cell right;
     private Cell bottom;
 
-    private SimpleObjectProperty<Unit> unit;
+    private final SimpleObjectProperty<Unit> unit;
 
-    private SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
 
-    private SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty isAttackable = new SimpleBooleanProperty(false);
 
-    public Cell(@NonNull final String id) {
+    private final ObjectProperty<Game> selectedIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isSelected = selectedIn.isNotNull();
+
+    private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isHovered = hoveredIn.isNotNull();
+
+    public Cell(@Nonnull final String id) {
         this.id = id;
 
         unit = new SimpleObjectProperty<>();
@@ -67,37 +78,45 @@ public class Cell {
         return y;
     }
 
+    @Nullable
     public Cell getLeft() {
         return left;
     }
 
+    @Nullable
     public Cell getTopLeft() {
         if (top == null || left == null) return null;
         return top.getLeft();
     }
 
+    @Nullable
     public Cell getTop() {
         return top;
     }
 
+    @Nullable
     public Cell getTopRight() {
         if (top == null || right == null) return null;
         return top.getRight();
     }
 
+    @Nullable
     public Cell getRight() {
         return right;
     }
 
+    @Nullable
     public Cell getBottomRight() {
         if (bottom == null || right == null) return null;
         return bottom.getRight();
     }
 
+    @Nullable
     public Cell getBottom() {
         return bottom;
     }
 
+    @Nullable
     public Cell getBottomLeft() {
         if (bottom == null || left == null) return null;
         return bottom.getLeft();
@@ -107,6 +126,7 @@ public class Cell {
         return unit;
     }
 
+    @Nullable
     public Unit getUnit() {
         return unit.get();
     }
@@ -124,22 +144,22 @@ public class Cell {
         return this;
     }
 
-    public Cell setBiome(@NonNull final Biome biome) {
+    public Cell setBiome(@Nonnull final Biome biome) {
         this.biome = biome;
         return this;
     }
 
-    public Cell setPassable(@NonNull final boolean passable) {
+    public Cell setPassable(final boolean passable) {
         isPassable = passable;
         return this;
     }
 
-    public Cell setX(@NonNull final int x) {
+    public Cell setX(final int x) {
         this.x = x;
         return this;
     }
 
-    public Cell setY(@NonNull final int y) {
+    public Cell setY(final int y) {
         this.y = y;
         return this;
     }
@@ -240,16 +260,81 @@ public class Cell {
         this.tile = tile;
     }
 
-
-    public boolean isIsAttackable() {
-        return isAttackable.get();
+    @Override
+    public boolean isHovered() {
+        return isHovered.get();
     }
 
-    public SimpleBooleanProperty isAttackableProperty() {
-        return isAttackable;
+    @Override
+    public ObservableBooleanValue hoveredProperty() {
+        return isHovered;
     }
 
-    public void setIsAttackable(boolean isAttackable) {
-        this.isAttackable.set(isAttackable);
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setHoveredIn(@Nullable Game game) {
+        Game lastHoveredIn = hoveredIn.get();
+
+        if (game == lastHoveredIn) {
+            return;
+        }
+
+        hoveredIn.set(game);
+
+        if (lastHoveredIn != null) {
+            lastHoveredIn.setHovered(null);
+        }
+
+        if (game != null) {
+            game.setHovered(this);
+        }
+    }
+
+    public boolean isSelected() {
+        return isSelected.get();
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setSelectedIn(@Nullable Game game) {
+        // note that this should be just a toggle between null and a game, not between two games
+        Game lastState = selectedIn.get();
+
+        if (lastState == game) {
+            return;
+        }
+
+        selectedIn.set(game);
+
+        if (lastState != null) {
+            lastState.setSelected(null);
+        }
+        if (game != null) {
+            game.setSelected(this);
+        }
+    }
+
+    @Override
+    public ObservableBooleanValue selectedProperty() {
+        return isSelected;
+    }
+
+    public ObjectProperty<Game> selectedInProp() {
+        return selectedIn;
+    }
+
+    public boolean isNeighbor(Cell other) {
+        return other == getRight()
+            || other == getBottom()
+            || other == getLeft()
+            || other == getTop()
+        ;
+    }
+
+    public ArrayList<Cell> getNeighbors() {
+        return Stream
+                .of(getRight(), getBottom(), getLeft(), getTop())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

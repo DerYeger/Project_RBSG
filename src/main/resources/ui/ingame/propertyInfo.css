@@ -1,0 +1,5 @@
+.propertyBox {
+    -fx-pref-width: 60;
+    -fx-alignment: center;
+    -fx-spacing: 2;
+}

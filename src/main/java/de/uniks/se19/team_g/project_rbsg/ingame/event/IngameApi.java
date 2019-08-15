@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.Nonnull;
 
@@ -9,12 +11,15 @@ public class IngameApi {
     private GameEventManager gameEventManager;
 
     public void setGameEventManager(@Nonnull GameEventManager gameEventManager) {
-
         this.gameEventManager = gameEventManager;
     }
 
     public GameEventManager getGameEventManager() {
         return gameEventManager;
+    }
+
+    public void move(@NonNull final Unit unit, @NonNull final Tour tour) {
+        gameEventManager.sendMessage(CommandBuilder.moveUnit(unit, tour.getPath()));
     }
 
     public void attack(Unit attacker, Unit target) {
@@ -29,6 +34,10 @@ public class IngameApi {
         attackCommand.data.toAttackId = target.getId();
 
         return attackCommand;
+    }
+
+    public void endPhase() {
+        gameEventManager.sendMessage(CommandBuilder.endPhaseCommand());
     }
 
     public static class BasicCommand {

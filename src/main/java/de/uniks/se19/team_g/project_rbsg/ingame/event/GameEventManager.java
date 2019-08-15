@@ -169,10 +169,6 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         webSocketClient.sendMessage(leaveGameCommand());
     }
 
-    public void sendEndPhaseCommand() {
-        webSocketClient.sendMessage(endPhaseCommand());
-    }
-
     public void setOnConnectionClosed(@Nonnull Runnable onConnectionClosed) {
         this.onConnectionClosed = onConnectionClosed;
     }
@@ -191,7 +187,7 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         if (!webSocketClient.isClosed()) {
             try {
                 sendLeaveCommand();
-                if (!terminateLatch.await(5, TimeUnit.SECONDS)) {
+                if (!terminateLatch.await(500, TimeUnit.MILLISECONDS)) {
                     webSocketClient.stop();
                     logger.debug("Terminated manually. Server did not respond in time");
                 }

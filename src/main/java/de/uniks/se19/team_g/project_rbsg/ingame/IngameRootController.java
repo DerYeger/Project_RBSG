@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 public class IngameRootController
-    implements RootController, Initializable, Terminable
+        implements RootController, Initializable, Terminable
 {
 
     private static Logger logger = LoggerFactory.getLogger(IngameRootController.class);
@@ -109,11 +109,12 @@ public class IngameRootController
 
     @Override
     public void terminate() {
+        gameEventManager.terminate();
+
         if (activeComponent != null && activeComponent.getController() instanceof Terminable) {
             ((Terminable) activeComponent.getController()).terminate();
         }
 
-        gameEventManager.terminate();
         ingameContext.tearDown();
     }
 
@@ -126,21 +127,23 @@ public class IngameRootController
             });
             return;
         }
-
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
-            Platform.runLater(() -> mountBattleField());
+            Platform.runLater(this::mountBattleField);
         }
     }
 
     public void onConnectionClosed() {
-        alertBuilder.error(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
+        alertBuilder.information(AlertBuilder.Text.CONNECTION_CLOSED, this::leave);
     }
 
-    public void mountBattleField() {
+    protected void mountBattleField() {
         mountContent(battleFieldFactory.getObject());
+        sceneManager.setResizeableTrue();
+        sceneManager.setFullscreen();
     }
 
     protected void mountWaitingRoom() {
+        sceneManager.setResizeableFalse();
         mountContent(waitingRoomFactory.getObject());
     }
 
@@ -153,7 +156,6 @@ public class IngameRootController
             }
             root.getChildren().remove(activeComponent.getRoot());
         }
-
         root.getChildren().add(nextComponent.getRoot());
         nextComponent.getRoot().toBack();
         nextComponent.getController().configure(ingameContext);

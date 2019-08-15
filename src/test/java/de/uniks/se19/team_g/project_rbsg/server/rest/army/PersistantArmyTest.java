@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -199,73 +200,88 @@ public class PersistantArmyTest {
 
     @Test
     public void saveArmiesLocalTest() throws IOException{
+
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        ArrayList<Army> armyList=new ArrayList<>();
-        ArrayList<Army> armies= new ArrayList<>();
         RestTemplate localTemplateMock = mock(RestTemplate.class);
 
-        SaveFileStrategy fileStrategy = new SaveFileStrategy();
-        PersistentArmyManager persistentArmyManager = new PersistentArmyManager(
-            localTemplateMock,
-            deleteArmyService,
-            getArmiesService,
-            fileStrategy
-        );
+        UserProvider userProvider1 = new UserProvider();
+        User user1 = userProvider1.get();
+        user1.setName("Test1");
 
-        String armyString;
+        UserProvider userProvider2 = new UserProvider();
+        User user2 = userProvider2.get();
+        user2.setName("Test2");
 
-        Unit unit1 = new Unit();
-        unit1.id.set("5cc051bd62083600017db3b7");
-        Unit unit2 = new Unit();
-        unit2.id.set("5cc051bd62083600017db3b7");
+        ArrayList<UserProvider> providerList = new ArrayList<>();
+        Collections.addAll(providerList, userProvider1, userProvider2);
 
-        Army army = new Army();
-        army.name.set("ggArmyFromLocalTest");
-        army.units.add(unit1);
-        army.units.add(unit2);
+        for(UserProvider userProvider : providerList) {
+            ArrayList<Army> armyList=new ArrayList<>();
+            ArrayList<Army> armies = new ArrayList<>();
 
-        Army army2 = new Army();
-        army2.name.set("ggArmyFromLocalTest2");
-        Unit unit3 = new Unit();
-        unit3.id.set("5cc051bd62083600017db3b6");
-        army2.units.add(unit3);
+            SaveFileStrategy fileStrategy = new SaveFileStrategy(userProvider);
+            PersistentArmyManager persistentArmyManager = new PersistentArmyManager(
+                    localTemplateMock,
+                    deleteArmyService,
+                    getArmiesService,
+                    fileStrategy
+            );
 
-        Army army3 = new Army();
-        army3.name.set("ggArmyFromLocalTest3");
+            String armyString;
 
-        armyList.add(army);
-        armyList.add(army2);
-        armyList.add(army3);
+            Unit unit1 = new Unit();
+            unit1.id.set("5cc051bd62083600017db3b7");
+            Unit unit2 = new Unit();
+            unit2.id.set("5cc051bd62083600017db3b7");
 
-        persistentArmyManager.saveArmiesLocal(armyList);
+            Army army = new Army();
+            army.name.set(userProvider.get().getName() + "_army");
+            army.units.add(unit1);
+            army.units.add(unit2);
 
-        File file = new File(persistentArmyManager.getSaveFile().getAbsolutePath());
-        Assert.assertTrue(file.exists());
-        Assert.assertTrue(file.canRead());
-        Assert.assertTrue(file.isFile());
+            Army army2 = new Army();
+            army2.name.set(userProvider.get().getName() + "_army2");
+            Unit unit3 = new Unit();
+            unit3.id.set("5cc051bd62083600017db3b7");
+            army2.units.add(unit3);
 
-        armyString = Files.readString(Paths.get(file.getPath()));
-        PersistentArmyManager.ArmyWrapper armyWrapper = objectMapper.readValue(armyString, PersistentArmyManager.ArmyWrapper.class);
-        for(PersistentArmyManager.DeserializableArmy deserializableArmy : armyWrapper.armies){
-            Army newArmy = new Army();
-            newArmy.id.set(deserializableArmy.id);
-            newArmy.name.set(deserializableArmy.name);
-            for(String unitId : deserializableArmy.units){
-                Unit unit = new Unit();
-                unit.id.set(unitId);
-                newArmy.units.add(unit);
+            Army army3 = new Army();
+            army3.name.set(userProvider.get().getName() + "_army3");
+
+            armyList.add(army);
+            armyList.add(army2);
+            armyList.add(army3);
+
+            persistentArmyManager.saveArmiesLocal(armyList);
+
+            File file = new File(persistentArmyManager.getSaveFile().getAbsolutePath());
+            Assert.assertTrue(file.exists());
+            Assert.assertTrue(file.canRead());
+            Assert.assertTrue(file.isFile());
+
+            armyString = Files.readString(Paths.get(file.getPath()));
+            PersistentArmyManager.ArmyWrapper armyWrapper = objectMapper.readValue(armyString, PersistentArmyManager.ArmyWrapper.class);
+
+            for (PersistentArmyManager.DeserializableArmy deserializableArmy : armyWrapper.armies) {
+                Army newArmy = new Army();
+                newArmy.id.set(deserializableArmy.id);
+                newArmy.name.set(deserializableArmy.name);
+                for (String unitId : deserializableArmy.units) {
+                    Unit unit = new Unit();
+                    unit.id.set(unitId);
+                    newArmy.units.add(unit);
+                }
+                armies.add(newArmy);
             }
-            armies.add(newArmy);
-        }
 
-        Assert.assertEquals(3, armies.size());
-        Assert.assertEquals("ggArmyFromLocalTest", armies.get(0).name.get());
-        Assert.assertEquals(2, armies.get(0).units.size());
-        Assert.assertEquals("ggArmyFromLocalTest2", armies.get(1).name.get());
-        Assert.assertEquals(1, armies.get(1).units.size());
-        Assert.assertEquals("ggArmyFromLocalTest3", armies.get(2).name.get());
-        Assert.assertEquals(0, armies.get(2).units.size());
+            Assert.assertEquals(3, armies.size());
+            Assert.assertEquals(userProvider.get().getName() + "_army", armies.get(0).name.get());
+            Assert.assertEquals(2, armies.get(0).units.size());
+            Assert.assertEquals(userProvider.get().getName() + "_army2", armies.get(1).name.get());
+            Assert.assertEquals(1, armies.get(1).units.size());
+            Assert.assertEquals(userProvider.get().getName() + "_army3", armies.get(2).name.get());
+            Assert.assertEquals(0, armies.get(2).units.size());
+        }
     }
 }

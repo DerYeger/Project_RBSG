@@ -10,7 +10,9 @@ public enum HighlightingOne
     NONE("None"),
     ATTACK("Attack"),
     MOVE("Move"),
-    BORDER("Border");
+    BORDER("Border"),
+    ATTACK_BLOCKED("AttackBlocked"),
+    ;
 
     private final String highlight;
 

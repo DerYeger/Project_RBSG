@@ -1,4 +1,38 @@
-.miniMapBox {
+.buttonBox {
+    -fx-spacing: 10;
+}
+
+.boxSpacing {
+    -fx-spacing: 10;
+}
+
+.sidebarContainer {
+    -fx-padding: 5 10 10 0;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-max-width: 210px;
+}
+
+.battlefieldContainer {
+    -fx-padding: 10;
+}
+
+.contentVBox {
+    -fx-padding: 10 0;
+    -fx-alignment: center;
+}
+
+.actionVBox button {
+    -fx-effect:  none;
+}
+
+.playerCardBox {
+    -fx-padding: 5 0 5 0;
+    -fx-spacing: 30;
+    -fx-alignment: center;
     -fx-background-color: -root-background-color;
-    -fx-padding: 2;
+}
+
+.roundInfoBox {
+    -fx-padding: 5;
 }

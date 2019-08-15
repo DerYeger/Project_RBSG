@@ -1,10 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -12,14 +8,16 @@ import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
@@ -32,9 +30,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -43,23 +40,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
-import javax.validation.constraints.Max;
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.*;
-import java.util.List;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Keanu Stückrad
@@ -70,152 +70,114 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-    private static final int ZOOMPANE_WIDTH_CENTER = ProjectRbsgFXApplication.WIDTH / 2;
-    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 60) / 2;
+    private static final int ZOOMPANE_WIDTH_CENTER = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
+    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
     private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
-
-    private static final String MOVE_PHASE = "movePhase";
-    private static final String ATTACK_PHASE = "attackPhase";
-    private static final String LAST_MOVE_PHASE = "lastMovePhase";
 
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final MiniMapDrawer miniMapDrawer;
-
-    public Button leaveButton;
-    public Button zoomOutButton;
-    public Button zoomInButton;
-    public Button mapButton;
-    public Canvas miniMapCanvas;
-    public Button endPhaseButton;
-    public Pane endPhaseButtonContainer;
-    public VBox root;
-    public Button musicButton;
-    private Canvas canvas;
-    private ZoomableScrollPane zoomableScrollPane;
-    public StackPane battlefieldStackPane;
-    public AnchorPane overlayAnchorPane;
-    public StackPane miniMapStackPane;
-
-    private Game game;
-
-    private ObservableList<Cell> cells;
-    private ObservableList<Unit> units;
-
-    private int zoomFactor = 1;
-
-    private final ChangeListener<Tile> hoveredTileListener = this::hoveredTileChanged;
-    private final ChangeListener<Tile> selectedTileListener = this::selectedTileChanged;
-    private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
-    private final PropertyChangeListener highlightingListener = this::highlightingChanged;
-    private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
-
-    private TileDrawer tileDrawer;
-    private Tile[][] tileMap;
-    private int mapSize;
-    private Camera camera;
-
     private final ChatBuilder chatBuilder;
-    private ChatController chatController;
-
-    @FXML
-    public Button chatButton;
-    @FXML
-    public StackPane chatPane;
-
-    public SimpleObjectProperty<Tile> selectedTileProperty()
-    {
-        return selectedTile;
-    }
-
-    public Tile getSelectedTile()
-    {
-        return selectedTile.get();
-    }
-
-    public void setSelectedTile(@Nullable Tile selectedTile) {
-        this.selectedTile.set(selectedTile);
-    }
-
-    @Nonnull
-    final private SimpleObjectProperty<Tile> selectedTile;
-    @Nonnull
-    final private SimpleObjectProperty<Tile> hoveredTile;
-
     @Nonnull
     private final MovementManager movementManager;
     @Nonnull
     private final MusicManager musicManager;
-
-    private IngameContext context;
-
-    @FXML
-    public Button ingameInformationsButton;
-    @FXML
+    private final HashMap<String, Player> playerMap = new HashMap<>();
+    private final HashMap<String, Node> playerNodeMap = new HashMap<>();
+    private final HashMap<String, Pane> playerPaneMap = new HashMap<>();
+    private final ArrayList<Pane> playerCardList = new ArrayList<>();
+    private final Property<Locale> selectedLocale;
+    public Button leaveButton;
+    public Button hpBarButton;
+    public Button zoomOutButton;
+    public Button zoomInButton;
+    public Canvas miniMapCanvas;
+    public Button endPhaseButton;
+    public Pane endPhaseButtonContainer;
+    public VBox root;
+    public VBox unitInformationContainer;
+    //TODO: readd
+//    public Button actionButton;
+//    public Button cancelButton;
+    public Button skynetTurnButton;
+    public Button playerButton;
+    public Button chatButton;
+    public Button musicButton;
+    public StackPane battlefieldStackPane;
+    public AnchorPane overlayAnchorPane;
+    public StackPane miniMapStackPane;
+    public StackPane chatPane;
     public HBox playerBar;
-    @FXML
     public Pane player1;
-    @FXML
     public Pane player2;
-    @FXML
     public Pane player3;
-    @FXML
     public Pane player4;
-    @FXML
     public Label roundTextLabel;
-    @FXML
     public Label roundCountLabel;
-    @FXML
     public Label phaseLabel;
-    @FXML
     public ImageView phaseImage;
-    @FXML
     public HBox ingameInformationHBox;
-    @FXML
-    public HBox menueBar;
-
+    public StackPane rootPane;
+    public Button skynetButton;
+    private ChatController chatController;
+    private Game game;
+    private ObservableList<Cell> cells;
+    private ObservableList<Unit> units;
+    private TileDrawer tileDrawer;
+    private final PropertyChangeListener highlightingListener = this::highlightingChanged;
+    private Tile[][] tileMap;
+    private final ChangeListener<Hoverable> onHoveredChanged = this::onHoveredChanged;
+    private final ListChangeListener<Unit> unitListListener = this::unitListChanged;
+    private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
+    private final ChangeListener<Number> stageSizeListener = this::stageSizeChanged;
+    private final ChangeListener<Number> disableOverlaysListener = this::disableOverlaysChanged;
+    private ZoomableScrollPane zoomableScrollPane;
+    private Canvas canvas;
+    private int mapSize;
+    private Camera camera;
+    private IngameContext context;
+    private final ChangeListener<Cell> onSelectedUnitMoved = this::onSelectedUnitMoved;
+    private final ChangeListener<Selectable> onSelectedChanged = this::onSelectedChanged;
     private PlayerListController playerListController;
-
+    private final ListChangeListener<Player> playerListListener = this::playerListChanged;
     private SimpleIntegerProperty roundCount;
     private int roundCounter;
+    private final ChangeListener<String> phaseChangedListener = this::phaseChanged;
+
+    private Skynet skynet;
+    private ActionExecutor actionExecutor;
+    private boolean openWhenResizedPlayer, openWhenResizedChat;
 
     @Autowired
     public BattleFieldController(
-            @NonNull final SceneManager sceneManager,
-            @NonNull final AlertBuilder alertBuilder,
+            @Nonnull final SceneManager sceneManager,
+            @Nonnull final AlertBuilder alertBuilder,
             @Nonnull final MovementManager movementManager,
-            @NonNull final ChatBuilder chatBuilder,
-            @NonNull final ChatController chatController,
-            @Nonnull final MusicManager musicManager
-    ) {
+            @Nonnull final ChatBuilder chatBuilder,
+            @Nonnull final ChatController chatController,
+            @Nonnull final MusicManager musicManager,
+            @Nonnull Property<Locale> selectedLocale
+    )
+    {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.movementManager = movementManager;
         this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
-        this.selectedTile = new SimpleObjectProperty<>(null);
-        this.hoveredTile = new SimpleObjectProperty<>(null);
-        this.chatBuilder=chatBuilder;
-        this.chatController=chatController;
+
+        this.chatBuilder = chatBuilder;
+        this.chatController = chatController;
+
         this.roundCount = new SimpleIntegerProperty();
         this.roundCounter = 1;
-    }
 
-    public Tile getHoveredTile()
-    {
-        return hoveredTile.get();
-    }
-
-    public SimpleObjectProperty<Tile> hoveredTileProperty()
-    {
-        return hoveredTile;
+        this.selectedLocale = selectedLocale;
     }
 
     public void initialize()
     {
-
         JavaFXUtils.setButtonIcons(
                 leaveButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
@@ -237,9 +199,9 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
         JavaFXUtils.setButtonIcons(
-                ingameInformationsButton,
-                getClass().getResource("/assets/icons/operation/accountWhite.png"),
-                getClass().getResource("/assets/icons/operation/accountBlack.png"),
+                playerButton,
+                getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
+                getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                 40
         );
         JavaFXUtils.setButtonIcons(
@@ -255,15 +217,76 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
 
-        miniMapCanvas.visibleProperty().bindBidirectional(miniMapStackPane.visibleProperty());
-        miniMapCanvas.setVisible(true);
         JavaFXUtils.setButtonIcons(
-                mapButton,
-                getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
-                getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
-                40);
+                hpBarButton,
+                getClass().getResource("/assets/icons/navigation/lifeBarWhite.png"),
+                getClass().getResource("/assets/icons/navigation/lifeBarBlack.png"),
+                40
+        );
+
+        //TODO readd
+//        JavaFXUtils.setButtonIcons(
+//                cancelButton,
+//                getClass().getResource("/assets/icons/navigation/crossWhite.png"),
+//                getClass().getResource("/assets/icons/navigation/crossBlack.png"),
+//                40
+//        );
+//
+//
+//        cancelButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "cancel"));
 
         musicManager.initButtonIcons(musicButton);
+    }
+
+    private void initListenersForFullscreen() {
+        sceneManager.getStageHeightProperty().addListener(stageSizeListener);
+        sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
+        sceneManager.getStageWidhtProperty().addListener(stageSizeListener);
+        sceneManager.getStageWidhtProperty().addListener(disableOverlaysListener);
+        sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
+        openWhenResizedPlayer = false;
+        openWhenResizedChat = false;
+        zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
+        zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
+    }
+
+    private void disableOverlaysChanged(
+            @SuppressWarnings("unused") ObservableValue<? extends Number> observableValue,
+            @SuppressWarnings("unused") Number oldVal,
+            Number newVal
+    )
+    {
+        if((double) newVal < 1040)
+        {
+            if (playerBar.visibleProperty().get()){
+                openPlayerBar(null);
+                openWhenResizedPlayer = true;
+            }
+            if(chatPane.visibleProperty().get()){
+                openChat();
+                openWhenResizedChat = true;
+            }
+            playerButton.setDisable(true);
+            chatButton.setDisable(true);
+        }
+        else
+        {
+            if(openWhenResizedPlayer) {
+                openPlayerBar(null);
+                openWhenResizedPlayer = false;
+            }
+            if (openWhenResizedChat) {
+                openChat();
+                openWhenResizedChat = false;
+            }
+            playerButton.setDisable(false);
+            chatButton.setDisable(false);
+        }
+    }
+
+    private void stageSizeChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
+        double change = (double) newVal < (double) oldVal ? -((double) newVal / (double) oldVal) : (double) oldVal / (double) newVal;
+        zoomableScrollPane.onScroll(change, ZOOMPANE_CENTER);
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -272,43 +295,57 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawTile(tile);
     }
 
-    private void hoveredTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile)
+    @SuppressWarnings("unused")
+    private void onHoveredChanged(
+            ObservableValue<? extends Hoverable> observableValue,
+            Hoverable last,
+            Hoverable next
+    )
     {
-        if(oldTile != null && oldTile.getHighlightingTwo() == HighlightingTwo.HOVERED) {
-            oldTile.setHighlightingTwo(HighlightingTwo.NONE);
-        }
-
-        if(newTile != null && newTile.getHighlightingTwo() == HighlightingTwo.NONE) {
-            newTile.setHighlightingTwo(HighlightingTwo.HOVERED);
-        }
-        miniMapDrawer.drawMinimap(tileMap);
+        // update the mini map on next draw cycle so that it doesn't cause issues with listener order
+        Platform.runLater(() -> miniMapDrawer.drawMinimap(tileMap));
     }
 
-    private void selectedTileChanged(ObservableValue<? extends Tile> observableValue, Tile oldTile, Tile newTile) {
-        if (oldTile != null) {
-            oldTile.setHighlightingTwo(HighlightingTwo.NONE);
+    @SuppressWarnings("unused")
+    private void onSelectedChanged(
+            ObservableValue<? extends Selectable> observableValue,
+            Selectable last,
+            Selectable next
+    )
+    {
+        Unit selectedUnit = context.getGameState().getSelectedUnit();
+
+        if (last instanceof Unit)
+        {
+            ((Unit) last).positionProperty().removeListener(onSelectedUnitMoved);
+        }
+        if (next instanceof Unit)
+        {
+            ((Unit) next).positionProperty().addListener(onSelectedUnitMoved);
         }
 
-        if ((newTile != null) && (newTile.getCell().getUnit() != null) && (isMyUnit(newTile.getCell().getUnit()))){
-            newTile.setHighlightingTwo(HighlightingTwo.SELECETD_WITH_UNITS);
-        } else if(newTile != null) {
-            newTile.setHighlightingTwo(HighlightingTwo.SELECTED);
-        }
-        miniMapDrawer.drawMinimap(tileMap);
-//        logger.debug(String.valueOf(zoomableScrollPane.getScaleValue()));
-//        logger.debug(String.valueOf(zoomableScrollPane.getHeight()));
-//        logger.debug(String.valueOf(zoomableScrollPane.getWidth()));
+        Platform.runLater(() ->
+        {
+            miniMapDrawer.drawMinimap(tileMap);
+
+            // in this case, last and current selected units are null, so no update needed
+            if (selectedUnit == null && !(last instanceof Unit))
+            {
+                return;
+            }
+
+            setCellProperty(selectedUnit);
+        });
     }
 
-    private boolean isMyUnit(@NonNull Unit unit){
-        if (unit.getLeader() == null){
-            return false;
-        }
-        if (unit.getLeader().getName().equals(context.getUser().getName())){
-            return true;
-        } else {
-            return false;
-        }
+    @SuppressWarnings("unused")
+    private void onSelectedUnitMoved(Observable observable, Cell last, Cell next)
+    {
+        Platform.runLater(() ->
+        {
+            miniMapDrawer.drawMinimap(tileMap);
+            setCellProperty(context.getGameState().getSelectedUnit());
+        });
     }
 
     private void unitListChanged(ListChangeListener.Change<? extends Unit> c)
@@ -334,20 +371,21 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-
+    @SuppressWarnings("unused")
     private void unitChangedPosition(ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition, Unit unit)
     {
         if (lastPosition != null)
         {
-            tileDrawer.drawTile(tileMap[lastPosition.getY()][lastPosition.getX()]);
+            tileDrawer.drawTile(getTileOf(lastPosition));
         }
         if (newPosition != null)
         {
-            tileDrawer.drawTile(tileMap[newPosition.getY()][newPosition.getX()]);
+            tileDrawer.drawTile(getTileOf(newPosition));
         }
         miniMapDrawer.drawMinimap(tileMap);
     }
 
+    @SuppressWarnings("unused")
     private void cameraViewChanged(ObservableValue<? extends Number> observableValue, Number number, Number number1)
     {
         miniMapDrawer.drawMinimap(tileMap);
@@ -359,35 +397,47 @@ public class BattleFieldController implements RootController, IngameViewControll
         canvas = new Canvas();
         canvas.setId("canvas");
         zoomableScrollPane = new ZoomableScrollPane(canvas);
-        canvas.setHeight(CELL_SIZE*mapSize);
-        canvas.setWidth(CELL_SIZE*mapSize);
-        battlefieldStackPane.getChildren().add(0,zoomableScrollPane);
+        canvas.setHeight(CELL_SIZE * mapSize);
+        canvas.setWidth(CELL_SIZE * mapSize);
+        battlefieldStackPane.getChildren().add(0, zoomableScrollPane);
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
-    }
-    private void initPlayerBar(){
-        HashMap<String, Player> playerMap=new HashMap<>();
-        HashMap<String, Node> playerNodeMap=new HashMap<>();
-        HashMap<String, Pane> playerPaneMap=new HashMap<>();
-        ArrayList<Pane> playerCardList = new ArrayList<Pane>();
 
+        rootPane.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
+                {
+                    endPhase();
+                }
+                rootPane.setFocusTraversable(true);
+            }
+        });
+    }
+
+    private void initPlayerBar()
+    {
         playerCardList.add(player1);
         playerCardList.add(player2);
         playerCardList.add(player3);
         playerCardList.add(player4);
 
-        playerListController=new PlayerListController(this.game);
+        playerListController = new PlayerListController(this.game);
         playerBar.setAlignment(Pos.TOP_CENTER);
 
-        int counter=0;
-        if(this.game.getPlayers().size()==2){
+        int counter = 0;
+        if (this.game.getPlayers().size() == 2)
+        {
             playerBar.getChildren().remove(player1);
             playerCardList.remove(player1);
             playerBar.getChildren().remove(player4);
             playerCardList.remove(player4);
         }
 
-        for(Player player : this.game.getPlayers()){
+        for (Player player : this.game.getPlayers())
+        {
 
             playerCardList.get(counter).getChildren().add(playerListController.getPlayerCards().get(counter));
             playerPaneMap.put(player.getId(), playerCardList.get(counter));
@@ -397,212 +447,271 @@ public class BattleFieldController implements RootController, IngameViewControll
             counter++;
         }
 
-        playerListController=new PlayerListController(game);
+        playerListController = new PlayerListController(game);
         playerBar.setVisible(false);
         playerBar.setPickOnBounds(false);
         battlefieldStackPane.setPickOnBounds(false);
         miniMapStackPane.setPickOnBounds(false);
 
-        if(!playerNodeMap.isEmpty() && this.game.getCurrentPlayer()!=null){
+        if (!playerNodeMap.isEmpty() && this.game.getCurrentPlayer() != null)
+        {
             playerNodeMap.get(this.game.getCurrentPlayer().getId()).setStyle("-fx-background-color: -selected-background-color");
         }
-        this.game.currentPlayerProperty().addListener((observable, oldPlayer, newPlayer) -> {
-            if(oldPlayer !=null){
+        this.game.currentPlayerProperty().addListener((observable, oldPlayer, newPlayer) ->
+        {
+            if (oldPlayer != null)
+            {
                 playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
             }
-            if(newPlayer!=null){
+            if (newPlayer != null)
+            {
                 playerNodeMap.get(newPlayer.getId()).setStyle("-fx-background-color: -selected-background-color");
             }
         });
-        this.game.getPlayers().addListener((ListChangeListener) l -> {
-            if(!l.next()){
-                return;
-            }
-            @SuppressWarnings("unchecked")
-            List<Player> removedPlayer = (List<Player>)l.getRemoved();
-            Platform.runLater(()->{
-                for(Player player : removedPlayer){
-                    playerPaneMap.get(player.getId()).getChildren().remove(0);
-                    playerPaneMap.get(player.getId()).getChildren().add(playerListController.createLoserCard(player));
-                }
-            });
-        });
 
-        this.game.phaseProperty().addListener((observable, oldVal, newVal) -> {
+        this.game.getPlayers().addListener(playerListListener);
 
-                if(oldVal==null){
-                    return;
-                }
-                if(oldVal.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size())==0){
-                    Platform.runLater(() -> {
-                    roundCount.set(roundCount.get()+1);
-                    });
-                    roundCounter=0;
-                }
-                roundCounter++;
-        });
-
-        this.game.phaseProperty().addListener(((observable, oldValue, newValue) -> {
-            switch(newValue){
-                case "movePhase": {
-                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/footstepsWhite.png"));
-                    phaseImage.imageProperty().setValue(image);
-                }break;
-                case "attackPhase": {
-                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/swordClashWhite.png"));
-                    phaseImage.imageProperty().setValue(image);
-                }break;
-                case "lastMovePhase": {
-                    Image image = new Image(this.getClass().getResourceAsStream("/assets/icons/operation/footprintWhite.png"));
-                    phaseImage.imageProperty().setValue(image);
-                }break;
-            }
-        }));
+        this.game.phaseProperty().addListener(phaseChangedListener);
 
         roundCount.set(0);
         roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.setText("Phase");
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
         //ingameInformationHBox.setSpacing(10);
-        HBox.setMargin(ingameInformationHBox, new Insets(10,10 ,10,10));
+        HBox.setMargin(ingameInformationHBox, new Insets(10, 10, 10, 10));
         //phaseLabel.textProperty().bind(this.game.phaseProperty());
         roundTextLabel.textProperty().setValue("Round");
     }
 
-    protected Tile resolveTargetTile(MouseEvent event) {
+    private void playerListChanged(ListChangeListener.Change<? extends Player> c)
+    {
+        while (c.next())
+        {
+            if (c.wasRemoved())
+            {
+                for (Player player : c.getRemoved())
+                {
+                    Platform.runLater(() ->
+                    {
+                        playerPaneMap.get(player.getId()).getChildren().remove(0);
+                        playerPaneMap.get(player.getId()).getChildren().add(playerListController.createLoserCard(player));
+                    });
+                }
+            }
+        }
+    }
+
+    private void phaseChanged(ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
+    {
+        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size()) == 0)
+        {
+            Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
+            roundCounter = 0;
+        }
+        roundCounter++;
+
+        switch (newPhase)
+        {
+            case "movePhase":
+            {
+                Image image = new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm());
+                phaseImage.imageProperty().setValue(image);
+            }
+            break;
+            case "attackPhase":
+            {
+                Image image = new Image(getClass().getResource("/assets/icons/operation/swordClashWhite.png").toExternalForm());
+                phaseImage.imageProperty().setValue(image);
+            }
+            break;
+            case "lastMovePhase":
+            {
+                Image image = new Image(getClass().getResource("/assets/icons/operation/footprintWhite.png").toExternalForm());
+                phaseImage.imageProperty().setValue(image);
+            }
+            break;
+        }
+
+        //TODO readd
+//        if (context.isMyTurn())
+//        {
+//            actionButton.setDisable(false);
+//            cancelButton.setDisable(false);
+//        } else
+//        {
+//            actionButton.setDisable(true);
+//            cancelButton.setDisable(true);
+//        }
+//        ChangeActionButtonIcon(newPhase);
+    }
+
+    //TODO readd
+//    private void ChangeActionButtonIcon(String phase)
+//    {
+//        switch (phase)
+//        {
+//            case "movePhase":
+//            {
+//                JavaFXUtils.setButtonIcons(actionButton,
+//                        getClass().getResource("/assets/icons/operation/footstepsWhite.png"),
+//                        getClass().getResource("/assets/icons/operation/footstepsBlack.png"),
+//                        40);
+//
+//                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
+//            }
+//            break;
+//            case "attackPhase":
+//            {
+//                JavaFXUtils.setButtonIcons(actionButton,
+//                        getClass().getResource("/assets/icons/operation/swordClashWhite.png"),
+//                        getClass().getResource("/assets/icons/operation/swordClashBlack.png"),
+//                        40);
+//
+//                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "attack"));
+//            }
+//            break;
+//            case "lastMovePhase":
+//            {
+//                JavaFXUtils.setButtonIcons(actionButton,
+//                        getClass().getResource("/assets/icons/operation/footprintWhite.png"),
+//                        getClass().getResource("/assets/icons/operation/footprintBlack.png"),
+//                        40);
+//
+//                actionButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "move"));
+//            }
+//            break;
+//
+//        }
+//    }
+
+    protected Tile resolveTargetTile(MouseEvent event)
+    {
         int xPos = (int) (event.getX() / CELL_SIZE);
         int yPos = (int) (event.getY() / CELL_SIZE);
 
         return tileMap[yPos][xPos];
     }
 
-    public void canvasHandleMouseMove(MouseEvent event) {
-        Tile tile = resolveTargetTile(event);
-        hoveredTile.set(tile);
+    protected Cell resolveTargetCell(MouseEvent event)
+    {
+        return resolveTargetTile(event).getCell();
     }
 
-    public void canvasHandleMouseClicked(MouseEvent event) {
+    public void canvasHandleMouseMove(MouseEvent event)
+    {
+        Cell cell = resolveTargetCell(event);
+        Unit unit = cell.getUnit();
+
+        Objects.requireNonNullElse(unit, cell).setHoveredIn(context.getGameState());
+    }
+
+    public void canvasHandleMouseClicked(MouseEvent event)
+    {
         Tile tile = resolveTargetTile(event);
 
-        if (tile == null) {
+        if (tile == null)
+        {
             return;
         }
 
-        if (handleAttack(tile)) {
+        if (handleAttack(tile))
+        {
             return;
         }
 
-        if (handleMovement(tile)) {
-            setSelectedTile(null);
-            this.context.getGameState().setSelectedUnit(null);
+        if (handleMovement(tile))
+        {
             return;
         }
 
-        if (tile.getCell().getUnit() != null){
-            Unit unit = tile.getCell().getUnit();
-            onUnitSelection(unit, tile);
-        } else {
-            onTileSelection(tile);
+        handleSelection(tile);
+    }
+
+    protected void handleSelection(Tile tile)
+    {
+        Cell cell = tile.getCell();
+        Unit unit = cell.getUnit();
+        Selectable selectable = Objects.requireNonNullElse(unit, cell);
+
+        if (selectable == context.getGameState().getSelected())
+        {
+            selectable.clearSelection();
+        } else
+        {
+            selectable.setSelectedIn(context.getGameState());
         }
     }
 
-    private boolean handleAttack(Tile tile) {
+    private boolean handleAttack(Tile tile)
+    {
 
         Cell targetCell = tile.getCell();
         Unit selectedUnit = context.getGameState().getSelectedUnit();
         Unit targetUnit = targetCell.getUnit();
 
         if (
-               !context.isMyTurn()
-            || !context.getGameState().isPhase(Game.Phase.attackPhase)
-            || Objects.isNull(selectedUnit)
-            || selectedUnit.getLeader() != context.getUserPlayer()
-            || Objects.isNull(targetUnit)
-            || !targetCell.isIsAttackable()
-            || targetUnit.getLeader() == context.getUserPlayer()
-        ) {
+                !context.isMyTurn()
+                        || !context.getGameState().isPhase(Game.Phase.attackPhase)
+                        || Objects.isNull(selectedUnit)
+                        || selectedUnit.getLeader() != context.getUserPlayer()
+                        || !selectedUnit.canAttack(targetUnit)
+                        || targetUnit == null
+        )
+        {
             return false;
         }
 
-        context.getGameEventManager().api().attack(selectedUnit, targetUnit);
-        game.setSelectedUnit(null);
-        setSelectedTile(null);
+        actionExecutor.execute(new AttackAction(selectedUnit, targetUnit));
 
         return true;
     }
 
-    private void onUnitSelection(Unit unitClicked, Tile tileClicked){
-        if(unitClicked.equals(game.getSelectedUnit())){
-            game.setSelectedUnit(null);
-            selectedTile.set(null);
-            hoveredTile.set(null);
-            setCellProperty(null);
-        } else {
-            game.setSelectedUnit(unitClicked);
-            selectedTile.set(tileClicked);
-        }
-    }
-
-    private boolean handleMovement(Tile tile) {
-        if (!context.isMyTurn()) {
+    private boolean handleMovement(Tile tile)
+    {
+        if (!context.isMyTurn())
+        {
             return false;
         }
         Game game = context.getGameState();
 
         if (
                 !game.isPhase(Game.Phase.movePhase)
-            &&  !game.isPhase(Game.Phase.lastMovePhase)
-        ) {
+                        && !game.isPhase(Game.Phase.lastMovePhase)
+        )
+        {
             return false;
         }
 
         Cell cell = tile.getCell();
 
-        if (cell.unitProperty().get() != null) {
+        if (cell.unitProperty().get() != null)
+        {
             return false;
         }
 
         Unit selectedUnit = game.getSelectedUnit();
-        if (selectedUnit == null) {
+        if (selectedUnit == null)
+        {
             return false;
         }
 
-        if (selectedUnit.getLeader() != context.getUserPlayer()) {
+        if (selectedUnit.getLeader() != context.getUserPlayer())
+        {
             return false;
         }
 
         Tour tour = movementManager.getTour(selectedUnit, cell);
-        if (tour == null) {
+        if (tour == null)
+        {
             return false;
         }
 
-        Map<String, Object> command = CommandBuilder.moveUnit(selectedUnit, tour.getPath());
-        game.setInitiallyMoved(true);
-        selectedUnit.setRemainingMovePoints(
-                selectedUnit.getRemainingMovePoints() - tour.getCost()
-        );
-        game.setSelectedUnit(null);
-        setSelectedTile(null);
-        context.getGameEventManager().sendMessage(command);
+        actionExecutor.execute(new MovementAction(selectedUnit, tour));
 
         return true;
     }
 
-    protected void onTileSelection(Tile tileClicked) {
-        if(tileClicked.equals(selectedTile.get())) {
-            selectedTile.set(null);
-            hoveredTile.set(null);
-        }
-        else{
-            selectedTile.set(tileClicked);
-            setCellProperty(null);
-            this.context.getGameState().setSelectedUnit(null);
-            setSelectedTile(null);
-
-        }
-    }
-
-    public void leaveGame(ActionEvent actionEvent)
+    public void leaveGame(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         alertBuilder
                 .confirmation(
@@ -616,42 +725,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
-    public void zoomIn(ActionEvent actionEvent)
+    public void zoomIn(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-        if (zoomFactor == 1)
-        {
             zoomableScrollPane.onScroll(20.0, ZOOMPANE_CENTER);
-            zoomFactor++;
-        }
-        else if (zoomFactor == 0)
-        {
-            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
-            zoomFactor++;
-        }
-        else if (zoomFactor == -1 && context.getGameData().getNeededPlayer() == 4)
-        {
-            zoomableScrollPane.onScroll(7.5, ZOOMPANE_CENTER);
-            zoomFactor++;
-        }
     }
 
-    public void zoomOut(ActionEvent actionEvent)
+    public void zoomOut(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-        if (zoomFactor == 2)
-        {
             zoomableScrollPane.onScroll(-20.0, ZOOMPANE_CENTER);
-            zoomFactor--;
-        }
-        else if (zoomFactor == 1)
-        {
-            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
-            zoomFactor--;
-        }
-        else if (zoomFactor == 0 && context.getGameData().getNeededPlayer() == 4)
-        {
-            zoomableScrollPane.onScroll(-7.5, ZOOMPANE_CENTER);
-            zoomFactor--;
-        }
     }
 
     public void endPhase()
@@ -663,70 +744,51 @@ public class BattleFieldController implements RootController, IngameViewControll
                         null);
     }
 
-    public void toggleMap(ActionEvent actionEvent)
+    private void doEndPhase()
     {
-        if (miniMapCanvas.visibleProperty().get())
-        {
-            miniMapCanvas.visibleProperty().set(false);
-            JavaFXUtils.setButtonIcons(
-                    mapButton,
-                    getClass().getResource("/assets/icons/operation/mapClosedWhite.png"),
-                    getClass().getResource("/assets/icons/operation/mapClosedBlack.png"),
-                    40);
-        }
-        else
-        {
-            miniMapCanvas.visibleProperty().set(true);
-            JavaFXUtils.setButtonIcons(
-                    mapButton,
-                    getClass().getResource("/assets/icons/operation/mapWhite.png"),
-                    getClass().getResource("/assets/icons/operation/mapBlack.png"),
-                    40);
-        }
-        miniMapDrawer.drawMinimap(tileMap);
-    }
-
-    private void doEndPhase(){
-        this.context.getGameEventManager().sendEndPhaseCommand();
-        this.context.getGameState().setSelectedUnit(null);
-        setSelectedTile(null);
+        actionExecutor.execute(new PassAction(game));
     }
 
     @Override
-    public void configure(@Nonnull IngameContext context) {
+    public void configure(@Nonnull IngameContext context)
+    {
         this.context = context;
 
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
-        if (context.getGameState().getCurrentPlayer() != null) {
+        if (context.getGameState().getCurrentPlayer() != null)
+        {
             onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
         }
 
         game = context.getGameState();
-        if (game != null) {
-            cells = game.getCells();
+        if (game != null)
+        {
+            ObservableList<Cell> cells = game.getCells();
             units = game.getUnits();
 
             mapSize = (int) Math.sqrt(cells.size());
             tileMap = new Tile[mapSize][mapSize];
 
-            for (Cell cell : cells) {
-                tileMap[cell.getY()][cell.getX()] = new Tile(cell);
-                tileMap[cell.getY()][cell.getX()].addListener(highlightingListener);
+            for (Cell cell : cells)
+            {
+                Tile tile = new Tile(cell);
+                tileMap[cell.getY()][cell.getX()] = tile;
+                tile.addListener(highlightingListener);
             }
 
-            for (Unit unit : units) {
+            for (Unit unit : units)
+            {
                 //Adds listener for units which are already in the list
                 unit.positionProperty().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
             }
 
             initCanvas();
             camera = new Camera(zoomableScrollPane.scaleValueProperty(), zoomableScrollPane.hvalueProperty(),
-                                zoomableScrollPane.vvalueProperty(), mapSize, zoomableScrollPane.heightProperty(),
-                                zoomableScrollPane.widthProperty());
+                    zoomableScrollPane.vvalueProperty(), mapSize, zoomableScrollPane.heightProperty(),
+                    zoomableScrollPane.widthProperty());
             initMiniMap();
+            initPlayerBar();
             miniMapDrawer.setCamera(camera);
-
-        initPlayerBar();
         }  // exception
 
         //Add Event handler for actions on canvas
@@ -735,8 +797,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         //Listener for unit list
         units.addListener(unitListListener);
-        selectedTile.addListener(selectedTileListener);
-        hoveredTile.addListener(hoveredTileListener);
+        game.selectedProperty().addListener(onSelectedChanged);
+        game.hoveredProperty().addListener(onHoveredChanged);
 
 
         //Add Listeners to the Zoomable ScrollPane
@@ -750,29 +812,86 @@ public class BattleFieldController implements RootController, IngameViewControll
                 .addListener((observable, oldUnit, newUnit) -> setCellProperty(newUnit));
 
         this.context.getGameState().phaseProperty()
-                .addListener(((observable, oldValue, newValue) -> setCellProperty(null)));
+                .addListener(this::onNextPhase);
 
         configureEndPhase();
 
-        configureCells();
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty()));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty()));
 
-        try {
+        try
+        {
+            addAlertListeners();
             initChat();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
+        }
+
+        initActionExecutor();
+        initSkynet();
+        initSkynetButtons();
+        if(sceneManager.isStageInit()) initListenersForFullscreen();
+    }
+
+    private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
+    {
+        setCellProperty(null);
+        game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
+    }
+
+    private void addAlertListeners()
+    {
+        game.winnerProperty().addListener(((observable, oldValue, newValue) ->
+        {
+            if (newValue != null)
+            {
+                showWinnerLoserAlert(newValue);
+            }
+        }));
+        this.context.getUserPlayer().getUnits().addListener((ListChangeListener<Unit>) unitList ->
+        {
+            if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
+            {
+                alertBuilder.priorityConfirmation(
+                        AlertBuilder.Text.GAME_LOST,
+                        () -> this.context.getGameData().setSpectatorModus(true),
+                        () -> doLeaveGame()
+                );
+            }
+        });
+    }
+
+    private void showWinnerLoserAlert(Player winner)
+    {
+        if (winner.equals(this.context.getUserPlayer()))
+        {
+            alertBuilder.priorityInformation(
+                    AlertBuilder.Text.GAME_WON,
+                    () -> doLeaveGame());
+        } else
+        {
+            alertBuilder.priorityInformation(
+                    AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON,
+                    () -> doLeaveGame(),
+                    winner.getName());
         }
     }
 
-    private void initChat() throws Exception {
+
+    private void initChat() throws Exception
+    {
         final ViewComponent<ChatController> chatComponents = chatBuilder.buildChat(context.getGameEventManager());
         chatPane.getChildren().add(chatComponents.getRoot());
         chatController = chatComponents.getController();
         chatPane.setVisible(false);
     }
 
-    public void openChat(){
+    public void openChat()
+    {
 
-        if(chatPane.isVisible()){
+        if (chatPane.isVisible())
+        {
             chatPane.setVisible(false);
             JavaFXUtils.setButtonIcons(
                     chatButton,
@@ -780,8 +899,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                     getClass().getResource("/assets/icons/operation/chatBubbleBlack.png"),
                     40
             );
-        }
-        else {
+        } else
+        {
             chatPane.setVisible(true);
             JavaFXUtils.setButtonIcons(
                     chatButton,
@@ -792,111 +911,75 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void configureCells() {
-        for (Cell cell: this.context.getGameState().getCells()){
-            cell.isReachableProperty().addListener(((observable, oldValue, newValue) -> {
-                if (newValue) {
-                    cell.getTile().setHighlightingOne(HighlightingOne.MOVE);
-                } else {
-                    cell.getTile().setHighlightingOne(HighlightingOne.NONE);
-                }
-            }));
+    public Tile getTileOf(Object positioned)
+    {
 
-            cell.isAttackableProperty().addListener(((observable, oldValue, newValue) -> {
-                if (newValue) {
-                    cell.getTile().setHighlightingOne(HighlightingOne.ATTACK);
-                    setUnitAttackProperty(cell);
-                } else {
-                    cell.getTile().setHighlightingOne(HighlightingOne.NONE);
-                    removeUnitAttackProperty(cell);
-                }
-            }));
+        Cell position;
+
+        if (positioned instanceof Unit)
+        {
+            position = ((Unit) positioned).getPosition();
+        } else
+        {
+            position = (Cell) positioned;
         }
+
+        return tileMap[position.getY()][position.getX()];
     }
 
-    private void removeUnitAttackProperty(@NonNull Cell cell){
-        if (cell.getUnit() == null){
-            return;
-        }
-        Unit unit = cell.getUnit();
-        if (isMyUnit(unit)){
-            return;
-        }
-        unit.setAttackable(false);
-    }
 
-    private void setUnitAttackProperty(@NonNull Cell cell){
-        if (cell.getUnit() == null){
-            return;
-        }
-        Unit unit = cell.getUnit();
-        if (isMyUnit(unit)){
-            return;
-        }
-        unit.setAttackable(true);
-    }
-
-    private void setCellProperty(@Nullable Unit selectedUnit) {
-        if (selectedUnit == null) {
-            for (Cell cell : this.context.getGameState().getCells()) {
+    private void setCellProperty(@Nullable Unit selectedUnit)
+    {
+        if (selectedUnit == null)
+        {
+            for (Cell cell : this.context.getGameState().getCells())
+            {
                 cell.setIsReachable(false);
-                cell.setIsAttackable(false);
-                removeUnitAttackProperty(cell);
             }
             return;
         }
 
-        if ((!isMyUnit(selectedUnit)) || (!this.context.isMyTurn())) {
+        if (
+                selectedUnit.getLeader() == null
+                        || !selectedUnit.getLeader().isPlayer()
+                        || (!this.context.isMyTurn())
+        )
+        {
             return;
         }
-        if (this.context.getGameState().isPhase(Game.Phase.attackPhase)) {
-            setAttackRadius(selectedUnit);
-        } else {
+
+
+        if (!this.context.getGameState().isPhase(Game.Phase.attackPhase))
+        {
             setMoveRadius(selectedUnit);
         }
-        selectedUnit.getPosition().getTile().setHighlightingOne(HighlightingOne.NONE);
     }
 
-    private void setMoveRadius(@NonNull Unit selectedUnit) {
-        for(Cell cell: this.context.getGameState().getCells()) {
-            if (this.movementManager.getTour(selectedUnit, cell) != null){
+    private void setMoveRadius(@Nonnull Unit selectedUnit)
+    {
+        for (Cell cell : this.context.getGameState().getCells())
+        {
+            if (this.movementManager.getTour(selectedUnit, cell) != null)
+            {
                 cell.setIsReachable(true);
-            } else{
+            } else
+            {
                 cell.setIsReachable(false);
             }
         }
     }
 
-
-    private void setAttackRadius(@NonNull Unit selectedUnit){
-        Cell position = selectedUnit.getPosition();
-        for (Cell cell: this.context.getGameState().getCells()){
-            cell.setIsAttackable(false);
-        }
-        if (position.getLeft() != null){
-            position.getLeft().setIsAttackable(true);
-        }
-        if (position.getTop() != null){
-            position.getTop().setIsAttackable(true);
-        }
-        if (position.getRight() != null){
-            position.getRight().setIsAttackable(true);
-        }
-        if (position.getBottom() != null) {
-            position.getBottom().setIsAttackable(true);
-        }
-    }
 
     private void miniMapHandleMouseClick(MouseEvent mouseEvent)
     {
         int xPos = miniMapDrawer.getXPostionOnMap(mouseEvent.getX());
         int yPos = miniMapDrawer.getYPostionOnMap(mouseEvent.getY());
-        logger.debug("Pos: " + xPos + " " + yPos);
         camera.TryToCenterToPostition(xPos, yPos);
         miniMapDrawer.drawMinimap(tileMap);
     }
 
-    private void configureEndPhase() {
+    private void configureEndPhase()
+    {
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
         ObjectProperty<Player> currentPlayerProperty = this.context.getGameState().currentPlayerProperty();
 
@@ -905,23 +988,44 @@ public class BattleFieldController implements RootController, IngameViewControll
                 currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
-        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}) );
+        playerCanEndPhase.addListener(((observable, oldValue, newValue) ->
+        {
+        }));
 
         currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
-        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
+        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) ->
+        {
+        }));
+
+        endPhaseButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                if (event.getButton().equals(MouseButton.PRIMARY))
+                {
+                    endPhase();
+                }
+            }
+        });
     }
 
-    private void onNextPlayer(Observable observable, Player lastPlayer, Player nextPlayer) {
-        if (context.isMyTurn()) {
+    @SuppressWarnings("unused")
+    private void onNextPlayer(Observable observable, Player lastPlayer, Player nextPlayer)
+    {
+        if (context.isMyTurn())
+        {
             onBeforeUserTurn();
         }
     }
 
-    private void onBeforeUserTurn() {
-        for (Unit unit : context.getUserPlayer().getUnits()) {
+    private void onBeforeUserTurn()
+    {
+        for (Unit unit : context.getUserPlayer().getUnits())
+        {
             unit.setRemainingMovePoints(unit.getMp());
         }
     }
@@ -929,13 +1033,27 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void initMiniMap()
     {
         miniMapDrawer.setCanvas(miniMapCanvas, mapSize);
+        miniMapDrawer.setCamera(camera);
         miniMapDrawer.drawMinimap(tileMap);
     }
+
+    /**
+     * i don't think, we need to remove any listeners at all in the battlefield controller,
+     * since we throw away the whole game anyway.
+     */
     @Override
     public void terminate()
     {
-        selectedTile.removeListener(selectedTileListener);
-        hoveredTile.removeListener(hoveredTileListener);
+        Game gameState = context.getGameState();
+
+        if (gameState == null)
+        {
+            return;
+        }
+
+        gameState.selectedProperty().removeListener(onSelectedChanged);
+        gameState.hoveredProperty().removeListener(onHoveredChanged);
+
         for (Tile[] tileArray : tileMap)
         {
             for (Tile tile : tileArray)
@@ -955,19 +1073,99 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.scaleValueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.hvalueProperty().removeListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().removeListener(cameraViewChangedListener);
-    }
-    public void openPlayerBar(@Nonnull final ActionEvent event){
-        if(!playerBar.visibleProperty().get()){
-            playerBar.visibleProperty().setValue(true);
-            playerBar.toFront();
-        }else
+
+        game.getPlayers().removeListener(playerListListener);
+
+        if (skynet.isBotRunning())
         {
-            playerBar.visibleProperty().setValue(false);
-            playerBar.toBack();
+            skynet.stopBot();
         }
     }
 
-    public void toggleMusic() {
+    public void openPlayerBar(@SuppressWarnings("unused") ActionEvent event)
+    {
+        if (!playerBar.visibleProperty().get())
+        {
+            playerBar.visibleProperty().setValue(true);
+            playerBar.toFront();
+            JavaFXUtils.setButtonIcons(
+                    playerButton,
+                    getClass().getResource("/assets/icons/navigation/accountWhite.png"),
+                    getClass().getResource("/assets/icons/navigation/accountBlack.png"),
+                    40
+            );
+        } else
+        {
+            playerBar.visibleProperty().setValue(false);
+            playerBar.toBack();
+            JavaFXUtils.setButtonIcons(
+                    playerButton,
+                    getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
+                    getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
+                    40
+            );
+        }
+    }
+
+    public void toggleMusic()
+    {
         musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
     }
+
+    public void toggleHpBar(ActionEvent actionEvent)
+    {
+        if (tileDrawer.isHpBarVisibility())
+        {
+            tileDrawer.setHpBarVisibility(false);
+        } else
+        {
+            tileDrawer.setHpBarVisibility(true);
+        }
+        tileDrawer.drawMap(tileMap);
+    }
+
+    private void initActionExecutor()
+    {
+        actionExecutor = new ActionExecutor(context.getGameEventManager().api())
+                .setTileDrawer(tileDrawer);
+    }
+
+    private void initSkynet()
+    {
+        skynet = new Skynet(actionExecutor,
+                game,
+                context.getUserPlayer())
+                .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")
+                .addBehaviour(new AttackBehaviour(), "attackPhase");
+
+    }
+
+    private void initSkynetButtons()
+    {
+        final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlane.png");
+        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 40);
+        skynetTurnButton.setOnAction((event) -> skynet.turn());
+
+        JavaFXUtils.setButtonIcons(
+                skynetButton,
+                getClass().getResource("/assets/icons/operation/skynetWhite.png"),
+                getClass().getResource("/assets/icons/operation/skynetBlack.png"),
+                40
+        );
+
+        skynetButton.setOnAction(this::startBot);
+    }
+
+    private void startBot(ActionEvent actionEvent)
+    {
+        if (skynet.isBotRunning())
+        {
+            skynet.stopBot();
+        } else
+        {
+            skynet.startBot();
+        }
+    }
+
+
 }

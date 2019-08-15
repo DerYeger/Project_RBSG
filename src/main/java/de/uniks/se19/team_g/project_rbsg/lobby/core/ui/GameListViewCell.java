@@ -112,6 +112,12 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
 
             joinButton.setOnAction(this::joinButtonClicked);
             joinButton.setId("joinGameButton"+ game.getName());
+            joinButton.disableProperty()
+                    .bind(Bindings
+                                  .when(game.getJoinedPlayerProperty().isEqualTo(game.getNeededPlayer()))
+                                  .then(true)
+                                  .otherwise(false));
+
 
             spectatorButton.setOnAction(this::joinSpectating);
             spectatorButton.setId("spectatorButton" + game.getName());
@@ -211,5 +217,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
                 getClass().getResource("/assets/icons/operation/spectatorBlack.png"),
                 40
         );
+
+
     }
 }

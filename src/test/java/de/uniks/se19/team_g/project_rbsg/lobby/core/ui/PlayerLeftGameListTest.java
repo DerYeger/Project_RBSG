@@ -15,6 +15,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
@@ -32,8 +33,7 @@ import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,8 +53,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -91,6 +91,12 @@ public class PlayerLeftGameListTest extends ApplicationTest
         }
 
         @Bean
+        public CreditsFormBuilder creditsFormBuilder()
+        {
+            return Mockito.mock(CreditsFormBuilder.class);
+        }
+
+        @Bean
         public LogoutManager logoutManager() {
             return new DefaultLogoutManager(new RESTClient(new RestTemplate()));
         }
@@ -104,7 +110,7 @@ public class PlayerLeftGameListTest extends ApplicationTest
                 public Collection<Game> getGames()
                 {
                     ArrayList<Game> games = new ArrayList<>();
-                    games.add(new Game("1", "game1", 4, 2));
+                    games.add(new Game("1", "game1", 4, 4));
                     return games;
                 }
             };
@@ -175,15 +181,20 @@ public class PlayerLeftGameListTest extends ApplicationTest
     public void TestGameList() throws IOException
     {
         Label playersLabel = lookup("#gameCellPlayersLabelgame1").query();
-        assertEquals("2/4", playersLabel.textProperty().get());
+        Button gameButton = lookup("#joinGameButtongame1").queryButton();
+
+        assertThat(gameButton, notNullValue());
+        assertThat(playersLabel.textProperty().get(), is("4/4"));
+        assertThat(gameButton.isDisable(), is(true));
 
         assertNotNull(lobby);
         Game gameOne = lobby.getGameOverId("1");
         assertNotNull(gameOne);
-        gameOne.setJoinedPlayer(1);
+        gameOne.setJoinedPlayer(3);
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertEquals("1/4", playersLabel.textProperty().get());
+        assertThat(playersLabel.textProperty().get(), is("3/4"));
+        assertThat(gameButton.isDisable(), is(false));
 
     }
 }

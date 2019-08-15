@@ -28,7 +28,7 @@ public class PlayerCardController {
         try {
             playerCard=loader.load();
             playerNameLabel.setText(player.getName());
-            playerImage.setImage(new Image((getClass().getResource("/assets/icons/operation/accountWhite.png")).toString()));
+            playerImage.setImage(new Image((getClass().getResource("/assets/icons/navigation/accountWhite.png")).toExternalForm()));
             colorPane.setBackground(new Background(new BackgroundFill(Color.valueOf(player.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
         } catch (IOException e) {
             e.printStackTrace();

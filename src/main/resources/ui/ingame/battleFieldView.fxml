@@ -1,76 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
 <!--
  @author Keanu Stückrad
  !-->
 
-<?import javafx.scene.image.ImageView?>
-<?import java.net.URL?>
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
-      <VBox fx:id="root">
+      <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <HBox fx:id="menueBar" alignment="CENTER" prefHeight="80.0" styleClass="root-background-color" stylesheets="@menueBar.css" VBox.vgrow="ALWAYS">
-               <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                  <children>
-                     <Button fx:id="leaveButton" alignment="CENTER" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="zoomInButton" alignment="CENTER" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="zoomOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="endPhaseButton" alignment="CENTER" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" stylesheets="@../darkTheme.css">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="ingameInformationsButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Button fx:id="mapButton" mnemonicParsing="false" onAction="#toggleMap" styleClass="icon-button" >
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Button>
-                  </children>
-                  <HBox.margin>
-                     <Insets left="10.0" />
-                  </HBox.margin>
-               </HBox>
-               <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
-               <HBox fx:id="ingameInformationHBox" alignment="CENTER" fillHeight="false" maxHeight="30.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
+            <VBox fx:id="root" spacing="10.0" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="118.0" spacing="10.0" styleClass="root-background-color">
+                     <children>
+                        <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button" />
+                        <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button" />
+                        <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button" />
+                        <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" />
+                        <Button fx:id="playerButton" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
+                        <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
+                        <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button" />
+                        <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <StackPane fx:id="battlefieldStackPane">
+                     <children>
+                        <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
+                           <children>
+                              <!-- TODO: Ordentlich machen-->
+                              <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="30.0" styleClass="playerCardBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Pane>
+                                    <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Pane>
+                                    <Pane fx:id="player3" styleClass="player-card" stylesheets="@playerList.css">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Pane>
+                                    <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Pane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" />
+                           </children></AnchorPane>
+                     </children>
+                  </StackPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="root-background-color" />
+                  <String fx:value="battlefieldContainer" />
+               </styleClass>
+            </VBox>
+            <VBox fx:id="sidebar" HBox.hgrow="ALWAYS">
+               <children>
+               <HBox fx:id="ingameInformationHBox" alignment="CENTER" fillHeight="false" styleClass="roundInfoBox" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
                   <children>
                      <Label fx:id="roundTextLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                         <HBox.margin>
@@ -93,53 +103,53 @@
                      <Insets />
                   </HBox.margin>
                </HBox>
-            </HBox>
-            <StackPane fx:id="battlefieldStackPane" alignment="TOP_CENTER">
-               <children>
-                  <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false" StackPane.alignment="TOP_CENTER">
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
+                  <VBox fx:id="unitInformationContainer">
+                     <styleClass>
+                        <String fx:value="boxSpacing" />
+                        <String fx:value="contentVBox" />
+                     </styleClass></VBox>
+                  <VBox>
+                     <styleClass>
+                        <String fx:value="buttonBox" />
+                        <String fx:value="contentVBox" />
+                        <String fx:value="elevation-2" />
+                     </styleClass>
                      <children>
-                        <HBox fx:id="playerBar" maxHeight="-Infinity" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="1.0">
+                        <GridPane fx:id="buttonGrid">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <Pane fx:id="player1" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="50.0" right="25.0" />
-                                 </HBox.margin>
-                              </Pane>
-                              <Pane fx:id="player2" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="25.0" right="25.0" />
-                                 </HBox.margin>
-                              </Pane>
-                              <Pane fx:id="player3" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="50.0" right="50.0" />
-                                 </HBox.margin>
-                              </Pane>
-                              <Pane fx:id="player4" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="player-card" stylesheets="@playerList.css" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="25.0" right="50.0" />
-                                 </HBox.margin>
-                              </Pane>
+                              <Button fx:id="skynetTurnButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="3" />
+                              <Button fx:id="skynetButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />
                            </children>
-                        </HBox>
-                        <StackPane fx:id="miniMapStackPane" styleClass="miniMapBox" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
-                              <Canvas fx:id="miniMapCanvas" height="250.0" styleClass="miniMap" width="250.0" StackPane.alignment="CENTER" />
-                           </children>
-                        </StackPane>
-                        <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="260"/>
+                        </GridPane>
                      </children>
-                  </AnchorPane>
+                  </VBox>
+                  <StackPane fx:id="miniMapStackPane" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Canvas fx:id="miniMapCanvas" height="200.0" width="200.0" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
                </children>
-            </StackPane>
+               <styleClass>
+                  <String fx:value="root-background-color" />
+                  <String fx:value="sidebarContainer" />
+               </styleClass>
+            </VBox>
          </children>
          <stylesheets>
             <URL value="@../darkTheme.css" />
             <URL value="@battleFieldView.css" />
          </stylesheets>
-      </VBox>
+      </HBox>
    </children>
 </StackPane>

@@ -17,6 +17,9 @@ public class ZoomableScrollPane extends ScrollPane {
     private Node target;
     private Node zoomNode;
 
+    private SimpleBooleanProperty disablePlusZoom = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty disableMinusZoom = new SimpleBooleanProperty(false);
+
     public ZoomableScrollPane(Node target) {
         super();
 
@@ -40,12 +43,10 @@ public class ZoomableScrollPane extends ScrollPane {
 
     private Node outerNode(Node node) {
         Node outerNode = centeredNode(node);
-        /*
         outerNode.setOnScroll(e -> {
             e.consume();
             onScroll(e.getDeltaY(), new Point2D(e.getX(), e.getY()));
         });
-        */
         return outerNode;
     }
 
@@ -56,11 +57,13 @@ public class ZoomableScrollPane extends ScrollPane {
     }
 
     private void updateScale() {
-        target.setScaleX(scaleValue.get());
-        target.setScaleY(scaleValue.get());
+        target.setScaleX(getScaleValue());
+        target.setScaleY(getScaleValue());
     }
 
     public void onScroll(double wheelDelta, Point2D mousePoint) {
+        if(wheelDelta > 5) wheelDelta = 5;
+        if(wheelDelta < -5) wheelDelta = -5;
         double zoomFactor = Math.exp(wheelDelta * zoomIntensity.get());
         Bounds innerBounds = zoomNode.getLayoutBounds();
         Bounds viewportBounds = getViewportBounds();
@@ -68,8 +71,12 @@ public class ZoomableScrollPane extends ScrollPane {
         // calculate pixel offsets from [0, 1] range
         double valX = this.getHvalue() * (innerBounds.getWidth() - viewportBounds.getWidth());
         double valY = this.getVvalue() * (innerBounds.getHeight() - viewportBounds.getHeight());
+        disableZoomButtons(wheelDelta);
+        if(target.getScaleX() > 1.4 && wheelDelta > 0) return;
+        if(target.getScaleX() < 0.8 && wheelDelta < 0) return;
         setScaleValue(scaleValue.get() * zoomFactor);
         updateScale();
+        disableZoomButtons(wheelDelta);
         this.layout(); // refresh ScrollPane scroll positions & target bounds
 
         // convert target coordinates to zoomTarget coordinates
@@ -85,7 +92,20 @@ public class ZoomableScrollPane extends ScrollPane {
         this.setVvalue((valY + adjustment.getY()) / (updatedInnerBounds.getHeight() - viewportBounds.getHeight()));
     }
 
-    public double getScaleValue()
+    private void disableZoomButtons(double wheelDelta) {
+        if(target.getScaleX() > 1.4 && wheelDelta > 0) {
+            disablePlusZoom.set(true);
+        } else {
+            disablePlusZoom.set(false);
+        }
+        if(target.getScaleX() < 0.8 && wheelDelta < 0) {
+            disableMinusZoom.set(true);
+        } else {
+            disableMinusZoom.set(false);
+        }
+    }
+
+    private double getScaleValue()
     {
         return scaleValue.get();
     }
@@ -114,6 +134,15 @@ public class ZoomableScrollPane extends ScrollPane {
     {
         this.zoomIntensity.set(zoomIntensity);
     }
+
+    public SimpleBooleanProperty getDisablePlusZoom(){
+        return disablePlusZoom;
+    }
+
+    public SimpleBooleanProperty getDisableMinusZoom(){
+        return disableMinusZoom;
+    }
+
 }
 
 

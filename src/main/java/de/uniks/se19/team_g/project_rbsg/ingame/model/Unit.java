@@ -1,17 +1,21 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableIntegerValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @author Jan Müller
  */
-public class Unit {
+public class Unit implements Selectable, Hoverable {
 
     @NonNull
     private final String id;
@@ -22,18 +26,23 @@ public class Unit {
 
     private SimpleObjectProperty<Cell> position = new SimpleObjectProperty<>();
 
-    private SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
+    private final ObjectProperty<Game> selected = new SimpleObjectProperty<>();
+    private final BooleanBinding isSelected = selected.isNotNull();
 
-    private SimpleBooleanProperty attackable = new SimpleBooleanProperty(false);
+    private final ObjectProperty<Game> hoveredIn = new SimpleObjectProperty<>();
+    private final BooleanBinding isHovered = hoveredIn.isNotNull();
+
+    private BooleanProperty attackReady = new SimpleBooleanProperty(true);
 
     private UnitTypeInfo unitType;
 
     final private SimpleIntegerProperty remainingMovePoints = new SimpleIntegerProperty(0);
 
     private int mp;
-    private int hp;
+    private SimpleIntegerProperty hp = new SimpleIntegerProperty();
+    private int maxHp;
 
-    private ArrayList<UnitTypeInfo> canAttack;
+    private ArrayList<UnitTypeInfo> canAttack = new ArrayList<>();
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -68,6 +77,10 @@ public class Unit {
     }
 
     public int getHp() {
+        return hp.get();
+    }
+
+    public SimpleIntegerProperty hpProperty() {
         return hp;
     }
 
@@ -123,12 +136,13 @@ public class Unit {
     }
 
     public Unit setHp(@NonNull final int hp) {
-        this.hp = hp;
+        this.hp.set(hp);
         return this;
     }
 
     public Unit setCanAttack(@NonNull final Collection<UnitTypeInfo> canAttack) {
-        this.canAttack = new ArrayList<>(canAttack);
+        this.canAttack.clear();
+        this.canAttack.addAll(canAttack);
         return this;
     }
 
@@ -143,16 +157,8 @@ public class Unit {
         return "(" + unitType + ", mp : " + mp + ", hp: " + hp + ")";
     }
 
-    public boolean isSelected() {
-        return selected.get();
-    }
-
-    public SimpleBooleanProperty selectedProperty() {
-        return selected;
-    }
-
     public void setSelected(boolean selected) {
-        this.selected.set(selected);
+        // keep it to not break compiling for now
     }
 
 
@@ -164,19 +170,105 @@ public class Unit {
         return remainingMovePoints;
     }
 
-    public void setRemainingMovePoints(int remainingMovePoints) {
+    public Unit setRemainingMovePoints(int remainingMovePoints) {
         this.remainingMovePoints.set(remainingMovePoints);
+        return this;
     }
 
-    public boolean isAttackable() {
-        return attackable.get();
+    public boolean isSelected() {
+        return isSelected.get();
     }
 
-    public SimpleBooleanProperty attackableProperty() {
-        return attackable;
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setSelectedIn(@Nullable Game game) {
+        // note that this should be just a toggle between null and a game, not between two games
+        Game lastState = selected.get();
+
+        if (lastState == game) {
+            return;
+        }
+
+        selected.set(game);
+
+        if (lastState != null) {
+            lastState.setSelected(null);
+        }
+        if (game != null) {
+            game.setSelected(this);
+        }
     }
 
-    public void setAttackable(boolean attackable) {
-        this.attackable.set(attackable);
+    @Override
+    public ObservableBooleanValue selectedProperty() {
+        return isSelected;
+    }
+
+    @Override
+    public boolean isHovered() {
+        return isHovered.get();
+    }
+
+    @Override
+    public ObservableBooleanValue hoveredProperty() {
+        return isHovered;
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void setHoveredIn(@Nullable Game game) {
+        Game lastHoveredIn = hoveredIn.get();
+
+        if (game == lastHoveredIn) {
+            return;
+        }
+
+        hoveredIn.set(game);
+
+        if (lastHoveredIn != null) {
+            lastHoveredIn.setHovered(null);
+        }
+
+        if (game != null) {
+            game.setHovered(this);
+        }
+    }
+
+    public int getMaxHp ()
+    {
+        return maxHp;
+    }
+
+    public void setMaxHp (int maxHp)
+    {
+        this.maxHp = maxHp;
+    }
+
+    public boolean canAttack(Unit unit) {
+        return unit != null
+            && isAttackReady()
+            && unit.getLeader() != this.leader
+            && canAttack.contains(unit.unitType);
+    }
+    public boolean isAttackReady() {
+        return attackReady.get();
+    }
+
+    public ObservableBooleanValue attackReadyProperty() {
+        return attackReady;
+    }
+
+    public Unit setAttackReady(boolean attackReady) {
+        this.attackReady.set(attackReady);
+        return this;
+    }
+
+    public ArrayList<Unit> getNeighbors() {
+        return position.get()
+                .getNeighbors()
+                .stream()
+                .filter(cell -> cell.getUnit() != null)
+                .map(Cell::getUnit)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
