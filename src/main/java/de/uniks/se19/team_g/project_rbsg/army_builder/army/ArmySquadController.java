@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 @Scope("prototype")
 public class ArmySquadController extends ListCell<SquadViewModel> implements Initializable {
 
-    public Label countLabel;
     public Pane root;
     public ImageView imageView;
 
@@ -48,10 +47,6 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
         }
 
         prefHeightProperty().bindBidirectional(prefWidthProperty());
-
-        countLabel.textProperty().bind(
-            Bindings.size(squad.members).asString().concat("x")
-        );
 
         final Unit deputy = squad.members.get(0);
         imageView.setImage(deputy.getTypeInfo().getPreview());
