@@ -34,16 +34,6 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="enButton" mnemonicParsing="false" onAction="#changeLangToEN" styleClass="disable-button">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="deButton" mnemonicParsing="false" onAction="#changeLangToDE" styleClass="disable-button">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
                         <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutUser" styleClass="icon-button">
                            <HBox.margin>
                               <Insets left="5.0" />

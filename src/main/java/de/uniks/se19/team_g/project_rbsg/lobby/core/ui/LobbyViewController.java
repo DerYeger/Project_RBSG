@@ -100,8 +100,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     public StackPane mainStackPane;
     public Button menuButton;
     public Button logoutButton;
-    public Button enButton;
-    public Button deButton;
     public Button createGameButton;
     public Pane createGameButtonContainer;
     public Button armyBuilderLink;
@@ -182,14 +180,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         lobbyGamesListView.setCellFactory(lobbyGamesListView -> gameListCellFactory.getObject());
 
         configureSystemMessageManager();
-
-        if(Locale.getDefault().equals(Locale.GERMAN)) {
-            deButton.disableProperty().setValue(true);
-        }
-        else {
-            deButton.disableProperty().setValue(false);
-        }
-        enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
 
         JavaFXUtils.setButtonIcons(
                 menuButton,
@@ -355,25 +345,11 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         }
 
         createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
-        enButton.textProperty().setValue(getResources().getString("enButton"));
-        deButton.textProperty().setValue(getResources().getString("deButton"));
         lobbyTitle.textProperty().setValue(getResources().getString("title"));
 
         if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
             createGameFormBuilder.getCreateGameController().updateLabels();
         }
-    }
-
-    public void changeLangToDE()
-    {
-        deButton.disableProperty().setValue(true);
-        updateLabels(Locale.GERMAN);
-    }
-
-    public void changeLangToEN()
-    {
-        deButton.disableProperty().setValue(false);
-        updateLabels(Locale.ENGLISH);
     }
 
     public void logoutUser()
@@ -397,8 +373,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     }
 
     public void showMenu(final ActionEvent actionEvent) {
-        final List<Tuple<String, Node>> entries = new ArrayList<>();
-
-        menuBuilder.lobbyMenu(entries);
+        menuBuilder.lobbyMenu();
     }
 }
