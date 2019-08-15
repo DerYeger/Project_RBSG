@@ -50,7 +50,7 @@ public class MenuTests extends ApplicationTest implements ApplicationContextAwar
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         @SuppressWarnings("unchecked")
         final Property<Locale> selectedLocale = (Property<Locale>) applicationContext.getBean("selectedLocale");
-        menuBuilder = new MenuBuilder(this, selectedLocale, mock(CreditsBuilder.class), new MusicManager());
+        menuBuilder = new MenuBuilder(this, selectedLocale, new CreditsBuilder(this, selectedLocale), new MusicManager());
         menuBuilder.setApplicationContext(applicationContext);
     }
 
@@ -69,7 +69,18 @@ public class MenuTests extends ApplicationTest implements ApplicationContextAwar
     }
 
     @Test
-    public void testMenuCreation() {
+    public void testLobbyMenu() {
+        menuBuilder.lobbyMenu();
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertNotNull(lookup("Music"));
+        assertNotNull(lookup("Language"));
+        assertNotNull(lookup("Credits"));
+    }
+
+    @Test
+    public void testBattlefieldMenu() {
         menuBuilder.battlefieldMenu(new ArrayList<>());
 
         WaitForAsyncUtils.waitForFxEvents();
