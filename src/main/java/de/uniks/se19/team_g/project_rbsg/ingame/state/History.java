@@ -69,12 +69,12 @@ public class History {
     }
 
     private void doTimeTravelForward(@Nonnull HistoryEntry target) {
-        while (current.getValue() != null && current.getValue().getNext() != null) {
+        while (current.getValue() != null && current.getValue() != target && current.getValue().getNext() != null) {
             forward();
         }
 
         if (current.getValue() != target) {
-            throw new IllegalStateException("couldn't travel back to target");
+            throw new IllegalStateException("couldn't travel forward to target");
         }
     }
 
@@ -98,5 +98,9 @@ public class History {
 
     public ObservableValue<HistoryEntry> currentProperty() {
         return current;
+    }
+
+    public boolean isLatest() {
+        return tail == this.current.getValue();
     }
 }

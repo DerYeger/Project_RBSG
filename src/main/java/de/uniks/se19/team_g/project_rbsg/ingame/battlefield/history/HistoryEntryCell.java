@@ -1,7 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.state.HistoryEntry;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+
+import java.util.function.BiConsumer;
 
 public class HistoryEntryCell extends ListCell<HistoryEntry> {
 
@@ -23,6 +29,7 @@ public class HistoryEntryCell extends ListCell<HistoryEntry> {
             return;
         }
 
-        setGraphic(actionRenderer.render(item.getAction()));
+        Node root = actionRenderer.render(item.getAction());
+        setGraphic(root);
     }
 }

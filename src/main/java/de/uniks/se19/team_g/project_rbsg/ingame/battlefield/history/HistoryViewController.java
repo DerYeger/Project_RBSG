@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.HistoryEntry;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,19 +34,29 @@ public class HistoryViewController {
         history = context.getModelManager().getHistory();
 
         historyView.setCellFactory(param -> new HistoryEntryCell(actionRenderer));
-
         historyView.setItems(
             history.getEntries().filtered(
                 historyEntry -> actionRenderer.supports(historyEntry.getAction())
             )
         );
 
+        historyView.getSelectionModel().selectedItemProperty().addListener(this::onSelectedEntryChanged);
+
         history.currentProperty().addListener(onHistoryStateChanged);
         onHistoryStateChanged(null, null, null);
     }
 
+    private void handleEntryClicked(HistoryEntry historyEntry, MouseEvent mouseEvent) {
+        history.timeTravel(historyEntry);
+    }
 
     private void onHistoryStateChanged(ObservableValue<? extends HistoryEntry> observable, HistoryEntry oldValue, HistoryEntry newValue) {
         historyView.getSelectionModel().select(history.getCurrent());
+    }
+
+
+    private void onSelectedEntryChanged(ObservableValue<? extends HistoryEntry> observable, HistoryEntry oldValue, HistoryEntry newValue) {
+        HistoryEntry selectedItem = historyView.getSelectionModel().getSelectedItem();
+        history.timeTravel(selectedItem);
     }
 }
