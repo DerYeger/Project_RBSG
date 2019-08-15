@@ -120,8 +120,6 @@ public class ArmyDetailController implements Initializable {
         );
 
         bindSquadList(army);
-
-
     }
 
     private void bindSquadList(Army army) {
@@ -209,7 +207,7 @@ public class ArmyDetailController implements Initializable {
         SquadViewModel neighbour;
         for(int i=0; i<squadList.size();i++){
             if(squadList.get(i).equals(selectedModel)){
-                if(i==0 && leftOrRight==-1 || i==squadList.size() && leftOrRight==1){
+                if(i==0 && leftOrRight==-1 || i==squadList.size()-1 && leftOrRight==1){
                     return;
                 }
                 squadMap.remove(selected);
