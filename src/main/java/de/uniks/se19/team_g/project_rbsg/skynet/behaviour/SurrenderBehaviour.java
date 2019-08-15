@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.SurrenderAction;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,11 +16,12 @@ public class SurrenderBehaviour implements Behaviour
     public Optional<? extends Action> apply(Game game, Player player)
     {
         boolean cantAttackAnEnemyByType = isCantAttackAnEnemyByType(game, player);
-        boolean firstMovingPhase = game.getPhase().equals("movePhase");
 
         if(cantAttackAnEnemyByType) {
             return Optional.of(new SurrenderAction());
         }
+
+        boolean firstMovingPhase = game.getPhase().equals("movePhase");
 
         if(firstMovingPhase) {
             boolean NoUnitCanMove = isNoUnitCanMove(player);
