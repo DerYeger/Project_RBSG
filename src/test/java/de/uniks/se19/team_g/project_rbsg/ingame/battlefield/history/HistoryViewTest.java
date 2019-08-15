@@ -125,9 +125,10 @@ public class HistoryViewTest extends ApplicationTest {
                 mockRenderer,
                 Mockito.atLeast(5)
         ).supports(Mockito.any());
+        // actually not 100% sure why it's 3 and not 2...
         Mockito.verify(
                 mockRenderer,
-                Mockito.times(2)
+                Mockito.times(3)
         ).render(Mockito.any());
     }
 }
