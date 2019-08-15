@@ -12,42 +12,20 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.net.URL;
+import javax.annotation.Nonnull;
 
 @Component
-public class MovementActionRenderer implements ActionRenderer {
-
-    private ObjectFactory<FXMLLoader> loaderFactory;
+public class MovementActionRenderer extends DefaultActionRenderer {
 
     public MovementActionRenderer(
             @Qualifier("fxmlLoader") ObjectFactory<FXMLLoader> loaderFactory
     ) {
-        this.loaderFactory = loaderFactory;
-    }
-
-    private FXMLLoader getFXMLLoader() {
-        FXMLLoader fxmlLoader = loaderFactory.getObject();
-        fxmlLoader.setLocation(getFxmlUrl());
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return fxmlLoader;
-    }
-
-    private URL getFxmlUrl() {
-        return getClass().getResource("/ui/ingame/battleField/defaultHistoryCell.fxml");
+        super(loaderFactory);
     }
 
     @Override
-    public HistoryRenderData render(Action action) {
-
-        if (!supports(action)) return null;
-
+    @Nonnull
+    protected HistoryRenderData doRender(Action action) {
         UpdateAction actionImpl = (UpdateAction) action;
         Unit unit = (Unit) actionImpl.getEntity();
         Cell cell = (Cell) actionImpl.getNextValue();

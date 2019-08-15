@@ -5,11 +5,11 @@ import org.springframework.beans.BeansException;
 
 public class UpdateAction implements Action {
 
-    private final String fieldName;
-    private final Object nextValue;
-    private final BeanWrapperImpl beanWrapper;
+    protected final String fieldName;
+    protected final Object nextValue;
+    protected final BeanWrapperImpl beanWrapper;
 
-    private Object previousValue;
+    protected Object previousValue;
 
 
     public UpdateAction(String fieldName, Object nextValue, Object entity) throws BeansException {
@@ -48,6 +48,9 @@ public class UpdateAction implements Action {
 
     @Override
     public void undo() {
-        beanWrapper.setPropertyValue(fieldName, previousValue);
+        // hacky as fuck
+        if (previousValue != null) {
+            beanWrapper.setPropertyValue(fieldName, previousValue);
+        }
     }
 }

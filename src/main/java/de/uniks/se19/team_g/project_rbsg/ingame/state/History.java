@@ -59,8 +59,12 @@ public class History {
         this.current.setValue(current.getPrevious());
     }
 
-    public void timeTravel(@Nonnull HistoryEntry target)
+    public void timeTravel(HistoryEntry target)
     {
+        if (target == null) {
+            return;
+        }
+
         if (target.isApplied()) {
             doTimeTravelBackwards(target);
         } else {
