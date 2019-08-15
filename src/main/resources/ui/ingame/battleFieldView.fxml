@@ -36,7 +36,8 @@
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
                         <VBox fx:id="history" />
-                        <StackPane fx:id="battlefieldStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                         <VBox alignment="CENTER">
+                            <StackPane id="battleFieldViewer" fx:id="battlefieldStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                            <children>
                               <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
                                  <children>
@@ -73,6 +74,7 @@
                               </AnchorPane>
                            </children>
                         </StackPane>
+                         </VBox>
                      </children>
                   </HBox>
                </children>
