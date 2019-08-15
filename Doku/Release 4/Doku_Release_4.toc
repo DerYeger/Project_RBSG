@@ -1,0 +1,259 @@
+\babel@toc {ngerman}{}
+\contentsline {section}{\numberline {1}Ziel der Dokumentation}{1}
+\contentsline {section}{\numberline {2}Das Projekt RBSG}{1}
+\contentsline {section}{\numberline {3}Das Release \textup {\uppercase {ii}}}{1}
+\contentsline {subsection}{\numberline {3.1}Anforderung an das zweite Release}{2}
+\contentsline {subsection}{\numberline {3.2}Stand zum Ende des Release \textup {\uppercase {i}}}{2}
+\contentsline {subsubsection}{\numberline {3.2.1}Login}{2}
+\contentsline {subsubsection}{\numberline {3.2.2}Lobby}{3}
+\contentsline {subsubsection}{\numberline {3.2.3}Spiel erstellen}{4}
+\contentsline {subsubsection}{\numberline {3.2.4}Spiel beitreten}{4}
+\contentsline {subsubsection}{\numberline {3.2.5}Lobby Chat}{5}
+\contentsline {subsubsection}{\numberline {3.2.6}Umgesetzte optionale Features}{5}
+\contentsline {subsection}{\numberline {3.3}Zeit\"Ubersicht}{6}
+\contentsline {subsection}{\numberline {3.4}Analyse des 7. Sprints}{7}
+\contentsline {subsubsection}{\numberline {3.4.1}Burndown-Diagramm}{7}
+\contentsline {subsubsection}{\numberline {3.4.2}Ausreiser}{7}
+\contentsline {subsubsection}{\numberline {3.4.3}Abgeschlossene Vorg\"ange}{8}
+\contentsline {paragraph}{\nonumberline K\"unstliche Intelligenz}{8}
+\contentsline {paragraph}{\nonumberline Ein C0 Abdeckung von -\%}{8}
+\contentsline {subsubsection}{\numberline {3.4.4}Nicht abgeschlossene Vorg\"ange}{8}
+\contentsline {paragraph}{\nonumberline Optional - Waiting Room - Anzeigen einer Karten Preview}{9}
+\contentsline {paragraph}{\nonumberline Optional - Ingame - Zoomen auf dem Spielfeld}{9}
+\contentsline {paragraph}{\nonumberline Core - Ingame - Spiel verlassen}{9}
+\contentsline {subsubsection}{\numberline {3.4.5}Entfernte Vorg\"ange}{9}
+\contentsline {paragraph}{\nonumberline Core - ArmyBuilder - Laden der Armeen}{9}
+\contentsline {paragraph}{\nonumberline Core - ArmyBuilder - L\"oschen der Armeen}{9}
+\contentsline {paragraph}{\nonumberline Optional - Waiting Room - Anzeigen der ausgew\"ahlten Einheiten}{9}
+\contentsline {paragraph}{\nonumberline Appearance - Army Builder}{9}
+\contentsline {subsubsection}{\numberline {3.4.6}Fazit}{10}
+\contentsline {section}{\numberline {4}Sprint \textup {\uppercase {iv}}}{10}
+\contentsline {subsection}{\numberline {4.1}Sprintziel}{10}
+\contentsline {subsection}{\numberline {4.2}User Stories}{10}
+\contentsline {subsubsection}{\numberline {4.2.1}Core - ArmyBuilder - Speichern der Armeen}{10}
+\contentsline {paragraph}{\nonumberline Ziel}{10}
+\contentsline {paragraph}{\nonumberline Story}{10}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{10}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{10}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{10}
+\contentsline {subsubsection}{\numberline {4.2.2}Core - ArmyBuilder - L\"oschen der Armee (Clear)}{11}
+\contentsline {paragraph}{\nonumberline Ziel}{11}
+\contentsline {paragraph}{\nonumberline Story}{11}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{11}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{11}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{11}
+\contentsline {subsubsection}{\numberline {4.2.3}Appearance - ArmyBuilder}{11}
+\contentsline {paragraph}{\nonumberline Ziel}{11}
+\contentsline {paragraph}{\nonumberline Story}{11}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{11}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{11}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{11}
+\contentsline {subsubsection}{\numberline {4.2.4}Optional - Ingame - Zoomen auf dem Spielfeld}{11}
+\contentsline {paragraph}{\nonumberline Ziel}{11}
+\contentsline {paragraph}{\nonumberline Story}{11}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{11}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{12}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{12}
+\contentsline {subsubsection}{\numberline {4.2.5}Core - Ingame - Spiel verlassen}{12}
+\contentsline {paragraph}{\nonumberline Ziel}{12}
+\contentsline {paragraph}{\nonumberline Story}{12}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{12}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{12}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{12}
+\contentsline {subsubsection}{\numberline {4.2.6}Optional - Waiting Room - Anzeigen der Karte (Preview)}{12}
+\contentsline {paragraph}{\nonumberline Ziel}{12}
+\contentsline {paragraph}{\nonumberline Story}{12}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{12}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{12}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{12}
+\contentsline {subsubsection}{\numberline {4.2.7}Core - Login - Default Armeen erstellen und User auf erstellen von Armeen hinweisen}{13}
+\contentsline {paragraph}{\nonumberline Ziel}{13}
+\contentsline {paragraph}{\nonumberline Story}{13}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{13}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{13}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{13}
+\contentsline {subsubsection}{\numberline {4.2.8}Core - Lobby - Deaktivieren der JoinGame-Buttons und des Create-Game-Buttons bei keiner ausgew\"ahlten Armee}{13}
+\contentsline {paragraph}{\nonumberline Ziel}{13}
+\contentsline {paragraph}{\nonumberline Story}{13}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{13}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{13}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{13}
+\contentsline {subsubsection}{\numberline {4.2.9}Optional - ArmyBuilder - Bearbeiten der Armeeinformationen}{13}
+\contentsline {paragraph}{\nonumberline Ziel}{13}
+\contentsline {paragraph}{\nonumberline Story}{14}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{14}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{14}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{14}
+\contentsline {subsubsection}{\numberline {4.2.10}Optional - ArmyBuilder - Armeeauswahl aus der Lobby \"Ubernehmen}{14}
+\contentsline {paragraph}{\nonumberline Ziel}{14}
+\contentsline {paragraph}{\nonumberline Story}{14}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{14}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{14}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{14}
+\contentsline {subsubsection}{\numberline {4.2.11}Optional - Create Game - Auto Join}{14}
+\contentsline {paragraph}{\nonumberline Ziel}{14}
+\contentsline {paragraph}{\nonumberline Story}{14}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{14}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{14}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{14}
+\contentsline {subsubsection}{\numberline {4.2.12}Appearance - Create Game - Anpassen des Style's des Create-Game-Formulars}{15}
+\contentsline {paragraph}{\nonumberline Ziel}{15}
+\contentsline {paragraph}{\nonumberline Story}{15}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{15}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{15}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{15}
+\contentsline {subsubsection}{\numberline {4.2.13}Core - Waiting Room - Ein Spieler tritt dem Spiel bei}{15}
+\contentsline {paragraph}{\nonumberline Ziel}{15}
+\contentsline {paragraph}{\nonumberline Story}{15}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{15}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{15}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{15}
+\contentsline {subsubsection}{\numberline {4.2.14}Core - Waiting Room - Ein Spieler verl\"asst das Spiel}{15}
+\contentsline {paragraph}{\nonumberline Ziel}{15}
+\contentsline {paragraph}{\nonumberline Story}{15}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{15}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{15}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{15}
+\contentsline {subsubsection}{\numberline {4.2.15}Optional - Waiting Room - \glqq Player-Kasten\grqq \ wird mit der Spielerfarbe dargestellt}{16}
+\contentsline {paragraph}{\nonumberline Ziel}{16}
+\contentsline {paragraph}{\nonumberline Story}{16}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{16}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{16}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{16}
+\contentsline {subsubsection}{\numberline {4.2.16}Appearance - Alerts}{16}
+\contentsline {paragraph}{\nonumberline Ziel}{16}
+\contentsline {paragraph}{\nonumberline Story}{16}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{16}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{16}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{16}
+\contentsline {subsubsection}{\numberline {4.2.17}Core - ArmyBuilder - \glqq CanAttack\grqq \ \"Ubersicht}{16}
+\contentsline {paragraph}{\nonumberline Ziel}{16}
+\contentsline {paragraph}{\nonumberline Story}{16}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{16}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{16}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{17}
+\contentsline {subsubsection}{\numberline {4.2.18}Optional - ArmyBuilder- Indikator ob Speichern n\"otig ist und Aktivieren des Save Buttons}{17}
+\contentsline {paragraph}{\nonumberline Ziel}{17}
+\contentsline {paragraph}{\nonumberline Story}{17}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{17}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{17}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{17}
+\contentsline {subsubsection}{\numberline {4.2.19}Core - ArmyBuilder - Laden der Armeen}{17}
+\contentsline {paragraph}{\nonumberline Ziel}{17}
+\contentsline {paragraph}{\nonumberline Story}{17}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{17}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{17}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{17}
+\contentsline {subsubsection}{\numberline {4.2.20}Optional - Chat - Anzeigen das eine Nachricht angekommen ist}{17}
+\contentsline {paragraph}{\nonumberline Ziel}{17}
+\contentsline {paragraph}{\nonumberline Story}{18}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{18}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{18}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{18}
+\contentsline {subsubsection}{\numberline {4.2.21}Optional - ArmyBuilder - Bearbeiten der Armeeinformationen}{18}
+\contentsline {paragraph}{\nonumberline Ziel}{18}
+\contentsline {paragraph}{\nonumberline Story}{18}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{18}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{18}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{18}
+\contentsline {subsubsection}{\numberline {4.2.22}Core - ArmyBuilder - Autosave der Armeen bei verlassen des ArmyBuilders}{18}
+\contentsline {paragraph}{\nonumberline Ziel}{18}
+\contentsline {paragraph}{\nonumberline Story}{18}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{18}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{18}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{19}
+\contentsline {subsubsection}{\numberline {4.2.23}Core - ArmyBuilder - Can Attack \"Ubersicht}{19}
+\contentsline {paragraph}{\nonumberline Ziel}{19}
+\contentsline {paragraph}{\nonumberline Story}{19}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{19}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{19}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{19}
+\contentsline {subsubsection}{\numberline {4.2.24}Optional - ArmyBuilder- Indikator ob Speichern n\"otig ist und Aktivieren des Save Buttons}{19}
+\contentsline {paragraph}{\nonumberline Ziel}{19}
+\contentsline {paragraph}{\nonumberline Story}{19}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{19}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{19}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{19}
+\contentsline {subsubsection}{\numberline {4.2.25}Optional - Waiting Room - Anzeigen der Einheiten der ausgew\"ahlten Armee}{19}
+\contentsline {paragraph}{\nonumberline Story}{19}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{19}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{20}
+\contentsline {subsubsection}{\numberline {4.2.26}Optional - Lobby - Anzeigen der Einheiten einer Armee}{20}
+\contentsline {paragraph}{\nonumberline Story}{20}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{20}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{20}
+\contentsline {subsubsection}{\numberline {4.2.27}Optional - ArmyBuilder- Notifiaction f\"ur das Speichern der Armee und Waiting Animation.}{20}
+\contentsline {paragraph}{\nonumberline Story}{20}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{20}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{20}
+\contentsline {subsubsection}{\numberline {4.2.28}Core - ArmyBuilder - Lokaler Speicherort f\"ur Armeen}{20}
+\contentsline {paragraph}{\nonumberline Ziel}{20}
+\contentsline {paragraph}{\nonumberline Story}{20}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{20}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{20}
+\contentsline {subsection}{\numberline {4.3}Tasks}{20}
+\contentsline {subsubsection}{\numberline {4.3.1}Task - SceneManger \"Uberarbeiten}{21}
+\contentsline {paragraph}{\nonumberline Ziel}{21}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{21}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{21}
+\contentsline {subsubsection}{\numberline {4.3.2}Task - Neues Musikst\"uck einpflegen}{21}
+\contentsline {paragraph}{\nonumberline Ziel}{21}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{21}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{21}
+\contentsline {subsubsection}{\numberline {4.3.3}Task - Spiel verlassen}{21}
+\contentsline {paragraph}{\nonumberline Ziel}{21}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{21}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{21}
+\contentsline {subsubsection}{\numberline {4.3.4}Task - NullPointer Exception - Spielbeitritt}{21}
+\contentsline {paragraph}{\nonumberline Ziel}{21}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{21}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{21}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{22}
+\contentsline {subsubsection}{\numberline {4.3.5}Task - Reaktion auf 503 vom Server}{22}
+\contentsline {paragraph}{\nonumberline Ziel}{22}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{22}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{22}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{22}
+\contentsline {subsubsection}{\numberline {4.3.6}Task - ArmyManager Lore}{22}
+\contentsline {paragraph}{\nonumberline Ziel}{22}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{22}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{22}
+\contentsline {subsubsection}{\numberline {4.3.7}Task - Zwischenrelease v0.3}{22}
+\contentsline {paragraph}{\nonumberline Ziel}{22}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{22}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{22}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{22}
+\contentsline {subsubsection}{\numberline {4.3.8}Task - Speicherst\"ande mergen}{22}
+\contentsline {paragraph}{\nonumberline Ziel}{22}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{22}
+\contentsline {paragraph}{\nonumberline Sch\"atzung}{23}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{23}
+\contentsline {subsection}{\numberline {4.4}Bugs}{23}
+\contentsline {subsubsection}{\numberline {4.4.1}Bug - lokales Speichern unter Windows}{23}
+\contentsline {paragraph}{\nonumberline Ziel}{23}
+\contentsline {paragraph}{\nonumberline Zugeteilter Entwickler}{23}
+\contentsline {paragraph}{\nonumberline Verlauf der Entwicklung}{23}
+\contentsline {subsection}{\numberline {4.5}Zeit\"ubersicht}{24}
+\contentsline {subsection}{\numberline {4.6}Analyse des 4. Sprint}{25}
+\contentsline {subsubsection}{\numberline {4.6.1}Burndown-Diagramm}{25}
+\contentsline {subsubsection}{\numberline {4.6.2}Abgeschlossene Vorg\"ange}{26}
+\contentsline {subsubsection}{\numberline {4.6.3}Nicht abgeschlossene Vorg\"ange}{27}
+\contentsline {paragraph}{\nonumberline Optional - Waiting Room - Anzeigen der Einheiten der ausgew\"ahlten Armee}{27}
+\contentsline {paragraph}{\nonumberline Optional - Lobby- Anzeigen der Einheiten einer Armee}{27}
+\contentsline {paragraph}{\nonumberline Optional - ArmyBuilder - Notification f\"ur das Speichern der Armee und Waiting Animation}{28}
+\contentsline {paragraph}{\nonumberline Core - ArmyBuilder - Lokaler Speicherort f\"ur Armeen}{28}
+\contentsline {subsubsection}{\numberline {4.6.4}Fazit}{28}
+\contentsline {paragraph}{\nonumberline Code Coverage}{28}
+\contentsline {section}{\numberline {5}Abschluss des 2. Releases}{28}
+\contentsline {subsection}{\numberline {5.1}Der Armeemanager}{29}
+\contentsline {subsubsection}{\numberline {5.1.1}Implementaion}{29}
+\contentsline {subsubsection}{\numberline {5.1.2}Armee-Editor}{30}
+\contentsline {subsubsection}{\numberline {5.1.3}Info zu den Attributen}{31}
+\contentsline {subsection}{\numberline {5.2}Warteraum}{32}
+\contentsline {subsection}{\numberline {5.3}Ingame}{33}
+\contentsline {subsection}{\numberline {5.4}Lobby}{34}
+\contentsline {subsubsection}{\numberline {5.4.1}Spiel erstellen Formular}{35}
+\contentsline {subsection}{\numberline {5.5}Alerts}{36}

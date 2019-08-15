@@ -47,9 +47,9 @@
 		\vspace{0.5cm}
 		{\scshape\Large Gruppe G\par}
 		\vspace{0.5cm}
-		{\Large\itshape Scrum Master: Juri Lozowoj\par}
+		{\Large\itshape Scrum Master: Omar Sood\par}
 		\vspace{0.5cm}
-		{\Large\itshape Product Owner: Georg Siebert\par}
+		{\Large\itshape Product Owner: Juri	Lozowoj\par}
 		\vspace{2cm}
 		{\includegraphics[width=1\textwidth]{Logo.png}\par}
 		\vfill
@@ -177,417 +177,9 @@
  			\label{Musik_Release_One}
  		\end{figure}
  		
-	\subsection{Mockups}
-		Für das Kundentreffen am 27.05.2019 wurden Mockups für den Armeemanager, im folgenden als ArmyBuilder bezeichnet, und dem Waiting Room vorbereitet. Eine Besonderheit der erstellten Mockups ist, dass diese den Stil der bisherigen Applikation übernehmen. Damit soll dem Kunden ein Eindruck vom späteren Produkt vermittelt werden. Nach der Veröffentlichung der zweiten Serverdokumentation, wurden die Mockups daraufhin angepasst. Insbesondere das  Lobby Mockup wurde erweitert.
-		\subsubsection{ArmyBuilder}
-			Der ArmyBuilder besteht insgesamt aus 3 Komponenten:
-			\begin{enumerate}
-				\item der Einheitenauswahl
-				\item der Armeeauswahl
-				\item der Armeeübersicht
-			\end{enumerate}
-		Das Kernstück des ArmyBuilders sind die konfigurierbaren Armeen. Auf der rechte Seite werden in einer Liste sieben Armeen, in Form ihrer Icons angezeigt. Mit einem Linksklick auf ein Armee Icon, wird die entsprechende Armee ausgewählt und die Detailinformationen dieser Armee werden angezeigt. Zu den Inforamtionen gehören der Armeename sowie die Einheiten, aus denen die Armee besteht. In der Einheitenauswahl werden alle verfügbaren Einheitentypen aufgelistet. Ist eine Einheit ausgewählt, wird eine Detailansicht zu dieser Einheit angezeigt, mit Informationen, wie Attribute und einem Bild. Über den \glqq +\grqq \  Button ist es möglich eine Einheit der ausgewählten Armee hinzuzufügen. Die Einheit wird anschließend der Armeeübersicht hinzugefügt und entsprechende Informationen werden aktualisiert. Der Nutzer kann in der Armeeübersicht ebenfalls Einheiten auswählen. Der ausgewählte Einheitentyp wird dann in der Detailansicht angezeigt. Über den \glqq -\grqq \  kann eine Einheit aus der Armee entfernt werden. Über den Speichern-Button können die Armee auf dem Server und lokal gespeichert werden. Mit dem Info-Button hat der Nutzer die Möglichkeit sich die angezeigten Symbole erläutern zu lassen. Dazu wurde eine entsprechendes Mockup erstellt, dieses ist in \Abb{InfoView} zu sehen.\\ \\ Für den ArmyBuilder wurden zwei Designs entworfen, siehe \Abb{ArmyBuilder_Design_One} und \Abb{ArmyBuilder_Design_Two}. Das Team hat sich auf das zweite Design geeinigt. 
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.8\textwidth]{ArmyBuilder_Design_One.png}
-			\caption{Mockup ArmyBuilder Design \RN{1} }
-			\label{ArmyBuilder_Design_One}
-		\end{figure}
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.8\textwidth]{ArmyBuilder_Design_Two.png}
-			\caption{Mockup ArmyBuilder Design \RN{2} }
-			\label{ArmyBuilder_Design_Two}
-		\end{figure}
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.5\textwidth]{InfoView.png}
-			\caption{Mockup Informationsanzeige \RN{2} }
-			\label{InfoView}
-		\end{figure}
-		
-		\ \\Im Kundentreffen wurde der Wunsch geäußert, die Armee Icons auswählen zu können. Dafür wurde eine entsprechender Button zu der Liste der Armeeauswahl hinzugefügt. Siehe dazu \Abb{ArmyBuilder_EditButton}. Durch Betätigen des Buttons wird ein Dialog (Abb. \ref{AmryEditor}) geöffnet, in dem das Icon sowie der Name der Armee bearbeitet werden kann. Eine Auswahl an Icons wird dafür bereitgestellt.
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.8\textwidth]{ArmyBuilder_Save_Edit.png}
-			\caption{Mockup ArmyBuilder mit \glqq Bearbeitungs\grqq \ -Button für Armeeicons}
-			\label{ArmyBuilder_EditButton}
-		\end{figure}
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.5\textwidth]{ArmyEditor.png}
-			\caption{Mockup Armee Icon Bearbeitung}
-			\label{AmryEditor}
-		\end{figure}
-		In den Mockups werden unterschiedliche Zustände des ArmyBuilders dargestellt:
-		\begin{itemize}
-			\item Eine Armee ist leer. Es können Einheiten hinzugefügt werden (\Abb{ArmyBuilder_AddUnits}).
-			\item Es ist keine Einheit in der Einheitenauswahl ausgewählt. Es können keine Einheiten der Armee hinzugefügt werden (\Abb{ArmyBuilder_Select_Unit}). 
-		\end{itemize}
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.5\textwidth]{Army_Builder_Add_Units.png}
-			\caption{Mockup ArmyBuilder eine Armee enthält keine Einheiten}
-			\label{ArmyBuilder_AddUnits}
-		\end{figure}
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.5\textwidth]{ArmyBuilder_Select_Unit.png}
-			\caption{Mockup ArmyBuilder es ist keine Einheit ausgewählt}
-			\label{ArmyBuilder_Select_Unit}
-		\end{figure}
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.5\textwidth]{ArmyEditor.png}
-			\caption{Mockup ArmyBuilder Design}
-			\label{AmryEditor}
-		\end{figure}
-		
-		\subsubsection{Lobby}
-		Um einem Spiel beitreten zu können muss ein Spieler über eine gültige Armee-ID verfügen, d. h. eine gültige Armee ausgewählt haben. Dazu erweitern wir die Lobby um eine Armeeauswahl. Dies wird in \Abb{Lobby_with_Army} dargestellt. Wie im ArmyBuilder werden die Armeen über die zugehörigen Icons dargestellt. Ist eine Armee nicht auswählbar, so wird diese grau hinterlegt dargestellt. 
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.8\textwidth]{Lobby_mit_Army_Button_und_Armeeliste.png}
-			\caption{Mockup Lobby mit Armeeauswahl und Armee-Button}
-			\label{Lobby_with_Army}
-		\end{figure}
-		
-		\subsubsection{Waiting Room}
-		Für den Waiting Room waren aus dem vorherigen Release Mockups und eine anfängliche Realisierung vorhanden. Diese haben wir aufgegriffen und erweitert. Der Waiting Room besteht aus den Komponenten:
-		\begin{itemize}
-			\item dem Game Chat
-			\item der Anzeige der Mitspieler
-			\item der Anzeige des Spielfelds
-			\item der Anzeige der gewählten Armee
-		\end{itemize}
-		Das Mockup des Waiting Room wird in \Abb{WaitingRoomWithArmy} dargestellt.
-		\paragraph{Game Chat}
-		Über den Game-Chat ist es möglich mit den Mitspielern zu chatten. Es gibt einen Allgemeinen Chat und es sind private Chats mit den anderen Spielern möglich.
-		\paragraph{Anzeige der Mitspieler}
-		Jeder Spieler, der einem Spiel beigetreten ist, wird durch eine Spielerkarte dargestellt. In diesem wird der Name des Spielers und ein Spieler-Icon angezeigt. Für jeden freien Platz wird ein Status sowie eine Warteanimation angezeigt.  
-		\paragraph{Anzeige des Spielfelds}
-		Eine Vorschau des Spielfeld wird in der Mitte des Waiting Rooms angezeigt. Es handelt sich hierbei um ein optionales Feature.
-		\paragraph{Anzeige der gewählten Armee}
-		Die für das Spiel ausgewählte Armee soll auf der rechten Seite des Waiting Rooms angezeigt werden
-		
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_mit_ArmyView.png}
-			\caption{Mockup Waiting Room mit Armeeanzeige}
-			\label{WaitingRoomWithArmy}
-		\end{figure}
+
 	
-		\paragraph{Mockups mit möglichen Zusatzfeatures}
-		Ein mögliches Zusatzfeature ist ein Minispiel im Waiting Room. Ein Mockup ist auf \Abb{WaitingRoomWithMiniGame} zu sehen.
 		
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_With_TTT.png}
-			\caption{Mockup Waiting Room mit Minispiel}
-			\label{WaitingRoomWithMiniGame}
-		\end{figure}
-	
-		\paragraph{Nicht umsetzbare Mockups}
-		Es wurde weitere Mockups erstellt. Diese enthalten Funktionalitäten, die aufgrund der derzeitigen Implementierung des Servers nicht möglich sind.\footnote{19.06.2019}
-		
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_Mit_Map_Ready_Button.png}
-				\caption{Mockup Waiting Room mit Ready-Button}
-				\label{WaitingRoomWithReadyButton}
-			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.8\textwidth]{Waitin_Room_Game_Ohne_Map.png}
-				\caption{Mockup Waiting Room ohne Vorschaukarte und mit Armeeauswahl}
-				\label{WaitingRoomWithOutMapAndWithArmySelector}
-			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.8\textwidth]{Waiting_Room_Game_Mit_Map_Not_Ready.png}
-				\caption{Mockup Waiting Room mit Map und mit Not Ready-Button}
-				\label{WaitingRoomWithMapAndWithNotReayButton}
-			\end{figure}
-		
-	\subsection{Domain Stories}
-		Die Domain Stories wurden erstellt, um dem Kunden eine mögliche technische Realisierung der Anforderungen an dieses Release vorzustellen. Da zum Zeitpunkt der Kundenpräsentation, die Serverdokumentation noch nicht bekannt war, sind die Domain Stories zum Teil unvollständig oder allgemein gehalten. Die tatsächlich Umsetzung weicht vom Inhalt der Domain Stories ab.
-		\subsubsection{Ingame - Zurück in die Lobby}
-		Entsprechend den Anforderungen muss es möglich sein, aus dem Spiel zurück in die Lobby zu wechseln. In Abb. \ref{DomainStoryZurueckInDieLobby} wird dargestellt, dass durch das Betätigen des Leave game-Buttons ein Szenenwechsel zur Lobby durchgeführt wird (1). Zeitgleich werden Game Controller Klassen benachrichtigt (2) (Abb. \ref{DomainStoryZurueckController}). Diese senden dem Server über den Spielwebsocket die Nachricht vom Spielaustritt (3). Im Fall, dass der Spieler, der das Spiel verlässt, der Ersteller dieses Spiels war, wird eine DELETE Anfrage mit der ID des Spiels gesendet (4), wie in Abb. \ref{DomainStoryZurueckDelete} zu sehen. Zudem wird der Spielwebsocket geschlossen (4) [sic].
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.7\textwidth]{BackToLobby1.png}
-			\caption{Domain Story Zurück in die Lobby}
-			\label{DomainStoryZurueckInDieLobby}
-		\end{figure}
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.7\textwidth]{BackToLobby2.png}
-			\caption{Domain Story Benachrichtigung der Spielcontroller}
-			\label{DomainStoryZurueckController}
-		\end{figure} 
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=0.7\textwidth]{BackToLobby3.png}
-			\caption{Domain Story DELETE Anfrage an den Server}
-			\label{DomainStoryZurueckDelete}
-		\end{figure} 
-		\subsubsection{Armeemanager - Erstellen und Speichern einer Armee}
-		Eine weitere Anforderungen für das zweite Release ist, Armeen konfigurieren und speichern zu können, sowohl lokal als auch auf dem Server. In Abb. \ref{DomainStoryArmyManager1} wird der Szenenwechsel nach Betätigen des Armee erstellen-Buttons dargestellt (1). Im ArmyBuilder können anhand einer Einheitenauswahl Armeen konfiguriert werden. Anschließend wird durch Betätigen des Speichern-Buttons ein Army Manager Objekt angewiesen, den Speicher-Event auszuführen (2). Siehe dazu Abb. \ref{DomainStoryArmyManager2}. Der Army Manger sendet die aktuelle Armeekonfiguration im JSON-Format zum einen an den Server. Zum anderen wird die Armee lokal als JSON-Datei im dafür vorgesehenen Verzeichnis gespeichert (3). Dieser Vorgang wird in Abb. \ref{DomainStoryArmyManager3} abgebildet.
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.5\textwidth]{ArmyManager1.png}
-				\caption{Domain Story Wechsel in den ArmyBuilder}
-				\label{DomainStoryArmyManager1}
-			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{ArmyManager2.png}
-				\caption{Domain Story Speichern einer Armee}
-				\label{DomainStoryArmyManager2}
-			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{ArmyManager3.png}
-				\caption{Domain Story Speichern der Armee auf dem Server und lokal}
-				\label{DomainStoryArmyManager3}
-			\end{figure}
-		\subsubsection{Client - Nachrichten des Server müssen korrekt verarbeiten} Nach einem Spielbeitritt sollen alle eingehenden Nachrichten vom Server korrekt verarbeitet werden. Dazu gehören der Spielbeitritt weiterer Spieler sowie das initiale Spielgeschehen. In Abb. \ref{DomainStoryHandler2} werden eingehende Servernachrichten (1)-(3) dargestellt. Diese werden von jeweils von einem eigenen Handler Objekt verarbeitet. Die Handler setzen die Servernachrichten im Datenmodell und im GUI der Applikation um (1)-(2), wie gezeigt in Abb. \ref{DomainStoryHandler1}.
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{Handler2.png}
-				\caption{Domain Story Eingehend Servernachrichten}
-				\label{DomainStoryHandler2}
-			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{Handler1.png}
-				\caption{Domain Story System message handler}
-				\label{DomainStoryHandler1}
-			\end{figure}
-		\subsubsection{Ingame Chat}
-		Die Abb. \ref{DomainStoryChat1} zeigt eine eingehende Chatnachricht, die im allgemeinen Channel versendet wurde (1). Diese wird vom Chat-Websocket unseres Client empfangen und an den entsprechenden Chat-Controller weitergereicht (2). Anschließend wird die Chatnachricht vom Chat-Controller im Chatfenster angezeigt (3) (Abb. \ref{DomainStoryChat2}).
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{Chat1.png}
-				\caption{Domain Story Eingehende Chatnachricht}
-				\label{DomainStoryChat1}
-			\end{figure}
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.7\textwidth]{Chat2.png}
-				\caption{Domain Story Anzeigen der Chatnachricht}
-				\label{DomainStoryChat2}
-			\end{figure}
-	\section{Sprint \RN{3}}
-		Der dritte Sprint erstreckte sich über den Zeitraum vom 10.06.2019 bis zum 25.06.2019. Es wurden für den Sprint 130 Storypoints geschätzt.
-		\subsection{Sprintziel}
-		Das Sprintziel ist im Jira mit \glqq Die Ausgangsituation zum Spielen erreichen.\grqq \  definiert. Darunter fällt:
-		\begin{itemize}
-			\item Erstellen von Armeen
-			\item Speichern und Laden von Armeen
-			\item Auswählen einer Armee
-			\item Verarbeiten der Initialen Servernachrichten
-			\item Anzeigen des Waiting Rooms
-		\end{itemize}
-		\subsection{User Stories}
-		\label{UserStoriesSprint3}
-		Die Titel der User Stories ergeben sich nach folgendem Muster. Zuerst wird die Priorität für das Release genannt. Hierbei unterteilen wir in Core, für Hauptfeatures, und in Optional, für Zusatzfeatures. Danach folgt der zugehörige Bereich zum Beispiel Lobby. Zuletzt folgt eine kurze Beschreibung des Features. Dies wird im Folgendem beibehalten. Es wurde vom Team entschieden, dass im zweiten Release ein Story Point einem Arbeitsaufwand von einer Stunde entspricht.
-		
-		\subsubsection{Core - ArmyBuilder - Laden der Armeen}
-		\paragraph{Ziel} Die Aufgabe besteht darin das Laden der gespeicherten Armeen lokal und serverseitig zu realisieren.
-		\paragraph{Story} Albert befindet sich im Login Bereich. Albert loggt sich erfolgreich beim Spiel ein. Die lokal auf dem Server gespeicherten Armeen werden geladen. Albert befindet sich in der Lobby, die geladenen Armeen werden in der Armeenliste angezeigt.
-		\paragraph{Zugeteilter Entwickler} Als Entwickler wurde Tobias Klipp eingeteilt.
-		\paragraph{Schätzung}
-		Das Feature wurde auf fünf Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} Das Feature wurde im Verlauf der Entwicklung auf Omar Sood und Tobias Klipp aufgeteilt. Tobias übernimmt dabei das Laden der Lokalen Speicherstände und Omar das Laden der Stände vom Server. Dies wurde vollzogen, da Tobias sich erst in die Projektstruktur einarbeiten musste, da er im letzten Release Product Owner war. Das Feature wurde nicht im dritten Sprint abgeschlossen und wurde deshalb in den vierten Sprint übernommen.
-		
-		\subsubsection{Core - ArmyBuilder - Speichern der Armeen}
-		\paragraph{Ziel} Der Entwickler soll das Speichern von Armeen lokal und serverseitig implementieren.
-		\paragraph{Story} Albert befindet sich in dem ArmyBuilder. Albert hat eine Armee eine konfiguriert. Albert klickt auf den Speichern Button. Die Armeen werden lokal und auf dem Server gespeichert.
-		\paragraph{Zugeteilter Entwickler} Diese Story bearbeitet Tobias Klipp, um sich in mit der REST Kommunikation vertraut zu machen.
-		\paragraph{Schätzung}
-		Da das Feature von den Entwicklern als komplex eingeschätzt wurde, erhielt es 13 Story Points.
-		\paragraph{Verlauf der Entwicklung} Die Realisierung des Speicherns der Armeen nahm deutlich mehr Zeit in Anspruch als geplant, da Tobias sich erst in die REST-Kommunikation einarbeiten mussten und auch noch nicht mit der Quelltextbasis vertraut war. Dies fiel nach der Teambesprechung am 14.06.2019 auf. Daraufhin wurd Tobias vom Scrum Master sowie einem Entwickler eingewiesen. Dieses Feature wurde nicht im dritten Sprint beendet und wurd in den vierten Sprint Übernommen.
-		
-		\subsubsection{Core - ArmyBuilder - Auswahl einer Einheit}
-		\paragraph{Ziel} Ziel der Story ist es die Einheitenauswahl in einer Liste darzustellen. Wird eine Einheit ausgewählt, soll eine Detailansicht dieser Einheit angezeigt werden.
-		\paragraph{Story} Albert befindet sich im ArmyBuilder. Es wird die Einheitenliste mit Einheiten angezeigt. Albert klickt eine Einheit aus der Liste an. Die Einheit wird ausgewählt und es wird eine Detail View zur Einheit angezeigt.
-		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
-		\paragraph{Schätzung}
-		Das Feature wurde auf fünf Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} Die benötigte Zeit für die Entwicklung waren am Ende ca. 10h, da sich der Entwickler erst in einige JavaFx\footnote{Graphische Oberflächenbibilthek für Java} Themen einarbeiten musste. Des Weiteren umfasste die Aufgabe auch das Erstellen der Liste und die Serverkommunikation. Die Zeit ist somit nachvollziehbar und wurde vom Team falsch eingeschätzt.
-		
-		\subsubsection{Core - ArmyBuilder - Entfernen der Einheiten}
-		\paragraph{Ziel} Ziel ist es eine Einheit aus einer Armee zu entfernen.
-		\paragraph{Story} Albert befindet sich im ArmyBuilder. Es ist eine Einheit in \glqq Deiner Armee \grqq \  ausgewählt. Albert klickt auf den Entfernen-Button. Die Einheit wird aus \glqq Deiner Armee \grqq \  entfernt.
-		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
-		\paragraph{Schätzung}
-		Das Feature wurde auf fünf Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} Omar benötigte nur 39min für das Feature. Da in einer anderen User Story die notwendige Programmlogik für dieses Feature vorbereitet wurde.
-		
-		\subsubsection{Core - ArmyBuilder - zurück in die Lobby navigieren}
-		\paragraph{Ziel} Man soll den ArmyBuilder verlassen können und dann zurück in die Lobby kommen.
-		\paragraph{Story} Albert befindet sich im ArmyBuilder. Es ist ein Zurück-Button im ArmyBuilder vorhanden. Albert klickt auf den Zurück-Button. Albert kommt zurück in die Lobby.
-		\paragraph{Zugeteilter Entwickler} Da Keanu Stückrad bereits vorher andere Szenenwechsel realisiert hat, fiel Ihm diese Task zu.
-		\paragraph{Schätzung}
-		Das Feature wurde auf drei Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Entwicklung verlief schneller als erwartet und wurde nach 1h abgeschlossen.
-		
-		\subsubsection{Core - ArmyBuilder - Löschen der Armee (Clear)}
-		\paragraph{Ziel} Im ArmyBuilder soll ein Button implementiert werden, mit dem man eine Armee komplett leeren kann.
-		\paragraph{Story}Albert befindet sich im ArmyBuilder. Es ist eine Armee mit Einheiten ausgewählt. Albert klickt auf den Trash-Button. Alle Einheiten der ausgewählten Armee werden aus dieser entfernt. Es wird noch keine Änderungen gespeichert.
-		\paragraph{Zugeteilter Entwickler} Diese Aufgabe hat Tobias Klipp übernommen, da er das Laden und Speichern der Armee realisiert.
-		\paragraph{Schätzung}
-		Das Feature wurde auf einen Story Point geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Das Feature wurde nicht im dritten Sprint abgeschlossen und wurde deshalb in den vierten Sprint übernommen.
-		
-		\subsubsection{Core - ArmyBuilder - Info Über Attribute}
-		\paragraph{Ziel} Im ArmyBuilder soll eine Anzeige mit Informationen zu den Attributen der Einheiten geben.
-		\paragraph{Story}Albert befindet sich in dem ArmyBuilder. Der ArmyBilder enthält einen Info-Button. Albert klick auf den Info-Button. Es öffnet sich ein Dialog mit entsprechenden Informationen zu den Attributen und der Erklärung zu weiteren Symbolen.
-		\paragraph{Zugeteilter Entwickler} Die Task wurde von Keanu Stückrad bearbeitet.
-		\paragraph{Schätzung}
-		Das Feature wurde auf drei Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Entwicklung hat zwei Stunden länger in Anspruch genommen, da der Entwickler mehr Zeit für das Aussehen der Oberfläche benötigte.
-		
-		\subsubsection{Optional - ArmyBuilder - Musik an/aus}
-		\paragraph{Ziel} Im ArmyBuilder soll es einen Button geben um die Musik an- und auszuschalten. 
-		\paragraph{Story} Es werden zwei Stories zusammengefasst, da sich beide Stories von den Arbeitsbereichen zu stark überschneiden. \\ \ \\ Albert befindet sich in dem ArmyBuilder. Die Musik läuft. Albert nervt die Musik. Albert klickt auf den Musik-Button. Die Musik geht aus. \\ Albert hat wieder Lust auf Musik. Albert klickt auf den Musik-Button. Die Musik geht wieder an.
-		\paragraph{Zugeteilter Entwickler} Die Task wurde von Keanu Stückrad bearbeitet, da dieser schon das Abspielen der Musik implementiert hat.
-		\paragraph{Schätzung}
-		Das Feature wurde auf einen Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Entwicklung verlief mit 30 Minuten für das Feature schneller als geplant.
-		
-		\subsubsection{Optional - Waiting Room - Anzeigen der Karte (Preview)}
-		\paragraph{Ziel} Im Warteraum soll es eine Vorschau für die Karte des kommenden Spiels geben.
-		\paragraph{Story} Albert befindet sich in der Lobby. Albert tritt einem Spiel aus der Spieleliste bei. Albert wird beim Spiel angemeldet und befindet sich nun im Waiting Room. Es wird eine Vorschau für das kommende Spielfeld angezeigt.
-		\paragraph{Zugeteilter Entwickler} Diese Story wurde von Jan Müller bearbeitet.
-		\paragraph{Schätzung}
-		Das Feature wurde auf drei Story Points geschätzt, da es auf das Anzeigen des Spielfeldes aufbaut und sich daran orientiert werden kann.
-		\paragraph{Verlauf der Entwicklung} 
-		Diese Story wurde im dritten Sprint begonnen, konnte jedoch nicht abgeschlossen werden, da hier auf die Fertigstellung der Spielkarte gewartet werden musste. Die Story wurde in den vierten Sprint mitgenommen.
-		
-		\subsubsection{Core - Waiting Room - Anzeigen des Waiting Rooms (neues Layout)}
-		\paragraph{Ziel} Durch das zweite Release gab es neue Anforderungen an den Warteraum, weshalb das Layout des Warteraums angepasst werden musste.
-		\paragraph{Story} Albert befindet sich in der Lobby. Albert tritt einem Spiel aus der Spieleliste bei. Es wird der Waiting Room für das Spiel angezeigt nach dem neuen Layout (Mockup).
-		\paragraph{Zugeteilter Entwickler} Diese Aufgabe wurde Keanu Stückrad zugeteilt, da er im letzten Release bereits begonnen hat den Waiting Room zu implementieren.
-		\paragraph{Schätzung}
-		Das Feature wurde auf fünf Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Anpassungen erwiesen sich als zeitaufwändiger, da der Entwickler Probleme mit der Anordnung der einzelnen Elemente hatte. Es wurden insgesamt neun Stunden dafür benötigt.
-		
-		\subsubsection{Core - Lobby - Auswahl der Armee }
-		\paragraph{Ziel} Es soll möglich sein in der Lobby eine Armee auszuwählen. 
-		\paragraph{Story} Albert befindet sich in der Lobby. Es wird die Armeeauswahl angezeigt. Albert klickt eine Armee an. Die Armee wird für das kommende Spiel ausgewählt.
-		\paragraph{Zugeteilter Entwickler} Omar Sood wurde dieser Aufgabe zugeteilt, da von Ihm der Armeeauswahl im ArmyBuilder bereits implementiert wurde.
-		\paragraph{Schätzung}
-		Das Feature wurde auf einen Story Point geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Aufgabe wurde innerhalb von 18 Minuten abgeschlossen, da viele Grundlagend bereits vorhanden waren.
-		
-		\subsubsection{Core - Ingame - Anzeigen der Spielfeldes}
-		\paragraph{Ziel} Es soll das Spielfeld angezeigt werden.
-		\paragraph{Story}Albert befindet sich im Waiting Room und es sind alle Spieler für ein Spiel anwesend. Das Spiel wird gestartet. Es wird das Spielfeld angezeigt.
-		\paragraph{Zugeteilter Entwickler} Keanu Stückrad bearbeitete diese Aufgabe.
-		\paragraph{Schätzung}
-		Das Feature wurde auf drei Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Für die Aufgabe wurden am Ende 7,5h benötigt, da es zum Zeitpunkt der Schätzung unklar war, welche Informationen über das Spielfeld vom Server gesendet werden. Die Schätzung der Aufgabe wurde vor Veröffentlichung der Serverdokumentation des zweiten Releases durchgeführt. Die Nachrichten des Servers werden in der Serverdokumentation nicht erläutert, wodurch das Schätzen des Tasks erschwert war.
-		
-		\subsubsection{Optional - Ingame - Zoomen auf dem Spielfeld}
-		\paragraph{Ziel} Es soll ein Vergrößern und Verkleinern der Spielkarte möglich sein.
-		\paragraph{Story}Albert befindet sich in einem Spiel welches bereits gestartet ist. Es ist ein Vergrößern-Button vorhanden. Albert klickt auf den Verkleinern-Button. Das Spielfeld wird um eine Stufe herangezoomt.
-		\paragraph{Zugeteilter Entwickler} Diese Aufgabe bearbeite Keanu Stückrad, da er auch für die Implementierung des Spielfeldes verantwortlich war.
-		\paragraph{Schätzung}
-		Das Feature wurde auf 15 Story Points geschätzt, da es noch unklar war wie man das Zoomen realisiert werden kann.
-		\paragraph{Verlauf der Entwicklung} 
-		Das Feature wurde bereits in diesem Sprint begonnen, konnte jedoch nicht fertig gestellt werden. Es wird in den vierten Sprint Übernommen.
-		
-		\subsubsection{Core - Ingame - Spiel verlassen}
-		\paragraph{Ziel} Es soll möglich sein ein Spiel zu verlassen.
-		\paragraph{Story} Albert befindet sich in einem gestartetem Spiel. Albert hat den Early Rush vermasselt. In der Ingame Scene ist ein Leave-Game-Button vorhanden. Albert klickt auf den Leave-Game-Button und verlässt das Spiel ordnungsgemäß. Albert kommt zurück in die Lobby.
-		\paragraph{Zugeteilter Entwickler} Als Entwickler wurde Keanu Stückrad dieser Aufgabe zugeteilt.
-		\paragraph{Schätzung}
-		Das Feature wurde auf drei Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Das Feature wurde bereits in diesem Sprint begonnen, konnte jedoch noch nicht abgeschlossen werden. Es wurde in den vierten Sprint verschoben.
-		
-		\subsubsection{Core - ArmyBuilder - Hinzufügen der Einheiten}
-		\paragraph{Ziel} Es soll die ausgewählte Einheit der Armeeliste hinzugefügt werden.
-		\paragraph{Story} Albert befindet sich im ArmyBuilder. Er hat eine Einheit ausgewählt. Albert klickt auf den Hinzufügen-Button Die ausgewählte Einheit wird der ausgewählten Armee hinzugefügt.
-		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
-		\paragraph{Schätzung}
-		Das Feature wurde auf 13 Story Points geschätzt
-		\paragraph{Verlauf der Entwicklung} 
-		Die Entwicklung verlief schneller als geplant, da bereits Techniken aus vorhergehende Tasks angewandt werden konnten. Es wurde Insgesamt nur sieben Stunden und 23 Minuten benötigt.
-		
-		\subsubsection{Core - Waiting Room - Spiel beitreten}
-		\paragraph{Ziel} Es soll erfolgreich einem Spiel beigetreten werden und der Waiting Room angezeigt werden.
-		\paragraph{Story} Albert befindet sich in der Lobby. Albert hat eine Armee ausgewählt und klickt auf Spiel beitreten. Albert befindet sich nun im Waiting Room. Die Verbindung wird korrekt aufgebaut und es können Nachrichten empfangen werden.
-		\paragraph{Zugeteilter Entwickler} Jan Müller wurde diese Aufgabe zugeteilt.
-		\paragraph{Schätzung}
-		Das Feature wurde auf 16 Story Points geschätzt, da die Verarbeitung der Servernachrichten als komplex angesehen wurden. Eine Schätzung war für diese Aufgabe schwer, da die Serverdokumentation keine Aussage über die eingehenden Nachrichten macht.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Implementierung verlief ohne Komplikationen. Die Task benötigte insgesamt 15,5h zur Bearbeitung, womit wir leicht unter der Schätzung lagen. Die Story wurde also vom Team gut eingeschätzt.
-		
-		\subsubsection{Core - Waiting Room - Chat}
-		\paragraph{Ziel} Im Waiting Room soll ein Chat vorhanden sein
-		\paragraph{Story} Albert befindet sich im Waiting Room eines Spiels. Albert schreibt ein Nachricht in den Game-Chat. Die Nachricht wird im Game-Chat angezeigt und die Nachricht wird an die anderen Spieler versendet.
-		\paragraph{Zugeteilter Entwickler} Jan Müller wurde diese Aufgabe zugeteilt, da Jan im letzten Release schon für den Chat in der Lobby zuständig war.
-		\paragraph{Schätzung}
-		Das Feature wurde von Jan auf 13 Story Points geschätzt, da er die meiste Erfahrung mit dem Chat hat.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Story wurde zeitaufwändiger eingeschätzt, als diese am Ende war. Es wurde 13h prognostiziert, von den wir am Ende nur 6,5h benötigten. Das Team hat die Aufgabe überschätzt, da die Teammitglieder nicht sicher waren, wie die Interaktion mit dem Game-Websocket ausfallen wird.
-		
-		\subsubsection{Appearance - ArmyBuilder}
-		\paragraph{Ziel} Es soll der AmryBuilder an das Dark Theme angepasst werden.
-		\paragraph{Story} Albert befindet sich in der Lobby. Albert klickt auf den ArmyBuilder Button. Albert befindet sich nun im ArmyBuilder und es sind alle nötigen Daten geladen und werden angezeigt. Der ArmyBuilder wird entsprechend dem Style der Mockups angezeigt.
-		\paragraph{Zugeteilter Entwickler} Als Entwickler wurde Keanu Stückrad diese Aufgabe zugewiesen.
-		\paragraph{Schätzung}
-		Das Feature wurde auf acht Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Diese Story wurde in den vierten Sprint verschoben, da wir uns im dritten Sprint stärker auf die Funktionalität fokussiert haben. 
-		
-		\subsubsection{Core - ArmyBuilder - In den ArmyBuilder navigieren}
-		\paragraph{Ziel} In der Lobby soll ein Button vorhanden sein, mit welchem man in den ArmyBuilder navigieren kann.
-		\paragraph{Story} Albert befindet sich in der Lobby. In der Lobby ist ein ArmyBuilder-Button vorhanden. Albert klickt auf den ArmyBuilder-Button. Albert kommt in den ArmyBuilder.
-		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
-		\paragraph{Schätzung}
-		Das Feature wurde auf drei Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Entwicklung des Features dauerte vier Stunden und sieben Minuten. Die Entwickler haben, die Aufgaben leicht unterschätzt.
-		
-		\subsubsection{Core - ArmyBuilder - Auswählen einer Armee}
-		\paragraph{Ziel} Im ArmyBuilder soll eine Auswahl für die Armeen vorhanden sein.
-		\paragraph{Story} Albert befindet sich in der ArmyBuilder. Es ist eine Liste der Armeen vorhanden. Albert klickt auf eine Armee (wählt diese aus). Die Armee wird ausgewählt und entsprechend in der Armeeübersicht angezeigt.
-		\paragraph{Zugeteilter Entwickler} Die Story wird von Omar Sood bearbeitet, da dieser für die Oberfläche und Logik des ArmyBuilders zuständig ist.
-		\paragraph{Schätzung}
-		Die Story wurde auf fünf Story Points geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Entwicklung dauerte eine Stunde und 58 Minuten. Der Entwickler war schneller fertig als erwartet. Dies lag daran, dass andere Tasks bereits Grundlagen für die Task gaben und somit die Implementierung schneller möglich war.
-		\subsection{Tasks}
-		Neben User Stories, die weiter in Unteraufgaben aufgeteilt sind, wurden einzelne Tasks vom Scrum Master erstellt, die keiner User Story zugeordnet wurden. Diese Tasks konnten nicht direkt in eine Aktion des Nutzers übersetzt werden und waren rein technischer Natur, ohne Bezug zur graphischen Benutzeroberfläche. Auf einzelne Tasks ist es in Jira nicht möglich, Story Points zu schätzen. Im Verlauf des zweiten Releases wurden Zeitschätzungen ergänzt.
-		\subsubsection{Task - Tests optimieren}
-		\paragraph{Ziel} Die Tests der graphischen Oberfläche der Applikation sollten in Bezug auf ihre Ausführungsdauer optimiert werden.
-		\paragraph{Zugeteilter Entwickler} Der Task wird von Omar Sood bearbeitet.
-		\paragraph{Verlauf der Entwicklung} 
-		Die Implementierung dieses Task dauerte 25 Minuten. Es konnten keine Story Points auf diesen Task im Jira geschätzt. Intern wurde eine Arbeitsstunde für diesen Task veranschlagt. Damit benötigte der Entwickler weniger als die veranschlagte Zeit für diesen Taks.
-		\subsubsection{Task - PR - stylingLoginCreate}
-		\paragraph{Ziel} Aus dem ersten Release ist ein offener Pull Request übrig geblieben, der aufgrund von Konflikten nicht gemerged werden konnte. Der Task bestand darin, diese Konflikte zu beseitigen.
-		\paragraph{Zugeteilter Entwickler} Keanu Stückrad bearbeitete diesen Task.
-		\paragraph{Verlauf der Entwicklung} 
-		Mit 30 Minuten wurde dieser Taks schneller abgeschlossen, als die eine Stunde, die intern dafür veranschlagt wurde.
-		\subsubsection{Task - REST Kommunikation}
-		\paragraph{Ziel} Die REST Kommunikation mit dem Server wird in unterschiedlichen Klassen mit Hilfe verschiedener Methoden gehandhabt. In diesem Task sollte die REST Kommunikation unserer Applikation vereinheitlicht werden.
-		\paragraph{Zugeteilter Entwickler} Dieser Task wurde Omar Sood zugewiesen.
-		\paragraph{Schätzung}
-		Der Task wurde auf fünf Zeitstunden geschätzt.
-		\paragraph{Verlauf der Entwicklung} 
-		Der Task wurde sehr niedrig priorisiert und wurde vom Entwickler im dritten Sprint nicht bearbeitet.
-		\newpage
 		
 		\subsection{ZeitÜbersicht}
 		\begin{center}
@@ -631,10 +223,13 @@
 				\end{longtable}
 		\end{center}
 			
-		\subsection{Analyse des 3. Sprint}
-		Der dritte Sprint wurde am 24.06.2019 beendet. Es wurden insgesamt 89 von 130 Story Points abgeschlossen. Die Planung konnte dabei nicht eingehalten werden. Die aufgetretenen Probleme werden im den folgenden Abschnitten erläutert.
+		\subsection{Analyse des 7. Sprints}
+		Der siebte Sprint wurde am 19.08.2019 beendet. Es wurden insgesamt - von 114 Story Points abgeschlossen. Demnach konnte nicht alle vorgesehenen User Stories abgeschlossen werden. Der Ablauf des siebten Sprints wird anhand des Burndown-Diagramms erläutert.
 		
 		\subsubsection{Burndown-Diagramm}
+		In der ersten Woche entspricht das Burndown-Diagramm annähernd der dargestellten Idealkurve. 
+		
+		
 		Betrachtet man zunächst das Burndown-Diagramm für den dritten Sprint, so nimmt in der ersten Woche die Anzahl der abgeschlossenen Story Points kaum zu. Ab der Mitte der zweiten Woche des Sprints beginnt der Graph schnell zu fallen und er endet mit den übrig gebliebenen 21 Story Points. Ein Grund für diesen Verlauf ist die Fehleinschätzung des Teams der zu erledigenden Arbeit, so wurde zum Beispiel das Erstellen der Karte auf drei Story Points geschätzt. Am Ende wurde für diese Task insgesamt 7,5 Stunden benötigt. Dieses Problem trat in diesen Sprint häufiger auf, da die Tasks vor Veröffentlichung der Serverdokumentation des zweiten Releases geschätzt wurden. Ein weiteres Problem, welches am Anfang des Sprints auftrat, waren die unklaren Anforderung an den Sprint, so wurden Features geplant welche mit dem damaligen Serverstand nicht möglich waren. Darauf konnten wir jedoch gut reagieren, indem wir den Entwicklern erst Tasks zuwiesen, welche diese bereits abarbeiten konnten. Während dessen arbeiten wir die restlichen Tasks auf und passten sie an den Serverstand an. Insgesamt können wir hier jedoch von einem guten Abarbeitung der Tasks sprechen, da die geforderten 80 Story Points erfüllt wurden, und einige Tasks sich im Nachhinein als noch aufwändiger heraus stellten. 
 		
 		\begin{figure}[H] 
@@ -645,25 +240,17 @@
 		\end{figure}
 	
 		\subsubsection{Ausreiser}
-		Für zwei User Stories wurden die geschätzten Story Punkte erst am zweiten Tag des dritten Sprints eingetragen. Aus diesem Grund liegt an dieser Stelle im Burndown-Diagramm ein Ausreißer vor. Der nächste Ausreißer wurde dadurch verursacht, dass der Scrum Master eine bereits abgeschlossene User Story wieder geöffnet hat um einen Unteraufgabe hinzuzufügen. Am 19. Juni wurde eine User Story zum laufenden Sprint hinzugefügt. Diese beinhaltet das Auswählen von Armeen im ArmyManger und wurde bis dahin vergessen.
+		Am 10. August wurde eine User Story im Umfang von drei Story Punkten nachträglich in den siebten Sprint aufgenommen. Es hatte sich nach der ersten Implementierung der ``Künstliche Intelligenz`` (KI) gezeigt, dass ein zu einem sinnvollen Verhalten der KI die Betrachtung, der in User Story TG-414 beschriebenen Situation notwendig, ist.\\
+		Am 11. August wurde eine bereits abgeschlossene User Story (TG-409) erneut geöffnet. Dies war notwendig, da erst bei der Überprüfung des Pull Requests auffiel, dass dieses Feature nicht wie in der User Story vorgegeben implementiert war. Daher musst der Entwickler die User Story TG-409 erneut überarbeiten.
 		
 		\subsubsection{Abgeschlossene Vorgänge}
 		
-		In \Abb{AbgeschlosseneVorgaengeSprint3} sind die Abgeschlossenen Vorgänge für den dritten Sprint zu sehen. Insgesamt wurden bereits ein Großteil der geforderten Features für de zweiten Release abgearbeitet. So sind bereits folgende Features vorhanden:
+		In \Abb{AbgeschlosseneVorgaengeSprint3} sind die abgeschlossenen Vorgänge für den siebten Sprint zu sehen. Die an eine ``Künstliche Intelligenz`` gestellten Anforderunen waren nach dem siebten Sprint bereits erfüllt.
 		
-		\paragraph{Initiales Spielgeschehen anzeigen} Bei betreten des Waiting Rooms werden alle Nachrichten für das initiale Spielgeschehen verarbeitet. So erstellen wir basierend auf den erhaltenden Nachrichten ein Datenmodel. Aus diesem wird die Spielkarte mit Graphiken für die entsprechenden Felder generiert.
+		\paragraph{Künstliche Intelligenz} -
 		
-		\paragraph{Ingame Chat}
-		Im Waiting Room ist bereits ein Chat vorhanden, in welchem man über einen General-Chat mit allen Spielern im Spiel chatten kann und auch in einem Privat-Chat mit anderen kommunizieren kann.
-		
-		\paragraph{Vom Waiting Room zurück in die Lobby}
-		Dieses Feature wurde auch bereits implementiert, ein Verlassen des Spiel ist über einen entsprechenden Button bereits möglich.
-		
-		\paragraph{Erstellen und konfigurieren der eigenen Armeen}
-		Eine Konfiguration der Armeen ist bereits vollständig möglich. Dabei ist wird das Limit von 10 Einheiten pro Armee eingehalten. Ein Speichern der Armeen ist bereits lokal und auf dem Server möglich.
-		
-		\paragraph{Ein C0 Abdeckung von 60\%}
-		Zum Ende des dritten Sprints ist eine Code Coverage von 69\% vorhanden. Siehe \Abb{CodeCoverageSprint3}.
+		\paragraph{Ein C0 Abdeckung von -\%}
+		Zum Ende des dritten Sprints ist eine Code Coverage von -\% vorhanden. Siehe \Abb{CodeCoverageSprint3}.
 		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=1\textwidth]{Coverage_Sprint_3.PNG}
