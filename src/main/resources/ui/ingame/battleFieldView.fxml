@@ -30,7 +30,7 @@
                         <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
                      </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets left="5.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox VBox.vgrow="ALWAYS">
@@ -79,7 +79,7 @@
                   </HBox>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
                </padding>
                <styleClass>
                   <String fx:value="root-background-color" />
