@@ -187,8 +187,8 @@ public class CreateGameController implements Rincled
                         Platform::runLater
                     );
             } else if (answer.get("status").equals("failure")){
+                closeLoadingScreen();
                 handleGameRequestErrors(AlertBuilder.Text.CREATE_GAME_ERROR);
-
             }
         }
         closeCreateGameWindow(null);
@@ -208,11 +208,17 @@ public class CreateGameController implements Rincled
         }
     }
 
+    private void closeLoadingScreen(){
+        if (loadingScreenForm != null){
+            loadingScreenForm.setVisible(false);
+        }
+    }
+
     public void handleGameRequestErrors(@Nonnull final AlertBuilder.Text text) {
         alertBuilder.information(text);
     }
 
-    public void showLoadingScreen(){
+    private void showLoadingScreen(){
         if(loadingScreenForm == null){
             try{
                 this.loadingScreenForm = (GridPane) this.loadingScreenFormBuilder.getLoadingScreenForm();
@@ -224,7 +230,9 @@ public class CreateGameController implements Rincled
             loadingScreenForm.setPrefSize(this.lobbyViewController.mainStackPane.getWidth() ,this.lobbyViewController.mainStackPane.getHeight());
             this.lobbyViewController.mainStackPane.getChildren().add(this.loadingScreenForm);
         }
-
+        if ((this.loadingScreenForm != null) && (this.lobbyViewController.mainStackPane.getChildren().contains(this.loadingScreenForm))){
+            loadingScreenForm.setVisible(true);
+        }
     }
 
     public LobbyViewController getLobbyViewController() {
