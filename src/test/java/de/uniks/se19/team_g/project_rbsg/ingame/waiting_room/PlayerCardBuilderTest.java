@@ -10,9 +10,8 @@ public class PlayerCardBuilderTest extends ApplicationTest {
 
     @Test
     public void setPlayer() {
-
         final PlayerCardBuilder sut = new PlayerCardBuilder();
-        final Node root = sut.buildPlayerCard();
+        final Node root = sut.buildPlayerCard(null);
 
         final Player player = new Player("1");
         player.setIsReady(false);
