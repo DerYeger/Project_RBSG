@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
+import com.globalmentor.java.Java;
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -62,7 +63,7 @@ import java.util.function.Function;
 
 @Component
 @Scope("prototype")
-public class LobbyViewController implements RootController, Terminable, Rincled
+public class LobbyViewController implements RootController, Terminable
 {
 
     private static final int ICON_SIZE = 30;
@@ -255,6 +256,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         armyBuilderLink.textProperty().bind(
                 JavaFXUtils.bindTranslation(selectedLocale, "ArmyBuilderLink")
         );
+        createGameButton.textProperty().bind(
+                JavaFXUtils.bindTranslation(selectedLocale, "createGameButton")
+        );
     }
 
     private void onLobbyOpen() {
@@ -344,8 +348,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             selectedLocale.setValue(locale);
         }
 
-        createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
-        lobbyTitle.textProperty().setValue(getResources().getString("title"));
+        lobbyTitle.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "title"));
 
         if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
             createGameFormBuilder.getCreateGameController().updateLabels();
