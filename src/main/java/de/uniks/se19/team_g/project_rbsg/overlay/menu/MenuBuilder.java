@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,10 +57,13 @@ public class MenuBuilder implements ApplicationContextAware {
         return languages;
     }
 
-    public void lobbyMenu(@NonNull final List<Tuple<String, Node>> entries) {
+    public void lobbyMenu() {
         try {
-            entries.add(0, new Tuple<>("language", languageDropdown()));
-            entries.add(0, new Tuple<>("credits", creditsBuilder.newButton()));
+            final List<Tuple<String, Node>> entries = new ArrayList<>();
+            entries.add(new Tuple<>("music", musicManager.newButton()));
+            entries.add(new Tuple<>("language", languageDropdown()));
+            entries.add(new Tuple<>("credits", creditsBuilder.newButton()));
+
             menu(entries).show();
         } catch (final OverlayException e) {
             logger.info("Unable to create menu: " + e.getMessage());
@@ -68,6 +72,7 @@ public class MenuBuilder implements ApplicationContextAware {
 
     public void battlefieldMenu(@NonNull final List<Tuple<String, Node>> entries) {
         try {
+            entries.add(0, new Tuple<>("music", musicManager.newButton()));
             menu(entries).show();
         } catch (final OverlayException e) {
             logger.info("Unable to create menu: " + e.getMessage());
@@ -76,7 +81,7 @@ public class MenuBuilder implements ApplicationContextAware {
 
     private Menu menu(@NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
         final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
-        entries.add(0, new Tuple<>("music", musicManager.newButton()));
+
         if (target == null) {
             throw new OverlayException("No target available");
         }
