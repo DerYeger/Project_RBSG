@@ -1,20 +1,19 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
-import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenController;
 import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
@@ -131,10 +130,9 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
                     mock(ChatController.class),
                     mock(LobbyChatClient.class),
                     mock(CreateGameFormBuilder.class),
-                    mock(CreditsFormBuilder.class),
-                    mock(MusicManager.class),
                     mock(DefaultLogoutManager.class),
                     mock(AlertBuilder.class),
+                    mock(MenuBuilder.class),
                     mock,
                     null,
                     null,
