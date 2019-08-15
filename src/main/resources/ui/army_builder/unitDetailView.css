@@ -5,6 +5,8 @@
 .unitPropertyContainer {
     -fx-border-color: -default-border-color;
     -fx-border-width: 2px;
+    -fx-min-height: 80;
+    -fx-min-width: 160;
 }
 
 .army-scene-content {
@@ -22,7 +24,7 @@
     -fx-text-fill: -on-primary-fill;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
-    -fx-font-size: 32pt;
+    -fx-font-size: 40pt;
     -fx-text-alignment: center;
 }
 
