@@ -1,0 +1,9 @@
+.loadingScreenPane{
+    -fx-background-color: rgba(0, 0, 0, 0.7);
+}
+
+.label{
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-size: 18;
+    -fx-text-alignment: center;
+}

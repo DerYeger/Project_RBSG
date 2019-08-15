@@ -1,10 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg;
 
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import io.rincl.*;
+import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

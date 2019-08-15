@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -13,7 +15,12 @@ import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyAdapter;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyUnitAdapter;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -49,6 +56,13 @@ import org.testfx.util.WaitForAsyncUtils;
         RestTemplate.class,
         LocaleConfig.class,
         UnitPropertyController.class,
+        AlertBuilder.class,
+        SceneManager.class,
+        GetArmiesService.class,
+        ArmyAdapter.class,
+        ArmyUnitAdapter.class,
+        SaveFileStrategy.class,
+        UserProvider.class
 })
 public class ArmyBuilderViewTest extends ApplicationTest {
 

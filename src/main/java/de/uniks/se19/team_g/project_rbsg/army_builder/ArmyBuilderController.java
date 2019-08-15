@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
@@ -14,6 +15,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
@@ -33,6 +35,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -72,6 +75,8 @@ public class ArmyBuilderController implements Initializable, RootController {
     private final SceneManager sceneManager;
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
+    @NonNull
+    private final AlertBuilder alertBuilder;
     private final Property<Locale> selectedLocale;
     public StackPane root;
     public VBox content;
@@ -92,8 +97,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public HBox modalContainer;
 
     @Nonnull
-    PersistentArmyManager persistantArmyManager;
-
+    private PersistentArmyManager persistantArmyManager;
 
     @SuppressWarnings("FieldCanBeLocal")
     private ChangeListener<Unit> onSelectionUpdated;
@@ -107,6 +111,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
 
+    @Nonnull private final GetArmiesService getArmiesService;
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
@@ -119,7 +124,9 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
             @Nonnull PersistentArmyManager persistantArmyManager,
-            @Nonnull final Property<Locale> selectedLocale
+            @Nonnull final Property<Locale> selectedLocale,
+            @NonNull AlertBuilder alertBuilder,
+            @NonNull GetArmiesService getArmiesService
     ) {
         this.selectedLocale = selectedLocale;
         this.appState = appState;
@@ -132,6 +139,8 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
         this.persistantArmyManager = persistantArmyManager;
+        this.alertBuilder = alertBuilder;
+        this.getArmiesService=getArmiesService;
     }
 
     @Override
@@ -182,8 +191,6 @@ public class ArmyBuilderController implements Initializable, RootController {
                 getClass().getResource("/assets/icons/operation/editBlack.png"),
                 80
         );
-
-
 
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
@@ -252,14 +259,25 @@ public class ArmyBuilderController implements Initializable, RootController {
             return;
         }
         if(viewState.unsavedUpdates.get()==true){
-            try {
-                persistantArmyManager.saveArmies(appState.armies);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            alertBuilder.confirmation(
+                    AlertBuilder.Text.UNSAVED_ARMY,
+                    () -> {
+                            this.saveArmies();
+                            moveToLobby();
+                        },
+                    () -> {
+                        appState.armies.addAll(getArmiesService.loadArmies());
+                        appState.armies.remove(0,7);
+                        moveToLobby();
+                    }
+                    );
         }
+        else{
+            moveToLobby();
+        }
+    }
+
+    private void moveToLobby(){
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 

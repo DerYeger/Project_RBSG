@@ -59,6 +59,7 @@
         /* Text-Fill */
     -on-primary-fill: #ffffff; /* Button non-hover */
     -on-secondary-fill: rgba(255, 255, 255, 0.7);
+    -on-secondary-fill-2: rgba(255, 255, 255, 0.6);
     -on-disabled-fill: rgba(255, 255, 255, 0.3);
     -on-hovered-fill: #000000; /* Button hover */
     /* use -fx-font-weight: bold; to highlight something! */
@@ -254,12 +255,14 @@
     -fx-opacity: 100;
     -fx-font-size: 160px;
     -fx-effect: -shadow;
+    -fx-text-fill: -on-secondary-fill-2;
 }
 
 .label.subtitle {
     -fx-font-family: Black;
     -fx-font-size: 80px;
     -fx-effect: -shadow;
+    -fx-text-fill: -on-secondary-fill-2;
 }
 
 /*------------------ProgressIndicator------------------*/
