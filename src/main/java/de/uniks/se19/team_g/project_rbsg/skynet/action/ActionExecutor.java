@@ -34,7 +34,11 @@ public class ActionExecutor
         } else if (action instanceof PassAction) {
             executePass((PassAction) action);
         }
+        else if ( action instanceof SurrenderAction) {
+            executeSurrender();
+        }
     }
+
 
     private void executeMove(@NonNull final MovementAction action)
     {
@@ -74,5 +78,9 @@ public class ActionExecutor
     {
         api.endPhase();
         action.game.clearSelection();
+    }
+
+    private void executeSurrender()
+    {
     }
 }
