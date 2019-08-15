@@ -212,11 +212,15 @@ public class ArmyDetailController implements Initializable {
                 if(i==0 && leftOrRight==-1 || i==squadList.size() && leftOrRight==1){
                     return;
                 }
+                squadMap.remove(selected);
                 neighbour=(SquadViewModel) squadList.get(i+leftOrRight);
+                squadMap.remove(neighbour);
                 Unit neighbourUnit = neighbour.members.get(0);
                 neighbour.members.set(0, selected);
                 selectedModel.members.set(0, neighbourUnit);
                 i=squadList.size();
+                squadMap.put(neighbourUnit, selectedModel);
+                squadMap.put(selected, neighbour);
             }
         }
     }
