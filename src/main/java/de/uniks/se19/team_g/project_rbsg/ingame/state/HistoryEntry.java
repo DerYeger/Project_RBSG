@@ -6,6 +6,8 @@ public class HistoryEntry {
     private HistoryEntry previous;
     private Action action;
 
+    private boolean applied;
+
     public HistoryEntry getNext() {
         return next;
     }
@@ -28,5 +30,13 @@ public class HistoryEntry {
 
     public void setAction(Action action) {
         this.action = action;
+    }
+
+    public boolean isApplied() {
+        return applied;
+    }
+
+    public void setApplied(boolean applied) {
+        this.applied = applied;
     }
 }

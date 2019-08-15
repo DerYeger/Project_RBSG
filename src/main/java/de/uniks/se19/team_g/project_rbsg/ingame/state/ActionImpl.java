@@ -45,4 +45,9 @@ public class ActionImpl implements Action {
     public Object getPreviousValue() {
         return previousValue;
     }
+
+    @Override
+    public void undo() {
+        beanWrapper.setPropertyValue(fieldName, previousValue);
+    }
 }

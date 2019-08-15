@@ -38,10 +38,21 @@ public class History {
         HistoryEntry current = this.current.getValue();
         HistoryEntry next = current != null ? current.getNext() : head;
         if (next == null) {
-            throw new IllegalStateException("can't forward history");
+            return;
         }
         next.getAction().run();
+        next.setApplied(true);
         this.current.setValue(next);
+    }
+
+    public void back() {
+        HistoryEntry current = this.current.getValue();
+        if (current == null) {
+            return;
+        }
+        current.getAction().undo();
+        current.setApplied(false);
+        this.current.setValue(current.getPrevious());
     }
 
     public ObservableList<HistoryEntry> getEntries() {
