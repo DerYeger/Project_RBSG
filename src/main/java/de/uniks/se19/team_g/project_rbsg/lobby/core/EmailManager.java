@@ -1,15 +1,20 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import com.sun.javafx.PlatformUtil;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import io.rincl.Rincled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
-public class EmailManager
+@Component
+public class EmailManager implements Rincled
 {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final String EMAIL_ADDRESS = "seb@uni-kassel.de";
@@ -18,6 +23,15 @@ public class EmailManager
     private final String COMMAND_WINDOWS = "cmd /c start " + COMMAND;
     private final String COMMAND_MAC = "open " + COMMAND;
     private final String COMMAND_UNIX = "xdg-open " + COMMAND;
+
+    private final ApplicationState appState;
+
+    private Process process = null;
+
+    public EmailManager(ApplicationState appState)
+    {
+        this.appState = appState;
+    }
 
     public void mailTo()
     {
@@ -56,12 +70,21 @@ public class EmailManager
         Runtime rt = Runtime.getRuntime();
         try
         {
-            rt.exec(cmd);
+            process = rt.exec(cmd);
         } catch (IOException e)
         {
+            if (Objects.nonNull(appState))
+            {
+                appState.notifications.add(getResources().getString("emailManager.error"));
+            }
             e.printStackTrace();
         }
 
 
+    }
+
+    public Process getProcess()
+    {
+        return process;
     }
 }

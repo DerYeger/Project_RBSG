@@ -123,6 +123,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @NonNull final AlertBuilder alertBuilder,
             @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
             @Nonnull final Property<Locale> selectedLocale,
+            @NonNull final EmailManager emailManager,
             @Nullable final ApplicationState appState,
             @Nullable final Function<VBox, NotificationModalController> notificationRenderer
     )
@@ -149,7 +150,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.sceneManager = sceneManager;
         this.musicManager = musicManager;
 
-        this.emailManager = new EmailManager();
+        this.emailManager = emailManager;
     }
 
     public Lobby getLobby()
@@ -417,6 +418,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void sendButReport(ActionEvent actionEvent)
     {
-        emailManager.mailTo();
+            emailManager.mailTo();
+            if(Objects.nonNull(appState) && appState.notifications.size() > 0) {
+                showNotifications();
+            }
     }
 }
