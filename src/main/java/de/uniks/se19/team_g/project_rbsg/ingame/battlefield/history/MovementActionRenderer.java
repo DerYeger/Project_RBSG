@@ -43,7 +43,7 @@ public class MovementActionRenderer implements ActionRenderer {
     }
 
     @Override
-    public Node render(Action action) {
+    public HistoryRenderData render(Action action) {
 
         if (!supports(action)) return null;
 
@@ -56,7 +56,9 @@ public class MovementActionRenderer implements ActionRenderer {
         controller.primaryIcon.setImage(unit.getUnitType().getIconImage());
         controller.secondaryIcon.setImage(getMoveIcon());
 
-        return fxmlLoader.getRoot();
+        Node root = fxmlLoader.getRoot();
+
+        return new HistoryRenderData(root, unit.getLeader());
     }
 
     @Override
