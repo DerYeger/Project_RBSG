@@ -106,9 +106,9 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints percentHeight="8.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="52.0" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="56.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="30.0" valignment="TOP" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="8.0" valignment="TOP" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="6.0" valignment="TOP" vgrow="ALWAYS" />
                </rowConstraints>
                <StackPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
