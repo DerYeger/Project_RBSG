@@ -3,11 +3,11 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.HistoryEntry;
 import javafx.scene.control.ListCell;
 
-public class ActionCell extends ListCell<HistoryEntry> {
+public class HistoryEntryCell extends ListCell<HistoryEntry> {
 
     private final ActionRenderer actionRenderer;
 
-    public ActionCell(ActionRenderer actionRenderer) {
+    public HistoryEntryCell(ActionRenderer actionRenderer) {
 
         this.actionRenderer = actionRenderer;
 

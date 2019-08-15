@@ -25,7 +25,7 @@ public class HistoryViewController {
     }
 
     private void configureHistory() {
-        history.setCellFactory( param -> new ActionCell(actionRenderer));
+        history.setCellFactory( param -> new HistoryEntryCell(actionRenderer));
 
         history.setItems(
             context.getModelManager().getHistory().getEntries().filtered(
