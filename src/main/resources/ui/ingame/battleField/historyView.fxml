@@ -6,11 +6,11 @@
 
 <fx:root type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewController">
     <children>
-        <ListView fx:id="history" fixedCellSize="50.0" focusTraversable="false" maxWidth="90.0" minWidth="90.0" VBox.vgrow="SOMETIMES">
+        <ListView fx:id="history" fixedCellSize="50.0" focusTraversable="false" maxWidth="90.0" minWidth="90.0" style="-fx-vbar-policy: always;" VBox.vgrow="SOMETIMES">
          <styleClass>
-            <String fx:value="verticalHidden" />
             <String fx:value="default" />
-            <String fx:value="horizontalHidden" />
+            <String fx:value="striped" />
+            <String fx:value="arrowsHidden" />
          </styleClass></ListView>
     </children>
 </fx:root>
