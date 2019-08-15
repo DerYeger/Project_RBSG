@@ -31,12 +31,12 @@ import java.util.stream.Collectors;
 @Component
 public class UnitDetailController implements Initializable {
 
-    public final static String ATTACK_ICON_URL = UnitDetailController.class.getResource("/assets/icons/army/magicDefense.png").toString();
+    private final static String HEALTH_ICON_URL = UnitDetailController.class.getResource("/assets/icons/units/hpIcon.png").toString();
+    private static final String MOVEMENT_ICON_URL = UnitDetailController.class.getResource("/assets/icons/units/mpIcon.png").toString();;
 
     public StackPane imageStackPane;
     public ImageView imageView;
     public TilePane statsContainer;
-    public TilePane statsContainer2;
     public TextArea unitDescription;
     public GridPane canAttackGrid;
     public Label canAttackLabel;
@@ -86,13 +86,8 @@ public class UnitDetailController implements Initializable {
 
         if (propertyViewComponentFactory != null) {
             statsContainer.getChildren().clear();
-            statsContainer2.getChildren().clear();
-            addPropertyDetail(unit.health, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
-            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
-            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
-            addPropertyDetail(unit.health, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
-            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
-            addPropertyDetail(unit.speed, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer2);
+            addPropertyDetail(unit.health, new Image(UnitDetailController.HEALTH_ICON_URL), statsContainer);
+            addPropertyDetail(unit.speed, new Image(UnitDetailController.MOVEMENT_ICON_URL), statsContainer);
         }
 
         updateCanAttackTiles(unit);
@@ -118,10 +113,9 @@ public class UnitDetailController implements Initializable {
         imageView.imageProperty().unbind();
         imageView.setImage(null);
         statsContainer.getChildren().clear();
-        statsContainer2.getChildren().clear();
         if (propertyViewComponentFactory != null) {
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
-            addPropertyDetail(null, new Image(UnitDetailController.ATTACK_ICON_URL), statsContainer);
+            addPropertyDetail(null, new Image(UnitDetailController.HEALTH_ICON_URL, 80, 80, true, true), statsContainer);
+            addPropertyDetail(null, new Image(UnitDetailController.MOVEMENT_ICON_URL, 80, 80, true, true), statsContainer);
         }
     }
 
@@ -132,11 +126,7 @@ public class UnitDetailController implements Initializable {
         viewComponent.getController().bindTo(property, icon);
         final Node node = viewComponent.getRoot();
         tile.getChildren().add(node);
-        if(tile.equals(statsContainer)){
-            TilePane.setMargin(node, new Insets(0, 10, 10, 0));
-        } else {
-            TilePane.setMargin(node, new Insets(0, 0, 10, 0));
-        }
+        TilePane.setMargin(node, new Insets(0, 10, 10, 0));
     }
 
     @Override
