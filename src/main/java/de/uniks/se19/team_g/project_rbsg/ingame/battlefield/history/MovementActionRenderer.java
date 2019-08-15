@@ -36,7 +36,9 @@ public class MovementActionRenderer extends DefaultActionRenderer {
 
         Node root = fxmlLoader.getRoot();
 
-        return new HistoryRenderData(root, Color.web(unit.getLeader().getColor()));
+        Color color = unit.getLeader() != null ? Color.web(unit.getLeader().getColor()) : null;
+
+        return new HistoryRenderData(root, color);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,28 +38,38 @@ import java.util.function.Predicate;
         FXMLLoaderFactory.class,
         HistoryViewProvider.class,
         HistoryViewController.class,
+        HistoryViewConfig.class,
 })
 public class HistoryViewTest extends ApplicationTest {
 
     @Autowired
     HistoryViewProvider historyViewProvider;
 
+    @Autowired
+    @Qualifier("actionRenderer")
+    ActionRenderer renderer;
+
     @MockBean
     ModelManager modelManager;
 
-    @MockBean
-    ActionRenderer actionRenderer;
+    @MockBean(name = "mockRenderer")
+    ActionRenderer mockRenderer;
 
     @Test
     public void test() throws ExecutionException, InterruptedException {
 
         Unit dickBird = new Unit("dickBird");
+        dickBird.setUnitType(UnitTypeInfo._CHOPPER);
         Unit chubbyCharles = new Unit ("chubbyCharles");
+        chubbyCharles.setUnitType(UnitTypeInfo._HEAVY_TANK);
+        Player bob = new Player("bob");
+        bob.setColor("blue");
 
         Action action0 = Mockito.mock(Action.class);
-        Action action1 = new UpdateAction("position", null, dickBird);
-        Action action2 = new UpdateAction("position", null, chubbyCharles);
-        Action action3 = new UpdateAction("position", null, dickBird);
+        Action action1 = new UpdateAction("position", new Cell("c1"), dickBird);
+        Action action2 = new UpdateAction("hp", 5, chubbyCharles);
+        Action action3 = new UpdateAction("currentPlayer", bob, new Game());
+        Action actionHidden = Mockito.mock(Action.class);
 
         IngameContext context = new IngameContext(
                 new UserProvider(),
@@ -68,12 +79,14 @@ public class HistoryViewTest extends ApplicationTest {
 
         History history = new History();
         history.push(action0);
+        history.push(actionHidden);
         history.push(action1);
         history.push(action2);
+        history.push(actionHidden);
         Mockito.when(modelManager.getHistory()).thenReturn(history);
-        Mockito.when(actionRenderer.supports(action0)).thenReturn(false);
-        Mockito.when(actionRenderer.supports(Mockito.any(UpdateAction.class))).thenReturn(true);
-        Mockito.when(actionRenderer.render(Mockito.any(UpdateAction.class))).thenReturn(new Label("entry"));
+        Mockito.when(mockRenderer.supports(Mockito.any(UpdateAction.class))).thenReturn(false);
+        Mockito.when(mockRenderer.supports(action0)).thenReturn(true);
+        Mockito.when(mockRenderer.render(action0)).thenReturn(new HistoryRenderData(new Label("entry"), null));
         context.setModelManager(modelManager);
 
         VBox root = new VBox();
@@ -93,27 +106,28 @@ public class HistoryViewTest extends ApplicationTest {
 
         Predicate<Node> nonEmptyMatcher = node -> !((ListCell) node).isEmpty();
 
-        Assert.assertEquals(2, lookup("#history .list-cell")
+        Assert.assertEquals(3, lookup(".list-cell")
                 .lookup(nonEmptyMatcher).queryAll().size());
 
         CompletableFuture.runAsync(
                 () -> {
                     history.push(action3);
                     history.push(action0);
+                    history.push(actionHidden);
                 },
                 Platform::runLater
         ).get();
 
-        Assert.assertEquals( 3, lookup("#history .list-cell")
+        Assert.assertEquals( 5, lookup(".list-cell")
                 .lookup(nonEmptyMatcher).queryAll().size());
 
         Mockito.verify(
-                actionRenderer,
-                Mockito.times(5)
+                mockRenderer,
+                Mockito.atLeast(5)
         ).supports(Mockito.any());
         Mockito.verify(
-                actionRenderer,
-                Mockito.times(3)
+                mockRenderer,
+                Mockito.times(2)
         ).render(Mockito.any());
     }
 }
