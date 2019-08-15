@@ -1,13 +1,7 @@
-package de.uniks.se19.team_g.project_rbsg.lobby.game;
+package de.uniks.se19.team_g.project_rbsg.lobby.loading_screen;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenController;
-import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
-import io.rincl.*;
-import io.rincl.resourcebundle.*;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
@@ -28,15 +22,12 @@ import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        CreateGameFormBuilderTest.ContextConfiguration.class,
-        CreateGameFormBuilder.class,
-        CreateGameController.class,
-        GameCreator.class,
-        UserProvider.class,
+        FXMLLoader.class,
         LoadingScreenFormBuilder.class,
-        LoadingScreenController.class
+        LoadingScreenController.class,
+        LoadingScreenBuilderTest.ContextConfiguration.class
 })
-public class CreateGameFormBuilderTest extends ApplicationTest {
+public class LoadingScreenBuilderTest extends ApplicationTest {
 
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
@@ -45,21 +36,14 @@ public class CreateGameFormBuilderTest extends ApplicationTest {
 
         @Bean
         @Scope("prototype")
-        public FXMLLoader fxmlLoader()
-        {
+        public FXMLLoader fxmlLoader() {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
         }
 
-        @Bean
-        public AlertBuilder alertBuilder() {
-            return new AlertBuilder(new SceneManager());
-        }
-
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
             this.context = applicationContext;
         }
     }
@@ -68,9 +52,9 @@ public class CreateGameFormBuilderTest extends ApplicationTest {
     public ApplicationContext context;
 
     @Test
-    public void testGetCreateGameForm() throws IOException {
+    public void testLoadingScreenForm() throws IOException, InterruptedException {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        final Node createGameForm = context.getBean(CreateGameFormBuilder.class).getCreateGameForm();
-        Assert.assertNotNull(createGameForm);
+        final Node loadingScreenForm = context.getBean(LoadingScreenFormBuilder.class).getLoadingScreenForm();
+        Assert.assertNotNull(loadingScreenForm);
     }
 }
