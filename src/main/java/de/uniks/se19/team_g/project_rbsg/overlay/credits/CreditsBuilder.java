@@ -4,7 +4,9 @@ import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayException;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.property.Property;
+import javafx.scene.control.Button;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -32,6 +34,20 @@ public class CreditsBuilder implements ApplicationContextAware {
                           @NonNull final Property<Locale> selectedLocale) {
         this.overlayTargetProvider = overlayTargetProvider;
         this.selectedLocale = selectedLocale;
+    }
+
+    public Button newButton() {
+        final Button creditsButton = new Button();
+        creditsButton.getStyleClass().addAll("icon-button");
+        JavaFXUtils.setButtonIcons(
+                creditsButton,
+                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
+                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
+                30
+        );
+        creditsButton.setOnAction(event -> credits());
+
+        return creditsButton;
     }
 
     public void credits() {

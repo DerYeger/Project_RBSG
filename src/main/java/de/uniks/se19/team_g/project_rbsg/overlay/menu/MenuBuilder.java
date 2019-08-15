@@ -2,17 +2,14 @@ package de.uniks.se19.team_g.project_rbsg.overlay.menu;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayException;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
-import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincled;
 import javafx.beans.property.Property;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -49,7 +46,7 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
 
     public void lobbyMenu(@NonNull final List<Tuple<String, Node>> entries) {
         try {
-            entries.add(0, new Tuple<>("credits", creditsButton()));
+            entries.add(0, new Tuple<>("credits", creditsBuilder.newButton()));
             menu(entries).show();
         } catch (final OverlayException e) {
             logger.info("Unable to create menu: " + e.getMessage());
@@ -88,20 +85,6 @@ public class MenuBuilder implements ApplicationContextAware, Rincled {
                 );
 
         return menu;
-    }
-
-    private Button creditsButton() {
-        final Button creditsButton = new Button();
-        creditsButton.getStyleClass().addAll("icon-button");
-        JavaFXUtils.setButtonIcons(
-                creditsButton,
-                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
-                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
-                30
-        );
-        creditsButton.setOnAction(event -> creditsBuilder.credits());
-
-        return creditsButton;
     }
 
     @Override
