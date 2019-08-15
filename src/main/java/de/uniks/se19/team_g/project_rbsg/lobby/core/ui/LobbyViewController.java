@@ -262,9 +262,9 @@ public class LobbyViewController implements RootController, Terminable
         CompletableFuture.supplyAsync(gameManager::getGames).thenAccept(games -> Platform.runLater(() -> lobby.addAllGames(games)));
     }
 
-    private void setBackgroundImage()
+    public void setBackgroundImage()
     {
-        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.jpg")),
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.png")),
                                           ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
 
         mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,
@@ -311,7 +311,7 @@ public class LobbyViewController implements RootController, Terminable
         if (this.gameForm == null) {
             try {
                 this.gameForm = this.createGameFormBuilder.getCreateGameForm();
-
+                createGameFormBuilder.getCreateGameController().setLobbyViewController(this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -345,6 +345,7 @@ public class LobbyViewController implements RootController, Terminable
 
         if(createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null) {
             createGameFormBuilder.getCreateGameController().updateLabels();
+            createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController().updateLabels();
         }
     }
 
