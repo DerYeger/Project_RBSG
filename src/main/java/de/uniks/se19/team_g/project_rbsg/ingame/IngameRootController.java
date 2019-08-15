@@ -57,6 +57,8 @@ public class IngameRootController
 
     private ViewComponent<? extends IngameViewController> activeComponent;
 
+    private boolean battleFieldAlreadyMounted = false;
+
     public IngameRootController(
             @Nonnull ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory,
             @Nonnull ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory,
@@ -127,12 +129,13 @@ public class IngameRootController
             });
             return;
         }
-        if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
+        if (!battleFieldAlreadyMounted && GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
+            battleFieldAlreadyMounted = true;
             Platform.runLater(this::mountBattleField);
         }
-        logger.debug(String.valueOf(message));
 
-        if (triedToStartTheGame(message)){
+        if (!battleFieldAlreadyMounted && triedToStartTheGame(message)){
+            battleFieldAlreadyMounted = true;
             Platform.runLater(this::mountBattleField);
         }
     }
