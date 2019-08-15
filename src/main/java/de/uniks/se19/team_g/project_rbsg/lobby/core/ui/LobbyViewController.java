@@ -270,7 +270,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     public void setBackgroundImage()
     {
-        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.jpg")),
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource("/assets/splash.png")),
                                           ProjectRbsgFXApplication.WIDTH, ProjectRbsgFXApplication.HEIGHT, true, true);
 
         mainStackPane.setBackground(new Background(new BackgroundImage(backgroundImage,
