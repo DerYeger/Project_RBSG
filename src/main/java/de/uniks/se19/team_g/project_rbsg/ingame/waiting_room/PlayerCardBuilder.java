@@ -1,11 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import io.rincl.Rincl;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * @author  Keanu Stückrad
@@ -52,8 +56,11 @@ public class PlayerCardBuilder {
     private Image whiteAccountImage;
     private Image blackAccountImage;
 
+    private Property<Locale> selectedLocale;
 
-    public Node buildPlayerCard(){
+
+    public Node buildPlayerCard(Property<Locale> selectedLocale){
+        this.selectedLocale = selectedLocale;
         if(fxmlLoader == null) {
             fxmlLoader = new FXMLLoader(getClass().getResource("/ui/waiting_room/playerCard.fxml"));
             fxmlLoader.setController(this);
@@ -86,7 +93,11 @@ public class PlayerCardBuilder {
         playerCardView.getStyleClass().remove(READY_STYLE);
         styles.remove("player");
         styles.add("waiting");
-        playerListCellLabel.setText("Waiting for\nplayer...");
+        if(selectedLocale != null) playerListCellLabel.textProperty().bind(
+                        Bindings.createStringBinding(() -> Rincl.getResources(PlayerCardBuilder.class).getString("waiting"),
+                        selectedLocale
+                )
+        );
         progressIndicator.setVisible(true);
         playerListCellImageView.setVisible(false);
         onPlayerChangedReadyState = null;
@@ -94,7 +105,7 @@ public class PlayerCardBuilder {
 
     public Node playerLeft() {
         if(fxmlLoader == null) {
-            buildPlayerCard();
+            buildPlayerCard(selectedLocale);
         } else {
             setEmpty();
             deleteColor();
@@ -106,8 +117,9 @@ public class PlayerCardBuilder {
 
         this.player = player;
         if(fxmlLoader == null) {
-            buildPlayerCard();
+            buildPlayerCard(selectedLocale);
         }
+        playerListCellLabel.textProperty().unbind();
         Platform.runLater(()-> playerListCellLabel.setText(player.getName()));
         setReady();
         setColor(color);
