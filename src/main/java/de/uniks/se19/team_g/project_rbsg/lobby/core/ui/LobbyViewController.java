@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import com.sun.javafx.PlatformUtil;
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -45,10 +44,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -97,7 +93,6 @@ public class LobbyViewController implements RootController, Terminable
     private CreateGameFormBuilder createGameFormBuilder;
 
     private Node gameForm;
-    private Node creditsForm;
 
     public StackPane mainStackPane;
     public Button menuButton;
@@ -247,7 +242,7 @@ public class LobbyViewController implements RootController, Terminable
         }
 
         mainStackPane.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ESCAPE)) {
+            if (event.getCode().equals(KeyCode.ESCAPE) || event.getCode().equals(KeyCode.F10)) {
                 showMenu(null);
             }
             mainStackPane.setFocusTraversable(true);
