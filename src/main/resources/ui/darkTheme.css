@@ -59,6 +59,7 @@
         /* Text-Fill */
     -on-primary-fill: #ffffff; /* Button non-hover */
     -on-secondary-fill: rgba(255, 255, 255, 0.7);
+    -on-secondary-fill-2: rgba(255, 255, 255, 0.6);
     -on-disabled-fill: rgba(255, 255, 255, 0.3);
     -on-hovered-fill: #000000; /* Button hover */
     /* use -fx-font-weight: bold; to highlight something! */
@@ -145,7 +146,6 @@
 
 .button.icon-button:disabled {
     -fx-background-color: -disabled-background-color;
-    -fx-opacity: 100;
 }
 
 .button.icon-button-big {
@@ -163,6 +163,28 @@
 
 .button.icon-button-big:hover {
     -fx-background-color: -primary-lighter-background-color;
+}
+
+.button.icon-button-giant {
+    -fx-min-height: 200px;
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-max-height: 200px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+}
+
+.button.icon-button-giant:hover {
+    -fx-background-color: -primary-lighter-background-color;
+}
+
+.button.icon-button-giant:disabled {
+    -fx-background-color: -disabled-background-color;
+    -fx-opacity: 100;
 }
 
 .button.disable-button {
@@ -254,12 +276,14 @@
     -fx-opacity: 100;
     -fx-font-size: 160px;
     -fx-effect: -shadow;
+    -fx-text-fill: -on-secondary-fill-2;
 }
 
 .label.subtitle {
     -fx-font-family: Black;
     -fx-font-size: 80px;
     -fx-effect: -shadow;
+    -fx-text-fill: -on-secondary-fill-2;
 }
 
 /*------------------ProgressIndicator------------------*/

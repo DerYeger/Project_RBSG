@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
@@ -15,9 +16,11 @@ import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
+import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -34,12 +37,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
@@ -72,6 +77,9 @@ public class ArmyBuilderController implements Initializable, RootController {
     private final SceneManager sceneManager;
     @Nullable
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
+    @NonNull
+    private final AlertBuilder alertBuilder;
+    private final Property<Locale> selectedLocale;
     public StackPane root;
     public VBox content;
     public HBox topContentContainer;
@@ -91,8 +99,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public HBox modalContainer;
 
     @Nonnull
-    PersistentArmyManager persistantArmyManager;
-
+    private PersistentArmyManager persistantArmyManager;
 
     @SuppressWarnings("FieldCanBeLocal")
     private ChangeListener<Unit> onSelectionUpdated;
@@ -106,6 +113,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
 
+    @Nonnull private final GetArmiesService getArmiesService;
 
     public ArmyBuilderController(
             @Nonnull ApplicationState appState,
@@ -117,8 +125,12 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable Function<VBox, ArmySelectorController> armySelectorComponent,
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
-            @Nonnull PersistentArmyManager persistantArmyManager
+            @Nonnull PersistentArmyManager persistantArmyManager,
+            @Nonnull final Property<Locale> selectedLocale,
+            @NonNull AlertBuilder alertBuilder,
+            @NonNull GetArmiesService getArmiesService
     ) {
+        this.selectedLocale = selectedLocale;
         this.appState = appState;
         this.viewState = viewState;
         this.editArmyComponent = editArmyComponent;
@@ -129,6 +141,8 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
         this.persistantArmyManager = persistantArmyManager;
+        this.alertBuilder = alertBuilder;
+        this.getArmiesService=getArmiesService;
     }
 
     @Override
@@ -247,14 +261,25 @@ public class ArmyBuilderController implements Initializable, RootController {
             return;
         }
         if(viewState.unsavedUpdates.get()==true){
-            try {
-                persistantArmyManager.saveArmies(appState.armies);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            alertBuilder.confirmation(
+                    AlertBuilder.Text.UNSAVED_ARMY,
+                    () -> {
+                            this.saveArmies();
+                            moveToLobby();
+                        },
+                    () -> {
+                        appState.armies.addAll(getArmiesService.loadArmies());
+                        appState.armies.remove(0,7);
+                        moveToLobby();
+                    }
+                    );
         }
+        else{
+            moveToLobby();
+        }
+    }
+
+    private void moveToLobby(){
         sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
@@ -281,7 +306,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public void showInfo() {
 
         if (infoView == null) {
-            infoView = unitPropertyInfoListBuilder.buildInfoView();
+            infoView = unitPropertyInfoListBuilder.buildInfoView(selectedLocale);
             root.getChildren().add(infoView);
             StackPane.setAlignment(infoView, Pos.CENTER);
         }

@@ -2,6 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
@@ -15,11 +17,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +67,10 @@ public class CreateGameController implements Rincled
 
     private Node root;
 
+    private LobbyViewController lobbyViewController;
+    private GridPane loadingScreenForm;
+    public LoadingScreenFormBuilder loadingScreenFormBuilder;
+
     @Nonnull
     private UserProvider userProvider;
     @Nonnull
@@ -88,7 +97,8 @@ public class CreateGameController implements Rincled
             @Nonnull GameCreator gameCreator,
             @Nullable JoinGameManager joinGameManager,
             @Nullable GameProvider gameProvider,
-            @Nullable SceneManager sceneManager
+            @Nullable SceneManager sceneManager,
+            @NonNull LoadingScreenFormBuilder loadingScreenFormBuilder
     ) {
         this.gameCreator = gameCreator;
         this.joinGameManager = joinGameManager;
@@ -96,6 +106,7 @@ public class CreateGameController implements Rincled
         this.userProvider = userProvider;
         this.alertBuilder = alertBuilder;
         this.sceneManager = sceneManager;
+        this.loadingScreenFormBuilder = loadingScreenFormBuilder;
     }
 
     public void init(){
@@ -140,6 +151,7 @@ public class CreateGameController implements Rincled
             && (!this.gameName.getText().equals(""))
             && this.numberOfPlayers != 0
         ){
+            showLoadingScreen();
             this.game = new Game(gameName.getText(), this.numberOfPlayers);
             this.game.setCreator(userProvider.get());
 
@@ -148,12 +160,16 @@ public class CreateGameController implements Rincled
             gameRequestAnswerPromise
                     .thenAccept(map -> Platform.runLater(() -> onGameRequestReturned(map)))
                     .exceptionally(exception -> {
+                        closeLoadingScreen();
                         handleGameRequestErrors(AlertBuilder.Text.NO_CONNECTION);
                         return null;
                     });
+
         } else if((this.gameName.getText() == null) || this.gameName.getText().equals("")){
+            closeLoadingScreen();
             handleGameRequestErrors(AlertBuilder.Text.INVALID_INPUT);
         }
+
     }
 
     public void onGameRequestReturned(@Nullable Map<String, Object> answer) {
@@ -173,8 +189,8 @@ public class CreateGameController implements Rincled
                         Platform::runLater
                     );
             } else if (answer.get("status").equals("failure")){
+                closeLoadingScreen();
                 handleGameRequestErrors(AlertBuilder.Text.CREATE_GAME_ERROR);
-
             }
         }
         closeCreateGameWindow(null);
@@ -194,7 +210,38 @@ public class CreateGameController implements Rincled
         }
     }
 
+    private void closeLoadingScreen(){
+        if (loadingScreenForm != null){
+            loadingScreenForm.setVisible(false);
+        }
+    }
+
     public void handleGameRequestErrors(@Nonnull final AlertBuilder.Text text) {
         alertBuilder.information(text);
+    }
+
+    private void showLoadingScreen(){
+        if(loadingScreenForm == null){
+            try{
+                this.loadingScreenForm = (GridPane) this.loadingScreenFormBuilder.getLoadingScreenForm();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        if((this.loadingScreenForm != null) && (!this.lobbyViewController.mainStackPane.getChildren().contains(this.loadingScreenForm))){
+            loadingScreenForm.setPrefSize(this.lobbyViewController.mainStackPane.getWidth() ,this.lobbyViewController.mainStackPane.getHeight());
+            this.lobbyViewController.mainStackPane.getChildren().add(this.loadingScreenForm);
+        }
+        if ((this.loadingScreenForm != null) && (this.lobbyViewController.mainStackPane.getChildren().contains(this.loadingScreenForm))){
+            loadingScreenForm.setVisible(true);
+        }
+    }
+
+    public LobbyViewController getLobbyViewController() {
+        return lobbyViewController;
+    }
+
+    public void setLobbyViewController(LobbyViewController lobbyViewController) {
+        this.lobbyViewController = lobbyViewController;
     }
 }

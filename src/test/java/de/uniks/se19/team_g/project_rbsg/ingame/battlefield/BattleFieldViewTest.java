@@ -23,12 +23,12 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -57,7 +57,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -330,6 +329,67 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Assert.assertFalse(endPhaseButton.isDisabled());
 
+    }
+
+    @Test
+    public void testUnitSelectionByKey() throws ExecutionException, InterruptedException {
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
+        Game game = definition.game;
+        Unit playerUnit = definition.playerUnit;
+
+        GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        User user = new User();
+        user.setName("Bob");
+        Player player = new Player("Bob").setName("Bob").setColor("RED");
+        playerUnit.setLeader(player);
+
+        Unit secondUnit = new Unit("second").setUnitType(UnitTypeInfo._JEEP);
+        secondUnit.setLeader(player);
+        secondUnit.setPosition(definition.cells[1][1]);
+        game.withUnit(secondUnit);
+
+        Unit thirddUnit = new Unit("third").setUnitType(UnitTypeInfo._JEEP);
+        thirddUnit.setLeader(player);
+        thirddUnit.setPosition(definition.cells[2][1]);
+        game.withUnit(thirddUnit);
+
+        game.withPlayer(player);
+        playerUnit.setLeader(player);
+        //otherUnit.setLeader(player);
+        game.setCurrentPlayer(player);
+
+        IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        context.getUser().setName("Bob");
+        revealBattleField(context);
+        WaitForAsyncUtils.waitForFxEvents();
+        Platform.runLater(() -> game.setSelectedUnit(playerUnit));
+        WaitForAsyncUtils.waitForFxEvents();
+        press(KeyCode.E);
+        release(KeyCode.E);
+        Assert.assertSame(secondUnit, game.getSelectedUnit());
+
+        press(KeyCode.E);
+        release(KeyCode.E);
+        Assert.assertSame(thirddUnit, game.getSelectedUnit());
+
+        press(KeyCode.Q);
+        release(KeyCode.Q);
+        press(KeyCode.Q);
+        release(KeyCode.Q);
+        Assert.assertSame(playerUnit, game.getSelectedUnit());
+
+        secondUnit.setLeader(null);
+        press(KeyCode.E);
+        release(KeyCode.E);
+        Assert.assertSame(thirddUnit, game.getSelectedUnit());
     }
 
     @Test

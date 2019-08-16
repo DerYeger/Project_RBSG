@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -13,6 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+
 
 <StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController">
    <children>
@@ -90,6 +96,11 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="bugReportButton" mnemonicParsing="false" onAction="#sendButReport" styleClass="icon-button" />
+                     </children>
+                  </HBox>
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="ALWAYS" percentWidth="70.0" />
@@ -97,15 +108,18 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints percentHeight="8.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="62.0" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="56.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="30.0" valignment="TOP" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="6.0" valignment="TOP" vgrow="ALWAYS" />
                </rowConstraints>
                <StackPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </StackPane.margin>
             </GridPane>
             <HBox fx:id="modalBackground" alignment="CENTER" styleClass="modal-background" visible="false">
-               <VBox fx:id="modal" alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="modal" HBox.hgrow="NEVER" />
+               <children>
+                  <VBox fx:id="modal" alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="modal" HBox.hgrow="NEVER" />
+               </children>
             </HBox>
          </children>
          <stylesheets>

@@ -53,6 +53,16 @@
     -fx-effect: -shadow;
 }
 
+.name-pane {
+    -fx-effect: -shadow;
+    -fx-background-color: -root-background-color;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Cinzel;
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+}
+
 .label.player {
     -fx-font-size: 22pt;
 }
@@ -60,3 +70,4 @@
 .label.waiting {
     -fx-font-size: 16pt;
 }
+
