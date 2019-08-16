@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
@@ -37,7 +36,7 @@ public class UnitPropertyInfoListViewTest extends ApplicationTest {
     @Override
     public void start(@NonNull final Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        infoView = unitPropertyInfoListBuilder.buildInfoView();
+        infoView = unitPropertyInfoListBuilder.buildInfoView(null);
         Assert.assertNotNull(infoView);
         final Scene scene = new Scene((Parent) infoView, 600, 320);
         stage.setScene(scene);

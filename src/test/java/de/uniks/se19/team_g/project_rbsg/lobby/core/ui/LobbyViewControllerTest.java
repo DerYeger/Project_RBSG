@@ -38,6 +38,7 @@ public class LobbyViewControllerTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
 

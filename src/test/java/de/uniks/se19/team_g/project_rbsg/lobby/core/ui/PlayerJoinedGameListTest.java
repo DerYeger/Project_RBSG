@@ -56,7 +56,8 @@ import static org.hamcrest.CoreMatchers.*;
         ApplicationState.class,
         SceneManagerConfig.class,
         GameListViewCell.class,
-        AlertBuilder.class
+        AlertBuilder.class,
+        EmailManager.class
     }
 )
 public class PlayerJoinedGameListTest extends ApplicationTest

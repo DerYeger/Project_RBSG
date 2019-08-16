@@ -144,6 +144,7 @@ public class LobbyBuilderTest extends ApplicationTest
                     new MenuBuilder(sceneManager, null, new CreditsBuilder(sceneManager, null), new MusicManager()),
                     cellFactory,
                     selectedLocale,
+                    new EmailManager(appState),
                     appState,
                     null
             ) {

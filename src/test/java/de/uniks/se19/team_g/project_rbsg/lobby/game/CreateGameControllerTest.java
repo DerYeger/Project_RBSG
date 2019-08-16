@@ -136,6 +136,7 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
                     mock,
                     null,
                     null,
+                    null,
                     null
             ){
                 @Override

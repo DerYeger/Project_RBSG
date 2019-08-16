@@ -32,7 +32,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -408,6 +407,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
             rootPane.setFocusTraversable(true);
         });
+
     }
 
     private void initPlayerBar()
@@ -799,6 +799,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         zoomableScrollPane.hvalueProperty().addListener(cameraViewChangedListener);
         zoomableScrollPane.vvalueProperty().addListener(cameraViewChangedListener);
 
+        rootPane.addEventHandler(KeyEvent.KEY_PRESSED, this::switchThroughUnits);
+
         miniMapCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, this::miniMapHandleMouseClick);
 
         this.context.getGameState().selectedUnitProperty()
@@ -827,6 +829,62 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(sceneManager.isStageInit()) initListenersForFullscreen();
     }
 
+    private void switchThroughUnits(KeyEvent keyEvent){
+        if(this.context.getGameState().getSelectedUnit() == null){
+            return;
+        }
+        Unit selectedUnit = this.context.getGameState().getSelectedUnit();
+        if(selectedUnit.getLeader() != this.context.getUserPlayer()){
+            return;
+        }
+        int currentIndex = this.context.getUserPlayer().getUnits().indexOf(selectedUnit);
+        if (keyEvent.getCode().equals(KeyCode.E)){
+            getNextUnit(currentIndex);
+        } else if(keyEvent.getCode().equals(KeyCode.Q)){
+            getPreviousUnit(currentIndex);
+        }
+    }
+
+    private void getNextUnit(int currentIndex) {
+        if (this.context.getUserPlayer().getUnits().isEmpty()){
+            return;
+        }
+        Unit nextSelected;
+        if ((currentIndex  + 1) <  this.context.getUserPlayer().getUnits().size()){
+            nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex + 1);
+
+        } else {
+            nextSelected = this.context.getUserPlayer().getUnits().get(0);
+        }
+        selectNextAndCenterCamera(nextSelected);
+    }
+
+    private void getPreviousUnit(int currentIndex){
+        if (this.context.getUserPlayer().getUnits().isEmpty()){
+            return;
+        }
+        Unit nextSelected;
+        if ((currentIndex - 1) >= 0) {
+            nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex - 1);
+
+        } else {
+            int lastIndex = this.context.getUserPlayer().getUnits().size() - 1;
+            nextSelected = this.context.getUserPlayer().getUnits().get(lastIndex);
+        }
+        selectNextAndCenterCamera(nextSelected);
+    }
+
+
+    private void selectNextAndCenterCamera(@Nullable Unit nextSelected) {
+        if (nextSelected == null){
+            return;
+        }
+        game.setSelectedUnit(nextSelected);
+        nextSelected.setSelected(true);
+        Cell cell = nextSelected.getPosition();
+        camera.TryToCenterToPostition(cell.getX(), cell.getY());
+    }
+
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
     {
         setCellProperty(null);
@@ -849,7 +907,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
                         () -> this.context.getGameData().setSpectatorModus(true),
-                        () -> doLeaveGame()
+                        this::doLeaveGame
                 );
             }
         });
@@ -861,12 +919,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_WON,
-                    () -> doLeaveGame());
+                    this::doLeaveGame);
         } else
         {
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON,
-                    () -> doLeaveGame(),
+                    this::doLeaveGame,
                     winner.getName());
         }
     }
@@ -993,15 +1051,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
         }));
 
-        endPhaseButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
+        endPhaseButton.setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY))
             {
-                if (event.getButton().equals(MouseButton.PRIMARY))
-                {
-                    endPhase();
-                }
+                endPhase();
             }
         });
     }
@@ -1100,7 +1153,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public void toggleHpBar(ActionEvent actionEvent)
+    public void toggleHpBar(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (tileDrawer.isHpBarVisibility())
         {

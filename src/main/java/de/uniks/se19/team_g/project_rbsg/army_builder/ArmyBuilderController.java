@@ -19,6 +19,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
+import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -41,6 +42,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
@@ -75,6 +77,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     private final ObjectFactory<ViewComponent<UnitDetailController>> unitDetailViewFactory;
     @NonNull
     private final AlertBuilder alertBuilder;
+    private final Property<Locale> selectedLocale;
     public StackPane root;
     public VBox content;
     public HBox topContentContainer;
@@ -94,7 +97,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public HBox modalContainer;
 
     @Nonnull
-    PersistentArmyManager persistantArmyManager;
+    private PersistentArmyManager persistantArmyManager;
 
     @SuppressWarnings("FieldCanBeLocal")
     private ChangeListener<Unit> onSelectionUpdated;
@@ -121,9 +124,11 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
             @Nonnull PersistentArmyManager persistantArmyManager,
+            @Nonnull final Property<Locale> selectedLocale,
             @NonNull AlertBuilder alertBuilder,
             @NonNull GetArmiesService getArmiesService
     ) {
+        this.selectedLocale = selectedLocale;
         this.appState = appState;
         this.viewState = viewState;
         this.editArmyComponent = editArmyComponent;
@@ -299,7 +304,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public void showInfo() {
 
         if (infoView == null) {
-            infoView = unitPropertyInfoListBuilder.buildInfoView();
+            infoView = unitPropertyInfoListBuilder.buildInfoView(selectedLocale);
             root.getChildren().add(infoView);
             StackPane.setAlignment(infoView, Pos.CENTER);
         }

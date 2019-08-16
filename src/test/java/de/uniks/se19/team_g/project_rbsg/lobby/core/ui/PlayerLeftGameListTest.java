@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
@@ -75,6 +76,7 @@ import static org.junit.Assert.*;
         LocaleConfig.class,
         GameListViewCell.class,
         MenuBuilder.class,
+        EmailManager.class
 })
 public class PlayerLeftGameListTest extends ApplicationTest
 {

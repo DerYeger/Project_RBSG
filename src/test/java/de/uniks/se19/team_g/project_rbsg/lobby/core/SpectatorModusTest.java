@@ -84,7 +84,8 @@ import java.util.Collection;
         IngameGameProvider.class,
         IngameRootController.class,
         JoinGameManager.class,
-        SpectatorModusTest.ContextConfiguration.class
+        SpectatorModusTest.ContextConfiguration.class,
+        EmailManager.class
 })
 public class SpectatorModusTest extends ApplicationTest {
 

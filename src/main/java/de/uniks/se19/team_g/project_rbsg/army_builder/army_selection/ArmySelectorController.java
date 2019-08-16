@@ -1,11 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import io.rincl.Rincl;
 import io.rincl.Rincled;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.WeakListChangeListener;
@@ -17,14 +16,17 @@ import javafx.scene.layout.HBox;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 @Component
 @Scope("prototype")
 public class ArmySelectorController implements Initializable, Rincled {
 
+    private final Property<Locale> selectedLocale;
     public ListView<Army> listView;
 
     private final ArmySelectorCellFactory cellFactory;
@@ -38,10 +40,11 @@ public class ArmySelectorController implements Initializable, Rincled {
     private ListChangeListener<? super Army> fixSelectionOnSelectedRemoved;
 
     public ArmySelectorController(
-            ArmySelectorCellFactory cellFactory
-
+            ArmySelectorCellFactory cellFactory,
+            @Nonnull final Property<Locale> selectedLocale
     ) {
         this.cellFactory = cellFactory;
+        this.selectedLocale = selectedLocale;
     }
 
     public void setSelection(ObservableList<Army> armies, Property<Army> selection)
@@ -70,11 +73,14 @@ public class ArmySelectorController implements Initializable, Rincled {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateLabel();
+        armiesLabel.textProperty().bind(Bindings.createStringBinding(() -> Rincl.getResources(ArmySelectorController.class).getString("army"),
+                        selectedLocale
+                )
+        );
         listView.setCellFactory(cellFactory);
     }
 
-    private void updateLabel() {
-        armiesLabel.setText(getResources().getString("army"));
+    public void unselect(){
+        listView.getSelectionModel().clearSelection();
     }
 }

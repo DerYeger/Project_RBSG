@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.Credits;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
@@ -74,7 +75,8 @@ import static org.junit.Assert.assertEquals;
         ApplicationState.class,
         SceneManagerConfig.class,
         AlertBuilder.class,
-        LocaleConfig.class
+        LocaleConfig.class,
+        EmailManager.class
 })
 public class OpenCreateGameFormularTest extends ApplicationTest
 {
