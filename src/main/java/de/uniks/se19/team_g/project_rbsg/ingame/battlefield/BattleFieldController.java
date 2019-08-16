@@ -119,6 +119,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public HBox ingameInformationHBox;
     public StackPane rootPane;
     public Button skynetButton;
+    public Button fullscreenButton;
     private ChatController chatController;
     private Game game;
     private ObservableList<Cell> cells;
@@ -237,6 +238,24 @@ public class BattleFieldController implements RootController, IngameViewControll
         musicManager.initButtonIcons(musicButton);
     }
 
+    private void setFullscreenButton() {
+        if(!sceneManager.isFullscreen()) {
+            JavaFXUtils.setButtonIcons(
+                    fullscreenButton,
+                    getClass().getResource("/assets/icons/navigation/fullscreenExitWhite.png"),
+                    getClass().getResource("/assets/icons/navigation/fullscreenExitBlack.png"),
+                    40
+            );
+        } else {
+            JavaFXUtils.setButtonIcons(
+                    fullscreenButton,
+                    getClass().getResource("/assets/icons/navigation/fullscreenWhite.png"),
+                    getClass().getResource("/assets/icons/navigation/fullscreenBlack.png"),
+                    40
+            );
+        }
+    }
+
     private void initListenersForFullscreen() {
         sceneManager.getStageHeightProperty().addListener(stageSizeListener);
         sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
@@ -247,6 +266,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         openWhenResizedChat = false;
         zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
         zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
+        setFullscreenButton();
+        setFullscreen(null);
     }
 
     private void disableOverlaysChanged(
@@ -1216,4 +1237,14 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
 
+    public void setFullscreen(@SuppressWarnings("unused") ActionEvent actionEvent) {
+        if (sceneManager.isFullscreen()) {
+            sceneManager.unsetFullscreen();
+            setFullscreenButton();
+
+        } else {
+            sceneManager.setFullscreen();
+            setFullscreenButton();
+        }
+    }
 }
