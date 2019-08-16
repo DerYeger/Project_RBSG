@@ -184,6 +184,14 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
         this.stage.setFullScreen(true);
     }
 
+    public void unsetFullscreen() {
+        this.stage.setFullScreen(false);
+    }
+
+    public boolean isFullscreen() {
+        return this.stage.isFullScreen();
+    }
+
     public ReadOnlyDoubleProperty getStageHeightProperty() {
         return stage.heightProperty();
     }
