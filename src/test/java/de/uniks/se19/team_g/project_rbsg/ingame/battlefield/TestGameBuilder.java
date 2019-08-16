@@ -138,11 +138,21 @@ public class TestGameBuilder
         player.setCurrentGame(game);
         final Player enemy = new Player("enemy").setCurrentGame(game);
         final Unit playerUnit = definition.playerUnit
+                .setUnitType(UnitTypeInfo._HEAVY_TANK)
                 .setLeader(player)
-                .setGame(game);
+                .setGame(game)
+                .setCanAttack(new ArrayList<>());
+
+        playerUnit.getCanAttack().add(UnitTypeInfo._HEAVY_TANK);
+
         testUnit.setLeader(player)
-                .setGame(game);
-        final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game);
+                .setUnitType(UnitTypeInfo._HEAVY_TANK)
+                .setGame(game)
+                .setCanAttack(new ArrayList<>());
+
+        testUnit.getCanAttack().add(UnitTypeInfo._HEAVY_TANK);
+
+        final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game).setUnitType(UnitTypeInfo._HEAVY_TANK);
 
         final Cell[][] cells = definition.cells;
         for (int row = 0; row < 5; row++)
