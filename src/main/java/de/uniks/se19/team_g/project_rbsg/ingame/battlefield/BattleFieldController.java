@@ -69,9 +69,11 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-    private static final int ZOOMPANE_WIDTH_CENTER = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
-    private static final int ZOOMPANE_HEIGHT_CENTER = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
-    private static final Point2D ZOOMPANE_CENTER = new Point2D(ZOOMPANE_WIDTH_CENTER, ZOOMPANE_HEIGHT_CENTER);
+
+    private int heightCenter = 500;
+    private int widthCenter = 1000;
+    @SuppressWarnings("SuspiciousNameCombination")
+    private Point2D center = new Point2D(heightCenter, widthCenter);
 
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
@@ -132,6 +134,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
     private final ChangeListener<Number> stageSizeListener = this::stageSizeChanged;
     private final ChangeListener<Number> disableOverlaysListener = this::disableOverlaysChanged;
+    private final ChangeListener<Number> calculateHeightListener = this::stageHeightChanged;
+    private final ChangeListener<Number> calculateWidthListener = this::stageWidthChanged;
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
     private int mapSize;
@@ -259,13 +263,18 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void initListenersForFullscreen() {
         sceneManager.getStageHeightProperty().addListener(stageSizeListener);
         sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
+        sceneManager.getStageHeightProperty().addListener(calculateHeightListener);
         sceneManager.getStageWidhtProperty().addListener(stageSizeListener);
         sceneManager.getStageWidhtProperty().addListener(disableOverlaysListener);
         sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
+        sceneManager.getStageWidhtProperty().addListener(calculateWidthListener);
         openWhenResizedPlayer = false;
         openWhenResizedChat = false;
         zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
         zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
+        heightCenter = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
+        widthCenter = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
+        calculateCenter();
         setFullscreenButton();
         setFullscreen(null);
     }
@@ -306,7 +315,24 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void stageSizeChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
         double change = (double) newVal < (double) oldVal ? -((double) newVal / (double) oldVal) : (double) oldVal / (double) newVal;
-        zoomableScrollPane.onScroll(change, ZOOMPANE_CENTER);
+        zoomableScrollPane.onScroll(change, center);
+    }
+
+    private void stageHeightChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
+        double change = (double) newVal - (double) oldVal;
+        this.heightCenter += change;
+        calculateCenter();
+    }
+
+    private void calculateCenter() {
+        //noinspection SuspiciousNameCombination
+        this.center = new Point2D(this.heightCenter, this.widthCenter);
+    }
+
+    private void stageWidthChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
+        double change = (double) newVal - (double) oldVal;
+        this.widthCenter += change;
+        calculateCenter();
     }
 
     private void highlightingChanged(PropertyChangeEvent propertyChangeEvent)
@@ -743,12 +769,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void zoomIn(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-            zoomableScrollPane.onScroll(20.0, ZOOMPANE_CENTER);
+            zoomableScrollPane.onScroll(20.0, center);
     }
 
     public void zoomOut(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
-            zoomableScrollPane.onScroll(-20.0, ZOOMPANE_CENTER);
+            zoomableScrollPane.onScroll(-20.0, center);
     }
 
     public void endPhase()
