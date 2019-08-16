@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.skynet;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TestGameBuilder;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
@@ -9,12 +8,12 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.*;
 import org.junit.Test;
 
 import java.util.Optional;
 
+import static de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TestGameBuilder.skynetSurrenderCantMoveGame;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -161,5 +160,32 @@ public class SkynetTests {
         skynet.turn();
 
         verifyNoMoreInteractions(api);
+    }
+
+    @Test
+    public void testSkynetSurrenderAction() {
+        final Player player = new Player("me");
+        final Unit unit = new Unit("VeryBadGuy");
+        final TestGameBuilder.Definition definition = skynetSurrenderCantMoveGame(player, unit);
+        final Game game = definition.game;
+
+        game.setCurrentPlayer(player);
+        unit.setPosition(definition.cells[2][3]);
+
+        final IngameApi api = mock(IngameApi.class);
+        final ActionExecutor actionExecutor = new ActionExecutor(api);
+
+        final Skynet skynet = new Skynet(actionExecutor, game, player);
+
+        skynet.turn();
+
+        verify(api).leaveGame();
+
+        final BattleFieldController battleFieldController = mock(BattleFieldController.class);
+        actionExecutor.setBattleFieldController(battleFieldController);
+
+        skynet.turn();
+
+        verify(battleFieldController).surrender();
     }
 }
