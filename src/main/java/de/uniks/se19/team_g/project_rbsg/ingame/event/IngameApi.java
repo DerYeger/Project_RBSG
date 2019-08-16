@@ -40,6 +40,11 @@ public class IngameApi {
         gameEventManager.sendMessage(CommandBuilder.endPhaseCommand());
     }
 
+    public void leaveGame ()
+    {
+        gameEventManager.terminate();
+    }
+
     public static class BasicCommand {
         final public String messageType = "command";
         final public String action;

@@ -1,31 +1,34 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.SurrenderAction;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
+import org.slf4j.*;
 
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class SurrenderBehaviour implements Behaviour
 {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
-    public Optional<? extends Action> apply(Game game, Player player)
+    public Optional<? extends Action> apply (Game game, Player player)
     {
         boolean cantAttackAnEnemyByType = isCantAttackAnEnemyByType(game, player);
 
-        if(cantAttackAnEnemyByType) {
+        if (cantAttackAnEnemyByType)
+        {
+            logger.debug("Cant Attack Enemies by type!");
             return Optional.of(new SurrenderAction());
         }
 
         boolean firstMovingPhase = game.getPhase().equals("movePhase");
 
-        if(firstMovingPhase) {
+        if (firstMovingPhase)
+        {
             boolean NoUnitCanMove = isNoUnitCanMove(player);
-            if(NoUnitCanMove) {
+            if (NoUnitCanMove)
+            {
+                logger.debug("Cant move a Unit its not possible to change turn!");
                 return Optional.of(new SurrenderAction());
             }
         }
@@ -33,22 +36,22 @@ public class SurrenderBehaviour implements Behaviour
         return Optional.empty();
     }
 
-    private boolean isNoUnitCanMove(Player player)
+    private boolean isNoUnitCanMove (Player player)
     {
         return player
                 .getUnits()
                 .stream()
-                .allMatch( unit -> unit.getNeighbors().size() == getSizeOfPassableNeighbors(unit));
+                .allMatch(unit -> unit.getNeighbors().size() == getSizeOfPassableNeighbors(unit));
     }
 
-    private int getSizeOfPassableNeighbors(Unit unit)
+    private int getSizeOfPassableNeighbors (Unit unit)
     {
         return (int) unit.getPosition().getNeighbors()
                 .stream()
                 .filter(Cell::isPassable).count();
     }
 
-    private boolean isCantAttackAnEnemyByType(Game game, Player player)
+    private boolean isCantAttackAnEnemyByType (Game game, Player player)
     {
         return game
                 .getUnits()
@@ -57,6 +60,6 @@ public class SurrenderBehaviour implements Behaviour
                 .noneMatch(enemy -> player
                         .getUnits()
                         .stream()
-                        .anyMatch(unit -> unit.canAttack(enemy)));
+                        .anyMatch(unit -> unit.getCanAttack().contains(enemy.getUnitType())));
     }
 }
