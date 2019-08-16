@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import eu.yeger.minesweeper.Minesweeper;
 import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -25,20 +26,23 @@ import java.util.Locale;
 @Scope("prototype")
 public class EasterEggController implements ApplicationContextAware, OverlayTargetProvider, Rincled {
 
+    private final Property<Locale> selectedLocale;
+
     private final Minesweeper config;
     private final Pane container;
     private final OverlayTarget overlayTarget;
-    private final Stage stage;
+    private Stage stage;
     private final AlertBuilder alertBuilder;
 
     public EasterEggController(@NonNull final Property<Locale> selectedLocale) {
+        this.selectedLocale = selectedLocale;
         config = Minesweeper
                 .builder()
                 .mineCount(25)
                 .width(16)
                 .height(16)
-                .onGameWon(() -> onGameOver(AlertBuilder.Text.GAME_WON))
-                .onGameLost(() -> onGameOver(AlertBuilder.Text.GAME_LOST))
+                .onGameWon(() -> onGameOver(AlertBuilder.Text.EGG_WON))
+                .onGameLost(() -> onGameOver(AlertBuilder.Text.EGG_LOST))
                 .cellSize(40)
                 .build();
 
@@ -46,16 +50,21 @@ public class EasterEggController implements ApplicationContextAware, OverlayTarg
 
         overlayTarget = OverlayTarget.of(container);
 
+        alertBuilder = new AlertBuilder(this);
+    }
+
+    private void initStage() {
         stage = new Stage();
         stage.setScene(new Scene(overlayTarget));
         stage.setResizable(false);
         stage.titleProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "egg"));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
-
-        alertBuilder = new AlertBuilder(this);
     }
 
     public void start() {
+        if (stage == null) {
+            initStage();
+        }
         startNewGame();
         stage.show();
     }
