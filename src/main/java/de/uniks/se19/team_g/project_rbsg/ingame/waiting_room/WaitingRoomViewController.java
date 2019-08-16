@@ -416,7 +416,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     private void egg(final int readyCounter) {
-        if (readyCounter % 5 == 0) {
+        if (readyCounter == 5) {
             Platform.runLater(easterEggController::start);
         }
     }

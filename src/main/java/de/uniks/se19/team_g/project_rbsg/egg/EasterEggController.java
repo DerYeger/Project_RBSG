@@ -62,11 +62,9 @@ public class EasterEggController implements ApplicationContextAware, OverlayTarg
     }
 
     public void start() {
-        if (stage == null) {
-            initStage();
-            startNewGame();
-            stage.show();
-        }
+        initStage();
+        startNewGame();
+        stage.show();
     }
 
     private void startNewGame() {
