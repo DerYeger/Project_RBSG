@@ -1,9 +1,21 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenController;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import io.rincl.Rincl;
@@ -17,12 +29,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -45,8 +59,8 @@ import java.util.concurrent.CompletableFuture;
 
 import static de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder.Text.INVALID_INPUT;
 import static de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder.Text.NO_CONNECTION;
-
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes ={
@@ -55,13 +69,18 @@ import static org.mockito.ArgumentMatchers.any;
         UserProvider.class,
         CreateGameControllerTest.ContextConfiguration.class,
         GameProvider.class,
+        LoadingScreenFormBuilder.class,
+        LoadingScreenController.class,
+        ChatBuilder.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest implements ApplicationContextAware {
 
-
     @Autowired
     private CreateGameFormBuilder createGameFormBuilder;
+
+    @Autowired
+    private LobbyViewController lobbyViewController;
 
     @Autowired
     public SceneManager sceneManager;
@@ -84,6 +103,9 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
     @TestConfiguration
     static class ContextConfiguration implements ApplicationContextAware {
 
+        @Autowired
+        SceneManager sceneManager;
+
         private ApplicationContext context;
 
         @Bean
@@ -93,6 +115,36 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
+        }
+
+        @Bean
+        @Scope("prototype")
+        public LobbyViewController lobbyViewController(){
+            @SuppressWarnings("unchecked") final ObjectFactory<GameListViewCell> mock = mock(ObjectFactory.class);
+            return new LobbyViewController(
+                    mock(UserProvider.class),
+                    sceneManager,
+                    mock(PlayerManager.class),
+                    mock(GameManager.class),
+                    mock(SystemMessageManager.class),
+                    mock(ChatController.class),
+                    mock(LobbyChatClient.class),
+                    mock(CreateGameFormBuilder.class),
+                    mock(CreditsFormBuilder.class),
+                    mock(MusicManager.class),
+                    mock(DefaultLogoutManager.class),
+                    mock(AlertBuilder.class),
+                    mock,
+                    null,
+                    null,
+                    null,
+                    null
+            ){
+                @Override
+                public void setBackgroundImage(){
+                    this.mainStackPane = new StackPane();
+                }
+            };
         }
 
         @Bean
@@ -151,7 +203,8 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
                     )
             )
         );
-
+        createGameFormBuilder.getCreateGameController().setLobbyViewController(lobbyViewController);
+        createGameFormBuilder.getCreateGameController().getLobbyViewController().setBackgroundImage();
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final ToggleButton fourPlayerButton = lookup("#fourPlayers").query();
@@ -162,6 +215,7 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
         write(newGameName);
         clickOn(fourPlayerButton);
         clickOn(createGameButton);
+        WaitForAsyncUtils.waitForFxEvents();
         Assert.assertEquals(NO_CONNECTION, lastError);
     }
 
@@ -180,7 +234,8 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
                         }}
                 )
         );
-
+        createGameFormBuilder.getCreateGameController().setLobbyViewController(lobbyViewController);
+        createGameFormBuilder.getCreateGameController().getLobbyViewController().setBackgroundImage();
         final TextInputControl gameNameInput = lookup("#gameName").queryTextInputControl();
         Assert.assertNotNull(gameNameInput);
         final ToggleButton twoPlayerButton = lookup("#twoPlayers").query();

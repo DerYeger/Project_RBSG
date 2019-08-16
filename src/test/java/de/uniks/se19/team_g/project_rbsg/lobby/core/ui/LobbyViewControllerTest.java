@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
@@ -32,10 +33,12 @@ public class LobbyViewControllerTest {
                 mock(ChatController.class),
                 mock(LobbyChatClient.class),
                 mock(CreateGameFormBuilder.class),
+                mock(CreditsFormBuilder.class),
                 mock(MusicManager.class),
                 mock(DefaultLogoutManager.class),
                 mock(AlertBuilder.class),
                 mock,
+                null,
                 null,
                 null,
                 null

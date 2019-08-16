@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import org.springframework.lang.NonNull;
@@ -69,7 +68,7 @@ public class PlayerListViewCell extends ListCell<Player>
                 {
                     e.printStackTrace();
                 }
-                this.addEventHandler(MouseEvent.MOUSE_CLICKED, this::mouseRightCLick);
+                this.addEventHandler(MouseEvent.MOUSE_CLICKED, this::mouseClick);
             }
 
 
@@ -85,9 +84,8 @@ public class PlayerListViewCell extends ListCell<Player>
 
     }
 
-    private void mouseRightCLick(final @NonNull MouseEvent event) {
-        if(event.getButton() == MouseButton.SECONDARY
-                && localUserName != null
+    private void mouseClick(final @NonNull MouseEvent event) {
+        if(localUserName != null
                 && player != null
                 && !localUserName.equals(player.getName())) {
             chatController.chatTabManager().openTab('@' + player.getName());

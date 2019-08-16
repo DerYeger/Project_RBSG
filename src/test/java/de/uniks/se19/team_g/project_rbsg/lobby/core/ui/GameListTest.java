@@ -14,7 +14,10 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsController;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
@@ -72,6 +75,7 @@ import static org.junit.Assert.assertNotNull;
         SceneManager.class,
         JoinGameManager.class,
         CreateGameFormBuilder.class,
+        CreditsFormBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
@@ -79,7 +83,8 @@ import static org.junit.Assert.assertNotNull;
         AlertBuilder.class,
         GameListViewCell.class,
         LocaleConfig.class,
-        FXMLLoaderFactory.class
+        FXMLLoaderFactory.class,
+        EmailManager.class
 })
 public class GameListTest extends ApplicationTest
 {
@@ -155,6 +160,12 @@ public class GameListTest extends ApplicationTest
         public CreateGameController createGameController()
         {
             return Mockito.mock(CreateGameController.class);
+        }
+
+        @Bean
+        public CreditsController creditsController()
+        {
+            return Mockito.mock(CreditsController.class);
         }
 
         @Bean

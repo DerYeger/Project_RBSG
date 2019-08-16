@@ -14,7 +14,9 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
@@ -75,7 +77,8 @@ import static org.junit.Assert.assertNotNull;
         ApplicationState.class,
         SceneManagerConfig.class,
         AlertBuilder.class,
-        LocaleConfig.class
+        LocaleConfig.class,
+        EmailManager.class
 })
 public class PlayerListTest extends ApplicationTest
 {
@@ -110,6 +113,12 @@ public class PlayerListTest extends ApplicationTest
         public CreateGameFormBuilder createGameController()
         {
             return Mockito.mock(CreateGameFormBuilder.class);
+        }
+
+        @Bean
+        public CreditsFormBuilder creditsFormBuilder()
+        {
+            return Mockito.mock(CreditsFormBuilder.class);
         }
 
         @Bean

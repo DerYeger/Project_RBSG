@@ -88,7 +88,7 @@ public class UnitDetailControllerTest extends ApplicationTest {
                 lookup(".unitPropertyContainer").nth(1).lookup(".label").<Label>query().getText()
         );
         Assert.assertEquals(
-                8, lookup(".unitPropertyContainer").queryAll().size()
+                4, lookup(".unitPropertyContainer").queryAll().size()
         );
 
         Platform.runLater(() -> state.selectedUnit.set(unit2));
@@ -118,7 +118,7 @@ public class UnitDetailControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(
-                8,
+                4,
                 lookup(".unitPropertyContainer").queryAll().size()
         );
     }

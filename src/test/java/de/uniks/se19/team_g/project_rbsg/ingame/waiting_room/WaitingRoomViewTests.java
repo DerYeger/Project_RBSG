@@ -87,6 +87,8 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Autowired UserProvider userProvider;
 
+    @MockBean Property<java.util.Locale> selectedLocale;
+
 
     @TestConfiguration
     static class ContextConfiguration {
@@ -222,11 +224,10 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         InOrder inOrder = inOrder(gameEventManager);
         inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.changeArmy(army)));
-        inOrder.verify(gameEventManager).sendMessage(eq(CommandBuilder.readyToPlay()));
     }
 
     @Test
-    public void testGameStart() throws IOException {
+    public void testGameStart() {
 
         final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
 

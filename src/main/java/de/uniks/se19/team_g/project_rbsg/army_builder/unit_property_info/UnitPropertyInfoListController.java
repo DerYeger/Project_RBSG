@@ -1,11 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info;
 
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+
+import java.util.Locale;
 
 /**
  * @author  Keanu Stückrad
@@ -17,37 +20,24 @@ public class UnitPropertyInfoListController {
 
     private Node root;
 
-    private UnitPropertyInfoCellBuilder health;
-    // private UnitPropertyInfoCellBuilder physicalResistance;
-    // private UnitPropertyInfoCellBuilder magicResistance;
-    // private UnitPropertyInfoCellBuilder speed;
-    // private UnitPropertyInfoCellBuilder attack;
-    // private UnitPropertyInfoCellBuilder spellPower;
-
-    public void init() {
+    public void init(Property<Locale> selectedLocale) {
         JavaFXUtils.setButtonIcons(
                 closeButton,
                 getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
                 getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
                 40
         );
-        initBuilders();
+        UnitPropertyInfoCellBuilder health = new UnitPropertyInfoCellBuilder();
+        UnitPropertyInfoCellBuilder movement = new UnitPropertyInfoCellBuilder();
+        UnitPropertyInfoCellBuilder canAttack = new UnitPropertyInfoCellBuilder();
         infoBox.getChildren().addAll(
-                health.buildInfoCellNode(new Image("/assets/icons/army/magicDefense.png"), "magicDefense")
-                // More Properties
+                health.buildInfoCellNode(selectedLocale, new Image("/assets/icons/units/hpIcon.png"), "health"),
+                movement.buildInfoCellNode(selectedLocale, new Image("/assets/icons/units/mpIcon.png"),  "movement"),
+                canAttack.buildInfoCellNode(selectedLocale, new Image("/assets/icons/operation/swordClashWhite.png"), "canAttack")
         );
     }
 
-    private void initBuilders() {
-        health = new UnitPropertyInfoCellBuilder();
-        // physicalResistance = new UnitPropertyInfoCellBuilder();
-        // magicResistance = new UnitPropertyInfoCellBuilder();
-        // speed = new UnitPropertyInfoCellBuilder();
-        // attack = new UnitPropertyInfoCellBuilder();
-        // spellPower = new UnitPropertyInfoCellBuilder();
-    }
-
-    public void setRootNode(Node root){
+    protected void setRootNode(Node root){
         this.root = root;
     }
 
