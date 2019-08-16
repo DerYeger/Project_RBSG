@@ -613,7 +613,7 @@
 }
 
 .combo-box .arrow-button {
-
+    -fx-background-radius: 0;
 }
 
 .combo-box .arrow {
