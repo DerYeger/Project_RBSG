@@ -22,6 +22,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.egg.EasterEggBuilder;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
 import javafx.application.Platform;
@@ -105,6 +106,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     @Nonnull
     private final Function<VBox, ArmySelectorController> armySelectorComponent;
     private final PreviewMapBuilder previewMapBuilder;
+    private final EasterEggBuilder easterEggBuilder;
     public ModelManager modelManager;
 
     private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
@@ -121,6 +123,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     // weak ref binding
     @SuppressWarnings("FieldCanBeLocal")
     private BooleanBinding startGameBinding;
+    private SimpleIntegerProperty readyCounter = new SimpleIntegerProperty(0);
 
     @Autowired
     public WaitingRoomViewController(
@@ -135,8 +138,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             @Nonnull final AlertBuilder alertBuilder,
             @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent,
             @Nonnull final ModelManager modelManager,
-            @Nonnull final Property<Locale> selectedLocale
-    ) {
+            @Nonnull final Property<Locale> selectedLocale,
+            @NonNull final EasterEggBuilder easterEggBuilder
+            ) {
         this.selectedLocale = selectedLocale;
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
@@ -149,6 +153,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.armySelectorComponent = armySelectorComponent;
         this.modelManager = modelManager;
         this.previewMapBuilder = previewMapBuilder;
+        this.easterEggBuilder = easterEggBuilder;
     }
 
     public void initialize() {
@@ -178,6 +183,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         );
         musicManager.initButtonIcons(soundButton);
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
+
+        readyCounter.addListener(((observable, oldValue, newValue) -> egg(newValue.intValue())));
     }
 
     private void withChatSupport() throws Exception {
@@ -405,6 +412,13 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             );
             context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
             ready = true;
+            readyCounter.set(readyCounter.get() + 1);
+        }
+    }
+
+    private void egg(final int readyCounter) {
+        if (readyCounter % 5 == 0) {
+            easterEggBuilder.easterEgg();
         }
     }
 
