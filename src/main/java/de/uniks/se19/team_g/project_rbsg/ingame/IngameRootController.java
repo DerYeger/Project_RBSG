@@ -6,9 +6,9 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
@@ -84,6 +84,7 @@ public class IngameRootController
         configureContext();
 
         mountWaitingRoom();
+
     }
 
     public void configureContext() {
@@ -107,6 +108,7 @@ public class IngameRootController
         }
 
         ingameContext.setGameEventManager(gameEventManager);
+
     }
 
     @Override
@@ -116,7 +118,6 @@ public class IngameRootController
         if (activeComponent != null && activeComponent.getController() instanceof Terminable) {
             ((Terminable) activeComponent.getController()).terminate();
         }
-
         ingameContext.tearDown();
     }
 
@@ -133,11 +134,11 @@ public class IngameRootController
             battleFieldAlreadyMounted = true;
             Platform.runLater(this::mountBattleField);
         }
-
-        if (!battleFieldAlreadyMounted && triedToStartTheGame(message)){
+        if ( !battleFieldAlreadyMounted && GameEventManager.isActionType(message, ModelManager.GAME_NEW_OBJECT)){
             battleFieldAlreadyMounted = true;
             Platform.runLater(this::mountBattleField);
         }
+        logger.debug(String.valueOf(message));
     }
 
     public void onConnectionClosed() {
