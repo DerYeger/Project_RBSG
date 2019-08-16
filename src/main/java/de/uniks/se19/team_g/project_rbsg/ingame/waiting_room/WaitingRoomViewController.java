@@ -20,9 +20,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.Preview
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.overlay.egg.EasterEggBuilder;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
 import javafx.application.Platform;
@@ -106,7 +105,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     @Nonnull
     private final Function<VBox, ArmySelectorController> armySelectorComponent;
     private final PreviewMapBuilder previewMapBuilder;
-    private final EasterEggBuilder easterEggBuilder;
+    private final EasterEggController easterEggController;
     public ModelManager modelManager;
 
     private ObjectProperty<Army> selectedArmy = new SimpleObjectProperty<>();
@@ -139,7 +138,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent,
             @Nonnull final ModelManager modelManager,
             @Nonnull final Property<Locale> selectedLocale,
-            @NonNull final EasterEggBuilder easterEggBuilder
+            @NonNull final EasterEggController easterEggController
             ) {
         this.selectedLocale = selectedLocale;
         this.gameProvider = gameProvider;
@@ -153,7 +152,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.armySelectorComponent = armySelectorComponent;
         this.modelManager = modelManager;
         this.previewMapBuilder = previewMapBuilder;
-        this.easterEggBuilder = easterEggBuilder;
+        this.easterEggController = easterEggController;
     }
 
     public void initialize() {
@@ -418,7 +417,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private void egg(final int readyCounter) {
         if (readyCounter % 5 == 0) {
-            easterEggBuilder.easterEgg();
+            easterEggController.start();
         }
     }
 

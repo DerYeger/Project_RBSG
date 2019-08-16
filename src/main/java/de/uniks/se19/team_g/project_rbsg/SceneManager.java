@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Primary;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 /**
  * @author Jan Müller
  */
+@Primary
 @Component
 public class SceneManager implements ApplicationContextAware, Rincled, OverlayTargetProvider, Terminable {
 
