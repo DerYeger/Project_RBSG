@@ -28,38 +28,10 @@
     </StackPane>
     <VBox maxHeight="470.0" maxWidth="300.0" minHeight="300.0" minWidth="470.0" HBox.hgrow="ALWAYS">
         <HBox maxHeight="180.0" maxWidth="470.0" minHeight="180.0" minWidth="470.0" VBox.vgrow="ALWAYS">
-            <TilePane fx:id="statsContainer" maxHeight="1.7976931348623157E308" maxWidth="120.0" minWidth="120.0" orientation="VERTICAL" prefColumns="3" prefRows="2" tileAlignment="TOP_LEFT">
-                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
-                    <TilePane.margin>
-                        <Insets />
-                    </TilePane.margin>
+            <TilePane fx:id="statsContainer" maxHeight="180.0" maxWidth="170.0" minWidth="170.0" orientation="VERTICAL" prefColumns="1" prefRows="2" tileAlignment="TOP_LEFT">
+                <Pane maxHeight="90.0" minWidth="90.0" styleClass="unitPropertyContainer">
                 </Pane>
-                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
-                    <TilePane.margin>
-                        <Insets />
-                    </TilePane.margin>
-                </Pane>
-                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
-                    <TilePane.margin>
-                        <Insets />
-                    </TilePane.margin>
-                </Pane>
-            </TilePane>
-            <TilePane fx:id="statsContainer2" maxHeight="1.7976931348623157E308" maxWidth="120.0" minWidth="120.0" orientation="VERTICAL" prefColumns="3" prefRows="2" tileAlignment="TOP_LEFT">
-                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
-                    <TilePane.margin>
-                        <Insets />
-                    </TilePane.margin>
-                </Pane>
-                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
-                    <TilePane.margin>
-                        <Insets />
-                    </TilePane.margin>
-                </Pane>
-                <Pane maxHeight="50.0" maxWidth="110.0" minHeight="50.0" minWidth="110.0" styleClass="unitPropertyContainer">
-                    <TilePane.margin>
-                        <Insets />
-                    </TilePane.margin>
+                <Pane maxHeight="90.0" maxWidth="170.0" minHeight="90.0" minWidth="170.0" styleClass="unitPropertyContainer">
                 </Pane>
             </TilePane>
             <VBox maxHeight="170.0" minHeight="170.0" styleClass="unitPropertyContainer" HBox.hgrow="ALWAYS">
