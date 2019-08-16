@@ -49,7 +49,7 @@ dependencies {
 
 	compile "io.rincl:rincl-resourcebundle:0.8.0"
 
-	implementation 'com.github.deryeger:minesweeper:0.2'
+	implementation 'com.github.deryeger:minesweeper:0.3'
 }
 
 javafx {
