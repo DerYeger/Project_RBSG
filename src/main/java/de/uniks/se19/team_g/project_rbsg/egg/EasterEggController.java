@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.egg;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
@@ -8,6 +9,7 @@ import eu.yeger.minesweeper.Minesweeper;
 import io.rincl.Rincled;
 import javafx.beans.property.Property;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.beans.BeansException;
@@ -48,6 +50,7 @@ public class EasterEggController implements ApplicationContextAware, OverlayTarg
         stage.setScene(new Scene(overlayTarget));
         stage.setResizable(false);
         stage.titleProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "egg"));
+        stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
 
         alertBuilder = new AlertBuilder(this);
     }
@@ -77,7 +80,7 @@ public class EasterEggController implements ApplicationContextAware, OverlayTarg
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext context) throws BeansException {
+    public void setApplicationContext(@NonNull final ApplicationContext context) throws BeansException {
         alertBuilder.setApplicationContext(context);
     }
 }
