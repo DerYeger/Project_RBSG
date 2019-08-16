@@ -135,27 +135,21 @@ public class ArmyDetailController implements Initializable {
 
     private void addArmyUnitChangeListener(Army army, ObservableList<SquadViewModel> squadList, Map<Unit, SquadViewModel> squadMap) {
         armyUnitChangeListener = change -> {
-            boolean dirtyList = false;
             while (change.next()) {
                 for (Unit unit : change.getRemoved()) {
                     final SquadViewModel squadViewModel = squadMap.get(unit);
                     squadViewModel.members.remove(unit);
                     if (squadViewModel.members.size() == 0) {
                         squadMap.remove(unit);
-                        dirtyList = true;
+                        squadList.remove(squadViewModel);
                     }
                 }
                 for (Unit unit : change.getAddedSubList()) {
-                    if (!squadMap.containsKey(unit)) {
-                        squadMap.put(unit, new SquadViewModel());
-                        dirtyList = true;
-                    }
-                    final SquadViewModel squadViewModel = squadMap.get(unit);
-                    squadViewModel.members.add(unit);
+                        SquadViewModel newModel = new SquadViewModel();
+                        newModel.members.add(unit);
+                        squadMap.put(unit, newModel);
+                        squadList.add(newModel);
                 }
-            }
-            if (dirtyList) {
-                squadList.setAll(squadMap.values());
             }
         };
 
