@@ -238,7 +238,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 //
 //
 //        cancelButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "cancel"));
-
         musicManager.initButtonIcons(musicButton);
     }
 
@@ -448,15 +447,17 @@ public class BattleFieldController implements RootController, IngameViewControll
         battlefieldStackPane.getChildren().add(0, zoomableScrollPane);
         tileDrawer.setCanvas(canvas);
         tileDrawer.drawMap(tileMap);
-
+        rootPane.setFocusTraversable(true);
         rootPane.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
             {
                 endPhase();
             }
-            rootPane.setFocusTraversable(true);
+            if (event.getCode().equals(KeyCode.F11))
+            {
+                setFullscreen(null);
+            }
         });
-
     }
 
     private void initPlayerBar()
