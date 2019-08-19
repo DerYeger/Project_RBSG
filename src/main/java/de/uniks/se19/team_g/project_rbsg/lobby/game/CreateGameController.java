@@ -113,6 +113,7 @@ public class CreateGameController implements Rincled
         cancel.setOnAction(this::closeCreateGameWindow);
         create.setOnAction(this::createGame);
         create.setDefaultButton(true);
+        create.setTooltip(new Tooltip("ENTER"));
 
         JavaFXUtils.setButtonIcons(create, CONFIRM_WHITE, CONFIRM_BLACK, 40);
         JavaFXUtils.setButtonIcons(cancel, CANCEL_WHITE, CANCEL_BLACK, 40);
