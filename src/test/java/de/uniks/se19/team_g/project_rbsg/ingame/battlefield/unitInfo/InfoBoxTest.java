@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import javafx.application.Platform;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,6 +15,8 @@ import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
+
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -37,7 +40,9 @@ public class InfoBoxTest extends ApplicationTest
 
         SimpleObjectProperty<Unit> unitProperty = new SimpleObjectProperty<>(unit);
 
-        Node infoBox = builder.build(unitProperty);
+        Property<Locale> selectedLocale = new SimpleObjectProperty<>();
+        selectedLocale.setValue(Locale.ENGLISH);
+        Node infoBox = builder.build(unitProperty, selectedLocale);
         UnitInfoBoxController<Unit> controller = builder.getLastController();
 
         assertThat(infoBox, notNullValue());
@@ -66,7 +71,9 @@ public class InfoBoxTest extends ApplicationTest
 
         SimpleObjectProperty<Unit> unitProperty = new SimpleObjectProperty<>(null);
 
-        Node infoBox = builder.build(unitProperty);
+        Property<Locale> selectedLocale = new SimpleObjectProperty<>();
+        selectedLocale.setValue(Locale.ENGLISH);
+        Node infoBox = builder.build(unitProperty, selectedLocale);
         UnitInfoBoxController<Unit> controller = builder.getLastController();
 
         HBox root = new HBox();

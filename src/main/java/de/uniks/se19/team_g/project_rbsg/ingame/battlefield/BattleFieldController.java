@@ -22,7 +22,6 @@ import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -142,7 +141,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private PlayerListController playerListController;
     private final ListChangeListener<Player> playerListListener = this::playerListChanged;
     private SimpleIntegerProperty roundCount;
-    private int roundCounter;
+    private int playerCounter;
     private final ChangeListener<String> phaseChangedListener = this::phaseChanged;
 
     private Skynet skynet;
@@ -171,7 +170,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.chatController = chatController;
 
         this.roundCount = new SimpleIntegerProperty();
-        this.roundCounter = 1;
+        this.playerCounter = 1;
 
         this.selectedLocale = selectedLocale;
     }
@@ -471,12 +470,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         roundCount.set(0);
         roundCountLabel.textProperty().bind(roundCount.asString());
-        phaseLabel.setText("Phase");
+        phaseLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "phaseLabel"));
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
         //ingameInformationHBox.setSpacing(10);
         HBox.setMargin(ingameInformationHBox, new Insets(10, 10, 10, 10));
         //phaseLabel.textProperty().bind(this.game.phaseProperty());
-        roundTextLabel.textProperty().setValue("Round");
+        roundTextLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "roundLabel"));
     }
 
     private void playerListChanged(ListChangeListener.Change<? extends Player> c)
@@ -499,12 +498,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void phaseChanged(ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
     {
-        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size()) == 0)
+        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (playerCounter % this.game.getPlayers().size()) == 0)
         {
             Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
-            roundCounter = 0;
+            playerCounter = 0;
         }
-        roundCounter++;
+        playerCounter++;
 
         switch (newPhase)
         {
@@ -814,8 +813,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureEndPhase();
 
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty()));
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty()));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), selectedLocale));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), selectedLocale));
 
         try
         {
