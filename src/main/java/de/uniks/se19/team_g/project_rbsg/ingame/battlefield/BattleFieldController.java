@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
@@ -11,6 +11,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
@@ -20,6 +22,7 @@ import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -31,12 +34,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -48,6 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
@@ -55,10 +61,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Keanu Stückrad
@@ -77,19 +80,18 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
+    private final MenuBuilder menuBuilder;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final MiniMapDrawer miniMapDrawer;
     private final ChatBuilder chatBuilder;
     @Nonnull
     private final MovementManager movementManager;
-    @Nonnull
-    private final MusicManager musicManager;
     private final HashMap<String, Player> playerMap = new HashMap<>();
     private final HashMap<String, Node> playerNodeMap = new HashMap<>();
     private final HashMap<String, Pane> playerPaneMap = new HashMap<>();
     private final ArrayList<Pane> playerCardList = new ArrayList<>();
     private final Property<Locale> selectedLocale;
-    public Button leaveButton;
+    public Button menuButton;
     public Button hpBarButton;
     public Button zoomOutButton;
     public Button zoomInButton;
@@ -104,7 +106,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button skynetTurnButton;
     public Button playerButton;
     public Button chatButton;
-    public Button musicButton;
     public StackPane battlefieldStackPane;
     public AnchorPane overlayAnchorPane;
     public StackPane miniMapStackPane;
@@ -157,17 +158,17 @@ public class BattleFieldController implements RootController, IngameViewControll
     public BattleFieldController(
             @Nonnull final SceneManager sceneManager,
             @Nonnull final AlertBuilder alertBuilder,
+            @NonNull final MenuBuilder menuBuilder,
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
-            @Nonnull final MusicManager musicManager,
             @Nonnull Property<Locale> selectedLocale
     )
     {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+        this.menuBuilder = menuBuilder;
         this.movementManager = movementManager;
-        this.musicManager = musicManager;
         this.tileDrawer = new TileDrawer();
         this.miniMapDrawer = new MiniMapDrawer();
 
@@ -183,9 +184,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void initialize()
     {
         JavaFXUtils.setButtonIcons(
-                leaveButton,
-                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
-                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                menuButton,
+                getClass().getResource("/assets/icons/navigation/menuWhite.png"),
+                getClass().getResource("/assets/icons/navigation/menuBlack.png"),
                 40
         );
 
@@ -238,7 +239,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 //
 //
 //        cancelButton.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "cancel"));
-        musicManager.initButtonIcons(musicButton);
     }
 
     private void setFullscreenButton() {
@@ -452,6 +452,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
             {
                 endPhase();
+            } else if (event.getCode().equals(KeyCode.ESCAPE) || event.getCode().equals(KeyCode.F10)) {
+                showMenu(null);
             }
             if (event.getCode().equals(KeyCode.F11))
             {
@@ -757,7 +759,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void leaveGame(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         alertBuilder
-                .confirmation(
+                .priorityConfirmation(
                         AlertBuilder.Text.EXIT,
                         this::doLeaveGame,
                         null);
@@ -947,6 +949,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (newValue != null)
             {
+                if (skynet.isBotRunning()) skynet.stopBot();
                 showWinnerLoserAlert(newValue);
             }
         }));
@@ -954,6 +957,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
             {
+                if (skynet.isBotRunning()) skynet.stopBot();
+
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
                         () -> this.context.getGameData().setSpectatorModus(true),
@@ -1203,11 +1208,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public void toggleMusic()
-    {
-        musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
-    }
-
     public void toggleHpBar(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (tileDrawer.isHpBarVisibility())
@@ -1263,7 +1263,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-
     public void setFullscreen(@SuppressWarnings("unused") ActionEvent actionEvent) {
         if (sceneManager.isFullscreen()) {
             sceneManager.unsetFullscreen();
@@ -1274,4 +1273,26 @@ public class BattleFieldController implements RootController, IngameViewControll
             setFullscreenButton();
         }
     }
+
+    public void showMenu(@SuppressWarnings("unused") ActionEvent actionEvent) {
+        final List<Entry> entries = new ArrayList<>();
+
+        final Slider slider = new Slider(0.5, 10, skynet.getBot().frequency.getValue());
+        slider.valueProperty().bindBidirectional(skynet.getBot().frequency);
+        entries.add(new Entry("skynetSpeed", slider, Orientation.VERTICAL));
+
+        final Button leaveGameButton = new Button();
+        leaveGameButton.getStyleClass().add("icon-button");
+        JavaFXUtils.setButtonIcons(
+                leaveGameButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                40
+        );
+        leaveGameButton.setOnAction(this::leaveGame);
+        entries.add(new Entry("leaveGame", leaveGameButton, Orientation.HORIZONTAL));
+
+        menuBuilder.battlefieldMenu(entries);
+    }
+
 }
