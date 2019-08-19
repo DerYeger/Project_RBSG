@@ -9,8 +9,11 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.apache.tomcat.util.security.Escape;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -58,6 +61,7 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setMinHeight(780);
         stage.setMinWidth(640);
         setResizeableFalse();
