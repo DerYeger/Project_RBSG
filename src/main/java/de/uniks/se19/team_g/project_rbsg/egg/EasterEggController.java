@@ -38,9 +38,9 @@ public class EasterEggController implements ApplicationContextAware, OverlayTarg
         this.selectedLocale = selectedLocale;
         config = Minesweeper
                 .builder()
-                .mineCount(25)
-                .width(16)
-                .height(16)
+                .mineCount(80)
+                .width(20)
+                .height(20)
                 .onGameWon(() -> onGameOver(AlertBuilder.Text.EGG_WON))
                 .onGameLost(() -> onGameOver(AlertBuilder.Text.EGG_LOST))
                 .cellSize(40)
