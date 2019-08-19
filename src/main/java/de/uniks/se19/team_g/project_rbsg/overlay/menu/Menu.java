@@ -22,7 +22,7 @@ import java.util.Locale;
 @Scope("prototype")
 public class Menu extends Overlay implements Rincled {
 
-    private List<Tuple<String, Node>> entries;
+    private List<Entry> entries;
 
     @FXML
     private StackPane root;
@@ -38,7 +38,7 @@ public class Menu extends Overlay implements Rincled {
         return this;
     }
 
-    public Menu setEntries(@NonNull final List<Tuple<String, Node>> entries) {
+    public Menu setEntries(@NonNull final List<Entry> entries) {
         this.entries = entries;
         return this;
     }
@@ -48,18 +48,8 @@ public class Menu extends Overlay implements Rincled {
         if (locale == null) locale = new SimpleObjectProperty<>(Locale.ENGLISH); //fallback
         container.setSpacing(20);
         label.textProperty().bind(JavaFXUtils.bindTranslation(locale, "menu"));
-        for (final Tuple<String, Node> entry : entries) {
-            final Label label = new Label();
-            label.textProperty().bind(JavaFXUtils.bindTranslation(locale, entry.first));
-            label.setAlignment(Pos.CENTER_LEFT);
-
-            final Region filler = new Region();
-            HBox.setHgrow(filler, Priority.ALWAYS);
-
-            final HBox hBox = new HBox(label, filler, entry.second);
-            hBox.setAlignment(Pos.CENTER);
-
-            container.getChildren().add(hBox);
+        for (final Entry entry : entries) {
+            container.getChildren().add(entry.getEntry(locale));
         }
         root.setOnMouseClicked(event -> hide());
     }

@@ -130,8 +130,9 @@ public class TestGameBuilder {
                 .setLeader(player)
                 .setGame(game);
         testUnit.setLeader(player)
-                .setGame(game);
-        final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game);
+                .setGame(game)
+                .setCanAttack(Collections.singleton(UnitTypeInfo._HEAVY_TANK));
+        final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game).setUnitType(UnitTypeInfo._HEAVY_TANK);
 
         final Cell[][] cells = definition.cells;
         for (int row = 0; row < 5; row++) {
