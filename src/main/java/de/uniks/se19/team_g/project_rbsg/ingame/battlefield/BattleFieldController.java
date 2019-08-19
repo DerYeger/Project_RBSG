@@ -39,6 +39,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -897,6 +898,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (newValue != null)
             {
+                if (skynet.isBotRunning()) skynet.stopBot();
                 showWinnerLoserAlert(newValue);
             }
         }));
@@ -904,6 +906,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
             {
+                if (skynet.isBotRunning()) skynet.stopBot();
+
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
                         () -> this.context.getGameData().setSpectatorModus(true),
@@ -1212,6 +1216,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     public void showMenu(final ActionEvent actionEvent) {
         final List<Tuple<String, Node>> entries = new ArrayList<>();
 
+        final Slider slider = new Slider(0.5, 10, skynet.getBot().frequency.getValue());
+        slider.valueProperty().bindBidirectional(skynet.getBot().frequency);
+        entries.add(new Tuple<>("skynetSpeed", slider));
+
         final Button leaveGameButton = new Button();
         leaveGameButton.getStyleClass().add("icon-button");
         JavaFXUtils.setButtonIcons(
@@ -1222,6 +1230,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
         leaveGameButton.setOnAction(this::leaveGame);
         entries.add(new Tuple<>("leaveGame", leaveGameButton));
+
+
 
         menuBuilder.battlefieldMenu(entries);
     }
