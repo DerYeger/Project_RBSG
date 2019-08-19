@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import javafx.application.Platform;
