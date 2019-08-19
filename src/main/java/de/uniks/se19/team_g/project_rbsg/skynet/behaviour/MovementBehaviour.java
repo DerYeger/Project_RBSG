@@ -44,7 +44,7 @@ public class MovementBehaviour implements Behaviour {
                 .stream()
                 .filter(unit -> isMovableUnit(unit) && hasTarget(unit))
                 .findFirst()
-                .orElseThrow(() -> new MovementBehaviourException("No movable unit left"));
+                .orElseThrow(() -> new MovementBehaviourException("No movable unit or target found"));
     }
 
     private boolean isMovableUnit(@NonNull final Unit unit) {
@@ -77,7 +77,7 @@ public class MovementBehaviour implements Behaviour {
                 .filter(unit::canAttack)
                 .map(Unit::getPosition)
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (enemyPositions.size() < 1) throw new MovementBehaviourException("No enemy units present");
+        if (enemyPositions.size() < 1) throw new MovementBehaviourException("An unexpected error occurred");
         return enemyPositions;
     }
 
