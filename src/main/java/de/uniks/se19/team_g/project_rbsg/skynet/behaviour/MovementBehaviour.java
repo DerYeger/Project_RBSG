@@ -6,7 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.BehaviourException;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.MovementBehaviourException;
@@ -30,7 +29,7 @@ public class MovementBehaviour implements Behaviour {
             final Unit unit = getFirstUnitWithRemainingMP(player);
             final Map<Cell, Tour> allowedTours = movementEvaluator.getValidTours(unit);
 
-            final Cell target = getOptimalTarget(getEnemyPositions(game, player), allowedTours);
+            final Cell target = getOptimalTarget(getTargets(unit), allowedTours);
 
             return Optional.of(new MovementAction(unit, allowedTours.get(target)));
         } catch (final BehaviourException e) {
@@ -43,9 +42,9 @@ public class MovementBehaviour implements Behaviour {
         return player
                 .getUnits()
                 .stream()
-                .filter(this::isMovableUnit)
+                .filter(unit -> isMovableUnit(unit) && hasTarget(unit))
                 .findFirst()
-                .orElseThrow(() -> new MovementBehaviourException("No movable unit left"));
+                .orElseThrow(() -> new MovementBehaviourException("No movable unit or target found"));
     }
 
     private boolean isMovableUnit(@NonNull final Unit unit) {
@@ -62,15 +61,23 @@ public class MovementBehaviour implements Behaviour {
                                         .equals(unit.getLeader()));
     }
 
-    private ArrayList<Cell> getEnemyPositions(@NonNull final Game game,
-                                              @NonNull final Player player) throws MovementBehaviourException {
-        final ArrayList<Cell> enemyPositions = game
+    private boolean hasTarget(@NonNull final Unit unit) {
+        return unit
+                .getGame()
                 .getUnits()
                 .stream()
-                .filter(u -> !u.getLeader().equals(player))
+                .anyMatch(unit::canAttack);
+    }
+
+    private ArrayList<Cell> getTargets(@NonNull final Unit unit) throws MovementBehaviourException {
+        final ArrayList<Cell> enemyPositions = unit
+                .getGame()
+                .getUnits()
+                .stream()
+                .filter(unit::canAttack)
                 .map(Unit::getPosition)
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (enemyPositions.size() < 1) throw new MovementBehaviourException("No enemy units present");
+        if (enemyPositions.size() < 1) throw new MovementBehaviourException("An unexpected error occurred");
         return enemyPositions;
     }
 

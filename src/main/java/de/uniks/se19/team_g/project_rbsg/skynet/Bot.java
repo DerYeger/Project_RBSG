@@ -1,12 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.skynet;
 
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Bot implements Runnable
 {
-    private static int TIMER = 750;
+    public DoubleProperty frequency = new SimpleDoubleProperty(2);
     private Skynet skynet;
     private Thread myThread;
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -15,7 +17,6 @@ public class Bot implements Runnable
     {
         this.skynet = skynet;
     }
-
 
     public Thread start()
     {
@@ -46,7 +47,7 @@ public class Bot implements Runnable
             Platform.runLater(() -> skynet.turn());
             try
             {
-                Thread.sleep(TIMER);
+                Thread.sleep((int) (1000 / frequency.get()));
             } catch (InterruptedException e)
             {
                 e.printStackTrace();

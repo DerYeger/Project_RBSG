@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.beans.property.Property;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import org.slf4j.Logger;
@@ -59,10 +60,10 @@ public class MenuBuilder implements ApplicationContextAware {
 
     public void lobbyMenu() {
         try {
-            final List<Tuple<String, Node>> entries = new ArrayList<>();
-            entries.add(new Tuple<>("music", musicManager.newButton()));
-            entries.add(new Tuple<>("language", languageDropdown()));
-            entries.add(new Tuple<>("credits", creditsBuilder.newButton()));
+            final List<Entry> entries = new ArrayList<>();
+            entries.add(new Entry("music", musicManager.newButton(), Orientation.HORIZONTAL));
+            entries.add(new Entry("language", languageDropdown(), Orientation.HORIZONTAL));
+            entries.add(new Entry("credits", creditsBuilder.newButton(), Orientation.HORIZONTAL));
 
             menu(entries).show();
         } catch (final OverlayException e) {
@@ -70,16 +71,16 @@ public class MenuBuilder implements ApplicationContextAware {
         }
     }
 
-    public void battlefieldMenu(@NonNull final List<Tuple<String, Node>> entries) {
+    public void battlefieldMenu(@NonNull final List<Entry> entries) {
         try {
-            entries.add(0, new Tuple<>("music", musicManager.newButton()));
+            entries.add(0, new Entry("music", musicManager.newButton(), Orientation.HORIZONTAL));
             menu(entries).show();
         } catch (final OverlayException e) {
             logger.info("Unable to create menu: " + e.getMessage());
         }
     }
 
-    private Menu menu(@NonNull final List<Tuple<String, Node>> entries) throws OverlayException {
+    private Menu menu(@NonNull final List<Entry> entries) throws OverlayException {
         final OverlayTarget target = overlayTargetProvider.getOverlayTarget();
 
         if (target == null) {

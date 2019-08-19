@@ -4,6 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -24,7 +26,13 @@ public class BotTest extends ApplicationTest
             }
         };
 
+        final DoubleProperty testProperty = new SimpleDoubleProperty(0.5);
+
+        skynet.getBot().frequency.bindBidirectional(testProperty);
+
         assertFalse(skynet.isBotRunning());
+
+        testProperty.set(10);
 
         skynet.startBot();
 
@@ -38,7 +46,7 @@ public class BotTest extends ApplicationTest
 
         skynet.stopBot();
         
-        Thread.sleep(800);
+        Thread.sleep(200);
 
         assertFalse(skynet.isBotRunning());
 
