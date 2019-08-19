@@ -22,7 +22,6 @@ import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -42,6 +41,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -122,10 +122,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     public HBox ingameInformationHBox;
     public StackPane rootPane;
     public Button skynetButton;
-    public Button fullscreenButton;
     private ChatController chatController;
     private Game game;
-    private ObservableList<Cell> cells;
     private ObservableList<Unit> units;
     private TileDrawer tileDrawer;
     private final PropertyChangeListener highlightingListener = this::highlightingChanged;
@@ -153,6 +151,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Skynet skynet;
     private ActionExecutor actionExecutor;
     private boolean openWhenResizedPlayer, openWhenResizedChat;
+
+    private final Button fullscreenButton = new Button();
 
     @Autowired
     public BattleFieldController(
@@ -228,7 +228,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/navigation/lifeBarBlack.png"),
                 40
         );
-
+        menuButton.setTooltip(new Tooltip("ESC/F10"));
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -274,7 +274,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         heightCenter = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
         widthCenter = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
         calculateCenter();
-        setFullscreenButton();
         setFullscreen(null);
     }
 
@@ -546,7 +545,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void phaseChanged(ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
+    private void phaseChanged(@SuppressWarnings("unused") ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
     {
         if (oldPhase != null && oldPhase.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size()) == 0)
         {
@@ -756,7 +755,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         return true;
     }
 
-    public void leaveGame(@SuppressWarnings("unused") ActionEvent actionEvent)
+    private void leaveGame(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         alertBuilder
                 .priorityConfirmation(
@@ -937,7 +936,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         camera.TryToCenterToPostition(cell.getX(), cell.getY());
     }
 
-    private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
+    private void onNextPhase(@SuppressWarnings("unused") Observable observable, @SuppressWarnings("unused") String lastPhase, @SuppressWarnings("unused") String nextPhase)
     {
         setCellProperty(null);
         game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
@@ -1017,7 +1016,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public Tile getTileOf(Object positioned)
+    private Tile getTileOf(Object positioned)
     {
 
         Cell position;
@@ -1106,6 +1105,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
         }));
 
+        endPhaseButton.setTooltip(new Tooltip("ENTER"));
         endPhaseButton.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY))
             {
@@ -1252,7 +1252,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         skynetButton.setOnAction(this::startBot);
     }
 
-    private void startBot(ActionEvent actionEvent)
+    private void startBot(@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (skynet.isBotRunning())
         {
@@ -1263,7 +1263,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public void setFullscreen(@SuppressWarnings("unused") ActionEvent actionEvent) {
+    private void setFullscreen(@SuppressWarnings("unused") ActionEvent actionEvent) {
         if (sceneManager.isFullscreen()) {
             sceneManager.unsetFullscreen();
             setFullscreenButton();
@@ -1276,6 +1276,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void showMenu(@SuppressWarnings("unused") ActionEvent actionEvent) {
         final List<Entry> entries = new ArrayList<>();
+
+        fullscreenButton.getStyleClass().add("icon-button");
+        setFullscreenButton();
+        fullscreenButton.setOnAction(this::setFullscreen);
+        entries.add(new Entry("fullscreen", fullscreenButton, Orientation.HORIZONTAL));
+        fullscreenButton.setTooltip(new Tooltip("F11"));
 
         final Slider slider = new Slider(0.5, 10, skynet.getBot().frequency.getValue());
         slider.valueProperty().bindBidirectional(skynet.getBot().frequency);
