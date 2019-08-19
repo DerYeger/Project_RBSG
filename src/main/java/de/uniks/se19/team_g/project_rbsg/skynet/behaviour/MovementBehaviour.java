@@ -82,7 +82,7 @@ public class MovementBehaviour implements Behaviour {
                 .stream()
                 .map(cell -> new Tuple<>(cell, smallestDistance(cell, enemyPositions)))
                 .filter(pair -> pair.second > 0)
-                .min(Comparator.comparingDouble(p -> p.second))
+                .min(Comparator.comparingDouble(pair -> pair.second))
                 .orElseThrow(() -> new MovementBehaviourException("No target cell found"))
                 .first;
     }
@@ -91,9 +91,14 @@ public class MovementBehaviour implements Behaviour {
                                     @NonNull final ArrayList<Cell> enemyPositions) {
         return enemyPositions
                 .stream()
-                .mapToDouble(other -> distance(cell, other))
+                .mapToDouble(other -> evaluation(cell, other))
                 .min()
                 .orElse(0);
+    }
+
+    private double evaluation(@NonNull final Cell first,
+                              @NonNull final Cell second) {
+        return Math.pow(distance(first, second), 2) + second.getUnit().getNeighbors().size();
     }
 
     private double distance(@NonNull final Cell first,
