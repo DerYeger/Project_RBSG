@@ -64,6 +64,7 @@ public class Entry {
 
         final VBox vBox = new VBox(label, node);
         vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(20);
 
         return vBox;
     }
