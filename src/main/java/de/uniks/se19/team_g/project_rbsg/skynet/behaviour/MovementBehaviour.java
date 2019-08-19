@@ -60,7 +60,7 @@ public class MovementBehaviour implements Behaviour {
                 .getGame()
                 .getUnits()
                 .stream()
-                .anyMatch(unit::canAttack);
+                .anyMatch(other -> unit.canAttack(other) && other.getNeighbors().size() < 4);
     }
 
     private ArrayList<Cell> getTargets(@NonNull final Unit unit) throws MovementBehaviourException {
@@ -68,7 +68,7 @@ public class MovementBehaviour implements Behaviour {
                 .getGame()
                 .getUnits()
                 .stream()
-                .filter(unit::canAttack)
+                .filter(other -> unit.canAttack(other) && other.getNeighbors().size() < 4)
                 .map(Unit::getPosition)
                 .collect(Collectors.toCollection(ArrayList::new));
         if (enemyPositions.size() < 1) throw new MovementBehaviourException("An unexpected error occurred");
