@@ -92,6 +92,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button zoomInButton;
     public Canvas miniMapCanvas;
     public Button endPhaseButton;
+    public Button endRoundButton;
     public Pane endPhaseButtonContainer;
     public VBox root;
     public VBox unitInformationContainer;
@@ -218,6 +219,12 @@ public class BattleFieldController implements RootController, IngameViewControll
                 hpBarButton,
                 getClass().getResource("/assets/icons/navigation/lifeBarWhite.png"),
                 getClass().getResource("/assets/icons/navigation/lifeBarBlack.png"),
+                40
+        );
+        JavaFXUtils.setButtonIcons(
+                endRoundButton,
+                getClass().getResource("/assets/icons/operation/endRoundWhite.png"),
+                getClass().getResource("/assets/icons/operation/endRoundBlack.png"),
                 40
         );
 
@@ -737,7 +744,22 @@ public class BattleFieldController implements RootController, IngameViewControll
                         null);
     }
 
-    private void doEndPhase()
+    public void endRound(){
+        doEndPhase();
+        String phase = this.context.getGameState().getPhase();
+        if (phase.equals(Game.Phase.movePhase.name())){
+            doEndPhase();
+            doEndPhase();
+            doEndPhase();
+        } else if(phase.equals(Game.Phase.attackPhase.name())){
+            doEndPhase();
+            doEndPhase();
+        } else if(phase.equals(Game.Phase.lastMovePhase.name())){
+            doEndPhase();
+        }
+    }
+
+    public void doEndPhase()
     {
         actionExecutor.execute(new PassAction(game));
     }
@@ -809,7 +831,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.context.getGameState().phaseProperty()
                 .addListener(this::onNextPhase);
 
-        configureEndPhase();
+        configureEndPhaseAndEndRound();
 
         unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty()));
         unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty()));
@@ -1029,7 +1051,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         miniMapDrawer.drawMinimap(tileMap);
     }
 
-    private void configureEndPhase()
+    private void configureEndPhaseAndEndRound()
     {
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
         ObjectProperty<Player> currentPlayerProperty = this.context.getGameState().currentPlayerProperty();
@@ -1039,17 +1061,13 @@ public class BattleFieldController implements RootController, IngameViewControll
                 currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
-        playerCanEndPhase.addListener(((observable, oldValue, newValue) ->
-        {
-        }));
+        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
 
         currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
-        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) ->
-        {
-        }));
+        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
 
         endPhaseButton.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY))
@@ -1057,6 +1075,10 @@ public class BattleFieldController implements RootController, IngameViewControll
                 endPhase();
             }
         });
+
+        endRoundButton.disableProperty().bind(playerCanEndPhase.not());
+
+        endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
 
     @SuppressWarnings("unused")
