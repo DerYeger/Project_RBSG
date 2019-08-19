@@ -1,8 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import com.sun.javafx.PlatformUtil;
 import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
@@ -11,7 +10,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.NotificationModalController;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.SystemMessageHandler.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
@@ -19,13 +17,12 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
-import io.rincl.Rincled;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -34,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import org.slf4j.Logger;
@@ -46,10 +44,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -62,7 +57,7 @@ import java.util.function.Function;
 
 @Component
 @Scope("prototype")
-public class LobbyViewController implements RootController, Terminable, Rincled
+public class LobbyViewController implements RootController, Terminable
 {
 
     private static final int ICON_SIZE = 30;
@@ -75,9 +70,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private final SceneManager sceneManager;
     private final UserProvider userProvider;
     private final LobbyChatClient lobbyChatClient;
-    private final MusicManager musicManager;
     private final LogoutManager logoutManager;
     private final AlertBuilder alertBuilder;
+    private final MenuBuilder menuBuilder;
     private final EmailManager emailManager;
 
     private final ObjectFactory<GameListViewCell> gameListCellFactory;
@@ -96,18 +91,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     private ChatBuilder chatBuilder;
     private ChatController chatController;
     private CreateGameFormBuilder createGameFormBuilder;
-    private CreditsFormBuilder creditsFormBuilder;
 
     private Node gameForm;
-    private Node creditsForm;
 
     public StackPane mainStackPane;
-    public Button soundButton;
+    public Button menuButton;
     public Button logoutButton;
-    public Button enButton;
-    public Button deButton;
     public Button createGameButton;
-    public Button creditsButton;
     public Pane createGameButtonContainer;
     public Button armyBuilderLink;
     public GridPane mainGridPane;
@@ -127,10 +117,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             @Nonnull final ChatController chatController,
             @Nonnull final LobbyChatClient lobbyChatClient,
             @Nonnull final CreateGameFormBuilder createGameFormBuilder,
-            @NonNull final CreditsFormBuilder creditsFormBuilder,
-            @Nonnull final MusicManager musicManager,
             @Nonnull final LogoutManager logoutManager,
             @NonNull final AlertBuilder alertBuilder,
+            @NonNull final MenuBuilder menuBuilder,
             @Nonnull final ObjectFactory<GameListViewCell> gameListCellFactory,
             @Nonnull final Property<Locale> selectedLocale,
             @NonNull final EmailManager emailManager,
@@ -141,6 +130,7 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.lobbyChatClient = lobbyChatClient;
         this.logoutManager = logoutManager;
         this.alertBuilder = alertBuilder;
+        this.menuBuilder = menuBuilder;
         this.gameListCellFactory = gameListCellFactory;
         this.selectedLocale = selectedLocale;
         this.appState = appState;
@@ -152,14 +142,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         this.gameManager = gameManager;
 
         this.createGameFormBuilder = createGameFormBuilder;
-        this.creditsFormBuilder = creditsFormBuilder;
 
         this.lobby.setSystemMessageManager(systemMessageManager);
         this.lobby.setChatController(chatController);
 
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
-        this.musicManager = musicManager;
 
         this.emailManager = emailManager;
     }
@@ -196,14 +184,12 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
         configureSystemMessageManager();
 
-        if (Locale.getDefault().equals(Locale.GERMAN))
-        {
-            deButton.disableProperty().setValue(true);
-        } else
-        {
-            deButton.disableProperty().setValue(false);
-        }
-        enButton.disableProperty().bind(Bindings.when(deButton.disableProperty()).then(false).otherwise(true));
+        JavaFXUtils.setButtonIcons(
+                menuButton,
+                getClass().getResource("/assets/icons/navigation/menuWhite.png"),
+                getClass().getResource("/assets/icons/navigation/menuBlack.png"),
+                40
+        );
 
         JavaFXUtils.setButtonIcons(
                 createGameButton,
@@ -230,14 +216,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
                 getClass().getResource("/assets/icons/operation/bugReportBlack.png"),
                 40
         );
-        JavaFXUtils.setButtonIcons(
-                creditsButton,
-                getClass().getResource("/assets/icons/navigation/heartWhite.png"),
-                getClass().getResource("/assets/icons/navigation/heartBlack.png"),
-                LobbyViewController.ICON_SIZE
-        );
-
-        musicManager.initButtonIcons(soundButton);
 
         setBackgroundImage();
 
@@ -262,6 +240,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         {
             showNotifications();
         }
+
+        mainStackPane.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ESCAPE) || event.getCode().equals(KeyCode.F10)) {
+                showMenu(null);
+            }
+            mainStackPane.setFocusTraversable(true);
+        });
     }
 
     private void showNotifications()
@@ -284,6 +269,9 @@ public class LobbyViewController implements RootController, Terminable, Rincled
     {
         armyBuilderLink.textProperty().bind(
                 JavaFXUtils.bindTranslation(selectedLocale, "ArmyBuilderLink")
+        );
+        createGameButton.textProperty().bind(
+                JavaFXUtils.bindTranslation(selectedLocale, "createGameButton")
         );
     }
 
@@ -369,28 +357,6 @@ public class LobbyViewController implements RootController, Terminable, Rincled
 
     }
 
-    public void showCredits(){
-        if(mainStackPane == null) {
-            return;
-        }
-        if (this.creditsForm == null) {
-            try {
-                this.creditsForm = this.creditsFormBuilder.getCreditsForm("board", "icons", "music", "units", "frameworks");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((this.creditsForm != null) && (!mainStackPane.getChildren().contains(this.creditsForm))) {
-            mainStackPane.getChildren().add(creditsForm);
-        } else if ((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm)) && !this.creditsForm.isVisible()){
-            this.creditsForm.setVisible(true);
-        } else if (((this.creditsForm != null) && (mainStackPane.getChildren().contains(this.creditsForm))) && this.creditsForm.isVisible()){
-            this.creditsForm.setVisible(false);
-        }
-
-    }
-
     public void terminate()
     {
         lobbyChatClient.terminate();
@@ -409,38 +375,13 @@ public class LobbyViewController implements RootController, Terminable, Rincled
             selectedLocale.setValue(locale);
         }
 
-        createGameButton.textProperty().setValue(getResources().getString("createGameButton"));
-        enButton.textProperty().setValue(getResources().getString("enButton"));
-        deButton.textProperty().setValue(getResources().getString("deButton"));
-        lobbyTitle.textProperty().setValue(getResources().getString("title"));
+        lobbyTitle.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "title"));
 
         if (createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null)
         {
             createGameFormBuilder.getCreateGameController().updateLabels();
             createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController().updateLabels();
         }
-
-        if(creditsFormBuilder != null && creditsFormBuilder.getCreditsController() != null) {
-            creditsFormBuilder.getCreditsController().updateLabels();
-        }
-    }
-
-    public void changeLangToDE()
-    {
-        deButton.disableProperty().setValue(true);
-        updateLabels(Locale.GERMAN);
-    }
-
-    public void changeLangToEN()
-    {
-        deButton.disableProperty().setValue(false);
-        updateLabels(Locale.ENGLISH);
-    }
-
-    public void toggleSound()
-    {
-        logger.debug("Pressed the toggleSound button");
-        musicManager.toggleMusicAndUpdateButtonIconSet(soundButton);
     }
 
     public void logoutUser()
@@ -463,6 +404,10 @@ public class LobbyViewController implements RootController, Terminable, Rincled
         sceneManager.setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
     }
 
+    public void showMenu(final ActionEvent actionEvent) {
+        menuBuilder.lobbyMenu();
+    }
+    
     public void sendButReport(ActionEvent actionEvent)
     {
             emailManager.mailTo();
