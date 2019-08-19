@@ -50,15 +50,9 @@ public class MovementBehaviour implements Behaviour {
     private boolean isMovableUnit(@NonNull final Unit unit) {
         return unit.getRemainingMovePoints() > 0 &&
                 unit
-                .getPosition()
                         .getNeighbors()
                         .stream()
-                        .noneMatch(neighbor ->
-                                neighbor.getUnit() != null
-                                        && !neighbor
-                                        .getUnit()
-                                        .getLeader()
-                                        .equals(unit.getLeader()));
+                        .noneMatch(unit::canAttack);
     }
 
     private boolean hasTarget(@NonNull final Unit unit) {
