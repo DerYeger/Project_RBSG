@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
+import animatefx.animation.Wobble;
 import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -148,6 +149,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private ActionExecutor actionExecutor;
     private boolean openWhenResizedPlayer, openWhenResizedChat;
 
+    private Node phaseLabelView;
+
     @Autowired
     public BattleFieldController(
             @Nonnull final SceneManager sceneManager,
@@ -170,7 +173,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.chatController = chatController;
 
         this.roundCount = new SimpleIntegerProperty();
-        this.playerCounter = 1;
+        this.playerCounter = 0;
 
         this.selectedLocale = selectedLocale;
     }
@@ -465,7 +468,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         });
 
         this.game.getPlayers().addListener(playerListListener);
-
+        phaseImage.imageProperty().setValue(new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm()));
         this.game.phaseProperty().addListener(phaseChangedListener);
 
         roundCount.set(0);
@@ -502,8 +505,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
             playerCounter = 0;
+        } else if(newPhase != null && newPhase.equals("lastMovePhase")) {
+            playerCounter++;
         }
-        playerCounter++;
 
         switch (newPhase)
         {
@@ -526,6 +530,18 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
             break;
         }
+
+        phaseLabelView.visibleProperty().set(true);
+        Wobble wobble = new Wobble(phaseLabelView);
+        wobble.setCycleCount(1);
+        if(skynet.isBotRunning()) {
+            double speed = skynet.getBot().frequency.getValue() / 10.0 < 0.1 ? 0.1 : skynet.getBot().frequency.getValue()/10;
+            wobble.setSpeed(speed);
+        } else {
+            wobble.setSpeed(0.1);
+        }
+        wobble.play();
+        wobble.setOnFinished((e) -> phaseLabelView.visibleProperty().set(false));
 
         //TODO readd
 //        if (context.isMyTurn())
@@ -824,11 +840,14 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             e.printStackTrace();
         }
-
         initActionExecutor();
         initSkynet();
         initSkynetButtons();
         if(sceneManager.isStageInit()) initListenersForFullscreen();
+        phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
+        rootPane.getChildren().add(phaseLabelView);
+        phaseLabelView.visibleProperty().set(false);
+        System.out.println(phaseLabelView.visibleProperty().get() + "  hgf " + phaseLabelView.visibleProperty());
     }
 
     private void switchThroughUnits(KeyEvent keyEvent){
@@ -1194,8 +1213,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         JavaFXUtils.setButtonIcons(
                 skynetButton,
-                getClass().getResource("/assets/icons/operation/skynetWhite.png"),
-                getClass().getResource("/assets/icons/operation/skynetBlack.png"),
+                getClass().getResource("/assets/icons/operation/skynetInactiveWhite.png"),
+                getClass().getResource("/assets/icons/operation/skynetInactiveBlack.png"),
                 40
         );
 
@@ -1206,9 +1225,21 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         if (skynet.isBotRunning())
         {
+            JavaFXUtils.setButtonIcons(
+                    skynetButton,
+                    getClass().getResource("/assets/icons/operation/skynetInactiveWhite.png"),
+                    getClass().getResource("/assets/icons/operation/skynetInactiveBlack.png"),
+                    40
+            );
             skynet.stopBot();
         } else
         {
+            JavaFXUtils.setButtonIcons(
+                    skynetButton,
+                    getClass().getResource("/assets/icons/operation/skynetActiveWhite.png"),
+                    getClass().getResource("/assets/icons/operation/skynetActiveBlack.png"),
+                    40
+            );
             skynet.startBot();
         }
     }
