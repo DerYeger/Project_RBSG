@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -138,17 +139,22 @@ public class ArmyDetailController implements Initializable {
             while (change.next()) {
                 for (Unit unit : change.getRemoved()) {
                     final SquadViewModel squadViewModel = squadMap.get(unit);
-                    squadViewModel.members.remove(unit);
-                    if (squadViewModel.members.size() == 0) {
-                        squadMap.remove(unit);
-                        squadList.remove(squadViewModel);
+                    if(!change.wasReplaced()){
+                        
+                        squadViewModel.members.remove(unit);
+                        if (squadViewModel.members.size() == 0) {
+                            squadMap.remove(unit);
+                            squadList.remove(squadViewModel);
+                        }
                     }
                 }
                 for (Unit unit : change.getAddedSubList()) {
+                    if(!change.wasReplaced()){
                         SquadViewModel newModel = new SquadViewModel();
                         newModel.members.add(unit);
                         squadMap.put(unit, newModel);
                         squadList.add(newModel);
+                    }
                 }
             }
         };
@@ -160,10 +166,11 @@ public class ArmyDetailController implements Initializable {
 
     private void initializeSquadList(Army army, ObservableList<SquadViewModel> squadList, Map<Unit, SquadViewModel> squadMap) {
         for (Unit unit : army.units) {
-            squadMap.put(unit, new SquadViewModel());
+            SquadViewModel newModel = new SquadViewModel();
+            squadMap.put(unit, newModel);
             squadMap.get(unit).members.add(unit);
+            squadList.add(newModel);
         }
-        squadList.setAll(squadMap.values());
     }
 
     public void onAddUnit()
@@ -214,30 +221,34 @@ public class ArmyDetailController implements Initializable {
                 squadMap.remove(selected);
                 squadMap.remove(neighbourUnit);
 
-                neighbourModel.members.set(0, selected);
-                selectedModel.members.set(0, neighbourUnit);
+                moveListPositions(selected, neighbourUnit, leftOrRight);
+
 
                 squadMap.put(neighbourUnit, selectedModel);
                 squadMap.put(selected, neighbourModel);
+                neighbourModel.members.set(0, selectedModel.members.set(0, neighbourUnit));
 
-                //moveListPositions(selected, neighbourUnit, leftOrRight);
+                //neighbourModel.members.set(0, selected);
+                //selectedModel.members.set(0, neighbourUnit);
 
                 armyBuilderState.selectedUnit.set(selected);
                 armySquadList.refresh();
 
+                appState.selectedArmy.get().setUnsavedUpdates(true);
                 i=squadList.size();
             }
         }
     }
 
-    /*private void moveListPositions(Unit selectedUnit, Unit neighbourUnit, int leftOrRight) {
+    private void moveListPositions(Unit selectedUnit, Unit neighbourUnit, int leftOrRight) {
         ObservableList<Unit> selectedArmyUnits = appState.selectedArmy.get().units;
         for(int i=0; i < selectedArmyUnits.size(); i++){
-            if(selectedArmyUnits.get(i).equals(selectedUnit)){
-                selectedArmyUnits.set(i+leftOrRight, selectedUnit);
-                selectedArmyUnits.set(i, neighbourUnit);
+            if(selectedArmyUnits.get(i)==(selectedUnit)){
+                Collections.swap(selectedArmyUnits, i, i+leftOrRight);
+                //selectedArmyUnits.set(i+leftOrRight, selectedUnit);
+                //selectedArmyUnits.set(i, neighbourUnit);
                 i=selectedArmyUnits.size();
             }
         }
-    }*/
+    }
 }
