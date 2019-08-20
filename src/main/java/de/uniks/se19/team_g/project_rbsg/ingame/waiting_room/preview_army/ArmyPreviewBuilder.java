@@ -9,6 +9,13 @@ import java.io.*;
 public class ArmyPreviewBuilder
 {
 
+    public ArmyPreviewController getLastController()
+    {
+        return lastController;
+    }
+
+    private ArmyPreviewController lastController;
+
     public Node build (Army army)
     {
         Node node = null;
@@ -23,9 +30,9 @@ public class ArmyPreviewBuilder
             e.printStackTrace();
         }
 
-        ArmyPreviewController controller = fxmlLoader.getController();
+        lastController = fxmlLoader.getController();
 
-        controller.init(army);
+        lastController.init(army);
 
         return node;
     }

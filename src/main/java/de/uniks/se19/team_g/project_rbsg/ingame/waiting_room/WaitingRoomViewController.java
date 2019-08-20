@@ -309,7 +309,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     protected void configureArmySelection ()
     {
         armySelectorController = armySelectorComponent.apply(armySelector);
-        armySelectorController.hoveredArmyProperty().addListener(HoveredArmyListener);
+        if(armySelectorController != null && armySelectorController.hoveredArmyProperty() != null) {
+            armySelectorController.hoveredArmyProperty().addListener(HoveredArmyListener);
+        }
         selectedArmy.addListener((observable, oldValue, newValue) ->
                                  {
                                      JavaFXUtils.setButtonIcons(
