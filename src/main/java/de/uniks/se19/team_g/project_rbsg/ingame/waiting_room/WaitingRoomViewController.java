@@ -215,17 +215,25 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     }
 
     private void setPlayerCardNodes() {
-        player1Pane.getChildren().add(playerCard.buildPlayerCard(selectedLocale));
-        player2Pane.getChildren().add(playerCard2.buildPlayerCard(selectedLocale));
+        Node player1 = playerCard.buildPlayerCard(selectedLocale);
+        Node player2 = playerCard2.buildPlayerCard(selectedLocale);
+        player1.setOnMouseClicked(this::player1PaneClicked);
+        player2.setOnMouseClicked(this::player2PaneClicked);
+        player1Pane.getChildren().add(player1);
+        player2Pane.getChildren().add(player2);
         playerCard2.switchColumns();
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
+            Node player3 = playerCard.buildPlayerCard(selectedLocale);
+            Node player4 = playerCard2.buildPlayerCard(selectedLocale);
+            player3.setOnMouseClicked(this::player3PaneClicked);
+            player4.setOnMouseClicked(this::player4PaneClicked);
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
             AnchorPane.setTopAnchor(player2Pane, 102.0);
-            player3Pane.getChildren().add(playerCard3.buildPlayerCard(selectedLocale));
-            player4Pane.getChildren().add(playerCard4.buildPlayerCard(selectedLocale));
+            player3Pane.getChildren().add(player3);
+            player4Pane.getChildren().add(player4);
             playerCard4.switchColumns();
         } else {
             AnchorPane.setTopAnchor(player1Pane, 180.0);
@@ -425,19 +433,19 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     public void player1PaneClicked(MouseEvent event){
         int playerNumber=0;
-        onPlayerCardClicked(playerNumber);
+        Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
     public void player2PaneClicked(MouseEvent event){
         int playerNumber=1;
-        onPlayerCardClicked(playerNumber);
+        Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
     public void player3PaneClicked(MouseEvent event){
         int playerNumber=2;
-        onPlayerCardClicked(playerNumber);
+        Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
     public void player4PaneClicked(MouseEvent event){
         int playerNumber=3;
-        onPlayerCardClicked(playerNumber);
+        Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
 
     private void onPlayerCardClicked(int playerNumber){
