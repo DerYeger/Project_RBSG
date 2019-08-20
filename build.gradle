@@ -20,6 +20,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -47,6 +48,8 @@ dependencies {
 	compile group: 'org.glassfish', name: 'javax.json', version: '1.1.4'
 
 	compile "io.rincl:rincl-resourcebundle:0.8.0"
+
+	implementation 'com.github.deryeger:minesweeper:0.3'
 }
 
 javafx {

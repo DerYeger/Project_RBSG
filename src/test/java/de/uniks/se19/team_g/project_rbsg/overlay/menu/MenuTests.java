@@ -10,8 +10,11 @@ import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import io.rincl.Rincl;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +29,8 @@ import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
@@ -81,11 +86,15 @@ public class MenuTests extends ApplicationTest implements ApplicationContextAwar
 
     @Test
     public void testBattlefieldMenu() {
-        menuBuilder.battlefieldMenu(new ArrayList<>());
+        menuBuilder.battlefieldMenu(new ArrayList<>(Collections.singletonList(new Entry("skynetSpeed", new Button("hello there"), Orientation.VERTICAL))));
 
         WaitForAsyncUtils.waitForFxEvents();
 
+        assertNotNull(lookup("#hBox"));
         assertNotNull(lookup("Music"));
-        assertNotNull(lookup("Hello there"));
+
+        assertNotNull(lookup("#vBox"));
+        assertNotNull(lookup("AI-Speed"));
+        assertNotNull(lookup("hello there"));
     }
 }
