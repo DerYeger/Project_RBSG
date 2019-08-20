@@ -200,12 +200,15 @@ public class ArmyDetailController implements Initializable {
         moveUnit(1);
     }
     public void moveUnit(int leftOrRight){
-        //false is left true is right
+
         HashMap<Unit, SquadViewModel> squadMap = armyMap.get(appState.selectedArmy.get());
+        ObservableList squadList = armySquadList.getItems();
+
         Unit selected = armyBuilderState.selectedUnit.get();
         SquadViewModel selectedModel = squadMap.get(selected);
-        ObservableList squadList = armySquadList.getItems();
+
         SquadViewModel neighbourModel;
+        Unit neighbourUnit;
         for(int i=0; i<squadList.size();i++){
 
             if(squadList.get(i).equals(selectedModel)){
@@ -215,8 +218,7 @@ public class ArmyDetailController implements Initializable {
                 }
 
                 neighbourModel=(SquadViewModel) squadList.get(i+leftOrRight);
-
-                Unit neighbourUnit = neighbourModel.members.get(0);
+                neighbourUnit = neighbourModel.members.get(0);
 
                 squadMap.remove(selected);
                 squadMap.remove(neighbourUnit);
