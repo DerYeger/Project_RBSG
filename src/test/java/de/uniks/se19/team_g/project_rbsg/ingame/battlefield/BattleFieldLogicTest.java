@@ -22,6 +22,7 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,6 +63,9 @@ public class BattleFieldLogicTest extends ApplicationTest {
     AlertBuilder alertBuilder;
 
     @MockBean
+    ActionExecutor actionExecutor;
+
+    @MockBean
     MenuBuilder menuBuilder;
 
     @MockBean
@@ -81,7 +85,9 @@ public class BattleFieldLogicTest extends ApplicationTest {
     @Test
     public void testEndRound(){
 
-        BattleFieldController battleFieldController = Mockito.mock(BattleFieldController.class);
+        BattleFieldController battleFieldController = battleFieldComponent.getController();
+
+        IngameApi ingameApi = Mockito.mock(IngameApi.class);
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
@@ -92,6 +98,7 @@ public class BattleFieldLogicTest extends ApplicationTest {
         game.withPlayer(player);
 
         game.setPhase(Game.Phase.movePhase.name());
+        game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
@@ -101,7 +108,7 @@ public class BattleFieldLogicTest extends ApplicationTest {
 
         GameEventManager gameEventManager = new GameEventManager(
                 new WebSocketClient(),
-                new IngameApi()
+                ingameApi
         );
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
@@ -110,19 +117,14 @@ public class BattleFieldLogicTest extends ApplicationTest {
 
         battleFieldController.endRound();
 
-        verify(battleFieldController, times(3)).doEndPhase();
+        verify(ingameApi, times(3)).endPhase();
 
         game.setPhase(Game.Phase.attackPhase.name());
         battleFieldController.endRound();
-        verify(battleFieldController, times(2)).doEndPhase();
+        verify(ingameApi, times(5)).endPhase();
 
         game.setPhase(Game.Phase.lastMovePhase.name());
         battleFieldController.endRound();
-        verify(battleFieldController, times(1)).doEndPhase();
-
-        verifyNoMoreInteractions(battleFieldController);
-
+        verify(ingameApi, times(6)).endPhase();
     }
-
-
 }
