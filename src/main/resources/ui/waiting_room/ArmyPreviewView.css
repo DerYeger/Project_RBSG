@@ -1,5 +1,14 @@
-.armyContainer {
+.armyPreviewContainer {
     -fx-spacing: 10;
     -fx-pref-width: 500;
-    -fx-pref-height: 300;
+    -fx-pref-height: 250;
+    -fx-padding: 10;
+    -fx-border-width: 3;
+    -fx-border-color: white;
+}
+
+.unitContainer {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-alignment: center;
 }

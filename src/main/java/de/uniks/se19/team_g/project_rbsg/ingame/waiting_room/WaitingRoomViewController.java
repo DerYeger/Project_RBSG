@@ -78,6 +78,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     public Pane readyButtonContainer;
     public AnchorPane root;
     public ModelManager modelManager;
+    public StackPane rootStackPane;
     private Logger logger = LoggerFactory.getLogger(getClass());
     private boolean ready;
     private boolean selectButtonDoubleClicked;
@@ -348,17 +349,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
-    private void hoveredArmyChanged (ObservableValue<? extends Army> observableValue, Army oldArmy, Army newArmy)
-    {
-        if (newArmy != null)
-        {
-            Node previewNode = armyPreviewBuilder.build(newArmy);
-            root.getChildren().add(previewNode);
-        }
-        else {
-            root.getChildren().remove(lastArmyPreview);
-        }
-    }
 
     @Override
     public void configure (@Nonnull IngameContext context)
@@ -471,4 +461,15 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
+    private void hoveredArmyChanged (ObservableValue<? extends Army> observableValue, Army oldArmy, Army newArmy)
+    {
+        if (newArmy != null)
+        {
+            lastArmyPreview = armyPreviewBuilder.build(newArmy);
+            rootStackPane.getChildren().add(lastArmyPreview);
+        }
+        else {
+            rootStackPane.getChildren().remove(lastArmyPreview);
+        }
+    }
 }
