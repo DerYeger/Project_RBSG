@@ -38,6 +38,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
@@ -51,6 +52,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -419,6 +421,28 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if (readyCounter == 5) {
             Platform.runLater(easterEggController::start);
         }
+    }
+
+    public void player1PaneClicked(MouseEvent event){
+        int playerNumber=0;
+        onPlayerCardClicked(playerNumber);
+    }
+    public void player2PaneClicked(MouseEvent event){
+        int playerNumber=1;
+        onPlayerCardClicked(playerNumber);
+    }
+    public void player3PaneClicked(MouseEvent event){
+        int playerNumber=2;
+        onPlayerCardClicked(playerNumber);
+    }
+    public void player4PaneClicked(MouseEvent event){
+        int playerNumber=3;
+        onPlayerCardClicked(playerNumber);
+    }
+
+    private void onPlayerCardClicked(int playerNumber){
+        ObservableList<Player> players = context.getGameState().getPlayers();
+        chatController.chatTabManager().addPrivateTab('@' + players.get(playerNumber).getName());
     }
 
 }
