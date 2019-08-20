@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -69,7 +70,8 @@ import static org.mockito.Mockito.*;
         IngameConfig.class,
         AlertBuilder.class,
         FXMLLoaderFactory.class,
-        AppStateConfig.class
+        AppStateConfig.class,
+        EasterEggController.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 

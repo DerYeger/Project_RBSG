@@ -11,6 +11,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
@@ -33,12 +34,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -918,6 +921,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (newValue != null)
             {
+                if (skynet.isBotRunning()) skynet.stopBot();
                 showWinnerLoserAlert(newValue);
             }
         }));
@@ -925,6 +929,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
             {
+                if (skynet.isBotRunning()) skynet.stopBot();
+
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
                         () -> this.context.getGameData().setSpectatorModus(true),
@@ -1231,7 +1237,11 @@ public class BattleFieldController implements RootController, IngameViewControll
 
 
     public void showMenu(final ActionEvent actionEvent) {
-        final List<Tuple<String, Node>> entries = new ArrayList<>();
+        final List<Entry> entries = new ArrayList<>();
+
+        final Slider slider = new Slider(0.5, 10, skynet.getBot().frequency.getValue());
+        slider.valueProperty().bindBidirectional(skynet.getBot().frequency);
+        entries.add(new Entry("skynetSpeed", slider, Orientation.VERTICAL));
 
         final Button leaveGameButton = new Button();
         leaveGameButton.getStyleClass().add("icon-button");
@@ -1242,7 +1252,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
         leaveGameButton.setOnAction(this::leaveGame);
-        entries.add(new Tuple<>("leaveGame", leaveGameButton));
+        entries.add(new Entry("leaveGame", leaveGameButton, Orientation.HORIZONTAL));
 
         menuBuilder.battlefieldMenu(entries);
     }
