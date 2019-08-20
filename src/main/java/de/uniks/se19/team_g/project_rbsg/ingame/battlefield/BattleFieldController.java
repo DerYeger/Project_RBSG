@@ -1,66 +1,46 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.*;
-
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
-import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
-import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
+import de.uniks.se19.team_g.project_rbsg.component.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
-import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
-import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
-import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
-import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
-import de.uniks.se19.team_g.project_rbsg.util.Tuple;
-import io.rincl.Rincled;
-import javafx.application.Platform;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.*;
+import de.uniks.se19.team_g.project_rbsg.termination.*;
+import de.uniks.se19.team_g.project_rbsg.util.*;
+import io.rincl.*;
+import javafx.application.*;
 import javafx.beans.Observable;
 import javafx.beans.binding.*;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.beans.value.*;
+import javafx.collections.*;
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.canvas.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.context.annotation.*;
 import org.springframework.lang.Nullable;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
-import javax.annotation.Nonnull;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.net.URL;
+
+import javax.annotation.*;
+import java.beans.*;
+import java.net.*;
 import java.util.*;
 
 /**
@@ -407,15 +387,18 @@ public class BattleFieldController implements RootController, IngameViewControll
         tileDrawer.drawMap(tileMap);
 
 
-        rootPane.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
-            {
-                endPhase();
-            } else if (event.getCode().equals(KeyCode.ESCAPE) || event.getCode().equals(KeyCode.F10)) {
-                showMenu(null);
-            }
-            rootPane.setFocusTraversable(true);
-        });
+        rootPane.setOnKeyPressed(event ->
+                                 {
+                                     if (event.getCode().equals(KeyCode.ENTER) && !endPhaseButton.disableProperty().get())
+                                     {
+                                         endPhase();
+                                     }
+                                     else if (event.getCode().equals(KeyCode.ESCAPE) || event.getCode().equals(KeyCode.F10))
+                                     {
+                                         showMenu(null);
+                                     }
+                                     rootPane.setFocusTraversable(true);
+                                 });
 
     }
 
@@ -843,45 +826,61 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void switchThroughUnits(KeyEvent keyEvent){
-        if(this.context.getGameState().getSelectedUnit() == null){
+    private void switchThroughUnits (KeyEvent keyEvent)
+    {
+        if (this.context.getGameState().getSelectedUnit() == null)
+        {
             return;
         }
         Unit selectedUnit = this.context.getGameState().getSelectedUnit();
-        if(selectedUnit.getLeader() != this.context.getUserPlayer()){
+        if (selectedUnit.getLeader() != this.context.getUserPlayer())
+        {
             return;
         }
         int currentIndex = this.context.getUserPlayer().getUnits().indexOf(selectedUnit);
-        if (keyEvent.getCode().equals(KeyCode.E)){
+        if (keyEvent.getCode().equals(KeyCode.E))
+        {
             getNextUnit(currentIndex);
-        } else if(keyEvent.getCode().equals(KeyCode.Q)){
+        }
+        else if (keyEvent.getCode().equals(KeyCode.Q))
+        {
             getPreviousUnit(currentIndex);
         }
     }
 
-    private void getNextUnit(int currentIndex) {
-        if (this.context.getUserPlayer().getUnits().isEmpty()){
+    private void getNextUnit (int currentIndex)
+    {
+        if (this.context.getUserPlayer().getUnits().isEmpty())
+        {
             return;
         }
         Unit nextSelected;
-        if ((currentIndex  + 1) <  this.context.getUserPlayer().getUnits().size()){
+        if ((currentIndex + 1) < this.context.getUserPlayer().getUnits().size())
+        {
             nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex + 1);
 
-        } else {
+        }
+        else
+        {
             nextSelected = this.context.getUserPlayer().getUnits().get(0);
         }
         selectNextAndCenterCamera(nextSelected);
     }
 
-    private void getPreviousUnit(int currentIndex){
-        if (this.context.getUserPlayer().getUnits().isEmpty()){
+    private void getPreviousUnit (int currentIndex)
+    {
+        if (this.context.getUserPlayer().getUnits().isEmpty())
+        {
             return;
         }
         Unit nextSelected;
-        if ((currentIndex - 1) >= 0) {
+        if ((currentIndex - 1) >= 0)
+        {
             nextSelected = this.context.getUserPlayer().getUnits().get(currentIndex - 1);
 
-        } else {
+        }
+        else
+        {
             int lastIndex = this.context.getUserPlayer().getUnits().size() - 1;
             nextSelected = this.context.getUserPlayer().getUnits().get(lastIndex);
         }
@@ -889,8 +888,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
 
-    private void selectNextAndCenterCamera(@Nullable Unit nextSelected) {
-        if (nextSelected == null){
+    private void selectNextAndCenterCamera (@Nullable Unit nextSelected)
+    {
+        if (nextSelected == null)
+        {
             return;
         }
         game.setSelectedUnit(nextSelected);
@@ -899,7 +900,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         camera.TryToCenterToPostition(cell.getX(), cell.getY());
     }
 
-    private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
+    private void onNextPhase (Observable observable, String lastPhase, String nextPhase)
     {
         setCellProperty(null);
         game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
@@ -911,7 +912,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (newValue != null)
             {
-                if (skynet.isBotRunning()) skynet.stopBot();
+                if (skynet.isBotRunning())
+                {
+                    skynet.stopBot();
+                }
                 showWinnerLoserAlert(newValue);
             }
         }));
@@ -919,7 +923,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
             {
-                if (skynet.isBotRunning()) skynet.stopBot();
+                if (skynet.isBotRunning())
+                {
+                    skynet.stopBot();
+                }
 
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
@@ -937,7 +944,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_WON,
                     this::doLeaveGame);
-        } else
+        }
+        else
         {
             alertBuilder.priorityInformation(
                     AlertBuilder.Text.GAME_SOMEBODY_ELSE_WON,
@@ -1072,12 +1080,13 @@ public class BattleFieldController implements RootController, IngameViewControll
         }));
 
 
-        endPhaseButton.setOnMouseClicked(event -> {
-            if (event.getButton().equals(MouseButton.PRIMARY))
-            {
-                endPhase();
-            }
-        });
+        endPhaseButton.setOnMouseClicked(event ->
+                                         {
+                                             if (event.getButton().equals(MouseButton.PRIMARY))
+                                             {
+                                                 endPhase();
+                                             }
+                                         });
     }
 
     @SuppressWarnings("unused")
@@ -1175,7 +1184,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public void toggleHpBar(@SuppressWarnings("unused") ActionEvent actionEvent)
+    public void toggleHpBar (@SuppressWarnings("unused") ActionEvent actionEvent)
     {
         if (tileDrawer.isHpBarVisibility())
         {
@@ -1191,7 +1200,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void initActionExecutor ()
     {
         actionExecutor = new ActionExecutor(context.getGameEventManager().api())
-                .setTileDrawer(tileDrawer).setBattleFieldController(this);
+                .setTileDrawer(tileDrawer).setSurrenderGameAction(this::surrender);
     }
 
     private void initSkynet ()
@@ -1200,7 +1209,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                             game,
                             context.getUserPlayer())
                 .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")
-                .addBehaviour(new AttackBehaviour(), "attackPhase");
+                .addBehaviour(new AttackBehaviour(), "attackPhase")
+                .addBehaviour(new SurrenderBehaviour(), "surrender");
     }
 
     private void initSkynetButtons ()
@@ -1239,7 +1249,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
     }
 
-    public void showMenu(final ActionEvent actionEvent) {
+    public void showMenu (final ActionEvent actionEvent)
+    {
         final List<Entry> entries = new ArrayList<>();
 
         final Slider slider = new Slider(0.5, 10, skynet.getBot().frequency.getValue());

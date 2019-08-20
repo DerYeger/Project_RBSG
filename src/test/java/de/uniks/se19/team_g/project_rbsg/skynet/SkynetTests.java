@@ -5,9 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.*;
 import org.junit.Test;
 
@@ -170,19 +168,25 @@ public class SkynetTests {
         final Game game = definition.game;
 
         game.setCurrentPlayer(player);
-        unit.setPosition(definition.cells[2][3]);
+        unit.setPosition(definition.cells[3][3]);
 
         final IngameApi api = mock(IngameApi.class);
         final ActionExecutor actionExecutor = new ActionExecutor(api);
 
+        final SurrenderBehaviour surrenderBehaviour = mock(SurrenderBehaviour.class);
         final Skynet skynet = new Skynet(actionExecutor, game, player);
+        skynet.addBehaviour(surrenderBehaviour, "surrender");
+
+        final SurrenderAction surrenderAction = new SurrenderAction();
+
+        when(surrenderBehaviour.apply(game, player)).thenReturn(Optional.of(surrenderAction));
 
         skynet.turn();
 
         verify(api).leaveGame();
 
         final BattleFieldController battleFieldController = mock(BattleFieldController.class);
-        actionExecutor.setBattleFieldController(battleFieldController);
+        actionExecutor.setSurrenderGameAction(battleFieldController::surrender);
 
         skynet.turn();
 

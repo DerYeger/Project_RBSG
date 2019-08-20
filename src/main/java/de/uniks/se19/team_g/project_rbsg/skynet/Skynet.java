@@ -34,7 +34,6 @@ public class Skynet
 
         behaviours = new HashMap<>();
         behaviours.put("fallback", new FallbackBehaviour());
-        behaviours.put("surrender", new SurrenderBehaviour());
 
         bot = new Bot(this);
     }
@@ -68,7 +67,7 @@ public class Skynet
                 throw new SkynetExcpetion("Not my turn");
             }
 
-            if(evalutateSurrender()) {
+            if(behaviours.containsKey("surrender") && evalutateSurrender()) {
                 if(isBotRunning()) {
                     stopBot();
                 }

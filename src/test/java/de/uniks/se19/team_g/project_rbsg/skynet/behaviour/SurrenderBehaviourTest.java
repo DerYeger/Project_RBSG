@@ -45,7 +45,7 @@ public class SurrenderBehaviourTest
 
         assertFalse(action.isPresent());
 
-        unit.setPosition(definition.cells[2][3]);
+        unit.setPosition(definition.cells[3][3]);
 
         action = surrenderBehaviour.apply(game, player);
 

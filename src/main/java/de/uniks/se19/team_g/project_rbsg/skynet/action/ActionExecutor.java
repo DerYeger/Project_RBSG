@@ -15,7 +15,7 @@ public class ActionExecutor
     private final IngameApi api;
     private TileDrawer tileDrawer;
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private BattleFieldController battleFieldController;
+    private Runnable surrenderGameAction;
 
     public ActionExecutor (@NonNull final IngameApi api)
     {
@@ -98,17 +98,17 @@ public class ActionExecutor
     private void executeSurrender ()
     {
         logger.debug("Executing Surrender!");
-        if(Objects.nonNull(battleFieldController)) {
-            battleFieldController.surrender();
+        if(Objects.nonNull(surrenderGameAction)) {
+            surrenderGameAction.run();
         }
         else {
             api.leaveGame();
         }
     }
 
-    public ActionExecutor setBattleFieldController (BattleFieldController battleFieldController)
+    public ActionExecutor setSurrenderGameAction (Runnable surrenderGameAction)
     {
-        this.battleFieldController = battleFieldController;
+        this.surrenderGameAction = surrenderGameAction;
         return this;
     }
 }

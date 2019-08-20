@@ -202,7 +202,9 @@ public class TestGameBuilder
                 .setUnitType(UnitTypeInfo._BAZOOKA_TROOPER)
                 .setLeader(player)
                 .setGame(game)
-                .setCanAttack(new ArrayList<>());
+                .setCanAttack(new ArrayList<>())
+                .setRemainingMovePoints(1)
+                .setMp(2);
 
         playerUnit.getCanAttack().add(UnitTypeInfo._CHOPPER);
 
@@ -269,14 +271,18 @@ public class TestGameBuilder
                 .setUnitType(UnitTypeInfo._BAZOOKA_TROOPER)
                 .setLeader(player)
                 .setGame(game)
-                .setCanAttack(new ArrayList<>());
+                .setCanAttack(new ArrayList<>())
+                .setMp(2)
+                .setRemainingMovePoints(2);
 
         playerUnit.getCanAttack().add(UnitTypeInfo._CHOPPER);
 
         final Unit playerUnit2 = new Unit("FlappyBirdOne")
                 .setUnitType(UnitTypeInfo._CHOPPER)
                 .setLeader(player)
-                .setGame(game);
+                .setGame(game)
+                .setRemainingMovePoints(2)
+                .setMp(2);
 
         final Unit enemyUnit = definition.otherUnit
                 .setLeader(enemy)
@@ -289,6 +295,11 @@ public class TestGameBuilder
                 .setUnitType(UnitTypeInfo._CHOPPER);
 
         final Unit enemyUnit3 = new Unit("BadGuyTwo")
+                .setLeader(enemy)
+                .setGame(game)
+                .setUnitType(UnitTypeInfo._CHOPPER);
+
+        final Unit enemyUnit4 = new Unit("BadGuyTwo")
                 .setLeader(enemy)
                 .setGame(game)
                 .setUnitType(UnitTypeInfo._CHOPPER);
@@ -326,10 +337,19 @@ public class TestGameBuilder
         enemyUnit2.setPosition(cells[1][0]);
 
         enemyUnit3.setPosition(cells[1][4]);
-        unit.setPosition(cells[3][3]);
+        enemyUnit4.setPosition(cells[2][3]);
+        unit.setPosition(cells[4][3]);
 
+        cells[0][2].setPassable(false);
         cells[0][3].setPassable(false);
+        cells[0][4].setPassable(false);
+        cells[1][1].setPassable(false);
         cells[1][2].setPassable(false);
+        cells[2][0].setPassable(false);
+        cells[2][2].setPassable(false);
+        cells[2][4].setPassable(false);
+
+
 
         game.withCells(
                 Arrays.stream(cells)

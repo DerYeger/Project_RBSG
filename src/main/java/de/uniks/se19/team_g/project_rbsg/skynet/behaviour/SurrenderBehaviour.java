@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
 import org.slf4j.*;
@@ -9,9 +10,10 @@ import java.util.*;
 public class SurrenderBehaviour implements Behaviour
 {
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final MovementEvaluator movementEvaluator = new MovementEvaluator();
 
     @Override
-    public Optional<? extends Action> apply (Game game, Player player)
+    public Optional<SurrenderAction> apply (Game game, Player player)
     {
         boolean cantAttackAnEnemyByType = isCantAttackAnEnemyByType(game, player);
 
@@ -25,15 +27,24 @@ public class SurrenderBehaviour implements Behaviour
 
         if (firstMovingPhase)
         {
-            boolean NoUnitCanMove = isNoUnitCanMove(player);
-            if (NoUnitCanMove)
-            {
-                logger.debug("Cant move a Unit its not possible to change turn!");
-                return Optional.of(new SurrenderAction());
+            boolean AllUnitsFullMovementPoints = isAllUnitsFullMovementPoints(player);
+            if(AllUnitsFullMovementPoints) {
+                boolean NoUnitCanMove = isNoUnitCanMove(player);
+                if (NoUnitCanMove)
+                {
+                    logger.debug("Cant move a Unit its not possible to change turn!");
+                    return Optional.of(new SurrenderAction());
+                }
             }
+
         }
 
         return Optional.empty();
+    }
+
+    private boolean isAllUnitsFullMovementPoints (Player player)
+    {
+        return player.getUnits().stream().allMatch(unit -> unit.getMp() == unit.getRemainingMovePoints());
     }
 
     private boolean isNoUnitCanMove (Player player)
@@ -41,7 +52,7 @@ public class SurrenderBehaviour implements Behaviour
         return player
                 .getUnits()
                 .stream()
-                .allMatch(unit -> unit.getNeighbors().size() == getSizeOfPassableNeighbors(unit));
+                .allMatch(unit -> movementEvaluator.getValidTours(unit).isEmpty());
     }
 
     private int getSizeOfPassableNeighbors (Unit unit)
