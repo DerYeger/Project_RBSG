@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
+import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import io.rincl.Rincled;
 import javafx.application.Platform;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Primary;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -23,8 +26,9 @@ import java.util.HashMap;
 /**
  * @author Jan Müller
  */
+@Primary
 @Component
-public class SceneManager implements ApplicationContextAware, Terminable, Rincled {
+public class SceneManager implements ApplicationContextAware, Rincled, OverlayTargetProvider, Terminable {
 
     public enum SceneIdentifier {
         LOGIN("loginScene"),
@@ -124,22 +128,14 @@ public class SceneManager implements ApplicationContextAware, Terminable, Rincle
 
     private Scene sceneFromParent(@NonNull final Parent parent)
     {
-        return new Scene(parent);
+        return new Scene(OverlayTarget.of(parent));
     }
 
-    public StackPane getAlertTarget() {
-        if (stage == null) {
-            logger.error("Stage not initialised");
-            return null;
-        }
-
-        try {
-            return (StackPane) stage.getScene().getRoot();
-        } catch (final ClassCastException e) {
-            e.printStackTrace();
-            logger.error("Root of Scene " + stage.getScene() + " is not a StackPane");
-        }
-        return null;
+    @Override
+    public OverlayTarget getOverlayTarget() {
+        final Parent root = stage.getScene().getRoot();
+        if (!(root instanceof OverlayTarget)) return null;
+        return (OverlayTarget) root;
     }
 
     public void withRootController(@NonNull final RootController rootController, @Nullable final SceneIdentifier identifier) {

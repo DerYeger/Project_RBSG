@@ -148,9 +148,10 @@ public class TestGameBuilder
         testUnit.setLeader(player)
                 .setUnitType(UnitTypeInfo._HEAVY_TANK)
                 .setGame(game)
-                .setCanAttack(new ArrayList<>());
+                .setCanAttack(Collections.singleton(UnitTypeInfo._HEAVY_TANK));
 
-        testUnit.getCanAttack().add(UnitTypeInfo._HEAVY_TANK);
+
+
 
         final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game).setUnitType(UnitTypeInfo._HEAVY_TANK);
 

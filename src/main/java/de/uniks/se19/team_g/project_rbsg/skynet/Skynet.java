@@ -35,6 +35,8 @@ public class Skynet
         behaviours = new HashMap<>();
         behaviours.put("fallback", new FallbackBehaviour());
         behaviours.put("surrender", new SurrenderBehaviour());
+
+        bot = new Bot(this);
     }
 
     public Thread getBotThread()
@@ -121,11 +123,6 @@ public class Skynet
 
     public void startBot()
     {
-        if (bot == null)
-        {
-            logger.debug("Creating bot");
-            bot = new Bot(this);
-        }
         botThread = bot.start();
     }
 

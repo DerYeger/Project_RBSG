@@ -3,7 +3,8 @@ package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -69,7 +70,8 @@ import static org.mockito.Mockito.*;
         IngameConfig.class,
         AlertBuilder.class,
         FXMLLoaderFactory.class,
-        AppStateConfig.class
+        AppStateConfig.class,
+        EasterEggController.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -195,7 +197,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
         verify(musicManager, Mockito.times(2)).toggleMusicAndUpdateButtonIconSet(musicButton);
         Button leaveButton = lookup("#leaveButton").query();
         Assert.assertNotNull(leaveButton);
-        clickOn("#leaveButton");
     }
 
     @Test
