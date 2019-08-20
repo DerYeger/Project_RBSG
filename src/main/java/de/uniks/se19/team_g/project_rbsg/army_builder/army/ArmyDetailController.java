@@ -140,7 +140,7 @@ public class ArmyDetailController implements Initializable {
                 for (Unit unit : change.getRemoved()) {
                     final SquadViewModel squadViewModel = squadMap.get(unit);
                     if(!change.wasReplaced()){
-                        
+
                         squadViewModel.members.remove(unit);
                         if (squadViewModel.members.size() == 0) {
                             squadMap.remove(unit);
@@ -223,13 +223,9 @@ public class ArmyDetailController implements Initializable {
 
                 moveListPositions(selected, neighbourUnit, leftOrRight);
 
-
                 squadMap.put(neighbourUnit, selectedModel);
                 squadMap.put(selected, neighbourModel);
                 neighbourModel.members.set(0, selectedModel.members.set(0, neighbourUnit));
-
-                //neighbourModel.members.set(0, selected);
-                //selectedModel.members.set(0, neighbourUnit);
 
                 armyBuilderState.selectedUnit.set(selected);
                 armySquadList.refresh();
@@ -245,8 +241,6 @@ public class ArmyDetailController implements Initializable {
         for(int i=0; i < selectedArmyUnits.size(); i++){
             if(selectedArmyUnits.get(i)==(selectedUnit)){
                 Collections.swap(selectedArmyUnits, i, i+leftOrRight);
-                //selectedArmyUnits.set(i+leftOrRight, selectedUnit);
-                //selectedArmyUnits.set(i, neighbourUnit);
                 i=selectedArmyUnits.size();
             }
         }
