@@ -57,7 +57,7 @@ public class UnitDeathListener implements GameEventDispatcher.Listener {
 
     private void publishUnitDeath(Unit unit, Player leader, GameEventDispatcher dispatcher) {
         dispatcher.getModelManager().addAction(
-            new UnitDiedAction(unit, leader)
+            new UnitDeathAction(unit, leader)
         );
     }
 }
