@@ -16,6 +16,8 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverResponses.DeleteArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
@@ -44,6 +46,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -98,6 +101,8 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     @Nonnull
     private PersistentArmyManager persistantArmyManager;
+    @NonNull
+    private DeleteArmyService deleteArmyService;
 
     @SuppressWarnings("FieldCanBeLocal")
     private ChangeListener<Unit> onSelectionUpdated;
@@ -124,6 +129,7 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
             @Nonnull PersistentArmyManager persistantArmyManager,
+            @NonNull DeleteArmyService deleteArmyService,
             @Nonnull final Property<Locale> selectedLocale,
             @NonNull AlertBuilder alertBuilder,
             @NonNull GetArmiesService getArmiesService
@@ -139,6 +145,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
         this.persistantArmyManager = persistantArmyManager;
+        this.deleteArmyService = deleteArmyService;
         this.alertBuilder = alertBuilder;
         this.getArmiesService=getArmiesService;
     }
@@ -315,7 +322,15 @@ public class ArmyBuilderController implements Initializable, RootController {
         //For clean-deletion
         Army army = appState.selectedArmy.get();
         army.setUnsavedUpdates(true);
-        army.units.clear();
+        final CompletableFuture<DeleteArmyResponse> deleteArmyResponseCompletableFuture = deleteArmyService.deleteArmy(army);
+        deleteArmyResponseCompletableFuture
+                .thenAccept(answer -> Platform.runLater(()->this.appState.armies.remove(army)))
+                .exceptionally(throwable -> {
+                    alertBuilder.information(
+                            AlertBuilder.Text.COULD_NOT_DELETE
+                    );
+                    return null;
+                });
     }
 
     public void editArmy() {
