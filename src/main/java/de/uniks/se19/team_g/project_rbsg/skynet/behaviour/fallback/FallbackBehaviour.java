@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
+package de.uniks.se19.team_g.project_rbsg.skynet.behaviour.fallback;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.MovementEvaluator;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
@@ -9,7 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.FallbackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.FallbackBehaviourException;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;

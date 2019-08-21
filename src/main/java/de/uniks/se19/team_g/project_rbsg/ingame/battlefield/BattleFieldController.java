@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewProvider;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
@@ -18,8 +19,8 @@ import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.AttackBehaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.MovementBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.attack.AttackBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement.MovementBehaviour;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincled;
@@ -121,6 +122,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     public HBox ingameInformationHBox;
     public StackPane rootPane;
+    public VBox history;
     public Button skynetButton;
     private ChatController chatController;
     private Game game;
@@ -151,6 +153,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Skynet skynet;
     private ActionExecutor actionExecutor;
     private boolean openWhenResizedPlayer, openWhenResizedChat;
+    private HistoryViewProvider historyViewProvider;
 
     private final Button fullscreenButton = new Button();
 
@@ -798,6 +801,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         this.context = context;
 
+        configureHistory();
+
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
         if (context.getGameState().getCurrentPlayer() != null)
         {
@@ -878,6 +883,20 @@ public class BattleFieldController implements RootController, IngameViewControll
         initSkynet();
         initSkynetButtons();
         if(sceneManager.isStageInit()) initListenersForFullscreen();
+    }
+
+    @Autowired(required = false)
+    public void setHistoryViewProvider(HistoryViewProvider historyViewProvider) {
+
+        this.historyViewProvider = historyViewProvider;
+    }
+
+    private void configureHistory() {
+        if (historyViewProvider == null) {
+            return;
+        }
+
+        historyViewProvider.mountHistory(history, context);
     }
 
     private void switchThroughUnits(KeyEvent keyEvent){
