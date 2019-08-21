@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.util.PlayerUtil;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.UnitUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,9 +65,12 @@ public class DefaultRemoveListener implements GameEventDispatcher.Listener {
                 case UnitUtil.CELL:
                     mappedFieldName = "position";
                     break;
+                case PlayerUtil.PLAYERS:
+                    mappedFieldName = "currentGame";
+                    break;
                 default:
                     logger.error(
-                            "can't update to many relation for entity {}  from {} of {}",
+                            "can't update to many relation for entity {}: {} of {}",
                             event.entityId,
                             event.fieldName,
                             event.fromId

@@ -9,7 +9,7 @@ public class GameRemoveObjectEvent extends GameEvent {
     public final String fieldName;
     public final String fromId;
 
-    public GameRemoveObjectEvent(String entityId, Class entityClass, String fieldName, String fromId) {
+    public GameRemoveObjectEvent(String entityId, Class entityClass, String fromId, String fieldName) {
         this.entityId = entityId;
         this.fieldName = fieldName;
         this.fromId = fromId;

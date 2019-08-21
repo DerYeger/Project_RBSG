@@ -27,8 +27,7 @@ public class GameRemoveObjectAdapter implements GameEventDispatcher.Adapter {
         return new GameRemoveObjectEvent(
                 id,
                 entityClass,
-                data.get("fieldName").textValue(),
-                data.get("from").textValue()
+                data.get("from").textValue(), data.get("fieldName").textValue()
         );
     }
 
