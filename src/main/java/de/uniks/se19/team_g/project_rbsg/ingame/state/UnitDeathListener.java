@@ -32,10 +32,15 @@ public class UnitDeathListener implements GameEventDispatcher.Listener {
             .ifPresent(future -> future.complete(null));
     }
 
+    // basically anti collision stuff
     private String getKeyFor(GameRemoveObjectEvent gameEvent) {
         String type = ModelManager.splitIdentifier(gameEvent.fromId).first;
 
-        return type + "@" + gameEvent.fieldName;
+        if ("Game".equals(type)) {
+            return type + "@" + gameEvent.fieldName;
+        }
+
+        return gameEvent.fieldName;
     }
 
     private Map<String, CompletableFuture<Void>> waitForEvents(Unit unit, GameEventDispatcher dispatcher) {
@@ -43,8 +48,8 @@ public class UnitDeathListener implements GameEventDispatcher.Listener {
 
         Map<String, CompletableFuture<Void>> expectationsForUnit = new HashMap<>();
         expectationsForUnit.put("Game@"+Game.UNITS, new CompletableFuture<>());
-        expectationsForUnit.put("Cell@"+Cell.UNIT, new CompletableFuture<>());
-        expectationsForUnit.put("Player@"+Player.UNITS, new CompletableFuture<>());
+        expectationsForUnit.put(Cell.UNIT, new CompletableFuture<>());
+        expectationsForUnit.put(Player.UNITS, new CompletableFuture<>());
 
         if (leader != null) {
             CompletableFuture.allOf(expectationsForUnit.values().toArray(CompletableFuture[]::new))
