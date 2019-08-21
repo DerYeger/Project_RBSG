@@ -42,13 +42,14 @@ public class UnitDeathListener implements GameEventDispatcher.Listener {
         Player leader = unit.getLeader();
 
         Map<String, CompletableFuture<Void>> expectationsForUnit = new HashMap<>();
-        expectationsForUnit.put("game@"+Game.UNITS, new CompletableFuture<>());
-        expectationsForUnit.put("cell@"+Cell.UNIT, new CompletableFuture<>());
-        expectationsForUnit.put("player@"+Player.UNITS, new CompletableFuture<>());
+        expectationsForUnit.put("Game@"+Game.UNITS, new CompletableFuture<>());
+        expectationsForUnit.put("Cell@"+Cell.UNIT, new CompletableFuture<>());
+        expectationsForUnit.put("Player@"+Player.UNITS, new CompletableFuture<>());
 
         if (leader != null) {
             CompletableFuture.allOf(expectationsForUnit.values().toArray(CompletableFuture[]::new))
                     .thenRun(() -> publishUnitDeath(unit, leader, dispatcher))
+                    .thenRun(() -> expectations.remove(unit))
             ;
         }
 
