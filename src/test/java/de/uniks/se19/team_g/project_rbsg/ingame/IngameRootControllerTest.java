@@ -4,11 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import javafx.scene.layout.StackPane;
@@ -55,6 +56,9 @@ public class IngameRootControllerTest extends ApplicationTest {
 
     @MockBean
     AlertBuilder alertBuilder;
+
+    @MockBean
+    GameEventDispatcher gameEventDispatcher;
 
     @Test
     public void test() throws Exception {
