@@ -4,7 +4,9 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.UnitDeathAction;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UnitDeathRenderer implements ActionRenderer {
     @Override
     public HistoryRenderData render(Action rawAction) {
