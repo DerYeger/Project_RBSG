@@ -165,7 +165,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         JavaFXUtils.setButtonIcons(
                 readyButton,
                 getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                 200
         );
         JavaFXUtils.setButtonIcons(
@@ -301,7 +301,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                 JavaFXUtils.setButtonIcons(
                         readyButton,
                         getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                        getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                        getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                         200
                 );
                 disabledReadyButton.set(true);
@@ -406,7 +406,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             JavaFXUtils.setButtonIcons(
                     readyButton,
                     getClass().getResource("/assets/icons/navigation/checkWhiteBig.png"),
-                    getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
+                    getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
                     200
             );
             context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
