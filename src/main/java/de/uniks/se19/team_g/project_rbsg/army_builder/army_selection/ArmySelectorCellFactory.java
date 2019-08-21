@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army_selection;
 
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import javafx.beans.property.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -15,6 +16,7 @@ public class ArmySelectorCellFactory implements Callback<ListView<Army>, ListCel
 
     private final ObjectFactory<FXMLLoader> fxmlLoader;
     private final ObjectFactory<ArmySelectorCellController> armySelectorCellController;
+    private SimpleObjectProperty<Army> hoveredArmy = null;
 
     public ArmySelectorCellFactory(
             ObjectFactory<FXMLLoader> fxmlLoader,
@@ -27,7 +29,8 @@ public class ArmySelectorCellFactory implements Callback<ListView<Army>, ListCel
     @Override
     public ListCell<Army> call(ListView<Army> param) {
         final FXMLLoader loader = fxmlLoader.getObject();
-        loader.setController(armySelectorCellController.getObject());
+        ArmySelectorCellController controller = armySelectorCellController.getObject();
+        loader.setController(controller);
         loader.setLocation(getClass().getResource("/ui/army_builder/armySelectorCell.fxml"));
         try {
             loader.load();
@@ -35,6 +38,13 @@ public class ArmySelectorCellFactory implements Callback<ListView<Army>, ListCel
             throw new RuntimeException(e);
         }
 
+        controller.setHoverProperty(hoveredArmy);
+
         return loader.getController();
+    }
+
+    public void setArmyHoverProperty (SimpleObjectProperty<Army> armyHoverProperty)
+    {
+        this.hoveredArmy  = armyHoverProperty;
     }
 }
