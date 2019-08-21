@@ -35,6 +35,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -217,8 +218,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void setPlayerCardNodes() {
         Node player1 = playerCard.buildPlayerCard(selectedLocale);
         Node player2 = playerCard2.buildPlayerCard(selectedLocale);
-        player1.setOnMouseClicked(this::player1PaneClicked);
-        player2.setOnMouseClicked(this::player2PaneClicked);
         player1Pane.getChildren().add(player1);
         player2Pane.getChildren().add(player2);
         playerCard2.switchColumns();
@@ -226,8 +225,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             // if visibility was disabled before for example when leaving game
             Node player3 = playerCard.buildPlayerCard(selectedLocale);
             Node player4 = playerCard2.buildPlayerCard(selectedLocale);
-            player3.setOnMouseClicked(this::player3PaneClicked);
-            player4.setOnMouseClicked(this::player4PaneClicked);
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
@@ -431,18 +428,22 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
+    @FXML
     public void player1PaneClicked(MouseEvent event){
         int playerNumber=0;
         Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
+    @FXML
     public void player2PaneClicked(MouseEvent event){
         int playerNumber=1;
         Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
+    @FXML
     public void player3PaneClicked(MouseEvent event){
         int playerNumber=2;
         Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
+    @FXML
     public void player4PaneClicked(MouseEvent event){
         int playerNumber=3;
         Platform.runLater(()->onPlayerCardClicked(playerNumber));

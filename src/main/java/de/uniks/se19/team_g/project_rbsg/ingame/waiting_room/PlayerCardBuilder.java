@@ -15,6 +15,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -51,6 +52,7 @@ public class PlayerCardBuilder {
     public ColumnConstraints column11;
     public GridPane playerLabelColorPane;
     public Pane colorPane;
+    public GridPane playerCardGridPane;
 
     private FXMLLoader fxmlLoader;
     private Node playerCardView;
@@ -90,7 +92,17 @@ public class PlayerCardBuilder {
 
         setEmpty();
 
+        Platform.runLater(()->{
+            colorPane.setOnMouseClicked(this::onClick);
+            playerCardGridPane.setOnMouseClicked(this::onClick);
+        });
+
+
         return playerCardView;
+    }
+
+    private <T extends Event> void onClick(T t) {
+        chatController.chatTabManager().addPrivateTab('@' + player.getName());
     }
 
     private void setEmpty() {
