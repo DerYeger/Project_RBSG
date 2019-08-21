@@ -1,8 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.PlayerUtil;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.UnitUtil;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;

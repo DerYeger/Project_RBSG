@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.PlayerUtil;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.util.UnitUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +57,6 @@ public class DefaultRemoveListenerTest {
     public void unitFromCellRemoved() {
         GameRemoveObjectEvent unitFromCellRemoved = new GameRemoveObjectEvent(
                 "unit",
-                null,
                 "cell",
                 Cell.UNIT
         );
@@ -79,7 +76,6 @@ public class DefaultRemoveListenerTest {
     public void unitFromGameRemoved() {
         GameRemoveObjectEvent unitFromGameRemoved = new GameRemoveObjectEvent(
                 "unit",
-                null,
                 "game",
                 Game.UNITS
         );
@@ -100,7 +96,6 @@ public class DefaultRemoveListenerTest {
 
         GameRemoveObjectEvent unitFromPlayerRemoved = new GameRemoveObjectEvent(
                 "unit",
-                null,
                 "player",
                 Player.UNITS
         );
@@ -121,7 +116,6 @@ public class DefaultRemoveListenerTest {
 
         GameRemoveObjectEvent playerFromGameRemoved = new GameRemoveObjectEvent(
                 "player",
-                null,
                 "game",
                 Game.PLAYERS
         );
