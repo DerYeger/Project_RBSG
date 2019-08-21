@@ -91,8 +91,10 @@ public class ModelManager implements GameEventHandler {
                 //may change for future server releases
                 handleInit(node);
                 break;
+            case GAME_CHANGE_OBJECT:
             case GAME_REMOVE_OBJECT:
-                handleRemove(node);
+                // ignore
+                // handleRemove(node);
                 break;
             default:
                 logger.error("Unknown model message: " + node);
