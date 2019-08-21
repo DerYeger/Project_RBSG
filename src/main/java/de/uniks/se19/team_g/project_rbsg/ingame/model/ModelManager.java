@@ -94,7 +94,6 @@ public class ModelManager implements GameEventHandler {
             case GAME_CHANGE_OBJECT:
             case GAME_REMOVE_OBJECT:
                 // ignore
-                // handleRemove(node);
                 break;
             default:
                 logger.error("Unknown model message: " + node);
@@ -131,33 +130,6 @@ public class ModelManager implements GameEventHandler {
                 break;
             default:
                 logger.error("Unknown init class: " + type);
-        }
-    }
-
-    private void handleRemove(@NonNull final ObjectNode node) {
-        final JsonNode data = node.get("data");
-
-        final String identifier = data.get("id").asText();
-        final Tuple<String, String> typeAndId = splitIdentifier(identifier);
-        final String type = typeAndId.first;
-
-        if (!data.has("from") || !data.has("fieldName")) {
-            logger.error("Unknown message format: " + node);
-            return;
-        }
-
-        final String from = data.get("from").asText();
-        final String fieldName = data.get("fieldName").asText();
-
-        switch (type) {
-            case "Player":
-                PlayerUtil.removePlayerFrom(this, identifier, from, fieldName, true);
-                break;
-            case "Unit":
-                UnitUtil.removeUnitFrom(this, identifier, from, fieldName, true);
-                break;
-            default:
-                logger.error("Unknown removal class: " + type);
         }
     }
 
