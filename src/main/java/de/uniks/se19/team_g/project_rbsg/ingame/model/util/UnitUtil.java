@@ -57,9 +57,9 @@ public class UnitUtil {
         return unit;
     }
 
-    private static final String GAME_UNITS = "allUnits";
-    private static final String PLAYER_UNITS = "army";
-    private static final String CELL = "blockedBy";
+    public static final String GAME_UNITS = "allUnits";
+    public static final String PLAYER_UNITS = "army";
+    public static final String CELL = "blockedBy";
 
     public static void removeUnitFrom(@NonNull final ModelManager modelManager,
                                       @NonNull final String identifier,
