@@ -26,10 +26,13 @@ public class Game {
 
     final private SimpleBooleanProperty gameStarted = new SimpleBooleanProperty(false);
 
+    public static final String PLAYERS = "players";
     private ObservableList<Player> players = FXCollections.observableArrayList();
 
+    public static final String UNITS = "units";
     private ObservableList<Unit> units = FXCollections.observableArrayList();
 
+    public static final String CELLS = "cells";
     private ObservableList<Cell> cells = FXCollections.observableArrayList();
 
     final private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();

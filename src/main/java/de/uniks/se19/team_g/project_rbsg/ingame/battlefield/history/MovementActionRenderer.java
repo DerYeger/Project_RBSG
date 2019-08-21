@@ -6,7 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,7 +30,7 @@ public class MovementActionRenderer extends DefaultActionRenderer {
 
         FXMLLoader fxmlLoader = getFXMLLoader();
         DefaultHistoryCellController controller = fxmlLoader.getController();
-        controller.primaryIcon.setImage(getMoveIcon());
+        controller.primaryIcon.setImage(getIcon("/assets/icons/operation/footstepsWhite.png"));
         controller.secondaryIcon.setImage(unit.getUnitType().getIconImage());
 
         Node root = fxmlLoader.getRoot();
@@ -51,11 +50,4 @@ public class MovementActionRenderer extends DefaultActionRenderer {
             && actionImpl.getNextValue() instanceof Cell;
     }
 
-    private Image getMoveIcon() {
-        return new Image(
-                getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm(),
-                40, 40,
-                true, true
-        );
-    }
 }
