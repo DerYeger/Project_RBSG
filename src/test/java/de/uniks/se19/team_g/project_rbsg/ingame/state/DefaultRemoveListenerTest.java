@@ -61,7 +61,7 @@ public class DefaultRemoveListenerTest {
                 "unit",
                 null,
                 "cell",
-                UnitUtil.CELL
+                Cell.UNIT
         );
         accept(unitFromCellRemoved);
         RemoveAction action = actions.get(0);
@@ -81,7 +81,7 @@ public class DefaultRemoveListenerTest {
                 "unit",
                 null,
                 "game",
-                UnitUtil.GAME_UNITS
+                Game.UNITS
         );
         accept(unitFromGameRemoved);
         RemoveAction action = actions.get(0);
@@ -102,7 +102,7 @@ public class DefaultRemoveListenerTest {
                 "unit",
                 null,
                 "player",
-                UnitUtil.PLAYER_UNITS
+                Player.UNITS
         );
         accept(unitFromPlayerRemoved);
         RemoveAction action = actions.get(0);
@@ -123,7 +123,7 @@ public class DefaultRemoveListenerTest {
                 "player",
                 null,
                 "game",
-                PlayerUtil.PLAYERS
+                Game.PLAYERS
         );
         accept(playerFromGameRemoved);
         RemoveAction action = actions.get(0);

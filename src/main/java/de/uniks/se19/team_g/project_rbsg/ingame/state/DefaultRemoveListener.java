@@ -48,42 +48,43 @@ public class DefaultRemoveListener implements GameEventDispatcher.Listener {
         }
 
         final String fieldName = event.fieldName;
-        String mappedFieldName = fieldName;
+        String internalFieldName = fieldName;
 
         BeanWrapper fromWrapper = new BeanWrapperImpl(from);
         Object fromProperty = fromWrapper.getPropertyValue(event.fieldName);
 
         if (fromProperty instanceof List) {
             // update other side of relationship, if it's one to many, just flip everything
-            switch (fieldName) {
-                case UnitUtil.GAME_UNITS:
+            String mappedFieldName = null;
+            if (from instanceof Game) {
+                if (Game.UNITS.equals(fieldName)) {
                     mappedFieldName = "game";
-                    break;
-                case UnitUtil.PLAYER_UNITS:
-                    mappedFieldName = "leader";
-                    break;
-                case UnitUtil.CELL:
-                    mappedFieldName = "position";
-                    break;
-                case PlayerUtil.PLAYERS:
+                } else if (Game.PLAYERS.equals(fieldName)) {
                     mappedFieldName = "currentGame";
-                    break;
-                default:
-                    logger.error(
-                            "can't update to many relation for entity {}: {} of {}",
-                            event.entityId,
-                            event.fieldName,
-                            event.fromId
-                    );
-                    return null;
+                }
+            } else if (from instanceof Player) {
+                if (Player.UNITS.equals(fieldName)) {
+                    mappedFieldName = "leader";
+                }
             }
 
+            if (mappedFieldName == null) {
+                logger.error(
+                        "can't update to many relation for entity {}: {} of {}",
+                        event.entityId,
+                        event.fieldName,
+                        event.fromId
+                );
+                return null;
+            }
+
+            internalFieldName = mappedFieldName;
             Object o = entity;
             entity = from;
             from = o;
             fromWrapper = new BeanWrapperImpl(from);
         }
 
-        return new RemoveAction(entity, fromWrapper, mappedFieldName);
+        return new RemoveAction(entity, fromWrapper, internalFieldName);
     }
 }
