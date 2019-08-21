@@ -4,12 +4,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -52,6 +53,8 @@ public class IngameRootController
     private final SceneManager sceneManager;
     @Nonnull
     private final AlertBuilder alertBuilder;
+    @Nonnull
+    private final GameEventDispatcher dispatcher;
 
     private IngameContext ingameContext;
 
@@ -64,8 +67,9 @@ public class IngameRootController
             @Nonnull GameEventManager gameEventManager,
             @Nonnull ModelManager modelManager,
             @Nonnull SceneManager sceneManager,
-            @Nonnull AlertBuilder alertBuilder
-    ) {
+            @Nonnull AlertBuilder alertBuilder,
+            @Nonnull GameEventDispatcher dispatcher
+            ) {
         this.waitingRoomFactory = waitingRoomFactory;
         this.battleFieldFactory = battleFieldFactory;
         this.contextFactory = contextFactory;
@@ -73,6 +77,9 @@ public class IngameRootController
         this.modelManager = modelManager;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
+        this.dispatcher = dispatcher;
+
+        dispatcher.setModelManager(modelManager);
     }
 
 
@@ -90,9 +97,12 @@ public class IngameRootController
 
         final Game gameData = Objects.requireNonNull(ingameContext.getGameData());
 
+        ingameContext.setModelManager(modelManager);
+
         gameEventManager.setOnConnectionClosed(this::onConnectionClosed);
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this::handleGameEvents);
+        gameEventManager.addHandler(dispatcher);
 
         boolean spectatorModus = ingameContext.getGameData().isSpectatorModus();
 

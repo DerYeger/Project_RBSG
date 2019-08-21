@@ -1,46 +1,70 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.component.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewProvider;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.menu.*;
-import de.uniks.se19.team_g.project_rbsg.skynet.*;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.*;
-import de.uniks.se19.team_g.project_rbsg.termination.*;
-import de.uniks.se19.team_g.project_rbsg.util.*;
-import io.rincl.*;
-import javafx.application.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.PassAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.SurrenderBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.attack.AttackBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement.MovementBehaviour;
+import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.beans.binding.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
-import javafx.beans.value.*;
-import javafx.collections.*;
-import javafx.event.*;
-import javafx.geometry.*;
-import javafx.scene.*;
-import javafx.scene.canvas.*;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.input.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import org.springframework.lang.*;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Controller;
 
-import javax.annotation.*;
-import java.beans.*;
-import java.net.*;
+import javax.annotation.Nonnull;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -99,6 +123,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     public HBox ingameInformationHBox;
     public StackPane rootPane;
+    public VBox history;
     public Button skynetButton;
     private ChatController chatController;
     private Game game;
@@ -127,6 +152,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private ActionExecutor actionExecutor;
     private boolean openWhenResizedPlayer, openWhenResizedChat;
     private final ChangeListener<Number> disableOverlaysListener = this::disableOverlaysChanged;
+    private HistoryViewProvider historyViewProvider;
 
     @Autowired
     public BattleFieldController (
@@ -740,6 +766,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         this.context = context;
 
+        configureHistory();
+
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
         if (context.getGameState().getCurrentPlayer() != null)
         {
@@ -826,10 +854,23 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    private void switchThroughUnits (KeyEvent keyEvent)
-    {
-        if (this.context.getGameState().getSelectedUnit() == null)
-        {
+
+    @Autowired(required = false)
+    public void setHistoryViewProvider(HistoryViewProvider historyViewProvider) {
+
+        this.historyViewProvider = historyViewProvider;
+    }
+
+    private void configureHistory() {
+        if (historyViewProvider == null) {
+            return;
+        }
+
+        historyViewProvider.mountHistory(history, context);
+    }
+
+    private void switchThroughUnits(KeyEvent keyEvent){
+        if(this.context.getGameState().getSelectedUnit() == null){
             return;
         }
         Unit selectedUnit = this.context.getGameState().getSelectedUnit();

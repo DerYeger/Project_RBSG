@@ -4,8 +4,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TestGameBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.attack.AttackBehaviour;
 import org.junit.Test;
 
 import java.util.Optional;
