@@ -39,7 +39,6 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         PERMISSION_ERROR("permissionError"),
         END_PHASE("endPhase"),
         UNSAVED_ARMY("unsaved_army"),
-        COULD_NOT_DELETE("could_not_delete"),
         EGG_WON("eggWon"),
         EGG_LOST("eggLost");
 
