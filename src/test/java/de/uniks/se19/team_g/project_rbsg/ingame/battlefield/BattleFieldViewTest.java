@@ -3,7 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -23,6 +23,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -91,6 +92,9 @@ public class BattleFieldViewTest extends ApplicationTest {
     AlertBuilder alertBuilder;
 
     @MockBean
+    MenuBuilder menuBuilder;
+
+    @MockBean
     MovementManager movementManager;
 
     @MockBean
@@ -140,9 +144,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
         Assert.assertNotNull(canvas);
-        Button leave = lookup("#leaveButton").query();
-        Assert.assertNotNull(leave);
-        clickOn("#leaveButton");
+        Button menu = lookup("#menuButton").query();
+        Assert.assertNotNull(menu);
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
         for(int i = 0; i < 6; i++) clickOn("#zoomOutButton");
@@ -195,6 +198,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         IngameApi ingameApi = new IngameApi();
         GameEventManager gameEventManager = mock(GameEventManager.class);
         when(gameEventManager.api()).thenReturn(ingameApi);
@@ -213,7 +219,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
@@ -274,6 +280,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         // test move action fired, if reachable terrain is clicked
         click(-75, -75);
 
+        WaitForAsyncUtils.waitForFxEvents();
+
         Assert.assertTrue(game.getInitiallyMoved());
         Assert.assertEquals(1, playerUnit.getRemainingMovePoints());
         Assert.assertSame(playerUnit, game.getSelectedUnit());
@@ -298,6 +306,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
         User user = new User();
@@ -311,7 +322,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
@@ -360,10 +371,13 @@ public class BattleFieldViewTest extends ApplicationTest {
         //otherUnit.setLeader(player);
         game.setCurrentPlayer(player);
 
+        IngameGameProvider gameStateProvider = new IngameGameProvider();
+        GameProvider gameProvider = new GameProvider();
+        gameProvider.set(new de.uniks.se19.team_g.project_rbsg.model.Game("test", 2));
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
+                gameProvider,
+                gameStateProvider
         );
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
@@ -402,6 +416,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
         User user = new User();
@@ -414,7 +431,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
@@ -466,6 +483,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit playerUnit = definition.playerUnit;
         playerUnit.setPosition(playerUnit.getPosition().getBottom());
 
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         Unit enemyUnit = new Unit("1");
         enemyUnit.setUnitType(UnitTypeInfo._BAZOOKA_TROOPER);
         enemyUnit.setPosition(playerUnit.getPosition().getRight());
@@ -488,7 +508,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
@@ -531,6 +551,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
@@ -543,7 +566,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
@@ -579,6 +602,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
@@ -589,7 +615,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
@@ -611,6 +637,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
@@ -625,14 +654,14 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
         context.getUser().setName("Bob");
-
+        //context.getGameData().setSpectatorModus(false);
         battleFieldComponent.getController().configure(context);
 
         context.getGameState().setWinner(enemy);
@@ -655,6 +684,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
+        de.uniks.se19.team_g.project_rbsg.model.Game gameData = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "id", 2, 1);
+        GameProvider gameProvider = new GameProvider().set(gameData);
+
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
@@ -668,7 +700,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 new UserProvider().set(user),
-                new GameProvider(),
+                gameProvider,
                 new IngameGameProvider()
         );
         context.gameInitialized(game);

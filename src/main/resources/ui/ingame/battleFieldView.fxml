@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+        <?import java.lang.*?>
+        <?import java.net.*?>
+        <?import javafx.geometry.*?>
+        <?import javafx.scene.canvas.*?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.image.*?>
+        <?import javafx.scene.layout.*?>
 
-<!--
- @author Keanu Stückrad
- !-->
+        <!--
+         @author Keanu Stückrad
+         !-->
 
 <StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
@@ -20,13 +20,12 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="118.0" spacing="10.0" styleClass="root-background-color">
                      <children>
-                        <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveGame" styleClass="icon-button" />
+                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="icon-button" />
                         <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button" />
                         <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button" />
                         <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" />
                         <Button fx:id="playerButton" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
                         <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
-                        <Button fx:id="musicButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="icon-button" />
                         <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
                      </children>
                      <VBox.margin>
@@ -88,29 +87,29 @@
             </VBox>
             <VBox fx:id="sidebar" HBox.hgrow="ALWAYS">
                <children>
-               <HBox fx:id="ingameInformationHBox" alignment="CENTER" fillHeight="false" styleClass="roundInfoBox" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
-                  <children>
-                     <Label fx:id="roundTextLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
-                        <HBox.margin>
-                           <Insets bottom="10.0" right="5.0" top="10.0" />
-                        </HBox.margin>
-                     </Label>
-                     <Label fx:id="roundCountLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
-                        <HBox.margin>
-                           <Insets bottom="10.0" top="10.0" />
-                        </HBox.margin>
-                     </Label>
-                     <ImageView fx:id="phaseImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                     <Label fx:id="phaseLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
-                        <HBox.margin>
-                           <Insets bottom="10.0" left="5.0" top="10.0" />
-                        </HBox.margin>
-                     </Label>
-                  </children>
-                  <HBox.margin>
-                     <Insets />
-                  </HBox.margin>
-               </HBox>
+                  <HBox fx:id="ingameInformationHBox" alignment="CENTER" fillHeight="false" styleClass="roundInfoBox" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="roundTextLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="10.0" right="5.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="roundCountLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ImageView fx:id="phaseImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="phaseLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="roundCount" stylesheets="@menueBar.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="5.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
                   <VBox fx:id="unitInformationContainer">
                      <styleClass>
                         <String fx:value="boxSpacing" />
@@ -124,17 +123,17 @@
                      </styleClass>
                      <children>
                         <GridPane fx:id="buttonGrid">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
-                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
-                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
-                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
                               <Button fx:id="skynetTurnButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="3" />
                               <Button fx:id="skynetButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />

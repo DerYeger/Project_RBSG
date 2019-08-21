@@ -28,9 +28,8 @@ public class MovementBehaviourTests {
         final Optional<MovementAction> action = movementBehaviour.apply(game, player);
 
         assertTrue(action.isPresent());
-        assertTrue(action.get() instanceof MovementAction);
 
-        final MovementAction movementAction = (MovementAction) action.get();
+        final MovementAction movementAction = action.get();
 
         assertEquals(unit, movementAction.unit);
         assertEquals(5, movementAction.tour.getCost());

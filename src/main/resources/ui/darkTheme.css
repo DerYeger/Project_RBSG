@@ -646,3 +646,45 @@
 .status-indicator:disabled {
     -fx-fill: -on-disabled-fill;
 }
+
+/*----------------ComboBox--------------------*/
+
+.combo-box-base {
+    -fx-background-insets: none;
+    -fx-effect: -shadow;
+}
+
+.combo-box,
+.combo-box * {
+    -fx-border-radius: 0;
+    -fx-background-color: -primary-background-color;
+    -fx-font-size: 16;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -on-primary-fill;
+}
+
+.combo-box:hover > .list-cell,
+.combo-box:hover .arrow-button
+{
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.combo-box .arrow-button {
+    -fx-background-radius: 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: -on-primary-fill;
+}
+
+.combo-box:hover .arrow {
+    -fx-background-color: -on-hovered-fill;
+}
