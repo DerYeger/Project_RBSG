@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.UnitDeathAction;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -69,6 +70,7 @@ public class HistoryViewTest extends ApplicationTest {
         Action action1 = new UpdateAction("position", new Cell("c1"), dickBird);
         Action action2 = new UpdateAction("hp", 5, chubbyCharles);
         Action action3 = new UpdateAction("currentPlayer", bob, new Game());
+        Action action4 = new UnitDeathAction(chubbyCharles, bob);
         Action actionHidden = Mockito.mock(Action.class);
 
         IngameContext context = new IngameContext(
@@ -83,6 +85,10 @@ public class HistoryViewTest extends ApplicationTest {
         history.push(action1);
         history.push(action2);
         history.push(actionHidden);
+        history.push(action4);
+
+        int cellCountBase = 4;
+
         Mockito.when(modelManager.getHistory()).thenReturn(history);
         Mockito.when(mockRenderer.supports(Mockito.any(UpdateAction.class))).thenReturn(false);
         Mockito.when(mockRenderer.supports(action0)).thenReturn(true);
@@ -106,7 +112,7 @@ public class HistoryViewTest extends ApplicationTest {
 
         Predicate<Node> nonEmptyMatcher = node -> !((ListCell) node).isEmpty();
 
-        Assert.assertEquals(3, lookup(".list-cell")
+        Assert.assertEquals(cellCountBase, lookup(".list-cell")
                 .lookup(nonEmptyMatcher).queryAll().size());
 
         CompletableFuture.runAsync(
@@ -118,7 +124,7 @@ public class HistoryViewTest extends ApplicationTest {
                 Platform::runLater
         ).get();
 
-        Assert.assertEquals( 5, lookup(".list-cell")
+        Assert.assertEquals( cellCountBase + 2, lookup(".list-cell")
                 .lookup(nonEmptyMatcher).queryAll().size());
 
         Mockito.verify(
