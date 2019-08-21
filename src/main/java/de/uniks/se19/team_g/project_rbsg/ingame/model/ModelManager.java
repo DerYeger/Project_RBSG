@@ -13,14 +13,14 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
@@ -29,6 +29,11 @@ import java.util.concurrent.Executor;
 @Component
 @Scope("prototype")
 public class ModelManager implements GameEventHandler {
+
+    public static final Map<String, Class> typeModelMap = new HashMap<>(){{
+       put("Player", Player.class);
+       put("Unit", Unit.class);
+    }};
 
     private static final String GAME_INIT_OBJECT = "gameInitObject";
     private static final String GAME_NEW_OBJECT = "gameNewObject";
@@ -172,11 +177,16 @@ public class ModelManager implements GameEventHandler {
     }
 
     @NonNull
-    private Tuple<String, String> splitIdentifier(@NonNull final String identifier) {
+    public static Tuple<String, String> splitIdentifier(@NonNull final String identifier) {
         final int at_index = identifier.indexOf('@');
         final String clazz = identifier.substring(0, at_index);
         final String code = identifier.substring(at_index + 1);
         return new Tuple<>(clazz, code);
+    }
+
+    @Nullable
+    public static Class classForIdentifier(@Nonnull final String identifier) {
+        return typeModelMap.get( splitIdentifier(identifier).first);
     }
 
     public void addAction(@Nonnull Action action) {

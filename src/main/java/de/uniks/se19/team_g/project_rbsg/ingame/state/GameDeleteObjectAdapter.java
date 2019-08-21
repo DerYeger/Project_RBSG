@@ -2,12 +2,14 @@ package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
 public class GameDeleteObjectAdapter implements GameEventDispatcher.Adapter {
+
     @Override
     public Optional<GameEvent> apply(ObjectNode jsonNodes, GameEventDispatcher dispatcher) {
 
@@ -19,10 +21,14 @@ public class GameDeleteObjectAdapter implements GameEventDispatcher.Adapter {
     }
 
     private GameDeleteObjectEvent buildEvent(JsonNode data) {
+        String id = data.get("id").textValue();
+        Class entityClass = ModelManager.classForIdentifier(id);
+
         return new GameDeleteObjectEvent(
-            data.get("id").textValue(),
-            data.get("fieldName").textValue(),
-            data.get("from").textValue()
+                id,
+                entityClass,
+                data.get("fieldName").textValue(),
+                data.get("from").textValue()
         );
     }
 
