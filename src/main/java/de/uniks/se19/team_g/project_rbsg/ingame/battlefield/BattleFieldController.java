@@ -835,8 +835,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         initSkynet();
         initSkynetButtons();
         if(sceneManager.isStageInit()) initListenersForFullscreen();
-
-        configureSpectatorModus();
     }
 
     @Autowired(required = false)
@@ -909,13 +907,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         camera.TryToCenterToPostition(cell.getX(), cell.getY());
     }
 
-    private void configureSpectatorModus() {
-        if (this.context.getGameData().isSpectatorModus()){
-            skynetButton.setDisable(true);
-            skynetTurnButton.setDisable(true);
-        }
-    }
-
     private void onNextPhase(Observable observable, String lastPhase, String nextPhase)
     {
         setCellProperty(null);
@@ -932,9 +923,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 showWinnerLoserAlert(newValue);
             }
         }));
-        if (this.context.getUserPlayer() == null){
-            return;
-        }
         this.context.getUserPlayer().getUnits().addListener((ListChangeListener<Unit>) unitList ->
         {
             if (unitList.getList().isEmpty() && this.context.getGameState().getPlayers().size() > 2)
@@ -943,17 +931,11 @@ public class BattleFieldController implements RootController, IngameViewControll
 
                 alertBuilder.priorityConfirmation(
                         AlertBuilder.Text.GAME_LOST,
-                        () -> changeToSpectator(),
-                        () -> doLeaveGame()
+                        () -> this.context.getGameData().setSpectatorModus(true),
+                        this::doLeaveGame
                 );
             }
         });
-    }
-
-    private void changeToSpectator() {
-        this.context.getGameData().setSpectatorModus(true);
-        skynetButton.setDisable(true);
-        skynetTurnButton.setDisable(true);
     }
 
     private void showWinnerLoserAlert(Player winner)
