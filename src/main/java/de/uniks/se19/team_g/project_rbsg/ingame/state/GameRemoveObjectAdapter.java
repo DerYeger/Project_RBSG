@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class GameDeleteObjectAdapter implements GameEventDispatcher.Adapter {
+public class GameRemoveObjectAdapter implements GameEventDispatcher.Adapter {
 
     @Override
     public Optional<GameEvent> apply(ObjectNode jsonNodes, GameEventDispatcher dispatcher) {
@@ -20,11 +20,11 @@ public class GameDeleteObjectAdapter implements GameEventDispatcher.Adapter {
         return Optional.of(buildEvent(jsonNodes.get("data")));
     }
 
-    private GameDeleteObjectEvent buildEvent(JsonNode data) {
+    private GameRemoveObjectEvent buildEvent(JsonNode data) {
         String id = data.get("id").textValue();
         Class entityClass = ModelManager.classForIdentifier(id);
 
-        return new GameDeleteObjectEvent(
+        return new GameRemoveObjectEvent(
                 id,
                 entityClass,
                 data.get("fieldName").textValue(),
@@ -39,7 +39,7 @@ public class GameDeleteObjectAdapter implements GameEventDispatcher.Adapter {
         }
 
         return jsonNodes.has("action")
-            && GameDeleteObjectEvent.NAME.equals(jsonNodes.get("action").textValue())
+            && GameRemoveObjectEvent.NAME.equals(jsonNodes.get("action").textValue())
             && data.has("from")
             && data.has("fieldName")
             && data.has("id")

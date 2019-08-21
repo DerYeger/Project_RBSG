@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
-public class GameDeleteObjectEvent extends GameEvent {
+public class GameRemoveObjectEvent extends GameEvent {
 
     public static final String NAME = "gameRemoveObject";
 
@@ -9,7 +9,7 @@ public class GameDeleteObjectEvent extends GameEvent {
     public final String fieldName;
     public final String fromId;
 
-    public GameDeleteObjectEvent(String entityId, Class entityClass, String fieldName, String fromId) {
+    public GameRemoveObjectEvent(String entityId, Class entityClass, String fieldName, String fromId) {
         this.entityId = entityId;
         this.fieldName = fieldName;
         this.fromId = fromId;
