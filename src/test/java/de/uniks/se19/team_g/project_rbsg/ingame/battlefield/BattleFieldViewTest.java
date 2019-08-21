@@ -25,6 +25,7 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import javafx.application.Platform;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -80,8 +81,8 @@ import static org.mockito.Mockito.*;
 public class BattleFieldViewTest extends ApplicationTest {
 
 
-    public static final int BASE_X = 150;
-    public static final int BASE_Y = 50;
+    private double battleFieldCenterX;
+    private double battleFieldCenterY;
     private ViewComponent<BattleFieldController> battleFieldComponent;
 
     @SpyBean
@@ -116,6 +117,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
 
         Node ingameView = battleFieldComponent.getRoot();
+        BattleFieldController controller = battleFieldComponent.getController();
 
         GameProvider gameDataProvider = new GameProvider();
         gameDataProvider.set(new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4));
@@ -147,10 +149,11 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotNull(menu);
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
-        for(int i = 0; i < 6; i++) clickOn("#zoomOutButton");
         Button zoomIn = lookup("#zoomInButton").query();
         Assert.assertNotNull(zoomIn);
-        for(int i = 0; i < 12; i++) clickOn("#zoomInButton");
+        for(int i = 0; i < 6; i++) Platform.runLater( () -> controller.zoomOut(null));
+        for(int i = 0; i < 12; i++) Platform.runLater( () -> controller.zoomIn(null));
+        WaitForAsyncUtils.waitForFxEvents();
         clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
@@ -188,7 +191,7 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     private void click(double x, double y) {
-        clickOn(BASE_X + x, BASE_Y + y, Motion.DIRECT);
+        clickOn(battleFieldCenterX + x, battleFieldCenterY + y, Motion.DIRECT);
     }
 
     @Test
@@ -240,9 +243,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.getGameState().setPhase("movePhase");
         // test unit selection
         Assert.assertNull(game.getSelectedUnit());
-        click(150, 125);
+        click(-75, -75);
         Assert.assertNull(game.getSelectedUnit());
-        click(200, 150);
+        click(-25, -75);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyZeroInteractions(movementManager);
@@ -250,10 +253,10 @@ public class BattleFieldViewTest extends ApplicationTest {
                 .thenReturn(null);
 
         // test unit selection removed if not reachable terrain is clicked
-        click(150, 175);
+        click(-75, -25);
         //verify(movementManager).getTour(playerUnit, definition.cells[1][0]);
         Assert.assertNull(game.getSelectedUnit());
-        click(200, 150);
+        click(-25, -75);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         //verifyNoMoreInteractions(movementManager);
@@ -277,7 +280,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         ).when(gameEventManager).sendMessage(any());
 
         // test move action fired, if reachable terrain is clicked
-        click(150, 125);
+        click(-75, -75);
 
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -288,11 +291,11 @@ public class BattleFieldViewTest extends ApplicationTest {
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
 
-        // test no action, if user is not current player
         game.setCurrentPlayer(null);
-        click(200, 75);
+        // test no action, if user is not current player
+        click(-25, -25);
         //verifyNoMoreInteractions(gameEventManager);
-        click(200, 125);
+        click(-25, -75);
 
     }
 
@@ -446,7 +449,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         when(movementManager.getTour(playerUnit, definition.cells[0][0])).thenReturn(tour);
 
-        click(200, 150);
+        click(-20, -70);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Cell cell = definition.cells[0][0];
@@ -455,13 +458,13 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertTrue(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.MOVE, cell.getTile().getHighlightingOne());
 
-        click(200, 150);
+        click(-20, -70);
         Assert.assertNull(game.getSelectedUnit());
 
         Assert.assertFalse(cell.isIsReachable());
         Assert.assertEquals(HighlightingOne.NONE, cell.getTile().getHighlightingOne());
 
-        click(200, 150);
+        click(-20, -70);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
 
         Assert.assertTrue(cell.isIsReachable());
@@ -524,7 +527,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
-        click(150, 200);
+        click(-25, -25);
         Assert.assertSame(playerUnit, game.getSelectedUnit());
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
@@ -575,16 +578,16 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
-        click(150, 200);
-        click( 150, 250);
-        click(150, 200);
+        click(-25, -25);
+        click( -25, 25);
+        click(-25, -25);
         game.setPhase(Game.Phase.movePhase.name());
-        click(200, 200);
         //verifyZeroInteractions(gameEventManager);
+        click(25, -25);
         game.setPhase(Game.Phase.attackPhase.name());
 
-        click(150, 200);
-        click(200, 200);
+        click(-25, -25);
+        click(25, -25);
         verify(gameEventManager, times(1)).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
@@ -728,14 +731,20 @@ public class BattleFieldViewTest extends ApplicationTest {
                     battleFieldComponent.getController().configure(context);
                     Stage stage = new Stage();
                     stage.setScene(new Scene(battleFieldComponent.getRoot()));
-                    stage.setX(BASE_X);
-                    stage.setY(BASE_Y);
+                    stage.centerOnScreen();
                     stage.show();
                 },
                 Platform::runLater
         );
-
         aVoid.get();
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Node battleField = lookup("#battleFieldViewer").query();
+        Bounds bounds = battleField.localToScreen(battleField.getBoundsInLocal());
+        battleFieldCenterX = bounds.getCenterX();
+        battleFieldCenterY = bounds.getCenterY();
+
     }
 
     public static Game buildComplexTestGame() throws IOException {

@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewProvider;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
@@ -119,6 +120,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public ImageView phaseImage;
     public HBox ingameInformationHBox;
     public StackPane rootPane;
+    public VBox history;
     public Button skynetButton;
     private ChatController chatController;
     private Game game;
@@ -148,6 +150,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Skynet skynet;
     private ActionExecutor actionExecutor;
     private boolean openWhenResizedPlayer, openWhenResizedChat;
+    private HistoryViewProvider historyViewProvider;
 
     @Autowired
     public BattleFieldController(
@@ -750,6 +753,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         this.context = context;
 
+        configureHistory();
+
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
         if (context.getGameState().getCurrentPlayer() != null)
         {
@@ -832,6 +837,20 @@ public class BattleFieldController implements RootController, IngameViewControll
         if(sceneManager.isStageInit()) initListenersForFullscreen();
 
         configureSpectatorModus();
+    }
+
+    @Autowired(required = false)
+    public void setHistoryViewProvider(HistoryViewProvider historyViewProvider) {
+
+        this.historyViewProvider = historyViewProvider;
+    }
+
+    private void configureHistory() {
+        if (historyViewProvider == null) {
+            return;
+        }
+
+        historyViewProvider.mountHistory(history, context);
     }
 
     private void switchThroughUnits(KeyEvent keyEvent){

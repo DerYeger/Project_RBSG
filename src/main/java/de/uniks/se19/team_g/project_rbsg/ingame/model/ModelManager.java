@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.GameChangeObjectEvent;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -30,7 +33,7 @@ public class ModelManager implements GameEventHandler {
     private static final String GAME_INIT_OBJECT = "gameInitObject";
     public static final String GAME_NEW_OBJECT = "gameNewObject";
     private static final String GAME_REMOVE_OBJECT = "gameRemoveObject";
-    public static final String GAME_CHANGE_OBJECT = "gameChangeObject";
+    public static final String GAME_CHANGE_OBJECT = GameChangeObjectEvent.NAME;
 
     @NonNull
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -38,12 +41,15 @@ public class ModelManager implements GameEventHandler {
     @NonNull
     private final HashMap<String, Object> objectMap;
 
-    private ObjectProperty<Game> gameProperty = new SimpleObjectProperty<>();
+    private ObjectProperty<Game> gameProperty = new SimpleObjectProperty<>(new Game());
 
     @Nonnull
     private Executor executor = Platform::runLater;
 
+    private final History history = new History();
+
     public ModelManager() {
+
         objectMap = new HashMap<>();
     }
 
@@ -83,46 +89,9 @@ public class ModelManager implements GameEventHandler {
             case GAME_REMOVE_OBJECT:
                 handleRemove(node);
                 break;
-            case GAME_CHANGE_OBJECT:
-                handleChange(node.get("data"));
-                break;
             default:
                 logger.error("Unknown model message: " + node);
         }
-    }
-
-    private void handleChange(JsonNode data) {
-        final String id = data.get("id").asText();
-
-        final Object entity = getEntityById(id);
-
-        if (entity == null) {
-            logger.error("unknown identity {} changed", id);
-            return;
-        }
-
-        String changedProperty = data.get("fieldName").asText();
-        final JsonNode newValueNode = data.get("newValue");
-
-        if (newValueNode.isValueNode()) {
-            final BeanWrapperImpl beanWrapper = new BeanWrapperImpl(entity);
-            String newValueDescriptor = newValueNode.textValue();
-
-            Object newValue = getEntityById(newValueDescriptor);
-
-            if (newValue == null) {
-                newValue = newValueDescriptor;
-            }
-
-            try {
-                beanWrapper.setPropertyValue(changedProperty, newValue);
-                return;
-            } catch (BeansException e) {
-                logger.error("entity update failed", e);
-            }
-        }
-
-        logger.error("can't update entity of type {}", entity.getClass());
     }
 
     public <T> T getEntityById(String newValueDescriptor) {
@@ -139,7 +108,7 @@ public class ModelManager implements GameEventHandler {
 
         switch (type) {
             case "Game":
-                gameProperty.set(GameUtil.buildGame(this, identifier, data, true));
+                GameUtil.buildGame(this, identifier, data, true);
                 break;
             case "Player":
                 PlayerUtil.buildPlayer(this, identifier, data, true);
@@ -186,7 +155,8 @@ public class ModelManager implements GameEventHandler {
     }
 
     public Game gameWithId(@NonNull final String id) {
-        return (Game) objectMap.computeIfAbsent(id, g -> new Game(id));
+        gameProperty.get().setId(id);
+        return (Game) objectMap.computeIfAbsent(id, g -> gameProperty.get());
     }
 
     public Player playerWithId(@NonNull final String id) {
@@ -207,5 +177,23 @@ public class ModelManager implements GameEventHandler {
         final String clazz = identifier.substring(0, at_index);
         final String code = identifier.substring(at_index + 1);
         return new Tuple<>(clazz, code);
+    }
+
+    public void addAction(@Nonnull Action action) {
+        executor.execute(() -> doAddAction(action));
+    }
+
+    private void doAddAction(Action action) {
+        boolean isLatest = history.isLatest();
+        history.push(action);
+
+        if (isLatest) {
+            history.forward();
+        }
+
+    }
+
+    public History getHistory() {
+        return history;
     }
 }
