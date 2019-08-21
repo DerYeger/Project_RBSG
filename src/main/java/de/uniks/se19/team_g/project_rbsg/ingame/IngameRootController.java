@@ -140,6 +140,11 @@ public class IngameRootController
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
             Platform.runLater(this::mountBattleField);
         }
+
+        if ((GameEventManager.isActionType(message, ModelManager.GAME_NEW_OBJECT)) && this.ingameContext.getGameData().isSpectatorModus()){
+            logger.debug("Joining as spectator.");
+            Platform.runLater(this::mountBattleField);
+        }
     }
 
     public void onConnectionClosed() {

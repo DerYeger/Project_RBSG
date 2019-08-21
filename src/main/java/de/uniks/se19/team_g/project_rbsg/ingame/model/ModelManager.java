@@ -31,7 +31,7 @@ import java.util.concurrent.Executor;
 public class ModelManager implements GameEventHandler {
 
     private static final String GAME_INIT_OBJECT = "gameInitObject";
-    private static final String GAME_NEW_OBJECT = "gameNewObject";
+    public static final String GAME_NEW_OBJECT = "gameNewObject";
     private static final String GAME_REMOVE_OBJECT = "gameRemoveObject";
     public static final String GAME_CHANGE_OBJECT = GameChangeObjectEvent.NAME;
 
