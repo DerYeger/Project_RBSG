@@ -39,8 +39,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -75,7 +77,8 @@ import static org.mockito.Mockito.*;
         UserProvider.class,
         ChatCommandManager.class,
         GameEventManager.class,
-        LocaleConfig.class
+        LocaleConfig.class,
+        BattleFieldViewTest.ContextConfiguration.class,
 })
 public class BattleFieldViewTest extends ApplicationTest {
 
@@ -102,10 +105,22 @@ public class BattleFieldViewTest extends ApplicationTest {
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
 
-
     @Override
     public void start(@NonNull final Stage ignored) {
         battleFieldComponent = battleFieldFactory.getObject();
+    }
+
+    @TestConfiguration
+    static class ContextConfiguration {
+
+        @Bean
+        public GameProvider gameProvider() {
+            final de.uniks.se19.team_g.project_rbsg.model.Game defaultGame = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "", 2, 1);
+            final GameProvider gameProvider = new GameProvider();
+            gameProvider.set(defaultGame);
+            return gameProvider;
+        }
+
     }
 
     @Test
@@ -285,8 +300,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
 
-        // test no action, if user is not current player
-        game.setCurrentPlayer(null);
         click(200, 75);
         //verifyNoMoreInteractions(gameEventManager);
         click(200, 125);
@@ -531,7 +544,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         GameEventManager gameEventManager = mock(GameEventManager.class);
         when(gameEventManager.api()).thenReturn(ingameApi);
 
-        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack2();
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
@@ -557,20 +570,19 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
-        click(150, 200);
-        click( 150, 250);
-        click(150, 200);
+        click(160, 140);
+        click(210, 140);
+        click(160, 140);
         game.setPhase(Game.Phase.movePhase.name());
-        click(200, 200);
+        click( 160, 190);
         //verifyZeroInteractions(gameEventManager);
         game.setPhase(Game.Phase.attackPhase.name());
-
-        click(150, 200);
-        click(200, 200);
+        click(160, 140);
         verify(gameEventManager, times(1)).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
-
+        Assert.assertNotNull(game.getSelectedUnit());
+        click(160, 140);
         Assert.assertNull(game.getSelectedUnit());
     }
 
