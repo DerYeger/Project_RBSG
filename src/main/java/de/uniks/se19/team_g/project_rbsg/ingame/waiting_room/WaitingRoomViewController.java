@@ -25,6 +25,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.*;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -205,7 +206,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     {
         player1Pane.getChildren().add(playerCard.buildPlayerCard(selectedLocale));
         player2Pane.getChildren().add(playerCard2.buildPlayerCard(selectedLocale));
-        playerCard2.switchColumns();
+        playerCard2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         if (gameProvider.get().getNeededPlayer() == 4)
         {
             // if visibility was disabled before for example when leaving game
@@ -215,7 +216,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             AnchorPane.setTopAnchor(player2Pane, 102.0);
             player3Pane.getChildren().add(playerCard3.buildPlayerCard(selectedLocale));
             player4Pane.getChildren().add(playerCard4.buildPlayerCard(selectedLocale));
-            playerCard4.switchColumns();
+            playerCard4.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
         else
         {
@@ -259,7 +260,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         {
             for (PlayerCardBuilder playerC : playerCardBuilders)
             {
-                if (playerC.isEmpty)
+                if (playerC.isEmpty())
                 {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));
                     break;
@@ -277,7 +278,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                     {
                         for (PlayerCardBuilder playerC : playerCardBuilders)
                         {
-                            if ((playerC.isEmpty) && (p.getColor() != null))
+                            if ((playerC.isEmpty()) && (p.getColor() != null))
                             {
                                 playerC.setPlayer(p, Color.valueOf(p.getColor()));
                                 break;
@@ -291,7 +292,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                     {
                         for (PlayerCardBuilder playerC : playerCardBuilders)
                         {
-                            if (!playerC.isEmpty)
+                            if (!playerC.isEmpty())
                             {
                                 if (playerC.getPlayer().equals(p))
                                 {

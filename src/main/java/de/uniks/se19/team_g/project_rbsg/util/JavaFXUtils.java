@@ -18,11 +18,12 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.Locale;
 
 public class JavaFXUtils {
-    public static void setButtonIcons(Button button, URL defaultIconName, URL hoverIconName, int iconSize) {
+    public static void setButtonIcons(Button button, @Nonnull URL defaultIconName, @Nullable URL hoverIconName, int iconSize) {
         ImageView hover = new ImageView();
         ImageView nonHover = new ImageView();
 
@@ -32,8 +33,10 @@ public class JavaFXUtils {
         hover.fitWidthProperty().setValue(iconSize);
         hover.fitHeightProperty().setValue(iconSize);
 
-        hover.setImage(new Image(hoverIconName.toString()));
-        nonHover.setImage(new Image(defaultIconName.toString()));
+        Image defaultImage = new Image(defaultIconName.toString());
+        Image hoverImage = hoverIconName != null ? new Image(hoverIconName.toString()) : defaultImage;
+        nonHover.setImage(defaultImage);
+        hover.setImage(hoverImage);
 
         button.graphicProperty().bind(Bindings.when(button.hoverProperty())
                 .then(hover)
