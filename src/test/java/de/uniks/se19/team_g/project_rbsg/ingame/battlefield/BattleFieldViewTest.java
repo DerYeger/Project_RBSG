@@ -117,6 +117,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
 
         Node ingameView = battleFieldComponent.getRoot();
+        BattleFieldController controller = battleFieldComponent.getController();
 
         GameProvider gameDataProvider = new GameProvider();
         gameDataProvider.set(new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4));
@@ -148,10 +149,11 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotNull(menu);
         Button zoomOut = lookup("#zoomOutButton").query();
         Assert.assertNotNull(zoomOut);
-        for(int i = 0; i < 6; i++) clickOn("#zoomOutButton");
         Button zoomIn = lookup("#zoomInButton").query();
         Assert.assertNotNull(zoomIn);
-        for(int i = 0; i < 12; i++) clickOn("#zoomInButton");
+        for(int i = 0; i < 6; i++) Platform.runLater( () -> controller.zoomOut(null));
+        for(int i = 0; i < 12; i++) Platform.runLater( () -> controller.zoomIn(null));
+        WaitForAsyncUtils.waitForFxEvents();
         clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
