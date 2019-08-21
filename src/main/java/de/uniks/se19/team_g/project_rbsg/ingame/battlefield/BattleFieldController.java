@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import animatefx.animation.Wobble;
 import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -120,6 +121,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public HBox ingameInformationHBox;
     public StackPane rootPane;
     public Button skynetButton;
+    public Label gameName;
     private ChatController chatController;
     private Game game;
     private ObservableList<Cell> cells;
@@ -150,6 +152,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private boolean openWhenResizedPlayer, openWhenResizedChat;
 
     private Node phaseLabelView;
+    private final GameProvider gameProvider;
 
     @Autowired
     public BattleFieldController(
@@ -159,9 +162,11 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
-            @Nonnull Property<Locale> selectedLocale
-    )
+            @Nonnull Property<Locale> selectedLocale,
+            @NonNull final GameProvider gameProvider
+            )
     {
+        this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.menuBuilder = menuBuilder;
@@ -225,7 +230,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/navigation/lifeBarBlack.png"),
                 40
         );
-
+        gameName.setText(gameProvider.get().getName());
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
