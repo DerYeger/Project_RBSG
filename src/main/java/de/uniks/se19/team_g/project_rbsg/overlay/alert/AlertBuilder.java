@@ -38,6 +38,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         NO_CONNECTION("noConnection"),
         PERMISSION_ERROR("permissionError"),
         END_PHASE("endPhase"),
+        SURRENDER("surrender"),
         UNSAVED_ARMY("unsaved_army"),
         COULD_NOT_DELETE("could_not_delete"),
         EGG_WON("eggWon"),

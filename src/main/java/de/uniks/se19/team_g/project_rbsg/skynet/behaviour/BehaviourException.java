@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception;
+package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
 
 import org.springframework.lang.NonNull;
 

@@ -4,7 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import io.rincl.Rincl;
 import io.rincl.Rincled;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
+import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.WeakListChangeListener;
@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 public class ArmySelectorController implements Initializable, Rincled {
 
     private final Property<Locale> selectedLocale;
+
     public ListView<Army> listView;
 
     private final ArmySelectorCellFactory cellFactory;
@@ -34,6 +35,18 @@ public class ArmySelectorController implements Initializable, Rincled {
     public Label armiesLabel;
 
     public HBox header;
+
+    public Army getHoveredArmy ()
+    {
+        return hoveredArmy.get();
+    }
+
+    public SimpleObjectProperty<Army> hoveredArmyProperty ()
+    {
+        return hoveredArmy;
+    }
+
+    private final SimpleObjectProperty<Army> hoveredArmy;
 
     @SuppressWarnings("FieldCanBeLocal")
     @Nullable
@@ -43,7 +56,9 @@ public class ArmySelectorController implements Initializable, Rincled {
             ArmySelectorCellFactory cellFactory,
             @Nonnull final Property<Locale> selectedLocale
     ) {
+        hoveredArmy = new SimpleObjectProperty<>(null);
         this.cellFactory = cellFactory;
+        cellFactory.setArmyHoverProperty(hoveredArmy);
         this.selectedLocale = selectedLocale;
     }
 

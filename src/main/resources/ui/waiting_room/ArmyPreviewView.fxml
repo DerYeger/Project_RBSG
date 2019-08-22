@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.ArmyPreviewController">
+   <children>
+      <Label fx:id="armyNameLabel" styleClass="default" text="ArmyName" />
+      <FlowPane fx:id="armyContainer" prefHeight="200.0" prefWidth="200.0" prefWrapLength="500.0" styleClass="unitContainer" VBox.vgrow="ALWAYS" />
+   </children>
+   <stylesheets>
+      <URL value="@../darkTheme.css" />
+      <URL value="@ArmyPreviewView.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="armyPreviewContainer" />
+      <String fx:value="root-background-color" />
+   </styleClass>
+</VBox>
