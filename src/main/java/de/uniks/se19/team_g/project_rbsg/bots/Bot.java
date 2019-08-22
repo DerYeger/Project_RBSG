@@ -71,6 +71,7 @@ public class Bot extends Thread {
                 .thenApply(aVoid -> contextFactory.getObject(user, gameData))
                 .thenApply(ingameContext -> {
                     setIngameContext(ingameContext);
+                    ingameContext.getModelManager().setExecutor(executor);
                     ingameContext.boot(false);
                     return ingameContext;
                 })

@@ -307,7 +307,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                             {
                                 if (playerC.getPlayer().equals(p))
                                 {
-                                    Platform.runLater(playerC::playerLeft);
+                                    playerC.playerLeft();
                                     break;
                                 }
                             }
