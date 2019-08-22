@@ -289,7 +289,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void saveArmies() {
-
+        this.viewState.setNumberOfArmiesChanged(false);
         appState.armies.forEach(army -> army.setUnsavedUpdates(false));
         final List<Army> dirtyArmies = appState.armies.stream().filter(Army::hasUnsavedUpdates).collect(Collectors.toList());
 
@@ -321,16 +321,18 @@ public class ArmyBuilderController implements Initializable, RootController {
     public void deleteArmy() {
         //For clean-deletion
         Army army = appState.selectedArmy.get();
-        army.setUnsavedUpdates(true);
         final CompletableFuture<DeleteArmyResponse> deleteArmyResponseCompletableFuture = deleteArmyService.deleteArmy(army);
         deleteArmyResponseCompletableFuture
-                .thenAccept(answer -> Platform.runLater(()->this.appState.armies.remove(army)))
+                .thenAccept(answer -> Platform.runLater(()->{
+                    this.appState.armies.remove(army);
+                }))
                 .exceptionally(throwable -> {
                     alertBuilder.information(
                             AlertBuilder.Text.COULD_NOT_DELETE
                     );
                     return null;
                 });
+        this.viewState.setNumberOfArmiesChanged(true);
     }
 
     public void editArmy() {
