@@ -18,6 +18,8 @@ import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -46,15 +48,9 @@ public class IngameRootController
     @Nonnull
     private final ObjectFactory<IngameContext> contextFactory;
     @Nonnull
-    private final GameEventManager gameEventManager;
-    @Nonnull
-    private final ModelManager modelManager;
-    @Nonnull
     private final SceneManager sceneManager;
     @Nonnull
     private final AlertBuilder alertBuilder;
-    @Nonnull
-    private final GameEventDispatcher dispatcher;
 
     private IngameContext ingameContext;
 
@@ -63,23 +59,15 @@ public class IngameRootController
     public IngameRootController(
             @Nonnull ObjectFactory<ViewComponent<WaitingRoomViewController>> waitingRoomFactory,
             @Nonnull ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory,
-            @Nonnull ObjectFactory<IngameContext> contextFactory,
-            @Nonnull GameEventManager gameEventManager,
-            @Nonnull ModelManager modelManager,
+            @Nonnull @Qualifier("autoContext") ObjectFactory<IngameContext> contextFactory,
             @Nonnull SceneManager sceneManager,
-            @Nonnull AlertBuilder alertBuilder,
-            @Nonnull GameEventDispatcher dispatcher
-            ) {
+            @Nonnull AlertBuilder alertBuilder
+    ) {
         this.waitingRoomFactory = waitingRoomFactory;
         this.battleFieldFactory = battleFieldFactory;
         this.contextFactory = contextFactory;
-        this.gameEventManager = gameEventManager;
-        this.modelManager = modelManager;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
-        this.dispatcher = dispatcher;
-
-        dispatcher.setModelManager(modelManager);
     }
 
 
@@ -95,31 +83,20 @@ public class IngameRootController
 
         ingameContext = contextFactory.getObject();
 
-        final Game gameData = Objects.requireNonNull(ingameContext.getGameData());
-
-        ingameContext.setModelManager(modelManager);
+        Game gameData = ingameContext.getGameData();
+        GameEventManager gameEventManager = ingameContext.getGameEventManager();
 
         gameEventManager.setOnConnectionClosed(this::onConnectionClosed);
-        gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(this::handleGameEvents);
-        gameEventManager.addHandler(dispatcher);
 
         boolean spectatorModus = ingameContext.getGameData().isSpectatorModus();
 
-        try {
-            gameEventManager.startSocket(gameData.getId(), null, spectatorModus);
-        } catch (Exception e) {
-            logger.error("failed to start socket", e);
-            // TODO: how to handle socket start error? so far, it escalated to FXML loader as well
-            throw new RuntimeException(e);
-        }
-
-        ingameContext.setGameEventManager(gameEventManager);
+        ingameContext.boot(spectatorModus);
     }
 
     @Override
     public void terminate() {
-        gameEventManager.terminate();
+        ingameContext.getGameEventManager().terminate();
 
         if (activeComponent != null && activeComponent.getController() instanceof Terminable) {
             ((Terminable) activeComponent.getController()).terminate();
@@ -132,7 +109,7 @@ public class IngameRootController
     void handleGameEvents(ObjectNode message) {
         if (GameEventManager.isActionType(message, GameEventManager.GAME_INIT_FINISHED)) {
             Platform.runLater(() -> {
-                ingameContext.gameInitialized(modelManager.getGame());
+                ingameContext.gameInitialized(ingameContext.getModelManager().getGame());
                 logger.debug("user play ist {}", ingameContext.getUserPlayer());
             });
             return;

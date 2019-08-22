@@ -2,12 +2,21 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
+import de.uniks.se19.team_g.project_rbsg.model.*;
 import javafx.fxml.FXMLLoader;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
+
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 @Configuration
 public class IngameConfig {
@@ -23,5 +32,38 @@ public class IngameConfig {
     public ViewComponent<BattleFieldController> battleFieldScene(@NonNull final FXMLLoader fxmlLoader) {
         fxmlLoader.setLocation(getClass().getResource("/ui/ingame/battleFieldView.fxml"));
         return ViewComponent.fromLoader(fxmlLoader);
+    }
+
+    @Bean
+    @Scope("prototype")
+    public IngameContext autoContext(
+            @Nonnull UserProvider userProvider,
+            @Nonnull GameProvider gameDataProvider,
+            @Qualifier("dedicatedContext") ObjectProvider<IngameContext> contextFactory
+    ) {
+        return contextFactory.getObject(userProvider.get(), gameDataProvider.get());
+    }
+
+    @Bean
+    @Scope("prototype")
+    public IngameContext dedicatedContext(
+            @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") @Nonnull User user,
+            @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") @Nonnull Game gameData,
+            GameEventManager gameEventManager,
+            GameEventDispatcher dispatcher,
+            ModelManager modelManager
+    ) {
+        Objects.requireNonNull(gameData);
+
+        IngameContext ingameContext = new IngameContext(user, gameData);
+
+        ingameContext.setModelManager(modelManager);
+        ingameContext.setGameEventManager(gameEventManager);
+        dispatcher.setModelManager(modelManager);
+
+        gameEventManager.addHandler(modelManager);
+        gameEventManager.addHandler(dispatcher);
+
+        return ingameContext;
     }
 }

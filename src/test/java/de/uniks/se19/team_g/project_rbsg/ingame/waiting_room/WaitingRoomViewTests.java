@@ -46,9 +46,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.IOException;
 import java.util.Locale;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
@@ -218,7 +216,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
 
-        final IngameContext context = new IngameContext(userProvider, gameProvider, new IngameGameProvider());
+        final IngameContext context = new IngameContext(null, null);
         context.setGameEventManager(gameEventManager);
         controller.configure(context);
 
@@ -245,7 +243,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
         final Game gameData = new Game("1", 2);
         final GameProvider gameDataProvider = new GameProvider().set(gameData);
 
-        IngameContext context = new IngameContext(userProvider, gameDataProvider, new IngameGameProvider());
+        IngameContext context = new IngameContext(currentUser, gameData);
         context.setGameEventManager(gameEventManager);
         controller.configure(context);
         clearInvocations(gameEventManager);

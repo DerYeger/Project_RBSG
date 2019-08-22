@@ -119,14 +119,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         Node ingameView = battleFieldComponent.getRoot();
         BattleFieldController controller = battleFieldComponent.getController();
 
-        GameProvider gameDataProvider = new GameProvider();
-        gameDataProvider.set(new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4));
-
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
-        UserProvider userProvider = new UserProvider();
-        userProvider.set(new User().setName("Test"));
-        IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
+        IngameContext context = new IngameContext(
+                new User().setName("Test"),
+                new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4)
+        );
         Player player = new Player("123");
         player.getUnits().addAll(
                 new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"),
@@ -216,11 +214,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setMp(3);
         playerUnit.setRemainingMovePoints(0);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(null, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -316,11 +310,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         definition.otherUnit.setLeader(player);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -367,11 +357,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         //otherUnit.setLeader(player);
         game.setCurrentPlayer(player);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -420,10 +406,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -494,10 +477,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -517,7 +497,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
-        while(context.getGameState().getPhase()!="movePhase"){
+        while(!context.getGameState().getPhase().equals("movePhase")){
             sleep(1);
         }
         WaitForAsyncUtils.waitForFxEvents();
@@ -549,10 +529,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -595,10 +572,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -631,10 +605,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -674,10 +645,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
