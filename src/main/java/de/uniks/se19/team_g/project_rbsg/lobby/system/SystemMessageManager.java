@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.system;
 
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
@@ -39,7 +40,9 @@ public class SystemMessageManager implements IWebSocketCallback
     }
 
     public void startSocket() throws Exception {
-        if (WebSocketConfigurator.userKey.equals("") || webSocketClient == null) {
+        User registeredUser = WebSocketConfigurator.userProvider.get();
+        if (
+                registeredUser == null || registeredUser.getUserKey().isEmpty() || webSocketClient == null) {
             return;
         }
         webSocketClient.start("/system", this);

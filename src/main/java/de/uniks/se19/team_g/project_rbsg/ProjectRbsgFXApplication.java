@@ -1,6 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.bots.UserContext;
+import de.uniks.se19.team_g.project_rbsg.bots.UserContextHolder;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -40,6 +44,10 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
      */
     @Override
     public void init() {
+
+        // set a default context. this is inherited by all child threads, unless overwritten in it
+        UserContextHolder.setContext(new UserContext());
+
         ApplicationContextInitializer<AnnotationConfigApplicationContext> contextInitializer = applicationContext -> {
             applicationContext.registerBean(Parameters.class, this::getParameters);
             applicationContext.registerBean(HostServices.class, this::getHostServices);
@@ -53,6 +61,8 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
                 .initializers(contextInitializer)
                 .web(WebApplicationType.NONE)
                 .run(getParameters().getRaw().toArray(new String[0]));
+
+        WebSocketConfigurator.userProvider = context.getBean(UserProvider.class);
     }
 
 

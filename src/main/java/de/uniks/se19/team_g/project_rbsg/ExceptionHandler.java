@@ -22,7 +22,6 @@ public class ExceptionHandler {
 
     public void handleException(@NonNull final SceneManager sceneManager) {
         terminator.terminate();
-        WebSocketConfigurator.userKey = "";
         sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
         Platform.runLater(() -> alertBuilder.information(AlertBuilder.Text.PERMISSION_ERROR));
     }

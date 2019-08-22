@@ -3,11 +3,11 @@ package de.uniks.se19.team_g.project_rbsg.bots;
 import org.springframework.core.NamedInheritableThreadLocal;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class UserContextHolder {
 
     private static final ThreadLocal<UserContext> userContext = new NamedInheritableThreadLocal<>("user context");
+    private static UserContext defaultContext = new UserContext();
 
     public static void clearContext() {
         userContext.remove();
@@ -17,8 +17,9 @@ public class UserContextHolder {
         UserContextHolder.userContext.set(userContext);
     }
 
-    @Nullable
+    @Nonnull
     public static UserContext getContext() {
-        return userContext.get();
+        UserContext userContext = UserContextHolder.userContext.get();
+        return userContext != null ? userContext : UserContextHolder.defaultContext;
     }
 }

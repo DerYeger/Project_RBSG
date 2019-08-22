@@ -42,10 +42,6 @@ public class UserScope implements Scope {
     @Nonnull
     protected UserContext getUserContext() {
         UserContext userContext = UserContextHolder.getContext();
-        if (userContext == null) {
-            userContext = new UserContext();
-            UserContextHolder.setContext(userContext);
-        }
         return userContext;
     }
 }

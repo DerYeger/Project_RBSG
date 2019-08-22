@@ -208,7 +208,6 @@ public class LoginFormController implements Rincled
 
     private void onLogin(@NonNull final User user) {
         userProvider.set(user);
-        WebSocketConfigurator.userKey = userProvider.get().getUserKey();
 
         try {
             appStateInitializer.initialize().get();
