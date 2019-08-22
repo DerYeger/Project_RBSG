@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
+import de.uniks.se19.team_g.project_rbsg.bots.BotManager;
 import de.uniks.se19.team_g.project_rbsg.util.*;
 import io.rincl.*;
 import javafx.application.*;
@@ -107,6 +108,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     @SuppressWarnings("FieldCanBeLocal")
     private BooleanBinding startGameBinding;
     private SimpleIntegerProperty readyCounter = new SimpleIntegerProperty(0);
+    private BotManager botManager;
 
     @Autowired
     public WaitingRoomViewController (
@@ -139,6 +141,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.previewMapBuilder = previewMapBuilder;
         this.easterEggController = easterEggController;
         this.armyPreviewBuilder = new ArmyPreviewBuilder();
+    }
+
+    @Autowired
+    public void setBotManager(BotManager botManager) {
+        this.botManager = botManager;
     }
 
     public void initialize ()
@@ -199,6 +206,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             playerCard4 = new PlayerCardBuilder();
             playerCardBuilders.add(playerCard3);
             playerCardBuilders.add(playerCard4);
+        }
+
+        if (botManager != null) {
+            playerCardBuilders.forEach(playerCardBuilder -> playerCardBuilder.setOnBotRequested(() -> botManager.requestBot(gameProvider.get())));
         }
     }
 

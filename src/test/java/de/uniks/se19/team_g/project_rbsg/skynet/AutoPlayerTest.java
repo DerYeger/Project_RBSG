@@ -12,7 +12,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class BotTest extends ApplicationTest
+public class AutoPlayerTest extends ApplicationTest
 {
     @Test
     public void testBot()  throws InterruptedException

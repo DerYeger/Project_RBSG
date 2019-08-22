@@ -20,7 +20,7 @@ public class Skynet
     private final Game game;
     private final Player player;
     private Thread botThread;
-    private Bot bot;
+    private AutoPlayer bot;
     private HashMap<String, Behaviour> behaviours;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -35,7 +35,7 @@ public class Skynet
         behaviours = new HashMap<>();
         behaviours.put("fallback", new FallbackBehaviour());
 
-        bot = new Bot(this);
+        bot = new AutoPlayer(this);
     }
 
     public Thread getBotThread()
@@ -43,7 +43,7 @@ public class Skynet
         return botThread;
     }
 
-    public Bot getBot()
+    public AutoPlayer getBot()
     {
         return bot;
     }
