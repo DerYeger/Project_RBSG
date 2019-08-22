@@ -85,6 +85,11 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         return this;
     }
 
+    public GameEventManager removeHandler(GameEventHandler gameEventHandler) {
+        gameEventHandlers.remove(gameEventHandler);
+        return this;
+    }
+
     public ArrayList<GameEventHandler> getHandlers() {
         return gameEventHandlers;
     }

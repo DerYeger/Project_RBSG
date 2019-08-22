@@ -47,7 +47,6 @@ public class IngameContext {
         User user = Objects.requireNonNull(getUser());
 
         gameState = game;
-        initialized.set(true);
 
         Optional<Player> userPlayer = game.getPlayers().stream().filter(
                 player -> player.getName().equals(user.getName())
@@ -56,6 +55,8 @@ public class IngameContext {
         userPlayer.ifPresent(player -> player.setIsPlayer(true));
 
         this.userPlayer = userPlayer.orElse(null);
+
+        initialized.set(true);
     }
 
     public User getUser() {

@@ -107,13 +107,6 @@ public class IngameRootController
 
     // package-private for testability. i'm so sorry.
     void handleGameEvents(ObjectNode message) {
-        if (GameEventManager.isActionType(message, GameEventManager.GAME_INIT_FINISHED)) {
-            Platform.runLater(() -> {
-                ingameContext.gameInitialized(ingameContext.getModelManager().getGame());
-                logger.debug("user play ist {}", ingameContext.getUserPlayer());
-            });
-            return;
-        }
         if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
             Platform.runLater(this::mountBattleField);
         }

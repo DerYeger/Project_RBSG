@@ -76,6 +76,7 @@ public class IngameConfig {
 
         gameEventManager.addHandler(modelManager);
         gameEventManager.addHandler(dispatcher);
+        gameEventManager.addHandler(new GameInitFinishedListener(ingameContext));
 
         return ingameContext;
     }
