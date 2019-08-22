@@ -22,6 +22,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverRespons
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -172,6 +173,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         configureMusicManager();
         configureArmySelector();
         configureCreateArmy();
+        configureButtons();
 
         unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
 
@@ -231,6 +233,32 @@ public class ArmyBuilderController implements Initializable, RootController {
         armiesAreFull.addListener(((observable, oldValue, newValue) -> {}));
         createArmyButton.disableProperty().bind(armiesAreFull);
         createArmyButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
+    }
+
+    protected void configureButtons(){
+        SimpleBooleanProperty noArmiesLeft = new SimpleBooleanProperty(false);
+
+        appState.armies.addListener((ListChangeListener<Army>) amryList -> {
+            if (appState.armies.size() < 1){
+                noArmiesLeft.set(true);
+            } else {
+                noArmiesLeft.set(false);
+            }
+        });
+
+        SimpleBooleanProperty noArmyLeftOrSelected = new SimpleBooleanProperty(false);
+
+        noArmyLeftOrSelected.bind(Bindings.createBooleanBinding(
+                ()-> (noArmiesLeft.get() || appState.selectedArmy.get() == null),
+                noArmiesLeft, appState.selectedArmy
+        ));
+
+        deleteArmyButton.disableProperty().bind(noArmyLeftOrSelected);
+        editArmyButton.disableProperty().bind(noArmyLeftOrSelected);
+
+        deleteArmyButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
+        noArmiesLeft.addListener(((observable, oldValue, newValue) -> {}));
+        noArmyLeftOrSelected.addListener(((observable, oldValue, newValue) -> {}));
     }
 
     protected void configureArmyDetail() {

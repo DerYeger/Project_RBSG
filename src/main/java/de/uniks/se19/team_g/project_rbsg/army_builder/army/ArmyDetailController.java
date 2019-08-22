@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -85,13 +86,44 @@ public class ArmyDetailController implements Initializable {
         }
 
         armySquadList.setCellFactory(cellFactory);
+
+        configureButtons();
+    }
+
+    protected void configureButtons(){
+        SimpleBooleanProperty noArmiesLeft = new SimpleBooleanProperty(false);
+
+        appState.armies.addListener((ListChangeListener<Army>) amryList -> {
+            if (appState.armies.size() < 1){
+                noArmiesLeft.set(true);
+            } else {
+                noArmiesLeft.set(false);
+            }
+        });
+
+        SimpleBooleanProperty noArmyLeftOrSelected = new SimpleBooleanProperty(false);
+
+        noArmyLeftOrSelected.bind(Bindings.createBooleanBinding(
+                ()-> (noArmiesLeft.get() || appState.selectedArmy.get() == null),
+                noArmiesLeft, appState.selectedArmy
+        ));
+
+        incrementButton.disableProperty().bind(noArmyLeftOrSelected);
+        decrementButton.disableProperty().bind(noArmyLeftOrSelected);
+        noArmiesLeft.addListener(((observable, oldValue, newValue) -> {}));
+        noArmyLeftOrSelected.addListener(((observable, oldValue, newValue) -> {}));
+        incrementButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
+        decrementButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
     }
 
     private void onSelectedArmyUpdate(ObservableValue<? extends Army> observableValue, Army prev, Army nextArmy) {
         bindToArmy(nextArmy);
     }
 
-    private void bindToArmy(Army army) {
+    private void bindToArmy(@Nullable Army army) {
+        if (army == null){
+            return;
+        }
         armyNameLabel.textProperty().bind(army.name);
 
         armySizeLabel.textProperty().bind(
