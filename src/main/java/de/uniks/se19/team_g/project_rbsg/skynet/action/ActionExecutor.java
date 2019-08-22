@@ -14,7 +14,6 @@ public class ActionExecutor
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final IngameApi api;
     private TileDrawer tileDrawer;
-    private Logger logger = LoggerFactory.getLogger(getClass());
     private Runnable surrenderGameAction;
 
     public ActionExecutor (@NonNull final IngameApi api)
@@ -102,13 +101,13 @@ public class ActionExecutor
 
     private void executeSurrender ()
     {
-        logger.debug("Executing Surrender!");
         if(Objects.nonNull(surrenderGameAction)) {
             surrenderGameAction.run();
         }
         else {
             api.leaveGame();
         }
+        logger.info("Surrendered");
     }
 
     public ActionExecutor setSurrenderGameAction (Runnable surrenderGameAction)
