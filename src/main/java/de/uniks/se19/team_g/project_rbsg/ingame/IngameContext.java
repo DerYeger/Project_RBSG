@@ -98,12 +98,14 @@ public class IngameContext {
         this.modelManager = modelManager;
     }
 
-    public void boot(boolean spectatorModus) {
+    public IngameContext boot(boolean spectatorModus) {
         try {
             gameEventManager.startSocket(gameData.getId(), null, spectatorModus);
         } catch (Exception e) {
             // TODO: how to handle socket start error? so far, it escalated to FXML loader as well
             throw new RuntimeException(e);
         }
+
+        return this;
     }
 }

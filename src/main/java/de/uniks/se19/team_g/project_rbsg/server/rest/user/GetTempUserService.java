@@ -8,12 +8,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.function.Supplier;
 
 @Component
-public class GetTempUser implements Supplier<User> {
+public class GetTempUserService implements Supplier<User> {
 
     final private RestTemplate rbsgTemplate;
     private final TempUserAdapter adapter;
 
-    public GetTempUser(
+    public GetTempUserService(
             RestTemplate rbsgTemplate,
             TempUserAdapter adapter
     ) {

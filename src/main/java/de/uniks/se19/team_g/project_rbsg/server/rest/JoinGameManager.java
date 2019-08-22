@@ -2,9 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -21,15 +19,16 @@ public class JoinGameManager {
     final String spectator = "?spectator=true";
 
     private RestTemplate restTemplate;
-    private final HttpHeaders header = new HttpHeaders();
 
     public JoinGameManager(@Nullable RestTemplate restTemplate){
         this.restTemplate = ((restTemplate == null) ? new RestTemplate() : restTemplate);
     }
 
-    public CompletableFuture joinGame(@NonNull User user, @NonNull Game game){
+    public CompletableFuture<ResponseEntity<String>> joinGame(@NonNull User user, @NonNull Game game){
+        return CompletableFuture.supplyAsync(() -> doJoinGame(user, game));
+    }
 
-        header.set("userKey", user.getUserKey());
+    public ResponseEntity<String> doJoinGame(@NonNull User user, @NonNull Game game) {
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder
                 .fromHttpUrl(uri)
@@ -39,12 +38,6 @@ public class JoinGameManager {
             uriBuilder.queryParam("spectator", true);
         }
 
-        HttpEntity<?> request = new HttpEntity<Object>("", header);
-
-        return CompletableFuture.supplyAsync(() -> this.restTemplate.exchange(
-                uriBuilder.toUriString(),
-                HttpMethod.GET,
-                request,
-                String.class));
+        return restTemplate.getForEntity(uriBuilder.toUriString(), String.class);
     }
 }

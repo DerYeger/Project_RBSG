@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.server;
 
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -18,9 +19,10 @@ public class ServerConfig {
 
     @Bean
     public RestTemplate rbsgTemplate(
-            @Nonnull UserKeyInterceptor userKeyInterceptor,
+            @Nonnull UserProvider userProvider,
             @Nonnull ApiClientErrorInterceptor apiClientErrorInterceptor
-            ) {
+    ) {
+        UserKeyInterceptor userKeyInterceptor = new UserKeyInterceptor(userProvider);
 
         return new RestTemplateBuilder()
                 .additionalInterceptors(userKeyInterceptor, apiClientErrorInterceptor)

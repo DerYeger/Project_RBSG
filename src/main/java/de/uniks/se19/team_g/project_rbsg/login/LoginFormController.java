@@ -166,7 +166,7 @@ public class LoginFormController implements Rincled
         initFlags();
         if (nameField.getText() != null && passwordField.getText() != null) {
             user = new User(nameField.getText(), passwordField.getText());
-            final CompletableFuture<ResponseEntity<ObjectNode>> answerPromise = loginManager.onLogin(user);
+            final CompletableFuture<ResponseEntity<ObjectNode>> answerPromise = loginManager.callLogin(user);
             answerPromise.thenAccept(this::onLoginReturned)
                     .exceptionally(this::handleException);
         }
