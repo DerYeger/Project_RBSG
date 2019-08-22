@@ -9,6 +9,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -89,10 +90,13 @@ public class PlayerCardBuilder {
         whiteAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountWhite.png").toExternalForm());
         blackAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountBlack.png").toExternalForm());
 
+        BooleanBinding notEmptyBinding = emptyProperty.not();
         progressIndicator.visibleProperty().bind(emptyProperty);
-        playerListCellImageView.visibleProperty().bind(emptyProperty.not());
+        playerListCellImageView.visibleProperty().bind(notEmptyBinding);
         botButtonContainer.visibleProperty().bind(emptyProperty);
         botButtonContainer.managedProperty().bind(emptyProperty);
+        colorPane.visibleProperty().bind(notEmptyBinding);
+        colorPane.managedProperty().bind(notEmptyBinding);
 
         JavaFXUtils.setButtonIcons(
                 botButton,
