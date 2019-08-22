@@ -162,6 +162,12 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     public void initialize() {
         gameName.textProperty().setValue(gameProvider.get().getName());
+        player1Pane.setOnMouseClicked((event) -> {
+            System.out.println("hallo");
+        });
+        player2Pane.setOnMouseClicked((event) -> {
+            System.out.println("hallo");
+        });
         initPlayerCardBuilders();
         setPlayerCardNodes();
         ready = false;
@@ -222,7 +228,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         Node player2 = playerCard2.buildPlayerCard(selectedLocale);
         player1Pane.getChildren().add(player1);
         player2Pane.getChildren().add(player2);
-        playerCard2.switchColumns();
+
+         playerCard2.switchColumns();
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             Node player3 = playerCard.buildPlayerCard(selectedLocale);
@@ -270,7 +277,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             for(PlayerCardBuilder playerC: playerCardBuilders){
                 if(playerC.isEmpty) {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));
-                    playerC.setOnClickListener(p, chatController);
+                    //playerC.setOnClickListener(p, chatController);
                     break;
                 }
             }
@@ -434,11 +441,13 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     @FXML
     public void player1PaneClicked(MouseEvent event){
         int playerNumber=0;
+        System.out.println("Hallo ich wurde geklickt");
         Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
     @FXML
     public void player2PaneClicked(MouseEvent event){
         int playerNumber=1;
+        System.out.println("Hallo ich wurde geklickt");
         Platform.runLater(()->onPlayerCardClicked(playerNumber));
     }
     @FXML

@@ -197,7 +197,7 @@ public class PlayerCardBuilder {
         }
     }
 
-    public void setOnClickListener(Player p, ChatController chatController) {
+    /*public void setOnClickListener(Player p, ChatController chatController) {
         System.out.println("erster");
         this.playerCardView.setOnMousePressed(event -> {
             Platform.runLater(()->{
@@ -205,5 +205,5 @@ public class PlayerCardBuilder {
                 chatController.chatTabManager().addPrivateTab('@' + player.getName());
             });
         });
-    }
+    }*/
 }
