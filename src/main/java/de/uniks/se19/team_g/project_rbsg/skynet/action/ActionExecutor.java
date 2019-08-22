@@ -5,11 +5,13 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import javafx.application.Platform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 public class ActionExecutor
 {
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final IngameApi api;
     private TileDrawer tileDrawer;
 
@@ -41,12 +43,15 @@ public class ActionExecutor
         final Unit unit = action.unit;
         final Tour tour = action.tour;
         unit.setRemainingMovePoints(unit.getRemainingMovePoints() - tour.getCost());
+        logger.debug("Reduced MP of " + unit + " by " + tour.getCost() + " to " + unit.getRemainingMovePoints());
         if (unit.getRemainingMovePoints() == 0)
         {
             unit.clearSelection();
+            logger.debug("Unselected " + unit);
         }
         api.move(unit, tour);
         unit.getGame().setInitiallyMoved(true);
+        logger.info("Moved " + unit + " to " + tour.getTarget());
     }
 
     private void executeAttack(@NonNull final AttackAction action)
@@ -61,6 +66,7 @@ public class ActionExecutor
                     tileDrawer.drawTile(action.target.getPosition().getTile())
             );
         }
+        logger.info("Attacked " + action.target + " with " + action.unit);
     }
 
     private void executeFallback(@NonNull final FallbackAction fallbackAction) {
@@ -74,5 +80,6 @@ public class ActionExecutor
     {
         api.endPhase();
         action.game.clearSelection();
+        logger.info("Passed");
     }
 }
