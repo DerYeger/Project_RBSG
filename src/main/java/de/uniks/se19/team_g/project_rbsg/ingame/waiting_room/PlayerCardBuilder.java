@@ -38,9 +38,6 @@ import java.util.Locale;
  */
 public class PlayerCardBuilder {
 
-    @NonNull
-    private ChatController chatController;
-
     public static final String READY_STYLE = "ready";
     public Label playerListCellLabel;
     public ImageView playerListCellImageView;
@@ -92,17 +89,7 @@ public class PlayerCardBuilder {
 
         setEmpty();
 
-        Platform.runLater(()->{
-            colorPane.setOnMouseClicked(this::onClick);
-            playerCardGridPane.setOnMouseClicked(this::onClick);
-        });
-
-
         return playerCardView;
-    }
-
-    private <T extends Event> void onClick(T t) {
-        chatController.chatTabManager().addPrivateTab('@' + player.getName());
     }
 
     private void setEmpty() {
@@ -208,5 +195,15 @@ public class PlayerCardBuilder {
             playerCardView.getStyleClass().remove(READY_STYLE);
             playerListCellImageView.setImage(whiteAccountImage);
         }
+    }
+
+    public void setOnClickListener(Player p, ChatController chatController) {
+        System.out.println("erster");
+        this.playerCardView.setOnMousePressed(event -> {
+            Platform.runLater(()->{
+                System.out.println("Wuup Wuuup");
+                chatController.chatTabManager().addPrivateTab('@' + player.getName());
+            });
+        });
     }
 }

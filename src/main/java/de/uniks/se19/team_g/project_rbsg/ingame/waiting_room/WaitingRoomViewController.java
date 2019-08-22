@@ -35,6 +35,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -268,6 +270,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             for(PlayerCardBuilder playerC: playerCardBuilders){
                 if(playerC.isEmpty) {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));
+                    playerC.setOnClickListener(p, chatController);
                     break;
                 }
             }
