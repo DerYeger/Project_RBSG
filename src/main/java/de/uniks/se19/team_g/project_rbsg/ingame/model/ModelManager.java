@@ -13,14 +13,14 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
@@ -29,6 +29,11 @@ import java.util.concurrent.Executor;
 @Component
 @Scope("prototype")
 public class ModelManager implements GameEventHandler {
+
+    public static final Map<String, Class> typeModelMap = new HashMap<>(){{
+       put("Player", Player.class);
+       put("Unit", Unit.class);
+    }};
 
     private static final String GAME_INIT_OBJECT = "gameInitObject";
     public static final String GAME_NEW_OBJECT = "gameNewObject";
@@ -86,8 +91,9 @@ public class ModelManager implements GameEventHandler {
                 //may change for future server releases
                 handleInit(node);
                 break;
+            case GAME_CHANGE_OBJECT:
             case GAME_REMOVE_OBJECT:
-                handleRemove(node);
+                // ignore
                 break;
             default:
                 logger.error("Unknown model message: " + node);
@@ -127,33 +133,6 @@ public class ModelManager implements GameEventHandler {
         }
     }
 
-    private void handleRemove(@NonNull final ObjectNode node) {
-        final JsonNode data = node.get("data");
-
-        final String identifier = data.get("id").asText();
-        final Tuple<String, String> typeAndId = splitIdentifier(identifier);
-        final String type = typeAndId.first;
-
-        if (!data.has("from") || !data.has("fieldName")) {
-            logger.error("Unknown message format: " + node);
-            return;
-        }
-
-        final String from = data.get("from").asText();
-        final String fieldName = data.get("fieldName").asText();
-
-        switch (type) {
-            case "Player":
-                PlayerUtil.removePlayerFrom(this, identifier, from, fieldName, true);
-                break;
-            case "Unit":
-                UnitUtil.removeUnitFrom(this, identifier, from, fieldName, true);
-                break;
-            default:
-                logger.error("Unknown removal class: " + type);
-        }
-    }
-
     public Game gameWithId(@NonNull final String id) {
         gameProperty.get().setId(id);
         return (Game) objectMap.computeIfAbsent(id, g -> gameProperty.get());
@@ -172,11 +151,16 @@ public class ModelManager implements GameEventHandler {
     }
 
     @NonNull
-    private Tuple<String, String> splitIdentifier(@NonNull final String identifier) {
+    public static Tuple<String, String> splitIdentifier(@NonNull final String identifier) {
         final int at_index = identifier.indexOf('@');
         final String clazz = identifier.substring(0, at_index);
         final String code = identifier.substring(at_index + 1);
         return new Tuple<>(clazz, code);
+    }
+
+    @Nullable
+    public static Class classForIdentifier(@Nonnull final String identifier) {
+        return typeModelMap.get( splitIdentifier(identifier).first);
     }
 
     public void addAction(@Nonnull Action action) {

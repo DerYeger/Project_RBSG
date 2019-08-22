@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.util.Pair;
 import org.springframework.beans.factory.ObjectFactory;
@@ -52,4 +53,12 @@ public abstract class DefaultActionRenderer implements ActionRenderer {
 
     @Nonnull
     protected abstract HistoryRenderData doRender(Action action);
+
+    protected Image getIcon(String name) {
+        return new Image(
+                getClass().getResource(name).toExternalForm(),
+                40, 40,
+                true, true
+        );
+    }
 }

@@ -4,7 +4,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
@@ -44,7 +43,7 @@ public class AttackActionRenderer extends DefaultActionRenderer {
 
 
         AttackHistoryCellController controller = data.getKey();
-        controller.primaryIcon.setImage(getAttackIcon());
+        controller.primaryIcon.setImage(getIcon("/assets/icons/operation/swordClashWhite.png"));
         controller.secondaryIcon.setImage(unit.getUnitType().getIconImage());
         controller.setHealth(hp);
 
@@ -61,11 +60,4 @@ public class AttackActionRenderer extends DefaultActionRenderer {
                 && "hp".equals(actionImpl.getFieldName());
     }
 
-    private Image getAttackIcon() {
-        return new Image(
-                getClass().getResource("/assets/icons/operation/swordClashWhite.png").toExternalForm(),
-                40, 40,
-                true, true
-        );
-    }
 }

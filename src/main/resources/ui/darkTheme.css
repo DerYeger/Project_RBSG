@@ -269,7 +269,7 @@
 
 .label.header-2 {
     -fx-font-size: 32pt;
-    -fx-text-fill: bold;
+    -fx-font-weight: bold;
     -fx-font-family: Roboto-Medium;
 }
 

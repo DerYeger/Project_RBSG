@@ -31,23 +31,23 @@ public class DefaultChangeListener implements GameEventDispatcher.Listener {
     }
 
     @Nullable
-    private Action actionFromChange(GameChangeObjectEvent changeEvent, ModelManager modelManager) {
+    private Action actionFromChange(GameChangeObjectEvent event, ModelManager modelManager) {
 
-        final Object entity = modelManager.getEntityById(changeEvent.getEntityId());
+        final Object entity = modelManager.getEntityById(event.getEntityId());
 
         if (entity == null) {
-            logger.error("unknown identity {} changed", changeEvent.getEntityId());
+            logger.error("unknown identity {} changed", event.getEntityId());
             return null;
         }
 
-        Object newValue = modelManager.getEntityById(changeEvent.getNewValue());
+        Object newValue = modelManager.getEntityById(event.getNewValue());
 
         if (newValue == null) {
-            newValue = changeEvent.getNewValue();
+            newValue = event.getNewValue();
         }
 
         try {
-            return new UpdateAction(changeEvent.getFieldName(), newValue, entity);
+            return new UpdateAction(event.getFieldName(), newValue, entity);
         } catch (BeansException e) {
             logger.error("can't derive entity update from change event", e);
         }
