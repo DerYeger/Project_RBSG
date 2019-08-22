@@ -62,8 +62,13 @@ public class PlayerCardBuilder {
     public final BooleanProperty emptyProperty = new SimpleBooleanProperty(true);
 
     private Property<Locale> selectedLocale;
+    private Runnable onBotRequested;
 
     public PlayerCardBuilder() {
+    }
+
+    public void setOnBotRequested(Runnable onBotRequested) {
+        this.onBotRequested = onBotRequested;
     }
 
 
@@ -97,6 +102,12 @@ public class PlayerCardBuilder {
         botButtonContainer.managedProperty().bind(emptyProperty);
         colorPane.visibleProperty().bind(notEmptyBinding);
         colorPane.managedProperty().bind(notEmptyBinding);
+
+        if (onBotRequested != null) {
+            botButton.setOnAction(event -> onBotRequested.run());
+        } else {
+            botButton.setDisable(true);
+        }
 
         JavaFXUtils.setButtonIcons(
                 botButton,
