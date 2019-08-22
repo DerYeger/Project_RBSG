@@ -145,31 +145,5 @@ public class ModelManagerTests {
 
         assertEquals(water, chopper.positionProperty().get());
         assertEquals(grass, jeep.positionProperty().get());
-
-        final String removeFirstUnitFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Game@1\",\"fieldName\":\"allUnits\"}}";
-        final String removeFirstUnitFromPlayer = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Player@1\",\"fieldName\":\"army\"}}";
-        final String removeFirstUnitFromCell = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Unit@1\",\"from\":\"Water@1\",\"fieldName\":\"blockedBy\"}}";
-
-        modelManager.handle(mapper.readValue(removeFirstUnitFromGame, ObjectNode.class));
-
-        assertFalse(game.getUnits().contains(chopper));
-        assertNull(chopper.getGame());
-
-        modelManager.handle(mapper.readValue(removeFirstUnitFromPlayer, ObjectNode.class));
-
-        assertFalse(player.getUnits().contains(chopper));
-        assertNull(chopper.getLeader());
-
-        modelManager.handle(mapper.readValue(removeFirstUnitFromCell, ObjectNode.class));
-
-        assertNull(chopper.positionProperty().get());
-        assertNull(water.unitProperty().get());
-
-        final String removePlayerFromGame = "{\"action\":\"gameRemoveObject\",\"data\":{\"id\":\"Player@1\",\"from\":\"Game@1\",\"fieldName\":\"allPlayer\"}}";
-
-        modelManager.handle(mapper.readValue(removePlayerFromGame, ObjectNode.class));
-
-        assertTrue(game.getPlayers().isEmpty());
-        assertNull(player.getCurrentGame());
     }
 }

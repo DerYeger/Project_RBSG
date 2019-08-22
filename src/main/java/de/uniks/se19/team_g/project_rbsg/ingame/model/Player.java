@@ -26,6 +26,7 @@ public class Player {
 
     private String color;
 
+    public static final String UNITS = "units";
     private ObservableList<Unit> units;
 
     final private BooleanProperty isReady = new SimpleBooleanProperty(false);

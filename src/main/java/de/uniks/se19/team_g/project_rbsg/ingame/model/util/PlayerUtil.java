@@ -71,7 +71,7 @@ public class PlayerUtil {
         }
     }
 
-    private static final String PLAYERS = "allPlayer";
+    public static final String PLAYERS = "allPlayer";
 
     public static void removePlayerFrom(@NonNull final ModelManager modelManager,
                                         @NonNull final String identifier,

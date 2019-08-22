@@ -1,10 +1,10 @@
-package de.uniks.se19.team_g.project_rbsg.skynet.behaviour;
+package de.uniks.se19.team_g.project_rbsg.skynet.behaviour.attack;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.AttackBehaviourException;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
