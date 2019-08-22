@@ -56,6 +56,7 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
         Assert.assertEquals(1, appState.notifications.size());
     }
 
+    /*
     @Test
     public void fillArmies() {
         final ApplicationState appState = mock(ApplicationState.class);
@@ -80,4 +81,6 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
 
         Assert.assertEquals(ApplicationState.MAX_ARMY_COUNT, armies.size());
     }
+
+     */
 }
