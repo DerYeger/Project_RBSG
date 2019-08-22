@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.user.GetTempUserService;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,5 +44,10 @@ public class BotManager {
                 .exceptionally(throwable -> {throwable.printStackTrace(); return null;});
 
 
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        bots.forEach((s, bot) -> bot.shutdown());
     }
 }

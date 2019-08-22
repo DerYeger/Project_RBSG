@@ -85,13 +85,16 @@ public class Bot extends Thread {
 
         bootPromise.thenRunAsync(this::beABot, executor);
 
-        closePromise.thenRunAsync(this::shutdown, executor)
-            .thenRun(executor::shutdown)
-            .thenRun(() -> logger.debug(botName + " says bye bye!"))
-        ;
+        closePromise.thenRun(this::shutdown);
     }
 
-    private void shutdown() {
+    public void shutdown() {
+        CompletableFuture.runAsync(this::doShutdown, executor)
+                .thenRun(executor::shutdown)
+                .thenRun(() -> logger.debug(botName + " says bye bye!"));
+    }
+
+    private void doShutdown() {
         ingameContext.getGameEventManager().terminate();
     }
 
