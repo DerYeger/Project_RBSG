@@ -453,7 +453,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerPane.setOnMouseClicked((mouseEvent)->{
                 Player player = panePlayerMap.get(playerPane);
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && !player.equals(context.getUserPlayer())) {
-                    chatController.chatTabManager().addPrivateTab('@' + player.getName());
                     chatController.chatTabManager().openTab('@' + player.getName());
                 }
             });
