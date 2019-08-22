@@ -18,6 +18,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -69,6 +70,9 @@ public class PlayerCardBuilder {
 
     public void setOnBotRequested(Runnable onBotRequested) {
         this.onBotRequested = onBotRequested;
+        if (botButton != null) {
+            botButton.setDisable(false);
+        }
     }
 
 
@@ -103,9 +107,8 @@ public class PlayerCardBuilder {
         colorPane.visibleProperty().bind(notEmptyBinding);
         colorPane.managedProperty().bind(notEmptyBinding);
 
-        if (onBotRequested != null) {
-            botButton.setOnAction(event -> onBotRequested.run());
-        } else {
+        botButton.setOnAction(this::handleBotRequest);
+        if (onBotRequested == null) {
             botButton.setDisable(true);
         }
 
@@ -119,6 +122,14 @@ public class PlayerCardBuilder {
         setEmpty();
 
         return playerCardView;
+    }
+
+    private void handleBotRequest(ActionEvent actionEvent) {
+        if (onBotRequested == null) {
+            return;
+        }
+
+        onBotRequested.run();
     }
 
     private void setEmpty() {
@@ -210,5 +221,9 @@ public class PlayerCardBuilder {
 
     public void setNodeOrientation(NodeOrientation orientation) {
         root.setNodeOrientation(orientation);
+    }
+
+    private void handle(ActionEvent event) {
+        onBotRequested.run();
     }
 }

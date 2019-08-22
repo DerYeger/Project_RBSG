@@ -179,7 +179,9 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         if (reason.getReasonPhrase().equals("Left game")) {
             terminateLatch.countDown();
         } else if (!reason.getReasonPhrase().equals("Tschau")) {
-            onConnectionClosed.run();
+            if (onConnectionClosed != null) {
+                onConnectionClosed.run();
+            }
         }
     }
 

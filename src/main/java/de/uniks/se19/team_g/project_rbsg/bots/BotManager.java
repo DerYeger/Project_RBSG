@@ -2,9 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.bots;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.user.GetTempUserService;
@@ -21,20 +20,20 @@ public class BotManager {
 
     private final GetTempUserService getTempUserService;
     private final LoginManager loginManager;
-    private final ObjectProvider<RestTemplate> templateBuilder;
+    private final ServerConfig serverConfig;
     private final ObjectProvider<JoinGameManager> joinGameManagerProvider;
     private final ObjectProvider<IngameContext> contextFactory;
 
     public BotManager(
             GetTempUserService getTempUserService,
             LoginManager loginManager,
-            @Qualifier("rbsgTemplate") ObjectProvider<RestTemplate> templateBuilder,
+            ServerConfig serverConfig,
             ObjectProvider<JoinGameManager> joinGameManagerProvider,
             @Qualifier("dedicatedContext") ObjectProvider<IngameContext> contextFactory
     ) {
         this.getTempUserService = getTempUserService;
         this.loginManager = loginManager;
-        this.templateBuilder = templateBuilder;
+        this.serverConfig = serverConfig;
         this.joinGameManagerProvider = joinGameManagerProvider;
         this.contextFactory = contextFactory;
     }
@@ -44,7 +43,7 @@ public class BotManager {
         Context context = new Context();
         context.user = user;
         context.gameData = gameData;
-        context.rbsgTemplate = templateBuilder.getObject(new UserProvider().set(context.user));
+        context.rbsgTemplate = serverConfig.buildTemplateForUser(context.user);
 
         return context;
     }
@@ -66,7 +65,7 @@ public class BotManager {
 
         CompletableFuture<Context> createArmyPromise = userCreationPromise.thenApplyAsync(
                 context -> context,
-                CompletableFuture.delayedExecutor(4, TimeUnit.SECONDS)
+                CompletableFuture.delayedExecutor(25, TimeUnit.SECONDS)
         );
 
         joinGamePromise.thenCombine(
@@ -75,7 +74,8 @@ public class BotManager {
                     ingameContext.getGameEventManager().terminate();
                     return ingameContext;
                 }
-        );
+        ).exceptionally(throwable -> {throwable.printStackTrace(); return null;})
+        ;
     }
 
     public static class Context {

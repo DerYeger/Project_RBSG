@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -12,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.concurrent.CompletableFuture;
 
 @Component
+@Scope("prototype")
 public class JoinGameManager {
 
     final String uri = "https://rbsg.uniks.de/api/game/";
@@ -38,6 +40,11 @@ public class JoinGameManager {
             uriBuilder.queryParam("spectator", true);
         }
 
-        return restTemplate.getForEntity(uriBuilder.toUriString(), String.class);
+        try {
+
+            return restTemplate.getForEntity(uriBuilder.toUriString(), String.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

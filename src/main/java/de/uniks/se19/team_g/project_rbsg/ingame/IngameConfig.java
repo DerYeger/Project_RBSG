@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import javafx.fxml.FXMLLoader;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,17 @@ import java.util.Objects;
 
 @Configuration
 public class IngameConfig {
+
+    private final ObjectFactory<GameEventManager> eventManagerFactory;
+    private final ObjectFactory<ModelManager> modelManagerFactory;
+    private final ObjectFactory<GameEventDispatcher> dispatcherFactory;
+
+    public IngameConfig(ObjectFactory<GameEventManager> eventManagerFactory, ObjectFactory<ModelManager> modelManagerFactory, ObjectFactory<GameEventDispatcher> dispatcherFactory) {
+        this.eventManagerFactory = eventManagerFactory;
+        this.modelManagerFactory = modelManagerFactory;
+        this.dispatcherFactory = dispatcherFactory;
+    }
+
     @Bean
     @Scope("prototype")
     public ViewComponent<WaitingRoomViewController> waitingRoom(@NonNull final FXMLLoader fxmlLoader) {
@@ -48,12 +60,13 @@ public class IngameConfig {
     @Scope("prototype")
     public IngameContext dedicatedContext(
             @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") @Nonnull User user,
-            @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") @Nonnull Game gameData,
-            GameEventManager gameEventManager,
-            GameEventDispatcher dispatcher,
-            ModelManager modelManager
+            @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") @Nonnull Game gameData
     ) {
         Objects.requireNonNull(gameData);
+
+        GameEventManager gameEventManager = eventManagerFactory.getObject();
+        GameEventDispatcher dispatcher = dispatcherFactory.getObject();
+        ModelManager modelManager = modelManagerFactory.getObject();
 
         IngameContext ingameContext = new IngameContext(user, gameData);
 
