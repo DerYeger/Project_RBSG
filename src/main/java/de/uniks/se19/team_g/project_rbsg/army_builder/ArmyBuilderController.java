@@ -378,8 +378,12 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void deleteArmy() {
-        //For clean-deletion
         Army army = appState.selectedArmy.get();
+        if (army.id.get() == null || army.id.get().equals("") ){
+            this.viewState.setNumberOfArmiesChanged(true);
+            this.appState.armies.remove(army);
+            return;
+        }
         final CompletableFuture<DeleteArmyResponse> deleteArmyResponseCompletableFuture = deleteArmyService.deleteArmy(army);
         deleteArmyResponseCompletableFuture
                 .thenAccept(answer -> Platform.runLater(()->{
