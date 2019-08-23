@@ -7,9 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -31,19 +29,23 @@ public class BotManager {
         this.botFactory = botFactory;
     }
 
-    public void requestBot(Game game) {
+    public CompletableFuture<Bot> requestBot(Game game) {
 
         CompletableFuture<Bot> botBooting = CompletableFuture.supplyAsync(getTempUserService)
                 .thenApplyAsync(loginManager::login)
                 .thenApply( user -> botFactory.getObject().start(game, user))
-                .thenCompose(Bot::getBootPromise)
+                .thenCompose(bot1 -> bot1.getBootPromise())
         ;
 
         botBooting
-                .thenApplyAsync(bot -> bots.put(bot.getName(), bot))
+                .thenApply(bot -> bots.put(bot.getName(), bot))
                 .exceptionally(throwable -> {throwable.printStackTrace(); return null;});
 
+        return botBooting;
+    }
 
+    public Collection<Bot> getBots() {
+        return bots.values();
     }
 
     @PreDestroy

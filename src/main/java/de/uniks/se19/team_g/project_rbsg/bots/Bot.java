@@ -23,7 +23,6 @@ public class Bot extends Thread {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final ApplicationContext applicationContext;
     private User user;
     private Game gameData;
 
@@ -36,13 +35,14 @@ public class Bot extends Thread {
     private final CompletableFuture<Bot> closePromise = new CompletableFuture<>();
     private String botName;
     private IngameContext ingameContext;
+    private UserProvider userProvider;
 
     public Bot(
-            ApplicationContext applicationContext,
+            UserProvider userProvider,
             JoinGameManager joinGameManager,
             @Qualifier("dedicatedContext") ObjectProvider<IngameContext> contextFactory
     ) {
-        this.applicationContext = applicationContext;
+        this.userProvider = userProvider;
         this.joinGameManager = joinGameManager;
         this.contextFactory = contextFactory;
     }
@@ -105,6 +105,18 @@ public class Bot extends Thread {
     private void beABot() {
         logger.debug("being a bot, doing bot stuff");
 
+        ingameContext.initializedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                logger.debug("my game was initialized");
+            }
+            ingameContext.getGameState().getPlayers().forEach(
+                    player -> {
+                        player.isReadyProperty().addListener((observable1, oldValue1, newValue1) -> {
+                            logger.debug( player + " is" + (newValue ? "" : " not") + " ready");
+                        });
+                    }
+            );
+        });
 
         CompletableFuture.runAsync(
                 () -> {ingameContext.getGameEventManager().terminate();},
@@ -117,7 +129,7 @@ public class Bot extends Thread {
 
     private void setupThread() {
         UserContextHolder.setContext(new UserContext());
-        applicationContext.getBean(UserProvider.class).set(user);
+        userProvider.set(user);
     }
 
     public CompletableFuture<Bot> getBootPromise() {
