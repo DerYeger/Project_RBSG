@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -26,6 +27,7 @@ public class MusicManager {
     private URL musicNoteWhiteOff = getClass().getResource("/assets/icons/navigation/musicOffWhite.png");
     private URL opening = getClass().getResource("/assets/music/openingThemeSong.wav");
     private URL looping = getClass().getResource("/assets/music/loopingThemeSong.wav");
+
     private URL deathSound1 = getClass().getResource("/assets/sounds/death1.wav");
     private URL deathSound2 = getClass().getResource("/assets/sounds/death2.wav");
     private URL deathSound3 = getClass().getResource("/assets/sounds/death3.wav");
@@ -109,6 +111,7 @@ public class MusicManager {
     }
 
     public void playDeathSound(){
+
         Random rand = new Random();
         int randomNumber = rand.nextInt(3);
         URL randomDeathSound = deathSounds.get(randomNumber);
