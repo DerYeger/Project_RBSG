@@ -39,10 +39,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -79,11 +76,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-
-    private int heightCenter = 500;
-    private int widthCenter = 1000;
-    @SuppressWarnings("SuspiciousNameCombination")
-    private Point2D center = new Point2D(heightCenter, widthCenter);
 
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
@@ -142,8 +134,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
     private final ChangeListener<Number> stageSizeListener = this::stageSizeChanged;
     private final ChangeListener<Number> disableOverlaysListener = this::disableOverlaysChanged;
-    private final ChangeListener<Number> calculateHeightListener = this::stageHeightChanged;
-    private final ChangeListener<Number> calculateWidthListener = this::stageWidthChanged;
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
     private int mapSize;
@@ -165,6 +155,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private Node phaseLabelView;
     private final GameProvider gameProvider;
+
+    private Point2D center;
 
     @Autowired
     public BattleFieldController (
@@ -278,18 +270,13 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void initListenersForFullscreen() {
         sceneManager.getStageHeightProperty().addListener(stageSizeListener);
         sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
-        sceneManager.getStageHeightProperty().addListener(calculateHeightListener);
         sceneManager.getStageWidhtProperty().addListener(stageSizeListener);
         sceneManager.getStageWidhtProperty().addListener(disableOverlaysListener);
         sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
-        sceneManager.getStageWidhtProperty().addListener(calculateWidthListener);
         openWhenResizedPlayer = false;
         openWhenResizedChat = false;
         zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
         zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
-        heightCenter = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
-        widthCenter = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
-        calculateCenter();
         setFullscreen(null);
     }
 
@@ -334,24 +321,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void stageSizeChanged (@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal)
     {
         double change = (double) newVal < (double) oldVal ? -((double) newVal / (double) oldVal) : (double) oldVal / (double) newVal;
+        setCenter();
         zoomableScrollPane.onScroll(change, center);
-    }
-
-    private void stageHeightChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
-        double change = (double) newVal - (double) oldVal;
-        this.heightCenter += change;
-        calculateCenter();
-    }
-
-    private void calculateCenter() {
-        //noinspection SuspiciousNameCombination
-        this.center = new Point2D(this.heightCenter, this.widthCenter);
-    }
-
-    private void stageWidthChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
-        double change = (double) newVal - (double) oldVal;
-        this.widthCenter += change;
-        calculateCenter();
     }
 
     private void highlightingChanged (PropertyChangeEvent propertyChangeEvent)
@@ -599,6 +570,10 @@ public class BattleFieldController implements RootController, IngameViewControll
             break;
         }
 
+        if (phaseLabelView == null) {
+            phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
+            rootPane.getChildren().add(phaseLabelView);
+        }
         phaseLabelView.visibleProperty().set(true);
         Wobble wobble = new Wobble(phaseLabelView);
         wobble.setCycleCount(1);
@@ -917,14 +892,16 @@ public class BattleFieldController implements RootController, IngameViewControll
         initActionExecutor();
         initSkynet();
         initSkynetButtons();
-        if(sceneManager.isStageInit()) initListenersForFullscreen();
-        phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
-        rootPane.getChildren().add(phaseLabelView);
-        phaseLabelView.visibleProperty().set(false);
         if (sceneManager.isStageInit())
         {
             initListenersForFullscreen();
         }
+        setCenter();
+    }
+
+    public void setCenter(){
+        Bounds bounds = zoomableScrollPane.localToScreen(zoomableScrollPane.getBoundsInLocal());
+        center = new Point2D(bounds.getCenterX(), bounds.getCenterY());
     }
 
 
