@@ -73,49 +73,7 @@
 	\section{Das Projekt RBSG}
 			Das Projekt RBSG findet im Rahmen der Veranstaltung Software Engineering \RN{1} des Fachgebiets Software Engineering\ statt. Im Rahmen dieser Veranstaltung wird das Spiel RBSG implementiert. Die Entwicklung ist dabei in vier Releases unterteilt, die wiederum aus zwei Sprints bestehen. Die Teams arbeiten und organisieren sich im Rahmen der agilen Projektmanagementmethode Scrum. In jedem Team werden entsprechend die Rollen des Product Owners und des Scrum Masters besetzt. Die restlichen Teammitglieder sind Entwickler.
 		
-	\section{Das Release \RN{4}}
-		Das vierte Release begann am 05.08.2019 und endete am 02.08.2019. Der Entwicklungsprozess ist in zwei Sprints eingeteilt:
-		\begin{itemize}
-			\item Sprint \RN{7} 05.08.2019 bis zum 18.08.2019
-			\item Sprint \RN{8} 19.08.2019 bis zum 02.09.2019
-		\end{itemize}
-		Im vierten Release waren die Rollen folgendermaßen verteilt:
-		\begin{itemize}
-			\item Product Owner:  \ \ \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
-			\item Scrum Master:  \ \ \ \ \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood
-			\item Entwickler:
-			\begin{itemize}
-				\item \includegraphics[width=0.05\textwidth]{georg_avatar.png} \ Georg Siebert
-				\item \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
-				\item \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
-				\item \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
-				\item \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
-				\item \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
-			\end{itemize}
-		\end{itemize}
-	
-		\subsection{Anforderung im vierten Release}
-			Im vierten Release wurden folgende Anforderungen vom Kunden gestellt:
-			\begin{enumerate}
-				\item Client
-				\begin{itemize}
-					\item Aktualisieren der Spieler/Spiele über Websockets
-					\item Künstliche Intelligenz
-					\begin{itemize}
-					\item Kann für Spieler übernehmen
-					\item Spieler kann von KI übernehmen
-					\item Bis zu 4 KI müssen zeitgleich ein Spiel spielen und gewinnen
-					\item KI muss alle „in game“ Aktionen ausführen können
-				\end{itemize}
-				\end{itemize}
-				\item Qualitätssicherung
-				\begin{itemize}
-					\item Erreichen einer 75\% C0 Abdeckung
-				\end{itemize}
-				\item Alle übrigen Features aus vorigen Releases
-			\end{enumerate}
-		
-		\subsection{Stand zum Ende des dritten Releases}
+		\section{Stand zum Ende des dritten Releases}
 		Zum Ende des dritten Releases waren folgende Komponenten fertiggestellt:
 		\begin{itemize}
 			\item Registrierung und Login
@@ -153,7 +111,7 @@
 		\end{itemize}
 		\end{itemize}
 		Es wurde bereits eine C0 Testabdeckung von mindestens 77\% erreicht.
-		\subsubsection{Login}
+		\subsection{Login}
 			Im Login konnte ein Nutzer sich registrieren und anmelden, wie auf Abb.\ref{Login_Release_Four} zu sehen. Die Spielmusik kann an- bzw. ausgeschaltet werden.
 			\begin{figure}[H] 
 				\centering
@@ -161,7 +119,7 @@
 				\caption{Login Release \RN{4}}
 				\label{Login_Release_Four}
 			\end{figure}
-		\subsubsection{Lobby}
+		\subsection{Lobby}
 		In der Lobby werden die Spielerlisten und Spiellisten angezeigt, wie in Abb. \ref{Lobby_Release_Four} zu sehen. Diese aktualisieren sich, wenn der Server eine entsprechende Nachricht sendet. Über den Logout-Knopf kann ein Nutzer sich abmelden. Des Weiteren konnte die Sprache ge"andert oder die Musik an- bzw. und ausgeschaltet. Es gab einen Chat (privat und öffentlich). Es war möglich über den Spiel erstellen-Knopf ein Spiel zu erstellen. Zudem kann einem Spiel als Spieler oder als Beobachter (Spectator) über die entsprechenden Knöpfe einem Spiel beigetreten werden. Verfügte der Nutzer über keine vollst"andige Armee, konnte er keine Spiele erstellen oder Spielen beitreten.
 		\begin{figure}[H] 
 			\centering
@@ -169,7 +127,7 @@
 			\caption{Lobby Release \RN{4}}
 			\label{Lobby_Release_Four}
 		\end{figure}
-		\subsubsection{Army Manager}
+		\subsection{Army Manager}
 		Der Armeemanager wird wird in Abb. \ref{ArmyManager_Release_Four} dargestellt. Im Armeemanager konnte der Nutzer aus einer vom Server gesendeten Liste von Einheiten w"ahlen. Eine ausgewählte Einheit wurde in einer Detailansicht dargestellt mit Informationen darüber, welche anderen Einheiten von ihr angegriffen werden könnten, ihren Angriffs- und Bewegungspunkten sowie einem Beschreibungstext. \\
 		Die ausgewählt Einheit konnte er über einen (+)-Button zu einer ausgewählten Armee hinzuf"ugen oder über den (-)-Button wieder entfernen. Die Einheiten einer ausgewählten Armee wurden ebenfalls in einer scrollbaren Liste angezeigt.\\
 		\begin{figure}[H] 
@@ -193,7 +151,7 @@
 			\label{Edit_Army}
 		\end{figure}
 		Über den Speichern-Button konnte die aktuelle Konfiguration der Armeen lokal um auf dem Server gespeichert werden. Der Speicher-Button war deaktiviert, solange keine Änderungen an der aktuellen Armeeauswahl vorgenommen wurde.
-		\subsubsection{Warteraum}
+		\subsection{Warteraum}
 		Trat ein Spieler einem Spiel bei, wechselte die Szene zum Warteraum (Abb. \ref{WaitingRoom}). In diesem war ein Chat verfügbar und es wurde eine Vorschau der Spielkarte (Minimap) sowie eine Liste der auswählbaren Armeen angezeigt. Zudem wurden jeder aktive Spieler mit seinem Namen und seiner Farbe auf einer Spielerkarte angezeigt. Hatte ein Spieler eine Armee ausgewählt wurde er auf bereit gesetzt und seine Spielerkarte wurde lila eingefärbt. Beobachter (Spectator) wurden nicht angezeigt.
 		\begin{figure}[H]
 			\centering
@@ -201,82 +159,85 @@
 			\caption{Release \RN{4}: Warteraum}
 			\label{WaitingRoom}
 		\end{figure}
-		\subsubsection{Ingame}
-		Waren genügt Spieler dem Spiel beigetreten und waren durch die Wahl einer Armee auf bereit gesetzt. Wechselte auf die Spiel-startet-Nachricht des Servers die Szene zum Spielfeld (Abb. \ref{Ingame})
+		\subsection{Ingame}
+		Waren genügend Spieler dem Spiel beigetreten und waren durch die Wahl einer Armee auf bereit gesetzt. Wechselte auf die Spiel-startet-Nachricht des Servers hin die Szene zum Spielfeld. Auf dem Spielfedl konnten Einheiten in der Bewegungsphase bewegt werden. In der Angriffsphase konnte feindliche Einheiten angegriffen werden. In der Bewegungsphase wurde der Bewegungsradius der ausgewählten Einheit angezeigt. Dieser ist Abb. \ref{Ingame} zu sehen. In der Angriffsphase wurden für eine ausgewählte Einheit alle feindlichen Einheiten hervorgehoben, die durch diese angegriffen werden können. Über einen Chat-Button war ein Ingamechat verfügbar. Die Anzeige der Lebensleiste jeder Einheit konnte über einen Knop an- bzw. ausgeschaltet werden. Ebenso konnten alle Spieler in Form von einer Spielerkarte mit Namen und Spielerfarbe durch einen Button angezeigt bzw. wieder ausgeblendet werden. In einer Seitenleiste wurden die aktuelle ausgewählte Einheit und eine weitere "gehoverte" Einheit mit weiteren Informationen (Lebens-, Bewegungs, und Angriffspunkte) angezeigt. Die Karte verfügte über einen mehrstufigen Zoom. Die aktuelle Phase konnte über einen Button beendet werden. Drei Phasenwechsel beendet die Runde und der nächste Spieler war am Zug. Zum Spielende wurden Gewinner und Verlierer über den Spielausgang durch ein Informationsfenster informiert.
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\textwidth]{images/old/Ingame.png}
 			\caption{Release \RN{4}: Spielfeld}
 			\label{Ingame}
 		\end{figure}
-	 	\subsubsection{Umgesetzte optionale Features}
-	 	Im ersten Release wurden bereits folgende optionale Features umgesetzt:
-	 	\begin{itemize}
-	 		\item Internationalisierung, diese kann Über Buttons, siehe Abb. \ref{Internationalisierung_Release_One}, in der Lobby eingestellt werden 
-	 		\item Musik, diese kann über einen Button (Abb. \ref{Musik_Release_One}) an- und ausgestellt werden 
-	 		\item Ein Dark-Theme 
-	 		\item Über den Chat-Befehl \glqq \textbackslash chuckMe\grqq \  werden Chuck Norris Zitate an den Chat gesendet
-	 	\end{itemize}
- 		Die Testabdeckung (C0) lag bei $\sim$ 80 Prozent, womit die Anforderung für das zweite Release bereits grundlegend erfüllt ist. Das Ziel für das zweite Release war es, die Höhe der Testabdeckung aufrechtzuerhalten und weiter auszubauen.
- 		\begin{figure}[H] 
- 			\centering
- 			\includegraphics[width=0.2\textwidth]{Internationalisierung_Release_One.PNG}
- 			\caption{Button für die Internationalisierung Release \RN{1}}
- 			\label{Internationalisierung_Release_One}
- 		\end{figure}
- 		\begin{figure}[H] 
- 			\centering
- 			\includegraphics[width=0.1\textwidth]{Musik_Release_One.PNG}
- 			\caption{Button für Musik Release \RN{1}}
- 			\label{Musik_Release_One}
- 		\end{figure}
- 		
-
 	
+		\section{Das Release \RN{4}}
+	Das vierte Release begann am 05.08.2019 und endete am 02.08.2019. Der Entwicklungsprozess ist in zwei Sprints eingeteilt:
+	\begin{itemize}
+		\item Sprint \RN{7} 05.08.2019 bis zum 18.08.2019
+		\item Sprint \RN{8} 19.08.2019 bis zum 02.09.2019
+	\end{itemize}
+	Im vierten Release waren die Rollen folgendermaßen verteilt:
+	\begin{itemize}
+		\item Product Owner:  \ \ \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
+		\item Scrum Master:  \ \ \ \ \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood
+		\item Entwickler:
+		\subitem \includegraphics[width=0.05\textwidth]{georg_avatar.png} \ Georg Siebert
+		\subitem \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
+		\subitem \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
+		\subitem \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
+		\subitem \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
+		\subitem \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
+	\end{itemize}
+	
+	\section{Anforderung im vierten Release}
+	Im vierten Release wurden folgende Anforderungen vom Kunden gestellt:
+	\begin{enumerate}
+		\item Client
+		\begin{itemize}
+			\item Aktualisieren der Spieler/Spiele über Websockets
+			\item Künstliche Intelligenz
+			\begin{itemize}
+				\item Kann für Spieler übernehmen
+				\item Spieler kann von KI übernehmen
+				\item Bis zu 4 KI müssen zeitgleich ein Spiel spielen und gewinnen
+				\item KI muss alle „in game“ Aktionen ausführen können
+			\end{itemize}
+		\end{itemize}
+		\item Qualitätssicherung
+		\begin{itemize}
+			\item Erreichen einer 75\% C0 Abdeckung
+		\end{itemize}
+		\item Alle übrigen Features aus vorigen Releases
+	\end{enumerate}
 		
 		
+		
+	\section{Sprint \RN{7}}
+		\subsection{Sprintziel}
+			-
+			
 		\subsection{ZeitÜbersicht}
 		\begin{center}
-				\begin{longtable}{p{6cm} c c c c }
-					
-					User Story	& Story Points & Soll Zeit & Ist Zeit & Entwickler\\
-					\toprule
-					\endhead
-					Core - ArmyBuilder - Laden der Armeen & 5 & 5h & 16h 16min & Tobias Klipp \\ \hline 
-					
-					Core - ArmyBuilder - Speichern der Armeen & 13 & 13h & 34h 45min & Tobias Klipp\\ \hline
-					
-					Core - ArmyBuilder - Hinzufügen der Einheiten & 13 & 13h & 7h 23m & Omar Sood\\ \hline
-					
-					Core - ArmyBuilder - Entfernen der Einheiten & 5 & 5h & 39m & Omar Sood\\ \hline
-					
-					Core - ArmyBuilder - zurück in die Lobby navigieren & 3 & 3h & 1h & Keanu Stückrad\\ \hline
-						
-					Core - ArmyBuilder - Info Über Attribute & 3 & 3h & 5h & Keanu Stückrad\\ \hline
-			
-					Core - Waiting Room - Anzeigen des Waiting Rooms (neues Layout) & 5 & 5h & 9h & Keanu Stückrad\\ \hline
-					
-					Optional - ArmyBuilder - Musik an/aus & 1 & 1h & 30m & Keanu Stückrad\\ \hline
-					
-					Core - Lobby - Auswahl der Armee  & 1 & 1h & 18m & Omar Sood\\ \hline
-					
-					Core - Ingame - Anzeigen der Spielfeldes & 3 & 3h & 7h 30m &  Keanu Stückrad\\ \hline
-					
-					Core - ArmyBuilder - Auswahl einer Einheit & 5 & 5h & 9h 59m & Omar Sood\\ \hline
-					
-					Core - Waiting Room - Spiel beitreten & 16 & 16h & 15h 23m & Jan Müller\\ \hline
-					
-					Appearance - ArmyBuilder & 8 & 8h & - & Tobias Klipp \\ \hline
-					
-					Core - Waiting Room - Chat & 13 & 13h & 6h 35m & Jan Müller\\ \hline
-					
-					Core - ArmyBuilder - In den ArmyBuilder navigieren & 3 & 3h & 4h 7m & Omar Sood\\ \hline
-					
-					Core - ArmyBuilder- Auswählen einer Armee & 5 & 5h & 1h 58m & Omar Sood \\
-					\caption{Übersicht der Zeiten für den 3. Sprint} \\
-				\end{longtable}
+				\begin{longtable}[H]{p{6cm} c c c c }
+				\label{Time_1}
+				\textbf{User Story} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Verbleibende Zeit} & \textbf{Entwickler} \\
+				\toprule
+				\endhead
+				Skynet \textbar\ Bewegen Phase & 5 h & 5 h & &Jan M"uller\\
+				Skynet \textbar\ Attackieren Phase & 3 h & 1 h 30 min &  & Jan M"uller\\
+				Skynet \textbar\ übernimmt Bewegung & 1 h & 3 h 30 min &  & Georg Siebert \\
+				Credits & 5 h & 8 h 57 min & & Juri Lozowoj \\
+				Flavor \textbar\ Neuer splash screen & 2 h & 1 h 31 min & & Juri Lozowoj\\
+				Speicherstände für verschiedene User & 3 h & 1 h 31 min & & Tobias Klipp\\
+				Battlefield \textbar\ Mausradzoom & 1 h & 2 h 30 min &  &  Keanu St"uckrad  \\
+				Wechsel durch der Einheiten per Tastatur & 3 h & 3 h 44 min & & Juri Lozowoj\\
+				Loading Screen & 5 h & 3 h 16 min & & Juri Lozowoj\\
+				Battlefield \textbar\ Escape Men"u & 3 h & 5 h 13 min & & Jan M"ueller\\
+				Battlefield \textbar\ Escape Men"u & 3 h & 5 h 13 min & & Jan M"ueller\\
+				\bottomrule
+				Insgesamt & 68 h & 87 h 6 min & 10 h 49 min & \\
+				\caption{Zeit"ubersicht f"unfter Sprint}
+			\end{longtable}
 		\end{center}
-			
+		
 		\subsection{Analyse des 7. Sprints}
 		Der siebte Sprint wurde am 19.08.2019 beendet. Es wurden insgesamt - von 114 Story Points abgeschlossen. Demnach konnte nicht alle vorgesehenen User Stories abgeschlossen werden. Der Ablauf des siebten Sprints wird anhand des Burndown-Diagramms erläutert.
 		
@@ -292,7 +253,7 @@
 			\caption{Burndown-Diagramm des Sprint 3}
 			\label{BurndownSprint3}
 		\end{figure}
-	
+		
 		\subsubsection{Ausreiser}
 		Am 10. August wurde eine User Story im Umfang von drei Story Punkten nachträglich in den siebten Sprint aufgenommen. Es hatte sich nach der ersten Implementierung der ``Künstliche Intelligenz`` (KI) gezeigt, dass ein zu einem sinnvollen Verhalten der KI die Betrachtung, der in User Story TG-414 beschriebenen Situation notwendig, ist.\\
 		Am 11. August wurde eine bereits abgeschlossene User Story (TG-409) erneut geöffnet. Dies war notwendig, da erst bei der Überprüfung des Pull Requests auffiel, dass dieses Feature nicht wie in der User Story vorgegeben implementiert war. Daher musst der Entwickler die User Story TG-409 erneut überarbeiten.
@@ -318,48 +279,44 @@
 			\caption{Abgeschlossene Vorgänge vom 3. Sprint}
 			\label{AbgeschlosseneVorgaengeSprint3}
 		\end{figure}
-	
+		
 		\subsubsection{Nicht abgeschlossene Vorgänge}
 		Im dritten Sprint wurden User Stories im Umfang von insgesamt 18 Story Points nicht abgeschlossen. Die entsprechenden Stories sind in \Abb{NichtAbgeschlosseneVorgaengeSprint3} aufgelistet. Die Tasks werden in den vierten Sprint verschoben. Bei den nicht abgeschlossenen Tasks handelt es sich fast ausschließlich um optionale oder weniger umfangreiche Aufgaben.
-			
-			\paragraph{Optional - Waiting Room - Anzeigen einer Karten Preview}
-			Dieser Task konnte nicht abgeschlossen werden, da er durch die Fertigstellung der Spielkarte blockiert wurde. Dies verzögerte aber nicht den Entwicklungsverlauf, da der Entwickler an anderen Aufgaben arbeiten konnte. 
-			
-			\paragraph{Optional - Ingame - Zoomen auf dem Spielfeld}
-			Die Task wurde im dritten Sprint begonnen, aber nicht fertig gestellt. Dies kam durch den unerwarteten größeren Aufwand beim Erstellen des Spielfeldes.
-			
-			\paragraph{Core - Ingame - Spiel verlassen}
-			Auch diese Task konnte auf Grund des höheren Aufwands beim Erstellen des Spielfeldes noch nicht abgeschlossen werden. 
-			
-				\begin{figure}[H] 
-					\centering
-					\includegraphics[width=0.8\textwidth]{Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG}
-					\caption{Nicht Abgeschlossene Vorgänge vom 3. Sprint}
-					\label{NichtAbgeschlosseneVorgaengeSprint3}
-				\end{figure}
+		
+		\paragraph{Optional - Waiting Room - Anzeigen einer Karten Preview}
+		Dieser Task konnte nicht abgeschlossen werden, da er durch die Fertigstellung der Spielkarte blockiert wurde. Dies verzögerte aber nicht den Entwicklungsverlauf, da der Entwickler an anderen Aufgaben arbeiten konnte. 
+		
+		\paragraph{Optional - Ingame - Zoomen auf dem Spielfeld}
+		Die Task wurde im dritten Sprint begonnen, aber nicht fertig gestellt. Dies kam durch den unerwarteten größeren Aufwand beim Erstellen des Spielfeldes.
+		
+		\paragraph{Core - Ingame - Spiel verlassen}
+		Auch diese Task konnte auf Grund des höheren Aufwands beim Erstellen des Spielfeldes noch nicht abgeschlossen werden. 
+		
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{Nicht_Abgeschlossene_Vorgaenge_Sprint_3.PNG}
+			\caption{Nicht Abgeschlossene Vorgänge vom 3. Sprint}
+			\label{NichtAbgeschlosseneVorgaengeSprint3}
+		\end{figure}
 		\subsubsection{Entfernte Vorgänge}
 		Aus dem dritten Sprint wurden insgesamt 22 Story Points entfernt und in den vierten Sprint verschoben, da wir bereits schon abschätzen konnten, dass diese nicht erreicht werden. 
-			
-			\paragraph{Core - ArmyBuilder - Laden der Armeen} \label{ProblemOne}Bei dieser Task wurde nach der ersten Woche deutlich, dass dies nicht mehr im dritten Sprint erreicht werden kann. Der Entwickler hat anfangs Schwierigkeiten, sich in das Projekt einzuarbeiten. Die Ursache dafür war, dass der Entwickler im vorgehenden Release Product Owner war und so nicht mit der Quellcodebasis vertraut war. Dies wurde beim ersten Teammeeting erkannt. Als Reaktion darauf setzte sich der Entwickler und der Scrum Master zusammen, um den Quellcode aufzuarbeiten und so das entstandene Problem zu vermindern.
-			
-			\paragraph{Core - ArmyBuilder - Löschen der Armeen} Siehe \ref{ProblemOne} Core - ArmyBuilder - Laden der Armeen.
-			
-			\paragraph{Optional - Waiting Room - Anzeigen der ausgewählten Einheiten} Diese Task wurde erst im Verlauf des dritten Sprints erstellt. Da alle Entwickler ausgelastet waren und andere Tasks höhere Prioritäten hatten wurde dieser verschoben.
-			
-			\paragraph{Appearance - Army Builder} Im dritten Sprint war es uns wichtig Funktionalitäten bereit zu stellen. Deswegen wurden andere Tasks zuerst abgearbeitet. Das Anpassen der Oberfläche wurde auf den nächsten Sprint verlegt.
-			\begin{figure}[H] 
-				\centering
-				\includegraphics[width=0.8\textwidth]{Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG}
-				\caption{Entfernte Vorgänge vom dritten Sprint}
-				\label{EntfernteVorgaengeSprint3}
-			\end{figure}
+		
+		\paragraph{Core - ArmyBuilder - Laden der Armeen} \label{ProblemOne}Bei dieser Task wurde nach der ersten Woche deutlich, dass dies nicht mehr im dritten Sprint erreicht werden kann. Der Entwickler hat anfangs Schwierigkeiten, sich in das Projekt einzuarbeiten. Die Ursache dafür war, dass der Entwickler im vorgehenden Release Product Owner war und so nicht mit der Quellcodebasis vertraut war. Dies wurde beim ersten Teammeeting erkannt. Als Reaktion darauf setzte sich der Entwickler und der Scrum Master zusammen, um den Quellcode aufzuarbeiten und so das entstandene Problem zu vermindern.
+		
+		\paragraph{Core - ArmyBuilder - Löschen der Armeen} Siehe \ref{ProblemOne} Core - ArmyBuilder - Laden der Armeen.
+		
+		\paragraph{Optional - Waiting Room - Anzeigen der ausgewählten Einheiten} Diese Task wurde erst im Verlauf des dritten Sprints erstellt. Da alle Entwickler ausgelastet waren und andere Tasks höhere Prioritäten hatten wurde dieser verschoben.
+		
+		\paragraph{Appearance - Army Builder} Im dritten Sprint war es uns wichtig Funktionalitäten bereit zu stellen. Deswegen wurden andere Tasks zuerst abgearbeitet. Das Anpassen der Oberfläche wurde auf den nächsten Sprint verlegt.
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{Aus_dem_Sprint_Entfernte_Vorgaenge_Sprint_3.PNG}
+			\caption{Entfernte Vorgänge vom dritten Sprint}
+			\label{EntfernteVorgaengeSprint3}
+		\end{figure}
 		
 		\subsubsection{Fazit}
 		Obwohl das gesetzte Ziel von 130 Story Points nicht erreicht wurde, handelt es sich dennoch um ein gutes Sprintergebnis. Es konnte ein Großteil der geforderten Features für das zweite Release bereits abgeschlossen werden. Im nächsten Sprint kann sich deshalb mehr auf optionale Features konzentriert werden. Die aufgetretenen Probleme wurden rechtzeitig erkannt und konnten so auf ein Minimum reduziert werden. 
-		
-	\section{Sprint \RN{4}}
-		\subsection{Sprintziel}
-			Im vierten und letzten Sprint des zweiten Releases haben wir uns drei Ziele gesetzt. Als erstes sollen natürlich die aus dem dritten Sprint übernommenen Aufgaben abgeschlossen werden. Der zweite Punkt ist das Einarbeiten der restlichen Features für das zweite Release. Obwohl ein Großteil der geforderten Features bereits implementiert war, fehlten jedoch noch Punkte wie das Visualisieren eines Spielerbeitritts im Warteraum. Zuletzt wollen wir noch die Oberfläche überarbeiten und die Nutzererfahrung der Anwendung verbessern.
 		
 		\subsection{User Stories}
 			Der Aufbau der User Stories wird in Abschnitt \ref{UserStoriesSprint3} erläutert.

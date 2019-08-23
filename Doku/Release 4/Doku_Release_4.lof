@@ -1,31 +1,29 @@
 \babel@toc {ngerman}{}
-\contentsline {figure}{\numberline {1}{\ignorespaces Login Release \textup {\uppercase {iv}}}}{3}
-\contentsline {figure}{\numberline {2}{\ignorespaces Lobby Release \textup {\uppercase {iv}}}}{4}
-\contentsline {figure}{\numberline {3}{\ignorespaces Armeemanager Release \textup {\uppercase {iv}}}}{4}
-\contentsline {figure}{\numberline {4}{\ignorespaces Release \textup {\uppercase {iv}}: Anzeige der Einheiteneigenschaften}}{5}
-\contentsline {figure}{\numberline {5}{\ignorespaces Release \textup {\uppercase {iv}}: Armee bearbeiten}}{5}
-\contentsline {figure}{\numberline {6}{\ignorespaces Release \textup {\uppercase {iv}}: Warteraum}}{6}
+\contentsline {figure}{\numberline {1}{\ignorespaces Login Release \textup {\uppercase {iv}}}}{2}
+\contentsline {figure}{\numberline {2}{\ignorespaces Lobby Release \textup {\uppercase {iv}}}}{3}
+\contentsline {figure}{\numberline {3}{\ignorespaces Armeemanager Release \textup {\uppercase {iv}}}}{3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Release \textup {\uppercase {iv}}: Anzeige der Einheiteneigenschaften}}{4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Release \textup {\uppercase {iv}}: Armee bearbeiten}}{4}
+\contentsline {figure}{\numberline {6}{\ignorespaces Release \textup {\uppercase {iv}}: Warteraum}}{5}
 \contentsline {figure}{\numberline {7}{\ignorespaces Release \textup {\uppercase {iv}}: Spielfeld}}{6}
-\contentsline {figure}{\numberline {8}{\ignorespaces Button f\"ur die Internationalisierung Release \textup {\uppercase {i}}}}{7}
-\contentsline {figure}{\numberline {9}{\ignorespaces Button f\"ur Musik Release \textup {\uppercase {i}}}}{7}
-\contentsline {figure}{\numberline {10}{\ignorespaces Burndown-Diagramm des Sprint 3}}{9}
-\contentsline {figure}{\numberline {11}{\ignorespaces Code Coverage vom 3. Sprint}}{9}
-\contentsline {figure}{\numberline {12}{\ignorespaces Abgeschlossene Vorg\"ange vom 3. Sprint}}{10}
-\contentsline {figure}{\numberline {13}{\ignorespaces Nicht Abgeschlossene Vorg\"ange vom 3. Sprint}}{10}
-\contentsline {figure}{\numberline {14}{\ignorespaces Entfernte Vorg\"ange vom dritten Sprint}}{11}
-\contentsline {figure}{\numberline {15}{\ignorespaces Burndown-Diagramm des Sprint 4}}{27}
-\contentsline {figure}{\numberline {16}{\ignorespaces Abgeschlossene Vorg\"ange in Sprint 4}}{28}
-\contentsline {figure}{\numberline {17}{\ignorespaces Nicht Abgeschlossene Vorg\"ange in Sprint 4}}{29}
-\contentsline {figure}{\numberline {18}{\ignorespaces Quellcodeabdeckung Release 2}}{29}
-\contentsline {figure}{\numberline {19}{\ignorespaces Mockup f\"ur den geplanten Armeemanager}}{30}
-\contentsline {figure}{\numberline {20}{\ignorespaces Realisierung des Armeemanagers am Ende von Release 2}}{31}
-\contentsline {figure}{\numberline {21}{\ignorespaces Mockup des Armee-Editor}}{32}
-\contentsline {figure}{\numberline {22}{\ignorespaces Implementierung des Armee-Editor}}{32}
-\contentsline {figure}{\numberline {23}{\ignorespaces \"Ubersicht f\"ur die Attribute der Einheiten}}{33}
-\contentsline {figure}{\numberline {24}{\ignorespaces Mockup \"Ubersicht \"Uber die Attribute}}{33}
-\contentsline {figure}{\numberline {25}{\ignorespaces Mockup des Warteraum}}{34}
-\contentsline {figure}{\numberline {26}{\ignorespaces Umsetzung des Warteraums im 2. Release}}{34}
-\contentsline {figure}{\numberline {27}{\ignorespaces Lobby mit Armeeauswahl am Ende des 2. Releases}}{35}
-\contentsline {figure}{\numberline {28}{\ignorespaces Optisch \"Uberarbeitetes \glqq Spiel erstellen\grqq \ Formular }}{36}
-\contentsline {figure}{\numberline {29}{\ignorespaces Alerts von JavaFX}}{36}
-\contentsline {figure}{\numberline {30}{\ignorespaces \"Uberarbeitet Alerts im Dark Theme}}{37}
+\contentsline {figure}{\numberline {8}{\ignorespaces Burndown-Diagramm des Sprint 3}}{8}
+\contentsline {figure}{\numberline {9}{\ignorespaces Code Coverage vom 3. Sprint}}{9}
+\contentsline {figure}{\numberline {10}{\ignorespaces Abgeschlossene Vorg\"ange vom 3. Sprint}}{9}
+\contentsline {figure}{\numberline {11}{\ignorespaces Nicht Abgeschlossene Vorg\"ange vom 3. Sprint}}{10}
+\contentsline {figure}{\numberline {12}{\ignorespaces Entfernte Vorg\"ange vom dritten Sprint}}{11}
+\contentsline {figure}{\numberline {13}{\ignorespaces Burndown-Diagramm des Sprint 4}}{26}
+\contentsline {figure}{\numberline {14}{\ignorespaces Abgeschlossene Vorg\"ange in Sprint 4}}{27}
+\contentsline {figure}{\numberline {15}{\ignorespaces Nicht Abgeschlossene Vorg\"ange in Sprint 4}}{28}
+\contentsline {figure}{\numberline {16}{\ignorespaces Quellcodeabdeckung Release 2}}{28}
+\contentsline {figure}{\numberline {17}{\ignorespaces Mockup f\"ur den geplanten Armeemanager}}{29}
+\contentsline {figure}{\numberline {18}{\ignorespaces Realisierung des Armeemanagers am Ende von Release 2}}{30}
+\contentsline {figure}{\numberline {19}{\ignorespaces Mockup des Armee-Editor}}{31}
+\contentsline {figure}{\numberline {20}{\ignorespaces Implementierung des Armee-Editor}}{31}
+\contentsline {figure}{\numberline {21}{\ignorespaces \"Ubersicht f\"ur die Attribute der Einheiten}}{32}
+\contentsline {figure}{\numberline {22}{\ignorespaces Mockup \"Ubersicht \"Uber die Attribute}}{32}
+\contentsline {figure}{\numberline {23}{\ignorespaces Mockup des Warteraum}}{33}
+\contentsline {figure}{\numberline {24}{\ignorespaces Umsetzung des Warteraums im 2. Release}}{33}
+\contentsline {figure}{\numberline {25}{\ignorespaces Lobby mit Armeeauswahl am Ende des 2. Releases}}{34}
+\contentsline {figure}{\numberline {26}{\ignorespaces Optisch \"Uberarbeitetes \glqq Spiel erstellen\grqq \ Formular }}{35}
+\contentsline {figure}{\numberline {27}{\ignorespaces Alerts von JavaFX}}{35}
+\contentsline {figure}{\numberline {28}{\ignorespaces \"Uberarbeitet Alerts im Dark Theme}}{36}

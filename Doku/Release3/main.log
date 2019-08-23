@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.3)  23 AUG 2019 09:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.3)  23 AUG 2019 11:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1967,12 +1967,12 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 735.
 
-Overfull \hbox (8.50223pt too wide) in alignment at lines 737--741
+Overfull \hbox (45.11395pt too wide) in alignment at lines 737--741
  [] [] [] [] [] 
  []
 
 
-Overfull \hbox (8.50223pt too wide) in alignment at lines 741--753
+Overfull \hbox (45.11395pt too wide) in alignment at lines 741--753
  [] [] [] [] [] 
  []
 
@@ -3215,7 +3215,7 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/h
 elvetic/uhvro8a.pfb>
-Output written on main.pdf (78 pages, 8996294 bytes).
+Output written on main.pdf (78 pages, 8996305 bytes).
 PDF statistics:
  1688 PDF objects out of 1728 (max. 8388607)
  1433 compressed objects within 15 object streams
