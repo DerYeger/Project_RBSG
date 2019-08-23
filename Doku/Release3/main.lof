@@ -1,79 +1,79 @@
 \babel@toc {ngerman}{}
-\contentsline {figure}{\numberline {1}{\ignorespaces Release \textup {\uppercase {ii}}: Login Szene\relax }}{7}{figure.caption.1}% 
-\contentsline {figure}{\numberline {2}{\ignorespaces Release \textup {\uppercase {ii}}: Login Formular\relax }}{7}{figure.caption.2}% 
-\contentsline {figure}{\numberline {3}{\ignorespaces Release \textup {\uppercase {ii}}: Lobby Szene: Keine Armee ausgew"ahlt\relax }}{8}{figure.caption.3}% 
-\contentsline {figure}{\numberline {4}{\ignorespaces Release \textup {\uppercase {ii}}: Create Game Formular\relax }}{8}{figure.caption.4}% 
-\contentsline {figure}{\numberline {5}{\ignorespaces Release \textup {\uppercase {ii}}: Lobby Szene: Armee ausgew"ahlt\relax }}{9}{figure.caption.5}% 
-\contentsline {figure}{\numberline {6}{\ignorespaces Release \textup {\uppercase {ii}}: Lobby Szene: Sprache DE\relax }}{9}{figure.caption.6}% 
-\contentsline {figure}{\numberline {7}{\ignorespaces Release \textup {\uppercase {ii}}: Army Manager Szene: Keine Einheit ausgew"ahlt\relax }}{10}{figure.caption.7}% 
-\contentsline {figure}{\numberline {8}{\ignorespaces Release \textup {\uppercase {ii}}: Army Manager Szene: Einheit ausgew"ahlt\relax }}{10}{figure.caption.8}% 
-\contentsline {figure}{\numberline {9}{\ignorespaces Release \textup {\uppercase {ii}}: Property Info\relax }}{11}{figure.caption.9}% 
-\contentsline {figure}{\numberline {10}{\ignorespaces Release \textup {\uppercase {ii}}: Armee bearbeiten\relax }}{11}{figure.caption.9}% 
-\contentsline {figure}{\numberline {11}{\ignorespaces Release \textup {\uppercase {ii}}: Army Manager Szene: Speicherbar\relax }}{11}{figure.caption.10}% 
-\contentsline {figure}{\numberline {12}{\ignorespaces Release \textup {\uppercase {ii}}: Warteraumszene: 2 Spieler\relax }}{12}{figure.caption.11}% 
-\contentsline {figure}{\numberline {13}{\ignorespaces Release \textup {\uppercase {ii}}: Warteraumszene: 4 Spieler\relax }}{12}{figure.caption.12}% 
-\contentsline {figure}{\numberline {14}{\ignorespaces Release \textup {\uppercase {ii}}: Spielszene\relax }}{13}{figure.caption.13}% 
-\contentsline {figure}{\numberline {15}{\ignorespaces Release \textup {\uppercase {ii}}: Spielszene: Zoom In\relax }}{14}{figure.caption.14}% 
-\contentsline {figure}{\numberline {16}{\ignorespaces Release \textup {\uppercase {ii}}: Spielszene: Zoom Out\relax }}{14}{figure.caption.15}% 
-\contentsline {figure}{\numberline {17}{\ignorespaces Release \textup {\uppercase {ii}}: Login Fehler\relax }}{15}{figure.caption.16}% 
-\contentsline {figure}{\numberline {18}{\ignorespaces Release \textup {\uppercase {ii}}: Spielfehler\relax }}{15}{figure.caption.16}% 
-\contentsline {figure}{\numberline {19}{\ignorespaces Release \textup {\uppercase {ii}}: Spiel verlassen\relax }}{15}{figure.caption.17}% 
-\contentsline {figure}{\numberline {20}{\ignorespaces Release \textup {\uppercase {ii}}: Logout\relax }}{15}{figure.caption.17}% 
-\contentsline {figure}{\numberline {21}{\ignorespaces Release \textup {\uppercase {ii}}: C0 Testabdeckung (Siehe Line, \%)\relax }}{15}{figure.caption.18}% 
-\contentsline {figure}{\numberline {22}{\ignorespaces Mockup: Beobachtungsmodus Lobby\relax }}{16}{figure.caption.19}% 
-\contentsline {figure}{\numberline {23}{\ignorespaces Mockup: Nutzer nicht bereit\relax }}{17}{figure.caption.20}% 
-\contentsline {figure}{\numberline {24}{\ignorespaces Mockup: Nutzer bereit\relax }}{17}{figure.caption.21}% 
-\contentsline {figure}{\numberline {25}{\ignorespaces Mockup: Spielstart\relax }}{18}{figure.caption.22}% 
-\contentsline {figure}{\numberline {26}{\ignorespaces Mockup: Ingame\relax }}{18}{figure.caption.23}% 
-\contentsline {figure}{\numberline {27}{\ignorespaces Mockup: Phase 1: Ausw"ahlen\relax }}{19}{figure.caption.24}% 
-\contentsline {figure}{\numberline {28}{\ignorespaces Mockup: Phase 2: Ausw"ahlen\relax }}{20}{figure.caption.25}% 
-\contentsline {figure}{\numberline {29}{\ignorespaces Mockup: Phase 3: Ausw"ahlen\relax }}{20}{figure.caption.26}% 
-\contentsline {figure}{\numberline {30}{\ignorespaces Mockup: Bewegen best"atigen (Phase 1)\relax }}{21}{figure.caption.27}% 
-\contentsline {figure}{\numberline {31}{\ignorespaces Mockup: Bewegen best"atigen (Phase 3)\relax }}{22}{figure.caption.28}% 
-\contentsline {figure}{\numberline {32}{\ignorespaces Mockup: Angreifen best"atigen\relax }}{22}{figure.caption.29}% 
-\contentsline {figure}{\numberline {33}{\ignorespaces Mockup: Spiel verloren\relax }}{23}{figure.caption.30}% 
-\contentsline {figure}{\numberline {34}{\ignorespaces Mockup: Spiel gewonnen\relax }}{24}{figure.caption.31}% 
-\contentsline {figure}{\numberline {35}{\ignorespaces Mockup: Beobachtungsmodus: Spiel vorbei\relax }}{24}{figure.caption.32}% 
-\contentsline {figure}{\numberline {36}{\ignorespaces Mockup: Phase beenden\relax }}{25}{figure.caption.33}% 
-\contentsline {figure}{\numberline {37}{\ignorespaces Domain Story: Ready 1\relax }}{26}{figure.caption.34}% 
-\contentsline {figure}{\numberline {38}{\ignorespaces Domain Story: Ready 2\relax }}{26}{figure.caption.35}% 
-\contentsline {figure}{\numberline {39}{\ignorespaces Domain Story: Ready 3\relax }}{27}{figure.caption.36}% 
-\contentsline {figure}{\numberline {40}{\ignorespaces Domain Story: Move 1\relax }}{27}{figure.caption.37}% 
-\contentsline {figure}{\numberline {41}{\ignorespaces Domain Story: Move 2\relax }}{28}{figure.caption.38}% 
-\contentsline {figure}{\numberline {42}{\ignorespaces Domain Story: Move 3\relax }}{29}{figure.caption.39}% 
-\contentsline {figure}{\numberline {43}{\ignorespaces Sprint \textup {\uppercase {v}}: Burndown Diagramm\relax }}{40}{figure.caption.106}% 
-\contentsline {figure}{\numberline {44}{\ignorespaces Sprint \textup {\uppercase {v}}: Abgeschlossene Stories\relax }}{41}{figure.caption.107}% 
-\contentsline {figure}{\numberline {45}{\ignorespaces Sprint \textup {\uppercase {v}}: Nicht abgeschlossene Stories/Tasks\relax }}{42}{figure.caption.108}% 
-\contentsline {figure}{\numberline {46}{\ignorespaces Sprint \textup {\uppercase {v}}: C0 Testabdeckung (Siehe Line, \%)\relax }}{42}{figure.caption.109}% 
-\contentsline {figure}{\numberline {47}{\ignorespaces Sprint \textup {\uppercase {vi}}: Burndown Diagramm\relax }}{55}{figure.caption.225}% 
-\contentsline {figure}{\numberline {48}{\ignorespaces Sprint \textup {\uppercase {vi}}: Abgeschlossene Stories\relax }}{56}{figure.caption.226}% 
-\contentsline {figure}{\numberline {49}{\ignorespaces Sprint \textup {\uppercase {vi}}: Abgeschlossene Tasks\relax }}{57}{figure.caption.227}% 
-\contentsline {figure}{\numberline {50}{\ignorespaces Sprint \textup {\uppercase {vi}}: Behobene Bugs\relax }}{57}{figure.caption.228}% 
-\contentsline {figure}{\numberline {51}{\ignorespaces Sprint \textup {\uppercase {vi}}: Offene Bugs\relax }}{58}{figure.caption.229}% 
-\contentsline {figure}{\numberline {52}{\ignorespaces Sprint \textup {\uppercase {vi}}: C0 Testabdeckung (Siehe Line, \%)\relax }}{58}{figure.caption.230}% 
-\contentsline {figure}{\numberline {53}{\ignorespaces Mockup: Beobachtungsmodus Lobby\relax }}{59}{figure.caption.231}% 
-\contentsline {figure}{\numberline {54}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Beobachtungsmodus Lobby\relax }}{60}{figure.caption.232}% 
-\contentsline {figure}{\numberline {55}{\ignorespaces Mockup: Nutzer nicht bereit\relax }}{61}{figure.caption.233}% 
-\contentsline {figure}{\numberline {56}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Nutzer nicht bereit\relax }}{61}{figure.caption.234}% 
-\contentsline {figure}{\numberline {57}{\ignorespaces Mockup: Spielstart\relax }}{62}{figure.caption.235}% 
-\contentsline {figure}{\numberline {58}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Spielstart\relax }}{62}{figure.caption.236}% 
-\contentsline {figure}{\numberline {59}{\ignorespaces Mockup: Ingame\relax }}{63}{figure.caption.237}% 
-\contentsline {figure}{\numberline {60}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Ingame\relax }}{64}{figure.caption.238}% 
-\contentsline {figure}{\numberline {61}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Ingame (Buttons nicht gedr"uckt)\relax }}{64}{figure.caption.239}% 
-\contentsline {figure}{\numberline {62}{\ignorespaces Mockup: Phase 1: Ausw"ahlen\relax }}{65}{figure.caption.240}% 
-\contentsline {figure}{\numberline {63}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase 1: Ausw"ahlen\relax }}{66}{figure.caption.241}% 
-\contentsline {figure}{\numberline {64}{\ignorespaces Mockup: Phase 2: Ausw"ahlen\relax }}{66}{figure.caption.242}% 
-\contentsline {figure}{\numberline {65}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase 2: Ausw"ahlen\relax }}{67}{figure.caption.243}% 
-\contentsline {figure}{\numberline {66}{\ignorespaces Mockup: Phase 3: Ausw"ahlen\relax }}{67}{figure.caption.244}% 
-\contentsline {figure}{\numberline {67}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase 3: Ausw"ahlen\relax }}{68}{figure.caption.245}% 
-\contentsline {figure}{\numberline {68}{\ignorespaces Mockup: Spiel verloren\relax }}{69}{figure.caption.246}% 
-\contentsline {figure}{\numberline {69}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Spiel verloren\relax }}{69}{figure.caption.247}% 
-\contentsline {figure}{\numberline {70}{\ignorespaces Mockup: Spiel gewonnen\relax }}{70}{figure.caption.248}% 
-\contentsline {figure}{\numberline {71}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Spiel gewonnen\relax }}{70}{figure.caption.249}% 
-\contentsline {figure}{\numberline {72}{\ignorespaces Mockup: Beobachtungsmodus: Spiel vorbei\relax }}{71}{figure.caption.250}% 
-\contentsline {figure}{\numberline {73}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Beobachtungsmodus: Spiel vorbei\relax }}{72}{figure.caption.251}% 
-\contentsline {figure}{\numberline {74}{\ignorespaces Mockup: Phase beenden\relax }}{72}{figure.caption.252}% 
-\contentsline {figure}{\numberline {75}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase beenden\relax }}{73}{figure.caption.253}% 
-\contentsline {figure}{\numberline {76}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Gegner ausw"ahlen\relax }}{74}{figure.caption.254}% 
-\contentsline {figure}{\numberline {77}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Lebensbalken\relax }}{74}{figure.caption.255}% 
-\contentsline {figure}{\numberline {78}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Ingame Fehler\relax }}{75}{figure.caption.256}% 
+\contentsline {figure}{\numberline {1}{\ignorespaces Release \textup {\uppercase {ii}}: Login Szene\relax }}{7}{figure.caption.1}
+\contentsline {figure}{\numberline {2}{\ignorespaces Release \textup {\uppercase {ii}}: Login Formular\relax }}{7}{figure.caption.2}
+\contentsline {figure}{\numberline {3}{\ignorespaces Release \textup {\uppercase {ii}}: Lobby Szene: Keine Armee ausgew"ahlt\relax }}{8}{figure.caption.3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Release \textup {\uppercase {ii}}: Create Game Formular\relax }}{8}{figure.caption.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Release \textup {\uppercase {ii}}: Lobby Szene: Armee ausgew"ahlt\relax }}{9}{figure.caption.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Release \textup {\uppercase {ii}}: Lobby Szene: Sprache DE\relax }}{9}{figure.caption.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Release \textup {\uppercase {ii}}: Army Manager Szene: Keine Einheit ausgew"ahlt\relax }}{10}{figure.caption.7}
+\contentsline {figure}{\numberline {8}{\ignorespaces Release \textup {\uppercase {ii}}: Army Manager Szene: Einheit ausgew"ahlt\relax }}{10}{figure.caption.8}
+\contentsline {figure}{\numberline {9}{\ignorespaces Release \textup {\uppercase {ii}}: Property Info\relax }}{11}{figure.caption.9}
+\contentsline {figure}{\numberline {10}{\ignorespaces Release \textup {\uppercase {ii}}: Armee bearbeiten\relax }}{11}{figure.caption.9}
+\contentsline {figure}{\numberline {11}{\ignorespaces Release \textup {\uppercase {ii}}: Army Manager Szene: Speicherbar\relax }}{11}{figure.caption.10}
+\contentsline {figure}{\numberline {12}{\ignorespaces Release \textup {\uppercase {ii}}: Warteraumszene: 2 Spieler\relax }}{12}{figure.caption.11}
+\contentsline {figure}{\numberline {13}{\ignorespaces Release \textup {\uppercase {ii}}: Warteraumszene: 4 Spieler\relax }}{12}{figure.caption.12}
+\contentsline {figure}{\numberline {14}{\ignorespaces Release \textup {\uppercase {ii}}: Spielszene\relax }}{13}{figure.caption.13}
+\contentsline {figure}{\numberline {15}{\ignorespaces Release \textup {\uppercase {ii}}: Spielszene: Zoom In\relax }}{14}{figure.caption.14}
+\contentsline {figure}{\numberline {16}{\ignorespaces Release \textup {\uppercase {ii}}: Spielszene: Zoom Out\relax }}{14}{figure.caption.15}
+\contentsline {figure}{\numberline {17}{\ignorespaces Release \textup {\uppercase {ii}}: Login Fehler\relax }}{15}{figure.caption.16}
+\contentsline {figure}{\numberline {18}{\ignorespaces Release \textup {\uppercase {ii}}: Spielfehler\relax }}{15}{figure.caption.16}
+\contentsline {figure}{\numberline {19}{\ignorespaces Release \textup {\uppercase {ii}}: Spiel verlassen\relax }}{15}{figure.caption.17}
+\contentsline {figure}{\numberline {20}{\ignorespaces Release \textup {\uppercase {ii}}: Logout\relax }}{15}{figure.caption.17}
+\contentsline {figure}{\numberline {21}{\ignorespaces Release \textup {\uppercase {ii}}: C0 Testabdeckung (Siehe Line, \%)\relax }}{15}{figure.caption.18}
+\contentsline {figure}{\numberline {22}{\ignorespaces Mockup: Beobachtungsmodus Lobby\relax }}{16}{figure.caption.19}
+\contentsline {figure}{\numberline {23}{\ignorespaces Mockup: Nutzer nicht bereit\relax }}{17}{figure.caption.20}
+\contentsline {figure}{\numberline {24}{\ignorespaces Mockup: Nutzer bereit\relax }}{17}{figure.caption.21}
+\contentsline {figure}{\numberline {25}{\ignorespaces Mockup: Spielstart\relax }}{18}{figure.caption.22}
+\contentsline {figure}{\numberline {26}{\ignorespaces Mockup: Ingame\relax }}{18}{figure.caption.23}
+\contentsline {figure}{\numberline {27}{\ignorespaces Mockup: Phase 1: Ausw"ahlen\relax }}{19}{figure.caption.24}
+\contentsline {figure}{\numberline {28}{\ignorespaces Mockup: Phase 2: Ausw"ahlen\relax }}{20}{figure.caption.25}
+\contentsline {figure}{\numberline {29}{\ignorespaces Mockup: Phase 3: Ausw"ahlen\relax }}{20}{figure.caption.26}
+\contentsline {figure}{\numberline {30}{\ignorespaces Mockup: Bewegen best"atigen (Phase 1)\relax }}{21}{figure.caption.27}
+\contentsline {figure}{\numberline {31}{\ignorespaces Mockup: Bewegen best"atigen (Phase 3)\relax }}{22}{figure.caption.28}
+\contentsline {figure}{\numberline {32}{\ignorespaces Mockup: Angreifen best"atigen\relax }}{22}{figure.caption.29}
+\contentsline {figure}{\numberline {33}{\ignorespaces Mockup: Spiel verloren\relax }}{23}{figure.caption.30}
+\contentsline {figure}{\numberline {34}{\ignorespaces Mockup: Spiel gewonnen\relax }}{24}{figure.caption.31}
+\contentsline {figure}{\numberline {35}{\ignorespaces Mockup: Beobachtungsmodus: Spiel vorbei\relax }}{24}{figure.caption.32}
+\contentsline {figure}{\numberline {36}{\ignorespaces Mockup: Phase beenden\relax }}{25}{figure.caption.33}
+\contentsline {figure}{\numberline {37}{\ignorespaces Domain Story: Ready 1\relax }}{26}{figure.caption.34}
+\contentsline {figure}{\numberline {38}{\ignorespaces Domain Story: Ready 2\relax }}{26}{figure.caption.35}
+\contentsline {figure}{\numberline {39}{\ignorespaces Domain Story: Ready 3\relax }}{27}{figure.caption.36}
+\contentsline {figure}{\numberline {40}{\ignorespaces Domain Story: Move 1\relax }}{27}{figure.caption.37}
+\contentsline {figure}{\numberline {41}{\ignorespaces Domain Story: Move 2\relax }}{28}{figure.caption.38}
+\contentsline {figure}{\numberline {42}{\ignorespaces Domain Story: Move 3\relax }}{29}{figure.caption.39}
+\contentsline {figure}{\numberline {43}{\ignorespaces Sprint \textup {\uppercase {v}}: Burndown Diagramm\relax }}{40}{figure.caption.106}
+\contentsline {figure}{\numberline {44}{\ignorespaces Sprint \textup {\uppercase {v}}: Abgeschlossene Stories\relax }}{41}{figure.caption.107}
+\contentsline {figure}{\numberline {45}{\ignorespaces Sprint \textup {\uppercase {v}}: Nicht abgeschlossene Stories/Tasks\relax }}{42}{figure.caption.108}
+\contentsline {figure}{\numberline {46}{\ignorespaces Sprint \textup {\uppercase {v}}: C0 Testabdeckung (Siehe Line, \%)\relax }}{42}{figure.caption.109}
+\contentsline {figure}{\numberline {47}{\ignorespaces Sprint \textup {\uppercase {vi}}: Burndown Diagramm\relax }}{55}{figure.caption.225}
+\contentsline {figure}{\numberline {48}{\ignorespaces Sprint \textup {\uppercase {vi}}: Abgeschlossene Stories\relax }}{56}{figure.caption.226}
+\contentsline {figure}{\numberline {49}{\ignorespaces Sprint \textup {\uppercase {vi}}: Abgeschlossene Tasks\relax }}{57}{figure.caption.227}
+\contentsline {figure}{\numberline {50}{\ignorespaces Sprint \textup {\uppercase {vi}}: Behobene Bugs\relax }}{57}{figure.caption.228}
+\contentsline {figure}{\numberline {51}{\ignorespaces Sprint \textup {\uppercase {vi}}: Offene Bugs\relax }}{58}{figure.caption.229}
+\contentsline {figure}{\numberline {52}{\ignorespaces Sprint \textup {\uppercase {vi}}: C0 Testabdeckung (Siehe Line, \%)\relax }}{58}{figure.caption.230}
+\contentsline {figure}{\numberline {53}{\ignorespaces Mockup: Beobachtungsmodus Lobby\relax }}{59}{figure.caption.231}
+\contentsline {figure}{\numberline {54}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Beobachtungsmodus Lobby\relax }}{60}{figure.caption.232}
+\contentsline {figure}{\numberline {55}{\ignorespaces Mockup: Nutzer nicht bereit\relax }}{61}{figure.caption.233}
+\contentsline {figure}{\numberline {56}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Nutzer nicht bereit\relax }}{61}{figure.caption.234}
+\contentsline {figure}{\numberline {57}{\ignorespaces Mockup: Spielstart\relax }}{62}{figure.caption.235}
+\contentsline {figure}{\numberline {58}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Spielstart\relax }}{62}{figure.caption.236}
+\contentsline {figure}{\numberline {59}{\ignorespaces Mockup: Ingame\relax }}{63}{figure.caption.237}
+\contentsline {figure}{\numberline {60}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Ingame\relax }}{64}{figure.caption.238}
+\contentsline {figure}{\numberline {61}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Ingame (Buttons nicht gedr"uckt)\relax }}{64}{figure.caption.239}
+\contentsline {figure}{\numberline {62}{\ignorespaces Mockup: Phase 1: Ausw"ahlen\relax }}{65}{figure.caption.240}
+\contentsline {figure}{\numberline {63}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase 1: Ausw"ahlen\relax }}{66}{figure.caption.241}
+\contentsline {figure}{\numberline {64}{\ignorespaces Mockup: Phase 2: Ausw"ahlen\relax }}{66}{figure.caption.242}
+\contentsline {figure}{\numberline {65}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase 2: Ausw"ahlen\relax }}{67}{figure.caption.243}
+\contentsline {figure}{\numberline {66}{\ignorespaces Mockup: Phase 3: Ausw"ahlen\relax }}{67}{figure.caption.244}
+\contentsline {figure}{\numberline {67}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase 3: Ausw"ahlen\relax }}{68}{figure.caption.245}
+\contentsline {figure}{\numberline {68}{\ignorespaces Mockup: Spiel verloren\relax }}{69}{figure.caption.246}
+\contentsline {figure}{\numberline {69}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Spiel verloren\relax }}{69}{figure.caption.247}
+\contentsline {figure}{\numberline {70}{\ignorespaces Mockup: Spiel gewonnen\relax }}{70}{figure.caption.248}
+\contentsline {figure}{\numberline {71}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Spiel gewonnen\relax }}{70}{figure.caption.249}
+\contentsline {figure}{\numberline {72}{\ignorespaces Mockup: Beobachtungsmodus: Spiel vorbei\relax }}{71}{figure.caption.250}
+\contentsline {figure}{\numberline {73}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Beobachtungsmodus: Spiel vorbei\relax }}{72}{figure.caption.251}
+\contentsline {figure}{\numberline {74}{\ignorespaces Mockup: Phase beenden\relax }}{72}{figure.caption.252}
+\contentsline {figure}{\numberline {75}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Phase beenden\relax }}{73}{figure.caption.253}
+\contentsline {figure}{\numberline {76}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Gegner ausw"ahlen\relax }}{74}{figure.caption.254}
+\contentsline {figure}{\numberline {77}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Lebensbalken\relax }}{74}{figure.caption.255}
+\contentsline {figure}{\numberline {78}{\ignorespaces Endstand Release \textup {\uppercase {iii}}: Ingame Fehler\relax }}{75}{figure.caption.256}
