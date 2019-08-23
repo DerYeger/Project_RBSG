@@ -103,6 +103,9 @@ public class LoginFormController implements Rincled
         addLoadingIndicator();
         addErrorFlag();
         loginButton.setDefaultButton(true);
+        Tooltip tooltip = new Tooltip("ENTER");
+        tooltip.setStyle("-fx-font-size: 14;");
+        loginButton.setTooltip(tooltip);
         updateLabels();
 
         final String rbsg_user = System.getenv("RBSG_USER");

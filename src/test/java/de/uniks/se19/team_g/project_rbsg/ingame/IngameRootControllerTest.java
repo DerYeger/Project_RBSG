@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldControlle
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import javafx.scene.layout.StackPane;
@@ -55,6 +56,9 @@ public class IngameRootControllerTest extends ApplicationTest {
 
     @MockBean
     AlertBuilder alertBuilder;
+
+    @MockBean
+    GameEventDispatcher gameEventDispatcher;
 
     @Test
     public void test() throws Exception {

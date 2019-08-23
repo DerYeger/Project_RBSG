@@ -17,10 +17,10 @@
 <?import javafx.scene.layout.VBox?>
 
 <!--
-         @author Keanu Stückrad
-         !-->
+   @author Keanu Stückrad
+ !-->
 
-<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -50,46 +50,41 @@
                            </GridPane.margin>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
                   </GridPane>
-                  <StackPane fx:id="battlefieldStackPane">
+                  <HBox VBox.vgrow="ALWAYS">
                      <children>
-                        <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
+                        <VBox fx:id="history" />
+                         <VBox alignment="CENTER">
+                            <StackPane id="battleFieldViewer" fx:id="battlefieldStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                            <children>
-                              <!-- TODO: Ordentlich machen-->
-                              <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="30.0" styleClass="playerCardBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
                                  <children>
-                                    <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Pane>
-                                    <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Pane>
-                                    <Pane fx:id="player3" styleClass="player-card" stylesheets="@playerList.css">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Pane>
-                                    <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Pane>
+                                    <!-- TODO: Ordentlich machen-->
+                                    <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="30.0" styleClass="playerCardBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css"/>
+                                          <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css"/>
+                                          <Pane fx:id="player3" styleClass="player-card" stylesheets="@playerList.css"/>
+                                          <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css"/>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                    <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" />
                                  </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </HBox>
-                              <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" />
-                           </children></AnchorPane>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
+                         </VBox>
                      </children>
-                  </StackPane>
+                  </HBox>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
                </padding>
                <styleClass>
                   <String fx:value="root-background-color" />
@@ -117,9 +112,6 @@
                            </HBox.margin>
                         </Label>
                      </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
                   </HBox>
                   <VBox fx:id="unitInformationContainer">
                      <styleClass>
