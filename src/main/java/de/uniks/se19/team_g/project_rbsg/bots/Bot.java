@@ -15,6 +15,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -33,7 +34,7 @@ public class Bot extends Thread {
 
     private final CompletableFuture<Bot> bootPromise = new CompletableFuture<>();
     private final CompletableFuture<Bot> closePromise = new CompletableFuture<>();
-    private String botName;
+    private final CompletableFuture<Void> shutdownPromise = new CompletableFuture<>();
     private IngameContext ingameContext;
     private UserProvider userProvider;
 
@@ -59,10 +60,10 @@ public class Bot extends Thread {
     public void run() {
         setupThread();
 
-        botName = "bot@" + user.getName();
+        setName("bot@" + user.getName());
 
         executor.setCorePoolSize(1);
-        executor.setThreadNamePrefix(botName);
+        executor.setThreadNamePrefix(getName());
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.initialize();
 
@@ -80,18 +81,27 @@ public class Bot extends Thread {
         CompletableFuture<String> createArmiesPromise = CompletableFuture.completedFuture("testArmy");
 
         CompletableFuture.allOf(joinGamePromise, createArmiesPromise)
+                .thenRun(this::beABot)
                 .thenRun(() -> bootPromise.complete(this))
+                .exceptionally(ex -> { bootPromise.completeExceptionally(ex); return null;})
         ;
 
-        bootPromise.thenRunAsync(this::beABot, executor);
-
         closePromise.thenRun(this::shutdown);
+
+        try {
+            shutdownPromise.get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error("exception while waiting on shutdown hook", e);
+        }
     }
 
     public void shutdown() {
         CompletableFuture.runAsync(this::doShutdown, executor)
+                .exceptionally(throwable -> {logger.error("shutdown failed", throwable); return null;})
                 .thenRun(executor::shutdown)
-                .thenRun(() -> logger.debug(botName + " says bye bye!"));
+                .thenRun(() -> logger.debug(getName() + " says bye bye!"))
+                .thenRun(() -> shutdownPromise.complete(null))
+        ;
     }
 
     private void doShutdown() {
@@ -103,8 +113,6 @@ public class Bot extends Thread {
     }
 
     private void beABot() {
-        logger.debug("being a bot, doing bot stuff");
-
         ingameContext.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 logger.debug("my game was initialized");
@@ -118,13 +126,18 @@ public class Bot extends Thread {
             );
         });
 
-        CompletableFuture.runAsync(
-                () -> {ingameContext.getGameEventManager().terminate();},
-            CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS)
-        ).thenRunAsync(
-                () -> {},
-                CompletableFuture.delayedExecutor(25, TimeUnit.SECONDS)
-        ).thenRun( () -> closePromise.complete(this));
+        CompletableFuture
+                .runAsync(() -> {
+                    logger.debug("being a bot, doing bot stuff");
+                }, executor)
+                .thenRunAsync(
+                        () -> {ingameContext.getGameEventManager().terminate();},
+                    CompletableFuture.delayedExecutor(10, TimeUnit.SECONDS, executor)
+                ).thenRunAsync(
+                        () -> {},
+                        CompletableFuture.delayedExecutor(2, TimeUnit.SECONDS, executor)
+                ).thenRun( () -> closePromise.complete(this))
+        ;
     }
 
     private void setupThread() {
