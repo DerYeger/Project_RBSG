@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-        <?import java.lang.*?>
-        <?import java.net.*?>
-        <?import javafx.geometry.*?>
-        <?import javafx.scene.canvas.*?>
-        <?import javafx.scene.control.*?>
-        <?import javafx.scene.image.*?>
-        <?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-        <!--
+<!--
          @author Keanu Stückrad
          !-->
 
@@ -137,6 +145,7 @@
                            <children>
                               <Button fx:id="skynetTurnButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="3" />
                               <Button fx:id="skynetButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />
+                              <Button fx:id="endRoundButton" mnemonicParsing="false" onAction="#endRound" styleClass="icon-button" text="Button" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
                      </children>
