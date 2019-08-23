@@ -113,7 +113,7 @@ public class MusicManager {
     public void playDeathSound(){
 
         Random rand = new Random();
-        int randomNumber = rand.nextInt(3);
+        int randomNumber = rand.nextInt(deathSounds.size());
         URL randomDeathSound = deathSounds.get(randomNumber);
         deathSound = new MediaPlayer(new Media(randomDeathSound.toExternalForm()));
         deathSound.play();
