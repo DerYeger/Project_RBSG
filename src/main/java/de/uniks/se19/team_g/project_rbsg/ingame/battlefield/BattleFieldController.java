@@ -570,10 +570,6 @@ public class BattleFieldController implements RootController, IngameViewControll
             break;
         }
 
-        if (phaseLabelView == null) {
-            phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
-            rootPane.getChildren().add(phaseLabelView);
-        }
         phaseLabelView.visibleProperty().set(true);
         Wobble wobble = new Wobble(phaseLabelView);
         wobble.setCycleCount(1);
@@ -814,6 +810,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         configureHistory();
 
         context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
+        if (phaseLabelView == null) {
+            phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
+            rootPane.getChildren().add(phaseLabelView);
+            phaseLabelView.visibleProperty().set(false);
+        }
         if (context.getGameState().getCurrentPlayer() != null)
         {
             onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
