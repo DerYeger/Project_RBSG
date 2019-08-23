@@ -540,10 +540,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         Wobble wobble = new Wobble(phaseLabelView);
         wobble.setCycleCount(1);
         if(skynet.isBotRunning()) {
-            double speed = skynet.getBot().frequency.getValue() / 10.0 < 0.1 ? 0.1 : skynet.getBot().frequency.getValue()/10;
+            double speed = skynet.getBot().frequency.getValue() / 10.0 < 0.2 ? 0.2 : skynet.getBot().frequency.getValue()/10;
             wobble.setSpeed(speed);
         } else {
-            wobble.setSpeed(0.1);
+            wobble.setSpeed(0.2);
         }
         wobble.play();
         wobble.setOnFinished((e) -> phaseLabelView.visibleProperty().set(false));
