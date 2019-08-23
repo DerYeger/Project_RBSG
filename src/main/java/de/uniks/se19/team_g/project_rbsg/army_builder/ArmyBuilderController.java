@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPro
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
@@ -147,7 +148,13 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.persistantArmyManager = persistantArmyManager;
         this.alertBuilder = alertBuilder;
         this.getArmiesService=getArmiesService;
-        this.heretic = new SimpleBooleanProperty(true);
+        this.heretic = new SimpleBooleanProperty();
+        if(UnitImageResolver.getFlavour().equals(FlavourType.DEFAULT)) {
+            heretic.set(true);
+        }
+        else {
+            heretic.set(false);
+        }
     }
 
     @Override
@@ -346,5 +353,19 @@ public class ArmyBuilderController implements Initializable, RootController {
     public void forTheEmperor (ActionEvent actionEvent)
     {
         heretic.set(!heretic.get());
+        if(!heretic.getValue()) {
+            UnitImageResolver.setFlavour(FlavourType.WH40K);
+        }
+        else {
+            UnitImageResolver.setFlavour(FlavourType.DEFAULT);
+        }
+
+        for (Unit unit: appState.unitDefinitions)
+        {
+            UnitTypeInfo type = UnitTypeInfo.resolveType(unit.type.get());
+            unit.imageUrl.set(type.getImage().toExternalForm());
+        }
     }
+
+
 }

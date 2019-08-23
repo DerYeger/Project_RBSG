@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.configuration.flavor;
 
+import javafx.beans.property.*;
 import javafx.scene.image.*;
 
 import java.net.*;
@@ -7,7 +8,7 @@ import java.util.*;
 
 public class UnitImageResolver
 {
-    private static FlavourType flavour = FlavourType.DEFAULT;
+    private static SimpleObjectProperty<FlavourType> flavour = new SimpleObjectProperty<>(FlavourType.DEFAULT);
 
     private static HashMap<UnitTypeInfo, Image> unitTypeInfoImageHashMap = new HashMap<>();
 
@@ -20,12 +21,20 @@ public class UnitImageResolver
     }
 
     public static void setFlavour(FlavourType flavourType) {
-        flavour = flavourType;
+        flavour.set(flavourType);
 
         for (UnitTypeInfo unitInfo : UnitTypeInfo.values())
         {
             loadImageForType(unitInfo);
         }
+    }
+
+    public static FlavourType getFlavour() {
+        return flavour.get();
+    }
+
+    public static ObjectProperty<FlavourType> flavourProperty() {
+        return flavour;
     }
 
     public static URL getUnitImageURL(UnitTypeInfo unitType) {
@@ -57,7 +66,7 @@ public class UnitImageResolver
 
     private static URL getChopperUrl ()
     {
-        switch (flavour) {
+        switch (flavour.get()) {
             case DEFAULT:
                 return UnitImageResolver.class.getResource("/assets/unit/portrait/bird.gif");
             case WH40K:
@@ -69,7 +78,7 @@ public class UnitImageResolver
 
     private static URL getHeavyTankUrl ()
     {
-        switch (flavour) {
+        switch (flavour.get()) {
             case DEFAULT:
                 return UnitImageResolver.class.getResource("/assets/unit/portrait/chubby-transparent.gif");
             case WH40K:
@@ -81,7 +90,7 @@ public class UnitImageResolver
 
     private static URL getLightTankUrl ()
     {
-        switch (flavour) {
+        switch (flavour.get()) {
             case DEFAULT:
                 return UnitImageResolver.class.getResource("/assets/unit/portrait/skeleton.png");
             case WH40K:
@@ -93,7 +102,7 @@ public class UnitImageResolver
 
     private static URL getJeepUrl ()
     {
-        switch (flavour) {
+        switch (flavour.get()) {
             case DEFAULT:
                 return UnitImageResolver.class.getResource("/assets/unit/portrait/mr-unknown.png");
             case WH40K:
@@ -105,7 +114,7 @@ public class UnitImageResolver
 
     private static URL getBazookaTrooperUrl ()
     {
-        switch (flavour) {
+        switch (flavour.get()) {
             case DEFAULT:
                 return UnitImageResolver.class.getResource("/assets/unit/portrait/khorneberzerker.png");
             case WH40K:
@@ -117,7 +126,7 @@ public class UnitImageResolver
 
     private static URL getInfantryUrl ()
     {
-        switch (flavour) {
+        switch (flavour.get()) {
 
             case DEFAULT:
                 return UnitImageResolver.class.getResource("/assets/unit/portrait/soldier.gif");
@@ -217,6 +226,4 @@ public class UnitImageResolver
 
         unitTypeInfoImageHashMap.put(UnitTypeInfo._INFANTRY, new Image(imageUrl.toExternalForm()));
     }
-
-
 }
