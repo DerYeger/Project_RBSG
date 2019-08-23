@@ -19,15 +19,18 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
-import javafx.beans.property.Property;
+import javafx.beans.binding.*;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
+import javafx.event.*;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -95,6 +98,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button editArmyButton;
 
     public HBox modalContainer;
+    public Button flavourButton;
 
     @Nonnull
     private PersistentArmyManager persistantArmyManager;
@@ -110,6 +114,8 @@ public class ArmyBuilderController implements Initializable, RootController {
      */
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
+
+    private SimpleBooleanProperty heretic;
 
     @Nonnull private final GetArmiesService getArmiesService;
 
@@ -141,6 +147,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.persistantArmyManager = persistantArmyManager;
         this.alertBuilder = alertBuilder;
         this.getArmiesService=getArmiesService;
+        this.heretic = new SimpleBooleanProperty(true);
     }
 
     @Override
@@ -192,8 +199,17 @@ public class ArmyBuilderController implements Initializable, RootController {
                 80
         );
 
+        JavaFXUtils.setButtonIcons(
+                flavourButton,
+                getClass().getResource("/assets/unit/portrait/WH40K/InqisitionSkull.gif"),
+                getClass().getResource("/assets/unit/portrait/WH40K/InqisitionSkullGreyScale.gif"),
+                40,
+                heretic
+        );
+
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
+
 
     protected void configureArmyDetail() {
         if (armyDetaiLFactory != null) {
@@ -325,5 +341,10 @@ public class ArmyBuilderController implements Initializable, RootController {
 
         modalContainer.getChildren().setAll( editArmyComponent.<Node>getRoot());
         modalContainer.setVisible(true);
+    }
+
+    public void forTheEmperor (ActionEvent actionEvent)
+    {
+        heretic.set(!heretic.get());
     }
 }

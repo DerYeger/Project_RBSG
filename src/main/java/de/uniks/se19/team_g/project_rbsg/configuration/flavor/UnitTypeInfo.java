@@ -74,7 +74,7 @@ public enum UnitTypeInfo {
     }
 
     public Image getPreview() {
-        return new Image(image.toExternalForm());
+        return UnitImageResolver.getUnitImage(this);
     }
 
     public Image getIconImage() {
@@ -82,7 +82,7 @@ public enum UnitTypeInfo {
     }
 
     public URL getImage() {
-        return image;
+        return UnitImageResolver.getUnitImageURL(this);
     }
 
     public URL getIcon() {
