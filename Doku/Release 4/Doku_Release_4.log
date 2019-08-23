@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.3)  23 AUG 2019 18:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.3)  23 AUG 2019 21:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -660,11 +660,12 @@ Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
 [8]
-<BurndownChart_Sprint3.PNG, id=77, 933.4875pt x 435.12563pt>
-File: BurndownChart_Sprint3.PNG Graphic file (type png)
-<use BurndownChart_Sprint3.PNG>
-Package pdftex.def Info: BurndownChart_Sprint3.PNG  used on input line 271.
-(pdftex.def)             Requested size: 375.57782pt x 175.06964pt.
+<images/burndown/burndown_sprint_7.png, id=77, 1126.2075pt x 520.94624pt>
+File: images/burndown/burndown_sprint_7.png Graphic file (type png)
+<use images/burndown/burndown_sprint_7.png>
+Package pdftex.def Info: images/burndown/burndown_sprint_7.png  used on input l
+ine 271.
+(pdftex.def)             Requested size: 375.57782pt x 173.72516pt.
 <Coverage_Sprint_3.PNG, id=78, 1429.59094pt x 113.67468pt>
 File: Coverage_Sprint_3.PNG Graphic file (type png)
 <use Coverage_Sprint_3.PNG>
@@ -678,7 +679,7 @@ Package pdftex.def Info: Logo.png  used on input line 293.
 Overfull \vbox (18.47517pt too high) has occurred while \output is active []
 
 
-[9 <./BurndownChart_Sprint3.PNG>]
+[9 <./images/burndown/burndown_sprint_7.png>]
 <Abschlossene_Vorgaenge_Sprint_3.png, id=84, 1340.75906pt x 729.47531pt>
 File: Abschlossene_Vorgaenge_Sprint_3.png Graphic file (type png)
 <use Abschlossene_Vorgaenge_Sprint_3.png>
@@ -1119,10 +1120,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6443 strings out of 494871
- 105899 string characters out of 6178383
+ 6445 strings out of 494871
+ 105976 string characters out of 6178383
  279549 words of memory out of 5000000
- 9600 multiletter control sequences out of 15000+600000
+ 9601 multiletter control sequences out of 15000+600000
  12586 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  51i,14n,54p,8825b,506s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1134,7 +1135,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmti12.pfb>
-Output written on Doku_Release_4.pdf (42 pages, 2964214 bytes).
+Output written on Doku_Release_4.pdf (42 pages, 2957065 bytes).
 PDF statistics:
  244 PDF objects out of 1000 (max. 8388607)
  120 compressed objects within 2 object streams
