@@ -440,6 +440,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
         context.getGameState().getCells().get(5).setUnit(null);
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         WaitForAsyncUtils.waitForFxEvents();
 
         Tour tour = new Tour();
@@ -515,6 +516,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Tile unitTile = playerUnit.getPosition().getTile();
 
         context.getGameState().setPhase("attackPhase");
+        sleep(1000);
         while(context.getGameState().getPhase()==null){
             sleep(1);
         }
@@ -526,12 +528,14 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         while(context.getGameState().getPhase()!="movePhase"){
             sleep(1);
         }
         WaitForAsyncUtils.waitForFxEvents();
 
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
     }
 
@@ -543,7 +547,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         GameEventManager gameEventManager = mock(GameEventManager.class);
         when(gameEventManager.api()).thenReturn(ingameApi);
 
-        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack2();
+        TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;
 
@@ -569,6 +573,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
+        sleep(1000);
         /*click(160, 140);
         click(210, 140);
         click(160, 140);
@@ -578,9 +583,11 @@ public class BattleFieldViewTest extends ApplicationTest {
         click( -25, 25);
         click(-25, -25);
         game.setPhase(Game.Phase.movePhase.name());
+        sleep(1000);
         //verifyZeroInteractions(gameEventManager);
         click(25, -25);
         game.setPhase(Game.Phase.attackPhase.name());
+        sleep(1000);
         /*click(160, 190);
         click(160, 140);*/
         click(-25, -25);
@@ -588,7 +595,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         verify(gameEventManager, times(1)).api();
         //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
-        Assert.assertNotNull(game.getSelectedUnit());
+        Assert.assertNull(game.getSelectedUnit());
         /*click(160, 140);
         Assert.assertNull(game.getSelectedUnit());*/
     }

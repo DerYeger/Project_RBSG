@@ -1,9 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import animatefx.animation.Wobble;
+import animatefx.animation.Bounce;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.RootController;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
@@ -156,7 +155,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Node phaseLabelView;
     private final GameProvider gameProvider;
 
-    private Point2D center;
+    private Point2D center = new Point2D(100, 100);
 
     @Autowired
     public BattleFieldController (
@@ -268,6 +267,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initListenersForFullscreen() {
+        setCenter();
         sceneManager.getStageHeightProperty().addListener(stageSizeListener);
         sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
         sceneManager.getStageWidhtProperty().addListener(stageSizeListener);
@@ -571,16 +571,16 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         phaseLabelView.visibleProperty().set(true);
-        Wobble wobble = new Wobble(phaseLabelView);
-        wobble.setCycleCount(1);
+        Bounce bounce = new Bounce(phaseLabelView);
+        bounce.setCycleCount(1);
         if(skynet.isBotRunning()) {
-            double speed = skynet.getBot().frequency.getValue() / 10.0 < 0.2 ? 0.2 : skynet.getBot().frequency.getValue()/10;
-            wobble.setSpeed(speed);
+            double speed = skynet.getBot().frequency.getValue() / 10.0 < 1 ? 1 : skynet.getBot().frequency.getValue()/10;
+            bounce.setSpeed(speed);
         } else {
-            wobble.setSpeed(0.2);
+            bounce.setSpeed(1);
         }
-        wobble.play();
-        wobble.setOnFinished((e) -> phaseLabelView.visibleProperty().set(false));
+        bounce.play();
+        bounce.setOnFinished((e) -> phaseLabelView.visibleProperty().set(false));
 
         //TODO readd
 //        if (context.isMyTurn())
@@ -897,7 +897,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             initListenersForFullscreen();
         }
-        setCenter();
     }
 
     public void setCenter(){

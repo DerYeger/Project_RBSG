@@ -129,67 +129,6 @@ public class TestGameBuilder
         return definition;
     }
 
-    /**
-     Y -> player unit, 0 -> passable, X -> blocked, E -> enemy
-     * 0 Y E 0
-     * 0 X X 0
-     * 0 0 0 0
-     * 0 0 0 0
-     */
-    public static Definition sampleGameAttack2() {
-        int height = 4;
-        int width = 4;
-        Definition definition = new Definition(new Cell[height][width]);
-
-        Game game = definition.game;
-        Unit chubbyCharles = definition.playerUnit;
-        definition.playerUnit
-                .setUnitType(UnitTypeInfo._HEAVY_TANK)
-                .setLeader(new Player("skynet"))
-                .setCanAttack(Collections.singletonList(UnitTypeInfo._CHOPPER))
-                .setAttackReady(true);
-        Unit enemy = definition.otherUnit
-                .setUnitType(UnitTypeInfo._CHOPPER)
-                .setLeader(new Player("enemy"))
-                .setGame(game);
-        chubbyCharles.setMp(4);
-        game.withUnit(chubbyCharles);
-        Cell[][] cells = definition.cells;
-        for (int row = 0; row < height; row++) {
-            for (int column = 0; column < width; column++) {
-                final Cell cell = new Cell(String.format("%d:%d", row, column));
-                cell.setBiome(Biome.GRASS);
-                cell.setPassable(true);
-                cell.setX(column);
-                cell.setY(row);
-                cells[row][column] = cell;
-                if (row > 0) {
-                    cell.setTop(cells[row-1][column]);
-                }
-                if (column > 0) {
-                    cell.setLeft(cells[row][column-1]);
-                }
-            }
-        }
-
-        Cell startCell = cells[0][1];
-        chubbyCharles.setPosition(startCell);
-        enemy.setPosition(cells[0][2]);
-
-        cells[1][2].setPassable(false);
-        cells[1][2].setBiome(Biome.WATER);
-        cells[1][1].setPassable(false);
-        cells[1][1].setBiome(Biome.MOUNTAIN);
-
-        game.withCells(
-                Arrays.stream(cells)
-                        .flatMap(Arrays::stream)
-                        .toArray(Cell[]::new)
-        );
-
-        return definition;
-    }
-
     public static Definition skynetMoveTestGame(@NonNull final Player player,
                                                 @NonNull final Unit testUnit) {
         final Definition definition = new Definition(new Cell[5][5]);
