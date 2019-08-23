@@ -1,9 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
@@ -159,6 +156,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private HistoryViewProvider historyViewProvider;
 
     private final Button fullscreenButton = new Button();
+    private final MusicManager musicManager;
 
     @Autowired
     public BattleFieldController (
@@ -168,7 +166,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
-            @Nonnull Property<Locale> selectedLocale
+            @Nonnull Property<Locale> selectedLocale,
+            @NonNull MusicManager musicManager
     )
     {
         this.sceneManager = sceneManager;
@@ -185,6 +184,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.roundCounter = 1;
 
         this.selectedLocale = selectedLocale;
+        this.musicManager = musicManager;
     }
 
     public void initialize ()
@@ -235,6 +235,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
         menuButton.setTooltip(new Tooltip("ESC/F10"));
+
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -823,6 +824,13 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         game = context.getGameState();
+        game.getUnits().addListener((ListChangeListener) change -> {
+            while(change.next()) {
+                if (change.wasRemoved()) {
+                    musicManager.playDeathSound();
+                }
+            }
+        });
         if (game != null)
         {
             ObservableList<Cell> cells = game.getCells();
