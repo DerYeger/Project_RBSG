@@ -95,6 +95,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button zoomInButton;
     public Canvas miniMapCanvas;
     public Button endPhaseButton;
+    public Button endRoundButton;
     public Pane endPhaseButtonContainer;
     public VBox root;
     public VBox unitInformationContainer;
@@ -231,6 +232,12 @@ public class BattleFieldController implements RootController, IngameViewControll
                 hpBarButton,
                 getClass().getResource("/assets/icons/navigation/lifeBarWhite.png"),
                 getClass().getResource("/assets/icons/navigation/lifeBarBlack.png"),
+                40
+        );
+        JavaFXUtils.setButtonIcons(
+                endRoundButton,
+                getClass().getResource("/assets/icons/operation/endRoundWhite.png"),
+                getClass().getResource("/assets/icons/operation/endRoundBlack.png"),
                 40
         );
         gameName.setText(gameProvider.get().getName());
@@ -455,6 +462,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initPlayerBar ()
     {
+
+        HashMap<Pane, Player> panePlayerMap = new HashMap<>();
         playerCardList.add(player1);
         playerCardList.add(player2);
         playerCardList.add(player3);
@@ -479,8 +488,18 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerPaneMap.put(player.getId(), playerCardList.get(counter));
             playerMap.put(player.getId(), player);
             playerNodeMap.put(player.getId(), playerListController.getPlayerCards().get(counter));
+            panePlayerMap.put(playerCardList.get(counter), player);
 
             counter++;
+        }
+
+        for(Pane playerPane : playerCardList){
+            playerPane.setOnMouseClicked((mouseEvent)->{
+                Player player = panePlayerMap.get(playerPane);
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && !player.equals(context.getUserPlayer())) {
+                    chatController.chatTabManager().openTab('@' + player.getName());
+                }
+            });
         }
 
         playerListController = new PlayerListController(game);
@@ -797,7 +816,21 @@ public class BattleFieldController implements RootController, IngameViewControll
                         null);
     }
 
-    private void doEndPhase ()
+    public void endRound(){
+        String phase = this.context.getGameState().getPhase();
+        if (phase.equals(Game.Phase.movePhase.name())){
+            doEndPhase();
+            doEndPhase();
+            doEndPhase();
+        } else if(phase.equals(Game.Phase.attackPhase.name())){
+            doEndPhase();
+            doEndPhase();
+        } else if(phase.equals(Game.Phase.lastMovePhase.name())){
+            doEndPhase();
+        }
+    }
+
+    public void doEndPhase()
     {
         actionExecutor.execute(new PassAction(game));
     }
@@ -876,7 +909,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.context.getGameState().phaseProperty()
                 .addListener(this::onNextPhase);
 
-        configureEndPhase();
+        configureEndPhaseAndEndRound();
 
         unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), selectedLocale));
         unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), selectedLocale));
@@ -1150,7 +1183,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         miniMapDrawer.drawMinimap(tileMap);
     }
 
-    private void configureEndPhase ()
+    private void configureEndPhaseAndEndRound()
     {
         BooleanProperty playerCanEndPhase = new SimpleBooleanProperty(false);
         ObjectProperty<Player> currentPlayerProperty = this.context.getGameState().currentPlayerProperty();
@@ -1160,17 +1193,13 @@ public class BattleFieldController implements RootController, IngameViewControll
                 currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
-        playerCanEndPhase.addListener(((observable, oldValue, newValue) ->
-        {
-        }));
+        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
 
         currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
-        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) ->
-        {
-        }));
+        endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
 
         endPhaseButton.setTooltip(new Tooltip("ENTER"));
         endPhaseButton.setOnMouseClicked(event -> {
@@ -1179,6 +1208,10 @@ public class BattleFieldController implements RootController, IngameViewControll
                 endPhase();
             }
         });
+
+        endRoundButton.disableProperty().bind(playerCanEndPhase.not());
+
+        endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
 
     @SuppressWarnings("unused")

@@ -20,6 +20,7 @@
    @author Keanu Stückrad
  !-->
 
+
 <StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
@@ -140,6 +141,7 @@
                            <children>
                               <Button fx:id="skynetTurnButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="3" />
                               <Button fx:id="skynetButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />
+                              <Button fx:id="endRoundButton" mnemonicParsing="false" onAction="#endRound" styleClass="icon-button" text="Button" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
                      </children>
