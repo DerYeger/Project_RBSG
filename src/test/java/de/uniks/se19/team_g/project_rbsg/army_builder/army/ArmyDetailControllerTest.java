@@ -25,9 +25,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.util.Set;
 import java.util.function.Function;
 
-import static de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldViewTest.BASE_X;
-import static de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldViewTest.BASE_Y;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         ApplicationState.class,
