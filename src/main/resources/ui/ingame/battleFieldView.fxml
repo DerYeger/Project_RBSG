@@ -26,22 +26,31 @@
          <children>
             <VBox fx:id="root" spacing="10.0" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="118.0" spacing="10.0" styleClass="root-background-color">
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints valignment="CENTER" />
+                     </rowConstraints>
                      <children>
-                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="icon-button" />
-                        <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button" />
-                        <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button" />
-                        <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" />
-                        <Button fx:id="playerButton" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
-                        <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
-                        <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
-                        <HBox alignment="CENTER" minWidth="800.0">
-                           <children>
-                              <Label fx:id="gameName" styleClass="name-pane"/>
-                           </children>
+                        <HBox prefHeight="46.0" spacing="10.0">
+                           <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="icon-button" />
+                           <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button" />
+                           <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button" />
+                           <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" />
+                           <Button fx:id="playerButton" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
+                           <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
+                           <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
                         </HBox>
+                        <Label fx:id="gameName" styleClass="name-pane" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Label>
                      </children>
-                  </HBox>
+                  </GridPane>
                   <StackPane fx:id="battlefieldStackPane">
                      <children>
                         <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
