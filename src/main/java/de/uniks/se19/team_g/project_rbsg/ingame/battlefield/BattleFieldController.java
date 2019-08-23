@@ -475,6 +475,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initPlayerBar ()
     {
+
+        HashMap<Pane, Player> panePlayerMap = new HashMap<>();
         playerCardList.add(player1);
         playerCardList.add(player2);
         playerCardList.add(player3);
@@ -499,8 +501,18 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerPaneMap.put(player.getId(), playerCardList.get(counter));
             playerMap.put(player.getId(), player);
             playerNodeMap.put(player.getId(), playerListController.getPlayerCards().get(counter));
+            panePlayerMap.put(playerCardList.get(counter), player);
 
             counter++;
+        }
+
+        for(Pane playerPane : playerCardList){
+            playerPane.setOnMouseClicked((mouseEvent)->{
+                Player player = panePlayerMap.get(playerPane);
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && !player.equals(context.getUserPlayer())) {
+                    chatController.chatTabManager().openTab('@' + player.getName());
+                }
+            });
         }
 
         playerListController = new PlayerListController(game);
