@@ -1,13 +1,15 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.*;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import org.springframework.context.annotation.Scope;
@@ -49,10 +51,12 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
         prefHeightProperty().bindBidirectional(prefWidthProperty());
 
         final Unit deputy = squad.members.get(0);
-        imageView.setImage(deputy.getTypeInfo().getPreview());
+//        imageView.setImage(deputy.getTypeInfo().getPreview());
+        JavaFXUtils.bindImage(imageView.imageProperty(), deputy.imageUrl);
 
         setGraphic(root);
     }
+
 
 
     @Override
