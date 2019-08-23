@@ -76,7 +76,8 @@ import static org.mockito.Mockito.*;
         UserProvider.class,
         ChatCommandManager.class,
         GameEventManager.class,
-        LocaleConfig.class
+        LocaleConfig.class,
+        MusicManager.class
 })
 public class BattleFieldViewTest extends ApplicationTest {
 
