@@ -94,8 +94,8 @@ public enum UnitTypeInfo {
         return image;
     }
 
-    public int getCanAttack(UnitTypeInfo unitTypeInfo) {
-        return canAttack.getAttackValue(unitTypeInfo);
+    public int getCanAttack(String name) {
+        return canAttack.getAttackValue(name);
     }
 
     public URL getIcon() {
@@ -126,7 +126,7 @@ public enum UnitTypeInfo {
      */
     private static class CanAttack {
 
-        private final HashMap<UnitTypeInfo, Integer> attackValue = new HashMap<>();
+        private final HashMap<String, Integer> attackValue = new HashMap<>();
 
         CanAttack(int attackValueInfantry,
                   int attackValueBazooka,
@@ -135,16 +135,16 @@ public enum UnitTypeInfo {
                   int attackValueHeavy,
                   int attackValueChopper
         ) {
-            attackValue.put(_INFANTRY, attackValueInfantry);
-            attackValue.put(_BAZOOKA_TROOPER, attackValueBazooka);
-            attackValue.put(_JEEP, attackValueJeep);
-            attackValue.put(_LIGHT_TANK, attackValueLight);
-            attackValue.put(_HEAVY_TANK, attackValueHeavy);
-            attackValue.put(_CHOPPER, attackValueChopper);
+            attackValue.put("flavor.unit.infantry.name", attackValueInfantry);
+            attackValue.put("flavor.unit.bazookaTrooper.name", attackValueBazooka);
+            attackValue.put("flavor.unit.jeep.name", attackValueJeep);
+            attackValue.put("flavor.unit.lightTank.name", attackValueLight);
+            attackValue.put("flavor.unit.heavyTank.name", attackValueHeavy);
+            attackValue.put("flavor.unit.chopper.name", attackValueChopper);
         }
 
-        private int getAttackValue(UnitTypeInfo unitTypeInfo) {
-            return attackValue.get(unitTypeInfo);
+        private int getAttackValue(String name) {
+            return attackValue.get(name);
         }
 
     }
