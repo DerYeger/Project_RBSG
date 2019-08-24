@@ -1,6 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 public class AdvancedMovementTargetEvaluator implements MovementTargetEvaluator {
 
@@ -13,7 +16,20 @@ public class AdvancedMovementTargetEvaluator implements MovementTargetEvaluator 
         } else if (first.distance > second.distance) {
             return 1;
         } else {
-            return first.enemyPosition.getNeighbors().size() - second.enemyPosition.getNeighbors().size();
+            return occupiedNeighbors(first.enemyPosition) - occupiedNeighbors(second.enemyPosition);
         }
+    }
+
+    private int occupiedNeighbors(@NonNull final Cell cell) {
+        if (cell.getUnit() == null)
+            return (int) cell
+                    .getNeighbors()
+                    .stream()
+                    .filter(neighbor -> neighbor.getUnit() != null)
+                    .count();
+        return cell
+                .getUnit()
+                .getNeighbors()
+                .size();
     }
 }
