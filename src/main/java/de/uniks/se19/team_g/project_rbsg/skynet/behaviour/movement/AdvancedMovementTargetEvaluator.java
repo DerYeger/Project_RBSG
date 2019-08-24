@@ -8,7 +8,6 @@ public class AdvancedMovementTargetEvaluator implements MovementTargetEvaluator 
     @Override
     public int compare(@NonNull final MovementTarget first,
                        @NonNull final MovementTarget second) {
-        if (first == second) return 0;
         if (first.distance < second.distance) {
             return -1;
         } else if (first.distance > second.distance) {
@@ -19,15 +18,10 @@ public class AdvancedMovementTargetEvaluator implements MovementTargetEvaluator 
     }
 
     private int occupiedNeighbors(@NonNull final Cell cell) {
-        if (cell.getUnit() == null)
-            return (int) cell
-                    .getNeighbors()
-                    .stream()
-                    .filter(neighbor -> neighbor.getUnit() != null)
-                    .count();
-        return cell
-                .getUnit()
+        return (int) cell
                 .getNeighbors()
-                .size();
+                .stream()
+                .filter(neighbor -> neighbor.getUnit() != null)
+                .count();
     }
 }
