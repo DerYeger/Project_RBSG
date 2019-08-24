@@ -1,9 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 public class AdvancedMovementTargetEvaluator implements MovementTargetEvaluator {
 
