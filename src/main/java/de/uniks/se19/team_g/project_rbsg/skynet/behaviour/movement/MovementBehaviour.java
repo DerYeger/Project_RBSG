@@ -30,7 +30,7 @@ public class MovementBehaviour implements Behaviour {
     public Optional<MovementAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
-            if (movementTargetEvaluator == null) movementTargetEvaluator = new AdvancedMovementTargetEvaluator();
+            if (movementTargetEvaluator == null) movementTargetEvaluator = new DistanceMovementTargetEvaluator();
             final var unit = getFirstUnitWithRemainingMP(player);
             final var allowedTours = movementEvaluator.getValidTours(unit);
             final var target = getOptimalTarget(getTargets(unit), allowedTours);
@@ -42,7 +42,8 @@ public class MovementBehaviour implements Behaviour {
         return Optional.empty();
     }
 
-    private Unit getFirstUnitWithRemainingMP(@NonNull final Player player) throws MovementBehaviourException {
+    @SuppressWarnings("WeakerAccess")
+    protected Unit getFirstUnitWithRemainingMP(@NonNull final Player player) throws MovementBehaviourException {
         return player
                 .getUnits()
                 .stream()
@@ -72,7 +73,8 @@ public class MovementBehaviour implements Behaviour {
         return unit.canAttack(other) && other.getNeighbors().size() < 4;
     }
 
-    private ArrayList<Cell> getTargets(@NonNull final Unit unit) throws MovementBehaviourException {
+    @SuppressWarnings("WeakerAccess")
+    protected ArrayList<Cell> getTargets(@NonNull final Unit unit) throws MovementBehaviourException {
         final var enemyPositions = unit
                 .getGame()
                 .getUnits()
@@ -96,6 +98,7 @@ public class MovementBehaviour implements Behaviour {
                 .cell;
     }
 
+
     private MovementTarget toTarget(@NonNull final Cell cell,
                                     @NonNull final ArrayList<Cell> enemyPositions) {
         return enemyPositions
@@ -105,8 +108,9 @@ public class MovementBehaviour implements Behaviour {
                 .orElse(null);
     }
 
-    private Double distance(@NonNull final Cell first,
-                            @NonNull final Cell second) {
+    @SuppressWarnings("WeakerAccess")
+    protected Double distance(@NonNull final Cell first,
+                    @NonNull final Cell second) {
         return Math.sqrt(
                 Math.pow(first.getX() - second.getX(), 2)
                         + Math.pow(first.getY() - second.getY(), 2));
