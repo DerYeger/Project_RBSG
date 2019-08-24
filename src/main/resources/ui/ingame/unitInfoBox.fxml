@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
 <?import java.net.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -14,7 +10,7 @@
    <children>
       <HBox fx:id="firstHorizontalContainer" styleClass="propertyContainer">
          <children>
-            <StackPane>
+            <StackPane HBox.hgrow="ALWAYS">
                <children>
                   <Pane styleClass="elevation-8" />
                   <ImageView fx:id="unitImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
@@ -26,20 +22,22 @@
             </StackPane>
             <VBox fx:id="firstPropertyContainer" styleClass="propertyContainer" />
             <VBox fx:id="secondPropertyContainer" styleClass="propertyContainer" />
+            <VBox fx:id="thirdPropertyContainer" styleClass="propertyContainer" />
          </children>
       </HBox>
       <HBox fx:id="secondHorizontalContainer" alignment="CENTER" styleClass="propertyContainer">
          <children>
-            <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER" HBox.hgrow="ALWAYS" minHeight="40.0">
                <children>
-                  <Label fx:id="hpLabel" styleClass="default" text="Label" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="hpLabel" styleClass="mini" text="Label" HBox.hgrow="ALWAYS" />
                </children>
                <styleClass>
                   <String fx:value="elevation-8" />
                   <String fx:value="hpBox" />
                </styleClass>
             </HBox>
-            <Pane fx:id="playerColorPane" prefWidth="40.0" />
+            <Pane fx:id="movementPane" prefWidth="80.0" minHeight="40.0" />
+            <Pane fx:id="playerColorPane" prefWidth="80.0" minHeight="40.0" />
          </children>
       </HBox>
    </children>

@@ -276,4 +276,8 @@ public class Unit implements Selectable, Hoverable {
         return this.unitType.getCanAttack(unit.getUnitType().getNameKey());
     }
 
+    public int getAttackValue(UnitTypeInfo unitTypeInfo) {
+        return this.unitType.getCanAttack(unitTypeInfo.getNameKey());
+    }
+
 }

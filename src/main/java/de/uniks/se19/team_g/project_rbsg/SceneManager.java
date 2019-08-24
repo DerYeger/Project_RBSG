@@ -62,8 +62,8 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setMinHeight(780);
-        stage.setMinWidth(640);
+        stage.setMinHeight(840);
+        stage.setMinWidth(840);
         setResizeableFalse();
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));

@@ -110,7 +110,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 //    public Button actionButton;
 //    public Button cancelButton;
     public Button skynetTurnButton;
-    public Button playerButton;
+    //public Button playerButton;
     public Button chatButton;
     public StackPane battlefieldStackPane;
     public AnchorPane overlayAnchorPane;
@@ -194,7 +194,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 menuButton,
                 getClass().getResource("/assets/icons/navigation/menuWhite.png"),
                 getClass().getResource("/assets/icons/navigation/menuBlack.png"),
-                40
+                50
         );
 
         JavaFXUtils.setButtonIcons(
@@ -208,12 +208,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 zoomOutButton,
                 getClass().getResource("/assets/icons/navigation/zoomOutWhite.png"),
                 getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
-                40
-        );
-        JavaFXUtils.setButtonIcons(
-                playerButton,
-                getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
-                getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                 40
         );
         JavaFXUtils.setButtonIcons(
@@ -298,11 +292,12 @@ public class BattleFieldController implements RootController, IngameViewControll
             Number newVal
     )
     {
-        if ((double) newVal < 1040)
+        if ((double) newVal < 1150)
         {
             if (playerBar.visibleProperty().get())
             {
-                openPlayerBar(null);
+                //openPlayerBar(null);
+                setVisibilityPlayerBar();
                 openWhenResizedPlayer = true;
             }
             if (chatPane.visibleProperty().get())
@@ -310,14 +305,15 @@ public class BattleFieldController implements RootController, IngameViewControll
                 openChat();
                 openWhenResizedChat = true;
             }
-            playerButton.setDisable(true);
+            //playerButton.setDisable(true);
             chatButton.setDisable(true);
         }
         else
         {
             if (openWhenResizedPlayer)
             {
-                openPlayerBar(null);
+                //openPlayerBar(null);
+                setVisibilityPlayerBar();
                 openWhenResizedPlayer = false;
             }
             if (openWhenResizedChat)
@@ -325,7 +321,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 openChat();
                 openWhenResizedChat = false;
             }
-            playerButton.setDisable(false);
+            //playerButton.setDisable(false);
             chatButton.setDisable(false);
         }
     }
@@ -524,7 +520,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         playerListController = new PlayerListController(game);
-        playerBar.setVisible(false);
+        //playerBar.setVisible(false);
         playerBar.setPickOnBounds(false);
         battlefieldStackPane.setPickOnBounds(false);
         miniMapStackPane.setPickOnBounds(false);
@@ -914,8 +910,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureEndPhaseAndEndRound();
 
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty()));
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty()));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), "selected"));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), "hovered"));
 
         try
         {
@@ -1282,7 +1278,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }
 
-    public void openPlayerBar (@SuppressWarnings("unused") ActionEvent event)
+    /*public void openPlayerBar (@SuppressWarnings("unused") ActionEvent event)
     {
         if (!playerBar.visibleProperty().get())
         {
@@ -1305,6 +1301,18 @@ public class BattleFieldController implements RootController, IngameViewControll
                     getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                     40
             );
+        }
+    }*/
+
+    public void setVisibilityPlayerBar()
+    {
+        if (!playerBar.visibleProperty().get())
+        {
+            playerBar.visibleProperty().setValue(true);
+        }
+        else
+        {
+            playerBar.visibleProperty().setValue(false);
         }
     }
 
@@ -1339,7 +1347,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initSkynetButtons ()
     {
-        final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlane.png");
+        final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlaneWhite.png");
         JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 40);
         skynetTurnButton.setOnAction((event) -> skynet.turn());
 

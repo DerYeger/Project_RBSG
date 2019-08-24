@@ -15,9 +15,11 @@ public class UnitInfoBoxBuilder<T>
     private Node unitInfoBox;
     private FXMLLoader fxmlLoader;
     private UnitInfoBoxController<T> lastController;
+    private String status;
 
-    public Node build(ObservableObjectValue<? extends T> bindable)
+    public Node build(ObservableObjectValue<? extends T> bindable, String status)
     {
+        this.status = status;
         createNode();
 
         UnitInfoBoxController controller = fxmlLoader.getController();
@@ -30,7 +32,7 @@ public class UnitInfoBoxBuilder<T>
     private void createNode()
     {
         fxmlLoader = new FXMLLoader(getClass().getResource("/ui/ingame/unitInfoBox.fxml"));
-        lastController = new UnitInfoBoxController<T>();
+        lastController = new UnitInfoBoxController<T>(status);
         fxmlLoader.setController(lastController);
         try
         {
