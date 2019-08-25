@@ -39,7 +39,7 @@ public class AttackCalculator {
         int attack = agressor.getAttackValue(defender);
         int defense = calculateDefense(defender);
         int damage = (attack - defense) % 10;
-        int damageWithoutZero = damage == 0 ? 1 : damage;
+        int damageWithoutZero = damage <= 0 ? 1 : damage;
         if(log) logger.info(
                 "ATTACK LOG:" +
                 "\nUnitType Agressor: " + agressor.getUnitType() +
