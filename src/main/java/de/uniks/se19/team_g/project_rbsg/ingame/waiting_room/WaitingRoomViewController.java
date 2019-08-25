@@ -162,12 +162,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     public void initialize() {
         gameName.textProperty().setValue(gameProvider.get().getName());
-        player1Pane.setOnMouseClicked((event) -> {
-            System.out.println("hallo");
-        });
-        player2Pane.setOnMouseClicked((event) -> {
-            System.out.println("hallo");
-        });
         initPlayerCardBuilders();
         setPlayerCardNodes();
         ready = false;
@@ -225,7 +219,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private void setPlayerCardNodes() {
         Node player1 = playerCard.buildPlayerCard(selectedLocale);
+        player1.setOnMouseClicked(this::player1PaneClicked);
         Node player2 = playerCard2.buildPlayerCard(selectedLocale);
+        player2.setOnMouseClicked(this::player2PaneClicked);
         player1Pane.getChildren().add(player1);
         player2Pane.getChildren().add(player2);
 
@@ -233,7 +229,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             Node player3 = playerCard.buildPlayerCard(selectedLocale);
+            player3.setOnMouseClicked(this::player3PaneClicked);
             Node player4 = playerCard2.buildPlayerCard(selectedLocale);
+            player4.setOnMouseClicked(this::player4PaneClicked);
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
@@ -277,7 +275,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             for(PlayerCardBuilder playerC: playerCardBuilders){
                 if(playerC.isEmpty) {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));
-                    //playerC.setOnClickListener(p, chatController);
                     break;
                 }
             }
@@ -463,7 +460,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private void onPlayerCardClicked(int playerNumber){
         ObservableList<Player> players = context.getGameState().getPlayers();
-        chatController.chatTabManager().addPrivateTab('@' + players.get(playerNumber).getName());
+        Player player = players.get(playerNumber);
+        if(player!=context.getUserPlayer()){
+            chatController.chatTabManager().openTab('@' + players.get(playerNumber).getName());
+        }
     }
 
 }

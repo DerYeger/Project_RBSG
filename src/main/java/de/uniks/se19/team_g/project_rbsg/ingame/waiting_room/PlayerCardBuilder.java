@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import io.rincl.Rincl;
 import javafx.animation.Animation;
@@ -62,7 +64,6 @@ public class PlayerCardBuilder {
     private Image blackAccountImage;
 
     private Property<Locale> selectedLocale;
-
 
     public Node buildPlayerCard(Property<Locale> selectedLocale){
         this.selectedLocale = selectedLocale;
@@ -196,14 +197,4 @@ public class PlayerCardBuilder {
             playerListCellImageView.setImage(whiteAccountImage);
         }
     }
-
-    /*public void setOnClickListener(Player p, ChatController chatController) {
-        System.out.println("erster");
-        this.playerCardView.setOnMousePressed(event -> {
-            Platform.runLater(()->{
-                System.out.println("Wuup Wuuup");
-                chatController.chatTabManager().addPrivateTab('@' + player.getName());
-            });
-        });
-    }*/
 }

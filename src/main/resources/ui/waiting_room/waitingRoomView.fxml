@@ -39,7 +39,7 @@
                                 <Pane fx:id="player4Pane" StackPane.alignment="TOP_CENTER"/>
                             </children>
                         </StackPane>
-                        <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
+                        <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" pickOnBounds="false">
                             <children>
                                 <Pane styleClass="mini-game-pane" StackPane.alignment="CENTER"/>
                                 <Pane fx:id="readyButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity">
@@ -49,7 +49,7 @@
                                 </Pane>
                             </children>
                         </StackPane>
-                        <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0">
+                        <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0" pickOnBounds="false" maxWidth="300">
                             <children>
                                 <Pane fx:id="mapPreviewPane" styleClass="map-preview-pane" StackPane.alignment="TOP_CENTER" />
                             </children>
