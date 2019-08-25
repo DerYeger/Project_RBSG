@@ -160,6 +160,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private HistoryViewProvider historyViewProvider;
 
     private final Button fullscreenButton = new Button();
+    private BooleanProperty isUsersTurn;
+    private SimpleBooleanProperty skynetRunningProperty;
 
     @Autowired
     public BattleFieldController (
@@ -1034,6 +1036,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             {
                 if (skynet.isBotRunning())
                 {
+                    skynetRunningProperty.set(false);
                     skynet.stopBot();
                 }
                 showWinnerLoserAlert(newValue);
@@ -1045,6 +1048,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             {
                 if (skynet.isBotRunning())
                 {
+                    skynetRunningProperty.set(false);
                     skynet.stopBot();
                 }
 
@@ -1188,11 +1192,18 @@ public class BattleFieldController implements RootController, IngameViewControll
                 currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
+        skynetRunningProperty = new SimpleBooleanProperty(false);
+        isUsersTurn = new SimpleBooleanProperty(false);
+        isUsersTurn.bind(Bindings.createBooleanBinding(
+                () -> context.isMyTurn(), currentPlayerProperty
+        ));
+
         playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
+        isUsersTurn.addListener(((observable, oldValue, newValue) -> {}));
 
         currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
-        endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
+        endPhaseButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty));
 
         endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
 
@@ -1204,7 +1215,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
         });
 
-        endRoundButton.disableProperty().bind(playerCanEndPhase.not());
+        endRoundButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty));
 
         endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
@@ -1274,6 +1285,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         if (skynet.isBotRunning())
         {
+            skynetRunningProperty.set(false);
             skynet.stopBot();
         }
     }
@@ -1304,7 +1316,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
     }*/
 
-    public void setVisibilityPlayerBar()
+    private void setVisibilityPlayerBar()
     {
         if (!playerBar.visibleProperty().get())
         {
@@ -1347,17 +1359,21 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initSkynetButtons ()
     {
-        final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlaneWhite.png");
-        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 40);
-        skynetTurnButton.setOnAction((event) -> skynet.turn());
-
+        JavaFXUtils.setButtonIcons(
+                skynetTurnButton,
+                getClass().getResource("/assets/icons/operation/oneRoundPlaneWhite.png"),
+                getClass().getResource("/assets/icons/operation/oneRoundPlaneBlack.png"),
+                40
+        );
+        skynetTurnButton.setOnAction((e) -> skynet.turn());
+        skynetTurnButton.disableProperty().bind(isUsersTurn.not().or(skynetRunningProperty));
+        skynetTurnButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
         JavaFXUtils.setButtonIcons(
                 skynetButton,
                 getClass().getResource("/assets/icons/operation/skynetWhite.png"),
                 getClass().getResource("/assets/icons/operation/skynetBlack.png"),
                 40
         );
-
         skynetButton.setOnAction(this::startBot);
     }
 
@@ -1366,10 +1382,12 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         if (skynet.isBotRunning())
         {
+            skynetRunningProperty.set(false);
             skynet.stopBot();
         }
         else
         {
+            skynetRunningProperty.set(true);
             skynet.startBot();
         }
     }
