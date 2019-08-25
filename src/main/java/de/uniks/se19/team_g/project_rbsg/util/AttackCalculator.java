@@ -68,4 +68,35 @@ public class AttackCalculator {
         return hp / 10 * (fieldDefense * 10);
     }
 
+    /**
+     *  hardcoded attack values from table above
+     */
+    public static int[] getAttackValues(String unit){
+        if(!unit.equals("")) logger.info("Hardcoding the attack values of " + unit + ". Please check if updates are available!");
+        int[] values;
+        switch (unit) {
+            case "Infantry":
+                values = new int[]{55, 45, 12, 5, 1, 0};
+                break;
+            case "Bazooka":
+                values = new int[]{0, 0, 85, 55, 15, 55};
+                break;
+            case "Jeep":
+                values = new int[]{70, 65, 35, 0, 0, 0};
+                break;
+            case "LightTank":
+                values = new int[]{75, 70, 85, 55, 15, 0};
+                break;
+            case "HeavyTank":
+                values = new int[]{105, 95, 105, 85, 55, 75};
+                break;
+            case "Chopper":
+                values = new int[]{75, 75, 55, 25, 20, 0};
+                break;
+            default:
+                values = new int[]{0, 0, 0, 0, 0, 0};
+        }
+        return values;
+    }
+
 }
