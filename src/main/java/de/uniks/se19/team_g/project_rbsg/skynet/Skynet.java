@@ -4,8 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.FallbackBehaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.FallbackBehaviourException;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.fallback.FallbackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.exception.SkynetExcpetion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,8 +61,17 @@ public class Skynet
     public Skynet turn()
     {
         try {
+
+
             if (!game.getCurrentPlayer().equals(player)) {
                 throw new SkynetExcpetion("Not my turn");
+            }
+
+            if(behaviours.containsKey("surrender") && evalutateSurrender()) {
+                if(isBotRunning()) {
+                    stopBot();
+                }
+                throw new SkynetExcpetion("Surrendered");
             }
 
             final Behaviour currentBehaviour = getCurrentBehaviour();
@@ -78,6 +86,18 @@ public class Skynet
         }
 
         return this;
+    }
+
+    private boolean evalutateSurrender ()
+    {
+        final Optional<? extends Action> surrenderAction = behaviours.get("surrender").apply(game, player);
+
+        if(surrenderAction.isPresent()) {
+            actionExecutor.execute(surrenderAction.get());
+            return true;
+        }
+
+        return false;
     }
 
     private Behaviour getCurrentBehaviour()

@@ -30,6 +30,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
@@ -216,6 +217,8 @@ public class LobbyViewController implements RootController, Terminable
                 getClass().getResource("/assets/icons/operation/bugReportBlack.png"),
                 40
         );
+
+        menuButton.setTooltip(new Tooltip("ESC/F10"));
 
         setBackgroundImage();
 

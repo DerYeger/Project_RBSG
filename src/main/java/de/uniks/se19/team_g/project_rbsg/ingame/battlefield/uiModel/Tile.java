@@ -91,6 +91,7 @@ public class Tile
     }
 
     private void configureCellDependencies() {
+        cell.unitProperty().addListener((observable, oldValue, newValue) -> forceRedraw());
         cell.isReachableProperty().addListener(updateHighlightingOne);
         cell.hoveredProperty().addListener(updateHighlightingTwo);
         cell.selectedProperty().addListener(updateHighlightingOne);
@@ -258,5 +259,12 @@ public class Tile
             backgroundImage = TileUtils.getBackgroundImage(cell);
         }
         return backgroundImage;
+    }
+
+    private void forceRedraw() {
+        evaluateHighlightingOne();
+        evaluateHightlightingTwo();
+        //even more abusive
+        pcs.firePropertyChange("forceRedraw", this, null);
     }
 }

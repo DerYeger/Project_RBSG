@@ -36,6 +36,7 @@ public class Cell implements Hoverable, Selectable {
     private Cell right;
     private Cell bottom;
 
+    public static final String UNIT = "unit";
     private final SimpleObjectProperty<Unit> unit;
 
     private final SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
