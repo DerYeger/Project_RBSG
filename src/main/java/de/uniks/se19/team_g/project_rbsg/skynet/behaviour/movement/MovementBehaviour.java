@@ -97,28 +97,21 @@ public class MovementBehaviour implements Behaviour {
     private Cell getOptimalTarget(@NonNull final ArrayList<Enemy> enemies,
                                   @NonNull final Map<Cell, Tour> allowedTours) throws MovementBehaviourException {
         return allowedTours
-                .keySet()
+                .values()
                 .stream()
-                .map(cell -> toTarget(cell, enemies))
+                .map(tour -> toTarget(tour, enemies))
                 .filter(Objects::nonNull)
                 .min(movementTargetEvaluator)
                 .orElseThrow(() -> new MovementBehaviourException("Unable to determine optimal target"))
-                .cell;
+                .destination;
     }
 
-    private MovementTarget toTarget(@NonNull final Cell cell,
+    private MovementTarget toTarget(@NonNull final Tour tour,
                                     @NonNull final ArrayList<Enemy> enemies) {
         return enemies
                 .stream()
-                .map(enemy -> new MovementTarget(cell, enemy, distance(cell, enemy.position)))
-                .min(Comparator.comparingDouble(target -> target.distance))
+                .map(enemy -> new MovementTarget(tour, enemy))
+                .min(Comparator.comparingDouble(target -> target.distanceToEnemy))
                 .orElse(null);
-    }
-
-    private Double distance(@NonNull final Cell first,
-                            @NonNull final Cell second) {
-        return Math.sqrt(
-                Math.pow(first.getX() - second.getX(), 2)
-                        + Math.pow(first.getY() - second.getY(), 2));
     }
 }

@@ -8,9 +8,9 @@ public class AdvancedMovementTargetEvaluator implements MovementTargetEvaluator 
     public int compare(@NonNull final MovementTarget first,
                        @NonNull final MovementTarget second) {
         if (first == second) return 0;
-        if (first.distance < second.distance) {
+        if (first.distanceToEnemy < second.distanceToEnemy) {
             return -1;
-        } else if (first.distance > second.distance) {
+        } else if (first.distanceToEnemy > second.distanceToEnemy) {
             return 1;
         } else {
             return first.enemy.unit.getNeighbors().size() - second.enemy.unit.getNeighbors().size();

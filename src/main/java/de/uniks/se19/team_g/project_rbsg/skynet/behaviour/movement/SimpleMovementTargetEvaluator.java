@@ -8,6 +8,6 @@ public class SimpleMovementTargetEvaluator implements MovementTargetEvaluator {
     public int compare(@NonNull final MovementTarget first,
                        @NonNull final MovementTarget second) {
         if (first == second) return 0;
-        return (int) (first.distance - second.distance);
+        return (int) (first.distanceToEnemy - second.distanceToEnemy);
     }
 }
