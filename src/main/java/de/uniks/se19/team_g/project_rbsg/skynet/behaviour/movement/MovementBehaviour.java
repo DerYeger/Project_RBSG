@@ -15,22 +15,23 @@ import org.springframework.lang.NonNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MovementBehaviour implements Behaviour {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final MovementEvaluator movementEvaluator = new MovementEvaluator();
-    private MovementTargetEvaluator movementTargetEvaluator;
+    private MovementOptionEvaluator movementOptionEvaluator;
 
-    public void setMovementTargetEvaluator(@NonNull final MovementTargetEvaluator movementTargetEvaluator) {
-        this.movementTargetEvaluator = movementTargetEvaluator;
+    public void setMovementOptionEvaluator(@NonNull final MovementOptionEvaluator movementOptionEvaluator) {
+        this.movementOptionEvaluator = movementOptionEvaluator;
     }
 
     @Override
     public Optional<MovementAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
-            if (movementTargetEvaluator == null) movementTargetEvaluator = new AdvancedMovementTargetEvaluator();
+            if (movementOptionEvaluator == null) movementOptionEvaluator = new AdvancedMovementOptionEvaluator();
             final var unit = getMovableUnitWithTarget(player);
             final var allowedTours = movementEvaluator.getValidTours(unit);
             final var target = getOptimalTarget(getEnemies(unit), allowedTours);
@@ -99,19 +100,16 @@ public class MovementBehaviour implements Behaviour {
         return allowedTours
                 .values()
                 .stream()
-                .map(tour -> toTarget(tour, enemies))
-                .filter(Objects::nonNull)
-                .min(movementTargetEvaluator)
+                .flatMap(tour -> toMovementOptions(tour, enemies))
+                .min(movementOptionEvaluator)
                 .orElseThrow(() -> new MovementBehaviourException("Unable to determine optimal target"))
                 .destination;
     }
 
-    private MovementTarget toTarget(@NonNull final Tour tour,
-                                    @NonNull final ArrayList<Enemy> enemies) {
+    private Stream<MovementOption> toMovementOptions(@NonNull final Tour tour,
+                                                     @NonNull final ArrayList<Enemy> enemies) {
         return enemies
                 .stream()
-                .map(enemy -> new MovementTarget(tour, enemy))
-                .min(Comparator.comparingDouble(target -> target.distanceToEnemy))
-                .orElse(null);
+                .map(enemy -> new MovementOption(tour, enemy));
     }
 }

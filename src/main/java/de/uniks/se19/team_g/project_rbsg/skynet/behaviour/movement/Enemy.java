@@ -10,7 +10,7 @@ public class Enemy {
     public final Cell position;
     public final double threatLevel;
 
-    public Enemy(@NonNull final Unit unit, @NonNull final double threatLevel) {
+    public Enemy(@NonNull final Unit unit, final double threatLevel) {
         this.unit = unit;
         position = unit.getPosition();
         this.threatLevel = threatLevel;
