@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
@@ -11,6 +12,7 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import org.slf4j.*;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.*;
 import java.net.*;
@@ -19,6 +21,7 @@ import java.util.*;
 public class UnitInfoBoxController<T> implements Initializable
 {
     private final String status;
+    private final Property<Locale> selectedLocale;
     public ImageView unitImageView;
     public VBox firstPropertyContainer;
     public VBox secondPropertyContainer;
@@ -45,8 +48,9 @@ public class UnitInfoBoxController<T> implements Initializable
     private PropertyInfoBuilder propertyInfoBuilder;
     private HashMap<UnitTypeInfo, Image> imageMap = new HashMap<>();
 
-    public UnitInfoBoxController(String status)
+    public UnitInfoBoxController(String status, Property<Locale> selectedLocale)
     {
+        this.selectedLocale = selectedLocale;
         this.status = status;
         hpText = new SimpleStringProperty("No unit " + status);
         propertyInfoBuilder = new PropertyInfoBuilder();
@@ -94,6 +98,7 @@ public class UnitInfoBoxController<T> implements Initializable
 
     private void hpChanged (ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp)
     {
+        hpText.unbind();
         hpText.set(String.format("%d / %d ", newHp.intValue(), maxHp));
     }
 
@@ -122,6 +127,7 @@ public class UnitInfoBoxController<T> implements Initializable
         hpLabel.setGraphic(new ImageView(new Image(getClass().getResource("/assets/icons/units/hpIcon.png").toExternalForm(),
                                                    40,
                                                    40, false, true)));
+        hpText.unbind();
         hpText.set(String.format("%d / %d ", unit.getHp(), maxHp));
         mpText.set(String.valueOf(unit.getMp()));
         ca1Text.set(String.valueOf(unit.getAttackValue(UnitTypeInfo._INFANTRY)));
@@ -142,7 +148,7 @@ public class UnitInfoBoxController<T> implements Initializable
     {
         Image image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm(), 100, 100, false, true);
         unitImageView.setImage(image);
-        hpText.set("No unit " + status);
+        hpText.bind(JavaFXUtils.bindTranslation(selectedLocale, status));
         hpLabel.setGraphic(null);
         mpText.set("-");
         ca1Text.set("-");

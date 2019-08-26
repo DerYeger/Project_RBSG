@@ -911,8 +911,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureEndPhaseAndEndRound();
 
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), "selected"));
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), "hovered"));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), "unitSelected", selectedLocale));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), "unitHovered", selectedLocale));
 
         try
         {
