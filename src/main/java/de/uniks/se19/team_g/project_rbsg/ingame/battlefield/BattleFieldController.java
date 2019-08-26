@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
@@ -1102,6 +1103,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else
         {
+            // Fix for black label, but its rather a JavaFX bug
+            for(ChatChannelController c: chatController.getChatChannelControllers().values()) {
+                c.setWhiteColor();
+            }
             chatPane.setVisible(true);
             JavaFXUtils.setButtonIcons(
                     chatButton,
