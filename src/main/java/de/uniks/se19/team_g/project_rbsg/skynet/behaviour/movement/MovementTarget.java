@@ -6,14 +6,14 @@ import org.springframework.lang.NonNull;
 public class MovementTarget {
 
     public final Cell cell;
-    public final Cell enemyPosition;
+    public final Enemy enemy;
     public final Double distance;
 
     public MovementTarget(@NonNull final Cell cell,
-                          @NonNull final Cell enemyPosition,
+                          @NonNull final Enemy enemy,
                           @NonNull final Double distance) {
         this.cell = cell;
-        this.enemyPosition = enemyPosition;
+        this.enemy = enemy;
         this.distance = distance;
     }
 }

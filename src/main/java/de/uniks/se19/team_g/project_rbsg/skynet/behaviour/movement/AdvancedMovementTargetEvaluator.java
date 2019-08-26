@@ -13,7 +13,7 @@ public class AdvancedMovementTargetEvaluator implements MovementTargetEvaluator 
         } else if (first.distance > second.distance) {
             return 1;
         } else {
-            return first.enemyPosition.getNeighbors().size() - second.enemyPosition.getNeighbors().size();
+            return first.enemy.unit.getNeighbors().size() - second.enemy.unit.getNeighbors().size();
         }
     }
 }

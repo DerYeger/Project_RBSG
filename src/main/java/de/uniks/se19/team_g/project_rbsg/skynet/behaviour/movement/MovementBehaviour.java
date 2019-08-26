@@ -110,7 +110,7 @@ public class MovementBehaviour implements Behaviour {
                                     @NonNull final ArrayList<Enemy> enemies) {
         return enemies
                 .stream()
-                .map(enemy -> new MovementTarget(cell, enemy.position, distance(cell, enemy.position)))
+                .map(enemy -> new MovementTarget(cell, enemy, distance(cell, enemy.position)))
                 .min(Comparator.comparingDouble(target -> target.distance))
                 .orElse(null);
     }
