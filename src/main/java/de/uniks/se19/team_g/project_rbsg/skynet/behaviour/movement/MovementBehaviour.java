@@ -31,9 +31,9 @@ public class MovementBehaviour implements Behaviour {
                                   @NonNull final Player player) {
         try {
             if (movementTargetEvaluator == null) movementTargetEvaluator = new AdvancedMovementTargetEvaluator();
-            final var unit = getFirstUnitWithRemainingMP(player);
+            final var unit = getMovableUnitWithTarget(player);
             final var allowedTours = movementEvaluator.getValidTours(unit);
-            final var target = getOptimalTarget(getTargets(unit), allowedTours);
+            final var target = getOptimalTarget(getEnemies(unit), allowedTours);
 
             return Optional.of(new MovementAction(unit, allowedTours.get(target)));
         } catch (final BehaviourException e) {
@@ -42,7 +42,7 @@ public class MovementBehaviour implements Behaviour {
         return Optional.empty();
     }
 
-    private Unit getFirstUnitWithRemainingMP(@NonNull final Player player) throws MovementBehaviourException {
+    private Unit getMovableUnitWithTarget(@NonNull final Player player) throws MovementBehaviourException {
         return player
                 .getUnits()
                 .stream()
@@ -72,24 +72,32 @@ public class MovementBehaviour implements Behaviour {
         return unit.canAttack(other) && other.getNeighbors().size() < 4;
     }
 
-    private ArrayList<Cell> getTargets(@NonNull final Unit unit) throws MovementBehaviourException {
+    private ArrayList<Enemy> getEnemies(@NonNull final Unit unit) throws MovementBehaviourException {
         final var enemyPositions = unit
                 .getGame()
                 .getUnits()
                 .stream()
                 .filter(other -> isATarget(unit, other))
-                .map(Unit::getPosition)
+                .map(other -> new Enemy(other, threatLevel(other, unit.getLeader())))
                 .collect(Collectors.toCollection(ArrayList::new));
         if (enemyPositions.size() < 1) throw new MovementBehaviourException("An unexpected error occurred");
         return enemyPositions;
     }
 
-    private Cell getOptimalTarget(@NonNull final ArrayList<Cell> enemyPositions,
+    private double threatLevel(@NonNull final Unit enemy,
+                               @NonNull final Player me) {
+        return me
+                .getUnits()
+                .filtered(unit -> enemy.getCanAttack().contains(unit.getUnitType()))
+                .size();
+    }
+
+    private Cell getOptimalTarget(@NonNull final ArrayList<Enemy> enemies,
                                   @NonNull final Map<Cell, Tour> allowedTours) throws MovementBehaviourException {
         return allowedTours
                 .keySet()
                 .stream()
-                .map(cell -> toTarget(cell, enemyPositions))
+                .map(cell -> toTarget(cell, enemies))
                 .filter(Objects::nonNull)
                 .min(movementTargetEvaluator)
                 .orElseThrow(() -> new MovementBehaviourException("Unable to determine optimal target"))
@@ -97,10 +105,10 @@ public class MovementBehaviour implements Behaviour {
     }
 
     private MovementTarget toTarget(@NonNull final Cell cell,
-                                    @NonNull final ArrayList<Cell> enemyPositions) {
-        return enemyPositions
+                                    @NonNull final ArrayList<Enemy> enemies) {
+        return enemies
                 .stream()
-                .map(other -> new MovementTarget(cell, other, distance(cell, other)))
+                .map(enemy -> new MovementTarget(cell, enemy.position, distance(cell, enemy.position)))
                 .min(Comparator.comparingDouble(target -> target.distance))
                 .orElse(null);
     }
