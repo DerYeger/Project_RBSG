@@ -21,7 +21,6 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.application.Platform;
-import javafx.beans.property.Property;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -56,7 +55,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 import static de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder.Text.INVALID_INPUT;
