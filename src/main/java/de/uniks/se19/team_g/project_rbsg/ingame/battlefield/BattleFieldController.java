@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewP
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
@@ -1351,6 +1352,17 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         skynetButton.setOnAction(this::startBot);
+
+        if (context != null && context.getModelManager() != null && context.getModelManager().getHistory() != null) {
+            final History history =  context.getModelManager().getHistory();
+            history.currentProperty().addListener(((observable, oldValue, newValue) -> {
+                skynetTurnButton.setDisable(!history.isLatest());
+                skynetButton.setDisable(!history.isLatest());
+                if (!history.isLatest() && skynet.isBotRunning()) {
+                    skynet.stopBot();
+                }
+            }));
+        }
     }
 
 
