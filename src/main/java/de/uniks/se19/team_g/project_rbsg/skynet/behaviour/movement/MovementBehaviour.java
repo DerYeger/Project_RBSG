@@ -30,7 +30,7 @@ public class MovementBehaviour implements Behaviour {
     public Optional<MovementAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
-            if (movementTargetEvaluator == null) movementTargetEvaluator = new DistanceMovementTargetEvaluator();
+            if (movementTargetEvaluator == null) movementTargetEvaluator = new AdvancedMovementTargetEvaluator();
             final var unit = getFirstUnitWithRemainingMP(player);
             final var allowedTours = movementEvaluator.getValidTours(unit);
             final var target = getOptimalTarget(getTargets(unit), allowedTours);

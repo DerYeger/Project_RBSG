@@ -65,7 +65,6 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.net.URL;
 import java.util.*;
 
 /**
