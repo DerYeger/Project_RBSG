@@ -227,7 +227,8 @@ public class LobbyViewController implements RootController, Terminable
         Font.loadFont(getClass().getResource("/assets/fonts/cinzelRegular.ttf").toExternalForm(), 28);
 
         bindI18n();
-        updateLabels(null);
+
+        lobbyTitle.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "title"));
 
         if (appState != null)
         {
@@ -365,26 +366,6 @@ public class LobbyViewController implements RootController, Terminable
         lobbyChatClient.terminate();
         lobby.getSystemMessageManager().stopSocket();
         logger.debug("Terminated " + this);
-    }
-
-    private void updateLabels(Locale locale)
-    {
-        if (Locale.getDefault().equals(locale))
-        {
-            return;
-        }
-        if (locale != null)
-        {
-            selectedLocale.setValue(locale);
-        }
-
-        lobbyTitle.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "title"));
-
-        if (createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null)
-        {
-            createGameFormBuilder.getCreateGameController().updateLabels();
-            createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController().updateLabels();
-        }
     }
 
     public void logoutUser()

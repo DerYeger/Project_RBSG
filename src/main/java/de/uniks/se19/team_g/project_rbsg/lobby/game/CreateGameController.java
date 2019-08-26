@@ -13,6 +13,7 @@ import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.*;
 import javafx.application.Platform;
 import javafx.beans.Observable;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -27,6 +28,7 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -89,6 +91,7 @@ public class CreateGameController implements Rincled
 
     private int numberOfPlayers = NUMBER_OF_PLAYERS_TWO;
 
+    private final Property<Locale> selectedLocale;
 
     @Autowired
     public CreateGameController(
@@ -98,8 +101,10 @@ public class CreateGameController implements Rincled
             @Nullable JoinGameManager joinGameManager,
             @Nullable GameProvider gameProvider,
             @Nullable SceneManager sceneManager,
-            @NonNull LoadingScreenFormBuilder loadingScreenFormBuilder
+            @NonNull LoadingScreenFormBuilder loadingScreenFormBuilder,
+            @Nonnull final Property<Locale> selectedLocale
     ) {
+        this.selectedLocale = selectedLocale;
         this.gameCreator = gameCreator;
         this.joinGameManager = joinGameManager;
         this.gameProvider = gameProvider;
@@ -126,16 +131,15 @@ public class CreateGameController implements Rincled
                 oldValue.setSelected(true);
             }
         });
-
-        updateLabels();
+        bindLabels();
     }
 
-    public void updateLabels()
+    private void bindLabels()
     {
-        titleLabel.textProperty().setValue(getResources().getString("title"));
-        gameName.setPromptText(getResources().getString("gameName_promptText"));
-        twoPlayers.textProperty().setValue(getResources().getString("twoPlayersButton"));
-        fourPlayers.textProperty().setValue(getResources().getString("fourPlayersButton"));
+        titleLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "createTitle"));
+        gameName.promptTextProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "gameName_promptText"));
+        twoPlayers.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "twoPlayersButton"));
+        fourPlayers.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale,"fourPlayersButton"));
     }
 
     public void setRootNode(Node root){
@@ -234,6 +238,7 @@ public class CreateGameController implements Rincled
             this.lobbyViewController.mainStackPane.getChildren().add(this.loadingScreenForm);
         }
         if ((this.loadingScreenForm != null) && (this.lobbyViewController.mainStackPane.getChildren().contains(this.loadingScreenForm))){
+            loadingScreenFormBuilder.getLoadingScreenController().bindLabels();
             loadingScreenForm.setVisible(true);
         }
     }
