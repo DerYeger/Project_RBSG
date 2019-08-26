@@ -88,8 +88,10 @@ public class MovementBehaviour implements Behaviour {
                                @NonNull final Player me) {
         return me
                 .getUnits()
-                .filtered(unit -> enemy.getCanAttack().contains(unit.getUnitType()))
-                .size();
+                .stream()
+                .mapToDouble(enemy::getAttackValue)
+                .average()
+                .orElse(0);
     }
 
     private Cell getOptimalTarget(@NonNull final ArrayList<Enemy> enemies,
