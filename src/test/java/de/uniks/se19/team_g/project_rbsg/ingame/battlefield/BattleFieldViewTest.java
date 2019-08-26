@@ -174,14 +174,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         click(25, 150);
         click(75, 150);
 
-
-        Button ingameInformationsButton = lookup("#playerButton").query();
-        Assert.assertNotNull(ingameInformationsButton);
         HBox playerBar = lookup("#playerBar").query();
-        clickOn("#playerButton");
         Assert.assertTrue(playerBar.isVisible());
-        clickOn("#playerButton");
-        Assert.assertFalse(playerBar.isVisible());
         Button chatButton = lookup("#chatButton").query();
         StackPane chatPane = lookup("#chatPane").query();
         clickOn("#chatButton");
@@ -195,7 +189,7 @@ public class BattleFieldViewTest extends ApplicationTest {
     }
 
     @Test
-    public void testMovement() throws ExecutionException, InterruptedException {
+    public void etestMovement() throws ExecutionException, InterruptedException {
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
         Unit playerUnit = definition.playerUnit;

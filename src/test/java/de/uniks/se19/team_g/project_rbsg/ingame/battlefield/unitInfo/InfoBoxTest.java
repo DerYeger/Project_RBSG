@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.util.Locale;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -37,7 +39,7 @@ public class InfoBoxTest extends ApplicationTest
 
         SimpleObjectProperty<Unit> unitProperty = new SimpleObjectProperty<>(unit);
 
-        Node infoBox = builder.build(unitProperty);
+        Node infoBox = builder.build(unitProperty, "unitSelected", new SimpleObjectProperty<>(Locale.ENGLISH));
         UnitInfoBoxController<Unit> controller = builder.getLastController();
 
         assertThat(infoBox, notNullValue());
@@ -66,7 +68,7 @@ public class InfoBoxTest extends ApplicationTest
 
         SimpleObjectProperty<Unit> unitProperty = new SimpleObjectProperty<>(null);
 
-        Node infoBox = builder.build(unitProperty);
+        Node infoBox = builder.build(unitProperty, "unitSelected", new SimpleObjectProperty<>(Locale.ENGLISH));
         UnitInfoBoxController<Unit> controller = builder.getLastController();
 
         HBox root = new HBox();
