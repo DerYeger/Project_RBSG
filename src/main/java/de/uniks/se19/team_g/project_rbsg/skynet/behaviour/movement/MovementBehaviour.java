@@ -96,7 +96,6 @@ public class MovementBehaviour implements Behaviour {
                 .cell;
     }
 
-
     private MovementTarget toTarget(@NonNull final Cell cell,
                                     @NonNull final ArrayList<Cell> enemyPositions) {
         return enemyPositions
