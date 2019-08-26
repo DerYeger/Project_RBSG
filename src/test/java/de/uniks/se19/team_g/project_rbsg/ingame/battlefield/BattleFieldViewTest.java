@@ -741,14 +741,10 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         history.back();
 
-        WaitForAsyncUtils.waitForFxEvents();
-
         assertTrue(skynetTurnButton.isDisabled());
         assertTrue(skynetTurnButton.isDisabled());
 
         history.forward();
-
-        WaitForAsyncUtils.waitForFxEvents();
 
         assertFalse(skynetTurnButton.isDisabled());
         assertFalse(skynetTurnButton.isDisabled());
