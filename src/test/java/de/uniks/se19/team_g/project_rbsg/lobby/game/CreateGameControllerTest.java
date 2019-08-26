@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
@@ -20,6 +21,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.application.Platform;
+import javafx.beans.property.Property;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -54,6 +56,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 import static de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder.Text.INVALID_INPUT;
@@ -71,7 +74,8 @@ import static org.mockito.Mockito.mock;
         GameProvider.class,
         LoadingScreenFormBuilder.class,
         LoadingScreenController.class,
-        ChatBuilder.class
+        ChatBuilder.class,
+        LocaleConfig.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest implements ApplicationContextAware {

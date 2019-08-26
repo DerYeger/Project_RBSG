@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.loading_screen;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,8 @@ import java.io.IOException;
         FXMLLoader.class,
         LoadingScreenFormBuilder.class,
         LoadingScreenController.class,
-        LoadingScreenBuilderTest.ContextConfiguration.class
+        LoadingScreenBuilderTest.ContextConfiguration.class,
+        LocaleConfig.class
 })
 public class LoadingScreenBuilderTest extends ApplicationTest {
 
