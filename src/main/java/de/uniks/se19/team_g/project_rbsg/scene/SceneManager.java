@@ -35,9 +35,7 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
         LOGIN("loginScene"),
         LOBBY("lobbyScene"),
         ARMY_BUILDER("armyScene"),
-        INGAME("ingameScene"),
-        BATTLEFIELD("battleFieldScene"),
-        ;
+        INGAME("ingameScene");
 
         public final String builder;
 
@@ -59,13 +57,18 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+        initStage();
+        return this;
+    }
+
+    //package private for tests
+    void initStage() {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setMinHeight(780);
         stage.setMinWidth(640);
         setResizeableFalse();
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
-        return this;
     }
 
     public SceneManager withExceptionHandler(@Nullable final DefaultExceptionHandler exceptionHandler) {
@@ -86,7 +89,6 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
             }
         }
     }
-
 
     //package private for tests
     void unhandledSetScene(@NonNull final SceneConfiguration sceneConfiguration) {
