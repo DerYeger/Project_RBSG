@@ -72,6 +72,7 @@ public class WebSocketClient
             URI uri = new URI(BASE_URL + endpoint);
             ContainerProvider.getWebSocketContainer().connectToServer(this, uri);
         } catch (final DeploymentException | IOException | URISyntaxException e) {
+            stop();
             logger.error(e.getMessage());
             throw new WebSocketException(e.getMessage());
         }

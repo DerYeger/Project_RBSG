@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
@@ -182,7 +183,15 @@ public class IngameRootController
     }
 
     private void leave() {
-        sceneManager.setScene(SceneConfiguration.of(LOBBY));
+        sceneManager
+                .setScene(SceneConfiguration
+                        .of(LOBBY)
+                        .withExceptionHandler(this::handleException)
+                );
+    }
+
+    private void handleException(@NonNull final Exception exception) {
+
     }
 
 }

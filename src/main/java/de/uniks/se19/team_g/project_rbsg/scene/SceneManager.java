@@ -81,7 +81,7 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
             if (sceneConfiguration.getExceptionHandler() != null) {
                 sceneConfiguration.getExceptionHandler().handle(e);
             } else if (exceptionHandler != null) {
-                exceptionHandler.handleException(this);
+                exceptionHandler.handle(e);
             } else {
                 logger.info("No exception handler available");
             }
