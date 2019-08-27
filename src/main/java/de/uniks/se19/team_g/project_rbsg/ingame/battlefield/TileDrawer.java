@@ -144,7 +144,7 @@ public class TileDrawer
         Unit unit = tile.getCell().unitProperty().get();
 
         //Layer 5 Unit
-        if (unit != null)
+        if (unit != null && unit.isDisplayed())
         {
             graphicsContext.drawImage(unitImagesMap.get(unit.getUnitType()), startX, startY);
 

@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animations.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewProvider;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
@@ -159,6 +160,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     private boolean openWhenResizedPlayer, openWhenResizedChat;
     private HistoryViewProvider historyViewProvider;
 
+    private MovementAnimationManager movementAnimationManager;
+    private final BooleanProperty movementAnimationsAllowed;
+
     private final Button fullscreenButton = new Button();
 
     @Autowired
@@ -186,6 +190,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.roundCounter = 1;
 
         this.selectedLocale = selectedLocale;
+
+        movementAnimationManager = new MovementAnimationManager();
+        movementAnimationsAllowed = new SimpleBooleanProperty(true);
     }
 
     public void initialize ()
@@ -438,6 +445,10 @@ public class BattleFieldController implements RootController, IngameViewControll
     @SuppressWarnings("unused")
     private void unitChangedPosition (ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition, Unit unit)
     {
+        if(movementAnimationsAllowed.get() && lastPosition != null && newPosition != null) {
+            movementAnimationManager.startMovementAnimation(canvas, unit, lastPosition, newPosition);
+        }
+
         if (lastPosition != null)
         {
             tileDrawer.drawTile(getTileOf(lastPosition));
@@ -446,6 +457,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             tileDrawer.drawTile(getTileOf(newPosition));
         }
+
         miniMapDrawer.drawMinimap(tileMap);
     }
 
@@ -459,8 +471,11 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void initCanvas ()
     {
         canvas = new Canvas();
+
         canvas.setId("canvas");
+
         zoomableScrollPane = new ZoomableScrollPane(canvas);
+
         canvas.setHeight(CELL_SIZE * mapSize);
         canvas.setWidth(CELL_SIZE * mapSize);
         battlefieldStackPane.getChildren().add(0, zoomableScrollPane);
@@ -479,6 +494,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                 setFullscreen(null);
             }
         });
+
+        movementAnimationManager.setMapRedraw(() -> tileDrawer.drawMap(tileMap));
     }
 
     private void initPlayerBar ()
@@ -937,6 +954,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
 
+
+
     @Autowired(required = false)
     public void setHistoryViewProvider(HistoryViewProvider historyViewProvider) {
 
@@ -1359,9 +1378,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (skynet.isBotRunning())
         {
             skynet.stopBot();
+            movementAnimationsAllowed.set(true);
         }
         else
         {
+            movementAnimationsAllowed.set(false);
             skynet.startBot();
         }
     }
