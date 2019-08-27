@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
@@ -29,6 +30,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Juri Lozowoj
@@ -185,7 +188,7 @@ public class CreateGameController implements Rincled
                     .thenRunAsync(
                         () -> {
                             gameProvider.set(game);
-                            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
+                            sceneManager.setScene(SceneConfiguration.of(INGAME));
                         },
                         Platform::runLater
                     );

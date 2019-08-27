@@ -2,7 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -43,6 +45,8 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * @author Keanu Stückrad
@@ -128,10 +132,15 @@ public class LoginFormControllerTestInvalidCredentialsError extends ApplicationT
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
-                    switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);
+                public void setScene(@NonNull final SceneConfiguration sceneConfiguration) {
+                    switchedToLobby = sceneConfiguration.getSceneIdentifier().equals(SceneIdentifier.LOBBY);
                 }
             };
+        }
+
+        @Bean
+        public AlertBuilder alertBuilder() {
+            return mock(AlertBuilder.class);
         }
 
         @Override

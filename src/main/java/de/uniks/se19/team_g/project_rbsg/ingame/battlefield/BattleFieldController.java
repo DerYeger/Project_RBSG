@@ -1,9 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.RootController;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
@@ -801,7 +802,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void doLeaveGame ()
     {
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+        sceneManager.setScene(SceneConfiguration.of(SceneManager.SceneIdentifier.LOBBY));
     }
 
     public void zoomIn (@SuppressWarnings("unused") ActionEvent actionEvent)

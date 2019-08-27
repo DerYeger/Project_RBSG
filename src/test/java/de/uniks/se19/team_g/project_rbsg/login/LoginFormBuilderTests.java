@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
@@ -30,6 +31,8 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
 
+import static org.mockito.Mockito.mock;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         LoginFormBuilderTests.ContextConfiguration.class,
@@ -38,7 +41,7 @@ import java.io.IOException;
         UserProvider.class,
         LoginManager.class,
         RegistrationManager.class,
-        SceneManager.class
+        SceneManager.class,
 })
 public class LoginFormBuilderTests extends ApplicationTest {
 
@@ -49,7 +52,7 @@ public class LoginFormBuilderTests extends ApplicationTest {
 
         @Bean
         public ApplicationStateInitializer stateInitializer() {
-            return Mockito.mock(ApplicationStateInitializer.class);
+            return mock(ApplicationStateInitializer.class);
         }
 
         @Bean
@@ -77,6 +80,11 @@ public class LoginFormBuilderTests extends ApplicationTest {
             clientHttpRequestFactory.setConnectTimeout(timeOut);
             clientHttpRequestFactory.setReadTimeout(timeOut);
             return clientHttpRequestFactory;
+        }
+
+        @Bean
+        public AlertBuilder alertBuilder() {
+            return mock(AlertBuilder.class);
         }
 
         @Override

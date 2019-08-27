@@ -16,6 +16,10 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
+import de.uniks.se19.team_g.project_rbsg.scene.RootController;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.util.*;
 import io.rincl.*;
 import javafx.application.*;
@@ -38,6 +42,8 @@ import org.springframework.stereotype.*;
 import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 
 /**
@@ -238,7 +244,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void leaveWaitingRoom ()
     {
         gameProvider.clear();
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+        sceneManager.unhandledSetScene(SceneConfiguration.of(LOBBY));
     }
 
     public void toggleSound ()

@@ -1,7 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -35,6 +36,8 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Georg Siebert
@@ -162,7 +165,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             try {
                 gameProvider.set(game);
                 joinGameManager.joinGame(userProvider.get(), game).get();
-                sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
+                sceneManager.unhandledSetScene(SceneConfiguration.of(INGAME));
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 gameProvider.clear();
@@ -181,7 +184,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
-            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
+            sceneManager.setScene(SceneConfiguration.of(INGAME));
         }
     }
 

@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.alert;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayException;
 import de.uniks.se19.team_g.project_rbsg.overlay.Overlay;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
@@ -27,21 +27,23 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
     private final OverlayTargetProvider overlayTargetProvider;
 
     public enum Text {
-        EXIT("exit"),
-        CREATE_GAME_ERROR("createGameError"),
         CONNECTION_CLOSED("connectionClosed"),
-        GAME_WON("gameWon"),
-        GAME_SOMEBODY_ELSE_WON("elseWon"),
+        CREATE_GAME_ERROR("createGameError"),
+        EGG_WON("eggWon"),
+        EGG_LOST("eggLost"),
+        END_PHASE("endPhase"),
+        EXIT("exit"),
         GAME_LOST("gameLost"),
+        GAME_SOCKET("gameSocket"),
+        GAME_SOMEBODY_ELSE_WON("elseWon"),
+        GAME_WON("gameWon"),
         INVALID_INPUT("invalidInput"),
+        LOBBY_SOCKET("lobbySocket"),
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
-        PERMISSION_ERROR("permissionError"),
-        END_PHASE("endPhase"),
+        OOPS("oops"),
         SURRENDER("surrender"),
-        UNSAVED_ARMY("unsaved_army"),
-        EGG_WON("eggWon"),
-        EGG_LOST("eggLost");
+        UNSAVED_ARMY("unsaved_army");
 
         private final String text;
 

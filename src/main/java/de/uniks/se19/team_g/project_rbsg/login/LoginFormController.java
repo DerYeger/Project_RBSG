@@ -3,10 +3,12 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
@@ -31,6 +33,8 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Jan Müller
@@ -80,6 +84,8 @@ public class LoginFormController implements Rincled
     private final SceneManager sceneManager;
     @Nonnull
     private final ApplicationStateInitializer appStateInitializer;
+    @NonNull
+    private final AlertBuilder alertBuilder;
     @Nonnull
     private final UserProvider userProvider;
 
@@ -89,13 +95,15 @@ public class LoginFormController implements Rincled
             @Nonnull final LoginManager loginManager,
             @Nonnull final RegistrationManager registrationManager,
             @Nonnull final SceneManager sceneManager,
-            @Nonnull final ApplicationStateInitializer appStateInitializer
+            @Nonnull final ApplicationStateInitializer appStateInitializer,
+            @NonNull final AlertBuilder alertBuilder
         ) {
         this.userProvider = userProvider;
         this.loginManager = loginManager;
         this.registrationManager = registrationManager;
         this.sceneManager = sceneManager;
         this.appStateInitializer = appStateInitializer;
+        this.alertBuilder = alertBuilder;
     }
 
     public void init() {
@@ -216,7 +224,7 @@ public class LoginFormController implements Rincled
             logger.debug("unexpected initializer error", e);
             handleErrorMessage(getResources().getString("unexpectedInitializerError"));
         }
-        Platform.runLater(() -> sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null));
+        Platform.runLater(this::toLobby);
     }
 
     private void setErrorFlag(boolean flag) {
@@ -266,5 +274,22 @@ public class LoginFormController implements Rincled
         setLoadingFlag(false);
         setErrorFlag(true);
         Platform.runLater(() -> this.errorMessage.setText(errorMessage));
+    }
+
+    private void toLobby() {
+        try {
+            sceneManager.unhandledSetScene(SceneConfiguration.of(LOBBY));
+        } catch (final RuntimeException e) {
+            logger.error(e.getMessage());
+            alertBuilder.confirmation(
+                    AlertBuilder.Text.LOBBY_SOCKET,
+                    this::loginAction,
+                    this::reset
+            );
+        }
+    }
+
+    private void reset() {
+        sceneManager.setScene(SceneConfiguration.of(LOGIN));
     }
 }

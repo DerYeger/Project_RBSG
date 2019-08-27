@@ -1,4 +1,4 @@
-package de.uniks.se19.team_g.project_rbsg;
+package de.uniks.se19.team_g.project_rbsg.scene;
 
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
@@ -7,10 +7,11 @@ import javafx.application.Platform;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+
 @Component
 public class ExceptionHandler {
 
-    @NonNull
     private final Terminator terminator;
     private final AlertBuilder alertBuilder;
 
@@ -23,7 +24,7 @@ public class ExceptionHandler {
     public void handleException(@NonNull final SceneManager sceneManager) {
         terminator.terminate();
         WebSocketConfigurator.userKey = "";
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
-        Platform.runLater(() -> alertBuilder.information(AlertBuilder.Text.PERMISSION_ERROR));
+        sceneManager.setScene(SceneConfiguration.of(LOGIN));
+        Platform.runLater(() -> alertBuilder.information(AlertBuilder.Text.OOPS));
     }
 }

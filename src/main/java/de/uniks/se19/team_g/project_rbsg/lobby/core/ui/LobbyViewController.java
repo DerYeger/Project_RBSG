@@ -18,6 +18,10 @@ import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.RootController;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -51,6 +55,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Georg Siebert
@@ -399,13 +405,13 @@ public class LobbyViewController implements RootController, Terminable
 
     private void handleLogout()
     {
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+        sceneManager.setScene(SceneConfiguration.of(LOGIN));
         logoutManager.logout(userProvider);
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent)
     {
-        sceneManager.setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
+        sceneManager.setScene(SceneConfiguration.of(ARMY_BUILDER).andCache(LOBBY));
     }
 
     public void showMenu(final ActionEvent actionEvent) {

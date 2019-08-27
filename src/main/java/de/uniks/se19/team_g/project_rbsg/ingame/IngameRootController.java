@@ -1,9 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.RootController;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
@@ -25,6 +26,8 @@ import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * TODO: consider removing scope prototype and instead introduce something like Bootable Interface for boot/terminate/boot/...
@@ -117,7 +120,7 @@ public class IngameRootController
             alertBuilder
                     .confirmation(
                             AlertBuilder.Text.NO_CONNECTION,
-                            () -> sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null),
+                            () -> sceneManager.setScene(SceneConfiguration.of(LOGIN)),
                             this::startSocket
                     );
             throw new RuntimeException(e);
@@ -179,7 +182,7 @@ public class IngameRootController
     }
 
     private void leave() {
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+        sceneManager.setScene(SceneConfiguration.of(LOBBY));
     }
 
 }
