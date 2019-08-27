@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -23,6 +22,7 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -715,8 +715,8 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         Node battleField = lookup("#battleFieldViewer").query();
         Bounds bounds = battleField.localToScreen(battleField.getBoundsInLocal());
-        battleFieldCenterX = bounds.getCenterX();
-        battleFieldCenterY = bounds.getCenterY();
+        battleFieldCenterX = (bounds.getMaxX() + bounds.getMinX()) * 0.5;
+        battleFieldCenterY = (bounds.getMaxY() + bounds.getMinY()) * 0.5;
 
     }
 
