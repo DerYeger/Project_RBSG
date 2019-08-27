@@ -74,10 +74,9 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
     }
 
     public void setScene(@NonNull final SceneConfiguration sceneConfiguration) {
-         try {
-           unhandledSetScene(sceneConfiguration);
+        try {
+            unhandledSetScene(sceneConfiguration);
         } catch (final RuntimeException e) {
-            logger.error(e.getMessage());
             if (sceneConfiguration.getExceptionHandler() != null) {
                 sceneConfiguration.getExceptionHandler().handle(e);
             } else if (exceptionHandler != null) {
@@ -88,7 +87,9 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
         }
     }
 
-    private void unhandledSetScene(@NonNull final SceneConfiguration sceneConfiguration) {
+
+    //package private for tests
+    void unhandledSetScene(@NonNull final SceneConfiguration sceneConfiguration) {
         if (stage == null) {
             logger.error("Stage not initialised");
             return;
