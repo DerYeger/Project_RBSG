@@ -4,7 +4,9 @@ import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -41,7 +43,7 @@ import static org.mockito.Mockito.mock;
         UserProvider.class,
         LoginManager.class,
         RegistrationManager.class,
-        SceneManager.class,
+        SceneManager.class
 })
 public class LoginFormBuilderTests extends ApplicationTest {
 
@@ -62,6 +64,11 @@ public class LoginFormBuilderTests extends ApplicationTest {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return mock(LogoutManager.class);
         }
 
         @Bean

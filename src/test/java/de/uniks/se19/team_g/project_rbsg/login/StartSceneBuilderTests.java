@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.scene.RootController;
 import io.rincl.Rincl;
@@ -73,7 +74,10 @@ public class StartSceneBuilderTests extends ApplicationTest {
             return fxmlLoader;
         }
 
-
+        @Bean
+        public LogoutManager logoutManager() {
+            return mock(LogoutManager.class);
+        }
 
         @Bean
         public RestTemplateBuilder restTemplateBuilder(){

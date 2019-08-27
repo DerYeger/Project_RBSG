@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import io.rincl.*;
@@ -131,6 +132,11 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
                     return castedResponse;
                 }
             });
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return mock(LogoutManager.class);
         }
 
         @Bean

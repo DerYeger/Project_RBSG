@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -111,6 +112,11 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
                     );
                 }
             };
+        }
+
+        @Bean
+        public LogoutManager logoutManager() {
+            return mock(LogoutManager.class);
         }
 
         @Bean
