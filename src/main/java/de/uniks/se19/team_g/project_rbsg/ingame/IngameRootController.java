@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -119,14 +120,7 @@ public class IngameRootController
     private void startSocket() {
         try {
             gameEventManager.startSocket(ingameContext.getGameData().getId(), null, ingameContext.getGameData().isSpectatorModus());
-        } catch (Exception e) {
-            logger.error("failed to start socket", e);
-            alertBuilder
-                    .confirmation(
-                            AlertBuilder.Text.NO_CONNECTION,
-                            () -> sceneManager.setScene(SceneConfiguration.of(LOGIN)),
-                            this::startSocket
-                    );
+        } catch (final Exception e) {
             throw new RuntimeException(e);
         }
     }
