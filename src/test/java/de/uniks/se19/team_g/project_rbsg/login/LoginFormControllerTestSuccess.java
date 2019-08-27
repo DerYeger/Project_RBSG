@@ -137,7 +137,7 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void unhandledSetScene(@NonNull final SceneConfiguration sceneConfiguration) {
+                public void setScene(@NonNull final SceneConfiguration sceneConfiguration) {
                     switchedToLobby = sceneConfiguration.getSceneIdentifier().equals(SceneIdentifier.LOBBY);
                 }
             };
