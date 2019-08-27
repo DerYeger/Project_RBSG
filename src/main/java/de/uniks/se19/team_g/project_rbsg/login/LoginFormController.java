@@ -287,7 +287,9 @@ public class LoginFormController implements Rincled
     }
 
     private void handleSceneManagerException(@NonNull final Exception exception) {
-        final AlertBuilder.Text text = ExceptionUtils.rootCause(exception) instanceof WebSocketException ? AlertBuilder.Text.LOBBY_SOCKET : AlertBuilder.Text.OOPS;
+        final AlertBuilder.Text text =
+                ExceptionUtils.rootCause(exception) instanceof WebSocketException
+                        ? AlertBuilder.Text.LOBBY_SOCKET : AlertBuilder.Text.OOPS;
         alertBuilder.confirmation(
                 text,
                 this::loginAction,
