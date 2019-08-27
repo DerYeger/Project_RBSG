@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,7 @@ public class ApplicationStateInitializer {
             @Nonnull ApplicationState appState,
             @Nonnull ArmyManager armyManager,
             @Nonnull GetUnitTypesService getUnitTypesService,
-            @Nullable ArmyGeneratorStrategy armyGeneratorStrategy,
+            @Nullable @Qualifier("defaultArmyGenerator") ArmyGeneratorStrategy armyGeneratorStrategy,
             @Nonnull PersistentArmyManager persistentArmyManager
     ) {
         this.appState = appState;
