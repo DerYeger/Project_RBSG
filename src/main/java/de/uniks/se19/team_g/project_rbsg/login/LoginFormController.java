@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.WebSocketExceptionHandler;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
@@ -54,6 +55,8 @@ public class LoginFormController implements Rincled
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ExceptionHandler exceptionHandler;
+    @NonNull
+    private final LogoutManager logoutManager;
 
     @FXML
     private TextField nameField;
@@ -102,7 +105,8 @@ public class LoginFormController implements Rincled
             @Nonnull final RegistrationManager registrationManager,
             @Nonnull final SceneManager sceneManager,
             @Nonnull final ApplicationStateInitializer appStateInitializer,
-            @NonNull final AlertBuilder alertBuilder
+            @NonNull final AlertBuilder alertBuilder,
+            @NonNull final LogoutManager logoutManager
         ) {
         this.userProvider = userProvider;
         this.loginManager = loginManager;
@@ -110,6 +114,7 @@ public class LoginFormController implements Rincled
         this.sceneManager = sceneManager;
         this.appStateInitializer = appStateInitializer;
         this.alertBuilder = alertBuilder;
+        this.logoutManager = logoutManager;
 
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::toLobby)
@@ -117,6 +122,7 @@ public class LoginFormController implements Rincled
     }
 
     public void init() {
+        logoutManager.logout(userProvider);
         addEventListeners();
         addLoadingIndicator();
         addErrorFlag();
