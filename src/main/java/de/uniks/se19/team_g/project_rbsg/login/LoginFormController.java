@@ -158,7 +158,9 @@ public class LoginFormController implements Rincled
             user = new User(nameField.getText(), passwordField.getText());
             final CompletableFuture<ResponseEntity<ObjectNode>> answerPromise = registrationManager.onRegistration(user);
             answerPromise.thenAccept(this::onRegistrationReturned)
-                    .exceptionally(this::handleException);
+                    .exceptionally(throwable -> {
+                        return handleException(throwable);
+                    });
         }
     }
 
