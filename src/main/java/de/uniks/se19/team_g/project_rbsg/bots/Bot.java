@@ -2,14 +2,19 @@ package de.uniks.se19.team_g.project_rbsg.bots;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.CreateArmyService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
+import javafx.collections.ListChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -31,6 +36,7 @@ public class Bot extends Thread {
 
     private final JoinGameManager joinGameManager;
     private final ObjectProvider<IngameContext> contextFactory;
+    private final CreateArmyService createArmyService;
 
     final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 
@@ -42,13 +48,15 @@ public class Bot extends Thread {
     private ArmyGeneratorStrategy armyGeneratorStrategy;
 
     public Bot(
-            UserProvider userProvider,
-            JoinGameManager joinGameManager,
-            @Qualifier("dedicatedContext") ObjectProvider<IngameContext> contextFactory
+            @Nonnull UserProvider userProvider,
+            @Nonnull JoinGameManager joinGameManager,
+            @Nonnull @Qualifier("dedicatedContext") ObjectProvider<IngameContext> contextFactory,
+            @Nonnull CreateArmyService createArmyService
     ) {
         this.userProvider = userProvider;
         this.joinGameManager = joinGameManager;
         this.contextFactory = contextFactory;
+        this.createArmyService = createArmyService;
     }
 
     public Bot start(Game gameData, User user) {
@@ -59,7 +67,10 @@ public class Bot extends Thread {
         return this;
     }
 
-    public void setArmyGeneratorStrategy(ArmyGeneratorStrategy armyGeneratorStrategy) {
+    @Autowired
+    public void setArmyGeneratorStrategy(
+            @Qualifier("chubbyCharlesCharge") ArmyGeneratorStrategy armyGeneratorStrategy
+    ) {
         this.armyGeneratorStrategy = armyGeneratorStrategy;
     }
 
@@ -119,6 +130,14 @@ public class Bot extends Thread {
                     any -> this
                 );
 
+        botReady.exceptionally(
+                throwable -> {
+                    logger.error(this + " failed booting", throwable);
+                    doShutdown();
+                    return null;
+                }
+        );
+
         // when everything is ready
         botReady
                 .thenRun(this::beABot)
@@ -135,7 +154,9 @@ public class Bot extends Thread {
     @Nonnull
     protected Army createArmy() {
         Army army = armyGeneratorStrategy.createArmy(null);
-        army.id.set("testArmy");
+        SaveArmyResponse response = createArmyService.createArmy(army);
+
+        army.id.set(response.data.id);
         return army;
     }
 
@@ -149,7 +170,9 @@ public class Bot extends Thread {
     }
 
     private void doShutdown() {
-        ingameContext.getGameEventManager().terminate();
+        if (ingameContext != null && ingameContext.getGameEventManager() != null) {
+            ingameContext.getGameEventManager().terminate();
+        }
     }
 
     private void setIngameContext(IngameContext ingameContext) {
@@ -159,13 +182,25 @@ public class Bot extends Thread {
     private void beABot() {
         ingameContext.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                logger.debug("my game was initialized");
+                logger.debug(this + ": game was initialized");
             }
             ingameContext.getGameState().getPlayers().forEach(
                     player -> {
                         player.isReadyProperty().addListener((observable1, oldValue1, newValue1) -> {
                             logger.debug( player + " is" + (newValue ? "" : " not") + " ready");
                         });
+                    }
+            );
+            ingameContext.getGameState().getPlayers().addListener(
+                    (ListChangeListener<? super Player>) c -> {
+                        while (c.next()) {
+                            for (var p : c.getRemoved()) {
+                                logger.debug( p + " has left " + this + " :(");
+                            }
+                            for (var p : c.getAddedSubList()) {
+                                logger.debug( p + " has joined " + this + " :)");
+                            }
+                        }
                     }
             );
         });
@@ -176,11 +211,11 @@ public class Bot extends Thread {
                 }, executor)
                 .thenRunAsync(
                         () -> {ingameContext.getGameEventManager().terminate();},
-                    CompletableFuture.delayedExecutor(10, TimeUnit.SECONDS, executor)
+                    CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS, executor)
                 ).thenRunAsync(
                         () -> {},
-                        CompletableFuture.delayedExecutor(2, TimeUnit.SECONDS, executor)
-                ).thenRun( () -> closePromise.complete(this))
+                        CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS, executor)
+                );//.thenRun( () -> closePromise.complete(this))
         ;
     }
 
