@@ -1,6 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.bots;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -9,11 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -37,6 +39,7 @@ public class Bot extends Thread {
     private final CompletableFuture<Void> shutdownPromise = new CompletableFuture<>();
     private IngameContext ingameContext;
     private UserProvider userProvider;
+    private ArmyGeneratorStrategy armyGeneratorStrategy;
 
     public Bot(
             UserProvider userProvider,
@@ -56,6 +59,11 @@ public class Bot extends Thread {
         return this;
     }
 
+    public void setArmyGeneratorStrategy(ArmyGeneratorStrategy armyGeneratorStrategy) {
+        this.armyGeneratorStrategy = armyGeneratorStrategy;
+    }
+
+
     @Override
     public void run() {
         setupThread();
@@ -67,6 +75,20 @@ public class Bot extends Thread {
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.initialize();
 
+        closePromise.thenRun(this::shutdown);
+
+        boot();
+
+        try {
+            // wait until shutdown
+            shutdownPromise.get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error("exception while waiting on shutdown hook", e);
+        }
+    }
+
+    protected void boot() {
+        // join game via rest and websocket
         CompletableFuture<IngameContext> joinGamePromise = CompletableFuture
                 .runAsync( () -> joinGameManager.doJoinGame(user, gameData), executor)
                 .thenApply(aVoid -> contextFactory.getObject(user, gameData))
@@ -78,21 +100,43 @@ public class Bot extends Thread {
                 })
         ;
 
-        CompletableFuture<String> createArmiesPromise = CompletableFuture.completedFuture("testArmy");
+        // in parallele, create a army
+        CompletableFuture<Army> armyGeneration = CompletableFuture
+                .supplyAsync( this::createArmy, executor);
 
-        CompletableFuture.allOf(joinGamePromise, createArmiesPromise)
+        // when game joined and army created -> select army & ready
+        CompletableFuture<Bot> botReady = joinGamePromise
+                .thenCombineAsync(
+                    armyGeneration,
+                    this::selectArmy,
+                    executor
+                )
+                // wait a tad bit before giving ready
+                .thenApplyAsync(
+                    context -> {context.getGameEventManager().api().ready(); return context;},
+                    CompletableFuture.delayedExecutor(50, TimeUnit.MILLISECONDS, executor)
+                ).thenApply(
+                    any -> this
+                );
+
+        // when everything is ready
+        botReady
                 .thenRun(this::beABot)
                 .thenRun(() -> bootPromise.complete(this))
                 .exceptionally(ex -> { bootPromise.completeExceptionally(ex); return null;})
         ;
+    }
 
-        closePromise.thenRun(this::shutdown);
+    private IngameContext selectArmy(IngameContext context, Army army) {
+        context.getGameEventManager().api().selectArmy(army);
+        return context;
+    }
 
-        try {
-            shutdownPromise.get();
-        } catch (InterruptedException | ExecutionException e) {
-            logger.error("exception while waiting on shutdown hook", e);
-        }
+    @Nonnull
+    protected Army createArmy() {
+        Army army = armyGeneratorStrategy.createArmy(null);
+        army.id.set("testArmy");
+        return army;
     }
 
     public void shutdown() {
