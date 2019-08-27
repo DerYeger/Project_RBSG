@@ -78,4 +78,8 @@ public class IngameApi {
     public void selectArmy(Army army) {
         gameEventManager.sendMessage(CommandBuilder.changeArmy(army));
     }
+
+    public void ready() {
+        gameEventManager.sendMessage(CommandBuilder.readyToPlay());
+    }
 }
