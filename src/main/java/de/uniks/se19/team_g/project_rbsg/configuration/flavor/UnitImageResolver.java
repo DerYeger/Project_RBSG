@@ -1,7 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.configuration.flavor;
 
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.*;
 import javafx.beans.property.*;
 import javafx.scene.image.*;
+import javafx.util.*;
 
 import java.net.*;
 import java.util.*;
@@ -10,14 +12,24 @@ public class UnitImageResolver
 {
     private static SimpleObjectProperty<FlavourType> flavour = new SimpleObjectProperty<>(FlavourType.DEFAULT);
 
-    private static HashMap<UnitTypeInfo, Image> unitTypeInfoImageHashMap = new HashMap<>();
+    private static HashMap<UnitTypeInfo, SimpleObjectProperty<Image>> unitTypeInfoImageHashMap = new HashMap<>();
+
+    private static HashMap<String, Image> imageWithSizeMap = new HashMap<>();
+
+    public static SimpleObjectProperty<Image> getUnitImageProperty(UnitTypeInfo unitType) {
+        if(!unitTypeInfoImageHashMap.containsKey(unitType)) {
+            loadImageForType(unitType);
+        }
+
+        return unitTypeInfoImageHashMap.get(unitType);
+    }
 
     public static Image getUnitImage(UnitTypeInfo unitType) {
         if(!unitTypeInfoImageHashMap.containsKey(unitType)) {
             loadImageForType(unitType);
         }
 
-        return unitTypeInfoImageHashMap.get(unitType);
+        return unitTypeInfoImageHashMap.get(unitType).get();
     }
 
     public static void setFlavour(FlavourType flavourType) {
@@ -39,9 +51,6 @@ public class UnitImageResolver
 
     public static URL getUnitImageURL(UnitTypeInfo unitType) {
         switch (unitType) {
-
-            case UNKNOWN:
-                return getUnknownUrl();
             case _INFANTRY:
                 return getInfantryUrl();
             case _BAZOOKA_TROOPER:
@@ -139,91 +148,66 @@ public class UnitImageResolver
 
     private static void loadImageForType (UnitTypeInfo unitType)
     {
-        switch (unitType) {
+        URL imageUrl = getUnitUrl(unitType);
+
+        if(!unitTypeInfoImageHashMap.containsKey(unitType)) {
+            unitTypeInfoImageHashMap.put(unitType, new SimpleObjectProperty<>());
+        }
+
+        unitTypeInfoImageHashMap.get(unitType).set(new Image(imageUrl.toExternalForm()));
+    }
+
+    private static URL getUnitUrl (UnitTypeInfo unitType)
+    {
+        URL imageUrl = null;
+
+        switch (unitType)
+        {
             case UNKNOWN:
-                LoadUnknown();
+                imageUrl = getUnknownUrl();
                 break;
             case _INFANTRY:
-                LoadInfantry();
+                imageUrl = getInfantryUrl();
                 break;
             case _BAZOOKA_TROOPER:
-                LoadBazooka();
+                imageUrl = getBazookaTrooperUrl();
                 break;
             case _JEEP:
-                LoadJeep();
+                imageUrl = getJeepUrl();
                 break;
             case _LIGHT_TANK:
-                LoadLightTank();
+                imageUrl = getLightTankUrl();
                 break;
             case _HEAVY_TANK:
-                LoadHeavyTank();
+                imageUrl = getHeavyTankUrl();
                 break;
             case _CHOPPER:
-                LoadChopper();
+                imageUrl = getChopperUrl();
                 break;
         }
+        return imageUrl;
     }
 
-    private static void LoadUnknown ()
+    public static Image getUnitImage (UnitTypeInfo unitTypeInfo, int height, int width)
     {
-        URL imageUrl = null;
+        String key = toKey(unitTypeInfo, height, width);
 
-        imageUrl = getUnknownUrl();
+        if(!imageWithSizeMap.containsKey(key)) {
+            loadImageWithSize(unitTypeInfo, height, width);
+        }
 
-        unitTypeInfoImageHashMap.put(UnitTypeInfo._CHOPPER, new Image(imageUrl.toExternalForm()));
+        return imageWithSizeMap.get(key);
     }
 
-    private static void LoadChopper ()
+    private static void loadImageWithSize (UnitTypeInfo unitType, int height, int width)
     {
-        URL imageUrl = null;
+        URL imageUrl = getUnitUrl(unitType);
 
-        imageUrl = getChopperUrl();
-
-        unitTypeInfoImageHashMap.put(UnitTypeInfo._CHOPPER, new Image(imageUrl.toExternalForm()));
+        imageWithSizeMap.put(toKey(unitType, height, width), new Image(imageUrl.toExternalForm(), width, height,
+                                                                       false, true));
     }
 
-    private static void LoadHeavyTank ()
-    {
-        URL imageUrl = null;
-
-        imageUrl = getHeavyTankUrl();
-
-        unitTypeInfoImageHashMap.put(UnitTypeInfo._HEAVY_TANK, new Image(imageUrl.toExternalForm()));
-    }
-
-    private static void LoadLightTank ()
-    {
-        URL imageUrl = null;
-
-        imageUrl = getLightTankUrl();
-
-        unitTypeInfoImageHashMap.put(UnitTypeInfo._LIGHT_TANK, new Image(imageUrl.toExternalForm()));
-    }
-
-    private static void LoadJeep ()
-    {
-        URL imageUrl = null;
-
-        imageUrl = getJeepUrl();
-
-        unitTypeInfoImageHashMap.put(UnitTypeInfo._JEEP, new Image(imageUrl.toExternalForm()));
-    }
-
-    private static void LoadBazooka ()
-    {
-        URL imageUrl = null;
-
-        imageUrl = getBazookaTrooperUrl();
-
-        unitTypeInfoImageHashMap.put(UnitTypeInfo._BAZOOKA_TROOPER, new Image(imageUrl.toExternalForm()));
-    }
-
-    private static void LoadInfantry ()
-    {
-        URL imageUrl = null;
-
-        imageUrl = getInfantryUrl();
-
-        unitTypeInfoImageHashMap.put(UnitTypeInfo._INFANTRY, new Image(imageUrl.toExternalForm()));
+    private static String toKey(UnitTypeInfo unitType, int height, int width) {
+        return String.format("%s_%s_%d_%d", unitType.toString(), flavour.get().toString(), height, width);
     }
 }

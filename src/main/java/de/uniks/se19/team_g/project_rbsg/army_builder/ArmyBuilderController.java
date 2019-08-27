@@ -149,12 +149,6 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.alertBuilder = alertBuilder;
         this.getArmiesService=getArmiesService;
         this.heretic = new SimpleBooleanProperty();
-        if(UnitImageResolver.getFlavour().equals(FlavourType.DEFAULT)) {
-            heretic.set(true);
-        }
-        else {
-            heretic.set(false);
-        }
     }
 
     @Override
@@ -208,11 +202,18 @@ public class ArmyBuilderController implements Initializable, RootController {
 
         JavaFXUtils.setButtonIcons(
                 flavourButton,
-                getClass().getResource("/assets/unit/portrait/WH40K/InqisitionSkull.gif"),
                 getClass().getResource("/assets/unit/portrait/WH40K/InqisitionSkullGreyScale.gif"),
+                getClass().getResource("/assets/unit/portrait/WH40K/InqisitionSkull.gif"),
                 40,
                 heretic
         );
+
+        if(UnitImageResolver.getFlavour().equals(FlavourType.DEFAULT)) {
+            heretic.set(true);
+        }
+        else {
+            heretic.set(false);
+        }
 
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
@@ -358,12 +359,6 @@ public class ArmyBuilderController implements Initializable, RootController {
         }
         else {
             UnitImageResolver.setFlavour(FlavourType.DEFAULT);
-        }
-
-        for (Unit unit: appState.unitDefinitions)
-        {
-            UnitTypeInfo type = UnitTypeInfo.resolveType(unit.type.get());
-            unit.imageUrl.set(type.getImage().toExternalForm());
         }
     }
 

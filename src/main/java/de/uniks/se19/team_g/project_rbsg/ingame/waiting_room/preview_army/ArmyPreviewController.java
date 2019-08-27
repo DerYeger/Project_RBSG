@@ -30,7 +30,8 @@ public class ArmyPreviewController
         {
 
             Pane unitPane = new Pane();
-            ImageView unitView = new ImageView(new Image(unit.getTypeInfo().getImage().toExternalForm(), 75, 75, false, true));
+//            ImageView unitView = new ImageView(new Image(unit.getTypeInfo().getImage().toExternalForm(), 75, 75, false, true));
+            ImageView unitView =  new ImageView(unit.getTypeInfo().getPreview(75, 75));
             unitPane.getChildren().add(unitView);
             unitPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.07),
                     CornerRadii.EMPTY, Insets.EMPTY)));

@@ -65,6 +65,13 @@ public class JavaFXUtils {
 
     }
 
+    public static void bindImage(ObjectProperty<Image> imageProperty, ObjectProperty<Image> observableImage) {
+        final ObjectBinding<Image> imageBinding = Bindings.createObjectBinding(() -> observableImage.get(),
+                                                                               observableImage);
+        imageProperty.bind(imageBinding);
+
+    }
+
 
     public static void bindButtonDisableWithTooltip(Button button, Pane container, StringProperty tooltip, BooleanProperty flag)
     {
