@@ -1,10 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.scene.RootController;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
@@ -40,6 +37,8 @@ public class IngameRootController
 {
 
     private static Logger logger = LoggerFactory.getLogger(IngameRootController.class);
+
+    private final ExceptionHandler exceptionHandler;
 
     public StackPane root;
 
@@ -84,6 +83,10 @@ public class IngameRootController
         this.dispatcher = dispatcher;
 
         dispatcher.setModelManager(modelManager);
+
+        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
+                .onRetry(this::leave)
+                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
 
@@ -186,12 +189,7 @@ public class IngameRootController
         sceneManager
                 .setScene(SceneConfiguration
                         .of(LOBBY)
-                        .withExceptionHandler(this::handleException)
+                        .withExceptionHandler(exceptionHandler)
                 );
     }
-
-    private void handleException(@NonNull final Exception exception) {
-
-    }
-
 }
