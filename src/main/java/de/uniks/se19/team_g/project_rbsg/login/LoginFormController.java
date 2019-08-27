@@ -277,16 +277,19 @@ public class LoginFormController implements Rincled
     }
 
     private void toLobby() {
-        try {
-            sceneManager.unhandledSetScene(SceneConfiguration.of(LOBBY));
-        } catch (final RuntimeException e) {
-            logger.error(e.getMessage());
-            alertBuilder.confirmation(
-                    AlertBuilder.Text.LOBBY_SOCKET,
-                    this::loginAction,
-                    this::reset
-            );
-        }
+        sceneManager
+                .setScene(SceneConfiguration
+                        .of(LOBBY)
+                        .withExceptionHandler(this::handleSceneManagerException)
+                );
+    }
+
+    private void handleSceneManagerException(@NonNull final Exception exception) {
+        alertBuilder.confirmation(
+                AlertBuilder.Text.LOBBY_SOCKET,
+                this::loginAction,
+                this::reset
+        );
     }
 
     private void reset() {

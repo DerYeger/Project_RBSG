@@ -165,7 +165,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             try {
                 gameProvider.set(game);
                 joinGameManager.joinGame(userProvider.get(), game).get();
-                sceneManager.unhandledSetScene(SceneConfiguration.of(INGAME));
+                sceneManager.setScene(SceneConfiguration.of(INGAME));
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 gameProvider.clear();

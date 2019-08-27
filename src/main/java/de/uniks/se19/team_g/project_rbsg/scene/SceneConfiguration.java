@@ -10,6 +10,7 @@ public class SceneConfiguration {
 
     private final SceneManager.SceneIdentifier sceneIdentifier;
     private SceneManager.SceneIdentifier cacheIdentifier = null;
+    private ExceptionHandler exceptionHandler = null;
 
     private SceneConfiguration(@NonNull final SceneManager.SceneIdentifier sceneIdentifier) {
         this.sceneIdentifier = sceneIdentifier;
@@ -20,12 +21,21 @@ public class SceneConfiguration {
         return this;
     }
 
+    public SceneConfiguration withExceptionHandler(@NonNull final ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
+        return this;
+    }
+
     public SceneManager.SceneIdentifier getSceneIdentifier() {
         return sceneIdentifier;
     }
 
     public SceneManager.SceneIdentifier getCacheIdentifier() {
         return cacheIdentifier;
+    }
+
+    public ExceptionHandler getExceptionHandler() {
+        return exceptionHandler;
     }
 
     @Override

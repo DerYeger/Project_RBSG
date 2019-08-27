@@ -55,7 +55,7 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
     private HashMap<SceneIdentifier, Scene> cachedScenes = new HashMap<>();
     private HashMap<SceneIdentifier, RootController> rootControllers = new HashMap<>();
 
-    private ExceptionHandler exceptionHandler;
+    private DefaultExceptionHandler exceptionHandler;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
@@ -68,7 +68,7 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
         return this;
     }
 
-    public SceneManager withExceptionHandler(@Nullable final ExceptionHandler exceptionHandler) {
+    public SceneManager withExceptionHandler(@Nullable final DefaultExceptionHandler exceptionHandler) {
         this.exceptionHandler = exceptionHandler;
         return this;
     }
@@ -76,13 +76,19 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
     public void setScene(@NonNull final SceneConfiguration sceneConfiguration) {
          try {
            unhandledSetScene(sceneConfiguration);
-        } catch (final Exception e) {
+        } catch (final RuntimeException e) {
             logger.error(e.getMessage());
-            if (exceptionHandler != null) exceptionHandler.handleException(this);
+            if (sceneConfiguration.getExceptionHandler() != null) {
+                sceneConfiguration.getExceptionHandler().handle(e);
+            } else if (exceptionHandler != null) {
+                exceptionHandler.handleException(this);
+            } else {
+                logger.info("No exception handler available");
+            }
         }
     }
 
-    public void unhandledSetScene(@NonNull final SceneConfiguration sceneConfiguration) {
+    private void unhandledSetScene(@NonNull final SceneConfiguration sceneConfiguration) {
         if (stage == null) {
             logger.error("Stage not initialised");
             return;

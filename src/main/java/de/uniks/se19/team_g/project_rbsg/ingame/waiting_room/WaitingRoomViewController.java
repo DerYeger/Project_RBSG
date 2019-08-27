@@ -244,7 +244,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void leaveWaitingRoom ()
     {
         gameProvider.clear();
-        sceneManager.unhandledSetScene(SceneConfiguration.of(LOBBY));
+        sceneManager.setScene(SceneConfiguration.of(LOBBY));
     }
 
     public void toggleSound ()
