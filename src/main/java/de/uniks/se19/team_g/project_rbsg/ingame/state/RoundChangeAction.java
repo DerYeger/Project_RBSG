@@ -11,11 +11,11 @@ public class RoundChangeAction implements Action {
     }
     @Override
     public void undo() {
-        roundCounter--;
+        //roundCounter--;
     }
 
     @Override
     public void run() {
-        roundCounter++;
+        //roundCounter++;
     }
 }
