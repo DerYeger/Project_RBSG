@@ -12,6 +12,8 @@ import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
+import de.uniks.se19.team_g.project_rbsg.util.ExceptionUtils;
 import io.rincl.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -285,8 +287,9 @@ public class LoginFormController implements Rincled
     }
 
     private void handleSceneManagerException(@NonNull final Exception exception) {
+        final AlertBuilder.Text text = ExceptionUtils.rootCause(exception) instanceof WebSocketException ? AlertBuilder.Text.LOBBY_SOCKET : AlertBuilder.Text.OOPS;
         alertBuilder.confirmation(
-                AlertBuilder.Text.LOBBY_SOCKET,
+                text,
                 this::loginAction,
                 this::reset
         );
