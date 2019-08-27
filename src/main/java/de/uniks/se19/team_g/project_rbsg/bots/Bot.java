@@ -1,8 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.bots;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -10,7 +11,6 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.CreateArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
-import javafx.collections.ListChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -43,6 +43,8 @@ public class Bot extends Thread {
     private final CompletableFuture<Bot> bootPromise = new CompletableFuture<>();
     private final CompletableFuture<Bot> closePromise = new CompletableFuture<>();
     private final CompletableFuture<Void> shutdownPromise = new CompletableFuture<>();
+    private final CompletableFuture<Void> gameStart = new CompletableFuture<>();
+
     private IngameContext ingameContext;
     private UserProvider userProvider;
     private ArmyGeneratorStrategy armyGeneratorStrategy;
@@ -107,6 +109,7 @@ public class Bot extends Thread {
                     setIngameContext(ingameContext);
                     ingameContext.getModelManager().setExecutor(executor);
                     ingameContext.boot(false);
+                    ingameContext.getGameEventManager().addHandler(this::listenOnGameStart);
                     return ingameContext;
                 })
         ;
@@ -140,10 +143,18 @@ public class Bot extends Thread {
 
         // when everything is ready
         botReady
-                .thenRun(this::beABot)
                 .thenRun(() -> bootPromise.complete(this))
+                // just wait for game started
+                .thenCombine(gameStart, (aVoid, aVoid2) -> null)
+                .thenRunAsync(this::beABot,executor)
                 .exceptionally(ex -> { bootPromise.completeExceptionally(ex); return null;})
         ;
+    }
+
+    private void listenOnGameStart(ObjectNode jsonNodes) {
+        if (GameEventManager.isActionType(jsonNodes, GameEventManager.GAME_STARTS)) {
+            gameStart.complete(null);
+        }
     }
 
     private IngameContext selectArmy(IngameContext context, Army army) {
@@ -180,43 +191,7 @@ public class Bot extends Thread {
     }
 
     private void beABot() {
-        ingameContext.initializedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                logger.debug(this + ": game was initialized");
-            }
-            ingameContext.getGameState().getPlayers().forEach(
-                    player -> {
-                        player.isReadyProperty().addListener((observable1, oldValue1, newValue1) -> {
-                            logger.debug( player + " is" + (newValue ? "" : " not") + " ready");
-                        });
-                    }
-            );
-            ingameContext.getGameState().getPlayers().addListener(
-                    (ListChangeListener<? super Player>) c -> {
-                        while (c.next()) {
-                            for (var p : c.getRemoved()) {
-                                logger.debug( p + " has left " + this + " :(");
-                            }
-                            for (var p : c.getAddedSubList()) {
-                                logger.debug( p + " has joined " + this + " :)");
-                            }
-                        }
-                    }
-            );
-        });
-
-        CompletableFuture
-                .runAsync(() -> {
-                    logger.debug("being a bot, doing bot stuff");
-                }, executor)
-                .thenRunAsync(
-                        () -> {ingameContext.getGameEventManager().terminate();},
-                    CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS, executor)
-                ).thenRunAsync(
-                        () -> {},
-                        CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS, executor)
-                );//.thenRun( () -> closePromise.complete(this))
-        ;
+        logger.debug( this + " is going to wreck this game and all players in it");
     }
 
     private void setupThread() {
