@@ -34,14 +34,13 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         END_PHASE("endPhase"),
         EXIT("exit"),
         GAME_LOST("gameLost"),
-        GAME_SOCKET("gameSocket"),
         GAME_SOMEBODY_ELSE_WON("elseWon"),
         GAME_WON("gameWon"),
         INVALID_INPUT("invalidInput"),
-        LOBBY_SOCKET("lobbySocket"),
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
         OOPS("oops"),
+        SOCKET("socket"),
         SURRENDER("surrender"),
         UNSAVED_ARMY("unsaved_army");
 
@@ -126,6 +125,10 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         }
     }
 
+    public void priorityInformation(@NonNull final Text text) {
+        priorityInformation(text, null, null);
+    }
+
     public void priorityInformation(@NonNull final Text text,
                                     @Nullable final Runnable runnable) {
         priorityInformation(text, runnable, null);
@@ -136,7 +139,6 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                                     @Nullable final String var) {
         Platform.runLater(() -> {
             overlayTargetProvider.getOverlayTarget().hideAllOverlays();
-            System.out.println(overlayTargetProvider.getOverlayTarget().overlayCount());
             information(text, runnable, var);
         });
     }

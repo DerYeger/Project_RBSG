@@ -3,12 +3,14 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.scene.ExceptionHandler;
 import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
 import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.WebSocketExceptionHandler;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
@@ -50,6 +52,8 @@ public class LoginFormController implements Rincled
 {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private final ExceptionHandler exceptionHandler;
 
     @FXML
     private TextField nameField;
@@ -106,6 +110,10 @@ public class LoginFormController implements Rincled
         this.sceneManager = sceneManager;
         this.appStateInitializer = appStateInitializer;
         this.alertBuilder = alertBuilder;
+
+        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
+                .onRetry(this::toLobby)
+                .onCancel(this::reset);
     }
 
     public void init() {
@@ -282,19 +290,8 @@ public class LoginFormController implements Rincled
         sceneManager
                 .setScene(SceneConfiguration
                         .of(LOBBY)
-                        .withExceptionHandler(this::handleSceneManagerException)
+                        .withExceptionHandler(exceptionHandler)
                 );
-    }
-
-    private void handleSceneManagerException(@NonNull final Exception exception) {
-        final AlertBuilder.Text text =
-                ExceptionUtils.rootCause(exception) instanceof WebSocketException
-                        ? AlertBuilder.Text.LOBBY_SOCKET : AlertBuilder.Text.OOPS;
-        alertBuilder.confirmation(
-                text,
-                this::loginAction,
-                this::reset
-        );
     }
 
     private void reset() {
