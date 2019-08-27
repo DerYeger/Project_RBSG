@@ -18,6 +18,9 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.RemoveAction;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
@@ -59,6 +62,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -142,22 +146,22 @@ public class BattleFieldViewTest extends ApplicationTest {
         context.gameInitialized(ingameGameProvider.get());
         revealBattleField(context);
 
-        Assert.assertNotNull(ingameView);
+        assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
-        Assert.assertNotNull(canvas);
+        assertNotNull(canvas);
         Button menu = lookup("#menuButton").query();
-        Assert.assertNotNull(menu);
+        assertNotNull(menu);
         Button zoomOut = lookup("#zoomOutButton").query();
-        Assert.assertNotNull(zoomOut);
+        assertNotNull(zoomOut);
         Button zoomIn = lookup("#zoomInButton").query();
-        Assert.assertNotNull(zoomIn);
+        assertNotNull(zoomIn);
         for(int i = 0; i < 6; i++) Platform.runLater( () -> controller.zoomOut(null));
         for(int i = 0; i < 12; i++) Platform.runLater( () -> controller.zoomIn(null));
         WaitForAsyncUtils.waitForFxEvents();
         clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
-        Assert.assertNotNull(endPhaseButton);
+        assertNotNull(endPhaseButton);
 
         Game game = ingameGameProvider.get();
         Unit unit = new Unit("10");
@@ -176,7 +180,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
 
         Button ingameInformationsButton = lookup("#playerButton").query();
-        Assert.assertNotNull(ingameInformationsButton);
+        assertNotNull(ingameInformationsButton);
         HBox playerBar = lookup("#playerBar").query();
         clickOn("#playerButton");
         Assert.assertTrue(playerBar.isVisible());
@@ -694,7 +698,57 @@ public class BattleFieldViewTest extends ApplicationTest {
                 any());
     }
 
+    @Test
+    public void testSkynetPausing() throws ExecutionException, InterruptedException {
+        final TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
 
+        final User user = new User().setName("Bob");
+        final Player player = new Player("Bob").setName("Bob").setColor("RED");
+        final Unit unit = definition.playerUnit;
+        final Game game = definition.game.withPlayer(player).setCurrentPlayer(player);
+
+        final GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+
+        final IngameContext context = new IngameContext(
+                new UserProvider().set(user),
+                new GameProvider(),
+                new IngameGameProvider()
+        );
+        context.gameInitialized(game);
+        context.setGameEventManager(gameEventManager);
+
+        final ModelManager modelManager = new ModelManager();
+
+        context.setModelManager(modelManager);
+
+        final History history = modelManager.getHistory();
+
+        history.push(new UpdateAction("hp", 10, unit));
+        history.forward();
+        history.push(new UpdateAction("hp", 5, unit));
+        history.forward();
+
+        revealBattleField(context);
+
+        final Button skynetTurnButton = lookup("#skynetTurnButton").queryButton();
+        final Button skynetButton = lookup("#skynetButton").queryButton();
+
+        assertNotNull(skynetTurnButton);
+        assertNotNull(skynetButton);
+
+        assertFalse(skynetTurnButton.isDisabled());
+        assertFalse(skynetTurnButton.isDisabled());
+
+        history.back();
+
+        assertTrue(skynetTurnButton.isDisabled());
+        assertTrue(skynetTurnButton.isDisabled());
+
+        history.forward();
+
+        assertFalse(skynetTurnButton.isDisabled());
+        assertFalse(skynetTurnButton.isDisabled());
+    }
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions
