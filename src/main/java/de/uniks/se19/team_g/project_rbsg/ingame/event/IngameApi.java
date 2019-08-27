@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.Tour;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
 import org.springframework.lang.NonNull;
 
 import javax.annotation.Nonnull;
@@ -74,4 +75,7 @@ public class IngameApi {
         }
     }
 
+    public void selectArmy(Army army) {
+        gameEventManager.sendMessage(CommandBuilder.changeArmy(army));
+    }
 }
