@@ -1,8 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
@@ -34,6 +34,7 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.scene.Scene;
@@ -190,7 +191,7 @@ public class SpectatorModusTest extends ApplicationTest {
         public GameEventManager gameEventManager() {
             return new GameEventManager(new WebSocketClient(){
                 @Override
-                public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws Exception {
+                public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws WebSocketException {
                     String uriEndpoint = "/game?gameId=1&spectator=true";
 
                     Assert.assertEquals(uriEndpoint, endpoint);
