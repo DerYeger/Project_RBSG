@@ -122,7 +122,7 @@ public class Bot extends Thread {
                     setIngameContext(ingameContext);
                     ingameContext.getModelManager().setExecutor(executor);
                     ingameContext.boot(false);
-                    ingameContext.getGameEventManager().addHandler(this::listenOnGameStart);
+                    ingameContext.getGameEventManager().addHandler(this::listenOnGameEventsForStart);
                     return ingameContext;
                 })
         ;
@@ -160,11 +160,11 @@ public class Bot extends Thread {
                 // just wait for game started
                 .thenCombine(gameStart, (aVoid, aVoid2) -> null)
                 .thenRunAsync(this::beABot, executor)
-                .exceptionally(ex -> { bootPromise.completeExceptionally(ex); return null;})
+                .exceptionally(ex -> { ex.printStackTrace(); return null;})
         ;
     }
 
-    private void listenOnGameStart(ObjectNode jsonNodes) {
+    public void listenOnGameEventsForStart(ObjectNode jsonNodes) {
         if (GameEventManager.isActionType(jsonNodes, GameEventManager.GAME_STARTS)) {
             gameStart.complete(null);
         }
@@ -235,9 +235,10 @@ public class Bot extends Thread {
     private void nextTurn() {
         CompletableFuture
                 .runAsync(
-                        this::doTurn, delayedExecutor
+                    this::doTurn, delayedExecutor
+                ).exceptionally(
+                    throwable -> {throwable.printStackTrace(); return null;}
                 );
-        ;
     }
 
     private void doTurn() {

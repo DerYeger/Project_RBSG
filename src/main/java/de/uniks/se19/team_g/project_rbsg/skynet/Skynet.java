@@ -65,7 +65,7 @@ public class Skynet
         try {
 
 
-            if (!game.getCurrentPlayer().equals(player)) {
+            if (!player.equals(game.getCurrentPlayer())) {
                 return this;
                 // throw new SkynetExcpetion("Not my turn");
             }
