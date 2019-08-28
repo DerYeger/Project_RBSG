@@ -839,6 +839,14 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     public void endRound(){
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.END_ROUND,
+                        this::doEndRound,
+                        null);
+    }
+
+    public void doEndRound(){
         String phase = this.context.getGameState().getPhase();
         if (phase.equals(Game.Phase.movePhase.name())){
             doEndPhase();
