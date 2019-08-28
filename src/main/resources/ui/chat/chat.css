@@ -55,9 +55,6 @@
     -fx-background-radius: 0;
     -fx-padding: 2;
 }
-.messageArea:background {
-    -fx-text-fill: -on-primary-fill;
-}
 
 .scroll-bar .thumb {
     -fx-background-color: -surface-elevation-8-color;

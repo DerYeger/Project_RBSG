@@ -104,7 +104,7 @@ public class History {
         return current;
     }
 
-    public boolean isLatest() {
-        return tail == this.current.getValue();
+    public HistoryEntry getTail() {
+        return tail;
     }
 }

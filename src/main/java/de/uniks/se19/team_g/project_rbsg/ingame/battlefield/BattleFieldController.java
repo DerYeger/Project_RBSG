@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
@@ -14,6 +15,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewP
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
@@ -161,6 +163,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final Button fullscreenButton = new Button();
     private BooleanProperty isUsersTurn;
     private SimpleBooleanProperty skynetRunningProperty;
+    private SimpleBooleanProperty historyIsTailProperty = new SimpleBooleanProperty(true);
 
     @Autowired
     public BattleFieldController (
@@ -1101,6 +1104,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else
         {
+            // Fix for black label, but its rather a JavaFX bug
+            for(ChatChannelController c: chatController.getChatChannelControllers().values()) {
+                c.setWhiteColor();
+            }
             chatPane.setVisible(true);
             JavaFXUtils.setButtonIcons(
                     chatButton,
@@ -1202,7 +1209,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
-        endPhaseButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty));
+        endPhaseButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty).or(historyIsTailProperty.not()));
 
         endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
 
@@ -1214,7 +1221,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
         });
 
-        endRoundButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty));
+        endRoundButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty).or(historyIsTailProperty.not()));
 
         endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
@@ -1364,7 +1371,10 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/oneRoundPlaneBlack.png"),
                 40
         );
-        skynetTurnButton.setOnAction((e) -> skynet.turn());
+        skynetTurnButton.setOnAction((e) -> {
+            jumpToHistoryTail();
+            skynet.turn();
+        });
         skynetTurnButton.disableProperty().bind(isUsersTurn.not().or(skynetRunningProperty));
         skynetTurnButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
         JavaFXUtils.setButtonIcons(
@@ -1374,6 +1384,28 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
         skynetButton.setOnAction(this::startBot);
+
+        if (context != null && context.getModelManager() != null && context.getModelManager().getHistory() != null) {
+            final History history =  context.getModelManager().getHistory();
+            history.currentProperty().addListener(((observable, oldValue, newValue) -> {
+                if (history.getTail() != history.currentProperty().getValue()) {
+                    historyIsTailProperty.set(false);
+                } else {
+                    historyIsTailProperty.set(true);
+                }
+                if (history.getTail() != history.currentProperty().getValue() && skynet.isBotRunning()) {
+                    skynetRunningProperty.set(false);
+                    skynet.stopBot();
+                }
+            }));
+        }
+    }
+
+    private void jumpToHistoryTail() {
+        final History history =  context.getModelManager().getHistory();
+        if (history.getTail() != history.currentProperty().getValue()) {
+            history.timeTravel(history.getTail());
+        }
     }
 
 
@@ -1386,6 +1418,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else
         {
+            jumpToHistoryTail();
             skynetRunningProperty.set(true);
             skynet.startBot();
         }
