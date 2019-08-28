@@ -47,6 +47,8 @@ public class Bot extends Thread {
     private final CreateArmyService createArmyService;
 
     final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    private Executor delayedExecutor = CompletableFuture
+            .delayedExecutor(FREQUENCY, TimeUnit.MILLISECONDS, executor);
 
     private final CompletableFuture<Bot> bootPromise = new CompletableFuture<>();
     private final CompletableFuture<Bot> closePromise = new CompletableFuture<>();
@@ -58,7 +60,6 @@ public class Bot extends Thread {
     private IngameContext ingameContext;
     private UserProvider userProvider;
     private ArmyGeneratorStrategy armyGeneratorStrategy;
-    private Executor delayedExecutor;
     private Skynet skynet;
 
     public Bot(
@@ -228,23 +229,23 @@ public class Bot extends Thread {
             closePromise.complete(this);
         });
 
-        delayedExecutor = CompletableFuture.delayedExecutor(FREQUENCY, TimeUnit.MILLISECONDS, executor);
-
         nextTurn();
     }
 
     private void nextTurn() {
         CompletableFuture
                 .runAsync(
-                        () -> {
-                        if (!running) {
-                            return;
-                        }
-                        skynet.turn();
-                        nextTurn();
-                    }, delayedExecutor
+                        this::doTurn, delayedExecutor
                 );
         ;
+    }
+
+    private void doTurn() {
+        if (!running) {
+            return;
+        }
+        skynet.turn();
+        nextTurn();
     }
 
     private void setupThread() {
@@ -255,4 +256,5 @@ public class Bot extends Thread {
     public CompletableFuture<Bot> getBootPromise() {
         return bootPromise;
     }
+
 }
