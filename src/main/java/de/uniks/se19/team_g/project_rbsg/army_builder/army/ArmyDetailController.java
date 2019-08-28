@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
@@ -13,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.WeakListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,10 +26,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Component
 public class ArmyDetailController implements Initializable {
@@ -48,6 +47,11 @@ public class ArmyDetailController implements Initializable {
     public Button incrementButton;
     public Button decrementButton;
 
+    public Button moveLeftButton;
+    public Button moveRightButton;
+
+    private HashMap<Army, HashMap<Unit, SquadViewModel>> armyMap;
+
     // we want to hold a reference to our change listener so that we can add a weak list change listener and not get garbage collected to early
     // @See ApplicationState
     @SuppressWarnings("FieldCanBeLocal")
@@ -62,6 +66,7 @@ public class ArmyDetailController implements Initializable {
         this.armyBuilderState = armyBuilderState;
         this.cellFactory = armySquadCellFactory;
         selectedArmyListener = this::onSelectedArmyUpdate;
+        armyMap = new HashMap<>();
     }
 
     @Override
@@ -78,6 +83,18 @@ public class ArmyDetailController implements Initializable {
                 getClass().getResource("/assets/icons/operation/removeBlack.png"),
                 80
         );
+        JavaFXUtils.setButtonIcons(
+                moveLeftButton,
+                getClass().getResource("/assets/icons/navigation/arrowBackWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowBackBlack.png"),
+                80
+        );
+        JavaFXUtils.setButtonIcons(
+                moveRightButton,
+                getClass().getResource("/assets/icons/navigation/arrowForwardWhite.png"),
+                getClass().getResource("/assets/icons/navigation/arrowForwardBlack.png"),
+                80
+        );
         appState.selectedArmy.addListener(new WeakChangeListener<>(selectedArmyListener));
         final Army selectedArmy = appState.selectedArmy.get();
         if (selectedArmy != null) {
@@ -85,13 +102,44 @@ public class ArmyDetailController implements Initializable {
         }
 
         armySquadList.setCellFactory(cellFactory);
+
+        configureButtons();
+    }
+
+    protected void configureButtons(){
+        SimpleBooleanProperty noArmiesLeft = new SimpleBooleanProperty(false);
+
+        appState.armies.addListener((ListChangeListener<Army>) amryList -> {
+            if (appState.armies.size() < 1){
+                noArmiesLeft.set(true);
+            } else {
+                noArmiesLeft.set(false);
+            }
+        });
+
+        SimpleBooleanProperty noArmyLeftOrSelected = new SimpleBooleanProperty(false);
+
+        noArmyLeftOrSelected.bind(Bindings.createBooleanBinding(
+                ()-> (noArmiesLeft.get() || appState.selectedArmy.get() == null),
+                noArmiesLeft, appState.selectedArmy
+        ));
+
+        incrementButton.disableProperty().bind(noArmyLeftOrSelected);
+        decrementButton.disableProperty().bind(noArmyLeftOrSelected);
+        noArmiesLeft.addListener(((observable, oldValue, newValue) -> {}));
+        noArmyLeftOrSelected.addListener(((observable, oldValue, newValue) -> {}));
+        incrementButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
+        decrementButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
     }
 
     private void onSelectedArmyUpdate(ObservableValue<? extends Army> observableValue, Army prev, Army nextArmy) {
         bindToArmy(nextArmy);
     }
 
-    private void bindToArmy(Army army) {
+    private void bindToArmy(@Nullable Army army) {
+        if (army == null){
+            return;
+        }
         armyNameLabel.textProperty().bind(army.name);
 
         armySizeLabel.textProperty().bind(
@@ -107,11 +155,13 @@ public class ArmyDetailController implements Initializable {
 
     private void bindSquadList(Army army) {
         final ObservableList<SquadViewModel> squadList = FXCollections.observableArrayList();
-        final Map<Unit, SquadViewModel> squadMap = new HashMap<>();
+        final HashMap<Unit, SquadViewModel> squadMap = new HashMap<>();
         armySquadList.setItems(squadList);
 
         initializeSquadList(army, squadList, squadMap);
         addArmyUnitChangeListener(army, squadList, squadMap);
+
+        armyMap.put(army, squadMap);
     }
 
     private void addArmyUnitChangeListener(Army army, ObservableList<SquadViewModel> squadList, Map<Unit, SquadViewModel> squadMap) {
@@ -119,17 +169,22 @@ public class ArmyDetailController implements Initializable {
             while (change.next()) {
                 for (Unit unit : change.getRemoved()) {
                     final SquadViewModel squadViewModel = squadMap.get(unit);
-                    squadViewModel.members.remove(unit);
-                    if (squadViewModel.members.size() == 0) {
-                        squadMap.remove(unit);
-                        squadList.remove(squadViewModel);
+                    if(!change.wasReplaced()){
+
+                        squadViewModel.members.remove(unit);
+                        if (squadViewModel.members.size() == 0) {
+                            squadMap.remove(unit);
+                            squadList.remove(squadViewModel);
+                        }
                     }
                 }
                 for (Unit unit : change.getAddedSubList()) {
+                    if(!change.wasReplaced()){
                         SquadViewModel newModel = new SquadViewModel();
                         newModel.members.add(unit);
                         squadMap.put(unit, newModel);
                         squadList.add(newModel);
+                    }
                 }
             }
         };
@@ -141,10 +196,11 @@ public class ArmyDetailController implements Initializable {
 
     private void initializeSquadList(Army army, ObservableList<SquadViewModel> squadList, Map<Unit, SquadViewModel> squadMap) {
         for (Unit unit : army.units) {
-            squadMap.put(unit, new SquadViewModel());
+            SquadViewModel newModel = new SquadViewModel();
+            squadMap.put(unit, newModel);
             squadMap.get(unit).members.add(unit);
+            squadList.add(newModel);
         }
-        squadList.setAll(squadMap.values());
     }
 
     public void onAddUnit()
@@ -166,5 +222,59 @@ public class ArmyDetailController implements Initializable {
             army.setUnsavedUpdates(true);
         }
         armyBuilderState.selectedUnit.set(null);
+    }
+    public void moveUnitLeft(ActionEvent event){
+        moveUnit(-1);
+    }
+    public void moveUnitRight(ActionEvent event){
+        moveUnit(1);
+    }
+    public void moveUnit(int leftOrRight){
+
+        HashMap<Unit, SquadViewModel> squadMap = armyMap.get(appState.selectedArmy.get());
+        ObservableList squadList = armySquadList.getItems();
+
+        Unit selected = armyBuilderState.selectedUnit.get();
+        SquadViewModel selectedModel = squadMap.get(selected);
+
+        SquadViewModel neighbourModel;
+        Unit neighbourUnit;
+        for(int i=0; i<squadList.size();i++){
+
+            if(squadList.get(i).equals(selectedModel)){
+
+                if(i==0 && leftOrRight==-1 || i==squadList.size()-1 && leftOrRight==1){
+                    return;
+                }
+
+                neighbourModel=(SquadViewModel) squadList.get(i+leftOrRight);
+                neighbourUnit = neighbourModel.members.get(0);
+
+                squadMap.remove(selected);
+                squadMap.remove(neighbourUnit);
+
+                moveListPositions(selected, neighbourUnit, leftOrRight);
+
+                squadMap.put(neighbourUnit, selectedModel);
+                squadMap.put(selected, neighbourModel);
+                neighbourModel.members.set(0, selectedModel.members.set(0, neighbourUnit));
+
+                armyBuilderState.selectedUnit.set(selected);
+                armySquadList.refresh();
+
+                appState.selectedArmy.get().setUnsavedUpdates(true);
+                i=squadList.size();
+            }
+        }
+    }
+
+    private void moveListPositions(Unit selectedUnit, Unit neighbourUnit, int leftOrRight) {
+        ObservableList<Unit> selectedArmyUnits = appState.selectedArmy.get().units;
+        for(int i=0; i < selectedArmyUnits.size(); i++){
+            if(selectedArmyUnits.get(i)==(selectedUnit)){
+                Collections.swap(selectedArmyUnits, i, i+leftOrRight);
+                i=selectedArmyUnits.size();
+            }
+        }
     }
 }
