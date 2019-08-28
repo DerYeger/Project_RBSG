@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.util.AttackCalculator;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
@@ -130,12 +131,12 @@ public class UnitInfoBoxController<T> implements Initializable
         hpText.unbind();
         hpText.set(String.format("%d / %d ", unit.getHp(), maxHp));
         mpText.set(String.valueOf(unit.getMp()));
-        ca1Text.set(String.valueOf(unit.getAttackValue(UnitTypeInfo._INFANTRY)));
-        ca2Text.set(String.valueOf(unit.getAttackValue(UnitTypeInfo._BAZOOKA_TROOPER)));
-        ca3Text.set(String.valueOf(unit.getAttackValue(UnitTypeInfo._JEEP)));
-        ca4Text.set(String.valueOf(unit.getAttackValue(UnitTypeInfo._LIGHT_TANK)));
-        ca5Text.set(String.valueOf(unit.getAttackValue(UnitTypeInfo._HEAVY_TANK)));
-        ca6Text.set(String.valueOf(unit.getAttackValue(UnitTypeInfo._CHOPPER)));
+        ca1Text.set(String.valueOf(AttackCalculator.getAttackValue(unit, UnitTypeInfo._INFANTRY)));
+        ca2Text.set(String.valueOf(AttackCalculator.getAttackValue(unit, UnitTypeInfo._BAZOOKA_TROOPER)));
+        ca3Text.set(String.valueOf(AttackCalculator.getAttackValue(unit, UnitTypeInfo._JEEP)));
+        ca4Text.set(String.valueOf(AttackCalculator.getAttackValue(unit, UnitTypeInfo._LIGHT_TANK)));
+        ca5Text.set(String.valueOf(AttackCalculator.getAttackValue(unit, UnitTypeInfo._HEAVY_TANK)));
+        ca6Text.set(String.valueOf(AttackCalculator.getAttackValue(unit, UnitTypeInfo._CHOPPER)));
         if(unit.getLeader() != null) {
             playerColorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf(unit.getLeader().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
         }

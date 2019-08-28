@@ -363,18 +363,8 @@ public class TestGameBuilder
     public static class Definition
     {
         final public Game game = new Game("game");
-        final public Unit playerUnit = new Unit("Helicopter Dick"){
-            @Override
-            public int getAttackValue(UnitTypeInfo unitTypeInfo) {
-                return 15;
-            }
-        };
-        final public Unit otherUnit = new Unit("enemy"){
-            @Override
-            public int getAttackValue(UnitTypeInfo unitTypeInfo) {
-                return 99;
-            }
-        };
+        final public Unit playerUnit = new Unit("Helicopter Dick");
+        final public Unit otherUnit = new Unit("enemy");
         final public Cell[][] cells;
 
         public Definition (Cell[][] cells)

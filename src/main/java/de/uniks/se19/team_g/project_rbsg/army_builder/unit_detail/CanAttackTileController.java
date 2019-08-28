@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.util.AttackCalculator;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
@@ -29,7 +30,7 @@ public class CanAttackTileController implements Initializable {
 
     public void setActive(boolean active) {
         if (active) {
-            attackVal.setText(String.valueOf(selectedUnit.get().getAttackValue(unitDefinition)));
+            attackVal.setText(String.valueOf(AttackCalculator.getAttackValue(selectedUnit.get(), unitDefinition)));
             imagePane.setStyle("-fx-background-image: url("+unitDefinition.iconUrl.get()+")");
             Platform.runLater(() -> attackVal.setVisible(true));
         } else {
