@@ -2,7 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.skynet;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.fallback.FallbackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.exception.SkynetExcpetion;
@@ -24,10 +25,11 @@ public class Skynet
     private HashMap<String, Behaviour> behaviours;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public Skynet(@NonNull final ActionExecutor actionExecutor,
-                  @NonNull final Game game,
-                  @NonNull final Player player)
-    {
+    public Skynet(
+        @NonNull final ActionExecutor actionExecutor,
+        @NonNull final Game game,
+        @NonNull final Player player
+    ) {
         this.actionExecutor = actionExecutor;
         this.game = game;
         this.player = player;
@@ -64,7 +66,8 @@ public class Skynet
 
 
             if (!game.getCurrentPlayer().equals(player)) {
-                throw new SkynetExcpetion("Not my turn");
+                return this;
+                // throw new SkynetExcpetion("Not my turn");
             }
 
             if(behaviours.containsKey("surrender") && evalutateSurrender()) {
