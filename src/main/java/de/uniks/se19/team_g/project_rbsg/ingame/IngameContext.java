@@ -3,14 +3,13 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -55,8 +54,27 @@ public class IngameContext {
         userPlayer.ifPresent(player -> player.setIsPlayer(true));
 
         this.userPlayer = userPlayer.orElse(null);
+        if (game.getCurrentPlayer() != null) {
+            onNextPlayer(null, null, game.getCurrentPlayer());
+        }
+        game.currentPlayerProperty().addListener(this::onNextPlayer);
 
         initialized.set(true);
+    }
+
+    private void onNextPlayer (Observable observable, Player lastPlayer, Player nextPlayer)
+    {
+        if (isMyTurn()) {
+            onBeforeUserTurn();
+        }
+    }
+
+    private void onBeforeUserTurn ()
+    {
+        for (de.uniks.se19.team_g.project_rbsg.ingame.model.Unit unit : getUserPlayer().getUnits())
+        {
+            unit.setRemainingMovePoints(unit.getMp());
+        }
     }
 
     public User getUser() {

@@ -864,12 +864,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureHistory();
 
-        context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
-        if (context.getGameState().getCurrentPlayer() != null)
-        {
-            onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
-        }
-
         game = context.getGameState();
         if (game != null)
         {
@@ -1231,22 +1225,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
 
-    @SuppressWarnings("unused")
-    private void onNextPlayer (Observable observable, Player lastPlayer, Player nextPlayer)
-    {
-        if (context.isMyTurn())
-        {
-            onBeforeUserTurn();
-        }
-    }
-
-    private void onBeforeUserTurn ()
-    {
-        for (Unit unit : context.getUserPlayer().getUnits())
-        {
-            unit.setRemainingMovePoints(unit.getMp());
-        }
-    }
 
     private void initMiniMap ()
     {
