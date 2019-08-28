@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.springframework.lang.NonNull;

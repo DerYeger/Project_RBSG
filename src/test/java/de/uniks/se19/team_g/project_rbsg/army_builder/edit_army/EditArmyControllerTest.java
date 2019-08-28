@@ -1,11 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.edit_army;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.ArmyIcon;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;

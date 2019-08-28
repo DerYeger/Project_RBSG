@@ -1,12 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;

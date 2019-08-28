@@ -1,9 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
-import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import org.springframework.lang.NonNull;
 
