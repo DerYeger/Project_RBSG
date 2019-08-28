@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -60,7 +59,6 @@ import java.util.concurrent.CompletableFuture;
 import static de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder.Text.INVALID_INPUT;
 import static de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder.Text.NO_CONNECTION;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
@@ -261,7 +259,7 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
 
         Mockito.verify(gameCreator).sendGameRequest(any(), any());
         Mockito.verify(joinGameManager).joinGame(any(), any());
-        Mockito.verify(sceneManager).setScene(SceneConfiguration.of(INGAME));
+        Mockito.verify(sceneManager).setScene(SceneManager.SceneIdentifier.INGAME, false, null);
     }
 
 }

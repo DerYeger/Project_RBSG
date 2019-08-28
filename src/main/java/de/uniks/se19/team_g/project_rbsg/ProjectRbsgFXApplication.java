@@ -1,9 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg;
 
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.DefaultExceptionHandler;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -22,8 +19,6 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.NotNull;
 import java.util.Locale;
 import java.util.Objects;
-
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Jan Müller
@@ -86,8 +81,8 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
-                .withExceptionHandler(context.getBean(DefaultExceptionHandler.class))
-                .setScene(SceneConfiguration.of(LOGIN));
+                .withExceptionHandler(context.getBean(ExceptionHandler.class))
+                .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
 
         primaryStage.show();
     }

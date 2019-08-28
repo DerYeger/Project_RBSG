@@ -6,7 +6,6 @@ import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -47,13 +46,9 @@ public class LobbyChatClient implements ChatClient {
     }
 
     @Override
-    public void startChatClient(@NonNull final ChatController chatController) throws WebSocketException {
+    public void startChatClient(@NonNull final ChatController chatController) throws Exception {
         this.chatController = chatController;
-        try {
-            webSocketClient.start(ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), this);
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Unsupported URL encoding");
-        }
+        webSocketClient.start(ENDPOINT + URLEncoder.encode(userProvider.get().getName(), StandardCharsets.UTF_8.name()), this);
     }
 
     @Override

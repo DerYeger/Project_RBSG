@@ -1,9 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import javafx.geometry.Side;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
@@ -25,7 +24,7 @@ public class ChatBuilder implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @NonNull
-    public ViewComponent<ChatController> buildChat(@NonNull final ChatClient chatClient) throws WebSocketException {
+    public ViewComponent<ChatController> buildChat(@NonNull final ChatClient chatClient) throws Exception {
         final TabPane tabPane = new TabPane();
         tabPane.setSide(Side.BOTTOM);
         tabPane.getStylesheets().add(this.getClass().getResource("/ui/chat/chat.css").toExternalForm());

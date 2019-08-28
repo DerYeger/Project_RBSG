@@ -16,7 +16,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
-import de.uniks.se19.team_g.project_rbsg.scene.*;
 import de.uniks.se19.team_g.project_rbsg.util.*;
 import io.rincl.*;
 import javafx.application.*;
@@ -40,8 +39,6 @@ import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
-
 
 /**
  * @author Keanu Stückrad
@@ -53,10 +50,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 {
 
     private static final int ICON_SIZE = 40;
-
-    private final ExceptionHandler exceptionHandler;
-
-
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
@@ -145,10 +138,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.previewMapBuilder = previewMapBuilder;
         this.easterEggController = easterEggController;
         this.armyPreviewBuilder = new ArmyPreviewBuilder();
-
-        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
-                .onRetry(this::leaveWaitingRoom)
-                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
     public void initialize ()
@@ -249,11 +238,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void leaveWaitingRoom ()
     {
         gameProvider.clear();
-        sceneManager
-                .setScene(SceneConfiguration
-                        .of(LOBBY)
-                        .withExceptionHandler(exceptionHandler)
-                );
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
     public void toggleSound ()

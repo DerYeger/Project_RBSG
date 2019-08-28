@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.alert;
 
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayException;
 import de.uniks.se19.team_g.project_rbsg.overlay.Overlay;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
@@ -27,24 +27,22 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
     private final OverlayTargetProvider overlayTargetProvider;
 
     public enum Text {
-        CONNECTION_CLOSED("connectionClosed"),
-        CREATE_GAME_ERROR("createGameError"),
-        EGG_WON("eggWon"),
-        EGG_LOST("eggLost"),
-        END_PHASE("endPhase"),
         EXIT("exit"),
-        GAME_LOST("gameLost"),
-        GAME_SOMEBODY_ELSE_WON("elseWon"),
+        CREATE_GAME_ERROR("createGameError"),
+        CONNECTION_CLOSED("connectionClosed"),
         GAME_WON("gameWon"),
+        GAME_SOMEBODY_ELSE_WON("elseWon"),
+        GAME_LOST("gameLost"),
         INVALID_INPUT("invalidInput"),
         LOGOUT("logout"),
         NO_CONNECTION("noConnection"),
-        OOPS("oops"),
-        SOCKET("socket"),
+        PERMISSION_ERROR("permissionError"),
+        END_PHASE("endPhase"),
         SURRENDER("surrender"),
         UNSAVED_ARMY("unsaved_army"),
         COULD_NOT_DELETE("could_not_delete"),
-        ;
+        EGG_WON("eggWon"),
+        EGG_LOST("eggLost");
 
         private final String text;
 
@@ -127,10 +125,6 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         }
     }
 
-    public void priorityInformation(@NonNull final Text text) {
-        priorityInformation(text, null, null);
-    }
-
     public void priorityInformation(@NonNull final Text text,
                                     @Nullable final Runnable runnable) {
         priorityInformation(text, runnable, null);
@@ -141,6 +135,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                                     @Nullable final String var) {
         Platform.runLater(() -> {
             overlayTargetProvider.getOverlayTarget().hideAllOverlays();
+            System.out.println(overlayTargetProvider.getOverlayTarget().overlayCount());
             information(text, runnable, var);
         });
     }

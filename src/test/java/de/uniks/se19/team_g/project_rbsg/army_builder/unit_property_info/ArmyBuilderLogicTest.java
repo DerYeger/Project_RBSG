@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info;
 
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;

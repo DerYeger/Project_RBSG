@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -15,7 +14,6 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import org.junit.Test;
 import org.springframework.beans.factory.ObjectFactory;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 import static org.mockito.Mockito.*;
 
 public class LobbyViewControllerTest {
@@ -46,7 +44,7 @@ public class LobbyViewControllerTest {
 
         sut.goToArmyBuilder(null);
 
-        verify(sceneManager).setScene(eq(SceneConfiguration.of(ARMY_BUILDER).andCache(LOBBY)));
+        verify(sceneManager).setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
         verifyNoMoreInteractions(sceneManager);
     }
 

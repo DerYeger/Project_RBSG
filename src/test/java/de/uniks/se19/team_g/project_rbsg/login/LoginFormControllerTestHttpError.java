@@ -1,14 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
@@ -44,8 +41,6 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * @author Keanu Stückrad
@@ -113,18 +108,12 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
                 }
             };
         }
-
-        @Bean
-        public LogoutManager logoutManager() {
-            return mock(LogoutManager.class);
-        }
-
         @Bean
         public SceneManager sceneManager() {
             return new SceneManager() {
                 @Override
-                public void setScene(@NonNull final SceneConfiguration sceneConfiguration) {
-                    switchedToLobby = sceneConfiguration.getSceneIdentifier().equals(SceneIdentifier.LOBBY);
+                public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+                    switchedToLobby = sceneIdentifier.equals(SceneIdentifier.LOBBY);
                 }
             };
         }
@@ -133,11 +122,6 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
         public ApplicationStateInitializer stateInitializer() {
             initializer = Mockito.mock(ApplicationStateInitializer.class);
             return initializer;
-        }
-
-        @Bean
-        public AlertBuilder alertBuilder() {
-            return mock(AlertBuilder.class);
         }
 
         @Override

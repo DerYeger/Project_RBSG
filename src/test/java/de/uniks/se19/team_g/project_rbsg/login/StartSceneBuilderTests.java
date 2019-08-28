@@ -1,16 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import de.uniks.se19.team_g.project_rbsg.scene.RootController;
+import de.uniks.se19.team_g.project_rbsg.RootController;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
@@ -34,8 +32,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
-
-import static org.mockito.Mockito.mock;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -74,10 +70,7 @@ public class StartSceneBuilderTests extends ApplicationTest {
             return fxmlLoader;
         }
 
-        @Bean
-        public LogoutManager logoutManager() {
-            return mock(LogoutManager.class);
-        }
+
 
         @Bean
         public RestTemplateBuilder restTemplateBuilder(){
@@ -95,11 +88,6 @@ public class StartSceneBuilderTests extends ApplicationTest {
             clientHttpRequestFactory.setConnectTimeout(timeOut);
             clientHttpRequestFactory.setReadTimeout(timeOut);
             return clientHttpRequestFactory;
-        }
-
-        @Bean
-        public AlertBuilder alertBuilder() {
-            return mock(AlertBuilder.class);
         }
 
         @Override
