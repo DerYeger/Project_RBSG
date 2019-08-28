@@ -1,11 +1,15 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.ExceptionHandler;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.scene.WebSocketExceptionHandler;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
@@ -26,6 +30,7 @@ import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
@@ -36,6 +41,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+
 /**
  * @author Georg Siebert
  * @edited Keanu Stückrad
@@ -44,6 +51,10 @@ import java.util.concurrent.ExecutionException;
 @Scope("prototype")
 public class GameListViewCell extends ListCell<Game> implements Initializable
 {
+    private final ExceptionHandler exceptionHandler;
+    @NonNull
+    private final AlertBuilder alertBuilder;
+
     public GridPane gridPane;
     public ImageView gameImageView;
     public Label nameLabel;
@@ -76,13 +87,19 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             @Nonnull final UserProvider userProvider,
             @Nonnull final SceneManager sceneManager,
             @Nonnull final JoinGameManager joinGameManager,
-            @Nonnull final ApplicationState appState
-        ){
+            @Nonnull final ApplicationState appState,
+            @NonNull final AlertBuilder alertBuilder
+            ){
         this.gameProvider = gameProvider;
         this.userProvider = userProvider;
         this.sceneManager = sceneManager;
         this.joinGameManager = joinGameManager;
         this.appState = appState;
+        this.alertBuilder = alertBuilder;
+
+        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
+                .onRetry(this::toIngame)
+                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
     @Override
@@ -162,7 +179,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             try {
                 gameProvider.set(game);
                 joinGameManager.joinGame(userProvider.get(), game).get();
-                sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
+                toIngame();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 gameProvider.clear();
@@ -170,7 +187,7 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
         }
     }
 
-    public void joinSpectating(ActionEvent event){
+    public void joinSpectating(ActionEvent event) {
         if (this.game != null) {
             this.game.setSpectatorModus(true);
         }
@@ -178,11 +195,19 @@ public class GameListViewCell extends ListCell<Game> implements Initializable
             gameProvider.set(game);
             try {
                 joinGameManager.joinGame(userProvider.get(), game).get();
+                toIngame();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
-            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
         }
+    }
+
+    private void toIngame() {
+        sceneManager
+                .setScene(SceneConfiguration
+                        .of(INGAME)
+                        .withExceptionHandler(exceptionHandler)
+                );
     }
 
     @Override
