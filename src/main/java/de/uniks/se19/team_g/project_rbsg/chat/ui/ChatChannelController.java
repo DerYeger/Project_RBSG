@@ -45,12 +45,6 @@ public class ChatChannelController {
         chatController.registerChatChannelController(this, channel);
 
         addEventHandler();
-        // Fix for black label, but its rather a JavaFX bug
-        messageArea.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
-            if (oldPropertyValue) {
-                messageArea.setStyle("-fx-text-fill: white;");
-            }
-        });
     }
 
     private void addEventHandler() {
@@ -113,10 +107,6 @@ public class ChatChannelController {
 
     public TextField getInputField() {
         return inputField;
-    }
-
-    public void setWhiteColor() {
-        messageArea.setStyle("-fx-text-fill: white;");
     }
 
 }

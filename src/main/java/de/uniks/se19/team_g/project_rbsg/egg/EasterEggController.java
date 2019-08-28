@@ -1,12 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.egg;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import eu.yeger.minesweeper.Minesweeper;
 import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

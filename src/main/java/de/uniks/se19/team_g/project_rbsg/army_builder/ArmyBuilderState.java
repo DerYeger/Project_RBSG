@@ -15,19 +15,4 @@ public class ArmyBuilderState {
     {
         return unsavedUpdates.get();
     }
-
-    public final BooleanProperty numberOfArmiesChanged = new SimpleBooleanProperty(false);
-
-
-    public boolean isNumberOfArmiesChanged() {
-        return numberOfArmiesChanged.get();
-    }
-
-    public BooleanProperty numberOfArmiesChangedProperty() {
-        return numberOfArmiesChanged;
-    }
-
-    public void setNumberOfArmiesChanged(boolean numberOfArmiesChanged) {
-        this.numberOfArmiesChanged.set(numberOfArmiesChanged);
-    }
 }

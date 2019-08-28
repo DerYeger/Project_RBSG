@@ -1,19 +1,18 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
-import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import io.rincl.Rincl;
-import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -30,8 +29,6 @@ import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
-
-import static org.mockito.Mockito.mock;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -52,7 +49,7 @@ public class LoginFormBuilderTests extends ApplicationTest {
 
         @Bean
         public ApplicationStateInitializer stateInitializer() {
-            return mock(ApplicationStateInitializer.class);
+            return Mockito.mock(ApplicationStateInitializer.class);
         }
 
         @Bean
@@ -62,11 +59,6 @@ public class LoginFormBuilderTests extends ApplicationTest {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(this.context::getBean);
             return fxmlLoader;
-        }
-
-        @Bean
-        public LogoutManager logoutManager() {
-            return mock(LogoutManager.class);
         }
 
         @Bean
@@ -85,11 +77,6 @@ public class LoginFormBuilderTests extends ApplicationTest {
             clientHttpRequestFactory.setConnectTimeout(timeOut);
             clientHttpRequestFactory.setReadTimeout(timeOut);
             return clientHttpRequestFactory;
-        }
-
-        @Bean
-        public AlertBuilder alertBuilder() {
-            return mock(AlertBuilder.class);
         }
 
         @Override

@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.testfx.framework.junit.ApplicationTest;
@@ -49,10 +50,12 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
 
         inOrder.verify(typesService).queryUnitPrototypes();
         inOrder.verify(armyManager).getArmies();
+        inOrder.verify(armyGenerator, times(ApplicationState.MAX_ARMY_COUNT)).createArmy(armies);
 
+        Assert.assertEquals(ApplicationState.MAX_ARMY_COUNT, appState.armies.size());
+        Assert.assertEquals(1, appState.notifications.size());
     }
 
-    /*
     @Test
     public void fillArmies() {
         final ApplicationState appState = mock(ApplicationState.class);
@@ -77,6 +80,4 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
 
         Assert.assertEquals(ApplicationState.MAX_ARMY_COUNT, armies.size());
     }
-
-     */
 }

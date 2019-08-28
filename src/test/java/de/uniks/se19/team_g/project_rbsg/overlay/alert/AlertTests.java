@@ -1,9 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.alert;
 
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.OverlayConfiguration;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;

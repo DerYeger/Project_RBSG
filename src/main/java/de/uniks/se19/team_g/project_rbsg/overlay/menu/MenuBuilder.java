@@ -1,11 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.overlay.menu;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayException;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.beans.property.Property;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;

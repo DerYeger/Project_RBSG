@@ -4,19 +4,15 @@ import de.uniks.se19.team_g.project_rbsg.bots.UserContext;
 import de.uniks.se19.team_g.project_rbsg.bots.UserContextHolder;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.DefaultExceptionHandler;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
-import io.rincl.Rincl;
-import io.rincl.Rincled;
-import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
+import io.rincl.*;
+import io.rincl.resourcebundle.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.beans.property.Property;
 import javafx.stage.Stage;
+import javafx.beans.property.Property;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
@@ -27,8 +23,6 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.NotNull;
 import java.util.Locale;
 import java.util.Objects;
-
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
 
 /**
  * @author Jan Müller
@@ -97,8 +91,8 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
-                .withExceptionHandler(context.getBean(DefaultExceptionHandler.class))
-                .setScene(SceneConfiguration.of(LOGIN));
+                .withExceptionHandler(context.getBean(ExceptionHandler.class))
+                .setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
 
         primaryStage.show();
     }

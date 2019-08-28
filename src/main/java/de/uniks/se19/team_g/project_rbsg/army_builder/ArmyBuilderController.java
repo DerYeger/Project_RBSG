@@ -1,6 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
@@ -9,27 +12,17 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_property_info.UnitPro
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCellFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
-import de.uniks.se19.team_g.project_rbsg.configuration.army.DefaultArmyGenerator;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.RootController;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
-import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverResponses.DeleteArmyResponse;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
-import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -51,13 +44,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.ARMY_BUILDER;
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
 
 /**
  * @author Goatfryed
@@ -100,7 +89,6 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button soundButton;
     public Button leaveButton;
     public Button deleteArmyButton;
-    public Button createArmyButton;
     public Button saveArmiesButton;
     public Button showInfoButton;
     public VBox armySelectorRoot;
@@ -110,10 +98,6 @@ public class ArmyBuilderController implements Initializable, RootController {
 
     @Nonnull
     private PersistentArmyManager persistantArmyManager;
-    @NonNull
-    private DeleteArmyService deleteArmyService;
-    @NonNull
-    private DefaultArmyGenerator defaultArmyGenerator;
 
     @SuppressWarnings("FieldCanBeLocal")
     private ChangeListener<Unit> onSelectionUpdated;
@@ -140,8 +124,6 @@ public class ArmyBuilderController implements Initializable, RootController {
             @Nullable MusicManager musicManager,
             @Nullable SceneManager sceneManager,
             @Nonnull PersistentArmyManager persistantArmyManager,
-            @NonNull DeleteArmyService deleteArmyService,
-            @NonNull DefaultArmyGenerator defaultArmyGenerator,
             @Nonnull final Property<Locale> selectedLocale,
             @NonNull AlertBuilder alertBuilder,
             @NonNull GetArmiesService getArmiesService
@@ -157,8 +139,6 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.sceneManager = sceneManager;
         this.unitDetailViewFactory = unitDetailViewFactory;
         this.persistantArmyManager = persistantArmyManager;
-        this.deleteArmyService = deleteArmyService;
-        this.defaultArmyGenerator = defaultArmyGenerator;
         this.alertBuilder = alertBuilder;
         this.getArmiesService=getArmiesService;
     }
@@ -176,8 +156,6 @@ public class ArmyBuilderController implements Initializable, RootController {
         configureUnitDetail();
         configureMusicManager();
         configureArmySelector();
-        configureCreateArmy();
-        configureButtons();
 
         unitPropertyInfoListBuilder = new UnitPropertyInfoListBuilder();
 
@@ -213,56 +191,8 @@ public class ArmyBuilderController implements Initializable, RootController {
                 getClass().getResource("/assets/icons/operation/editBlack.png"),
                 80
         );
-        JavaFXUtils.setButtonIcons(
-                createArmyButton,
-                getClass().getResource("/assets/icons/operation/addWhite.png"),
-                getClass().getResource("/assets/icons/operation/addBlack.png"),
-                80
-        );
 
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
-    }
-
-    protected void configureCreateArmy(){
-        SimpleBooleanProperty armiesAreFull = new SimpleBooleanProperty(false);
-
-        appState.armies.addListener((ListChangeListener<Army>) armyList -> {
-            if (armyList.getList().size() >= appState.MAX_ARMY_COUNT){
-                armiesAreFull.set(true);
-            } else {
-                armiesAreFull.set(false);
-            }
-        });
-
-        armiesAreFull.addListener(((observable, oldValue, newValue) -> {}));
-        createArmyButton.disableProperty().bind(armiesAreFull);
-        createArmyButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
-    }
-
-    protected void configureButtons(){
-        SimpleBooleanProperty noArmiesLeft = new SimpleBooleanProperty(false);
-
-        appState.armies.addListener((ListChangeListener<Army>) amryList -> {
-            if (appState.armies.size() < 1){
-                noArmiesLeft.set(true);
-            } else {
-                noArmiesLeft.set(false);
-            }
-        });
-
-        SimpleBooleanProperty noArmyLeftOrSelected = new SimpleBooleanProperty(false);
-
-        noArmyLeftOrSelected.bind(Bindings.createBooleanBinding(
-                ()-> (noArmiesLeft.get() || appState.selectedArmy.get() == null),
-                noArmiesLeft, appState.selectedArmy
-        ));
-
-        deleteArmyButton.disableProperty().bind(noArmyLeftOrSelected);
-        editArmyButton.disableProperty().bind(noArmyLeftOrSelected);
-
-        deleteArmyButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
-        noArmiesLeft.addListener(((observable, oldValue, newValue) -> {}));
-        noArmyLeftOrSelected.addListener(((observable, oldValue, newValue) -> {}));
     }
 
     protected void configureArmyDetail() {
@@ -347,12 +277,12 @@ public class ArmyBuilderController implements Initializable, RootController {
         }
     }
 
-    private void moveToLobby() {
-        sceneManager.setScene(SceneConfiguration.of(LOBBY).andCache(ARMY_BUILDER));
+    private void moveToLobby(){
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, true, SceneManager.SceneIdentifier.ARMY_BUILDER);
     }
 
     public void saveArmies() {
-        this.viewState.setNumberOfArmiesChanged(false);
+
         appState.armies.forEach(army -> army.setUnsavedUpdates(false));
         final List<Army> dirtyArmies = appState.armies.stream().filter(Army::hasUnsavedUpdates).collect(Collectors.toList());
 
@@ -382,31 +312,10 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     public void deleteArmy() {
+        //For clean-deletion
         Army army = appState.selectedArmy.get();
-        if (army.id.get() == null || army.id.get().equals("") ){
-            this.viewState.setNumberOfArmiesChanged(true);
-            this.appState.armies.remove(army);
-            return;
-        }
-        final CompletableFuture<DeleteArmyResponse> deleteArmyResponseCompletableFuture = deleteArmyService.deleteArmy(army);
-        deleteArmyResponseCompletableFuture
-                .thenAccept(answer -> Platform.runLater(()->{
-                    this.appState.armies.remove(army);
-                }))
-                .exceptionally(throwable -> {
-                    alertBuilder.information(
-                            AlertBuilder.Text.COULD_NOT_DELETE
-                    );
-                    return null;
-                });
-        this.viewState.setNumberOfArmiesChanged(true);
-    }
-
-    public void createArmy(){
-        Army newArmy = defaultArmyGenerator.createArmy(this.appState.armies);
-        this.appState.selectedArmy.set(newArmy);
-        this.appState.armies.add(newArmy);
-        editArmy();
+        army.setUnsavedUpdates(true);
+        army.units.clear();
     }
 
     public void editArmy() {

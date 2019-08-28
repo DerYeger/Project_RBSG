@@ -4,8 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +39,7 @@ public class SystemMessageManager implements IWebSocketCallback
         this.webSocketClient = webSocketClient;
     }
 
-    public void startSocket() throws WebSocketException {
+    public void startSocket() throws Exception {
         User registeredUser = WebSocketConfigurator.userProvider.get();
         if (
                 registeredUser == null || registeredUser.getUserKey().isEmpty() || webSocketClient == null) {

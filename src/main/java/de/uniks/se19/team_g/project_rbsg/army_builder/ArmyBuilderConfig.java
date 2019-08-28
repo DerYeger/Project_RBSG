@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.CanAttackTileController;
@@ -7,7 +8,6 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailCont
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -79,9 +79,10 @@ public class ArmyBuilderConfig {
 
         state.unsavedUpdates.bind(
             Bindings.createBooleanBinding(
-                () -> (dirtyAwareArmies.stream().anyMatch(Army::hasUnsavedUpdates) || state.isNumberOfArmiesChanged()),
-                dirtyAwareArmies, state.numberOfArmiesChanged
-            ));
+                () -> dirtyAwareArmies.stream().anyMatch(Army::hasUnsavedUpdates),
+                dirtyAwareArmies
+            )
+        );
 
         return state;
     }

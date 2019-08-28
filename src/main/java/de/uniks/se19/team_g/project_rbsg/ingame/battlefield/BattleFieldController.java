@@ -1,9 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.RootController;
+import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
@@ -12,11 +14,9 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewP
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
@@ -68,9 +68,6 @@ import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.*;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
-
 /**
  * @author Keanu Stückrad
  */
@@ -80,8 +77,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-
-    private final ExceptionHandler exceptionHandler;
 
     private int heightCenter = 500;
     private int widthCenter = 1000;
@@ -191,10 +186,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.roundCounter = 1;
 
         this.selectedLocale = selectedLocale;
-
-        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
-                .onRetry(this::doLeaveGame)
-                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
     public void initialize ()
@@ -810,12 +801,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void doLeaveGame ()
     {
-
-        sceneManager
-                .setScene(SceneConfiguration
-                        .of(LOBBY)
-                        .withExceptionHandler(exceptionHandler)
-                );
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
     }
 
     public void zoomIn (@SuppressWarnings("unused") ActionEvent actionEvent)
@@ -1110,10 +1096,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else
         {
-            // Fix for black label, but its rather a JavaFX bug
-            for(ChatChannelController c: chatController.getChatChannelControllers().values()) {
-                c.setWhiteColor();
-            }
             chatPane.setVisible(true);
             JavaFXUtils.setButtonIcons(
                     chatButton,
@@ -1347,17 +1329,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         skynetButton.setOnAction(this::startBot);
-
-        if (context != null && context.getModelManager() != null && context.getModelManager().getHistory() != null) {
-            final History history =  context.getModelManager().getHistory();
-            history.currentProperty().addListener(((observable, oldValue, newValue) -> {
-                skynetTurnButton.setDisable(!history.isLatest());
-                skynetButton.setDisable(!history.isLatest());
-                if (!history.isLatest() && skynet.isBotRunning()) {
-                    skynet.stopBot();
-                }
-            }));
-        }
     }
 
 

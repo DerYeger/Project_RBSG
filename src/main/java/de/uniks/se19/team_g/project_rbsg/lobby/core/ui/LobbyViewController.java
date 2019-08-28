@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
@@ -16,14 +17,8 @@ import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
-import de.uniks.se19.team_g.project_rbsg.scene.RootController;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
@@ -55,8 +50,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
-
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Georg Siebert
@@ -171,7 +164,7 @@ public class LobbyViewController implements RootController, Terminable
         this.chatBuilder = chatBuilder;
     }
 
-    public void initialize() throws WebSocketException
+    public void initialize() throws Exception
     {
         //Gives the cells of the ListViews a fixed height
         //Needed for cells which are empty to fit them to the height of filled cells
@@ -309,7 +302,7 @@ public class LobbyViewController implements RootController, Terminable
 
     }
 
-    private void configureSystemMessageManager() throws WebSocketException
+    private void configureSystemMessageManager() throws Exception
     {
         UserLeftMessageHandler userLeftMessageHandler = new UserLeftMessageHandler(this.lobby);
 
@@ -329,7 +322,7 @@ public class LobbyViewController implements RootController, Terminable
         lobby.getSystemMessageManager().startSocket();
     }
 
-    private void withChatSupport() throws WebSocketException
+    private void withChatSupport() throws Exception
     {
         if (chatBuilder != null)
         {
@@ -405,13 +398,13 @@ public class LobbyViewController implements RootController, Terminable
 
     private void handleLogout()
     {
-        sceneManager.setScene(SceneConfiguration.of(LOGIN));
+        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
         logoutManager.logout(userProvider);
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent)
     {
-        sceneManager.setScene(SceneConfiguration.of(ARMY_BUILDER).andCache(LOBBY));
+        sceneManager.setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
     }
 
     public void showMenu(final ActionEvent actionEvent) {
