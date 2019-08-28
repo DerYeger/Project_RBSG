@@ -11,24 +11,32 @@ import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.CreateArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.serverResponses.SaveArmyResponse;
+import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.SurrenderBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.attack.AttackBehaviour;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement.MovementBehaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.task.TaskRejectedException;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 @Component
 @Scope("prototype")
 public class Bot extends Thread {
 
+    public static final int FREQUENCY = 100;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private User user;
@@ -45,9 +53,13 @@ public class Bot extends Thread {
     private final CompletableFuture<Void> shutdownPromise = new CompletableFuture<>();
     private final CompletableFuture<Void> gameStart = new CompletableFuture<>();
 
+    private boolean running = true;
+
     private IngameContext ingameContext;
     private UserProvider userProvider;
     private ArmyGeneratorStrategy armyGeneratorStrategy;
+    private Executor delayedExecutor;
+    private Skynet skynet;
 
     public Bot(
             @Nonnull UserProvider userProvider,
@@ -146,7 +158,7 @@ public class Bot extends Thread {
                 .thenRun(() -> bootPromise.complete(this))
                 // just wait for game started
                 .thenCombine(gameStart, (aVoid, aVoid2) -> null)
-                .thenRunAsync(this::beABot,executor)
+                .thenRunAsync(this::beABot, executor)
                 .exceptionally(ex -> { bootPromise.completeExceptionally(ex); return null;})
         ;
     }
@@ -172,15 +184,20 @@ public class Bot extends Thread {
     }
 
     public void shutdown() {
-        CompletableFuture.runAsync(this::doShutdown, executor)
-                .exceptionally(throwable -> {logger.error("shutdown failed", throwable); return null;})
-                .thenRun(executor::shutdown)
-                .thenRun(() -> logger.debug(getName() + " says bye bye!"))
-                .thenRun(() -> shutdownPromise.complete(null))
-        ;
+        try {
+            CompletableFuture.runAsync(this::doShutdown, executor)
+                    .exceptionally(throwable -> {logger.error("shutdown failed", throwable); return null;})
+                    .thenRun(executor::shutdown)
+                    .thenRun(() -> logger.debug(getName() + " says bye bye!"))
+                    .thenRun(() -> shutdownPromise.complete(null))
+            ;
+        } catch (TaskRejectedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void doShutdown() {
+        running = false;
         if (ingameContext != null && ingameContext.getGameEventManager() != null) {
             ingameContext.getGameEventManager().terminate();
         }
@@ -192,6 +209,42 @@ public class Bot extends Thread {
 
     private void beABot() {
         logger.debug( this + " is going to wreck this game and all players in it");
+
+        ActionExecutor actionExecutor = new ActionExecutor(ingameContext.getGameEventManager().api());
+        de.uniks.se19.team_g.project_rbsg.ingame.model.Game gameState = ingameContext.getGameState();
+        skynet = new Skynet(
+            actionExecutor,
+                gameState,
+            ingameContext.getUserPlayer()
+        );
+        skynet
+            .addBehaviour(new MovementBehaviour(), "movePhase", "lastMovePhase")
+            .addBehaviour(new AttackBehaviour(), "attackPhase")
+            .addBehaviour(new SurrenderBehaviour(), "surrender")
+        ;
+
+        gameState.winnerProperty().addListener((observable, oldValue, newValue) -> {
+            logger.info(newValue + " has won the game. " + this + " is shutting down.");
+            closePromise.complete(this);
+        });
+
+        delayedExecutor = CompletableFuture.delayedExecutor(FREQUENCY, TimeUnit.MILLISECONDS, executor);
+
+        nextTurn();
+    }
+
+    private void nextTurn() {
+        CompletableFuture
+                .runAsync(
+                        () -> {
+                        if (!running) {
+                            return;
+                        }
+                        skynet.turn();
+                        nextTurn();
+                    }, delayedExecutor
+                );
+        ;
     }
 
     private void setupThread() {

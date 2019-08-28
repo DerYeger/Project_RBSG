@@ -7,7 +7,10 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -34,7 +37,7 @@ public class BotManager {
         CompletableFuture<Bot> botBooting = CompletableFuture.supplyAsync(getTempUserService)
                 .thenApplyAsync(loginManager::login)
                 .thenApply( user -> botFactory.getObject().start(game, user))
-                .thenCompose(bot1 -> bot1.getBootPromise())
+                .thenCompose(Bot::getBootPromise)
         ;
 
         botBooting
