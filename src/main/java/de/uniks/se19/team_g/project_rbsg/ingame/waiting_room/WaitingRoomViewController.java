@@ -143,7 +143,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.armyPreviewBuilder = new ArmyPreviewBuilder();
     }
 
-    @Autowired
+    @Autowired(required = false)
     public void setBotManager(BotManager botManager) {
         this.botManager = botManager;
     }

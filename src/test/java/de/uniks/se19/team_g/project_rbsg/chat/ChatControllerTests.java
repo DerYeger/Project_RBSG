@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.chat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.bots.UserScopeBeanFactoryPostProcessor;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -45,7 +46,8 @@ import java.util.Optional;
         ChatBuilder.class,
         ChatTabManager.class,
         LobbyChatClient.class,
-        UserProvider.class
+        UserProvider.class,
+        UserScopeBeanFactoryPostProcessor.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ChatControllerTests extends ApplicationTest {

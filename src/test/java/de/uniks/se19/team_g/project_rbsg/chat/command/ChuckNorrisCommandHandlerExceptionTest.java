@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.chat.command;
 
+import de.uniks.se19.team_g.project_rbsg.bots.UserScopeBeanFactoryPostProcessor;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
@@ -38,7 +39,8 @@ import javax.websocket.Session;
         UserProvider.class,
         ChatChannelController.class,
         Terminator.class,
-        ChuckNorrisCommandHandlerTest.ContextConfiguration.class
+        ChuckNorrisCommandHandlerTest.ContextConfiguration.class,
+        UserScopeBeanFactoryPostProcessor.class
 })
 public class ChuckNorrisCommandHandlerExceptionTest extends ApplicationTest {
 

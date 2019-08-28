@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.bots.UserScopeBeanFactoryPostProcessor;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -134,10 +135,11 @@ public class BattleFieldViewTest extends ApplicationTest {
                 new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"));
         player.setColor("RED");
         player.setName("Test");
-        context.getGameState().getPlayers().add(player);
-        context.getGameState().setCurrentPlayer(player);
+        Game gameState = ingameGameProvider.get();
+        gameState.getPlayers().add(player);
+        gameState.setCurrentPlayer(player);
         context.setGameEventManager(gameEventManager);
-        context.gameInitialized(ingameGameProvider.get());
+        context.gameInitialized(gameState);
         revealBattleField(context);
 
         Assert.assertNotNull(ingameView);
@@ -157,7 +159,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Button endPhaseButton = lookup("#endPhaseButton").query();
         Assert.assertNotNull(endPhaseButton);
 
-        Game game = ingameGameProvider.get();
+        Game game = gameState;
         Unit unit = new Unit("10");
         unit.setHp(10);
         unit.setMp(10);
@@ -166,7 +168,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         unit.setPosition(game.getCells().get(11));
         unit.setLeader(player);
 
-        game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
+        game.getUnits().get(0).setPosition(gameState.getCells().get(12));
 
         click(25, 100);
         click(25, 150);
@@ -214,7 +216,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setMp(3);
         playerUnit.setRemainingMovePoints(0);
 
-        IngameContext context = new IngameContext(null, null);
+        IngameContext context = new IngameContext(user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 

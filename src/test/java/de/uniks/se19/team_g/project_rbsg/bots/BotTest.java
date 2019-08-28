@@ -7,6 +7,7 @@ import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.CreateArmyService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.ObjectProvider;
@@ -60,12 +61,20 @@ public class BotTest {
     @MockBean
     ModelManager modelManager;
 
+    @MockBean
+    CreateArmyService createArmyService;
+
     @Test
     public void start() throws ExecutionException, InterruptedException, TimeoutException {
         Game gameData = new Game("game", 4);
         User user = new User();
 
-        Bot sut = new Bot(userProvider, joinGameManager, contextFactory);
+        Bot sut = new Bot(
+                userProvider,
+                joinGameManager,
+                contextFactory,
+                createArmyService
+        );
 
         IngameContext ingameContext = new IngameContext(user, gameData);
         ingameContext.setModelManager(modelManager);

@@ -66,7 +66,6 @@ import static org.mockito.Mockito.mock;
 @ContextConfiguration(classes ={
         CreateGameController.class,
         CreateGameFormBuilder.class,
-        UserProvider.class,
         CreateGameControllerTest.ContextConfiguration.class,
         GameProvider.class,
         LoadingScreenFormBuilder.class,
@@ -107,6 +106,11 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
         SceneManager sceneManager;
 
         private ApplicationContext context;
+
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
 
         @Bean
         @Scope("prototype")

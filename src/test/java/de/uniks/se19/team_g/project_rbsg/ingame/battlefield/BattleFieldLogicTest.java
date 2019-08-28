@@ -100,11 +100,7 @@ public class BattleFieldLogicTest extends ApplicationTest {
         game.setPhase(Game.Phase.movePhase.name());
         game.setCurrentPlayer(player);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user, null);
 
         GameEventManager gameEventManager = new GameEventManager(
                 new WebSocketClient(),

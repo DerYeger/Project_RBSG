@@ -42,8 +42,8 @@ public class IngameRootControllerTest extends ApplicationTest {
     @MockBean
     ViewComponent<BattleFieldController> battleFieldComponent;
 
-    @MockBean
-    IngameContext ingameContext;
+    @MockBean(name = "autoContext")
+    IngameContext autoContext;
 
     @MockBean
     GameEventManager gameEventManager;
@@ -72,7 +72,8 @@ public class IngameRootControllerTest extends ApplicationTest {
         when(waitingRoomComponent.getRoot()).thenReturn(new StackPane());
         when(battleFieldComponent.getController()).thenReturn(battleFieldController);
         when(battleFieldComponent.getRoot()).thenReturn(new StackPane());
-        when(ingameContext.getGameData()).thenReturn(gameData);
+        when(autoContext.getGameData()).thenReturn(gameData);
+        when(autoContext.getGameEventManager()).thenReturn(gameEventManager);
 
         final ArrayList<GameEventHandler> gameEventHandlers = new ArrayList<>();
         doAnswer(invocation -> {
@@ -85,27 +86,25 @@ public class IngameRootControllerTest extends ApplicationTest {
 
         InOrder inOrder = inOrder(
                 gameEventManager,
-                ingameContext,
+                autoContext,
                 waitingRoomViewController,
                 battleFieldController
         );
 
-        verify(gameEventManager).addHandler(modelManager);
-        verify(ingameContext).setGameEventManager(gameEventManager);
         verify(waitingRoomComponent, atLeastOnce()).getController();
         verify(waitingRoomComponent, atLeastOnce()).getRoot();
         verify(battleFieldComponent, never()).getRoot();
         verify(battleFieldComponent, never()).getController();
 
         inOrder.verify(gameEventManager).setOnConnectionClosed(any());
-        inOrder.verify(gameEventManager).startSocket(gameData.getId(), null, false);
-        inOrder.verify(waitingRoomViewController).configure(ingameContext);
+        inOrder.verify(autoContext).boot(false);
+        inOrder.verify(waitingRoomViewController).configure(autoContext);
 
         //Termination
 
         sut.terminate();
         verify(gameEventManager).terminate();
-        verify(ingameContext).tearDown();
+        verify(autoContext).tearDown();
 
         sut.onConnectionClosed();
         //verify(alertBuilder).error(any(), any());
@@ -122,7 +121,7 @@ public class IngameRootControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
         verify(modelManager).getGame();
-        verify(ingameContext).gameInitialized(gameState);
+        verify(autoContext).gameInitialized(gameState);
 
         verify(battleFieldComponent, never()).getRoot();
 
@@ -135,7 +134,7 @@ public class IngameRootControllerTest extends ApplicationTest {
 
         verify(battleFieldComponent, atLeastOnce()).getController();
         verify(battleFieldComponent, atLeastOnce()).getRoot();
-        inOrder.verify(battleFieldController).configure(ingameContext);
+        inOrder.verify(battleFieldController).configure(autoContext);
 
     }
 }

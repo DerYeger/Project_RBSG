@@ -95,7 +95,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
     @TestConfiguration
     static class ContextConfiguration {
 
-
         @Bean
         public Function<VBox, ArmySelectorController> armySelectorComponent(ArmySelectorController armySelectorController) {
             return vBox -> armySelectorController;
@@ -216,7 +215,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
 
-        final IngameContext context = new IngameContext(null, null);
+        final IngameContext context = new IngameContext(new User(), new Game("game", 4));
         context.setGameEventManager(gameEventManager);
         controller.configure(context);
 
@@ -239,9 +238,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
         final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
 
         final User currentUser = new User();
-        final UserProvider userProvider = new UserProvider().set(currentUser);
         final Game gameData = new Game("1", 2);
-        final GameProvider gameDataProvider = new GameProvider().set(gameData);
 
         IngameContext context = new IngameContext(currentUser, gameData);
         context.setGameEventManager(gameEventManager);

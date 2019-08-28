@@ -70,7 +70,6 @@ import static org.junit.Assert.assertNotNull;
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
-        UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
         LobbyViewController.class,
@@ -110,6 +109,11 @@ public class PlayerListTest extends ApplicationTest
 
     @TestConfiguration
     static class ContextConfiguration {
+
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
 
         @Bean
         public CreateGameFormBuilder createGameController()

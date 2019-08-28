@@ -40,8 +40,10 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         END_PHASE("endPhase"),
         SURRENDER("surrender"),
         UNSAVED_ARMY("unsaved_army"),
+        COULD_NOT_DELETE("could_not_delete"),
         EGG_WON("eggWon"),
-        EGG_LOST("eggLost");
+        EGG_LOST("eggLost")
+        ;
 
         private final String text;
 
@@ -134,7 +136,6 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
                                     @Nullable final String var) {
         Platform.runLater(() -> {
             overlayTargetProvider.getOverlayTarget().hideAllOverlays();
-            System.out.println(overlayTargetProvider.getOverlayTarget().overlayCount());
             information(text, runnable, var);
         });
     }
