@@ -1,11 +1,14 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ExceptionHandler;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
 import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.scene.WebSocketExceptionHandler;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -30,6 +33,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+
 /**
  * @author Juri Lozowoj
  * @edited Georg Siebert
@@ -42,6 +47,8 @@ public class CreateGameController implements Rincled
     private static final URL CONFIRM_BLACK = CreateGameController.class.getResource("/assets/icons/navigation/checkBlack.png");
     private static final URL CANCEL_WHITE = CreateGameController.class.getResource("/assets/icons/navigation/crossWhite.png");
     private static final URL CANCEL_BLACK = CreateGameController.class.getResource("/assets/icons/navigation/crossBlack.png");
+
+    private final ExceptionHandler exceptionHandler;
 
     public Label titleLabel;
 
@@ -107,6 +114,10 @@ public class CreateGameController implements Rincled
         this.alertBuilder = alertBuilder;
         this.sceneManager = sceneManager;
         this.loadingScreenFormBuilder = loadingScreenFormBuilder;
+
+        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
+                .onRetry(this::toIngame)
+                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
     public void init(){
@@ -194,7 +205,7 @@ public class CreateGameController implements Rincled
                     .thenRunAsync(
                         () -> {
                             gameProvider.set(game);
-                            sceneManager.setScene(SceneManager.SceneIdentifier.INGAME, false, null);
+                            toIngame();
                         },
                         Platform::runLater
                     );
@@ -204,6 +215,14 @@ public class CreateGameController implements Rincled
             }
         }
         closeCreateGameWindow(null);
+    }
+
+    private void toIngame() {
+        sceneManager
+                .setScene(SceneConfiguration
+                        .of(INGAME)
+                        .withExceptionHandler(exceptionHandler)
+                );
     }
 
     private void setTwoPlayerGame(Observable event) {
