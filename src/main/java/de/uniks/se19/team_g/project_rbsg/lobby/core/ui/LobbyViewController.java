@@ -387,7 +387,10 @@ public class LobbyViewController implements RootController, Terminable
 
         lobbyTitle.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "title"));
 
-        if (createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null)
+        if (createGameFormBuilder != null
+                && createGameFormBuilder.getCreateGameController() != null
+                && createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder != null
+                &&  createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController() != null)
         {
             createGameFormBuilder.getCreateGameController().updateLabels();
             createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController().updateLabels();
