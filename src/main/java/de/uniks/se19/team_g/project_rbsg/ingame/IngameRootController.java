@@ -56,6 +56,8 @@ public class IngameRootController
     @Nonnull
     private final GameEventDispatcher dispatcher;
 
+    private boolean alreadyJoined = false;
+
     private IngameContext ingameContext;
 
     private ViewComponent<? extends IngameViewController> activeComponent;
@@ -137,7 +139,14 @@ public class IngameRootController
             });
             return;
         }
-        if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
+        if ((!alreadyJoined) && (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS))) {
+            alreadyJoined = true;
+            Platform.runLater(this::mountBattleField);
+        }
+
+        if ((!alreadyJoined) && (GameEventManager.isActionType(message, ModelManager.GAME_NEW_OBJECT)) && this.ingameContext.getGameData().isSpectatorModus()){
+            alreadyJoined = true;
+            logger.debug("Joining as spectator.");
             Platform.runLater(this::mountBattleField);
         }
     }
