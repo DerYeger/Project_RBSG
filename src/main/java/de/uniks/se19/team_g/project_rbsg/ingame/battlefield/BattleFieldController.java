@@ -8,6 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
@@ -16,6 +17,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewP
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
@@ -1103,6 +1106,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else
         {
+            // Fix for black label, but its rather a JavaFX bug
+            for(ChatChannelController c: chatController.getChatChannelControllers().values()) {
+                c.setWhiteColor();
+            }
             chatPane.setVisible(true);
             JavaFXUtils.setButtonIcons(
                     chatButton,
@@ -1352,6 +1359,17 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         skynetButton.setOnAction(this::startBot);
+
+        if (context != null && context.getModelManager() != null && context.getModelManager().getHistory() != null) {
+            final History history =  context.getModelManager().getHistory();
+            history.currentProperty().addListener(((observable, oldValue, newValue) -> {
+                skynetTurnButton.setDisable(!history.isLatest());
+                skynetButton.setDisable(!history.isLatest());
+                if (!history.isLatest() && skynet.isBotRunning()) {
+                    skynet.stopBot();
+                }
+            }));
+        }
     }
 
 
