@@ -103,7 +103,7 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
 
         final boolean withCaching = handleCaching(sceneConfiguration);
 
-        if (withCaching) clearCache();
+        if (!withCaching) clearCache();
 
         final SceneIdentifier sceneIdentifier = sceneConfiguration.getSceneIdentifier();
 
