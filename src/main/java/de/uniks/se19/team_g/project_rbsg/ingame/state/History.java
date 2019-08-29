@@ -107,4 +107,14 @@ public class History {
     public boolean isLatest() {
         return tail == this.current.getValue();
     }
+
+
+    public HistoryEntry getTail() {
+        return tail;
+    }
+
+    public void setTail(HistoryEntry tail) {
+        this.tail = tail;
+    }
+
 }

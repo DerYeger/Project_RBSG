@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.HistoryEntry;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class HistoryViewController {
 
     public ListView<HistoryEntry> historyView;
+    public Button liveButton;
 
     final private ActionRenderer actionRenderer;
 
@@ -58,5 +60,9 @@ public class HistoryViewController {
     private void onSelectedEntryChanged(ObservableValue<? extends HistoryEntry> observable, HistoryEntry oldValue, HistoryEntry newValue) {
         HistoryEntry selectedItem = historyView.getSelectionModel().getSelectedItem();
         history.timeTravel(selectedItem);
+    }
+
+    public void getLive(){
+        history.timeTravel(history.getTail());
     }
 }
