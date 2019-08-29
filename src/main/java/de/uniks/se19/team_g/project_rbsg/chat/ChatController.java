@@ -10,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import javafx.scene.control.TabPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,7 @@ public class ChatController {
         this.chatTabManager = chatTabManager;
     }
 
-    public void init(@NonNull final TabPane tabPane, @NonNull final ChatClient chatClient) throws Exception {
+    public void init(@NonNull final TabPane tabPane, @NonNull final ChatClient chatClient) throws WebSocketException {
         this.chatClient = chatClient;
 
         chatChannelControllers = new HashMap<>();

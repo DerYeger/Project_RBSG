@@ -1,9 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
@@ -11,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -19,12 +18,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * TODO: consider removing scope prototype and instead introduce something like Bootable Interface for boot/terminate/boot/...
@@ -36,6 +38,8 @@ public class IngameRootController
 {
 
     private static Logger logger = LoggerFactory.getLogger(IngameRootController.class);
+
+    private final ExceptionHandler exceptionHandler;
 
     public StackPane root;
 
@@ -55,6 +59,8 @@ public class IngameRootController
     private final AlertBuilder alertBuilder;
     @Nonnull
     private final GameEventDispatcher dispatcher;
+
+    private boolean alreadyJoined = false;
 
     private IngameContext ingameContext;
 
@@ -80,6 +86,10 @@ public class IngameRootController
         this.dispatcher = dispatcher;
 
         dispatcher.setModelManager(modelManager);
+
+        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
+                .onRetry(this::leave)
+                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
 
@@ -104,17 +114,17 @@ public class IngameRootController
         gameEventManager.addHandler(this::handleGameEvents);
         gameEventManager.addHandler(dispatcher);
 
-        boolean spectatorModus = ingameContext.getGameData().isSpectatorModus();
-
-        try {
-            gameEventManager.startSocket(gameData.getId(), null, spectatorModus);
-        } catch (Exception e) {
-            logger.error("failed to start socket", e);
-            // TODO: how to handle socket start error? so far, it escalated to FXML loader as well
-            throw new RuntimeException(e);
-        }
+        startSocket();
 
         ingameContext.setGameEventManager(gameEventManager);
+    }
+
+    private void startSocket() {
+        try {
+            gameEventManager.startSocket(ingameContext.getGameData().getId(), null, ingameContext.getGameData().isSpectatorModus());
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -137,7 +147,14 @@ public class IngameRootController
             });
             return;
         }
-        if (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS)) {
+        if ((!alreadyJoined) && (GameEventManager.isActionType(message, GameEventManager.GAME_STARTS))) {
+            alreadyJoined = true;
+            Platform.runLater(this::mountBattleField);
+        }
+
+        if ((!alreadyJoined) && (GameEventManager.isActionType(message, ModelManager.GAME_NEW_OBJECT)) && this.ingameContext.getGameData().isSpectatorModus()){
+            alreadyJoined = true;
+            logger.debug("Joining as spectator.");
             Platform.runLater(this::mountBattleField);
         }
     }
@@ -172,7 +189,10 @@ public class IngameRootController
     }
 
     private void leave() {
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+        sceneManager
+                .setScene(SceneConfiguration
+                        .of(LOBBY)
+                        .withExceptionHandler(exceptionHandler)
+                );
     }
-
 }
