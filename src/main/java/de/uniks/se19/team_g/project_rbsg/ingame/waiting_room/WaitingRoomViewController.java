@@ -1,48 +1,60 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
-import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.*;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.egg.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.*;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
+import de.uniks.se19.team_g.project_rbsg.bots.BotManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
-import de.uniks.se19.team_g.project_rbsg.login.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.ArmyPreviewBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.*;
-import de.uniks.se19.team_g.project_rbsg.bots.BotManager;
-import de.uniks.se19.team_g.project_rbsg.util.*;
-import io.rincl.*;
-import javafx.application.*;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.beans.binding.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
-import javafx.beans.value.*;
-import javafx.collections.*;
-import javafx.event.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.NodeOrientation;
-import javafx.scene.*;
-import javafx.scene.control.*;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.stereotype.*;
+import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Controller;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.function.*;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Function;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
 
 
 /**
@@ -374,7 +386,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if (this.context.getGameData().isSpectatorModus())
         {
             armySelector.setDisable(true);
-            readyButton.setDisable(true);
+            disabledReadyButton.set(false);
         }
     }
 

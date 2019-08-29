@@ -2,8 +2,12 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableBooleanValue;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -337,5 +341,12 @@ public class Cell implements Hoverable, Selectable {
                 .of(getRight(), getBottom(), getLeft(), getTop())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    //TODO replace with actual remaining path distance
+    public double getDistance(@NonNull final Cell other) {
+        return Math.sqrt(
+                Math.pow(this.getX() - other.getX(), 2)
+                        + Math.pow(this.getY() - other.getY(), 2));
     }
 }

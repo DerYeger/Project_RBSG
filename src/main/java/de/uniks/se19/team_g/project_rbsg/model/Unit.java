@@ -3,7 +3,6 @@ package de.uniks.se19.team_g.project_rbsg.model;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 
@@ -88,5 +87,9 @@ public class Unit implements Cloneable {
 
     public String getDescriptionKey() {
         return typeInfo.getDescriptionKey();
+    }
+
+    public int getAttackValue(Unit unit) {
+        return this.typeInfo.getCanAttack(unit.getTypeInfo().getNameKey());
     }
 }

@@ -4,7 +4,6 @@ import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableIntegerValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -270,5 +269,13 @@ public class Unit implements Selectable, Hoverable {
                 .filter(cell -> cell.getUnit() != null)
                 .map(Cell::getUnit)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int getAttackValue(Unit unit) {
+        return this.unitType.getCanAttack(unit.getUnitType().getNameKey());
+    }
+
+    public int getAttackValue(UnitTypeInfo unitTypeInfo) {
+        return this.unitType.getCanAttack(unitTypeInfo.getNameKey());
     }
 }
