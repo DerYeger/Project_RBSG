@@ -1,11 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
-import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -14,15 +9,20 @@ import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.AppStateConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -164,11 +164,15 @@ public class WaitingRoomViewTests extends ApplicationTest {
         de.uniks.se19.team_g.project_rbsg.ingame.model.Game game = new de.uniks.se19.team_g.project_rbsg.ingame.model.Game("");
         Player p1 = new Player("123").setName("P1").setColor("GREEN");
         Player p2 = new Player("456").setName("P2").setColor("BLUE");
-        game.withPlayers(p1, p2);
-        viewComponent.getController().setPlayerCards(game);
         Player p3 = new Player("123").setName("P3").setColor("YELLOW");
-        game.withPlayer(p3);
-        game.withoutPlayer(p2);
+        WaitForAsyncUtils.asyncFx(
+                () -> {
+                    game.withPlayers(p1, p2);
+                    viewComponent.getController().setPlayerCards(game);
+                    game.withPlayer(p3);
+                    game.withoutPlayer(p2);
+                }
+        ).get();
         WaitForAsyncUtils.waitForFxEvents();
         Label label2 = lookup("P1").query();
         Assert.assertNotNull(label2);

@@ -20,7 +20,6 @@ import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
@@ -29,7 +28,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -164,7 +166,7 @@ public class PlayerCardBuilder {
             buildPlayerCard(selectedLocale);
         }
         playerListCellLabel.textProperty().unbind();
-        Platform.runLater(()-> playerListCellLabel.setText(player.getName()));
+        playerListCellLabel.setText(player.getName());
         setReady();
         setColor(color);
 
