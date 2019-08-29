@@ -3,21 +3,18 @@ package de.uniks.se19.team_g.project_rbsg.login;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.uniks.se19.team_g.project_rbsg.scene.ExceptionHandler;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.ExceptionHandler;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.scene.WebSocketExceptionHandler;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
-import de.uniks.se19.team_g.project_rbsg.util.ExceptionUtils;
-import io.rincl.*;
+import io.rincl.Rincled;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -39,7 +36,8 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
 
 /**
  * @author Jan Müller
@@ -275,6 +273,8 @@ public class LoginFormController implements Rincled
                 debugMessage = "Unable to parse exception";
                 e.printStackTrace();
             }
+        } else {
+            throwable.printStackTrace();
         }
 
         if (debugMessage != null) logger.debug(debugMessage);
