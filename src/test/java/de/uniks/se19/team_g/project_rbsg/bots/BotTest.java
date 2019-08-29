@@ -130,10 +130,9 @@ public class BotTest {
         ObjectNode event = new ObjectMapper().readValue(String.format("{\"action\": \"%s\"}", GameEventManager.GAME_STARTS), ObjectNode.class);
         sut.listenOnGameEventsForStart(event);
 
-        Thread.sleep(2500);
+        Thread.sleep(500);
         sut.shutdown();
 
         sut.join();
-
     }
 }
