@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
@@ -22,6 +23,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -70,7 +73,8 @@ import static org.mockito.Mockito.*;
         AlertBuilder.class,
         FXMLLoaderFactory.class,
         AppStateConfig.class,
-        EasterEggController.class
+        EasterEggController.class,
+        LoadingScreenFormBuilder.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -140,11 +144,13 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testBuildWaitingRoomView() {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final Node waitingRoomView = waitingRoomScene.getObject().getRoot();
         Assert.assertNotNull(waitingRoomView);
     }
     
     public void testBuildPlayerCard() throws ExecutionException, InterruptedException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         WaitForAsyncUtils.asyncFx(
                 () -> {
                     final ViewComponent<WaitingRoomViewController> buffer = waitingRoomScene.getObject();
@@ -177,6 +183,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testButtons() throws Exception {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         WaitForAsyncUtils.asyncFx(
             () -> {
                 final ViewComponent<WaitingRoomViewController> buffer = waitingRoomScene.getObject();
@@ -201,6 +208,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
     @Test
     public void testArmySelector()
     {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         AtomicReference<Property<Army>> selectedReference = new AtomicReference<>();
         doAnswer(invocation -> {
             selectedReference.set(invocation.getArgument(1));
@@ -228,7 +236,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testGameStart() {
-
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
 
         final User currentUser = new User();
