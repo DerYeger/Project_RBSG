@@ -371,7 +371,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if (this.context.getGameData().isSpectatorModus())
         {
             armySelector.setDisable(true);
-            readyButton.setDisable(true);
+            disabledReadyButton.set(false);
         }
     }
 
