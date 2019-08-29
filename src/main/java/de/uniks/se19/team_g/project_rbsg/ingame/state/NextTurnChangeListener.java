@@ -9,14 +9,13 @@ import org.springframework.stereotype.Component;
 public class NextTurnChangeListener implements GameEventDispatcher.Listener {
 
     private Player firstPlayer;
-    int round;
 
     NextTurnChangeListener(){
     }
 
     private void publishNextTurnChange(GameEventDispatcher dispatcher, Player player) {
         dispatcher.getModelManager().addAction(
-                new NextTurnAction(round, player)
+                new NextTurnAction(player.getCurrentGame().getRoundCounter(), player)
         );
     }
 
@@ -43,7 +42,7 @@ public class NextTurnChangeListener implements GameEventDispatcher.Listener {
         }
         if(game.getPhase().equals("movePhase")){
             if(player.equals(firstPlayer)){
-                game.setRoundCounter(round++);
+                game.setRoundCounter(game.getRoundCounter()+1);
             }
             publishNextTurnChange(gameEventDispatcher, player);
         }

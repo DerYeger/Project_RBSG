@@ -548,8 +548,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.game.getPlayers().addListener(playerListListener);
 
         this.game.phaseProperty().addListener(phaseChangedListener);
-
-        roundCount.set(0);
+        roundCount.set(this.game.getRoundCounter());
         roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.setText("Phase");
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
