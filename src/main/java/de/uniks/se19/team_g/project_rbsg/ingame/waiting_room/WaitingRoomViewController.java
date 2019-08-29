@@ -325,6 +325,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     {
         armySelectorController = armySelectorComponent.apply(armySelector);
         if(armySelectorController != null && armySelectorController.hoveredArmyProperty() != null) {
+            armySelectorController.setMinHeightForArmySelector();
             armySelectorController.hoveredArmyProperty().addListener(HoveredArmyListener);
         }
         selectedArmy.addListener((observable, oldValue, newValue) ->
