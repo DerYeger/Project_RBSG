@@ -33,7 +33,6 @@ public class AttackCalculator {
 
     private static final Logger logger = LoggerFactory.getLogger(AttackCalculator.class);
 
-
     /**
      *  damage = (attack - defense) % 10
      *  minimum damage is always 1
@@ -71,7 +70,7 @@ public class AttackCalculator {
         return hp / 10 * (fieldDefense * 10);
     }
 
-    private static int getAttackValue(@NonNull final Unit agressor, @NonNull final Unit defender){
+    public static int getAttackValue(@NonNull final Unit agressor, @NonNull final Unit defender){
         return CanAttack.mapCanAttackTo(agressor.getUnitType()).getAttack(defender.getUnitType());
     }
 

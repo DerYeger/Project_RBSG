@@ -1,5 +1,6 @@
-package de.uniks.se19.team_g.project_rbsg;
+package de.uniks.se19.team_g.project_rbsg.scene;
 
+import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTarget;
 import de.uniks.se19.team_g.project_rbsg.overlay.OverlayTargetProvider;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
@@ -9,11 +10,8 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.apache.tomcat.util.security.Escape;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -37,9 +35,7 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
         LOGIN("loginScene"),
         LOBBY("lobbyScene"),
         ARMY_BUILDER("armyScene"),
-        INGAME("ingameScene"),
-        BATTLEFIELD("battleFieldScene"),
-        ;
+        INGAME("ingameScene");
 
         public final String builder;
 
@@ -57,25 +53,45 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
     private HashMap<SceneIdentifier, Scene> cachedScenes = new HashMap<>();
     private HashMap<SceneIdentifier, RootController> rootControllers = new HashMap<>();
 
-    private ExceptionHandler exceptionHandler;
+    private DefaultExceptionHandler exceptionHandler;
 
     public SceneManager init(@NonNull final Stage stage) {
         this.stage = stage;
+        initStage();
+        return this;
+    }
+
+    //package private for tests
+    void initStage() {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setMinHeight(840);
         stage.setMinWidth(840);
         setResizeableFalse();
         stage.setTitle(String.format("%s - %s", getResources().getString("mainTitle"), getResources().getString("subTitle")));
         stage.getIcons().add(new Image(SceneManager.class.getResourceAsStream("/assets/icons/icon.png")));
-        return this;
     }
 
-    public SceneManager withExceptionHandler(@Nullable final ExceptionHandler exceptionHandler) {
+    public SceneManager withExceptionHandler(@Nullable final DefaultExceptionHandler exceptionHandler) {
         this.exceptionHandler = exceptionHandler;
         return this;
     }
 
-    public void setScene(@NonNull final SceneIdentifier sceneIdentifier, @NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
+    public void setScene(@NonNull final SceneConfiguration sceneConfiguration) {
+        try {
+            unhandledSetScene(sceneConfiguration);
+        } catch (final RuntimeException e) {
+            if (sceneConfiguration.getExceptionHandler() != null) {
+                sceneConfiguration.getExceptionHandler().handle(e);
+            } else if (exceptionHandler != null) {
+                exceptionHandler.handle(e);
+            } else {
+                logger.info("No exception handler available");
+            }
+        }
+    }
+
+    //package private for tests
+    void unhandledSetScene(@NonNull final SceneConfiguration sceneConfiguration) {
         if (stage == null) {
             logger.error("Stage not initialised");
             return;
@@ -85,32 +101,32 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
             setResizeableFalse();
         }
 
-        handleCaching(useCaching, cacheIdentifier);
+        final boolean withCaching = handleCaching(sceneConfiguration);
 
-        if (!useCaching) clearCache();
+        if (!withCaching) clearCache();
 
-        logger.debug("Setting scene " + sceneIdentifier.name() + " with" + (useCaching ? " " : "out ") + "caching");
+        final SceneIdentifier sceneIdentifier = sceneConfiguration.getSceneIdentifier();
+
+        logger.debug("Setting scene " + sceneIdentifier.name() + " with" + (withCaching ? " " : "out ") + "caching");
 
         if (cachedScenes.containsKey(sceneIdentifier)) {
             setSceneFromCache(sceneIdentifier);
             return;
         }
 
-        try {
-            @SuppressWarnings("unchecked")
-            final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
-            showSceneFromViewComponent(viewComponent, sceneIdentifier);
-        } catch (final Exception e) {
-            logger.error(e.getMessage());
-            if (exceptionHandler != null) exceptionHandler.handleException(this);
-        }
+        @SuppressWarnings("unchecked")
+        final ViewComponent<RootController> viewComponent = (ViewComponent<RootController>) context.getBean(sceneIdentifier.builder);
+        showSceneFromViewComponent(viewComponent, sceneIdentifier);
     }
 
-    private void handleCaching(@NonNull final boolean useCaching, @Nullable final SceneIdentifier cacheIdentifier) {
-        if (useCaching && cacheIdentifier != null) {
+    private boolean handleCaching(@NonNull final SceneConfiguration sceneConfiguration) {
+        final SceneIdentifier cacheIdentifier = sceneConfiguration.getCacheIdentifier();
+        if (cacheIdentifier != null) {
             cachedScenes.put(cacheIdentifier, stage.getScene());
             logger.debug("Cached scene " + stage.getScene() + " with identifier " + cacheIdentifier.name());
+            return true;
         }
+        return false;
     }
 
     private void doSetScene(@NonNull final Scene scene) {
@@ -203,5 +219,4 @@ public class SceneManager implements ApplicationContextAware, Rincled, OverlayTa
     public boolean isStageInit() {
         return this.stage != null;
     }
-
 }

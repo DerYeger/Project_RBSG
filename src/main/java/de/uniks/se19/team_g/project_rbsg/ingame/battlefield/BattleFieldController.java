@@ -1,9 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.RootController;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
@@ -69,6 +67,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
 
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
+
 /**
  * @author Keanu Stückrad
  */
@@ -78,6 +79,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
+
+    private final ExceptionHandler exceptionHandler;
 
     private int heightCenter = 500;
     private int widthCenter = 1000;
@@ -190,6 +193,10 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.roundCounter = 1;
 
         this.selectedLocale = selectedLocale;
+
+        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
+                .onRetry(this::doLeaveGame)
+                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
     public void initialize ()
@@ -801,7 +808,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void doLeaveGame ()
     {
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+
+        sceneManager
+                .setScene(SceneConfiguration
+                        .of(LOBBY)
+                        .withExceptionHandler(exceptionHandler)
+                );
     }
 
     public void zoomIn (@SuppressWarnings("unused") ActionEvent actionEvent)
