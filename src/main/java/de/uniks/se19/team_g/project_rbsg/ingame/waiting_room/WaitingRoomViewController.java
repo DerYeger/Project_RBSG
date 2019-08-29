@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
+import de.uniks.se19.team_g.project_rbsg.bots.Bot;
 import de.uniks.se19.team_g.project_rbsg.bots.BotManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -345,6 +346,17 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         });
     }
 
+    private void checkForBots() {
+        for (PlayerCardBuilder playerCardBuilder: this.playerCardBuilders){
+            for (Bot bot: botManager.getBots()){
+                if (playerCardBuilder.getPlayer().getName().equals(bot.getName())){
+                    playerCardBuilder.configureKillButton();
+                }
+            }
+        }
+    }
+
+
     protected void configureArmySelection ()
     {
         armySelectorController = armySelectorComponent.apply(armySelector);
@@ -428,6 +440,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
 
         configureArmySelection();
+
+        botManager.getBotObservableList().addListener((ListChangeListener<Bot>) botList -> {
+            checkForBots();
+        });
     }
 
     private void onInitialized ()

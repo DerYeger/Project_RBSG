@@ -49,7 +49,9 @@ public class PlayerCardBuilder {
     public ProgressIndicator progressIndicator;
     public Pane colorPane;
     public Button botButton;
+    public Button killButton;
     public Pane botButtonContainer;
+    public Pane killButtonContainer;
     public Pane root;
 
     private FXMLLoader fxmlLoader;
@@ -109,7 +111,7 @@ public class PlayerCardBuilder {
         colorPane.visibleProperty().bind(notEmptyBinding);
         colorPane.managedProperty().bind(notEmptyBinding);
 
-        botButton.setOnAction(this::handleBotRequest);
+        botButton.setOnAction(actionEvent -> handleBotRequest(actionEvent));
         if (onBotRequested == null) {
             botButton.setDisable(true);
         }
@@ -121,6 +123,15 @@ public class PlayerCardBuilder {
                 40
         );
 
+        JavaFXUtils.setButtonIcons(
+                killButton,
+                getClass().getResource("/assets/icons/operation/killBotBlack.png"),
+                getClass().getResource("/assets/icons/operation/killBotWhite.png"),
+                40
+        );
+
+        killButtonContainer.setVisible(false);
+
         setEmpty();
 
         return playerCardView;
@@ -130,7 +141,6 @@ public class PlayerCardBuilder {
         if (onBotRequested == null) {
             return;
         }
-
         onBotRequested.run();
     }
 
@@ -227,5 +237,9 @@ public class PlayerCardBuilder {
 
     private void handle(ActionEvent event) {
         onBotRequested.run();
+    }
+
+    public void configureKillButton(){
+        botButtonContainer.setVisible(true);
     }
 }
