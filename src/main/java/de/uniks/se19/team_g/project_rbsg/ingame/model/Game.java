@@ -45,6 +45,8 @@ public class Game {
 
     final private ObjectProperty<Hoverable> hovered = new SimpleObjectProperty<>();
 
+    final private SimpleIntegerProperty roundCounter = new SimpleIntegerProperty();
+
     public Game(@NonNull final String id) {
         this.id = id;
 
@@ -367,7 +369,6 @@ public class Game {
         lastMovePhase
     }
 
-
     public boolean isGameStarted() {
         return gameStarted.get();
     }
@@ -378,5 +379,17 @@ public class Game {
 
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted.set(gameStarted);
+    }
+
+    public int getRoundCounter() {
+        return roundCounter.get();
+    }
+
+    public SimpleIntegerProperty roundCounterProperty() {
+        return roundCounter;
+    }
+
+    public void setRoundCounter(int rouncCounter) {
+        this.roundCounter.set(rouncCounter);
     }
 }
