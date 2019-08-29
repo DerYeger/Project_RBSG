@@ -112,9 +112,4 @@ public class History {
     public HistoryEntry getTail() {
         return tail;
     }
-
-    public void setTail(HistoryEntry tail) {
-        this.tail = tail;
-    }
-
 }
