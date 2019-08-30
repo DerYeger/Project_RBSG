@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import animatefx.animation.Bounce;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -15,6 +16,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.*;
@@ -78,7 +81,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-
     private final ExceptionHandler exceptionHandler;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
@@ -156,6 +158,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private HistoryViewProvider historyViewProvider;
 
     private final Button fullscreenButton = new Button();
+    private final MusicManager musicManager;
 
     private Node phaseLabelView;
     private final GameProvider gameProvider;
@@ -171,8 +174,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
             @Nonnull Property<Locale> selectedLocale,
-            @NonNull final GameProvider gameProvider
-            )
+            @NonNull final GameProvider gameProvider,
+            @NonNull MusicManager musicManager
+    )
     {
         this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
@@ -186,9 +190,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.chatController = chatController;
 
         this.roundCount = new SimpleIntegerProperty();
+        //this.roundCounter = 1;
         this.playerCounter = 0;
 
         this.selectedLocale = selectedLocale;
+        this.musicManager = musicManager;
 
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::doLeaveGame)
@@ -250,6 +256,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
         gameName.setText(gameProvider.get().getName());
         menuButton.setTooltip(new Tooltip("ESC/F10"));
+
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -867,6 +874,13 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         game = context.getGameState();
+        game.getUnits().addListener((ListChangeListener) change -> {
+            while(change.next()) {
+                if (change.wasRemoved()) {
+                    musicManager.playDeathSound();
+                }
+            }
+        });
         if (game != null)
         {
             ObservableList<Cell> cells = game.getCells();

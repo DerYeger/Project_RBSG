@@ -83,6 +83,8 @@ import static org.mockito.Mockito.*;
         ChatCommandManager.class,
         GameEventManager.class,
         LocaleConfig.class,
+        MusicManager.class
+        LocaleConfig.class,
         BattleFieldViewTest.ContextConfiguration.class,
 })
 public class BattleFieldViewTest extends ApplicationTest {
