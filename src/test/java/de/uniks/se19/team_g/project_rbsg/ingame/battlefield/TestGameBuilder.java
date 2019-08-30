@@ -68,7 +68,7 @@ public class TestGameBuilder
     /**
      * Y -> player unit, 0 -> passable, X -> blocked, E -> enemy
      * Y E
-     * O O
+     * X X
      */
     public static Definition sampleGameAttack ()
     {
@@ -129,9 +129,8 @@ public class TestGameBuilder
         return definition;
     }
 
-    public static Definition skynetMoveTestGame (@NonNull final Player player,
-                                                 @NonNull final Unit testUnit)
-    {
+    public static Definition skynetMoveTestGame(@NonNull final Player player,
+                                                @NonNull final Unit testUnit) {
         final Definition definition = new Definition(new Cell[5][5]);
 
         final Game game = definition.game;

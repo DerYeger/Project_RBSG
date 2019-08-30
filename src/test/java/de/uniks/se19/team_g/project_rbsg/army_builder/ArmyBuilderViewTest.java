@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder;
 
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army.ArmyDetailController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.edit_army.EditArmyController;
 import de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitDetailController;
@@ -12,6 +12,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.army.DefaultArmyGenerator;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -19,6 +20,7 @@ import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.ArmyUnitAdapter;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.GetArmiesService;
+import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.DeleteArmyService;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.SaveFileStrategy;
 import javafx.application.Platform;
@@ -74,6 +76,12 @@ public class ArmyBuilderViewTest extends ApplicationTest {
     static class ContextConfiguration {
         @Bean
         public PersistentArmyManager persistentArmyManager() {return Mockito.mock(PersistentArmyManager.class);}
+
+        @Bean
+        public DeleteArmyService deleteArmyService() {return Mockito.mock(DeleteArmyService.class) ;}
+
+        @Bean
+        public DefaultArmyGenerator defaultArmyGenerator() {return  Mockito.mock(DefaultArmyGenerator.class); }
 
         @Bean
         public ArmyDetailController armyDetailController() { return Mockito.mock(ArmyDetailController.class);}
@@ -149,7 +157,8 @@ public class ArmyBuilderViewTest extends ApplicationTest {
 
         clickOn("#editArmyButton");
 
-        Mockito.verify(editArmyController, Mockito.times(1)).setArmy(army);
+        // Button is disabled
+        Mockito.verify(editArmyController, Mockito.times(0)).setArmy(army);
 
         Platform.runLater(() -> stage.hide());
         WaitForAsyncUtils.waitForFxEvents();

@@ -52,6 +52,7 @@ public class HistoryViewController {
 
     private void onHistoryStateChanged(ObservableValue<? extends HistoryEntry> observable, HistoryEntry oldValue, HistoryEntry newValue) {
         historyView.getSelectionModel().select(history.getCurrent());
+        historyView.scrollTo(history.getCurrent());
     }
 
 

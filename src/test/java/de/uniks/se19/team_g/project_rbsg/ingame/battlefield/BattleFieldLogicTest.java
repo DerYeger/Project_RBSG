@@ -1,8 +1,8 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -29,8 +29,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -50,7 +52,8 @@ import static org.mockito.Mockito.*;
         ChatCommandManager.class,
         GameEventManager.class,
         LocaleConfig.class,
-        IngameApi.class
+        IngameApi.class,
+        BattleFieldViewTest.ContextConfiguration.class
 })
 public class BattleFieldLogicTest extends ApplicationTest {
 
@@ -76,6 +79,17 @@ public class BattleFieldLogicTest extends ApplicationTest {
 
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
+
+    @TestConfiguration
+    static class ContextConfiguration {
+        @Bean
+        public GameProvider gameProvider() {
+            final de.uniks.se19.team_g.project_rbsg.model.Game defaultGame = new de.uniks.se19.team_g.project_rbsg.model.Game("id", "testGame", 2, 1);
+            final GameProvider gameProvider = new GameProvider();
+            gameProvider.set(defaultGame);
+            return gameProvider;
+        }
+    }
 
     @Override
     public void start(@NonNull final Stage ignored) {
