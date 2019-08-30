@@ -243,6 +243,12 @@ public class Bot extends Thread {
             closePromise.complete(this);
         });
 
+        ingameContext.getGameEventManager().sendMessage(
+                ChatClient.CLIENT_PUBLIC_CHANNEL,
+                null,
+                "❤🍀🐞🎰❤"
+        );
+
         nextTurn();
     }
 
