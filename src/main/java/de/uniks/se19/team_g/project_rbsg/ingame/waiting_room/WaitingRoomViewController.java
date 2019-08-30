@@ -182,7 +182,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         JavaFXUtils.setButtonIcons(
                 readyButton,
                 getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                 200
         );
         JavaFXUtils.setButtonIcons(
@@ -349,6 +349,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     {
         armySelectorController = armySelectorComponent.apply(armySelector);
         if(armySelectorController != null && armySelectorController.hoveredArmyProperty() != null) {
+            armySelectorController.setMinHeightForArmySelector();
             armySelectorController.hoveredArmyProperty().addListener(HoveredArmyListener);
         }
         selectedArmy.addListener((observable, oldValue, newValue) ->
@@ -356,7 +357,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                                      JavaFXUtils.setButtonIcons(
                                              readyButton,
                                              getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                                             getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                                             getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                                              200
                                      );
                                      disabledReadyButton.set(true);
@@ -371,7 +372,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                                      }
                                      context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
                                  });
-
         /*
          * normally, an observable list is only aware of items added and removed
          * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
@@ -485,7 +485,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             JavaFXUtils.setButtonIcons(
                     readyButton,
                     getClass().getResource("/assets/icons/navigation/checkWhiteBig.png"),
-                    getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
+                    getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
                     200
             );
             context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());

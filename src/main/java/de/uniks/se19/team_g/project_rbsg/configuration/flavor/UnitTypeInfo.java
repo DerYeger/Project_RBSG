@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.configuration.flavor;
 
 import de.uniks.se19.team_g.project_rbsg.util.AttackCalculator;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
 import javax.annotation.Nonnull;
@@ -84,7 +85,15 @@ public enum UnitTypeInfo {
     }
 
     public Image getPreview() {
-        return new Image(image.toExternalForm());
+        return UnitImageResolver.getUnitImage(this);
+    }
+
+    public Image getPreview(int height, int width) {
+        return UnitImageResolver.getUnitImage(this, height, width);
+    }
+
+    public ObjectProperty<Image> getImageProperty() {
+        return UnitImageResolver.getUnitImageProperty(this);
     }
 
     public Image getIconImage() {
@@ -92,7 +101,7 @@ public enum UnitTypeInfo {
     }
 
     public URL getImage() {
-        return image;
+        return UnitImageResolver.getUnitImageURL(this);
     }
 
     public int getCanAttack(String name) {

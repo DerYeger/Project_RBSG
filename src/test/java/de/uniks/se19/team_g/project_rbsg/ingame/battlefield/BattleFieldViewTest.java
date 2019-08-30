@@ -1,9 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.bots.UserScopeBeanFactoryPostProcessor;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -19,12 +16,13 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -77,7 +75,7 @@ import static org.mockito.Mockito.*;
         UserProvider.class,
         ChatCommandManager.class,
         GameEventManager.class,
-        LocaleConfig.class
+        LocaleConfig.class,
 })
 public class BattleFieldViewTest extends ApplicationTest {
 
@@ -103,7 +101,6 @@ public class BattleFieldViewTest extends ApplicationTest {
 
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
-
 
     @Override
     public void start(@NonNull final Stage ignored) {
@@ -284,12 +281,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
 
-        game.setCurrentPlayer(null);
-        // test no action, if user is not current player
-        click(-25, -25);
-        //verifyNoMoreInteractions(gameEventManager);
-        click(-25, -75);
-
     }
 
     @Test
@@ -416,6 +407,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
         context.getGameState().getCells().get(5).setUnit(null);
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         WaitForAsyncUtils.waitForFxEvents();
 
         Tour tour = new Tour();
@@ -488,6 +480,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Tile unitTile = playerUnit.getPosition().getTile();
 
         context.getGameState().setPhase("attackPhase");
+        sleep(1000);
         while(context.getGameState().getPhase()==null){
             sleep(1);
         }
@@ -499,12 +492,14 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         while(!context.getGameState().getPhase().equals("movePhase")){
             sleep(1);
         }
         WaitForAsyncUtils.waitForFxEvents();
 
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
     }
 
@@ -539,20 +534,19 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
+        sleep(1000);
         click(-25, -25);
         click( -25, 25);
         click(-25, -25);
         game.setPhase(Game.Phase.movePhase.name());
-        //verifyZeroInteractions(gameEventManager);
+        sleep(1000);
         click(25, -25);
         game.setPhase(Game.Phase.attackPhase.name());
-
+        sleep(1000);
         click(-25, -25);
         click(25, -25);
         verify(gameEventManager, times(1)).api();
-        //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
-
         Assert.assertNull(game.getSelectedUnit());
     }
 
