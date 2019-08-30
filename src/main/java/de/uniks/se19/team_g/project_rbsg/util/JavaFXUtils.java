@@ -40,8 +40,34 @@ public class JavaFXUtils {
                 .otherwise(nonHover));
     }
 
+    public static void setButtonIcons(Button button, URL trueIconName, URL falseIconName, int iconSize,
+                                      BooleanProperty condition) {
+        ImageView trueImage = new ImageView();
+        ImageView falseImage = new ImageView();
+
+        falseImage.fitWidthProperty().setValue(iconSize);
+        falseImage.fitHeightProperty().setValue(iconSize);
+
+        trueImage.fitWidthProperty().setValue(iconSize);
+        trueImage.fitHeightProperty().setValue(iconSize);
+
+        trueImage.setImage(new Image(trueIconName.toString()));
+        falseImage.setImage(new Image(falseIconName.toString()));
+
+        button.graphicProperty().bind(Bindings.when(condition)
+                                              .then(trueImage)
+                                              .otherwise(falseImage));
+    }
+
     public static void bindImage(ObjectProperty<Image> imageProperty, ObservableStringValue imgUrlProperty) {
         final ObjectBinding<Image> imageBinding = Bindings.createObjectBinding(() -> new Image(imgUrlProperty.get()), imgUrlProperty);
+        imageProperty.bind(imageBinding);
+
+    }
+
+    public static void bindImage(ObjectProperty<Image> imageProperty, ObjectProperty<Image> observableImage) {
+        final ObjectBinding<Image> imageBinding = Bindings.createObjectBinding(() -> observableImage.get(),
+                                                                               observableImage);
         imageProperty.bind(imageBinding);
 
     }
