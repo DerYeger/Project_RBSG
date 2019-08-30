@@ -28,6 +28,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -243,11 +244,15 @@ public class Bot extends Thread {
             closePromise.complete(this);
         });
 
-        ingameContext.getGameEventManager().sendMessage(
-                ChatClient.CLIENT_PUBLIC_CHANNEL,
-                null,
-                "❤🍀🐞🎰❤"
+        executor.execute(
+                () -> ingameContext.getGameEventManager().sendMessage(
+                        ChatClient.CLIENT_PUBLIC_CHANNEL,
+                        null,
+                        "❤🍀🐞🎰❤"
+                ),
+                new Random().nextInt(500) + 2000
         );
+
 
         nextTurn();
     }
