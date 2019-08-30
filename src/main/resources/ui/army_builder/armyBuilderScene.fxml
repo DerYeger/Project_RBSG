@@ -19,109 +19,94 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController">
-   <children>
-   <StackPane fx:id="root" styleClass="root-background-color">
-      <children>
-          <HBox alignment="CENTER" maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" spacing="5.0" StackPane.alignment="CENTER">
-             <children>
-                 <VBox fx:id="sideBarLeft" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="60.0" spacing="5.0" HBox.hgrow="NEVER">
-                    <children>
-                        <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#showInfo" styleClass="icon-button">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="flavourButton" mnemonicParsing="false" onAction="#forTheEmperor" styleClass="icon-button" />
-                    </children>
-                  <HBox.margin>
-                     <Insets />
-                  </HBox.margin>
-                  <padding>
-                     <Insets left="5.0" top="20.0" />
-                  </padding>
-                 </VBox>
-                 <VBox fx:id="content" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="1000.0" styleClass="army-scene-content" HBox.hgrow="ALWAYS">
-                    <children>
-                        <HBox fx:id="topContentContainer" maxHeight="320.0" maxWidth="1.7976931348623157E308" minHeight="320.0" VBox.vgrow="ALWAYS">
-                           <children>
-                               <ListView fx:id="unitListView" maxHeight="310.0" maxWidth="280.0" minHeight="310.0" minWidth="210.0" styleClass="default">
-                              <HBox.margin>
-                                 <Insets top="10.0" />
-                              </HBox.margin>
-                              </ListView>
-                               <Pane fx:id="unitDetailView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="320.0" minWidth="780.0" HBox.hgrow="ALWAYS">
-                              <HBox.margin>
-                                 <Insets />
-                              </HBox.margin>
-                              </Pane>
-                           </children>
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
-                        </HBox>
-            
-                        <VBox alignment="CENTER" maxHeight="495.0" maxWidth="1040.0" minHeight="495.0" minWidth="1040.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <HBox fx:id="armyDetailsContainer" fillHeight="false" maxHeight="490.0" maxWidth="1.7976931348623157E308" minHeight="490.0" minWidth="950.0" VBox.vgrow="NEVER" />
-                            </children>
-                        </VBox>
-                    </children>
-                  <HBox.margin>
-                     <Insets top="10.0" />
-                  </HBox.margin>
-                 </VBox>
-                 <VBox fx:id="sideBarRight" alignment="TOP_CENTER" maxHeight="820.0" maxWidth="1.7976931348623157E308" minHeight="820.0" minWidth="100.0" spacing="5.0" HBox.hgrow="NEVER">
-                    <children>
-                        <VBox fx:id="armySelectorRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-                            <VBox.margin>
-                                <Insets left="10.0" right="10.0" top="10.0" />
-                            </VBox.margin>
-                        </VBox>
-                        <Button fx:id="editArmyButton" mnemonicParsing="false" onAction="#editArmy" styleClass="icon-button-big">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="saveArmiesButton" mnemonicParsing="false" onAction="#saveArmies" styleClass="icon-button-big">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="deleteArmyButton" mnemonicParsing="false" onAction="#deleteArmy" styleClass="icon-button-big">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                    </children>
-                  <HBox.margin>
-                     <Insets />
-                  </HBox.margin>
-                  <padding>
-                     <Insets left="5.0" right="10.0" />
-                  </padding>
-                 </VBox>
-             </children>
-            <StackPane.margin>
+<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderController">
+<StackPane fx:id="root" styleClass="root-background-color">
+    <HBox alignment="CENTER" maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" spacing="5.0" StackPane.alignment="CENTER">
+        <VBox fx:id="sideBarLeft" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="60.0" spacing="5.0" HBox.hgrow="NEVER">
+            <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Button>
+            <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Button>
+            <Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#showInfo" styleClass="icon-button">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Button>
+            <Button fx:id="flavourButton" mnemonicParsing="false" onAction="#forTheEmperor" styleClass="icon-button" />
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets left="5.0" top="20.0" />
+         </padding>
+        </VBox>
+        <VBox fx:id="content" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="1000.0" styleClass="army-scene-content" HBox.hgrow="ALWAYS">
+            <HBox fx:id="topContentContainer" maxHeight="320.0" maxWidth="1.7976931348623157E308" minHeight="320.0" VBox.vgrow="ALWAYS">
+                <ListView fx:id="unitListView" maxHeight="310.0" maxWidth="280.0" minHeight="310.0" minWidth="210.0" styleClass="default">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></ListView>
+                <Pane fx:id="unitDetailView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="320.0" minWidth="780.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Pane>
+            <VBox.margin>
                <Insets />
-            </StackPane.margin>
-          </HBox>
-         <HBox fx:id="modalContainer" alignment="CENTER" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="modal-background" visible="false" StackPane.alignment="CENTER" />
-      </children>
-       <stylesheets>
-           <URL value="@unitPropertyInfoListView.css" />
-           <URL value="@../darkTheme.css" />
-       </stylesheets>
-   </StackPane>
-   </children>
+            </VBox.margin>
+            </HBox>
+
+            <VBox alignment="CENTER" maxHeight="495.0" maxWidth="1040.0" minHeight="495.0" minWidth="1040.0" VBox.vgrow="ALWAYS">
+                <children>
+                    <HBox fx:id="armyDetailsContainer" fillHeight="false" maxHeight="490.0" maxWidth="1.7976931348623157E308" minHeight="490.0" minWidth="950.0" VBox.vgrow="NEVER" />
+                </children>
+            </VBox>
+         <HBox.margin>
+            <Insets top="10.0" />
+         </HBox.margin>
+        </VBox>
+        <VBox fx:id="sideBarRight" alignment="TOP_CENTER" maxHeight="820.0" maxWidth="1.7976931348623157E308" minHeight="820.0" minWidth="100.0" spacing="5.0" HBox.hgrow="NEVER">
+            <VBox fx:id="armySelectorRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+            </VBox>
+            <Button fx:id="createArmyButton" mnemonicParsing="false" onAction="#createArmy" styleClass="icon-button-big" />
+            <Button fx:id="deleteArmyButton" mnemonicParsing="false" onAction="#deleteArmy" styleClass="icon-button-big">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Button>
+            <Button fx:id="editArmyButton" mnemonicParsing="false" onAction="#editArmy" styleClass="icon-button-big">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Button>
+            <Button fx:id="saveArmiesButton" mnemonicParsing="false" onAction="#saveArmies" styleClass="icon-button-big">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Button>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets left="5.0" right="10.0" />
+         </padding>
+        </VBox>
+      <StackPane.margin>
+         <Insets />
+      </StackPane.margin>
+    </HBox>
+   <HBox fx:id="modalContainer" alignment="CENTER" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="modal-background" visible="false" StackPane.alignment="CENTER" />
+    <stylesheets>
+        <URL value="@unitPropertyInfoListView.css" />
+        <URL value="@../darkTheme.css" />
+    </stylesheets>
+</StackPane>
 </StackPane>
