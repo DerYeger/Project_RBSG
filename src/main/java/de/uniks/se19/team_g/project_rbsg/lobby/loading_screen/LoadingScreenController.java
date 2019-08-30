@@ -1,18 +1,25 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.loading_screen;
 
+import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincl;
 import io.rincl.Rincled;
+import javafx.beans.property.Property;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
+import java.util.Random;
 
 @Component
 public class LoadingScreenController implements Rincled {
 
     public Label loadingText;
     public ImageView loadingGif;
-
-    private String tip;
 
     public void init() {
         Image gif = new Image(getClass().getResource("/assets/gifs/Ring.gif").toExternalForm());
@@ -21,18 +28,14 @@ public class LoadingScreenController implements Rincled {
     }
 
     public void updateLabels(){
-        double random = Math.random();
-        if (random < 0.3){
-            loadingText.textProperty().setValue(getResources().getString("firstTip"));
-        } else if (random >= 0.3 && random < 0.6){
-            loadingText.textProperty().setValue(getResources().getString("secondTip"));
+        Random random = new Random();
+        int i = random.nextInt(3);
+        if (i == 0){
+            loadingText.setText(Rincl.getResources(ProjectRbsgFXApplication.class).getString("firstTip"));
+        } else if (i == 1){
+            loadingText.setText(Rincl.getResources(ProjectRbsgFXApplication.class).getString("secondTip"));
         } else {
-            loadingText.textProperty().setValue(getResources().getString("thirdTip"));
+            loadingText.setText(Rincl.getResources(ProjectRbsgFXApplication.class).getString("thirdTip"));
         }
     }
-
-    private void chooseTip(){
-
-    }
-
 }

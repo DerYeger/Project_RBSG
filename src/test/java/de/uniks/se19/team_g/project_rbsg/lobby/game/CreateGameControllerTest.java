@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
@@ -70,7 +71,8 @@ import static org.mockito.Mockito.mock;
         CreateGameControllerTest.ContextConfiguration.class,
         LoadingScreenFormBuilder.class,
         LoadingScreenController.class,
-        ChatBuilder.class
+        ChatBuilder.class,
+        LocaleConfig.class
 })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CreateGameControllerTest extends ApplicationTest implements ApplicationContextAware {
