@@ -4,7 +4,6 @@ import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableIntegerValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -268,6 +267,11 @@ public class Unit implements Selectable, Hoverable {
 
     public ObservableBooleanValue attackReadyProperty() {
         return attackReady;
+    }
+
+    public void ready() {
+        setAttackReady(true);
+        setRemainingMovePoints(getMp());
     }
 
     public Unit setAttackReady(boolean attackReady) {

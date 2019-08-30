@@ -1,46 +1,62 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
-import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.*;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.egg.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.*;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
+import de.uniks.se19.team_g.project_rbsg.bots.Bot;
+import de.uniks.se19.team_g.project_rbsg.bots.BotManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
-import de.uniks.se19.team_g.project_rbsg.login.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.ArmyPreviewBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.*;
-import de.uniks.se19.team_g.project_rbsg.util.*;
-import io.rincl.*;
-import javafx.application.*;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.beans.binding.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
-import javafx.beans.value.*;
-import javafx.collections.*;
-import javafx.event.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.NodeOrientation;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.stereotype.*;
+import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Controller;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.function.*;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Function;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
 
 
 /**
@@ -113,6 +129,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     @SuppressWarnings("FieldCanBeLocal")
     private BooleanBinding startGameBinding;
     private SimpleIntegerProperty readyCounter = new SimpleIntegerProperty(0);
+    private BotManager botManager;
 
     @Autowired
     public WaitingRoomViewController (
@@ -149,6 +166,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::leaveWaitingRoom)
                 .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
+    }
+
+    @Autowired(required = false)
+    public void setBotManager(BotManager botManager) {
+        this.botManager = botManager;
     }
 
     public void initialize ()
@@ -210,23 +232,34 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             playerCardBuilders.add(playerCard3);
             playerCardBuilders.add(playerCard4);
         }
+
+        if (botManager != null) {
+            playerCardBuilders.forEach(playerCardBuilder -> playerCardBuilder.setOnBotRequested(() -> botManager.requestBot(gameProvider.get())));
+        }
     }
 
-    private void setPlayerCardNodes ()
-    {
-        player1Pane.getChildren().add(playerCard.buildPlayerCard(selectedLocale));
-        player2Pane.getChildren().add(playerCard2.buildPlayerCard(selectedLocale));
-        playerCard2.switchColumns();
-        if (gameProvider.get().getNeededPlayer() == 4)
-        {
+    private void setPlayerCardNodes() {
+        Node player1 = playerCard.buildPlayerCard(selectedLocale);
+        playerCard.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 0));
+        Node player2 = playerCard2.buildPlayerCard(selectedLocale);
+        playerCard2.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 1));
+        player1Pane.getChildren().add(player1);
+        player2Pane.getChildren().add(player2);
+        playerCard2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+
+        if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
+            Node player3 = playerCard3.buildPlayerCard(selectedLocale);
+            playerCard3.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 2));
+            Node player4 = playerCard4.buildPlayerCard(selectedLocale);
+            playerCard4.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 3));
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
             AnchorPane.setTopAnchor(player2Pane, 102.0);
-            player3Pane.getChildren().add(playerCard3.buildPlayerCard(selectedLocale));
-            player4Pane.getChildren().add(playerCard4.buildPlayerCard(selectedLocale));
-            playerCard4.switchColumns();
+            player3Pane.getChildren().add(player3);
+            player4Pane.getChildren().add(player4);
+            playerCard4.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
         else
         {
@@ -274,7 +307,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         {
             for (PlayerCardBuilder playerC : playerCardBuilders)
             {
-                if (playerC.isEmpty)
+                if (playerC.isEmpty())
                 {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));
                     break;
@@ -292,9 +325,13 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                     {
                         for (PlayerCardBuilder playerC : playerCardBuilders)
                         {
-                            if ((playerC.isEmpty) && (p.getColor() != null))
+                            if ((playerC.isEmpty()) && (p.getColor() != null))
                             {
                                 playerC.setPlayer(p, Color.valueOf(p.getColor()));
+                                Bot bot = botManager.getAssociatedBot(p);
+                                if(bot != null){
+                                    playerC.configureKillButton(bot);
+                                }
                                 break;
                             }
                         }
@@ -306,11 +343,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                     {
                         for (PlayerCardBuilder playerC : playerCardBuilders)
                         {
-                            if (!playerC.isEmpty)
+                            if (!playerC.isEmpty())
                             {
                                 if (playerC.getPlayer().equals(p))
                                 {
-                                    Platform.runLater(playerC::playerLeft);
+                                    playerC.playerLeft();
                                     break;
                                 }
                             }
@@ -320,6 +357,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             }
         });
     }
+
+
 
     protected void configureArmySelection ()
     {
@@ -475,6 +514,17 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if (readyCounter == 5)
         {
             Platform.runLater(easterEggController::start);
+        }
+    }
+
+    private void onPlayerCardClicked(MouseEvent event, int playerNumber){
+        ObservableList<Player> players = context.getGameState().getPlayers();
+        if(playerNumber>players.size()-1){
+            return;
+        }
+        Player player = players.get(playerNumber);
+        if(!player.isPlayer()){
+            chatController.chatTabManager().openTab('@' + player.getName());
         }
     }
 

@@ -53,7 +53,6 @@ import static org.mockito.Mockito.*;
         GameEventManager.class,
         LocaleConfig.class,
         IngameApi.class,
-        BattleFieldViewTest.ContextConfiguration.class
 })
 public class BattleFieldLogicTest extends ApplicationTest {
 
@@ -114,11 +113,7 @@ public class BattleFieldLogicTest extends ApplicationTest {
         game.setPhase(Game.Phase.movePhase.name());
         game.setCurrentPlayer(player);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user, null);
 
         GameEventManager gameEventManager = new GameEventManager(
                 new WebSocketClient(),

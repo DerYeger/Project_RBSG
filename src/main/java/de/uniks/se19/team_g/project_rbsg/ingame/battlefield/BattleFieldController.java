@@ -2,8 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import animatefx.animation.Bounce;
 import com.globalmentor.java.*;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
@@ -17,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.*;
@@ -81,7 +81,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-
     private final ExceptionHandler exceptionHandler;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
@@ -167,9 +166,9 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final BooleanProperty animationsAllowed;
 
     private final Button fullscreenButton = new Button();
+    private final MusicManager musicManager;
 
     private Node phaseLabelView;
-    private final GameProvider gameProvider;
 
     private Point2D center = new Point2D(100, 100);
 
@@ -182,10 +181,8 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
             @Nonnull Property<Locale> selectedLocale,
-            @NonNull final GameProvider gameProvider
-            )
-    {
-        this.gameProvider = gameProvider;
+            @NonNull MusicManager musicManager
+    ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.menuBuilder = menuBuilder;
@@ -197,9 +194,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.chatController = chatController;
 
         this.roundCount = new SimpleIntegerProperty();
+        //this.roundCounter = 1;
         this.playerCounter = 0;
 
         this.selectedLocale = selectedLocale;
+        this.musicManager = musicManager;
 
         movementAnimationManager = new MovementAnimationManager();
         deathAnimationManager = new DeathAnimationManager();
@@ -277,7 +276,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         gameName.setText(gameProvider.get().getName());
+
         menuButton.setTooltip(new Tooltip("ESC/F10"));
+
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -930,18 +931,20 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureHistory();
 
-        context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
         if (phaseLabelView == null) {
             phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
             rootPane.getChildren().add(phaseLabelView);
             phaseLabelView.visibleProperty().set(false);
         }
-        if (context.getGameState().getCurrentPlayer() != null)
-        {
-            onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
-        }
 
         game = context.getGameState();
+        game.getUnits().addListener((ListChangeListener) change -> {
+            while(change.next()) {
+                if (change.wasRemoved()) {
+                    musicManager.playDeathSound();
+                }
+            }
+        });
         if (game != null)
         {
             ObservableList<Cell> cells = game.getCells();
@@ -1123,7 +1126,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void onNextPhase(@SuppressWarnings("unused") Observable observable, @SuppressWarnings("unused") String lastPhase, @SuppressWarnings("unused") String nextPhase)
     {
         setCellProperty(null);
-        game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
     }
 
     private void addAlertListeners ()
@@ -1294,8 +1296,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
 
-        currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
-
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
         endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
@@ -1313,22 +1313,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
 
-    @SuppressWarnings("unused")
-    private void onNextPlayer (Observable observable, Player lastPlayer, Player nextPlayer)
-    {
-        if (context.isMyTurn())
-        {
-            onBeforeUserTurn();
-        }
-    }
-
-    private void onBeforeUserTurn ()
-    {
-        for (Unit unit : context.getUserPlayer().getUnits())
-        {
-            unit.setRemainingMovePoints(unit.getMp());
-        }
-    }
 
     private void initMiniMap ()
     {
