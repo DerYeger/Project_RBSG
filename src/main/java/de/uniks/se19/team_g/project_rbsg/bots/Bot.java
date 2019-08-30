@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.bots;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
@@ -200,6 +201,7 @@ public class Bot extends Thread {
     private void doShutdown() {
         running = false;
         if (ingameContext != null) {
+            String message = "V(-,,-)V  Bye bye! :)";
             if (
                     ingameContext.isInitialized()
                     && ingameContext.getGameState() != null
@@ -207,8 +209,10 @@ public class Bot extends Thread {
                     && ingameContext.getGameState().getWinner() == ingameContext.getUserPlayer()
             ) {
                 logger.info("Fc*k, yeah. Wreck'd 'em");
+                message = "gg wp bb 👏👏👏";
             }
             if (ingameContext.getGameEventManager() != null) {
+                ingameContext.getGameEventManager().sendMessage(ChatClient.CLIENT_PUBLIC_CHANNEL, null, message);
                 ingameContext.getGameEventManager().terminate();
             }
         }
