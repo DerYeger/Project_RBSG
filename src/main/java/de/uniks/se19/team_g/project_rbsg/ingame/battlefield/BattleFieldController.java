@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import animatefx.animation.Bounce;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
@@ -77,7 +78,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-
     private final ExceptionHandler exceptionHandler;
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
@@ -155,6 +155,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private HistoryViewProvider historyViewProvider;
 
     private final Button fullscreenButton = new Button();
+    private final MusicManager musicManager;
 
     private Node phaseLabelView;
 
@@ -168,9 +169,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
-            @Nonnull Property<Locale> selectedLocale
-    )
-    {
+            @Nonnull Property<Locale> selectedLocale,
+            @NonNull MusicManager musicManager
+    ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.menuBuilder = menuBuilder;
@@ -182,9 +183,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.chatController = chatController;
 
         this.roundCount = new SimpleIntegerProperty();
+        //this.roundCounter = 1;
         this.playerCounter = 0;
 
         this.selectedLocale = selectedLocale;
+        this.musicManager = musicManager;
 
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::doLeaveGame)
@@ -246,6 +249,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         menuButton.setTooltip(new Tooltip("ESC/F10"));
+
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -858,6 +862,13 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         game = context.getGameState();
+        game.getUnits().addListener((ListChangeListener) change -> {
+            while(change.next()) {
+                if (change.wasRemoved()) {
+                    musicManager.playDeathSound();
+                }
+            }
+        });
         if (game != null)
         {
             ObservableList<Cell> cells = game.getCells();
