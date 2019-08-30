@@ -31,7 +31,7 @@ public class MovementActionRenderer extends DefaultActionRenderer {
         FXMLLoader fxmlLoader = getFXMLLoader();
         DefaultHistoryCellController controller = fxmlLoader.getController();
         controller.primaryIcon.setImage(getIcon("/assets/icons/operation/footstepsWhite.png"));
-        controller.secondaryIcon.setImage(unit.getUnitType().getIconImage());
+        controller.secondaryIcon.setImage(unit.getUnitType().getPreview());
 
         Node root = fxmlLoader.getRoot();
 

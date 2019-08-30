@@ -283,4 +283,12 @@ public class Unit implements Selectable, Hoverable {
                 .map(Cell::getUnit)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public int getAttackValue(Unit unit) {
+        return this.unitType.getCanAttack(unit.getUnitType().getNameKey());
+    }
+
+    public int getAttackValue(UnitTypeInfo unitTypeInfo) {
+        return this.unitType.getCanAttack(unitTypeInfo.getNameKey());
+    }
 }

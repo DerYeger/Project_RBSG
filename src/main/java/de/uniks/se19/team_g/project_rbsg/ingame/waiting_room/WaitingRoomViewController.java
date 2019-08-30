@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
 import de.uniks.se19.team_g.project_rbsg.login.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
+import de.uniks.se19.team_g.project_rbsg.scene.*;
 import de.uniks.se19.team_g.project_rbsg.util.*;
 import io.rincl.*;
 import javafx.application.*;
@@ -39,6 +40,8 @@ import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+
 
 /**
  * @author Keanu Stückrad
@@ -50,6 +53,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 {
 
     private static final int ICON_SIZE = 40;
+
+    private final ExceptionHandler exceptionHandler;
+
+
     private final GameProvider gameProvider;
     private final UserProvider userProvider;
     private final SceneManager sceneManager;
@@ -138,6 +145,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.previewMapBuilder = previewMapBuilder;
         this.easterEggController = easterEggController;
         this.armyPreviewBuilder = new ArmyPreviewBuilder();
+
+        exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
+                .onRetry(this::leaveWaitingRoom)
+                .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
     public void initialize ()
@@ -151,7 +162,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         JavaFXUtils.setButtonIcons(
                 readyButton,
                 getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                 200
         );
         JavaFXUtils.setButtonIcons(
@@ -238,7 +249,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void leaveWaitingRoom ()
     {
         gameProvider.clear();
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOBBY, false, null);
+        sceneManager
+                .setScene(SceneConfiguration
+                        .of(LOBBY)
+                        .withExceptionHandler(exceptionHandler)
+                );
     }
 
     public void toggleSound ()
@@ -310,6 +325,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     {
         armySelectorController = armySelectorComponent.apply(armySelector);
         if(armySelectorController != null && armySelectorController.hoveredArmyProperty() != null) {
+            armySelectorController.setMinHeightForArmySelector();
             armySelectorController.hoveredArmyProperty().addListener(HoveredArmyListener);
         }
         selectedArmy.addListener((observable, oldValue, newValue) ->
@@ -317,7 +333,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                                      JavaFXUtils.setButtonIcons(
                                              readyButton,
                                              getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                                             getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                                             getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                                              200
                                      );
                                      disabledReadyButton.set(true);
@@ -332,7 +348,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                                      }
                                      context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
                                  });
-
         /*
          * normally, an observable list is only aware of items added and removed
          * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
@@ -347,7 +362,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if (this.context.getGameData().isSpectatorModus())
         {
             armySelector.setDisable(true);
-            readyButton.setDisable(true);
+            disabledReadyButton.set(false);
         }
     }
 
@@ -446,7 +461,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             JavaFXUtils.setButtonIcons(
                     readyButton,
                     getClass().getResource("/assets/icons/navigation/checkWhiteBig.png"),
-                    getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
+                    getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
                     200
             );
             context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
