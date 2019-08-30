@@ -5,6 +5,11 @@
  @author Keanu Stückrad
  !-->
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -33,6 +38,7 @@
                     <Insets />
                 </VBox.margin>
             </Button>
+            <Button fx:id="flavourButton" mnemonicParsing="false" onAction="#forTheEmperor" styleClass="icon-button" />
          <HBox.margin>
             <Insets />
          </HBox.margin>

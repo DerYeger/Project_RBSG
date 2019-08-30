@@ -82,7 +82,7 @@ public class UnitDetailController implements Initializable {
             JavaFXUtils.bindTranslation(selectedLocale, unit.getDescriptionKey())
         );
 
-        JavaFXUtils.bindImage(imageView.imageProperty(), unit.imageUrl);
+        JavaFXUtils.bindImage(imageView.imageProperty(), unit.getTypeInfo().getImageProperty());
 
         if (propertyViewComponentFactory != null) {
             statsContainer.getChildren().clear();
