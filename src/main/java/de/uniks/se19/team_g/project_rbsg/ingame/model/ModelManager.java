@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventHandler;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.util.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.GameChangeObjectEvent;
@@ -36,7 +37,7 @@ public class ModelManager implements GameEventHandler {
     }};
 
     private static final String GAME_INIT_OBJECT = "gameInitObject";
-    public static final String GAME_NEW_OBJECT = "gameNewObject";
+    private static final String GAME_NEW_OBJECT = "gameNewObject";
     private static final String GAME_REMOVE_OBJECT = "gameRemoveObject";
     public static final String GAME_CHANGE_OBJECT = GameChangeObjectEvent.NAME;
 

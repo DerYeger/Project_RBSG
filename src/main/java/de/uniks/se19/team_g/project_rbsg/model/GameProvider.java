@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
+import de.uniks.se19.team_g.project_rbsg.bots.UserScoped;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
  * provides a .model.Game Model that holds the lobby game knowledge like neededPlayerCount
  */
 @Component
+@UserScoped
 public class GameProvider {
 
     private Game game;

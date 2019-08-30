@@ -3,6 +3,8 @@ package de.uniks.se19.team_g.project_rbsg.lobby.core;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
+import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -25,10 +27,6 @@ import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
@@ -67,8 +65,6 @@ import java.util.Collection;
 @ContextConfiguration(classes = {
         FXMLLoaderFactory.class,
         ChatBuilder.class,
-        GameProvider.class,
-        UserProvider.class,
         SceneManager.class,
         GameListViewCell.class,
         CreateGameFormBuilder.class,
@@ -81,7 +77,6 @@ import java.util.Collection;
         SceneManagerConfig.class,
         AlertBuilder.class,
         LocaleConfig.class,
-        IngameContext.class,
         IngameGameProvider.class,
         IngameRootController.class,
         JoinGameManager.class,
@@ -105,6 +100,21 @@ public class SpectatorModusTest extends ApplicationTest {
 
     @TestConfiguration
     public static class ContextConfiguration {
+
+        @Bean
+        public GameProvider gameProvider() {
+            return new GameProvider();
+        }
+
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
+
+        @Bean
+        public IngameContext ingameContext() {
+            return new IngameContext(new User(), new Game("tolles game", 4));
+        }
 
         @Bean
         public CreateGameController createGameController()

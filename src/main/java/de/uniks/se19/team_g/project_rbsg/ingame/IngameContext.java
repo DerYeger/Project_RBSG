@@ -3,26 +3,21 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
-import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ObservableList;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Optional;
 
-@Component
-@Scope("prototype")
 public class IngameContext {
 
-    @Nonnull private final UserProvider userProvider;
-    @Nonnull private final GameProvider gameDataProvider;
-    @Nonnull private final IngameGameProvider gameStateProvider;
+    private User user;
+    private Game gameData;
+    private de.uniks.se19.team_g.project_rbsg.ingame.model.Game gameState;
     private ModelManager modelManager;
     private GameEventManager gameEventManager;
 
@@ -30,13 +25,11 @@ public class IngameContext {
     private Player userPlayer;
 
     public IngameContext(
-        @Nonnull UserProvider userProvider,
-        @Nonnull GameProvider gameDataProvider,
-        @Nonnull IngameGameProvider gameStateProvider
+            User user,
+            Game gameData
     ) {
-        this.userProvider = userProvider;
-        this.gameDataProvider = gameDataProvider;
-        this.gameStateProvider = gameStateProvider;
+        this.user = user;
+        this.gameData = gameData;
     }
 
 
@@ -52,8 +45,7 @@ public class IngameContext {
 
         User user = Objects.requireNonNull(getUser());
 
-        gameStateProvider.set(game);
-        initialized.set(true);
+        gameState = game;
 
         Optional<Player> userPlayer = game.getPlayers().stream().filter(
                 player -> player.getName().equals(user.getName())
@@ -62,18 +54,39 @@ public class IngameContext {
         userPlayer.ifPresent(player -> player.setIsPlayer(true));
 
         this.userPlayer = userPlayer.orElse(null);
+        if (game.getCurrentPlayer() != null) {
+            onNextPlayer(null, null, game.getCurrentPlayer());
+        }
+        game.currentPlayerProperty().addListener(this::onNextPlayer);
+
+        initialized.set(true);
+    }
+
+    private void onNextPlayer (Observable observable, Player lastPlayer, Player nextPlayer)
+    {
+        if (isMyTurn()) {
+            onBeforeUserTurn();
+        }
+    }
+
+    private void onBeforeUserTurn ()
+    {
+        for (de.uniks.se19.team_g.project_rbsg.ingame.model.Unit unit : getUserPlayer().getUnits())
+        {
+            unit.setRemainingMovePoints(unit.getMp());
+        }
     }
 
     public User getUser() {
-        return userProvider.get();
+        return user;
     }
 
     public de.uniks.se19.team_g.project_rbsg.model.Game getGameData() {
-        return gameDataProvider.get();
+        return gameData;
     }
 
     public de.uniks.se19.team_g.project_rbsg.ingame.model.Game getGameState() {
-        return gameStateProvider.get();
+        return gameState;
     }
 
     public GameEventManager getGameEventManager() {
@@ -85,8 +98,6 @@ public class IngameContext {
     }
 
     public void tearDown() {
-        gameDataProvider.clear();
-        gameStateProvider.clear();
     }
 
     public boolean isMyTurn() {
@@ -104,5 +115,16 @@ public class IngameContext {
     public void setModelManager(ModelManager modelManager) {
 
         this.modelManager = modelManager;
+    }
+
+    public IngameContext boot(boolean spectatorModus) {
+        try {
+            gameEventManager.startSocket(gameData.getId(), null, spectatorModus);
+        } catch (Exception e) {
+            // TODO: how to handle socket start error? so far, it escalated to FXML loader as well
+            throw new RuntimeException(e);
+        }
+
+        return this;
     }
 }

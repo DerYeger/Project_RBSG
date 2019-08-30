@@ -6,8 +6,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="CENTER" type="VBox" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewController">
-    <children>
+
+<fx:root alignment="CENTER" type="VBox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewController">
+ <children>
       <Button fx:id="liveButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#getLive" styleClass="liveButton" text="live">
          <VBox.margin>
             <Insets bottom="10.0" />

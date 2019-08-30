@@ -94,7 +94,7 @@ public class LoginFormControllerTestHttpError extends ApplicationTest {
             return new LoginManager(new RestTemplate()) {
                 @Override
                 @SuppressWarnings("unchecked")
-                public CompletableFuture onLogin(User user) {
+                public CompletableFuture callLogin(User user) {
                     return CompletableFuture.failedFuture(
                             new HttpClientErrorException(HttpStatus.BAD_REQUEST, "status message", BODY.getBytes(), StandardCharsets.UTF_8)
                     );
