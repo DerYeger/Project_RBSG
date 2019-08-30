@@ -3,42 +3,22 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <!--
  @author Keanu Stückrad
  !-->
 
-<GridPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <columnConstraints>
-        <ColumnConstraints fx:id="column0" halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-        <ColumnConstraints fx:id="column1" halignment="LEFT" hgrow="ALWAYS" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-    </rowConstraints>
+<HBox fx:id="root" alignment="CENTER" maxWidth="350.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-       <GridPane fx:id="playerLabelColorPane" GridPane.columnIndex="1">
-           <children>
-               <Pane fx:id="colorPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
-               <Label fx:id="playerListCellLabel" styleClass="default-medium" text="Label" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-           </children>
-           <columnConstraints>
-               <ColumnConstraints fx:id="column11" halignment="LEFT" hgrow="ALWAYS" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" />
-               <ColumnConstraints fx:id="column00" halignment="CENTER" hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
-           </columnConstraints>
-           <rowConstraints>
-               <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-           </rowConstraints>
-       </GridPane>
-       <StackPane fx:id="playerStackPane" GridPane.columnIndex="0">
+       <StackPane fx:id="playerStackPane">
            <children>
                <ImageView fx:id="playerListCellImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
                <ProgressIndicator fx:id="progressIndicator" progress="0.0" styleClass="default" StackPane.alignment="CENTER">
@@ -48,13 +28,38 @@
                </ProgressIndicator>
            </children>
        </StackPane>
+      <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+               <children>
+                     <Label fx:id="playerListCellLabel" styleClass="default-medium" text="Label" textAlignment="CENTER" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" minHeight="0.0" minWidth="0.0">
+               <children>
+                  <Pane fx:id="botButtonContainer">
+                     <children>
+                         <Button fx:id="botButton" mnemonicParsing="false" text="Button">
+                             <styleClass>
+                                 <String fx:value="icon-button" />
+                             </styleClass></Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </Pane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+         <Pane fx:id="colorPane" prefHeight="40.0" prefWidth="40.0" />
    </children>
-   <stylesheets>
-      <URL value="@waitingRoomView.css" />
-      <URL value="@../darkTheme.css" />
-   </stylesheets>
-   <styleClass>
-      <String fx:value="player-card" />
-      <String fx:value="inactive" />
-   </styleClass>
-</GridPane>
+    <stylesheets>
+        <URL value="@waitingRoomView.css" />
+        <URL value="@../darkTheme.css" />
+    </stylesheets>
+    <styleClass>
+        <String fx:value="player-card" />
+        <String fx:value="inactive" />
+    </styleClass>
+</HBox>

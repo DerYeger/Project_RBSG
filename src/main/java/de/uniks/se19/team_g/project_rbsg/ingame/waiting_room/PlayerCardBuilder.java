@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -8,21 +9,29 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -37,26 +46,36 @@ public class PlayerCardBuilder {
     public static final String READY_STYLE = "ready";
     public Label playerListCellLabel;
     public ImageView playerListCellImageView;
-    public StackPane playerStackPane;
     public ProgressIndicator progressIndicator;
-    public ColumnConstraints column0;
-    public ColumnConstraints column1;
-    public ColumnConstraints column00;
-    public ColumnConstraints column11;
-    public GridPane playerLabelColorPane;
     public Pane colorPane;
+    public Button botButton;
+    public Pane botButtonContainer;
+    public Pane root;
 
     private FXMLLoader fxmlLoader;
     private Node playerCardView;
     private SimpleDoubleProperty progress;
 
-    public boolean isEmpty;
     private Player player;
     private ChangeListener<Boolean> onPlayerChangedReadyState;
     private Image whiteAccountImage;
     private Image blackAccountImage;
 
+
+    public final BooleanProperty emptyProperty = new SimpleBooleanProperty(true);
+
     private Property<Locale> selectedLocale;
+    private Runnable onBotRequested;
+
+    public PlayerCardBuilder() {
+    }
+
+    public void setOnBotRequested(Runnable onBotRequested) {
+        this.onBotRequested = onBotRequested;
+        if (botButton != null) {
+            botButton.setDisable(false);
+        }
+    }
 
 
     public Node buildPlayerCard(Property<Locale> selectedLocale){
@@ -82,13 +101,42 @@ public class PlayerCardBuilder {
         whiteAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountWhite.png").toExternalForm());
         blackAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountBlack.png").toExternalForm());
 
+        BooleanBinding notEmptyBinding = emptyProperty.not();
+        progressIndicator.visibleProperty().bind(emptyProperty);
+        playerListCellImageView.visibleProperty().bind(notEmptyBinding);
+        botButtonContainer.visibleProperty().bind(emptyProperty);
+        botButtonContainer.managedProperty().bind(emptyProperty);
+        colorPane.visibleProperty().bind(notEmptyBinding);
+        colorPane.managedProperty().bind(notEmptyBinding);
+
+        botButton.setOnAction(this::handleBotRequest);
+        if (onBotRequested == null) {
+            botButton.setDisable(true);
+        }
+
+        JavaFXUtils.setButtonIcons(
+                botButton,
+                getClass().getResource("/assets/icons/operation/botBlack.png"),
+                getClass().getResource("/assets/icons/operation/botWhite.png"),
+                40
+        );
+
         setEmpty();
 
         return playerCardView;
     }
 
+    private void handleBotRequest(ActionEvent actionEvent) {
+        if (onBotRequested == null) {
+            return;
+        }
+
+        onBotRequested.run();
+    }
+
     private void setEmpty() {
-        isEmpty = true;
+        emptyProperty.setValue(true);
+
         final ObservableList<String> styles = playerListCellLabel.getStyleClass();
         playerCardView.getStyleClass().remove(READY_STYLE);
         styles.remove("player");
@@ -98,8 +146,6 @@ public class PlayerCardBuilder {
                         selectedLocale
                 )
         );
-        progressIndicator.setVisible(true);
-        playerListCellImageView.setVisible(false);
         onPlayerChangedReadyState = null;
     }
 
@@ -120,7 +166,7 @@ public class PlayerCardBuilder {
             buildPlayerCard(selectedLocale);
         }
         playerListCellLabel.textProperty().unbind();
-        Platform.runLater(()-> playerListCellLabel.setText(player.getName()));
+        playerListCellLabel.setText(player.getName());
         setReady();
         setColor(color);
 
@@ -135,9 +181,8 @@ public class PlayerCardBuilder {
     }
 
     private void setReady() {
-        isEmpty = false;
-        Platform.runLater(()-> progressIndicator.setVisible(false));
-        Platform.runLater(()-> playerListCellImageView.setVisible(true));
+        emptyProperty.setValue(false);
+
         playerListCellLabel.getStyleClass().remove("waiting");
         playerListCellLabel.getStyleClass().add("player");
     }
@@ -158,26 +203,6 @@ public class PlayerCardBuilder {
         Platform.runLater(()-> colorPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY))));
     }
 
-    public void switchColumns() {
-        GridPane.setColumnIndex(playerStackPane, 1);
-        GridPane.setColumnIndex(playerLabelColorPane, 0);
-        GridPane.setColumnIndex(playerListCellLabel, 1);
-        GridPane.setColumnIndex(colorPane, 0);
-        GridPane.setHalignment(playerListCellLabel, HPos.RIGHT);
-        column0.setPrefWidth(250);
-        column0.setMinWidth(250);
-        column0.setMaxWidth(250);
-        column1.setPrefWidth(100);
-        column1.setMinWidth(100);
-        column1.setMaxWidth(100);
-        column00.setPrefWidth(210);
-        column00.setMinWidth(210);
-        column00.setMaxWidth(210);
-        column11.setPrefWidth(40);
-        column11.setMinWidth(40);
-        column11.setMaxWidth(40);
-    }
-
     public Player getPlayer() {
         return this.player;
     }
@@ -190,5 +215,17 @@ public class PlayerCardBuilder {
             playerCardView.getStyleClass().remove(READY_STYLE);
             playerListCellImageView.setImage(whiteAccountImage);
         }
+    }
+
+    public boolean isEmpty() {
+        return emptyProperty.get();
+    }
+
+    public void setNodeOrientation(NodeOrientation orientation) {
+        root.setNodeOrientation(orientation);
+    }
+
+    private void handle(ActionEvent event) {
+        onBotRequested.run();
     }
 }

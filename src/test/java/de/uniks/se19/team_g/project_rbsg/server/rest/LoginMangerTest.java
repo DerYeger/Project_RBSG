@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -45,7 +42,7 @@ public class LoginMangerTest {
                     }
                 }
         );
-        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.onLogin(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.callLogin(testUser);
         AtomicReference<String> string = new AtomicReference<>();
         try {
             loginAnswer.thenAccept(response -> string.set(response.getBody().get("status").asText())).get();

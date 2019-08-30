@@ -1,10 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.GameEventDispatcher;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketCloseHandler;
 import org.apache.http.client.utils.URIBuilder;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.endPhaseCommand;
 import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.leaveGameCommand;
 
 /**
@@ -71,7 +70,7 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
     }
 
-    public static boolean isActionType(ObjectNode message, String action) {
+    public static boolean isActionType(JsonNode message, String action) {
         return message.get("action").asText().equals(action);
     }
 
@@ -82,6 +81,11 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
     public GameEventManager addHandler(@NonNull final GameEventHandler gameEventHandler) {
         gameEventHandlers.add(gameEventHandler);
+        return this;
+    }
+
+    public GameEventManager removeHandler(GameEventHandler gameEventHandler) {
+        gameEventHandlers.remove(gameEventHandler);
         return this;
     }
 
@@ -179,7 +183,9 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         if (reason.getReasonPhrase().equals("Left game")) {
             terminateLatch.countDown();
         } else if (!reason.getReasonPhrase().equals("Tschau")) {
-            onConnectionClosed.run();
+            if (onConnectionClosed != null) {
+                onConnectionClosed.run();
+            }
         }
     }
 

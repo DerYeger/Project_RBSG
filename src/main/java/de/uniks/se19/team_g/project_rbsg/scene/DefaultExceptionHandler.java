@@ -31,7 +31,6 @@ public class DefaultExceptionHandler implements ExceptionHandler {
     public void handle(@NonNull final Exception exception) {
         logger.debug("Handling " + exception);
         terminator.terminate();
-        WebSocketConfigurator.userKey = "";
         sceneManager.setScene(SceneConfiguration.of(LOGIN));
         Platform.runLater(() -> alertBuilder.priorityInformation(AlertBuilder.Text.OOPS));
     }

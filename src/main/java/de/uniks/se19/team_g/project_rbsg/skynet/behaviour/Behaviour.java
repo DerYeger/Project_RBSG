@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface Behaviour {
 
     Optional<? extends Action> apply(@NonNull final Game game, @NonNull final Player player);
+
+    default int getPriority() {return 0;}
 }

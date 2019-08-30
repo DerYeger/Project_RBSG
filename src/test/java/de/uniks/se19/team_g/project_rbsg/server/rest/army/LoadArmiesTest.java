@@ -20,7 +20,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -148,7 +147,7 @@ public class LoadArmiesTest {
 
         User user = new User("test123", "test123");
         user.setUserKey(
-                loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
+                loginManager.callLogin(user).get().getBody().get("data").get("userKey").asText()
         );
         userProvider.set(user);
 
@@ -198,7 +197,7 @@ public class LoadArmiesTest {
 
         User user = new User("test123", "test123");
         user.setUserKey(
-                loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
+                loginManager.callLogin(user).get().getBody().get("data").get("userKey").asText()
         );
         userProvider.set(user);
 

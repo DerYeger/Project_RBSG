@@ -1,7 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.game;
 
-import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
@@ -15,6 +13,8 @@ import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.GameCreator;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
@@ -59,8 +59,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder.Text.INVALID_INPUT;
 import static de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder.Text.NO_CONNECTION;
-
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.INGAME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
@@ -68,9 +67,7 @@ import static org.mockito.Mockito.mock;
 @ContextConfiguration(classes ={
         CreateGameController.class,
         CreateGameFormBuilder.class,
-        UserProvider.class,
         CreateGameControllerTest.ContextConfiguration.class,
-        GameProvider.class,
         LoadingScreenFormBuilder.class,
         LoadingScreenController.class,
         ChatBuilder.class
@@ -109,6 +106,16 @@ public class CreateGameControllerTest extends ApplicationTest implements Applica
         SceneManager sceneManager;
 
         private ApplicationContext context;
+
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
+
+        @Bean
+        public GameProvider gameProvider() {
+            return new GameProvider();
+        }
 
         @Bean
         @Scope("prototype")
