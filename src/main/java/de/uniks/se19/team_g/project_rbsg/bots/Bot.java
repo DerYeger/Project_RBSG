@@ -275,4 +275,11 @@ public class Bot extends Thread {
     public CompletableFuture<Void> getShutdownPromise() {
         return shutdownPromise;
     }
+    public User getUser() {
+        return user;
+    }
+
+    public Game getGameData() {
+        return gameData;
+    }
 }
