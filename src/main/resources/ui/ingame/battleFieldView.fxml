@@ -20,7 +20,6 @@
    @author Keanu Stückrad
  !-->
 
-
 <StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
@@ -29,23 +28,28 @@
                <children>
                   <GridPane>
                      <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                         <ColumnConstraints fx:id="player" halignment="CENTER" hgrow="SOMETIMES" />
+                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints valignment="CENTER" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="menu" />
-                        <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="10.0" styleClass="playerCardBox">
+                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="menu">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="10.0" styleClass="playerCardBox" GridPane.columnIndex="1">
                            <children>
-                              <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css"/>
-                              <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css"/>
-                              <Pane fx:id="player3" styleClass="player-card" stylesheets="@playerList.css"/>
-                              <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css"/>
+                              <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css" />
+                              <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css" />
+                              <Pane fx:id="player3" styleClass="player-card" stylesheets="@playerList.css" />
+                              <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css" />
                            </children>
                         </HBox>
-                        <Label fx:id="gameName" styleClass="name-pane" GridPane.columnIndex="1">
+                        <Label fx:id="gameName" styleClass="name-pane" GridPane.columnIndex="2">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>

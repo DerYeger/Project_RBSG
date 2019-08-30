@@ -128,6 +128,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public VBox history;
     public Button skynetButton;
     public Label gameName;
+    public ColumnConstraints player;
     private ChatController chatController;
     private Game game;
     private ObservableList<Unit> units;
