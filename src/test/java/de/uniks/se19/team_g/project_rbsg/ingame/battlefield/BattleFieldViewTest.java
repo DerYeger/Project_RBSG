@@ -16,6 +16,9 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -76,6 +79,7 @@ import static org.mockito.Mockito.*;
         ChatCommandManager.class,
         GameEventManager.class,
         LocaleConfig.class,
+        BattleFieldLogicTest.ContextConfiguration.class
 })
 public class BattleFieldViewTest extends ApplicationTest {
 
@@ -663,9 +667,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         final GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
         final IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
+                user,
+                new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4)
         );
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
@@ -688,23 +691,23 @@ public class BattleFieldViewTest extends ApplicationTest {
         final Button endPhaseButton = lookup("#endPhaseButton").queryButton();
         final Button endRoundButton = lookup("#endRoundButton").queryButton();
 
-        assertNotNull(skynetTurnButton);
-        assertNotNull(skynetButton);
+        Assert.assertNotNull(skynetTurnButton);
+        Assert.assertNotNull(skynetButton);
 
-        assertFalse(skynetTurnButton.isDisabled());
-        assertFalse(skynetTurnButton.isDisabled());
-        assertFalse(endPhaseButton.isDisabled());
-        assertFalse(endRoundButton.isDisabled());
+        Assert.assertFalse(skynetTurnButton.isDisabled());
+        Assert.assertFalse(skynetTurnButton.isDisabled());
+        Assert.assertFalse(endPhaseButton.isDisabled());
+        Assert.assertFalse(endRoundButton.isDisabled());
 
         history.back();
 
-        assertTrue(endPhaseButton.isDisabled());
-        assertTrue(endRoundButton.isDisabled());
+        Assert.assertTrue(endPhaseButton.isDisabled());
+        Assert.assertTrue(endRoundButton.isDisabled());
 
         history.forward();
 
-        assertFalse(endPhaseButton.isDisabled());
-        assertFalse(endRoundButton.isDisabled());
+        Assert.assertFalse(endPhaseButton.isDisabled());
+        Assert.assertFalse(endRoundButton.isDisabled());
     }*/
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
