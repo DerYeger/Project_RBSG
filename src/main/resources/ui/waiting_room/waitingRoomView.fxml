@@ -24,26 +24,15 @@
                     <children>
                         <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" />
                         <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                        <StackPane AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
-                            <children>
-                                <Pane fx:id="player1Pane" StackPane.alignment="TOP_CENTER"/>
-                            </children>
-                        </StackPane>
-                        <StackPane AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
-                            <children>
-                                <Pane fx:id="player2Pane" StackPane.alignment="TOP_CENTER"/>
-                            </children>
-                        </StackPane>
-                        <StackPane AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="258.0">
-                            <children>
-                                <Pane fx:id="player3Pane" StackPane.alignment="TOP_CENTER"/>
-                            </children>
-                        </StackPane>
-                        <StackPane AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="258.0">
-                            <children>
-                                <Pane fx:id="player4Pane" StackPane.alignment="TOP_CENTER"/>
-                            </children>
-                        </StackPane>
+
+                        <Pane fx:id="player1Pane" StackPane.alignment="TOP_CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0"/>
+
+                        <Pane fx:id="player2Pane" StackPane.alignment="TOP_CENTER" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0"/>
+
+                        <Pane fx:id="player3Pane" StackPane.alignment="TOP_CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="258.0"/>
+
+                        <Pane fx:id="player4Pane" StackPane.alignment="TOP_CENTER" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="258.0"/>
+
                         <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" pickOnBounds="false">
                             <children>
                                 <Pane styleClass="mini-game-pane" StackPane.alignment="CENTER" />

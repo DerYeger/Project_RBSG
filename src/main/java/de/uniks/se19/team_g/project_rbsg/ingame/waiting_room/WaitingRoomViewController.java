@@ -475,13 +475,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     @FXML
     public void player1PaneClicked(MouseEvent event){
         int playerNumber=0;
-        System.out.println("Hallo ich wurde geklickt");
         onPlayerCardClicked(playerNumber);
     }
     @FXML
     public void player2PaneClicked(MouseEvent event){
         int playerNumber=1;
-        System.out.println("Hallo ich wurde geklickt");
         onPlayerCardClicked(playerNumber);
     }
     @FXML
