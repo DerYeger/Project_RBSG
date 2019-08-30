@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
@@ -18,6 +19,7 @@ import java.util.*;
 
 public class UnitInfoBoxController<T> implements Initializable
 {
+    private final Property<Locale> selectedLocale;
     public ImageView unitImageView;
     public VBox firstPropertyContainer;
     public VBox secondPropertyContainer;
@@ -28,7 +30,7 @@ public class UnitInfoBoxController<T> implements Initializable
     private ChangeListener<T> unitChangeListener;
     private ChangeListener<Number> hpChangeListener;
 
-    private StringProperty hpText = new SimpleStringProperty("No unit selected");
+    private StringProperty hpText;
     private StringProperty mpText = new SimpleStringProperty("-");
     private StringProperty defaultText = new SimpleStringProperty("-");
 
@@ -40,9 +42,11 @@ public class UnitInfoBoxController<T> implements Initializable
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public UnitInfoBoxController ()
+    public UnitInfoBoxController (Property<Locale> selectedLocale)
     {
+        this.selectedLocale = selectedLocale;
         propertyInfoBuilder = new PropertyInfoBuilder();
+        hpText = new SimpleStringProperty(JavaFXUtils.bindTranslation(selectedLocale, "hpText").getValue());
     }
 
     @Override
@@ -127,7 +131,7 @@ public class UnitInfoBoxController<T> implements Initializable
     {
         Image image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm(), 100, 100, false, true);
         unitImageView.setImage(image);
-        hpText.set("No unit selected");
+        hpText.set(JavaFXUtils.bindTranslation(selectedLocale, "hpText").getValue());
         hpLabel.setGraphic(null);
         mpText.set("-");
         playerColorPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.13),

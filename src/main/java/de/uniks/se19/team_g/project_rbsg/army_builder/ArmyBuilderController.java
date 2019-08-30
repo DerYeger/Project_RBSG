@@ -223,10 +223,14 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     protected void configureCreateArmy(){
-        SimpleBooleanProperty armiesAreFull = new SimpleBooleanProperty(false);
-
+        SimpleBooleanProperty armiesAreFull;
+        if (appState.armies.size() >= ApplicationState.MAX_ARMY_COUNT){
+            armiesAreFull = new SimpleBooleanProperty(true);
+        } else {
+            armiesAreFull = new SimpleBooleanProperty(false);
+        }
         appState.armies.addListener((ListChangeListener<Army>) armyList -> {
-            if (armyList.getList().size() >= appState.MAX_ARMY_COUNT){
+            if (armyList.getList().size() >= ApplicationState.MAX_ARMY_COUNT){
                 armiesAreFull.set(true);
             } else {
                 armiesAreFull.set(false);
@@ -239,8 +243,12 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     protected void configureButtons(){
-        SimpleBooleanProperty noArmiesLeft = new SimpleBooleanProperty(false);
-
+        SimpleBooleanProperty noArmiesLeft;
+        if (appState.armies.size() < 1){
+            noArmiesLeft = new SimpleBooleanProperty(true);
+        } else {
+            noArmiesLeft = new SimpleBooleanProperty(false);
+        }
         appState.armies.addListener((ListChangeListener<Army>) amryList -> {
             if (appState.armies.size() < 1){
                 noArmiesLeft.set(true);
