@@ -1,6 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
@@ -82,7 +82,7 @@ public class UnitDetailController implements Initializable {
             JavaFXUtils.bindTranslation(selectedLocale, unit.getDescriptionKey())
         );
 
-        JavaFXUtils.bindImage(imageView.imageProperty(), unit.imageUrl);
+        JavaFXUtils.bindImage(imageView.imageProperty(), unit.getTypeInfo().getImageProperty());
 
         if (propertyViewComponentFactory != null) {
             statsContainer.getChildren().clear();

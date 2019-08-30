@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.overlay.Overlay;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.overlay.credits.Credits;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Menu;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.ConfirmationAlert;

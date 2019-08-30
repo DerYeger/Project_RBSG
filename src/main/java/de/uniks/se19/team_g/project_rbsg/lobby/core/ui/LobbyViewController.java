@@ -18,7 +18,12 @@ import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.RootController;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminable;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
@@ -50,6 +55,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Georg Siebert
@@ -164,7 +171,7 @@ public class LobbyViewController implements RootController, Terminable
         this.chatBuilder = chatBuilder;
     }
 
-    public void initialize() throws Exception
+    public void initialize() throws WebSocketException
     {
         //Gives the cells of the ListViews a fixed height
         //Needed for cells which are empty to fit them to the height of filled cells
@@ -302,7 +309,7 @@ public class LobbyViewController implements RootController, Terminable
 
     }
 
-    private void configureSystemMessageManager() throws Exception
+    private void configureSystemMessageManager() throws WebSocketException
     {
         UserLeftMessageHandler userLeftMessageHandler = new UserLeftMessageHandler(this.lobby);
 
@@ -322,7 +329,7 @@ public class LobbyViewController implements RootController, Terminable
         lobby.getSystemMessageManager().startSocket();
     }
 
-    private void withChatSupport() throws Exception
+    private void withChatSupport() throws WebSocketException
     {
         if (chatBuilder != null)
         {
@@ -380,7 +387,10 @@ public class LobbyViewController implements RootController, Terminable
 
         lobbyTitle.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "title"));
 
-        if (createGameFormBuilder != null && createGameFormBuilder.getCreateGameController() != null)
+        if (createGameFormBuilder != null
+                && createGameFormBuilder.getCreateGameController() != null
+                && createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder != null
+                &&  createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController() != null)
         {
             createGameFormBuilder.getCreateGameController().updateLabels();
             createGameFormBuilder.getCreateGameController().loadingScreenFormBuilder.getLoadingScreenController().updateLabels();
@@ -398,13 +408,13 @@ public class LobbyViewController implements RootController, Terminable
 
     private void handleLogout()
     {
-        sceneManager.setScene(SceneManager.SceneIdentifier.LOGIN, false, null);
+        sceneManager.setScene(SceneConfiguration.of(LOGIN));
         logoutManager.logout(userProvider);
     }
 
     public void goToArmyBuilder(ActionEvent actionEvent)
     {
-        sceneManager.setScene(SceneManager.SceneIdentifier.ARMY_BUILDER, true, SceneManager.SceneIdentifier.LOBBY);
+        sceneManager.setScene(SceneConfiguration.of(ARMY_BUILDER).andCache(LOBBY));
     }
 
     public void showMenu(final ActionEvent actionEvent) {

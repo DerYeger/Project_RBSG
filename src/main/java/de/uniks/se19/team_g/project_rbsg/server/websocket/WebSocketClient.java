@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.websocket.*;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -62,13 +63,19 @@ public class WebSocketClient
         this.webSocketCloseHandler = webSocketCloseHandler;
     }
 
-    public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws Exception {
-        this.noopTimer = new Timer();
+    public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws WebSocketException {
+        try {
+            this.noopTimer = new Timer();
 
-        this.wsCallback = wsCallback;
+            this.wsCallback = wsCallback;
 
-        URI uri = new URI(BASE_URL + endpoint);
-        ContainerProvider.getWebSocketContainer().connectToServer(this, uri);
+            URI uri = new URI(BASE_URL + endpoint);
+            ContainerProvider.getWebSocketContainer().connectToServer(this, uri);
+        } catch (final DeploymentException | IOException | URISyntaxException e) {
+            stop();
+            logger.error(e.getMessage());
+            throw new WebSocketException(e.getMessage());
+        }
     }
 
     @OnOpen

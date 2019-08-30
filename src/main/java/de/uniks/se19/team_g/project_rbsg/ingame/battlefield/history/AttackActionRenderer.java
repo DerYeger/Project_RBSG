@@ -44,7 +44,7 @@ public class AttackActionRenderer extends DefaultActionRenderer {
 
         AttackHistoryCellController controller = data.getKey();
         controller.primaryIcon.setImage(getIcon("/assets/icons/operation/swordClashWhite.png"));
-        controller.secondaryIcon.setImage(unit.getUnitType().getIconImage());
+        controller.secondaryIcon.setImage(unit.getUnitType().getPreview());
         controller.setHealth(hp);
 
         return new HistoryRenderData(data.getValue(), playerColor);
