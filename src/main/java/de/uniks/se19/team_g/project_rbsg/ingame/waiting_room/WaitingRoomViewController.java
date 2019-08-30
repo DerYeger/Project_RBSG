@@ -225,9 +225,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
          playerCard2.switchColumns();
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
-            Node player3 = playerCard.buildPlayerCard(selectedLocale);
+            Node player3 = playerCard3.buildPlayerCard(selectedLocale);
             player3.setOnMouseClicked((event) -> onPlayerCardClicked(event, 2));
-            Node player4 = playerCard2.buildPlayerCard(selectedLocale);
+            Node player4 = playerCard4.buildPlayerCard(selectedLocale);
             player4.setOnMouseClicked((event) -> onPlayerCardClicked(event, 3));
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
@@ -489,6 +489,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private void onPlayerCardClicked(MouseEvent event, int playerNumber){
         ObservableList<Player> players = context.getGameState().getPlayers();
+        if(playerNumber>players.size()-1){
+            return;
+        }
         Player player = players.get(playerNumber);
         if(!player.isPlayer()){
             chatController.chatTabManager().openTab('@' + player.getName());
