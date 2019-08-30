@@ -275,8 +275,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
 
-        gameName.setText(gameProvider.get().getName());
-
+        
         menuButton.setTooltip(new Tooltip("ESC/F10"));
 
         //TODO readd

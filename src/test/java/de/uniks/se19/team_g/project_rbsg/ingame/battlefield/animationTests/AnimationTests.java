@@ -98,11 +98,7 @@ public class AnimationTests extends ApplicationTest
         playerUnit.setMp(3);
         playerUnit.setRemainingMovePoints(0);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user,null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
