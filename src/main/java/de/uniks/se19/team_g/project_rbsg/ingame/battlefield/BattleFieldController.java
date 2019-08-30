@@ -275,7 +275,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 40
         );
 
-        
+
         menuButton.setTooltip(new Tooltip("ESC/F10"));
 
         //TODO readd
@@ -1462,6 +1462,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                     40
             );
             skynet.stopBot();
+            animationButton.setDisable(false);
             animationsAllowed.set(true);
         }
         else
@@ -1472,6 +1473,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                     getClass().getResource("/assets/icons/operation/skynetActiveBlack.png"),
                     40
             );
+            animationButton.setDisable(true);
             animationsAllowed.set(false);
             skynet.startBot();
         }
