@@ -1,8 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Hoverable;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Selectable;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import javafx.beans.property.Property;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.fxml.FXMLLoader;

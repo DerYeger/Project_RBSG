@@ -26,8 +26,10 @@ import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.*;
+import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import org.slf4j.*;
@@ -162,7 +164,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         JavaFXUtils.setButtonIcons(
                 readyButton,
                 getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                 200
         );
         JavaFXUtils.setButtonIcons(
@@ -212,20 +214,27 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
-    private void setPlayerCardNodes ()
-    {
-        player1Pane.getChildren().add(playerCard.buildPlayerCard(selectedLocale));
-        player2Pane.getChildren().add(playerCard2.buildPlayerCard(selectedLocale));
-        playerCard2.switchColumns();
-        if (gameProvider.get().getNeededPlayer() == 4)
-        {
+    private void setPlayerCardNodes() {
+        Node player1 = playerCard.buildPlayerCard(selectedLocale);
+        player1.setOnMouseClicked((event) -> onPlayerCardClicked(event, 0));
+        Node player2 = playerCard2.buildPlayerCard(selectedLocale);
+        player2.setOnMouseClicked((event) -> onPlayerCardClicked(event, 1));
+        player1Pane.getChildren().add(player1);
+        player2Pane.getChildren().add(player2);
+
+         playerCard2.switchColumns();
+        if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
+            Node player3 = playerCard3.buildPlayerCard(selectedLocale);
+            player3.setOnMouseClicked((event) -> onPlayerCardClicked(event, 2));
+            Node player4 = playerCard4.buildPlayerCard(selectedLocale);
+            player4.setOnMouseClicked((event) -> onPlayerCardClicked(event, 3));
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
             AnchorPane.setTopAnchor(player2Pane, 102.0);
-            player3Pane.getChildren().add(playerCard3.buildPlayerCard(selectedLocale));
-            player4Pane.getChildren().add(playerCard4.buildPlayerCard(selectedLocale));
+            player3Pane.getChildren().add(player3);
+            player4Pane.getChildren().add(player4);
             playerCard4.switchColumns();
         }
         else
@@ -325,6 +334,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     {
         armySelectorController = armySelectorComponent.apply(armySelector);
         if(armySelectorController != null && armySelectorController.hoveredArmyProperty() != null) {
+            armySelectorController.setMinHeightForArmySelector();
             armySelectorController.hoveredArmyProperty().addListener(HoveredArmyListener);
         }
         selectedArmy.addListener((observable, oldValue, newValue) ->
@@ -332,7 +342,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                                      JavaFXUtils.setButtonIcons(
                                              readyButton,
                                              getClass().getResource("/assets/icons/navigation/crossWhiteBig.png"),
-                                             getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
+                                             getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
                                              200
                                      );
                                      disabledReadyButton.set(true);
@@ -347,7 +357,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                                      }
                                      context.getGameEventManager().sendMessage(CommandBuilder.changeArmy(newValue));
                                  });
-
         /*
          * normally, an observable list is only aware of items added and removed
          * we can wrap our armies in a bound observable list with extractor to also receive update events of items in the list
@@ -461,7 +470,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             JavaFXUtils.setButtonIcons(
                     readyButton,
                     getClass().getResource("/assets/icons/navigation/checkWhiteBig.png"),
-                    getClass().getResource("/assets/icons/navigation/crossBlackBig.png"),
+                    getClass().getResource("/assets/icons/navigation/checkBlackBig.png"),
                     200
             );
             context.getGameEventManager().sendMessage(CommandBuilder.readyToPlay());
@@ -475,6 +484,17 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if (readyCounter == 5)
         {
             Platform.runLater(easterEggController::start);
+        }
+    }
+
+    private void onPlayerCardClicked(MouseEvent event, int playerNumber){
+        ObservableList<Player> players = context.getGameState().getPlayers();
+        if(playerNumber>players.size()-1){
+            return;
+        }
+        Player player = players.get(playerNumber);
+        if(!player.isPlayer()){
+            chatController.chatTabManager().openTab('@' + player.getName());
         }
     }
 

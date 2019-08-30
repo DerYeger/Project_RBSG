@@ -235,6 +235,7 @@
     -fx-graphic-text-gap: 10px;
 }
 
+<<<<<<< HEAD
 .button.menu {
     -fx-min-height: 50px;
     -fx-min-width: 50px;
@@ -246,6 +247,17 @@
     -fx-background-radius: 0;
     -fx-effect: -shadow;
     -fx-background-color: -primary-background-color;
+=======
+.button.liveButton{
+    -fx-alignment: center;
+    -fx-min-width: 100px;
+    -fx-border-width: 2;
+    -fx-border-color: -default-border-color;
+    -fx-background-color: -root-background-color;
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: -on-primary-fill;
+>>>>>>> 3fc421e9bfd560f9b8feea9797e47feede7db3d6
 }
 
 /*------------------Label------------------*/

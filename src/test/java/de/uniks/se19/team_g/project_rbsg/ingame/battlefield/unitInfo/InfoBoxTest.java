@@ -4,6 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import javafx.application.Platform;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -80,7 +81,7 @@ public class InfoBoxTest extends ApplicationTest
         });
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertThat(controller.hpLabel.getText(), is("No unit selected"));
+        assertNotNull(controller.hpLabel.getText());
         assertThat(controller.playerColorPane.getBackground().getFills().get(0).getFill(), is(Color.rgb(255, 255, 255
                 , 0.13)));
 

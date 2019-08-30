@@ -157,7 +157,8 @@ public class ArmyBuilderViewTest extends ApplicationTest {
 
         clickOn("#editArmyButton");
 
-        Mockito.verify(editArmyController, Mockito.times(1)).setArmy(army);
+        // Button is disabled
+        Mockito.verify(editArmyController, Mockito.times(0)).setArmy(army);
 
         Platform.runLater(() -> stage.hide());
         WaitForAsyncUtils.waitForFxEvents();

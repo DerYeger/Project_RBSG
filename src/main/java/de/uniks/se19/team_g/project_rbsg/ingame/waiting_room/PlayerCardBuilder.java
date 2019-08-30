@@ -45,6 +45,7 @@ public class PlayerCardBuilder {
     public ColumnConstraints column11;
     public GridPane playerLabelColorPane;
     public Pane colorPane;
+    public GridPane playerCardGridPane;
 
     private FXMLLoader fxmlLoader;
     private Node playerCardView;
@@ -57,7 +58,6 @@ public class PlayerCardBuilder {
     private Image blackAccountImage;
 
     private Property<Locale> selectedLocale;
-
 
     public Node buildPlayerCard(Property<Locale> selectedLocale){
         this.selectedLocale = selectedLocale;

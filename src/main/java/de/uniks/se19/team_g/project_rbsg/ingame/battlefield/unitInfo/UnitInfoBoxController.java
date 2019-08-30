@@ -12,9 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
-import org.slf4j.*;
-import org.springframework.lang.NonNull;
-
 import javax.annotation.*;
 import java.net.*;
 import java.util.*;
@@ -55,6 +52,7 @@ public class UnitInfoBoxController<T> implements Initializable
         this.status = status;
         hpText = new SimpleStringProperty("No unit " + status);
         propertyInfoBuilder = new PropertyInfoBuilder();
+        hpText = new SimpleStringProperty(JavaFXUtils.bindTranslation(selectedLocale, "hpText").getValue());
     }
 
     @Override
@@ -113,8 +111,7 @@ public class UnitInfoBoxController<T> implements Initializable
         else
         {
             if(unit.getUnitType() != null) {
-                image = new Image(unit.getUnitType().getImage().toExternalForm(), 100, 100,
-                        false, true);
+                image = unit.getUnitType().getPreview(100 ,100);
             }
             else {
                 image = new Image(getClass().getResource("/assets/sprites/mr-unknown.png").toExternalForm(),

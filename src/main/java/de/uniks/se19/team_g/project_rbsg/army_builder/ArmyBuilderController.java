@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.army_builder.unit_selection.UnitListCel
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.JavaConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.army.DefaultArmyGenerator;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
@@ -23,18 +24,19 @@ import de.uniks.se19.team_g.project_rbsg.server.rest.army.deletion.serverRespons
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.binding.*;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
+import javafx.event.*;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -106,6 +108,7 @@ public class ArmyBuilderController implements Initializable, RootController {
     public Button editArmyButton;
 
     public HBox modalContainer;
+    public Button flavourButton;
 
     @Nonnull
     private PersistentArmyManager persistantArmyManager;
@@ -125,6 +128,8 @@ public class ArmyBuilderController implements Initializable, RootController {
      */
     @SuppressWarnings("FieldCanBeLocal")
     private ArmySelectorController armySelectorController;
+
+    private SimpleBooleanProperty heretic;
 
     @Nonnull private final GetArmiesService getArmiesService;
 
@@ -160,6 +165,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         this.defaultArmyGenerator = defaultArmyGenerator;
         this.alertBuilder = alertBuilder;
         this.getArmiesService=getArmiesService;
+        this.heretic = new SimpleBooleanProperty();
     }
 
     @Override
@@ -219,14 +225,33 @@ public class ArmyBuilderController implements Initializable, RootController {
                 80
         );
 
+        JavaFXUtils.setButtonIcons(
+                flavourButton,
+                getClass().getResource("/assets/unit/portrait/WH40K/InqisitionSkullGreyScale.gif"),
+                getClass().getResource("/assets/unit/portrait/WH40K/InqisitionSkull.gif"),
+                40,
+                heretic
+        );
+
+        if(UnitImageResolver.getFlavour().equals(FlavourType.DEFAULT)) {
+            heretic.set(true);
+        }
+        else {
+            heretic.set(false);
+        }
+
         saveArmiesButton.disableProperty().bind(viewState.unsavedUpdates.not());
     }
 
     protected void configureCreateArmy(){
-        SimpleBooleanProperty armiesAreFull = new SimpleBooleanProperty(false);
-
+        SimpleBooleanProperty armiesAreFull;
+        if (appState.armies.size() >= ApplicationState.MAX_ARMY_COUNT){
+            armiesAreFull = new SimpleBooleanProperty(true);
+        } else {
+            armiesAreFull = new SimpleBooleanProperty(false);
+        }
         appState.armies.addListener((ListChangeListener<Army>) armyList -> {
-            if (armyList.getList().size() >= appState.MAX_ARMY_COUNT){
+            if (armyList.getList().size() >= ApplicationState.MAX_ARMY_COUNT){
                 armiesAreFull.set(true);
             } else {
                 armiesAreFull.set(false);
@@ -239,8 +264,12 @@ public class ArmyBuilderController implements Initializable, RootController {
     }
 
     protected void configureButtons(){
-        SimpleBooleanProperty noArmiesLeft = new SimpleBooleanProperty(false);
-
+        SimpleBooleanProperty noArmiesLeft;
+        if (appState.armies.size() < 1){
+            noArmiesLeft = new SimpleBooleanProperty(true);
+        } else {
+            noArmiesLeft = new SimpleBooleanProperty(false);
+        }
         appState.armies.addListener((ListChangeListener<Army>) amryList -> {
             if (appState.armies.size() < 1){
                 noArmiesLeft.set(true);
@@ -263,6 +292,7 @@ public class ArmyBuilderController implements Initializable, RootController {
         noArmiesLeft.addListener(((observable, oldValue, newValue) -> {}));
         noArmyLeftOrSelected.addListener(((observable, oldValue, newValue) -> {}));
     }
+
 
     protected void configureArmyDetail() {
         if (armyDetaiLFactory != null) {
@@ -416,4 +446,17 @@ public class ArmyBuilderController implements Initializable, RootController {
         modalContainer.getChildren().setAll( editArmyComponent.<Node>getRoot());
         modalContainer.setVisible(true);
     }
+
+    public void forTheEmperor (ActionEvent actionEvent)
+    {
+        heretic.set(!heretic.get());
+        if(!heretic.getValue()) {
+            UnitImageResolver.setFlavour(FlavourType.WH40K);
+        }
+        else {
+            UnitImageResolver.setFlavour(FlavourType.DEFAULT);
+        }
+    }
+
+
 }
