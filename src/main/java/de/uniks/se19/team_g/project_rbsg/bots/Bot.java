@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 @Scope("prototype")
 public class Bot extends Thread {
 
-    public static final int FREQUENCY = 100;
+    public static final int FREQUENCY = 666;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private User user;
