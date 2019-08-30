@@ -5,7 +5,6 @@ import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.user.GetTempUserService;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
@@ -58,7 +57,6 @@ public class BotManager {
     }
 
     public Collection<Bot> getBots() {
-        ObservableList botList = (ObservableList) bots.values();
         return bots.values();
     }
 
