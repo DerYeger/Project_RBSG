@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +36,10 @@ public class ArmySelectorController implements Initializable, Rincled {
     public Label armiesLabel;
 
     public HBox header;
+
+    public VBox vBox;
+
+    public VBox root;
 
     public Army getHoveredArmy ()
     {
@@ -97,5 +102,11 @@ public class ArmySelectorController implements Initializable, Rincled {
 
     public void unselect(){
         listView.getSelectionModel().clearSelection();
+    }
+
+    public void setMinHeightForArmySelector() {
+        listView.setMinHeight(495.0);
+        vBox.setMinHeight(505.0);
+        root.setMinHeight(540.0);
     }
 }

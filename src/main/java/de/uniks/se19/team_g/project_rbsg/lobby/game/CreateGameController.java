@@ -129,6 +129,15 @@ public class CreateGameController implements Rincled
         JavaFXUtils.setButtonIcons(create, CONFIRM_WHITE, CONFIRM_BLACK, 40);
         JavaFXUtils.setButtonIcons(cancel, CANCEL_WHITE, CANCEL_BLACK, 40);
 
+        // Fix for black label, but its rather a JavaFX bug
+        gameName.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
+            if (newPropertyValue) {
+                gameName.setStyle("-fx-text-fill: white;");
+            } else {
+                gameName.setStyle("-fx-text-fill: rgba(255, 255, 255, 0.7);");
+            }
+        });
+
         this.twoPlayers.selectedProperty().addListener(this::setTwoPlayerGame);
         this.fourPlayers.selectedProperty().addListener(this::setFourPlayerGame);
 

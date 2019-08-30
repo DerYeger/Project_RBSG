@@ -79,10 +79,9 @@ public class ArmyBuilderConfig {
 
         state.unsavedUpdates.bind(
             Bindings.createBooleanBinding(
-                () -> dirtyAwareArmies.stream().anyMatch(Army::hasUnsavedUpdates),
-                dirtyAwareArmies
-            )
-        );
+                () -> (dirtyAwareArmies.stream().anyMatch(Army::hasUnsavedUpdates) || state.isNumberOfArmiesChanged()),
+                dirtyAwareArmies, state.numberOfArmiesChanged
+            ));
 
         return state;
     }

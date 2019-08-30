@@ -199,8 +199,18 @@ public class Bot extends Thread {
 
     private void doShutdown() {
         running = false;
-        if (ingameContext != null && ingameContext.getGameEventManager() != null) {
-            ingameContext.getGameEventManager().terminate();
+        if (ingameContext != null) {
+            if (
+                    ingameContext.isInitialized()
+                    && ingameContext.getGameState() != null
+                    && ingameContext.getGameState().getWinner() != null
+                    && ingameContext.getGameState().getWinner() == ingameContext.getUserPlayer()
+            ) {
+                logger.info("Fc*k, yeah. Wreck'd 'em");
+            }
+            if (ingameContext.getGameEventManager() != null) {
+                ingameContext.getGameEventManager().terminate();
+            }
         }
     }
 
@@ -258,6 +268,13 @@ public class Bot extends Thread {
         return bootPromise;
     }
 
+    public ThreadPoolTaskExecutor getExecutor() {
+        return executor;
+    }
+
+    public CompletableFuture<Void> getShutdownPromise() {
+        return shutdownPromise;
+    }
     public User getUser() {
         return user;
     }

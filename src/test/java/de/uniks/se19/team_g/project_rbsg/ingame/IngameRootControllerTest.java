@@ -121,8 +121,8 @@ public class IngameRootControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
         // TODO: logic moved to auto context. move test there as well
-        verify(modelManager).getGame();
-        verify(autoContext).gameInitialized(gameState);
+        // verify(modelManager).getGame();
+        // verify(autoContext).gameInitialized(gameState);
 
         verify(battleFieldComponent, never()).getRoot();
 

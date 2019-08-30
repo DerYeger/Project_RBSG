@@ -131,7 +131,12 @@ public class BotTest {
         sut.listenOnGameEventsForStart(event);
 
         Thread.sleep(500);
-        sut.shutdown();
+
+        sut.getExecutor().execute(
+            () -> gameState.setWinner(player)
+        );
+
+        sut.getShutdownPromise().get(300, TimeUnit.MILLISECONDS);
 
         sut.join();
     }
