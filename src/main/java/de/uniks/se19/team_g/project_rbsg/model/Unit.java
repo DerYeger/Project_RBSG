@@ -89,4 +89,8 @@ public class Unit implements Cloneable {
     public String getDescriptionKey() {
         return typeInfo.getDescriptionKey();
     }
+
+    public int getAttackValue(Unit unit) {
+        return this.typeInfo.getCanAttack(unit.getTypeInfo().getNameKey());
+    }
 }

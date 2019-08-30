@@ -11,10 +11,9 @@ import java.util.*;
 
 public class ActionExecutor
 {
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final IngameApi api;
     private TileDrawer tileDrawer;
-    private Logger logger = LoggerFactory.getLogger(getClass());
     private Runnable surrenderGameAction;
 
     public ActionExecutor (@NonNull final IngameApi api)
@@ -58,12 +57,15 @@ public class ActionExecutor
         final Unit unit = action.unit;
         final Tour tour = action.tour;
         unit.setRemainingMovePoints(unit.getRemainingMovePoints() - tour.getCost());
+        logger.debug("Reduced MP of " + unit + " by " + tour.getCost() + " to " + unit.getRemainingMovePoints());
         if (unit.getRemainingMovePoints() == 0)
         {
             unit.clearSelection();
+            logger.debug("Unselected " + unit);
         }
         api.move(unit, tour);
         unit.getGame().setInitiallyMoved(true);
+        logger.info("Moved " + unit + " to " + tour.getTarget());
     }
 
     private void executeAttack (@NonNull final AttackAction action)
@@ -78,6 +80,7 @@ public class ActionExecutor
                                       tileDrawer.drawTile(action.target.getPosition().getTile())
             );
         }
+        logger.info("Attacked " + action.target + " with " + action.unit);
     }
 
     private void executeFallback (@NonNull final FallbackAction fallbackAction)
@@ -93,17 +96,18 @@ public class ActionExecutor
     {
         api.endPhase();
         action.game.clearSelection();
+        logger.info("Passed");
     }
 
     private void executeSurrender ()
     {
-        logger.debug("Executing Surrender!");
         if(Objects.nonNull(surrenderGameAction)) {
             surrenderGameAction.run();
         }
         else {
             api.leaveGame();
         }
+        logger.info("Surrendered");
     }
 
     public ActionExecutor setSurrenderGameAction (Runnable surrenderGameAction)

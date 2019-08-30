@@ -30,7 +30,7 @@ public class UnitDeathRenderer extends DefaultActionRenderer {
         FXMLLoader fxmlLoader = getFXMLLoader();
         DefaultHistoryCellController controller = fxmlLoader.getController();
         controller.primaryIcon.setImage(getIcon("/assets/icons/operation/death-skull.png"));
-        controller.secondaryIcon.setImage(unit.getUnitType().getIconImage());
+        controller.secondaryIcon.setImage(unit.getUnitType().getPreview());
 
 
         return new HistoryRenderData(fxmlLoader.getRoot(), color);

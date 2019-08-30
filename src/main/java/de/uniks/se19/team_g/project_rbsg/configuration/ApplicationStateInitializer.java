@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
-import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -55,8 +53,7 @@ public class ApplicationStateInitializer {
                     nothing -> {
                         return armyManager.getArmies();
                     }
-                ).thenApply(this::fillArmies)
-                .thenAcceptAsync(
+                ).thenAcceptAsync(
                     armies -> {
                         appState.armies.setAll(armies);
                         try {
@@ -74,7 +71,7 @@ public class ApplicationStateInitializer {
                 )
         ;
     }
-
+    /*
     public List<Army> fillArmies(List<Army> armies) {
         if (armyGeneratorStrategy != null) {
             while (armies.size() < ApplicationState.MAX_ARMY_COUNT) {
@@ -84,4 +81,6 @@ public class ApplicationStateInitializer {
         }
         return armies;
     }
+
+     */
 }
