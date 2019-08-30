@@ -3,7 +3,8 @@ package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.NextTurnAction;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -33,10 +34,10 @@ public class NextTurnActionRenderer extends DefaultActionRenderer {
     @Nonnull
     @Override
     protected HistoryRenderData doRender(Action action) {
-        UpdateAction actionImpl = (UpdateAction) action;
-        Player player = (Player) actionImpl.getNextValue();
+        NextTurnAction actionImpl = (NextTurnAction) action;
+        Player player = (Player) actionImpl.getCurrentPlayer();
         Game game = player.getCurrentGame();
-        int roundCount = Integer.valueOf(game.getRoundCounter());
+        SimpleIntegerProperty roundCount = game.getTurnCounter();
 
         Pair<DefaultHistoryCellController, HBox> data = loadCell();
 
@@ -52,11 +53,9 @@ public class NextTurnActionRenderer extends DefaultActionRenderer {
 
     @Override
     public boolean supports(Action action) {
-        if ( !(action instanceof UpdateAction)) {
+        if ( !(action instanceof NextTurnAction)) {
             return false;
         }
-        UpdateAction actionImpl = (UpdateAction) action;
-        return actionImpl.getEntity() instanceof Game
-                && "currentPlayer".equals(actionImpl.getFieldName());
+        return action instanceof NextTurnAction;
     }
 }

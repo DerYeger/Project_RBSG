@@ -535,8 +535,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.game.getPlayers().addListener(playerListListener);
         phaseImage.imageProperty().setValue(new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm()));
         this.game.phaseProperty().addListener(phaseChangedListener);
-        roundCount.set(this.game.getRoundCounter());
-        roundCountLabel.textProperty().bind(roundCount.asString());
+        roundCountLabel.textProperty().bind(this.game.getTurnCounter().asString());
         phaseLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "phaseLabel"));
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
         //ingameInformationHBox.setSpacing(10);

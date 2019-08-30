@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
@@ -45,7 +44,7 @@ public class Game {
 
     final private ObjectProperty<Hoverable> hovered = new SimpleObjectProperty<>();
 
-    final private SimpleIntegerProperty roundCounter = new SimpleIntegerProperty();
+    final private SimpleIntegerProperty turnCounter = new SimpleIntegerProperty();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -381,15 +380,15 @@ public class Game {
         this.gameStarted.set(gameStarted);
     }
 
-    public int getRoundCounter() {
-        return roundCounter.get();
+    public SimpleIntegerProperty getTurnCounter() {
+        return turnCounter;
     }
 
-    public SimpleIntegerProperty roundCounterProperty() {
-        return roundCounter;
+    public SimpleIntegerProperty turnCounterProperty() {
+        return turnCounter;
     }
 
-    public void setRoundCounter(int rouncCounter) {
-        this.roundCounter.set(rouncCounter);
+    public void setTurnCounter(int rouncCounter) {
+        this.turnCounter.set(rouncCounter);
     }
 }
