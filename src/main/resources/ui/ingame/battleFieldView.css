@@ -30,7 +30,7 @@
 .name-pane {
     -fx-effect: -shadow;
     -fx-padding: 0 5px 0 5px;
-    -fx-background-color: -surface-elevation-8-color;
+    -fx-background-color: -surface-elevation-2-color;
     -fx-text-fill: -on-primary-fill;
     -fx-font-family: Cinzel;
     -fx-font-size: 30px;

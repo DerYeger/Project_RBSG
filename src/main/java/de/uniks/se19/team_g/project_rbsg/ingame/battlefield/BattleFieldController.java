@@ -539,7 +539,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                                                       {
                                                           if (oldPlayer != null)
                                                           {
-                                                              playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
+                                                              playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -surface-elevation-2-color");
                                                           }
                                                           if (newPlayer != null)
                                                           {
@@ -554,7 +554,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         roundCount.set(0);
         roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "phaseLabel"));
-        ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
+        ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-2-color");
         //ingameInformationHBox.setSpacing(10);
         HBox.setMargin(ingameInformationHBox, new Insets(10, 10, 10, 10));
         //phaseLabel.textProperty().bind(this.game.phaseProperty());
