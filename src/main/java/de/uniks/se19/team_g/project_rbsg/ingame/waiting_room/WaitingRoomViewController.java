@@ -205,9 +205,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private void setPlayerCardNodes() {
         Node player1 = playerCard.buildPlayerCard(selectedLocale);
-        player1.setOnMouseClicked(this::player1PaneClicked);
+        player1.setOnMouseClicked((event) -> onPlayerCardClicked(event, 0));
         Node player2 = playerCard2.buildPlayerCard(selectedLocale);
-        player2.setOnMouseClicked(this::player2PaneClicked);
+        player2.setOnMouseClicked((event) -> onPlayerCardClicked(event, 1));
         player1Pane.getChildren().add(player1);
         player2Pane.getChildren().add(player2);
 
@@ -215,9 +215,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             Node player3 = playerCard.buildPlayerCard(selectedLocale);
-            player3.setOnMouseClicked(this::player3PaneClicked);
+            player3.setOnMouseClicked((event) -> onPlayerCardClicked(event, 2));
             Node player4 = playerCard2.buildPlayerCard(selectedLocale);
-            player4.setOnMouseClicked(this::player4PaneClicked);
+            player4.setOnMouseClicked((event) -> onPlayerCardClicked(event, 3));
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
@@ -472,28 +472,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
-    @FXML
-    public void player1PaneClicked(MouseEvent event){
-        int playerNumber=0;
-        onPlayerCardClicked(playerNumber);
-    }
-    @FXML
-    public void player2PaneClicked(MouseEvent event){
-        int playerNumber=1;
-        onPlayerCardClicked(playerNumber);
-    }
-    @FXML
-    public void player3PaneClicked(MouseEvent event){
-        int playerNumber=2;
-        onPlayerCardClicked(playerNumber);
-    }
-    @FXML
-    public void player4PaneClicked(MouseEvent event){
-        int playerNumber=3;
-        onPlayerCardClicked(playerNumber);
-    }
-
-    private void onPlayerCardClicked(int playerNumber){
+    private void onPlayerCardClicked(MouseEvent event, int playerNumber){
         ObservableList<Player> players = context.getGameState().getPlayers();
         Player player = players.get(playerNumber);
         if(!player.isPlayer()){
