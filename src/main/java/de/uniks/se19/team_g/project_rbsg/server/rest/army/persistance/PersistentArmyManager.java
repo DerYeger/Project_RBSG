@@ -104,20 +104,10 @@ public class PersistentArmyManager {
     }
 
     private CompletableFuture<SaveArmyResponse> createArmy(@NonNull Army army) {
-        PersistArmyRequest createArmyRequest = new PersistArmyRequest();
-        ObservableList<Unit> units = army.units;
-        createArmyRequest.units = new LinkedList<String>();
+        CreateArmyService requestService = new CreateArmyService(restTemplate);
 
-        for (Unit unit : units) {
-            createArmyRequest.units.add(unit.id.get());
-        }
-
-        createArmyRequest.name = army.name.get();
-
-        return CompletableFuture.supplyAsync(() -> restTemplate.postForObject(
-                url,
-                createArmyRequest,
-                SaveArmyResponse.class))
+        return CompletableFuture
+                .supplyAsync(() -> requestService.createArmy(army) )
                 .thenApply(saveArmyResponse -> onSaveArmyResponseReturned(saveArmyResponse, army))
                 .exceptionally(this::handleException);
     }

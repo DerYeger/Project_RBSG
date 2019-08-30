@@ -53,7 +53,7 @@ public class GetUnitTypesServiceTest {
     public void queryUnitTypesOnline() throws ExecutionException, InterruptedException {
         User user = new User("ggEngineering", "ggEngineering");
         user.setUserKey(
-            Objects.requireNonNull(loginManager.onLogin(user).get().getBody()).get("data").get("userKey").asText()
+            Objects.requireNonNull(loginManager.callLogin(user).get().getBody()).get("data").get("userKey").asText()
         );
         userProvider.set(user);
 
