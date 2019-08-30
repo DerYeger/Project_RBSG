@@ -496,8 +496,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     private void onPlayerCardClicked(int playerNumber){
         ObservableList<Player> players = context.getGameState().getPlayers();
         Player player = players.get(playerNumber);
-        if(player!=context.getUserPlayer()){
-            chatController.chatTabManager().openTab('@' + players.get(playerNumber).getName());
+        if(!player.isPlayer()){
+            chatController.chatTabManager().openTab('@' + player.getName());
         }
     }
 
