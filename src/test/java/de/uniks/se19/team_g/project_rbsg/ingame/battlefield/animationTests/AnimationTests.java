@@ -35,7 +35,6 @@ import java.util.concurrent.*;
 import static org.mockito.Mockito.*;
 
 // Ignore because of the long running time
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         FXMLLoaderFactory.class,
@@ -154,6 +153,47 @@ public class AnimationTests extends ApplicationTest
 
         WaitForAsyncUtils.waitForFxEvents();
         sleep(2000);
+
+
+        Assert.assertNotNull(lookup("#animationButton").query());
+        clickOn("#animationButton");
+
+        Platform.runLater(() ->
+                          {
+                              playerUnit.setPosition(cells[3][3]);
+
+                          });
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        sleep(500);
+
+        Platform.runLater(() ->
+                          {
+                              playerUnit.setPosition(null);
+
+                          });
+
+        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
+
+        Platform.runLater(() ->
+                          {
+                              playerUnit.setPosition(cells[0][0]);
+
+                          });
+
+        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
+
+        Platform.runLater(() ->
+                          {
+                              playerUnit.setHp(1);
+
+                          });
+
+        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
     }
 
     protected void revealBattleField (IngameContext context) throws ExecutionException, InterruptedException

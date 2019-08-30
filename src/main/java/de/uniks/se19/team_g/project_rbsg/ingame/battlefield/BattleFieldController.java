@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import animatefx.animation.Bounce;
+import com.globalmentor.java.*;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
@@ -66,6 +67,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.*;
+import java.util.Objects;
 
 import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
 import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
@@ -128,6 +130,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public VBox history;
     public Button skynetButton;
     public Label gameName;
+    public Button animationButton;
     private ChatController chatController;
     private Game game;
     private ObservableList<Unit> units;
@@ -265,6 +268,14 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endRoundBlack.png"),
                 40
         );
+
+        JavaFXUtils.setButtonIcons(
+                animationButton,
+                getClass().getResource("/assets/icons/operation/animation_white.png"),
+                getClass().getResource("/assets/icons/operation/animation_black.png"),
+                40
+        );
+
         gameName.setText(gameProvider.get().getName());
         menuButton.setTooltip(new Tooltip("ESC/F10"));
         //TODO readd
@@ -1531,4 +1542,25 @@ public class BattleFieldController implements RootController, IngameViewControll
         menuBuilder.battlefieldMenu(entries);
     }
 
+    public void toggleAnimations (ActionEvent actionEvent)
+    {
+
+        animationsAllowed.set(!animationsAllowed.get());
+        if(animationsAllowed.get()) {
+            JavaFXUtils.setButtonIcons(
+                    animationButton,
+                    getClass().getResource("/assets/icons/operation/animation_white.png"),
+                    getClass().getResource("/assets/icons/operation/animation_black.png"),
+                    40
+            );
+        }
+        else {
+            JavaFXUtils.setButtonIcons(
+                    animationButton,
+                    getClass().getResource("/assets/icons/operation/noAnimation_white.png"),
+                    getClass().getResource("/assets/icons/operation/noAnimation_black.png"),
+                    40
+            );
+        }
+    }
 }

@@ -33,17 +33,20 @@ public class RevivalAnimationManager
 
         Cell cell = unit.getPosition();
 
-        if(cell == null) {
+        if (cell == null)
+        {
             return;
         }
 
-        if(mapRedraw == null) {
+        if (mapRedraw == null)
+        {
             return;
         }
 
-        Platform.runLater(() -> {
-            mapRedraw.run();
-        });
+        Platform.runLater(() ->
+                          {
+                              mapRedraw.run();
+                          });
 
         DoubleProperty x = new SimpleDoubleProperty();
         DoubleProperty y = new SimpleDoubleProperty();
@@ -69,12 +72,13 @@ public class RevivalAnimationManager
             @Override
             public void handle (long now)
             {
-                Platform.runLater(() -> {
-                    GraphicsContext gc = canvas.getGraphicsContext2D();
-                    mapRedraw.run();
-                    gc.drawImage(revivalImage, x.doubleValue(),
-                                 y.doubleValue());
-                });
+                Platform.runLater(() ->
+                                  {
+                                      GraphicsContext gc = canvas.getGraphicsContext2D();
+                                      mapRedraw.run();
+                                      gc.drawImage(revivalImage, x.doubleValue(),
+                                                   y.doubleValue());
+                                  });
             }
         };
 
@@ -86,9 +90,10 @@ public class RevivalAnimationManager
     {
         timer.stop();
         targetUnit.setDisplayed(true);
-        Platform.runLater( () -> {
-            mapRedraw.run();
-        });
+        Platform.runLater(() ->
+                          {
+                              mapRedraw.run();
+                          });
     }
 
     private void stopOldTimer ()
@@ -96,6 +101,10 @@ public class RevivalAnimationManager
         if (timer != null)
         {
             timer.stop();
+            if (targetUnit != null)
+            {
+                targetUnit.setDisplayed(true);
+            }
         }
     }
 }
