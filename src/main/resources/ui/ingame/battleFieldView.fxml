@@ -26,22 +26,18 @@
          <children>
             <VBox fx:id="root" spacing="10.0" stylesheets="@../darkTheme.css" HBox.hgrow="ALWAYS">
                <children>
-                  <GridPane>
+                  <GridPane fx:id="upperMenu">
                      <columnConstraints>
-                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                         <ColumnConstraints fx:id="player" halignment="CENTER" hgrow="SOMETIMES" />
-                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                         <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                         <ColumnConstraints fx:id="columnPlayer" halignment="CENTER" hgrow="NEVER" />
+                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints valignment="CENTER" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="menu">
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </Button>
-                        <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="10.0" styleClass="playerCardBox" GridPane.columnIndex="1">
+                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="menu"/>
+                        <HBox fx:id="playerBar" spacing="35.0" styleClass="playerCardBox" GridPane.columnIndex="1">
                            <children>
                               <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css" />
                               <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css" />
@@ -49,6 +45,7 @@
                               <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css" />
                            </children>
                         </HBox>
+                        <Button fx:id="button" styleClass="transparent" GridPane.columnIndex="1"/>
                         <Label fx:id="gameName" styleClass="name-pane" GridPane.columnIndex="2">
                            <GridPane.margin>
                               <Insets left="10.0" />
@@ -108,13 +105,11 @@
                   </HBox>
                   <VBox fx:id="unitInformationContainer">
                      <styleClass>
-                        <String fx:value="boxSpacing" />
                         <String fx:value="contentVBox" />
                      </styleClass>
                   </VBox>
                   <VBox>
                      <styleClass>
-                        <String fx:value="buttonBox" />
                         <String fx:value="contentVBox" />
                         <String fx:value="elevation-2" />
                      </styleClass>
@@ -149,9 +144,9 @@
                         </GridPane>
                      </children>
                   </VBox>
-                  <StackPane fx:id="miniMapStackPane" prefHeight="300.0" prefWidth="300.0">
+                  <StackPane fx:id="miniMapStackPane" maxHeight="300.0" maxWidth="300.0">
                      <children>
-                        <Canvas fx:id="miniMapCanvas" height="300.0" width="300.0" StackPane.alignment="CENTER" />
+                        <Canvas fx:id="miniMapCanvas" height="290.0" width="290.0" StackPane.alignment="CENTER" />
                      </children>
                   </StackPane>
                </children>

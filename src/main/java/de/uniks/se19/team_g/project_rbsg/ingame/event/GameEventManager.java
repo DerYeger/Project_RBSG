@@ -35,14 +35,13 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
     public static final String GAME_INIT_FINISHED = "gameInitFinished";
     public static final String GAME_STARTS = "gameStarts";
 
-    private static final String ENDPOINT = "/game";
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ArrayList<GameEventHandler> gameEventHandlers;
 
     private WebSocketClient webSocketClient;
 
+    @Nullable
     private ChatController chatController;
 
     private Runnable onConnectionClosed;
@@ -84,33 +83,20 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         return this;
     }
 
-    public GameEventManager removeHandler(GameEventHandler gameEventHandler) {
-        gameEventHandlers.remove(gameEventHandler);
-        return this;
-    }
-
     public ArrayList<GameEventHandler> getHandlers() {
         return gameEventHandlers;
     }
 
-    public void startSocket(@Nonnull final String gameID, @Nullable final String armyID, @NonNull final boolean spectatorModus) throws Exception {
+    public void startSocket(@Nonnull final String gameID, @Nullable final String armyID, final boolean spectatorModus) throws Exception {
         final URIBuilder uriBuilder = new URIBuilder("/game");
         uriBuilder.addParameter("gameId", gameID);
         if ((armyID != null) && (! spectatorModus)){
             uriBuilder.addParameter("armyId", armyID);
         }
         if (spectatorModus) {
-            uriBuilder.addParameter("spectator", String.valueOf(spectatorModus));
+            uriBuilder.addParameter("spectator", "true");
         }
         webSocketClient.start(uriBuilder.build().toString(), this);
-    }
-
-    private String getGameIDParam(@NonNull final String gameID) {
-        return "gameId=" + gameID;
-    }
-
-    private String getArmyIDParam(@NonNull final String armyID) {
-        return "armyId=" + armyID;
     }
 
     @Override
@@ -141,9 +127,9 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         final ObjectNode json;
         try {
             json = new ObjectMapper().readValue(message, ObjectNode.class);
-            if (isChatMessage(json)) {
+            if (isChatMessage(json) && chatController != null) {
                 chatController.receiveMessage(json.get("data"));
-            } else if (isChatErrorMessage(json)) {
+            } else if (isChatErrorMessage(json) && chatController != null) {
                 chatController.receiveMessage(json);
             } else {
                 gameEventHandlers.forEach(handler -> {

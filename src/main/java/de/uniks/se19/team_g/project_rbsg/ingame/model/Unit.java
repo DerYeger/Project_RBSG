@@ -258,6 +258,11 @@ public class Unit implements Selectable, Hoverable {
         return attackReady;
     }
 
+    public void ready() {
+        setAttackReady(true);
+        setRemainingMovePoints(getMp());
+    }
+
     public Unit setAttackReady(boolean attackReady) {
         this.attackReady.set(attackReady);
         return this;

@@ -260,12 +260,40 @@
     -fx-background-color: -primary-background-color;
     -fx-font-size: 16pt;
     -fx-font-weight: bold;
-    -fx-padding: 0;
+    -fx-padding: 5 0 5 0;
     -fx-border-radius: 0;
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-effect: -shadow;
     -fx-text-fill: -on-primary-fill;
+}
+
+.button.transparent{
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+
+.button.flavor {
+    -fx-min-height: 42px;
+    -fx-min-width: 42px;
+    -fx-max-width: 42px;
+    -fx-max-height: 42px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.button.flavor:hover {
+    -fx-border-width: 2;
+    -fx-border-color: -default-border-color;
 }
 
 /*------------------Label------------------*/

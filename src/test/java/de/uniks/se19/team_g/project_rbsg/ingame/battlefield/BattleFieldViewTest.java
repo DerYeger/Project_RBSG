@@ -340,7 +340,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         game.withPlayer(player);
         playerUnit.setLeader(player);
-        //otherUnit.setLeader(player);
+        //otherUnit.setLeader(columnPlayer);
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(user, null);
@@ -656,9 +656,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         final TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
 
         final User user = new User().setName("Bob");
-        final Player player = new Player("Bob").setName("Bob").setColor("RED");
+        final Player columnPlayer = new Player("Bob").setName("Bob").setColor("RED");
         final Unit unit = definition.playerUnit;
-        final Game game = definition.game.withPlayer(player).setCurrentPlayer(player).setInitiallyMoved(true);
+        final Game game = definition.game.withPlayer(columnPlayer).setCurrentPlayer(columnPlayer).setInitiallyMoved(true);
 
         final GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 

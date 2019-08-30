@@ -78,7 +78,7 @@ public class BotTest {
     public void start() throws ExecutionException, InterruptedException, TimeoutException, IOException {
         Game gameData = new Game("game", 4);
         User user = new User().setName("karli");
-        Player player = new Player("player");
+        Player player = new Player("columnPlayer");
         player.setName(user.getName());
         de.uniks.se19.team_g.project_rbsg.ingame.model.Game gameState = new de.uniks.se19.team_g.project_rbsg.ingame.model.Game("game");
 

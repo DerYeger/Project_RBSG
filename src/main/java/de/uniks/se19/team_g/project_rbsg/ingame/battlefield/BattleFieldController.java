@@ -14,6 +14,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
@@ -61,6 +62,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
+import javax.swing.table.TableColumn;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -91,6 +93,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final HashMap<String, Pane> playerPaneMap = new HashMap<>();
     private final ArrayList<Pane> playerCardList = new ArrayList<>();
     private final Property<Locale> selectedLocale;
+    private final GameProvider gameProvider;
     public Button menuButton;
     public Button hpBarButton;
     public Button zoomOutButton;
@@ -126,6 +129,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public Button skynetButton;
     public Label gameName;
     public ColumnConstraints player;
+    public Button button;
     private ChatController chatController;
     private Game game;
     private ObservableList<Unit> units;
@@ -163,6 +167,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private Node phaseLabelView;
 
     private Point2D center = new Point2D(100, 100);
+    public ColumnConstraints columnPlayer;
 
     @Autowired
     public BattleFieldController (
@@ -172,9 +177,11 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
+            @NonNull final GameProvider gameProvider,
             @Nonnull Property<Locale> selectedLocale,
             @NonNull MusicManager musicManager
     ) {
+        this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.menuBuilder = menuBuilder;
@@ -199,6 +206,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void initialize ()
     {
+        gameName.textProperty().setValue(gameProvider.get().getName());
         JavaFXUtils.setButtonIcons(
                 menuButton,
                 getClass().getResource("/assets/icons/navigation/menuWhite.png"),
@@ -246,7 +254,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         menuButton.setTooltip(new Tooltip("ESC/F10"));
-
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -289,7 +296,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         openWhenResizedChat = false;
         zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
         zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
-        setFullscreen(null);
+        //setFullscreen(null);
     }
 
     private void disableOverlaysChanged (
@@ -298,12 +305,14 @@ public class BattleFieldController implements RootController, IngameViewControll
             Number newVal
     )
     {
-        if ((double) newVal < 1150)
+        if ((double) newVal < 1250)
         {
             if (playerBar.visibleProperty().get())
             {
                 //openPlayerBar(null);
                 setVisibilityPlayerBar();
+                columnPlayer.setMaxWidth(0);
+                button.setMinWidth(0);
                 openWhenResizedPlayer = true;
             }
             if (chatPane.visibleProperty().get())
@@ -320,6 +329,12 @@ public class BattleFieldController implements RootController, IngameViewControll
             {
                 //openPlayerBar(null);
                 setVisibilityPlayerBar();
+                columnPlayer.setMaxWidth(3000);
+                if (this.game.getPlayers().size() == 2) {
+                    button.setMinWidth(380);
+                } else {
+                    button.setMinWidth(750);
+                }
                 openWhenResizedPlayer = false;
             }
             if (openWhenResizedChat)
@@ -478,7 +493,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerListController = new PlayerListController(this.game);
         playerBar.setAlignment(Pos.TOP_CENTER);
-
+        button.setMinWidth(750);
         int counter = 0;
         if (this.game.getPlayers().size() == 2)
         {
@@ -486,6 +501,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerCardList.remove(player1);
             playerBar.getChildren().remove(player4);
             playerCardList.remove(player4);
+            button.setMinWidth(380);
         }
 
         for (Player player : this.game.getPlayers())
@@ -511,7 +527,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerListController = new PlayerListController(game);
         //playerBar.setVisible(false);
-        playerBar.setPickOnBounds(false);
+        //playerBar.setPickOnBounds(false);
         battlefieldStackPane.setPickOnBounds(false);
         miniMapStackPane.setPickOnBounds(false);
 
@@ -1042,7 +1058,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void onNextPhase(@SuppressWarnings("unused") Observable observable, @SuppressWarnings("unused") String lastPhase, @SuppressWarnings("unused") String nextPhase)
     {
         setCellProperty(null);
-        game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
     }
 
     private void addAlertListeners ()
@@ -1221,8 +1236,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
         isUsersTurn.addListener(((observable, oldValue, newValue) -> {}));
-
-        currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty).or(historyIsTailProperty.not()));
 

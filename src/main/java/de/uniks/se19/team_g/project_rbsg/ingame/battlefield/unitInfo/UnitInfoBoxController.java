@@ -52,7 +52,6 @@ public class UnitInfoBoxController<T> implements Initializable
         this.status = status;
         hpText = new SimpleStringProperty("No unit " + status);
         propertyInfoBuilder = new PropertyInfoBuilder();
-        hpText = new SimpleStringProperty(JavaFXUtils.bindTranslation(selectedLocale, "hpText").getValue());
     }
 
     @Override

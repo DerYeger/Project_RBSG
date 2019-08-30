@@ -38,7 +38,7 @@
                     <Insets />
                 </VBox.margin>
             </Button>
-            <Button fx:id="flavourButton" mnemonicParsing="false" onAction="#forTheEmperor" styleClass="icon-button" />
+            <Button fx:id="flavourButton" mnemonicParsing="false" onAction="#forTheEmperor" styleClass="flavor" />
          <HBox.margin>
             <Insets />
          </HBox.margin>

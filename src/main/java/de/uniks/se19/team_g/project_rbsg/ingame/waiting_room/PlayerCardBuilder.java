@@ -136,7 +136,7 @@ public class PlayerCardBuilder {
 
         final ObservableList<String> styles = playerListCellLabel.getStyleClass();
         playerCardView.getStyleClass().remove(READY_STYLE);
-        styles.remove("player");
+        styles.remove("columnPlayer");
         styles.add("waiting");
         if(selectedLocale != null) playerListCellLabel.textProperty().bind(
                         Bindings.createStringBinding(() -> Rincl.getResources(PlayerCardBuilder.class).getString("waiting"),
@@ -183,7 +183,7 @@ public class PlayerCardBuilder {
         setReady();
         setColor(color);
 
-        // doing it like this saves us from the trouble of removing the old listener, if the old player would be updated
+        // doing it like this saves us from the trouble of removing the old listener, if the old columnPlayer would be updated
         // also, when we switch to ingame, the listener is removed as well.
         onPlayerChangedReadyState = this::onPlayerChangedReadyState;
         player.isReadyProperty().addListener(new WeakChangeListener<>(onPlayerChangedReadyState));
@@ -197,7 +197,7 @@ public class PlayerCardBuilder {
         emptyProperty.setValue(false);
 
         playerListCellLabel.getStyleClass().remove("waiting");
-        playerListCellLabel.getStyleClass().add("player");
+        playerListCellLabel.getStyleClass().add("columnPlayer");
     }
 
     private Timeline setupTimeline() {
