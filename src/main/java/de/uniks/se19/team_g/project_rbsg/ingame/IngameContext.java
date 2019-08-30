@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import javafx.beans.Observable;
@@ -64,6 +65,8 @@ public class IngameContext {
 
     private void onNextPlayer (Observable observable, Player lastPlayer, Player nextPlayer)
     {
+        gameState.setInitiallyMoved(false);
+        nextPlayer.getUnits().forEach(Unit::ready);
         if (isMyTurn()) {
             onBeforeUserTurn();
         }
@@ -71,10 +74,7 @@ public class IngameContext {
 
     private void onBeforeUserTurn ()
     {
-        for (de.uniks.se19.team_g.project_rbsg.ingame.model.Unit unit : getUserPlayer().getUnits())
-        {
-            unit.setRemainingMovePoints(unit.getMp());
-        }
+        // nothing to do here
     }
 
     public User getUser() {
