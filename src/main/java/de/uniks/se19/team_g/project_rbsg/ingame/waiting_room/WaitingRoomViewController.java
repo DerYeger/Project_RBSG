@@ -320,6 +320,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                             if ((playerC.isEmpty()) && (p.getColor() != null))
                             {
                                 playerC.setPlayer(p, Color.valueOf(p.getColor()));
+                                Bot bot = botManager.getAssociatedBot(p);
+                                if(bot != null){
+                                    playerC.configureKillButton(bot);
+                                }
                                 break;
                             }
                         }
@@ -346,15 +350,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         });
     }
 
-    private void checkForBots() {
-        for (PlayerCardBuilder playerCardBuilder: this.playerCardBuilders){
-            for (Bot bot: botManager.getBots()){
-                if (playerCardBuilder.getPlayer().getName().equals(bot.getName())){
-                    playerCardBuilder.configureKillButton();
-                }
-            }
-        }
-    }
 
 
     protected void configureArmySelection ()
@@ -440,10 +435,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
 
         configureArmySelection();
-
-        botManager.getBotObservableList().addListener((ListChangeListener<Bot>) botList -> {
-            checkForBots();
-        });
     }
 
     private void onInitialized ()

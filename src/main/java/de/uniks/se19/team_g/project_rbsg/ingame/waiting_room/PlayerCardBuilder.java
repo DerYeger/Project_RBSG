@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
+import de.uniks.se19.team_g.project_rbsg.bots.Bot;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
 import io.rincl.Rincl;
@@ -10,15 +11,13 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
@@ -49,9 +48,7 @@ public class PlayerCardBuilder {
     public ProgressIndicator progressIndicator;
     public Pane colorPane;
     public Button botButton;
-    public Button killButton;
     public Pane botButtonContainer;
-    public Pane killButtonContainer;
     public Pane root;
 
     private FXMLLoader fxmlLoader;
@@ -65,6 +62,7 @@ public class PlayerCardBuilder {
 
 
     public final BooleanProperty emptyProperty = new SimpleBooleanProperty(true);
+    private final ObjectProperty<EventHandler<ActionEvent>> interaction = new SimpleObjectProperty<>();
 
     private Property<Locale> selectedLocale;
     private Runnable onBotRequested;
@@ -103,34 +101,17 @@ public class PlayerCardBuilder {
         whiteAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountWhite.png").toExternalForm());
         blackAccountImage = new Image(getClass().getResource("/assets/icons/navigation/accountBlack.png").toExternalForm());
 
+
         BooleanBinding notEmptyBinding = emptyProperty.not();
         progressIndicator.visibleProperty().bind(emptyProperty);
         playerListCellImageView.visibleProperty().bind(notEmptyBinding);
-        botButtonContainer.visibleProperty().bind(emptyProperty);
-        botButtonContainer.managedProperty().bind(emptyProperty);
         colorPane.visibleProperty().bind(notEmptyBinding);
         colorPane.managedProperty().bind(notEmptyBinding);
 
-        botButton.setOnAction(actionEvent -> handleBotRequest(actionEvent));
-        if (onBotRequested == null) {
-            botButton.setDisable(true);
-        }
-
-        JavaFXUtils.setButtonIcons(
-                botButton,
-                getClass().getResource("/assets/icons/operation/botBlack.png"),
-                getClass().getResource("/assets/icons/operation/botWhite.png"),
-                40
-        );
-
-        JavaFXUtils.setButtonIcons(
-                killButton,
-                getClass().getResource("/assets/icons/operation/killBotBlack.png"),
-                getClass().getResource("/assets/icons/operation/killBotWhite.png"),
-                40
-        );
-
-        killButtonContainer.setVisible(false);
+        final BooleanBinding hasInteraction = interaction.isNotNull();
+        botButton.onActionProperty().bind(interaction);
+        botButtonContainer.visibleProperty().bind(hasInteraction);
+        botButtonContainer.managedProperty().bind(hasInteraction);
 
         setEmpty();
 
@@ -157,6 +138,19 @@ public class PlayerCardBuilder {
                 )
         );
         onPlayerChangedReadyState = null;
+
+        interaction.set(actionEvent -> handleBotRequest(actionEvent));
+        if (onBotRequested == null) {
+            botButton.setDisable(true);
+        }
+
+        JavaFXUtils.setButtonIcons(
+                botButton,
+                getClass().getResource("/assets/icons/operation/botBlack.png"),
+                getClass().getResource("/assets/icons/operation/botWhite.png"),
+                40
+        );
+
     }
 
     public Node playerLeft() {
@@ -170,7 +164,7 @@ public class PlayerCardBuilder {
     }
 
     public Node setPlayer(Player player, Color color){
-
+        interaction.set(null);
         this.player = player;
         if(fxmlLoader == null) {
             buildPlayerCard(selectedLocale);
@@ -239,7 +233,13 @@ public class PlayerCardBuilder {
         onBotRequested.run();
     }
 
-    public void configureKillButton(){
-        botButtonContainer.setVisible(true);
+    public void configureKillButton(Bot bot){
+        interaction.set(event -> bot.shutdown());
+        JavaFXUtils.setButtonIcons(
+                botButton,
+                getClass().getResource("/assets/icons/operation/killBotBlack.png"),
+                getClass().getResource("/assets/icons/operation/killBotWhite.png"),
+                40
+        );
     }
 }

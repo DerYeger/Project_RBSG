@@ -37,24 +37,15 @@
             </VBox>
             <VBox alignment="CENTER" minHeight="0.0" minWidth="0.0">
                <children>
-                  <StackPane>
+                  <Pane fx:id="botButtonContainer">
                      <children>
-                        <Pane fx:id="botButtonContainer">
-                           <children>
-                               <Button fx:id="botButton" mnemonicParsing="false" text="Button">
-                                   <styleClass>
-                                       <String fx:value="icon-button" />
-                                   </styleClass>
-                              </Button>
-                           </children>
-                        </Pane>
-                        <Pane fx:id="killButtonContainer">
-                           <children>
-                              <Button fx:id="killButton" mnemonicParsing="false" styleClass="icon-button" text="Button" />
-                           </children>
-                        </Pane>
+                         <Button fx:id="botButton" mnemonicParsing="false" text="Button">
+                             <styleClass>
+                                 <String fx:value="icon-button" />
+                             </styleClass>
+                        </Button>
                      </children>
-                  </StackPane>
+                  </Pane>
                </children>
             </VBox>
          </children>

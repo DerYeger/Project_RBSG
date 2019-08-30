@@ -258,4 +258,11 @@ public class Bot extends Thread {
         return bootPromise;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Game getGameData() {
+        return gameData;
+    }
 }

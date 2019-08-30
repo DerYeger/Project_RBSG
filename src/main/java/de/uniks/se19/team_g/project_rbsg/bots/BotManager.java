@@ -1,22 +1,29 @@
 package de.uniks.se19.team_g.project_rbsg.bots;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.user.GetTempUserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.PreDestroy;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Component
 public class BotManager {
 
     private Map<String, Bot> bots = Collections.synchronizedMap(new HashMap<>());
-    private ObservableList<Bot> botObservableList = FXCollections.observableArrayList();
+    private ObservableMap<String, Bot> botObservableList = FXCollections.observableMap(bots);
 
     private final GetTempUserService getTempUserService;
     private final LoginManager loginManager;
@@ -36,21 +43,18 @@ public class BotManager {
 
         CompletableFuture<Bot> botBooting = CompletableFuture.supplyAsync(getTempUserService)
                 .thenApplyAsync(loginManager::login)
-                .thenApply( user -> botFactory.getObject().start(game, user))
+                .thenApply( user -> {
+                    final Bot bot = botFactory.getObject();
+                    botObservableList.put(user.getName(), bot);
+                    return bot.start(game, user);
+                })
                 .thenCompose(Bot::getBootPromise)
         ;
 
         botBooting
-                .thenApply(bot -> addBot(bot))
                 .exceptionally(throwable -> {throwable.printStackTrace(); return null;});
 
         return botBooting;
-    }
-
-    private Object addBot(Bot bot) {
-        bots.put(bot.getName(), bot);
-        botObservableList.add(bot);
-        return bot;
     }
 
     public Collection<Bot> getBots() {
@@ -67,7 +71,12 @@ public class BotManager {
         bot.shutdown();
     }
 
-    public ObservableList<Bot> getBotObservableList() {
+    public ObservableMap<String, Bot> getBotObservableMap() {
         return botObservableList;
+    }
+
+    @Nullable
+    public Bot getAssociatedBot(@Nonnull Player p) {
+        return bots.get(p.getName());
     }
 }
