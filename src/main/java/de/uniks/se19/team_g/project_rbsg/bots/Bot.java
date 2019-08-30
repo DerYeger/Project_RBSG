@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.bots;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
@@ -27,6 +28,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -36,7 +38,7 @@ import java.util.concurrent.TimeUnit;
 @Scope("prototype")
 public class Bot extends Thread {
 
-    public static final int FREQUENCY = 100;
+    public static final int FREQUENCY = 666;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private User user;
@@ -200,6 +202,7 @@ public class Bot extends Thread {
     private void doShutdown() {
         running = false;
         if (ingameContext != null) {
+            String message = "V(-,,-)V  Bye bye! :)";
             if (
                     ingameContext.isInitialized()
                     && ingameContext.getGameState() != null
@@ -207,8 +210,10 @@ public class Bot extends Thread {
                     && ingameContext.getGameState().getWinner() == ingameContext.getUserPlayer()
             ) {
                 logger.info("Fc*k, yeah. Wreck'd 'em");
+                message = "gg wp bb 👏👏👏";
             }
             if (ingameContext.getGameEventManager() != null) {
+                ingameContext.getGameEventManager().sendMessage(ChatClient.CLIENT_PUBLIC_CHANNEL, null, message);
                 ingameContext.getGameEventManager().terminate();
             }
         }
@@ -238,6 +243,16 @@ public class Bot extends Thread {
             logger.info(newValue + " has won the game. " + this + " is shutting down.");
             closePromise.complete(this);
         });
+
+        executor.execute(
+                () -> ingameContext.getGameEventManager().sendMessage(
+                        ChatClient.CLIENT_PUBLIC_CHANNEL,
+                        null,
+                        "❤🍀🐞🎰❤"
+                ),
+                new Random().nextInt(500) + 2000
+        );
+
 
         nextTurn();
     }

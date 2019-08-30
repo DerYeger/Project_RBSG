@@ -1043,7 +1043,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void onNextPhase(@SuppressWarnings("unused") Observable observable, @SuppressWarnings("unused") String lastPhase, @SuppressWarnings("unused") String nextPhase)
     {
         setCellProperty(null);
-        game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
     }
 
     private void addAlertListeners ()
@@ -1213,8 +1212,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         ));
 
         playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
-
-        currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
 
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
