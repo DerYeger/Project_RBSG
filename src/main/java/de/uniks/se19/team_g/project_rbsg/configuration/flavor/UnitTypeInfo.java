@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * TODO: Maybe use application.properties instead?
