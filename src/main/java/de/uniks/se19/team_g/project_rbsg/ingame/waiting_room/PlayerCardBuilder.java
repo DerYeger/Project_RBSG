@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -75,6 +76,11 @@ public class PlayerCardBuilder {
         if (botButton != null) {
             botButton.setDisable(false);
         }
+    }
+
+    public void setOnPlayerClicked(EventHandler<MouseEvent> handler) {
+        // TODO: needs to be a pane behind the button. bot buttons require priority
+        // root.setOnMouseClicked(handler);
     }
 
 
@@ -139,7 +145,10 @@ public class PlayerCardBuilder {
         );
         onPlayerChangedReadyState = null;
 
-        interaction.set(actionEvent -> handleBotRequest(actionEvent));
+        interaction.set(actionEvent -> {
+            handleBotRequest(actionEvent);
+            actionEvent.consume();
+        });
         if (onBotRequested == null) {
             botButton.setDisable(true);
         }
@@ -234,7 +243,10 @@ public class PlayerCardBuilder {
     }
 
     public void configureKillButton(Bot bot){
-        interaction.set(event -> bot.shutdown());
+        interaction.set(event -> {
+            bot.shutdown();
+            event.consume();
+        });
         JavaFXUtils.setButtonIcons(
                 botButton,
                 getClass().getResource("/assets/icons/operation/killBotBlack.png"),

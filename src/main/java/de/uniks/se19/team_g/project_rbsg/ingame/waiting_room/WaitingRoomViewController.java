@@ -240,9 +240,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private void setPlayerCardNodes() {
         Node player1 = playerCard.buildPlayerCard(selectedLocale);
-        player1.setOnMouseClicked((event) -> onPlayerCardClicked(event, 0));
+        playerCard.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 0));
         Node player2 = playerCard2.buildPlayerCard(selectedLocale);
-        player2.setOnMouseClicked((event) -> onPlayerCardClicked(event, 1));
+        playerCard2.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 1));
         player1Pane.getChildren().add(player1);
         player2Pane.getChildren().add(player2);
         playerCard2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
@@ -250,9 +250,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             Node player3 = playerCard3.buildPlayerCard(selectedLocale);
-            player3.setOnMouseClicked((event) -> onPlayerCardClicked(event, 2));
+            playerCard3.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 2));
             Node player4 = playerCard4.buildPlayerCard(selectedLocale);
-            player4.setOnMouseClicked((event) -> onPlayerCardClicked(event, 3));
+            playerCard4.setOnPlayerClicked((event) -> onPlayerCardClicked(event, 3));
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
