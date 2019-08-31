@@ -21,15 +21,5 @@ public class EggTest extends ApplicationTest {
         Platform.runLater(easterEggController::start);
         WaitForAsyncUtils.waitForFxEvents();
         assertNotNull(lookup("stage"));
-        assertEquals(
-                20 * 40,
-                lookup(node -> node instanceof Pane).queryAs(Pane.class).getWidth(),
-                0
-        );
-        assertEquals(
-                20 * 40,
-                lookup(node -> node instanceof Pane).queryAs(Pane.class).getHeight(),
-                0
-        );
     }
 }
