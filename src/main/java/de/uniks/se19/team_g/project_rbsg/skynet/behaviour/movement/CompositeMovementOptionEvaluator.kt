@@ -2,33 +2,23 @@ package de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit
-import de.uniks.se19.team_g.project_rbsg.util.squared
-import kotlin.math.absoluteValue
 
 class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
 
-    override fun compare(first: MovementOption,
-                         second: MovementOption): Int {
-        return when {
+    override fun compare(first: MovementOption, second: MovementOption): Int = when {
             first.tour === second.tour -> compareEnemies(first, second)
             first.enemy === second.enemy -> compareTours(first, second)
             else -> compareMovementOptions(first, second)
         }
-    }
 
-    private fun compareMovementOptions(first: MovementOption,
-                                       second: MovementOption) : Int {
-        val enemyComparison = compareEnemies(first, second)
-        val tourComparison = compareTours(first, second)
+    private fun compareMovementOptions(first: MovementOption, second: MovementOption) : Int =
+            //prefer tourComparison, unless tours are equally viable
+            when (val tourComparison = compareTours(first, second)) {
+                0 -> compareEnemies(first, second)
+                else -> tourComparison
+            }
 
-        return when {
-            enemyComparison.absoluteValue > tourComparison.squared() -> enemyComparison //prefer tourComparison, unless enemyComparison difference is much bigger
-            else -> tourComparison
-        }
-    }
-
-    private fun compareEnemies(first: MovementOption,
-                               second: MovementOption) : Int {
+    private fun compareEnemies(first: MovementOption, second: MovementOption) : Int {
         val firstAttackValue = first.unit.getAttackValue(first.enemy.unit)
         val secondAttackValue = second.unit.getAttackValue(second.enemy.unit)
 
@@ -44,16 +34,12 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         }
     }
 
-    private fun compareTours(first: MovementOption,
-                             second: MovementOption) : Int {
-        return when {
-            first.distanceToEnemy != second.distanceToEnemy -> (first.distanceToEnemy - second.distanceToEnemy).toInt()
-            else -> compareDestinations(first, second)
-        }
+    private fun compareTours(first: MovementOption, second: MovementOption) : Int =  when {
+        first.distanceToEnemy != second.distanceToEnemy -> (first.distanceToEnemy - second.distanceToEnemy).toInt()
+        else -> compareDestinations(first, second)
     }
 
-    private fun compareDestinations(first: MovementOption,
-                                    second: MovementOption) : Int {
+    private fun compareDestinations(first: MovementOption, second: MovementOption) : Int {
         val firstTargets = first.destination.attackableNeighbors(first.unit).size
         val secondTargets = second.destination.attackableNeighbors(second.unit).size
 
@@ -67,23 +53,12 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         }
     }
 
-    private fun Cell.attackableNeighbors(unit : Unit) : List<Unit> {
-        return this
-                .neighbors
-                .mapNotNull { it.unit }
-                .filter { unit.canAttack(it) }
-    }
+    private fun Cell.attackableNeighbors(unit : Unit) : List<Unit> =
+            this.neighbors.mapNotNull { it.unit }.filter { unit.canAttack(it) }
 
-    private fun Cell.threateningNeighbors(unit : Unit): List<Unit> {
-        return this
-                .neighbors
-                .mapNotNull { it.unit }
-                .filter { it.canAttack(unit) }
-    }
+    private fun Cell.threateningNeighbors(unit : Unit): List<Unit> =
+            this.neighbors.mapNotNull { it.unit }.filter { it.canAttack(unit) }
 
-    private fun Enemy.threats() : List<Unit> {
-        return this
-                .position
-                .threateningNeighbors(this.unit)
-    }
+    private fun Enemy.threats() : List<Unit> =
+            this.position.threateningNeighbors(this.unit)
 }
