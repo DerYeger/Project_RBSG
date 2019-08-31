@@ -21,7 +21,8 @@ class DefaultAttackOptionEvaluator : AttackOptionEvaluator {
 
         return when {
             firstThreatenedNeighbors != secondThreatenedNeighbors -> preferBigger(firstThreatenedNeighbors, secondThreatenedNeighbors) //prefer enemies that are threatening more units
-            else -> preferSmaller(firstThreateningNeighbors, secondThreateningNeighbors) //prefer enemies that are threatened by less units
+            firstThreateningNeighbors != secondThreateningNeighbors -> preferSmaller(firstThreateningNeighbors, secondThreateningNeighbors) //prefer enemies that are threatened by less units
+            else -> 0
         }
     }
 }
