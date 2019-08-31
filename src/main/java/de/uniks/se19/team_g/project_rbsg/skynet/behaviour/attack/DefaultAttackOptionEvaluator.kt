@@ -8,7 +8,7 @@ import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.threateningNeighbors
 class DefaultAttackOptionEvaluator : AttackOptionEvaluator {
 
     override fun compare(first: AttackOption, second: AttackOption): Int = when {
-        first.defender.hp != second.defender.hp -> preferSmaller(first.defender.hp, second.defender.hp)
+        first.defender.hp != second.defender.hp -> preferSmaller(first.defender.hp, second.defender.hp) //prefer enemies with less health (as they will not have any defense)
         else -> compareDefenderNeighbors(first, second)
     }
 
@@ -20,8 +20,8 @@ class DefaultAttackOptionEvaluator : AttackOptionEvaluator {
         val secondThreateningNeighbors = second.defender.threateningNeighbors().size
 
         return when {
-            firstThreatenedNeighbors != secondThreatenedNeighbors -> preferBigger(firstThreatenedNeighbors, secondThreatenedNeighbors)
-            else -> preferSmaller(firstThreateningNeighbors, secondThreateningNeighbors)
+            firstThreatenedNeighbors != secondThreatenedNeighbors -> preferBigger(firstThreatenedNeighbors, secondThreatenedNeighbors) //prefer enemies that are threatening more units
+            else -> preferSmaller(firstThreateningNeighbors, secondThreateningNeighbors) //prefer enemies that are threatened by less units
         }
     }
 }
