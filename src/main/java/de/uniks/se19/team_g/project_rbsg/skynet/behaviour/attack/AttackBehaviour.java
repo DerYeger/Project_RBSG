@@ -39,7 +39,7 @@ public class AttackBehaviour implements Behaviour {
                     .map(enemy -> new AttackOption(unit, enemy))
                     .min(attackOptionEvaluator)
                     .orElseThrow(() -> new AttackBehaviourException("An unexpected error occurred"))
-                    .getAttacker();
+                    .getDefender();
             return Optional.of(new AttackAction(unit, target));
         } catch (final AttackBehaviourException e) {
             logger.info(e.getMessage());
