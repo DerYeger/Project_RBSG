@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.chat.command;
 
+import de.uniks.se19.team_g.project_rbsg.bots.UserScopeBeanFactoryPostProcessor;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
@@ -30,7 +31,6 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         ChatController.class,
-        UserProvider.class,
         ChatChannelController.class,
         ChuckNorrisCommandHandlerTest.ContextConfiguration.class
 })
@@ -42,6 +42,10 @@ public class ChuckNorrisCommandHandlerTest extends ApplicationTest {
     @TestConfiguration
     static class ContextConfiguration{
 
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
 
         @Bean
         public WebSocketClient webSocketClient() {

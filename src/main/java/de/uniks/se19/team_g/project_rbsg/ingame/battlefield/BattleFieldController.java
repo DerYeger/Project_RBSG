@@ -1,7 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication;
-import de.uniks.se19.team_g.project_rbsg.scene.*;
+import animatefx.animation.Bounce;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController;
@@ -17,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.*;
 import de.uniks.se19.team_g.project_rbsg.skynet.Skynet;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.AttackAction;
@@ -37,10 +38,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -80,14 +78,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 {
 
     private static final double CELL_SIZE = 64;
-
     private final ExceptionHandler exceptionHandler;
-
-    private int heightCenter = 500;
-    private int widthCenter = 1000;
-    @SuppressWarnings("SuspiciousNameCombination")
-    private Point2D center = new Point2D(heightCenter, widthCenter);
-
     private final SceneManager sceneManager;
     private final AlertBuilder alertBuilder;
     private final MenuBuilder menuBuilder;
@@ -134,6 +125,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public StackPane rootPane;
     public VBox history;
     public Button skynetButton;
+    public Label gameName;
     private ChatController chatController;
     private Game game;
     private ObservableList<Unit> units;
@@ -145,8 +137,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final ChangeListener<Number> cameraViewChangedListener = this::cameraViewChanged;
     private final ChangeListener<Number> stageSizeListener = this::stageSizeChanged;
     private final ChangeListener<Number> disableOverlaysListener = this::disableOverlaysChanged;
-    private final ChangeListener<Number> calculateHeightListener = this::stageHeightChanged;
-    private final ChangeListener<Number> calculateWidthListener = this::stageWidthChanged;
     private ZoomableScrollPane zoomableScrollPane;
     private Canvas canvas;
     private int mapSize;
@@ -157,7 +147,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private PlayerListController playerListController;
     private final ListChangeListener<Player> playerListListener = this::playerListChanged;
     private SimpleIntegerProperty roundCount;
-    private int roundCounter;
+    private int playerCounter;
     private final ChangeListener<String> phaseChangedListener = this::phaseChanged;
     private Skynet skynet;
     private ActionExecutor actionExecutor;
@@ -165,6 +155,11 @@ public class BattleFieldController implements RootController, IngameViewControll
     private HistoryViewProvider historyViewProvider;
 
     private final Button fullscreenButton = new Button();
+    private final MusicManager musicManager;
+
+    private Node phaseLabelView;
+
+    private Point2D center = new Point2D(100, 100);
 
     @Autowired
     public BattleFieldController (
@@ -174,9 +169,9 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
-            @Nonnull Property<Locale> selectedLocale
-    )
-    {
+            @Nonnull Property<Locale> selectedLocale,
+            @NonNull MusicManager musicManager
+    ) {
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.menuBuilder = menuBuilder;
@@ -188,9 +183,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.chatController = chatController;
 
         this.roundCount = new SimpleIntegerProperty();
-        this.roundCounter = 1;
+        //this.roundCounter = 1;
+        this.playerCounter = 0;
 
         this.selectedLocale = selectedLocale;
+        this.musicManager = musicManager;
 
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::doLeaveGame)
@@ -252,6 +249,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         );
 
         menuButton.setTooltip(new Tooltip("ESC/F10"));
+
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -284,20 +282,16 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     private void initListenersForFullscreen() {
+        setCenter();
         sceneManager.getStageHeightProperty().addListener(stageSizeListener);
         sceneManager.getStageHeightProperty().addListener(cameraViewChangedListener);
-        sceneManager.getStageHeightProperty().addListener(calculateHeightListener);
         sceneManager.getStageWidhtProperty().addListener(stageSizeListener);
         sceneManager.getStageWidhtProperty().addListener(disableOverlaysListener);
         sceneManager.getStageWidhtProperty().addListener(cameraViewChangedListener);
-        sceneManager.getStageWidhtProperty().addListener(calculateWidthListener);
         openWhenResizedPlayer = false;
         openWhenResizedChat = false;
         zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
         zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
-        heightCenter = (ProjectRbsgFXApplication.HEIGHT - 70) / 2;
-        widthCenter = (ProjectRbsgFXApplication.WIDTH - 155) / 2;
-        calculateCenter();
         setFullscreen(null);
     }
 
@@ -342,24 +336,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void stageSizeChanged (@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal)
     {
         double change = (double) newVal < (double) oldVal ? -((double) newVal / (double) oldVal) : (double) oldVal / (double) newVal;
+        setCenter();
         zoomableScrollPane.onScroll(change, center);
-    }
-
-    private void stageHeightChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
-        double change = (double) newVal - (double) oldVal;
-        this.heightCenter += change;
-        calculateCenter();
-    }
-
-    private void calculateCenter() {
-        //noinspection SuspiciousNameCombination
-        this.center = new Point2D(this.heightCenter, this.widthCenter);
-    }
-
-    private void stageWidthChanged(@SuppressWarnings("unused") ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
-        double change = (double) newVal - (double) oldVal;
-        this.widthCenter += change;
-        calculateCenter();
     }
 
     private void highlightingChanged (PropertyChangeEvent propertyChangeEvent)
@@ -555,17 +533,17 @@ public class BattleFieldController implements RootController, IngameViewControll
                                                       });
 
         this.game.getPlayers().addListener(playerListListener);
-
+        phaseImage.imageProperty().setValue(new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm()));
         this.game.phaseProperty().addListener(phaseChangedListener);
 
         roundCount.set(0);
         roundCountLabel.textProperty().bind(roundCount.asString());
-        phaseLabel.setText("Phase");
+        phaseLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "phaseLabel"));
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
         //ingameInformationHBox.setSpacing(10);
         HBox.setMargin(ingameInformationHBox, new Insets(10, 10, 10, 10));
         //phaseLabel.textProperty().bind(this.game.phaseProperty());
-        roundTextLabel.textProperty().setValue("Round");
+        roundTextLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "roundLabel"));
     }
 
     private void playerListChanged (ListChangeListener.Change<? extends Player> c)
@@ -589,12 +567,13 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void phaseChanged(@SuppressWarnings("unused") ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
     {
-        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (roundCounter % this.game.getPlayers().size()) == 0)
+        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (playerCounter % this.game.getPlayers().size()) == 0)
         {
             Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
-            roundCounter = 0;
+            playerCounter = 0;
+        } else if(newPhase != null && newPhase.equals("lastMovePhase")) {
+            playerCounter++;
         }
-        roundCounter++;
 
         switch (newPhase)
         {
@@ -617,6 +596,18 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
             break;
         }
+
+        phaseLabelView.visibleProperty().set(true);
+        Bounce bounce = new Bounce(phaseLabelView);
+        bounce.setCycleCount(1);
+        if(skynet.isBotRunning()) {
+            double speed = skynet.getBot().frequency.getValue() / 10.0 < 1 ? 1 : skynet.getBot().frequency.getValue()/10;
+            bounce.setSpeed(speed);
+        } else {
+            bounce.setSpeed(1);
+        }
+        bounce.play();
+        bounce.setOnFinished((e) -> phaseLabelView.visibleProperty().set(false));
 
         //TODO readd
 //        if (context.isMyTurn())
@@ -872,13 +863,20 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureHistory();
 
-        context.getGameState().currentPlayerProperty().addListener(this::onNextPlayer);
-        if (context.getGameState().getCurrentPlayer() != null)
-        {
-            onNextPlayer(null, null, context.getGameState().getCurrentPlayer());
+        if (phaseLabelView == null) {
+            phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
+            rootPane.getChildren().add(phaseLabelView);
+            phaseLabelView.visibleProperty().set(false);
         }
 
         game = context.getGameState();
+        game.getUnits().addListener((ListChangeListener) change -> {
+            while(change.next()) {
+                if (change.wasRemoved()) {
+                    musicManager.playDeathSound();
+                }
+            }
+        });
         if (game != null)
         {
             ObservableList<Cell> cells = game.getCells();
@@ -936,8 +934,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureEndPhaseAndEndRound();
 
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty()));
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty()));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), selectedLocale));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), selectedLocale));
 
         try
         {
@@ -948,7 +946,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             e.printStackTrace();
         }
-
         initActionExecutor();
         initSkynet();
         initSkynetButtons();
@@ -956,6 +953,11 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             initListenersForFullscreen();
         }
+    }
+
+    public void setCenter(){
+        Bounds bounds = zoomableScrollPane.localToScreen(zoomableScrollPane.getBoundsInLocal());
+        center = new Point2D(bounds.getCenterX(), bounds.getCenterY());
     }
 
 
@@ -1049,7 +1051,6 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void onNextPhase(@SuppressWarnings("unused") Observable observable, @SuppressWarnings("unused") String lastPhase, @SuppressWarnings("unused") String nextPhase)
     {
         setCellProperty(null);
-        game.getCurrentPlayer().getUnits().forEach(unit -> unit.setAttackReady(true));
     }
 
     private void addAlertListeners ()
@@ -1220,8 +1221,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
 
-        currentPlayerProperty.addListener((observable, oldValue, newValue) -> this.context.getGameState().setInitiallyMoved(false));
-
         endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
 
         endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
@@ -1239,22 +1238,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
 
-    @SuppressWarnings("unused")
-    private void onNextPlayer (Observable observable, Player lastPlayer, Player nextPlayer)
-    {
-        if (context.isMyTurn())
-        {
-            onBeforeUserTurn();
-        }
-    }
-
-    private void onBeforeUserTurn ()
-    {
-        for (Unit unit : context.getUserPlayer().getUnits())
-        {
-            unit.setRemainingMovePoints(unit.getMp());
-        }
-    }
 
     private void initMiniMap ()
     {
@@ -1371,8 +1354,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         JavaFXUtils.setButtonIcons(
                 skynetButton,
-                getClass().getResource("/assets/icons/operation/skynetWhite.png"),
-                getClass().getResource("/assets/icons/operation/skynetBlack.png"),
+                getClass().getResource("/assets/icons/operation/skynetInactiveWhite.png"),
+                getClass().getResource("/assets/icons/operation/skynetInactiveBlack.png"),
                 40
         );
 
@@ -1395,10 +1378,22 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         if (skynet.isBotRunning())
         {
+            JavaFXUtils.setButtonIcons(
+                    skynetButton,
+                    getClass().getResource("/assets/icons/operation/skynetInactiveWhite.png"),
+                    getClass().getResource("/assets/icons/operation/skynetInactiveBlack.png"),
+                    40
+            );
             skynet.stopBot();
         }
         else
         {
+            JavaFXUtils.setButtonIcons(
+                    skynetButton,
+                    getClass().getResource("/assets/icons/operation/skynetActiveWhite.png"),
+                    getClass().getResource("/assets/icons/operation/skynetActiveBlack.png"),
+                    40
+            );
             skynet.startBot();
         }
     }

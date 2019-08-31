@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -18,15 +16,13 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.RemoveAction;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -62,7 +58,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -80,7 +75,7 @@ import static org.mockito.Mockito.*;
         UserProvider.class,
         ChatCommandManager.class,
         GameEventManager.class,
-        LocaleConfig.class
+        LocaleConfig.class,
 })
 public class BattleFieldViewTest extends ApplicationTest {
 
@@ -107,7 +102,6 @@ public class BattleFieldViewTest extends ApplicationTest {
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
 
-
     @Override
     public void start(@NonNull final Stage ignored) {
         battleFieldComponent = battleFieldFactory.getObject();
@@ -123,14 +117,12 @@ public class BattleFieldViewTest extends ApplicationTest {
         Node ingameView = battleFieldComponent.getRoot();
         BattleFieldController controller = battleFieldComponent.getController();
 
-        GameProvider gameDataProvider = new GameProvider();
-        gameDataProvider.set(new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4));
-
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
-        UserProvider userProvider = new UserProvider();
-        userProvider.set(new User().setName("Test"));
-        IngameContext context = new IngameContext(userProvider, gameDataProvider, ingameGameProvider);
+        IngameContext context = new IngameContext(
+                new User().setName("Test"),
+                new de.uniks.se19.team_g.project_rbsg.model.Game("test", 4)
+        );
         Player player = new Player("123");
         player.getUnits().addAll(
                 new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"),
@@ -140,30 +132,31 @@ public class BattleFieldViewTest extends ApplicationTest {
                 new Unit("_5d25be843129f1000129ffe1"), new Unit("_5d25be843129f1000129ffe1"));
         player.setColor("RED");
         player.setName("Test");
-        context.getGameState().getPlayers().add(player);
-        context.getGameState().setCurrentPlayer(player);
+        Game gameState = ingameGameProvider.get();
+        gameState.getPlayers().add(player);
+        gameState.setCurrentPlayer(player);
         context.setGameEventManager(gameEventManager);
-        context.gameInitialized(ingameGameProvider.get());
+        context.gameInitialized(gameState);
         revealBattleField(context);
 
-        assertNotNull(ingameView);
+        Assert.assertNotNull(ingameView);
         Canvas canvas = lookup("#canvas").query();
-        assertNotNull(canvas);
+        Assert.assertNotNull(canvas);
         Button menu = lookup("#menuButton").query();
-        assertNotNull(menu);
+        Assert.assertNotNull(menu);
         Button zoomOut = lookup("#zoomOutButton").query();
-        assertNotNull(zoomOut);
+        Assert.assertNotNull(zoomOut);
         Button zoomIn = lookup("#zoomInButton").query();
-        assertNotNull(zoomIn);
+        Assert.assertNotNull(zoomIn);
         for(int i = 0; i < 6; i++) Platform.runLater( () -> controller.zoomOut(null));
         for(int i = 0; i < 12; i++) Platform.runLater( () -> controller.zoomIn(null));
         WaitForAsyncUtils.waitForFxEvents();
         clickOn("#zoomOutButton");
 
         Button endPhaseButton = lookup("#endPhaseButton").query();
-        assertNotNull(endPhaseButton);
+        Assert.assertNotNull(endPhaseButton);
 
-        Game game = ingameGameProvider.get();
+        Game game = gameState;
         Unit unit = new Unit("10");
         unit.setHp(10);
         unit.setMp(10);
@@ -172,7 +165,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         unit.setPosition(game.getCells().get(11));
         unit.setLeader(player);
 
-        game.getUnits().get(0).setPosition(ingameGameProvider.get().getCells().get(12));
+        game.getUnits().get(0).setPosition(gameState.getCells().get(12));
 
         click(25, 100);
         click(25, 150);
@@ -180,7 +173,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
 
         Button ingameInformationsButton = lookup("#playerButton").query();
-        assertNotNull(ingameInformationsButton);
+        Assert.assertNotNull(ingameInformationsButton);
         HBox playerBar = lookup("#playerBar").query();
         clickOn("#playerButton");
         Assert.assertTrue(playerBar.isVisible());
@@ -220,11 +213,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setMp(3);
         playerUnit.setRemainingMovePoints(0);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -292,12 +281,6 @@ public class BattleFieldViewTest extends ApplicationTest {
         //verify(movementManager, times(2)).getTour(any(), any());
         verify(gameEventManager).sendMessage(any());
 
-        game.setCurrentPlayer(null);
-        // test no action, if user is not current player
-        click(-25, -25);
-        //verifyNoMoreInteractions(gameEventManager);
-        click(-25, -75);
-
     }
 
     @Test
@@ -320,11 +303,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         definition.otherUnit.setLeader(player);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -371,11 +350,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         //otherUnit.setLeader(player);
         game.setCurrentPlayer(player);
 
-        IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -424,10 +399,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -435,6 +407,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
         context.getGameState().getCells().get(5).setUnit(null);
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         WaitForAsyncUtils.waitForFxEvents();
 
         Tour tour = new Tour();
@@ -498,10 +471,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -510,6 +480,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         Tile unitTile = playerUnit.getPosition().getTile();
 
         context.getGameState().setPhase("attackPhase");
+        sleep(1000);
         while(context.getGameState().getPhase()==null){
             sleep(1);
         }
@@ -521,12 +492,14 @@ public class BattleFieldViewTest extends ApplicationTest {
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
 
         context.getGameState().setPhase("movePhase");
-        while(context.getGameState().getPhase()!="movePhase"){
+        sleep(1000);
+        while(!context.getGameState().getPhase().equals("movePhase")){
             sleep(1);
         }
         WaitForAsyncUtils.waitForFxEvents();
 
         context.getGameState().setPhase("movePhase");
+        sleep(1000);
         Assert.assertNotEquals(HighlightingOne.ATTACK, unitTile.getHighlightingOne());
     }
 
@@ -553,10 +526,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -564,20 +534,19 @@ public class BattleFieldViewTest extends ApplicationTest {
         revealBattleField(context);
 
         game.setPhase(Game.Phase.attackPhase.name());
+        sleep(1000);
         click(-25, -25);
         click( -25, 25);
         click(-25, -25);
         game.setPhase(Game.Phase.movePhase.name());
-        //verifyZeroInteractions(gameEventManager);
+        sleep(1000);
         click(25, -25);
         game.setPhase(Game.Phase.attackPhase.name());
-
+        sleep(1000);
         click(-25, -25);
         click(25, -25);
         verify(gameEventManager, times(1)).api();
-        //verifyNoMoreInteractions(gameEventManager);
         verify(ingameApi).attack(definition.playerUnit, definition.otherUnit);
-
         Assert.assertNull(game.getSelectedUnit());
     }
 
@@ -599,10 +568,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -635,10 +601,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -678,10 +641,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+                user, null);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -698,57 +658,7 @@ public class BattleFieldViewTest extends ApplicationTest {
                 any());
     }
 
-    @Test
-    public void testSkynetPausing() throws ExecutionException, InterruptedException {
-        final TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
 
-        final User user = new User().setName("Bob");
-        final Player player = new Player("Bob").setName("Bob").setColor("RED");
-        final Unit unit = definition.playerUnit;
-        final Game game = definition.game.withPlayer(player).setCurrentPlayer(player);
-
-        final GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
-
-        final IngameContext context = new IngameContext(
-                new UserProvider().set(user),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
-        context.gameInitialized(game);
-        context.setGameEventManager(gameEventManager);
-
-        final ModelManager modelManager = new ModelManager();
-
-        context.setModelManager(modelManager);
-
-        final History history = modelManager.getHistory();
-
-        history.push(new UpdateAction("hp", 10, unit));
-        history.forward();
-        history.push(new UpdateAction("hp", 5, unit));
-        history.forward();
-
-        revealBattleField(context);
-
-        final Button skynetTurnButton = lookup("#skynetTurnButton").queryButton();
-        final Button skynetButton = lookup("#skynetButton").queryButton();
-
-        assertNotNull(skynetTurnButton);
-        assertNotNull(skynetButton);
-
-        assertFalse(skynetTurnButton.isDisabled());
-        assertFalse(skynetTurnButton.isDisabled());
-
-        history.back();
-
-        assertTrue(skynetTurnButton.isDisabled());
-        assertTrue(skynetTurnButton.isDisabled());
-
-        history.forward();
-
-        assertFalse(skynetTurnButton.isDisabled());
-        assertFalse(skynetTurnButton.isDisabled());
-    }
 
     protected void revealBattleField(IngameContext context) throws ExecutionException, InterruptedException {
         // doing it like this saves the call to WaitForAsyncUtils and ensures that exceptions

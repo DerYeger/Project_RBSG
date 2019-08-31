@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.chat.ui;
 
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.util.Tuple;
 import javafx.application.Platform;
@@ -18,8 +19,6 @@ import java.util.HashMap;
 @Component
 @Scope("prototype")
 public class ChatTabManager {
-
-    private static final String PUBLIC_CHANNEL_NAME = "General";
 
     @NonNull
     private ChatController chatController;
@@ -66,7 +65,7 @@ public class ChatTabManager {
     }
 
     private void addPublicTab()  {
-        addTab(PUBLIC_CHANNEL_NAME, false);
+        addTab(ChatClient.PUBLIC_CHANNEL_NAME, false);
     }
 
     public Tab addPrivateTab(@NonNull final String channel) {
@@ -97,7 +96,7 @@ public class ChatTabManager {
     }
 
     public boolean closeTab(@NonNull final String channel) {
-        if (channel.equals(PUBLIC_CHANNEL_NAME)) {
+        if (channel.equals(ChatClient.PUBLIC_CHANNEL_NAME)) {
             return false;
         } else if (tabs.containsKey(channel)) {
             tabPane.getTabs().remove(tabs.get(channel));

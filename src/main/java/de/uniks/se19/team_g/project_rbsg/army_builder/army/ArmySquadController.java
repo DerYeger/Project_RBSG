@@ -1,19 +1,25 @@
 package de.uniks.se19.team_g.project_rbsg.army_builder.army;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import javafx.beans.*;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import org.slf4j.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import java.beans.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,10 +27,14 @@ import java.util.ResourceBundle;
 @Scope("prototype")
 public class ArmySquadController extends ListCell<SquadViewModel> implements Initializable {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public Pane root;
     public ImageView imageView;
 
     private SquadViewModel squad;
+
+
 
     @Nonnull
     private final ArmyBuilderState armyBuilderState;
@@ -33,6 +43,7 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
         @Nonnull ArmyBuilderState armyBuilderState
     ) {
         this.armyBuilderState = armyBuilderState;
+
     }
 
     @Override
@@ -49,10 +60,12 @@ public class ArmySquadController extends ListCell<SquadViewModel> implements Ini
         prefHeightProperty().bindBidirectional(prefWidthProperty());
 
         final Unit deputy = squad.members.get(0);
-        imageView.setImage(deputy.getTypeInfo().getPreview());
+
+        JavaFXUtils.bindImage(imageView.imageProperty(), deputy.getTypeInfo().getImageProperty());
 
         setGraphic(root);
     }
+
 
 
     @Override

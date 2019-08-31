@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.model;
 
+import de.uniks.se19.team_g.project_rbsg.bots.UserScoped;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
  * @author Jan Müller
  */
 @Component
+@UserScoped
 public class UserProvider {
 
     private User user;

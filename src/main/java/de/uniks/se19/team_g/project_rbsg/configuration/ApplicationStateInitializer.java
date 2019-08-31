@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
 import javafx.application.Platform;
@@ -8,7 +7,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -21,8 +19,7 @@ public class ApplicationStateInitializer {
     private final ArmyManager armyManager;
     @Nonnull
     private final GetUnitTypesService getUnitTypesService;
-    @Nullable
-    private ArmyGeneratorStrategy armyGeneratorStrategy;
+
     private boolean createdDefaultArmies;
     @NonNull
     private PersistentArmyManager persistentArmyManager;
@@ -31,13 +28,11 @@ public class ApplicationStateInitializer {
             @Nonnull ApplicationState appState,
             @Nonnull ArmyManager armyManager,
             @Nonnull GetUnitTypesService getUnitTypesService,
-            @Nullable ArmyGeneratorStrategy armyGeneratorStrategy,
             @Nonnull PersistentArmyManager persistentArmyManager
     ) {
         this.appState = appState;
         this.armyManager = armyManager;
         this.getUnitTypesService = getUnitTypesService;
-        this.armyGeneratorStrategy = armyGeneratorStrategy;
         this.persistentArmyManager = persistentArmyManager;
     }
 
@@ -71,16 +66,4 @@ public class ApplicationStateInitializer {
                 )
         ;
     }
-    /*
-    public List<Army> fillArmies(List<Army> armies) {
-        if (armyGeneratorStrategy != null) {
-            while (armies.size() < ApplicationState.MAX_ARMY_COUNT) {
-                armies.add(armyGeneratorStrategy.createArmy(armies));
-                createdDefaultArmies = true;
-            }
-        }
-        return armies;
-    }
-
-     */
 }
