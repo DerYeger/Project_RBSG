@@ -26,16 +26,16 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         val secondEnemyThreats = second.enemy.threats().size
 
         return when {
-            firstEnemyThreats != secondEnemyThreats -> secondEnemyThreats - firstEnemyThreats //prefer enemies which are not fighting already
-            firstAttackValue != secondAttackValue -> secondAttackValue - firstAttackValue //prefer enemies which take more damage
-            first.enemy.threatLevel != second.enemy.threatLevel -> (second.enemy.threatLevel - first.enemy.threatLevel).toInt() //prefer enemies with higher threat level
-            first.unit.hp != second.unit.hp -> first.unit.hp - second.unit.hp //prefer enemies with less health
+            firstEnemyThreats != secondEnemyThreats -> preferSmaller(firstEnemyThreats, secondEnemyThreats) //prefer enemies which are not fighting already
+            firstAttackValue != secondAttackValue -> preferBigger(firstAttackValue, secondAttackValue) //prefer enemies which take more damage
+            first.enemy.threatLevel != second.enemy.threatLevel -> preferBigger(first.enemy.threatLevel, second.enemy.threatLevel) //prefer enemies with higher threat level
+            first.unit.hp != second.unit.hp -> preferSmaller(first.unit.hp, second.unit.hp) //prefer enemies with less health
             else -> 0
         }
     }
 
     private fun compareTours(first: MovementOption, second: MovementOption) : Int =  when {
-        first.distanceToEnemy != second.distanceToEnemy -> (first.distanceToEnemy - second.distanceToEnemy).toInt()
+        first.distanceToEnemy != second.distanceToEnemy -> preferSmaller(first.distanceToEnemy, second.distanceToEnemy)
         else -> compareDestinations(first, second)
     }
 
@@ -47,11 +47,15 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         val secondThreats = second.destination.threateningNeighbors(second.unit).size
 
         return when {
-            firstTargets != secondTargets -> secondTargets - firstTargets //prefer destinations with more targets
-            firstThreats != secondThreats -> firstThreats - secondThreats //prefer destinations with less threats
+            firstTargets != secondTargets -> preferBigger(firstTargets, secondTargets) //prefer destinations with more targets
+            firstThreats != secondThreats -> preferSmaller(firstThreats, secondThreats) //prefer destinations with less threats
             else -> 0
         }
     }
+
+    private fun preferSmaller(first : Int, second : Int) : Int = (first - second)
+
+    private fun preferBigger(first : Int, second : Int) : Int = (second - first)
 
     private fun Cell.attackableNeighbors(unit : Unit) : List<Unit> =
             this.neighbors.mapNotNull { it.unit }.filter { unit.canAttack(it) }
