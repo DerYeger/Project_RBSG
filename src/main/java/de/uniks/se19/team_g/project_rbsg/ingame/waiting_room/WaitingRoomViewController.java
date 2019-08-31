@@ -17,6 +17,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.ArmyPreviewBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -51,6 +52,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -118,6 +120,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private ChangeListener<Army> HoveredArmyListener = this::hoveredArmyChanged;
     private Node lastArmyPreview = null;
+    private GridPane loadingScreenForm;
+    public LoadingScreenFormBuilder loadingScreenFormBuilder;
+
+
     /**
      * keep reference for WeakReferences further down the road
      */
@@ -145,7 +151,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent,
             @Nonnull final ModelManager modelManager,
             @Nonnull final Property<Locale> selectedLocale,
-            @NonNull final EasterEggController easterEggController
+            @NonNull final EasterEggController easterEggController,
+            @NonNull final LoadingScreenFormBuilder loadingScreenFormBuilder
     )
     {
         this.selectedLocale = selectedLocale;
@@ -162,6 +169,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.previewMapBuilder = previewMapBuilder;
         this.easterEggController = easterEggController;
         this.armyPreviewBuilder = new ArmyPreviewBuilder();
+        this.loadingScreenFormBuilder = loadingScreenFormBuilder;
 
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::leaveWaitingRoom)
@@ -175,6 +183,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     public void initialize ()
     {
+        showLoadingScreen();
         gameName.textProperty().setValue(gameProvider.get().getName());
         initPlayerCardBuilders();
         setPlayerCardNodes();
@@ -443,6 +452,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
 
         configureArmySelection();
+
     }
 
     private void onInitialized ()
@@ -451,6 +461,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         configureAutoStartHook();
         setPlayerCards(context.getGameState());
         showMapPreview(context.getGameState().getCells());
+        closeLoadingScreen();
     }
 
     private void configureAutoStartHook ()
@@ -537,6 +548,28 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
         else {
             rootStackPane.getChildren().remove(lastArmyPreview);
+        }
+    }
+
+    private void showLoadingScreen(){
+        if(loadingScreenForm == null){
+            try{
+                this.loadingScreenForm = (GridPane) this.loadingScreenFormBuilder.getLoadingScreenForm();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        if((this.loadingScreenForm != null) && (!this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
+            this.rootStackPane.getChildren().add(this.loadingScreenForm);
+        }
+        if ((this.loadingScreenForm != null) && (this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
+            loadingScreenForm.setVisible(true);
+        }
+    }
+
+    private void closeLoadingScreen(){
+        if (loadingScreenForm != null){
+            loadingScreenForm.setVisible(false);
         }
     }
 }
