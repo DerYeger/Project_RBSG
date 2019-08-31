@@ -31,10 +31,10 @@ public class MovementBehaviour implements Behaviour {
     public Optional<MovementAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
-            if (movementOptionEvaluator == null) movementOptionEvaluator = new AdvancedMovementOptionEvaluator();
+            if (movementOptionEvaluator == null) movementOptionEvaluator = new CompositeMovementOptionEvaluator();
             final var unit = getMovableUnitWithTarget(player);
             final var allowedTours = movementEvaluator.getValidTours(unit);
-            final var target = getOptimalTarget(getEnemies(unit), allowedTours);
+            final var target = getOptimalTarget(unit, getEnemies(unit), allowedTours);
 
             return Optional.of(new MovementAction(unit, allowedTours.get(target)));
         } catch (final BehaviourException e) {
@@ -95,21 +95,23 @@ public class MovementBehaviour implements Behaviour {
                 .orElse(0);
     }
 
-    private Cell getOptimalTarget(@NonNull final ArrayList<Enemy> enemies,
+    private Cell getOptimalTarget(@NonNull final Unit unit,
+                                  @NonNull final ArrayList<Enemy> enemies,
                                   @NonNull final Map<Cell, Tour> allowedTours) throws MovementBehaviourException {
         return allowedTours
                 .values()
                 .stream()
-                .flatMap(tour -> toMovementOptions(tour, enemies))
+                .flatMap(tour -> toMovementOptions(unit, tour, enemies))
                 .min(movementOptionEvaluator)
                 .orElseThrow(() -> new MovementBehaviourException("Unable to determine optimal target"))
                 .destination;
     }
 
-    private Stream<MovementOption> toMovementOptions(@NonNull final Tour tour,
+    private Stream<MovementOption> toMovementOptions(@NonNull final Unit unit,
+                                                     @NonNull final Tour tour,
                                                      @NonNull final ArrayList<Enemy> enemies) {
         return enemies
                 .stream()
-                .map(enemy -> new MovementOption(tour, enemy));
+                .map(enemy -> new MovementOption(unit, tour, enemy));
     }
 }
