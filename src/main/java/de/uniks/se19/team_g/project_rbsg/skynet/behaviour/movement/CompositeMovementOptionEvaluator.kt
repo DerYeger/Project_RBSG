@@ -6,6 +6,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit
 class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
 
     override fun compare(first: MovementOption, second: MovementOption): Int = when {
+            first.distanceToEnemy != second.distanceToEnemy -> preferSmaller(first.distanceToEnemy, second.distanceToEnemy) //prefer smallest distance to enemy
             first.tour === second.tour -> compareEnemies(first, second)
             first.enemy === second.enemy -> compareTours(first, second)
             else -> compareMovementOptions(first, second)
@@ -34,14 +35,7 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         }
     }
 
-    private fun compareTours(first: MovementOption, second: MovementOption) : Int =  when {
-        first.distanceToEnemy != second.distanceToEnemy -> {
-            preferSmaller(first.distanceToEnemy, second.distanceToEnemy)
-        }
-        else -> compareDestinations(first, second)
-    }
-
-    private fun compareDestinations(first: MovementOption, second: MovementOption) : Int {
+    private fun compareTours(first: MovementOption, second: MovementOption) : Int  {
         val firstTargets = first.destination.attackableNeighbors(first.unit).size
         val secondTargets = second.destination.attackableNeighbors(second.unit).size
 
