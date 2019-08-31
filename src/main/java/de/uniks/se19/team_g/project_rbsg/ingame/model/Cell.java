@@ -340,9 +340,9 @@ public class Cell implements Hoverable, Selectable {
     }
 
     //TODO replace with actual remaining path distance
-    public double getDistance(@NonNull final Cell other) {
-        return Math.sqrt(
+    public int getDistance(@NonNull final Cell other) {
+        return (int) Math.ceil(Math.sqrt(
                 Math.pow(this.getX() - other.getX(), 2)
-                        + Math.pow(this.getY() - other.getY(), 2));
+                        + Math.pow(this.getY() - other.getY(), 2)));
     }
 }
