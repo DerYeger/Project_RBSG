@@ -560,7 +560,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             }
         }
         if((this.loadingScreenForm != null) && (!this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
-            loadingScreenForm.setPrefSize(this.rootStackPane.getWidth() ,this.rootStackPane.getHeight());
             this.rootStackPane.getChildren().add(this.loadingScreenForm);
         }
         if ((this.loadingScreenForm != null) && (this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
