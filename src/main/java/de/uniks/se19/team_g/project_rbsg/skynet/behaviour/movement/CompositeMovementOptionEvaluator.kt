@@ -35,7 +35,9 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
     }
 
     private fun compareTours(first: MovementOption, second: MovementOption) : Int =  when {
-        first.distanceToEnemy != second.distanceToEnemy -> preferSmaller(first.distanceToEnemy, second.distanceToEnemy)
+        first.distanceToEnemy != second.distanceToEnemy -> {
+            preferSmaller(first.distanceToEnemy, second.distanceToEnemy)
+        }
         else -> compareDestinations(first, second)
     }
 
@@ -51,6 +53,12 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
             firstTargets != secondTargets -> preferBigger(firstTargets, secondTargets) //prefer destinations with more targets
             else -> 0
         }
+    }
+
+    private fun preferSmaller(first : Double, second: Double) : Int = when {
+        first < second -> -1
+        first > second -> 1
+        else -> 0
     }
 
     private fun preferSmaller(first : Int, second : Int) : Int = first - second

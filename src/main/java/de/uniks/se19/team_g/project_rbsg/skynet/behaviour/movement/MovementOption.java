@@ -13,7 +13,7 @@ public class MovementOption {
     public final Cell destination;
 
     public final Enemy enemy;
-    public final int distanceToEnemy;
+    public final double distanceToEnemy;
 
     public MovementOption(@NonNull final Unit unit,
                           @NonNull final Tour tour,

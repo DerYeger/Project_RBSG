@@ -149,9 +149,6 @@ public class TestGameBuilder
                 .setGame(game)
                 .setCanAttack(Collections.singleton(UnitTypeInfo._HEAVY_TANK));
 
-
-
-
         final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game).setUnitType(UnitTypeInfo._HEAVY_TANK);
 
         final Cell[][] cells = definition.cells;

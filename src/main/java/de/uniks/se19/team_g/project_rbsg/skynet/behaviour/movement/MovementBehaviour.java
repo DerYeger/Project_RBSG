@@ -34,9 +34,9 @@ public class MovementBehaviour implements Behaviour {
             if (movementOptionEvaluator == null) movementOptionEvaluator = new CompositeMovementOptionEvaluator();
             final var unit = getMovableUnitWithTarget(player);
             final var allowedTours = movementEvaluator.getValidTours(unit);
-            final var target = getOptimalTarget(unit, getEnemies(unit), allowedTours);
+            final var tour = getOptimalTour(unit, getEnemies(unit), allowedTours);
 
-            return Optional.of(new MovementAction(unit, allowedTours.get(target)));
+            return Optional.of(new MovementAction(unit, tour));
         } catch (final BehaviourException e) {
             logger.info(e.getMessage());
         }
@@ -95,16 +95,16 @@ public class MovementBehaviour implements Behaviour {
                 .orElse(0));
     }
 
-    private Cell getOptimalTarget(@NonNull final Unit unit,
-                                  @NonNull final ArrayList<Enemy> enemies,
-                                  @NonNull final Map<Cell, Tour> allowedTours) throws MovementBehaviourException {
+    private Tour getOptimalTour(@NonNull final Unit unit,
+                                @NonNull final ArrayList<Enemy> enemies,
+                                @NonNull final Map<Cell, Tour> allowedTours) throws MovementBehaviourException {
         return allowedTours
                 .values()
                 .stream()
                 .flatMap(tour -> toMovementOptions(unit, tour, enemies))
                 .min(movementOptionEvaluator)
                 .orElseThrow(() -> new MovementBehaviourException("Unable to determine optimal target"))
-                .destination;
+                .tour;
     }
 
     private Stream<MovementOption> toMovementOptions(@NonNull final Unit unit,
