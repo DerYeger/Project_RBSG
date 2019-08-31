@@ -20,9 +20,9 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
                                        second: MovementOption) : Int {
         val enemyComparison = compareEnemies(first, second)
         val tourComparison = compareTours(first, second)
-        
+
         return when {
-            enemyComparison.squared() > tourComparison.absoluteValue -> enemyComparison
+            enemyComparison.absoluteValue > tourComparison.squared() -> enemyComparison //prefer tourComparison, unless enemyComparison difference is much bigger
             else -> tourComparison
         }
     }
@@ -36,9 +36,10 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         val secondEnemyThreats = second.enemy.threats().size
 
         return when {
-            firstAttackValue != secondAttackValue -> secondAttackValue - firstAttackValue
-            firstEnemyThreats != secondEnemyThreats -> secondEnemyThreats - firstEnemyThreats
-            first.unit.hp != second.unit.hp -> first.unit.hp - second.unit.hp
+            firstEnemyThreats != secondEnemyThreats -> secondEnemyThreats - firstEnemyThreats //prefer enemies which are not fighting already
+            firstAttackValue != secondAttackValue -> secondAttackValue - firstAttackValue //prefer enemies which take more damage
+            first.enemy.threatLevel != second.enemy.threatLevel -> (second.enemy.threatLevel - first.enemy.threatLevel).toInt() //prefer enemies with higher threat level
+            first.unit.hp != second.unit.hp -> first.unit.hp - second.unit.hp //prefer enemies with less health
             else -> 0
         }
     }
@@ -60,8 +61,8 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         val secondThreats = second.destination.threateningNeighbors(second.unit).size
 
         return when {
-            firstTargets != secondTargets -> secondTargets - firstTargets
-            firstThreats != secondThreats -> firstThreats - secondThreats
+            firstTargets != secondTargets -> secondTargets - firstTargets //prefer destinations with more targets
+            firstThreats != secondThreats -> firstThreats - secondThreats //prefer destinations with less threats
             else -> 0
         }
     }
