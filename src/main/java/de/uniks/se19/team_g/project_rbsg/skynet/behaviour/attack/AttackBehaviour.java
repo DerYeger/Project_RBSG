@@ -15,10 +15,17 @@ public class AttackBehaviour implements Behaviour {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    private AttackOptionEvaluator attackOptionEvaluator;
+
+    public void setAttackOptionEvaluator(@NonNull final AttackOptionEvaluator attackOptionEvaluator) {
+        this.attackOptionEvaluator = attackOptionEvaluator;
+    }
+
     @Override
     public Optional<AttackAction> apply(@NonNull final Game game,
                                   @NonNull final Player player) {
         try {
+            if (attackOptionEvaluator == null) attackOptionEvaluator = new DefaultAttackOptionEvaluator();
             final Unit unit = player
                     .getUnits()
                     .stream()
@@ -29,8 +36,10 @@ public class AttackBehaviour implements Behaviour {
                     .getNeighbors()
                     .stream()
                     .filter(unit::canAttack)
-                    .findFirst()
-                    .orElseThrow(() -> new AttackBehaviourException("An unexpected error occurred"));
+                    .map(enemy -> new AttackOption(unit, enemy))
+                    .min(attackOptionEvaluator)
+                    .orElseThrow(() -> new AttackBehaviourException("An unexpected error occurred"))
+                    .getAttacker();
             return Optional.of(new AttackAction(unit, target));
         } catch (final AttackBehaviourException e) {
             logger.info(e.getMessage());
