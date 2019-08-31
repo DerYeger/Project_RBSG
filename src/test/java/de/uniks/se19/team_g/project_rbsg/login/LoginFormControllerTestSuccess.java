@@ -2,17 +2,17 @@ package de.uniks.se19.team_g.project_rbsg.login;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
 import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationStateInitializer;
-import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RegistrationManager;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
-import io.rincl.*;
-import io.rincl.resourcebundle.*;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -62,7 +62,6 @@ import static org.mockito.Mockito.mock;
         LoginFormBuilder.class,
         LoginFormController.class,
         SplashImageBuilder.class,
-        UserProvider.class,
         TitleViewBuilder.class,
         TitleViewController.class,
         LoginFormControllerTestSuccess.ContextConfiguration.class
@@ -81,6 +80,11 @@ public class LoginFormControllerTestSuccess extends ApplicationTest {
     static class ContextConfiguration implements ApplicationContextAware {
 
         private ApplicationContext context;
+
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
 
         @Bean
         public ApplicationStateInitializer stateInitializer() {

@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.chat.command;
 
+import de.uniks.se19.team_g.project_rbsg.bots.UserScopeBeanFactoryPostProcessor;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
@@ -26,13 +27,17 @@ import javax.websocket.Session;
 @ContextConfiguration(classes = {
         WhisperCommandHandlerTests.ContextConfiguration.class,
         ChatCommandManager.class,
-        ChatController.class,
-        UserProvider.class
+        ChatController.class
 })
 public class WhisperCommandHandlerTests {
 
     @TestConfiguration
     static class ContextConfiguration {
+
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
 
         @Bean
         public ChatTabManager chatTabManager() {

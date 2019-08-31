@@ -8,6 +8,8 @@ import javafx.scene.media.MediaPlayer;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author Keanu Stückrad
@@ -24,12 +26,19 @@ public class MusicManager {
     private URL opening = getClass().getResource("/assets/music/openingThemeSong.wav");
     private URL looping = getClass().getResource("/assets/music/loopingThemeSong.wav");
 
+    private URL deathSound1 = getClass().getResource("/assets/sounds/death1.wav");
+    private URL deathSound2 = getClass().getResource("/assets/sounds/death2.wav");
+    private URL deathSound3 = getClass().getResource("/assets/sounds/death3.wav");
+
     private static final int ICON_SIZE = 40;
     public boolean musicRunning = true;
 
     private MediaPlayer intro;
     private MediaPlayer loop;
+    private MediaPlayer deathSound;
     private boolean play = false;
+
+    private ArrayList<URL> deathSounds;
 
     public MusicManager init() {
         intro = new MediaPlayer(new Media(opening.toExternalForm()));
@@ -40,6 +49,12 @@ public class MusicManager {
             loop.play();
             play = true;
         });
+
+        deathSounds=new ArrayList<>();
+        deathSounds.add(deathSound1);
+        deathSounds.add(deathSound2);
+        deathSounds.add(deathSound3);
+
         return this;
     }
 
@@ -91,5 +106,14 @@ public class MusicManager {
         initButtonIcons(musicButton);
 
         return musicButton;
+    }
+
+    public void playDeathSound(){
+
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(deathSounds.size());
+        URL randomDeathSound = deathSounds.get(randomNumber);
+        deathSound = new MediaPlayer(new Media(randomDeathSound.toExternalForm()));
+        deathSound.play();
     }
 }
