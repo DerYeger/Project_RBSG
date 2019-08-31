@@ -13,17 +13,11 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
-import de.uniks.se19.team_g.project_rbsg.login.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.ArmyPreviewBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
@@ -57,11 +51,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.*;
-import java.io.IOException;
-import java.util.*;
-import java.util.function.*;
 import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -569,7 +560,6 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             }
         }
         if((this.loadingScreenForm != null) && (!this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
-            loadingScreenForm.setPrefSize(this.rootStackPane.getWidth() ,this.rootStackPane.getHeight());
             this.rootStackPane.getChildren().add(this.loadingScreenForm);
         }
         if ((this.loadingScreenForm != null) && (this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
