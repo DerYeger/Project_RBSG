@@ -47,15 +47,15 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
         val secondThreats = second.destination.threateningNeighbors(second.unit).size
 
         return when {
-            firstTargets != secondTargets -> preferBigger(firstTargets, secondTargets) //prefer destinations with more targets
             firstThreats != secondThreats -> preferSmaller(firstThreats, secondThreats) //prefer destinations with less threats
+            firstTargets != secondTargets -> preferBigger(firstTargets, secondTargets) //prefer destinations with more targets
             else -> 0
         }
     }
 
-    private fun preferSmaller(first : Int, second : Int) : Int = (first - second)
+    private fun preferSmaller(first : Int, second : Int) : Int = first - second
 
-    private fun preferBigger(first : Int, second : Int) : Int = (second - first)
+    private fun preferBigger(first : Int, second : Int) : Int = second - first
 
     private fun Cell.attackableNeighbors(unit : Unit) : List<Unit> =
             this.neighbors.mapNotNull { it.unit }.filter { unit.canAttack(it) }
