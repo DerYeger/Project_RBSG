@@ -1,7 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement
 
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.attackableNeighbors
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.preferBigger
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.preferSmaller
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.threateningNeighbors
 
 class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
 
@@ -48,22 +51,6 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
             else -> 0
         }
     }
-
-    private fun preferSmaller(first : Double, second: Double) : Int = when {
-        first < second -> -1
-        first > second -> 1
-        else -> 0
-    }
-
-    private fun preferSmaller(first : Int, second : Int) : Int = first - second
-
-    private fun preferBigger(first : Int, second : Int) : Int = second - first
-
-    private fun Cell.attackableNeighbors(unit : Unit) : List<Unit> =
-            this.neighbors.mapNotNull { it.unit }.filter { unit.canAttack(it) }
-
-    private fun Cell.threateningNeighbors(unit : Unit): List<Unit> =
-            this.neighbors.mapNotNull { it.unit }.filter { it.canAttack(unit) }
 
     private fun Enemy.threats() : List<Unit> =
             this.position.threateningNeighbors(this.unit)
