@@ -20,6 +20,7 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
                                        second: MovementOption) : Int {
         val enemyComparison = compareEnemies(first, second)
         val tourComparison = compareTours(first, second)
+        
         return when {
             enemyComparison.squared() > tourComparison.absoluteValue -> enemyComparison
             else -> tourComparison
@@ -28,7 +29,18 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
 
     private fun compareEnemies(first: MovementOption,
                                second: MovementOption) : Int {
-        return 0
+        val firstAttackValue = first.unit.getAttackValue(first.enemy.unit)
+        val secondAttackValue = second.unit.getAttackValue(second.enemy.unit)
+
+        val firstEnemyThreats = first.enemy.threats().size
+        val secondEnemyThreats = second.enemy.threats().size
+
+        return when {
+            firstAttackValue != secondAttackValue -> secondAttackValue - firstAttackValue
+            firstEnemyThreats != secondEnemyThreats -> secondEnemyThreats - firstEnemyThreats
+            first.unit.hp != second.unit.hp -> first.unit.hp - second.unit.hp
+            else -> 0
+        }
     }
 
     private fun compareTours(first: MovementOption,
@@ -66,5 +78,11 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
                 .neighbors
                 .mapNotNull { it.unit }
                 .filter { it.canAttack(unit) }
+    }
+
+    private fun Enemy.threats() : List<Unit> {
+        return this
+                .position
+                .threateningNeighbors(this.unit)
     }
 }
