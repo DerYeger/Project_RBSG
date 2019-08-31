@@ -235,7 +235,6 @@ public class Cell implements Hoverable, Selectable {
         setUnit(null);
     }
 
-
     public boolean isReachable() {
         return isReachable.get();
     }
