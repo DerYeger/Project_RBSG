@@ -21,30 +21,34 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
 
     private fun compareTours(first: MovementOption,
                              second: MovementOption) : Int {
-        if (first.distanceToEnemy != second.distanceToEnemy)
-            return (first.distanceToEnemy - second.distanceToEnemy).toInt()
-
-        return compareDestinations(first, second)
+        return when {
+            first.distanceToEnemy != second.distanceToEnemy -> (first.distanceToEnemy - second.distanceToEnemy).toInt()
+            else -> compareDestinations(first, second)
+        }
     }
 
 
     private fun compareMovementOptions(first: MovementOption,
                                        second: MovementOption) : Int {
-        return 0
+        return when {
+            else -> 0
+        }
     }
 
     private fun compareDestinations(first: MovementOption,
                                     second: MovementOption) : Int {
         val firstThreats = first.destination.threateningNeighbors(first.unit).size
         val secondThreats = second.destination.threateningNeighbors(second.unit).size
-        if (firstThreats != secondThreats)
-            return firstThreats - secondThreats
 
-        return 0
+        return when {
+            firstThreats != secondThreats -> firstThreats - secondThreats
+            else -> 0
+        }
     }
 
     private fun Cell.threateningNeighbors(unit : Unit): List<Unit> {
-        return this.neighbors
+        return this
+                .neighbors
                 .mapNotNull { it.unit }
                 .filter { it.canAttack(unit) }
     }
