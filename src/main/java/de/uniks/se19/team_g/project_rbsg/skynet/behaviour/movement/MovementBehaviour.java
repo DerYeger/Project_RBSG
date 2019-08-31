@@ -85,14 +85,14 @@ public class MovementBehaviour implements Behaviour {
         return enemyPositions;
     }
 
-    private int threatLevel(@NonNull final Unit enemy,
+    private double threatLevel(@NonNull final Unit enemy,
                                @NonNull final Player me) {
-        return (int) Math.ceil(me
+        return me
                 .getUnits()
                 .stream()
                 .mapToDouble(enemy::getAttackValue)
                 .average()
-                .orElse(0));
+                .orElse(0);
     }
 
     private Tour getOptimalTour(@NonNull final Unit unit,

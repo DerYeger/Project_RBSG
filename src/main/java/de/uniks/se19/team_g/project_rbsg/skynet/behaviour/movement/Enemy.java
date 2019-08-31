@@ -8,9 +8,9 @@ public class Enemy {
 
     public final Unit unit;
     public final Cell position;
-    public final int threatLevel;
+    public final double threatLevel;
 
-    public Enemy(@NonNull final Unit unit, final int threatLevel) {
+    public Enemy(@NonNull final Unit unit, final double threatLevel) {
         this.unit = unit;
         position = unit.getPosition();
         this.threatLevel = threatLevel;

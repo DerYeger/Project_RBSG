@@ -11,6 +11,12 @@ fun preferSmaller(first : Double, second: Double) : Int = when {
 
 fun preferSmaller(first : Int, second : Int) : Int = first - second
 
+fun preferBigger(first : Double, second: Double) : Int = when {
+    first < second -> 1
+    first > second -> -1
+    else -> 0
+}
+
 fun preferBigger(first : Int, second : Int) : Int = second - first
 
 fun Cell.attackableNeighbors(unit : Unit) : List<Unit> =
