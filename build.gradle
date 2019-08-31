@@ -1,12 +1,15 @@
 buildscript {
-    ext.kotlin_version = '1.3.41'
+    ext.kotlin_version = '1.3.50'
+
     repositories {
         mavenCentral()
     }
+
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
 plugins {
 	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'application'
@@ -18,8 +21,8 @@ apply plugin: 'kotlin'
 
 group = 'de.uniks.se19.team_g'
 version = '3.0'
-sourceCompatibility = 11
-targetCompatibility = 11
+sourceCompatibility = 12
+targetCompatibility = 12
 mainClassName = 'de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication'
 
 configurations {
@@ -64,7 +67,7 @@ dependencies {
 }
 
 javafx {
-	version = '11.0.2'
+	version = '12'
 	modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ]
 }
 
@@ -73,11 +76,11 @@ test {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "12"
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "12"
     }
 }
