@@ -44,9 +44,9 @@ public class History {
         if (next == null) {
             return;
         }
+        this.current.setValue(next);
         next.getAction().run();
         next.setApplied(true);
-        this.current.setValue(next);
     }
 
     public void back() {
@@ -54,9 +54,9 @@ public class History {
         if (current == null) {
             return;
         }
+        this.current.setValue(current.getPrevious());
         current.getAction().undo();
         current.setApplied(false);
-        this.current.setValue(current.getPrevious());
     }
 
     public void timeTravel(HistoryEntry target)

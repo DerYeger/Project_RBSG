@@ -1311,8 +1311,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         ObjectProperty<Player> currentPlayerProperty = this.context.getGameState().currentPlayerProperty();
 
         playerCanEndPhase.bind(Bindings.createBooleanBinding(
-                () -> (context.isMyTurn() && this.context.getGameState().getInitiallyMoved()),
-                currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
+                () -> (context.isMyTurn() && this.context.getGameState().getInitiallyMoved() && context.getModelManager().getHistory().isLatest()),
+                currentPlayerProperty, this.context.getGameState().initiallyMovedProperty(), context.getModelManager().getHistory().currentProperty()
         ));
 
         skynetRunningProperty = new SimpleBooleanProperty(false);

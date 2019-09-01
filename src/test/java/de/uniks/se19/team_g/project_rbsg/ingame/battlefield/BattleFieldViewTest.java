@@ -103,6 +103,9 @@ public class BattleFieldViewTest extends ApplicationTest {
     @MockBean
     MusicManager musicManager;
 
+    @MockBean
+    History history;
+
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
 
@@ -117,6 +120,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         IngameGameProvider ingameGameProvider= new IngameGameProvider();
         ingameGameProvider.set(buildComplexTestGame());
 
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         Node ingameView = battleFieldComponent.getRoot();
         BattleFieldController controller = battleFieldComponent.getController();
@@ -140,6 +145,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         gameState.getPlayers().add(player);
         gameState.setCurrentPlayer(player);
         context.setGameEventManager(gameEventManager);
+        context.setModelManager(modelManager);
         context.gameInitialized(gameState);
         revealBattleField(context);
 
@@ -196,6 +202,8 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameApi ingameApi = new IngameApi();
         GameEventManager gameEventManager = mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
         when(gameEventManager.api()).thenReturn(ingameApi);
         ingameApi.setGameEventManager(gameEventManager);
 
@@ -211,6 +219,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         playerUnit.setRemainingMovePoints(0);
 
         IngameContext context = new IngameContext(user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -290,6 +299,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         User user = new User();
         user.setName("Bob");
@@ -301,6 +312,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         definition.otherUnit.setLeader(player);
 
         IngameContext context = new IngameContext(user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -327,6 +339,10 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
+        ModelManager modelManager = new ModelManager();
+
+        when(history.isLatest()).thenReturn(true);
+
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
@@ -348,6 +364,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -386,6 +403,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         User user = new User();
         user.setName("Bob");
@@ -397,6 +416,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -452,6 +472,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         enemyUnit.setPosition(playerUnit.getPosition().getRight());
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         User user = new User();
         user.setName("Bob");
@@ -469,6 +491,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -507,6 +530,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         IngameApi ingameApi = mock(IngameApi.class);
         GameEventManager gameEventManager = mock(GameEventManager.class);
         when(gameEventManager.api()).thenReturn(ingameApi);
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAttack();
         Game game = definition.game;
@@ -524,6 +549,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -555,6 +581,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         User user = new User();
         user.setName("Bob");
@@ -566,6 +594,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -588,6 +617,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+
+        when(history.isLatest()).thenReturn(true);
 
         User user = new User();
         user.setName("Bob");
@@ -599,6 +631,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -625,6 +658,8 @@ public class BattleFieldViewTest extends ApplicationTest {
         thirdUnit.setPosition(definition.cells[2][1]);
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         User user = new User();
         user.setName("Bob");
@@ -639,6 +674,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
