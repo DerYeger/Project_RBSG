@@ -4,10 +4,13 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -34,6 +37,7 @@ public class Cell implements Hoverable, Selectable {
     private Cell right;
     private Cell bottom;
 
+    public static final String UNIT = "unit";
     private final SimpleObjectProperty<Unit> unit;
 
     private final SimpleBooleanProperty isReachable = new SimpleBooleanProperty(false);
@@ -329,9 +333,17 @@ public class Cell implements Hoverable, Selectable {
         ;
     }
 
-    public Stream<Cell> getNeighbors() {
-        return Stream.of(
-            getRight(), getBottom(), getLeft(), getTop()
-        ).filter(Objects::nonNull);
+    public ArrayList<Cell> getNeighbors() {
+        return Stream
+                .of(getRight(), getBottom(), getLeft(), getTop())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    //TODO replace with actual remaining path distance
+    public double getDistance(@NonNull final Cell other) {
+        return Math.sqrt(
+                Math.pow(this.getX() - other.getX(), 2)
+                        + Math.pow(this.getY() - other.getY(), 2));
     }
 }

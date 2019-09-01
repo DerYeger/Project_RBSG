@@ -38,7 +38,9 @@
 
     -fx-faint-focus-color: transparent;
     -fx-focus-color: transparent;
+}
 
+* {
     /* --- Constants --- */
 
         /* Font-Size with Font-Family Roboto-Regular */
@@ -59,6 +61,7 @@
         /* Text-Fill */
     -on-primary-fill: #ffffff; /* Button non-hover */
     -on-secondary-fill: rgba(255, 255, 255, 0.7);
+    -on-secondary-fill-2: rgba(255, 255, 255, 0.6);
     -on-disabled-fill: rgba(255, 255, 255, 0.3);
     -on-hovered-fill: #000000; /* Button hover */
     /* use -fx-font-weight: bold; to highlight something! */
@@ -139,13 +142,21 @@
     -fx-background-color: -primary-background-color;
 }
 
-.button.icon-button:hover {
+.button.icon-button:hover,
+.button.menu:hover,
+.button.icon-button-big:hover,
+.button.icon-button-giant:hover,
+.button.liveButton:hover {
     -fx-background-color: -primary-lighter-background-color;
 }
 
-.button.icon-button:disabled {
+.button.liveButton:hover {
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.button.icon-button:disabled,
+.button.menu:disabled {
     -fx-background-color: -disabled-background-color;
-    -fx-opacity: 100;
 }
 
 .button.icon-button-big {
@@ -161,8 +172,22 @@
     -fx-background-color: -primary-background-color;
 }
 
-.button.icon-button-big:hover {
-    -fx-background-color: -primary-lighter-background-color;
+.button.icon-button-giant {
+    -fx-min-height: 200px;
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-max-height: 200px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+}
+
+.button.icon-button-giant:disabled {
+    -fx-background-color: -disabled-background-color;
+    -fx-opacity: 100;
 }
 
 .button.disable-button {
@@ -215,6 +240,62 @@
     -fx-graphic-text-gap: 10px;
 }
 
+
+.button.menu {
+    -fx-min-height: 50px;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+}
+
+.button.liveButton{
+    -fx-alignment: center;
+    -fx-min-width: 100px;
+    -fx-background-color: -primary-background-color;
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0 5 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-text-fill: -on-primary-fill;
+}
+
+.button.transparent{
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+
+.button.flavor {
+    -fx-min-height: 42px;
+    -fx-min-width: 42px;
+    -fx-max-width: 42px;
+    -fx-max-height: 42px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.button.flavor:hover {
+    -fx-border-width: 2;
+    -fx-border-color: -default-border-color;
+}
+
 /*------------------Label------------------*/
 
 .label.default {
@@ -245,7 +326,7 @@
 
 .label.header-2 {
     -fx-font-size: 32pt;
-    -fx-text-fill: bold;
+    -fx-font-weight: bold;
     -fx-font-family: Roboto-Medium;
 }
 
@@ -254,12 +335,20 @@
     -fx-opacity: 100;
     -fx-font-size: 160px;
     -fx-effect: -shadow;
+    -fx-text-fill: -on-secondary-fill-2;
 }
 
 .label.subtitle {
     -fx-font-family: Black;
     -fx-font-size: 80px;
     -fx-effect: -shadow;
+    -fx-text-fill: -on-secondary-fill-2;
+}
+
+.label.mini {
+    -fx-font-size: 14pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Regular;
 }
 
 /*------------------ProgressIndicator------------------*/
@@ -323,7 +412,7 @@
     -fx-background-color: transparent;
 }
 
-.list-view.default .list-cell:hover {
+.list-view.default .list-cell:filled:hover {
     -fx-background-color: transparent, rgba(189, 189, 189, 0.51);
     -fx-background-insets: 0px, 5 0 5 0 ;
     -fx-opacity: 1;
@@ -386,6 +475,69 @@
     -fx-background-color: -default-border-color;
     -fx-effect: none;
 
+}
+
+
+.list-view.noVerticalScroll .scroll-bar:vertical .increment-arrow,
+.list-view.noVerticalScroll .scroll-bar:vertical .decrement-arrow,
+.list-view.noVerticalScroll .scroll-bar:vertical .decrement-button,
+.list-view.noVerticalScroll .scroll-bar:vertical .decrement-button,
+.list-view.noVerticalScroll .scroll-bar:vertical,
+.list-view.noVerticalScroll .scroll-bar:vertical {
+    -fx-scale-x: 0;
+    -fx-padding: 0px;
+}
+
+.list-view.noHorizontalScroll .scroll-bar:horizontal .increment-arrow,
+.list-view.noHorizontalScroll .scroll-bar:horizontal .decrement-arrow,
+.list-view.noHorizontalScroll .scroll-bar:horizontal .decrement-button,
+.list-view.noHorizontalScroll .scroll-bar:horizontal .decrement-button,
+.list-view.noHorizontalScroll .scroll-bar:horizontal,
+.list-view.noHorizontalScroll .scroll-bar:horizontal {
+    -fx-scale-x: 0;
+    -fx-padding: 0px;
+}
+
+.list-view.arrowsHidden .scroll-bar .increment-arrow,
+.list-view.arrowsHidden .scroll-bar .decrement-arrow,
+.list-view.arrowsHidden .scroll-bar .decrement-button,
+.list-view.arrowsHidden .scroll-bar .decrement-button {
+    -fx-scale-x: 0;
+    -fx-scale-y: 0;
+    -fx-padding: 0px;
+}
+
+.list-view.bigScroll .scroll-bar:vertical {
+    -fx-pref-width: 8px;
+}
+.list-view.bigScroll .scroll-bar:horizontal {
+     -fx-pref-height: 8px;
+ }
+
+.list-view.striped .list-cell:even:filled {
+    -fx-background-color: -surface-elevation-2-color;
+}
+
+/*---------- Ingame/History -----------*/
+
+.list-view.history {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.list-view.history .list-cell {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0 0 0 10;
+}
+
+.list-view.history .list-cell:filled:hover {
+    -fx-background-color: transparent, rgba(255, 255, 255, 0.51);
+}
+
+.list-view.history  .list-cell:selected:filled {
+    -fx-border-width: 0 0 0 10;
+    -fx-border-style: solid;
+    -fx-border-color: transparent transparent, transparent, -primary-background-color;
 }
 
 /*------------------ListView-Additionals------------------*/
@@ -556,4 +708,46 @@
 
 .status-indicator:disabled {
     -fx-fill: -on-disabled-fill;
+}
+
+/*----------------ComboBox--------------------*/
+
+.combo-box-base {
+    -fx-background-insets: none;
+    -fx-effect: -shadow;
+}
+
+.combo-box,
+.combo-box * {
+    -fx-border-radius: 0;
+    -fx-background-color: -primary-background-color;
+    -fx-font-size: 16;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -on-primary-fill;
+}
+
+.combo-box:hover > .list-cell,
+.combo-box:hover .arrow-button
+{
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: -primary-lighter-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.combo-box .arrow-button {
+    -fx-background-radius: 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: -on-primary-fill;
+}
+
+.combo-box:hover .arrow {
+    -fx-background-color: -on-hovered-fill;
 }

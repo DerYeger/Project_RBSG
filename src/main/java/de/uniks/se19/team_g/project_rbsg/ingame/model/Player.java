@@ -26,11 +26,10 @@ public class Player {
 
     private String color;
 
+    public static final String UNITS = "units";
     private ObservableList<Unit> units;
 
     final private BooleanProperty isReady = new SimpleBooleanProperty(false);
-
-    final private SimpleBooleanProperty hasLost = new SimpleBooleanProperty(false);
 
     private boolean isPlayer = false;
 
@@ -163,18 +162,5 @@ public class Player {
     public void setIsPlayer(boolean isPlayer) {
 
         this.isPlayer = isPlayer;
-    }
-
-
-    public boolean isHasLost() {
-        return hasLost.get();
-    }
-
-    public SimpleBooleanProperty hasLostProperty() {
-        return hasLost;
-    }
-
-    public void setHasLost(boolean hasLost) {
-        this.hasLost.set(hasLost);
     }
 }

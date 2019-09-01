@@ -41,7 +41,6 @@ public class DefaultLogoutManager implements LogoutManager {
                 if (logoutSuccessful(response)) {
                     logger.debug("Logout successful");
                     userProvider.clear();
-                    WebSocketConfigurator.userKey = null;
                 } else {
                     logger.debug("Logout unsuccessful");
                 }

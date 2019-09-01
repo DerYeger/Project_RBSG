@@ -1,14 +1,6 @@
-.buttonBox {
-    -fx-spacing: 10;
-}
-
-.boxSpacing {
-    -fx-spacing: 10;
-}
-
 .sidebarContainer {
-    -fx-padding: 5 10 10 0;
-    -fx-spacing: 10;
+    -fx-spacing: 5;
+    -fx-padding: 5 10 5 0;
     -fx-alignment: center;
     -fx-max-width: 210px;
 }
@@ -18,7 +10,6 @@
 }
 
 .contentVBox {
-    -fx-padding: 10 0;
     -fx-alignment: center;
 }
 
@@ -28,11 +19,20 @@
 
 .playerCardBox {
     -fx-padding: 5 0 5 0;
-    -fx-spacing: 30;
     -fx-alignment: center;
     -fx-background-color: -root-background-color;
 }
 
 .roundInfoBox {
     -fx-padding: 5;
+}
+
+.name-pane {
+    -fx-effect: -shadow;
+    -fx-padding: 0 5px 0 5px;
+    -fx-background-color: -surface-elevation-2-color;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Cinzel;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
 }

@@ -1,5 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.event;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
@@ -22,7 +23,6 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.endPhaseCommand;
 import static de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder.leaveGameCommand;
 
 /**
@@ -35,14 +35,13 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
     public static final String GAME_INIT_FINISHED = "gameInitFinished";
     public static final String GAME_STARTS = "gameStarts";
 
-    private static final String ENDPOINT = "/game";
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ArrayList<GameEventHandler> gameEventHandlers;
 
     private WebSocketClient webSocketClient;
 
+    @Nullable
     private ChatController chatController;
 
     private Runnable onConnectionClosed;
@@ -70,7 +69,7 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
 
     }
 
-    public static boolean isActionType(ObjectNode message, String action) {
+    public static boolean isActionType(JsonNode message, String action) {
         return message.get("action").asText().equals(action);
     }
 
@@ -88,24 +87,16 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         return gameEventHandlers;
     }
 
-    public void startSocket(@Nonnull final String gameID, @Nullable final String armyID, @NonNull final boolean spectatorModus) throws Exception {
+    public void startSocket(@Nonnull final String gameID, @Nullable final String armyID, final boolean spectatorModus) throws Exception {
         final URIBuilder uriBuilder = new URIBuilder("/game");
         uriBuilder.addParameter("gameId", gameID);
         if ((armyID != null) && (! spectatorModus)){
             uriBuilder.addParameter("armyId", armyID);
         }
         if (spectatorModus) {
-            uriBuilder.addParameter("spectator", String.valueOf(spectatorModus));
+            uriBuilder.addParameter("spectator", "true");
         }
         webSocketClient.start(uriBuilder.build().toString(), this);
-    }
-
-    private String getGameIDParam(@NonNull final String gameID) {
-        return "gameId=" + gameID;
-    }
-
-    private String getArmyIDParam(@NonNull final String armyID) {
-        return "armyId=" + armyID;
     }
 
     @Override
@@ -136,9 +127,9 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         final ObjectNode json;
         try {
             json = new ObjectMapper().readValue(message, ObjectNode.class);
-            if (isChatMessage(json)) {
+            if (isChatMessage(json) && chatController != null) {
                 chatController.receiveMessage(json.get("data"));
-            } else if (isChatErrorMessage(json)) {
+            } else if (isChatErrorMessage(json) && chatController != null) {
                 chatController.receiveMessage(json);
             } else {
                 gameEventHandlers.forEach(handler -> {
@@ -169,10 +160,6 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         webSocketClient.sendMessage(leaveGameCommand());
     }
 
-    public void sendEndPhaseCommand() {
-        webSocketClient.sendMessage(endPhaseCommand());
-    }
-
     public void setOnConnectionClosed(@Nonnull Runnable onConnectionClosed) {
         this.onConnectionClosed = onConnectionClosed;
     }
@@ -182,7 +169,9 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         if (reason.getReasonPhrase().equals("Left game")) {
             terminateLatch.countDown();
         } else if (!reason.getReasonPhrase().equals("Tschau")) {
-            onConnectionClosed.run();
+            if (onConnectionClosed != null) {
+                onConnectionClosed.run();
+            }
         }
     }
 
@@ -191,7 +180,7 @@ public class GameEventManager implements ChatClient, WebSocketCloseHandler {
         if (!webSocketClient.isClosed()) {
             try {
                 sendLeaveCommand();
-                if (!terminateLatch.await(5, TimeUnit.SECONDS)) {
+                if (!terminateLatch.await(500, TimeUnit.MILLISECONDS)) {
                     webSocketClient.stop();
                     logger.debug("Terminated manually. Server did not respond in time");
                 }

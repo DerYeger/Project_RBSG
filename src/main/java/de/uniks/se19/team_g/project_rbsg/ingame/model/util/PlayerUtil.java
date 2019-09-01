@@ -42,7 +42,7 @@ public class PlayerUtil {
             } else if ( entry.getValue().isValueNode()) {
                 setValueNode(modelManager, beanWrapper, entry);
             } else {
-                LOGGER.error("no handling defined for player field {}", entry.getKey());
+                LOGGER.error("no handling defined for columnPlayer field {}", entry.getKey());
             }
         }
 
@@ -59,7 +59,7 @@ public class PlayerUtil {
         try {
             player.setPropertyValue(entry.getKey(), value);
         } catch (BeansException e) {
-            LOGGER.error("couldn't set player field", e);
+            LOGGER.error("couldn't set columnPlayer field", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class PlayerUtil {
         }
     }
 
-    private static final String PLAYERS = "allPlayer";
+    public static final String PLAYERS = "allPlayer";
 
     public static void removePlayerFrom(@NonNull final ModelManager modelManager,
                                         @NonNull final String identifier,

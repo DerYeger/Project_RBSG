@@ -1,15 +1,16 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
+import de.uniks.se19.team_g.project_rbsg.util.AttackCalculator;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableIntegerValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @author Jan Müller
@@ -42,6 +43,18 @@ public class Unit implements Selectable, Hoverable {
     private int maxHp;
 
     private ArrayList<UnitTypeInfo> canAttack = new ArrayList<>();
+
+    private boolean displayed = true;
+
+    public boolean isDisplayed ()
+    {
+        return displayed;
+    }
+
+    public void setDisplayed (boolean displayed)
+    {
+        this.displayed = displayed;
+    }
 
     public Unit(@NonNull final String id) {
         this.id = id;
@@ -169,8 +182,9 @@ public class Unit implements Selectable, Hoverable {
         return remainingMovePoints;
     }
 
-    public void setRemainingMovePoints(int remainingMovePoints) {
+    public Unit setRemainingMovePoints(int remainingMovePoints) {
         this.remainingMovePoints.set(remainingMovePoints);
+        return this;
     }
 
     public boolean isSelected() {
@@ -256,7 +270,23 @@ public class Unit implements Selectable, Hoverable {
         return attackReady;
     }
 
-    public void setAttackReady(boolean attackReady) {
-        this.attackReady.set(attackReady);
+    public void ready() {
+        setAttackReady(true);
+        setRemainingMovePoints(getMp());
     }
+
+    public Unit setAttackReady(boolean attackReady) {
+        this.attackReady.set(attackReady);
+        return this;
+    }
+
+    public ArrayList<Unit> getNeighbors() {
+        return position.get()
+                .getNeighbors()
+                .stream()
+                .filter(cell -> cell.getUnit() != null)
+                .map(Cell::getUnit)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
 }

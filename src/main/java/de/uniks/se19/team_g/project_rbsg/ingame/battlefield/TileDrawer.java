@@ -1,20 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingOne;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.HighlightingTwo;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import javafx.beans.property.*;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
+import javafx.scene.paint.*;
+import org.slf4j.*;
 
 /**
  * @author Georg Siebert
@@ -23,6 +16,7 @@ import java.util.HashMap;
 public class TileDrawer
 {
     private static final double CELL_SIZE = 64;
+    private static final int CELL_SIZE_INT = 64;
     private static final int HP_BORDER_OFFSET = 2;
     private static final int HP_BORDER_HEIGHT = 9;
     private static final int HP_BORDER_STROKE = 2;
@@ -35,8 +29,8 @@ public class TileDrawer
     private static final Color movementBlueBorder = Color.rgb(134, 140, 252);
     private static final Color selectedBlue = Color.rgb(134, 140, 252);
 
-    private static final Color attackRed = Color.rgb(207,102,121, 0.4);
-    private static final Color attackRedBorder = Color.rgb(207,102,121);
+    private static final Color attackRed = Color.rgb(207, 102, 121, 0.4);
+    private static final Color attackRedBorder = Color.rgb(207, 102, 121);
 
     private static final Color attackBlocked = Color.web("737373", 0.5);
     private static final Color attackBlockedBorder = Color.web("737373");
@@ -45,39 +39,30 @@ public class TileDrawer
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
-    private HashMap<UnitTypeInfo, Image> unitImagesMap;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private SimpleBooleanProperty hpBarVisibility;
 
-    public TileDrawer()
+    public TileDrawer ()
     {
-        unitImagesMap = new HashMap<>();
-
-        for (UnitTypeInfo type : UnitTypeInfo.values())
-        {
-            Image image = new Image(type.getImage().toExternalForm(), CELL_SIZE, CELL_SIZE, false, true);
-            unitImagesMap.put(type, image);
-        }
-
         hpBarVisibility = new SimpleBooleanProperty(true);
     }
 
 
     @SuppressWarnings("unused")
-    public Canvas getCanvas()
+    public Canvas getCanvas ()
     {
         return canvas;
     }
 
-    public void setCanvas(Canvas canvas)
+    public void setCanvas (Canvas canvas)
     {
         this.canvas = canvas;
         this.graphicsContext = canvas.getGraphicsContext2D();
     }
 
-    public void drawMap(Tile[][] map)
+    public void drawMap (Tile[][] map)
     {
         for (Tile[] tiles : map)
         {
@@ -88,7 +73,7 @@ public class TileDrawer
         }
     }
 
-    public void drawTile(Tile tile)
+    public void drawTile (Tile tile)
     {
         int x = tile.getCell().getX();
         int y = tile.getCell().getY();
@@ -105,16 +90,20 @@ public class TileDrawer
         }
         //Layer 3 Highlighting One -> Move and Attack
         HighlightingOne highlightingOne = tile.getHighlightingOne();
-        if (highlightingOne != HighlightingOne.NONE) {
-            if (highlightingOne == HighlightingOne.MOVE) {
+        if (highlightingOne != HighlightingOne.NONE)
+        {
+            if (highlightingOne == HighlightingOne.MOVE)
+            {
                 drawTileFill(startX, startY, movementBlue);
                 drawBorderAroundTile(startX, startY, movementBlueBorder);
             }
-            if (highlightingOne == HighlightingOne.ATTACK) {
+            if (highlightingOne == HighlightingOne.ATTACK)
+            {
                 drawTileFill(startX, startY, attackRed);
                 drawBorderAroundTile(startX, startY, attackRedBorder);
             }
-            if (highlightingOne == HighlightingOne.ATTACK_BLOCKED) {
+            if (highlightingOne == HighlightingOne.ATTACK_BLOCKED)
+            {
                 drawTileFill(startX, startY, attackBlocked);
                 drawBorderAroundTile(startX, startY, attackBlockedBorder);
             }
@@ -144,9 +133,19 @@ public class TileDrawer
         Unit unit = tile.getCell().unitProperty().get();
 
         //Layer 5 Unit
-        if (unit != null)
+        if (unit != null && unit.isDisplayed())
         {
-            graphicsContext.drawImage(unitImagesMap.get(unit.getUnitType()), startX, startY);
+            Image unitImage;
+
+            if (unit.getUnitType() != null)
+            {
+                unitImage = unit.getUnitType().getPreview(CELL_SIZE_INT, CELL_SIZE_INT);
+            }
+            else {
+                unitImage = UnitTypeInfo.UNKNOWN.getPreview(CELL_SIZE_INT, CELL_SIZE_INT);
+            }
+
+            graphicsContext.drawImage(unitImage, startX, startY);
 
             //Layer 6 HP Bar
             if (hpBarVisibility.get())
@@ -158,18 +157,19 @@ public class TileDrawer
 
     }
 
-    private void drawHealthBar(double startX, double startY, Unit unit)
+    private void drawHealthBar (double startX, double startY, Unit unit)
     {
         //Drawing HP Bar Border
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillRect(startX + HP_BORDER_OFFSET, startY + HP_BORDER_OFFSET, (CELL_SIZE - (HP_BORDER_OFFSET * 2)),
-                HP_BORDER_HEIGHT);
+                                 HP_BORDER_HEIGHT);
 
         //Drawing HP Bar
         if (unit.getLeader() != null)
         {
             graphicsContext.setFill(Paint.valueOf(unit.getLeader().getColor()));
-        } else
+        }
+        else
         {
             graphicsContext.setFill(Color.PINK);
         }
@@ -183,12 +183,14 @@ public class TileDrawer
         graphicsContext.fillRect(hpBarStartX, hpBarStartY, resultWidth, HP_BAR_HEIGHT);
     }
 
-    protected void drawTileFill(double startX, double startY, Color attackRed) {
+    protected void drawTileFill (double startX, double startY, Color attackRed)
+    {
         graphicsContext.setFill(attackRed);
         graphicsContext.fillRect(startX, startY, CELL_SIZE, CELL_SIZE);
     }
 
-    private void drawBorderAroundTile(double startX, double startY, Color borderColer) {
+    private void drawBorderAroundTile (double startX, double startY, Color borderColer)
+    {
         graphicsContext.setStroke(borderColer);
         graphicsContext.setLineWidth(2);
         graphicsContext.strokeLine((startX + 1), (startY + 1), (startX + (CELL_SIZE - 1)), (startY + 1));
@@ -197,17 +199,17 @@ public class TileDrawer
         graphicsContext.strokeLine((startX + 1), (startY + (CELL_SIZE - 1)), (startX + 1), (startY + 1));
     }
 
-    public boolean isHpBarVisibility()
+    public boolean isHpBarVisibility ()
     {
         return hpBarVisibility.get();
     }
 
-    public void setHpBarVisibility(boolean hpBarVisibility)
+    public void setHpBarVisibility (boolean hpBarVisibility)
     {
         this.hpBarVisibility.set(hpBarVisibility);
     }
 
-    public SimpleBooleanProperty hpBarVisibilityProperty()
+    public SimpleBooleanProperty hpBarVisibilityProperty ()
     {
         return hpBarVisibility;
     }

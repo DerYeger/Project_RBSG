@@ -1,0 +1,14 @@
+.root {
+    -fx-padding: 10;
+    -fx-max-width: 400;
+    -fx-max-height: 300;
+    -fx-background-radius: 0;
+    -fx-spacing: 10;
+}
+
+.label {
+    -fx-font-size: 32pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Regular;
+    -fx-font-weight: bold;
+}

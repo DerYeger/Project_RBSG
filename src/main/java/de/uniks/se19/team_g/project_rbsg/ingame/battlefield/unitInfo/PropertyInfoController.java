@@ -5,15 +5,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PropertyInfoController implements Initializable
 {
-    public HBox propertyContainer;
+    public GridPane propertyContainer;
     public ImageView propertyIcon;
     public Label propertyLabel;
 

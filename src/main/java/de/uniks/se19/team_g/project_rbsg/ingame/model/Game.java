@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
@@ -18,8 +17,7 @@ import java.util.Collection;
  */
 public class Game {
 
-    @NonNull
-    private final String id;
+    private String id;
 
     private StringProperty phase = new SimpleStringProperty();
 
@@ -27,11 +25,14 @@ public class Game {
 
     final private SimpleBooleanProperty gameStarted = new SimpleBooleanProperty(false);
 
-    private ObservableList<Player> players;
+    public static final String PLAYERS = "players";
+    private ObservableList<Player> players = FXCollections.observableArrayList();
 
-    private ObservableList<Unit> units;
+    public static final String UNITS = "units";
+    private ObservableList<Unit> units = FXCollections.observableArrayList();
 
-    private ObservableList<Cell> cells;
+    public static final String CELLS = "cells";
+    private ObservableList<Cell> cells = FXCollections.observableArrayList();
 
     final private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
 
@@ -43,16 +44,22 @@ public class Game {
 
     final private ObjectProperty<Hoverable> hovered = new SimpleObjectProperty<>();
 
+    final private SimpleIntegerProperty turnCount = new SimpleIntegerProperty(0);
+
     public Game(@NonNull final String id) {
         this.id = id;
 
-        players = FXCollections.observableArrayList();
-        units = FXCollections.observableArrayList();
-        cells = FXCollections.observableArrayList();
+    }
+
+    public Game() {
     }
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 
@@ -238,10 +245,9 @@ public class Game {
         return phase;
     }
 
-    public void setPhase(String phase) {
-        Platform.runLater(()-> {
-            this.phase.set(phase);
-        });
+    public Game setPhase(String phase) {
+        this.phase.set(phase);
+        return this;
     }
 
     public Game setCurrentPlayer(Player player) {
@@ -362,7 +368,6 @@ public class Game {
         lastMovePhase
     }
 
-
     public boolean isGameStarted() {
         return gameStarted.get();
     }
@@ -373,5 +378,17 @@ public class Game {
 
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted.set(gameStarted);
+    }
+
+    public int getTurnCount() {
+        return turnCount.get();
+    }
+
+    public SimpleIntegerProperty turnCountProperty() {
+        return turnCount;
+    }
+
+    public void setTurnCount(int turnCount) {
+        this.turnCount.set(turnCount);
     }
 }

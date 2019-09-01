@@ -1,11 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.testfx.framework.junit.ApplicationTest;
@@ -33,29 +31,25 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
         final List<Army> armies = new ArrayList<>();
         when(armyManager.getArmies()).thenReturn(armies);
 
-        final ArmyGeneratorStrategy armyGenerator = mock(ArmyGeneratorStrategy.class);
         final PersistentArmyManager persistentArmyManager = mock(PersistentArmyManager.class);
 
         ApplicationStateInitializer sut = new ApplicationStateInitializer(
                 appState,
                 armyManager,
                 typesService,
-                armyGenerator,
                 persistentArmyManager
         );
 
-        final InOrder inOrder = inOrder(typesService, armyManager, armyGenerator);
+        final InOrder inOrder = inOrder(typesService, armyManager);
 
         sut.initialize().get();
 
         inOrder.verify(typesService).queryUnitPrototypes();
         inOrder.verify(armyManager).getArmies();
-        inOrder.verify(armyGenerator, times(ApplicationState.MAX_ARMY_COUNT)).createArmy(armies);
 
-        Assert.assertEquals(ApplicationState.MAX_ARMY_COUNT, appState.armies.size());
-        Assert.assertEquals(1, appState.notifications.size());
     }
 
+    /*
     @Test
     public void fillArmies() {
         final ApplicationState appState = mock(ApplicationState.class);
@@ -80,4 +74,6 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
 
         Assert.assertEquals(ApplicationState.MAX_ARMY_COUNT, armies.size());
     }
+
+     */
 }
