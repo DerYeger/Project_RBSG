@@ -2,6 +2,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model.util
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell
 import java.util.*
+import kotlin.collections.HashMap
 
 private class Node(val cell : Cell) :Comparable<Node> {
     var visited = false
@@ -11,9 +12,9 @@ private class Node(val cell : Cell) :Comparable<Node> {
 }
 
 fun distance(start : Cell, end : Cell) : Int {
-    val nodes = start.game.cells.associateWith(::Node)
+    val nodes = HashMap<Cell, Node>()
 
-    val initial = nodes.getValue(start)
+    val initial = nodes.fetch(start)
     initial.distance = 0
 
     val uncheckedNodes = PriorityQueue<Node>()
@@ -27,7 +28,7 @@ fun distance(start : Cell, end : Cell) : Int {
         for (neighbor in currentNode.cell.neighbors) {
             if (!neighbor.isPassable) continue
 
-            val neighborNode = nodes.getValue(neighbor)
+            val neighborNode = nodes.fetch(neighbor)
             if (neighborNode.visited || neighborNode.distance <= currentNode.distance + 1) continue
 
             neighborNode.distance = currentNode.distance + 1
@@ -39,5 +40,7 @@ fun distance(start : Cell, end : Cell) : Int {
         }
     }
 
-    return nodes.getValue(end).distance
+    return nodes.fetch(end).distance
 }
+
+private fun HashMap<Cell, Node>.fetch(cell : Cell) : Node = this.getOrPut(cell) { Node(cell) }
