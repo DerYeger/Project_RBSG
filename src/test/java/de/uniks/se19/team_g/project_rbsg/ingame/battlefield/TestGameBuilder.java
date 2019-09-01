@@ -186,6 +186,71 @@ public class TestGameBuilder
         return definition;
     }
 
+    public static Definition dijkstraTestGame(@NonNull final Player player,
+                                                @NonNull final Unit testUnit) {
+        final Definition definition = new Definition(new Cell[5][5]);
+
+        final Game game = definition.game;
+        player.setCurrentGame(game);
+        final Player enemy = new Player("enemy").setCurrentGame(game);
+        final Unit playerUnit = definition.playerUnit
+                .setUnitType(UnitTypeInfo._HEAVY_TANK)
+                .setLeader(player)
+                .setGame(game)
+                .setCanAttack(new ArrayList<>());
+
+        playerUnit.getCanAttack().add(UnitTypeInfo._HEAVY_TANK);
+
+        testUnit.setLeader(player)
+                .setUnitType(UnitTypeInfo._HEAVY_TANK)
+                .setGame(game)
+                .setCanAttack(Collections.singleton(UnitTypeInfo._HEAVY_TANK));
+
+        final Unit enemyUnit = definition.otherUnit.setLeader(enemy).setGame(game).setUnitType(UnitTypeInfo._HEAVY_TANK);
+
+        final Cell[][] cells = definition.cells;
+        for (int row = 0; row < 5; row++)
+        {
+            for (int column = 0; column < 5; column++)
+            {
+                final Cell cell = new Cell(String.format("%d:%d", row, column));
+                cell.setBiome(Biome.GRASS);
+                cell.setPassable(true);
+                cell.setX(column);
+                cell.setY(row);
+                cells[row][column] = cell;
+                if (row > 0)
+                {
+                    cell.setTop(cells[row - 1][column]);
+                }
+                if (column > 0)
+                {
+                    cell.setLeft(cells[row][column - 1]);
+                }
+            }
+        }
+
+        for (int y = 1; y <=3 ; y += 2) {
+            for (int x = 1; x <= 3; x++) {
+                cells[y][x].setPassable(false);
+            }
+        }
+        cells[2][3].setPassable(false);
+        cells[4][3].setPassable(false);
+
+        testUnit.setPosition(cells[2][1]);
+        playerUnit.setPosition(cells[0][0]);
+        enemyUnit.setPosition(cells[4][4]);
+
+        game.withCells(
+                Arrays.stream(cells)
+                        .flatMap(Arrays::stream)
+                        .toArray(Cell[]::new)
+        );
+
+        return definition;
+    }
+
     public static Definition skynetSurrenderCantAttackTestGame (@NonNull Player player)
     {
         final Definition definition = new Definition(new Cell[5][5]);
