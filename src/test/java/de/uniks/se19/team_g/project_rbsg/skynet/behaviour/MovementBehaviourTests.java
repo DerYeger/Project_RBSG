@@ -35,8 +35,7 @@ public class MovementBehaviourTests {
         assertEquals(5, movementAction.tour.getCost());
 
         final Cell target = movementAction.tour.getTarget();
-        assertTrue(target.getX() == 2 && target.getY() == 3
-                || target.getX() == 3 && target.getY() == 2);
+        assertEquals(3, target.getDistance(definition.otherUnit.getPosition()));
     }
 
     @Test
