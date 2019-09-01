@@ -3,7 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.model.util
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell
 import java.util.*
 
-class Node(val cell : Cell) :Comparable<Node> {
+private class Node(val cell : Cell) :Comparable<Node> {
     var visited = false
     var distance = Int.MAX_VALUE
 
