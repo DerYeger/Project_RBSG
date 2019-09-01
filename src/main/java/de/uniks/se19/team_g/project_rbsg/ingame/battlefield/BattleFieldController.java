@@ -322,7 +322,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         openWhenResizedChat = false;
         zoomInButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisablePlusZoom());
         zoomOutButton.disableProperty().bindBidirectional(zoomableScrollPane.getDisableMinusZoom());
-        //setFullscreen(null);
+        setFullscreen(null);
     }
 
     private void disableOverlaysChanged (
