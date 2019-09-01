@@ -8,8 +8,13 @@ import org.springframework.stereotype.Component;
 public class NextTurnChangeListener implements GameEventDispatcher.Listener {
 
     private Player lastPlayer;
+    private boolean movePhaseFlag;
+    private boolean newPlayerFlag;
+    private Game game;
 
     NextTurnChangeListener(){
+        movePhaseFlag=false;
+        lastPlayer=null;
     }
 
     private void publishNextTurnChange(GameEventDispatcher dispatcher, Player player) {
@@ -31,22 +36,41 @@ public class NextTurnChangeListener implements GameEventDispatcher.Listener {
         if(!(roundChangeObject instanceof Game) && !(maybeAPlayer instanceof Player)){
             return;
         }
-        Game game = (Game) roundChangeObject;
-        Player newPlayer = (Player) maybeAPlayer;
 
-        if(this.lastPlayer==null){
-            this.lastPlayer=newPlayer;
+        if(roundChangeObject instanceof Game){
+            this.game = (Game) roundChangeObject;
+            movePhaseFlag = isMovePhase(game) ? true : false;
         }
 
-        if(game.getPhase()==null){
-            return;
-        }
-        if(game.getPhase()=="movePhase"){
-            if(!newPlayer.equals(lastPlayer)){
-                return;
-            }
-            publishNextTurnChange(gameEventDispatcher, newPlayer);
+        if(maybeAPlayer instanceof Player){
+            Player newPlayer = (Player) maybeAPlayer;
+            newPlayerFlag = isNewPlayer(newPlayer) ? true : false;
             lastPlayer=newPlayer;
         }
+
+        if(newPlayerFlag==true && movePhaseFlag == true){
+            publishNextTurnChange(gameEventDispatcher, game.getCurrentPlayer());
+        }
+    }
+
+    private boolean isNewPlayer(Player player){
+        if(lastPlayer==null){
+            lastPlayer=player;
+            return true;
+        }
+
+        if(!player.equals(lastPlayer)){
+            return true;
+        }
+        return false;
+    }
+    private boolean isMovePhase(Game game){
+        if(game.getPhase() ==null){
+           return false;
+        }
+        if(game.getPhase().equals("movePhase")){
+            return true;
+        }
+        return false;
     }
 }

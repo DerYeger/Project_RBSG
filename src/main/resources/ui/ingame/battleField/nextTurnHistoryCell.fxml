@@ -4,9 +4,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<?import javafx.scene.control.Label?>
 <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.DefaultHistoryCellController">
    <children>
-      <Label fx:id="roundCounter" minWidth="40.0" minHeight="40.0" maxHeight="40" maxWidth="40" pickOnBounds="true" styleClass="default-medium"/>
+      <ImageView fx:id="primaryIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../assets/icons/operation/endPhaseWhite.png" />
+         </image></ImageView>
    </children>
 </HBox>

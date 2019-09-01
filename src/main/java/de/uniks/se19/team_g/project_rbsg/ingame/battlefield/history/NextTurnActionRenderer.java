@@ -37,15 +37,15 @@ public class NextTurnActionRenderer extends DefaultActionRenderer {
         NextTurnAction actionImpl = (NextTurnAction) action;
         Player player = (Player) actionImpl.getCurrentPlayer();
         Game game = player.getCurrentGame();
-        SimpleIntegerProperty roundCount = game.getTurnCounter();
+        int roundCount = game.getTurnCounter().intValue();
 
         Pair<DefaultHistoryCellController, HBox> data = loadCell();
 
         Color playerColor = Color.web(player.getColor());
 
         HBox root = data.getValue();
-        Label roundCounter = (Label)root.getChildren().get(0);
-        roundCounter.setText(String.valueOf(roundCount));
+        //Label roundCounter = (Label)root.getChildren().get(0);
+        //roundCounter.setText(String.valueOf(roundCount));
         root.setBackground(new Background(new BackgroundFill(playerColor, null, null)));
 
         return new HistoryRenderData(root, playerColor);
