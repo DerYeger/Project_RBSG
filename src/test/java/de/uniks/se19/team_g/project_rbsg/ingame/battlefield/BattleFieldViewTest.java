@@ -16,6 +16,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
@@ -98,6 +99,9 @@ public class BattleFieldViewTest extends ApplicationTest {
 
     @MockBean
     MusicManager musicManager;
+
+    @MockBean
+    History history;
 
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
@@ -330,6 +334,10 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
 
+        ModelManager modelManager = new ModelManager();
+
+        when(history.isLatest()).thenReturn(true);
+
         User user = new User();
         user.setName("Bob");
         Player player = new Player("Bob").setName("Bob").setColor("RED");
@@ -351,6 +359,7 @@ public class BattleFieldViewTest extends ApplicationTest {
         game.setCurrentPlayer(player);
 
         IngameContext context = new IngameContext(user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
@@ -591,6 +600,9 @@ public class BattleFieldViewTest extends ApplicationTest {
         Unit playerUnit = definition.playerUnit;
 
         GameEventManager gameEventManager = Mockito.mock(GameEventManager.class);
+        ModelManager modelManager = new ModelManager();
+
+        when(history.isLatest()).thenReturn(true);
 
         User user = new User();
         user.setName("Bob");
@@ -602,6 +614,7 @@ public class BattleFieldViewTest extends ApplicationTest {
 
         IngameContext context = new IngameContext(
                 user, null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
