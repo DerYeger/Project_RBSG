@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -20,8 +27,7 @@
    @author Keanu Stückrad
  !-->
 
-
-<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -37,13 +43,15 @@
                      </rowConstraints>
                      <children>
                         <HBox prefHeight="46.0" spacing="10.0">
-                           <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="icon-button" />
-                           <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button" />
-                           <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button" />
-                           <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" />
-                           <Button fx:id="playerButton" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
-                           <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
-                           <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
+                           <children>
+                              <Button fx:id="menuButton" mnemonicParsing="false" onAction="#showMenu" styleClass="icon-button" />
+                              <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomIn" styleClass="icon-button" />
+                              <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOut" styleClass="icon-button" />
+                              <Button fx:id="endPhaseButton" mnemonicParsing="false" onAction="#endPhase" styleClass="icon-button" />
+                              <Button fx:id="playerButton" mnemonicParsing="false" onAction="#openPlayerBar" styleClass="icon-button" />
+                              <Button fx:id="chatButton" mnemonicParsing="false" onAction="#openChat" styleClass="icon-button" />
+                              <Button fx:id="hpBarButton" mnemonicParsing="false" onAction="#toggleHpBar" styleClass="icon-button" />
+                           </children>
                         </HBox>
                         <Label fx:id="gameName" styleClass="name-pane" GridPane.columnIndex="1">
                            <GridPane.margin>
@@ -59,27 +67,29 @@
                      <children>
                         <VBox fx:id="history" />
                          <VBox alignment="CENTER">
-                            <StackPane id="battleFieldViewer" fx:id="battlefieldStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                           <children>
-                              <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
-                                 <children>
-                                    <!-- TODO: Ordentlich machen-->
-                                    <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="30.0" styleClass="playerCardBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css"/>
-                                          <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css"/>
-                                          <Pane fx:id="player3" styleClass="player-card" stylesheets="@playerList.css"/>
-                                          <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css"/>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </StackPane>
+                            <children>
+                               <StackPane id="battleFieldViewer" fx:id="battlefieldStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <children>
+                                 <AnchorPane fx:id="overlayAnchorPane" pickOnBounds="false">
+                                    <children>
+                                       <!-- TODO: Ordentlich machen-->
+                                       <HBox fx:id="playerBar" fillHeight="false" pickOnBounds="false" spacing="30.0" styleClass="playerCardBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <children>
+                                             <Pane fx:id="player1" styleClass="player-card" stylesheets="@playerList.css" />
+                                             <Pane fx:id="player2" styleClass="player-card" stylesheets="@playerList.css" />
+                                             <Pane fx:id="player3" styleClass="player-card" stylesheets="@playerList.css" />
+                                             <Pane fx:id="player4" styleClass="player-card" stylesheets="@playerList.css" />
+                                          </children>
+                                          <padding>
+                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                          </padding>
+                                       </HBox>
+                                       <StackPane fx:id="chatPane" styleClass="chat-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" />
+                                    </children>
+                                 </AnchorPane>
+                              </children>
+                           </StackPane>
+                            </children>
                          </VBox>
                      </children>
                   </HBox>
@@ -142,6 +152,7 @@
                               <Button fx:id="skynetTurnButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="3" />
                               <Button fx:id="skynetButton" mnemonicParsing="false" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />
                               <Button fx:id="endRoundButton" mnemonicParsing="false" onAction="#endRound" styleClass="icon-button" text="Button" GridPane.columnIndex="2" />
+                              <Button fx:id="animationButton" mnemonicParsing="false" onAction="#toggleAnimations" styleClass="icon-button" text="Button" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                      </children>
