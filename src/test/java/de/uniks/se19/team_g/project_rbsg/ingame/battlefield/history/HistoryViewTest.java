@@ -4,10 +4,7 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.UnitDeathAction;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
-import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.*;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -66,7 +63,7 @@ public class HistoryViewTest extends ApplicationTest {
         Action action0 = Mockito.mock(Action.class);
         Action action1 = new UpdateAction("position", new Cell("c1"), dickBird);
         Action action2 = new UpdateAction("hp", 5, chubbyCharles);
-        Action action3 = new UpdateAction("currentPlayer", bob, new Game());
+        Action action3 = new NextTurnAction(new Game(), bob);
         Action action4 = new UnitDeathAction(chubbyCharles, bob);
         Action actionHidden = Mockito.mock(Action.class);
 

@@ -1,7 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import animatefx.animation.Bounce;
-import com.globalmentor.java.*;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -10,7 +9,10 @@ import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animations.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animations.AttackAnimationManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animations.DeathAnimationManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animations.MovementAnimationManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animations.RevivalAnimationManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewProvider;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
@@ -67,7 +69,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.*;
-import java.util.Objects;
 
 import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
 import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
@@ -610,8 +611,6 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.game.getPlayers().addListener(playerListListener);
         phaseImage.imageProperty().setValue(new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm()));
         this.game.phaseProperty().addListener(phaseChangedListener);
-
-        roundCount.set(0);
         roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "phaseLabel"));
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
@@ -642,14 +641,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void phaseChanged(@SuppressWarnings("unused") ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
     {
-        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (playerCounter % this.game.getPlayers().size()) == 0)
-        {
-            Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
-            playerCounter = 0;
-        } else if(newPhase != null && newPhase.equals("lastMovePhase")) {
-            playerCounter++;
-        }
-
         switch (newPhase)
         {
             case "movePhase":
@@ -938,13 +929,21 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureHistory();
 
+        game = context.getGameState();
+        roundCount.bind(
+            Bindings.createIntegerBinding(
+                () -> ((game.getTurnCount()-1) / context.getGameData().getNeededPlayer()) + 1,
+                game.turnCountProperty()
+            )
+        );
+
+
         if (phaseLabelView == null) {
             phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
             rootPane.getChildren().add(phaseLabelView);
             phaseLabelView.visibleProperty().set(false);
         }
 
-        game = context.getGameState();
         game.getUnits().addListener((ListChangeListener) change -> {
             while(change.next()) {
                 if (change.wasRemoved()) {
