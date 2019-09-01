@@ -36,8 +36,6 @@ public class NextTurnActionRenderer extends DefaultActionRenderer {
     protected HistoryRenderData doRender(Action action) {
         NextTurnAction actionImpl = (NextTurnAction) action;
         Player player = (Player) actionImpl.getCurrentPlayer();
-        Game game = player.getCurrentGame();
-        int roundCount = game.getTurnCounter().intValue();
 
         Pair<DefaultHistoryCellController, HBox> data = loadCell();
 
