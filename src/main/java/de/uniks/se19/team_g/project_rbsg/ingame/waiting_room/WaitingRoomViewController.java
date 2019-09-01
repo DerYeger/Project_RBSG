@@ -216,9 +216,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private void setPlayerCardNodes() {
         Node player1 = playerCard.buildPlayerCard(selectedLocale);
-        player1.setOnMouseClicked((event) -> onPlayerCardClicked(event, 0));
+        player1.setOnMouseClicked((event) -> onPlayerCardClicked(event, playerCard.getPlayer()));
         Node player2 = playerCard2.buildPlayerCard(selectedLocale);
-        player2.setOnMouseClicked((event) -> onPlayerCardClicked(event, 1));
+        player2.setOnMouseClicked((event) -> onPlayerCardClicked(event, playerCard2.getPlayer()));
         player1Pane.getChildren().add(player1);
         player2Pane.getChildren().add(player2);
 
@@ -226,9 +226,9 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             Node player3 = playerCard3.buildPlayerCard(selectedLocale);
-            player3.setOnMouseClicked((event) -> onPlayerCardClicked(event, 2));
+            player3.setOnMouseClicked((event) -> onPlayerCardClicked(event, playerCard3.getPlayer()));
             Node player4 = playerCard4.buildPlayerCard(selectedLocale);
-            player4.setOnMouseClicked((event) -> onPlayerCardClicked(event, 3));
+            player4.setOnMouseClicked((event) -> onPlayerCardClicked(event, playerCard4.getPlayer()));
             player3Pane.setVisible(true);
             player4Pane.setVisible(true);
             AnchorPane.setTopAnchor(player1Pane, 102.0);
@@ -487,12 +487,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
     }
 
-    private void onPlayerCardClicked(MouseEvent event, int playerNumber){
+    private void onPlayerCardClicked(MouseEvent event, Player player){
         ObservableList<Player> players = context.getGameState().getPlayers();
-        if(playerNumber>players.size()-1){
-            return;
-        }
-        Player player = players.get(playerNumber);
         if(!player.isPlayer()){
             chatController.chatTabManager().openTab('@' + player.getName());
         }
