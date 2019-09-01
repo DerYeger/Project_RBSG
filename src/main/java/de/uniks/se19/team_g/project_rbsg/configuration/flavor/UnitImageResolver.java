@@ -16,6 +16,40 @@ public class UnitImageResolver
 
     private static HashMap<String, Image> imageWithSizeMap = new HashMap<>();
 
+    private static Image attackImage = null;
+
+    private static Image revivalImage = null;
+
+    private static Image deathImage = null;
+
+    public static Image getAttackImage() {
+        if(attackImage == null) {
+            attackImage = new Image(UnitImageResolver.class.getResource("/assets/unit/effect/attack.gif").toExternalForm() , 64, 64,
+                                    false, true);
+        }
+
+        return attackImage;
+    }
+
+    public static Image getRevivalImage() {
+        if(revivalImage == null) {
+            revivalImage = new Image(UnitImageResolver.class.getResource("/assets/unit/effect/energy_ball.gif").toExternalForm() , 64, 64,
+                                     false, true);
+        }
+
+        return revivalImage;
+    }
+
+    public static Image getDeathImage() {
+        if(deathImage == null) {
+            deathImage = new Image(UnitImageResolver.class.getResource("/assets/unit/effect/explosion.gif").toExternalForm() ,
+                          64, 64,
+                                     false, true);
+        }
+
+        return deathImage;
+    }
+
     public static SimpleObjectProperty<Image> getUnitImageProperty(UnitTypeInfo unitType) {
         if(!unitTypeInfoImageHashMap.containsKey(unitType)) {
             loadImageForType(unitType);
@@ -101,7 +135,7 @@ public class UnitImageResolver
     {
         switch (flavour.get()) {
             case DEFAULT:
-                return UnitImageResolver.class.getResource("/assets/unit/portrait/skeleton.png");
+                return UnitImageResolver.class.getResource("/assets/unit/portrait/undead/undead_walk.gif");
             case WH40K:
                 return UnitImageResolver.class.getResource("/assets/unit/portrait/WH40K/Dreadnaught.png");
             default:

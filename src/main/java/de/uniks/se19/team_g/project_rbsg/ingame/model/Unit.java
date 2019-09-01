@@ -44,6 +44,18 @@ public class Unit implements Selectable, Hoverable {
 
     private ArrayList<UnitTypeInfo> canAttack = new ArrayList<>();
 
+    private boolean displayed = true;
+
+    public boolean isDisplayed ()
+    {
+        return displayed;
+    }
+
+    public void setDisplayed (boolean displayed)
+    {
+        this.displayed = displayed;
+    }
+
     public Unit(@NonNull final String id) {
         this.id = id;
     }
