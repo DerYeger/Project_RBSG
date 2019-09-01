@@ -12,6 +12,8 @@ private class Node(val cell : Cell) :Comparable<Node> {
 }
 
 fun distance(start : Cell, end : Cell) : Int {
+    if (start == end) return 0
+
     val nodes = HashMap<Cell, Node>()
 
     val initial = nodes.fetch(start)
