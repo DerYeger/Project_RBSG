@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import animatefx.animation.Bounce;
+import com.globalmentor.java.*;
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -9,6 +10,7 @@ import de.uniks.se19.team_g.project_rbsg.component.ZoomableScrollPane;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
 import de.uniks.se19.team_g.project_rbsg.ingame.PlayerListController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animations.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history.HistoryViewProvider;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
@@ -65,6 +67,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.*;
+import java.util.Objects;
 
 import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
 import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
@@ -126,6 +129,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     public VBox history;
     public Button skynetButton;
     public Label gameName;
+    public Button animationButton;
     private ChatController chatController;
     private Game game;
     private ObservableList<Unit> units;
@@ -153,6 +157,13 @@ public class BattleFieldController implements RootController, IngameViewControll
     private ActionExecutor actionExecutor;
     private boolean openWhenResizedPlayer, openWhenResizedChat;
     private HistoryViewProvider historyViewProvider;
+
+    private MovementAnimationManager movementAnimationManager;
+    private DeathAnimationManager deathAnimationManager;
+    private AttackAnimationManager attackAnimationManager;
+    private RevivalAnimationManager revivalAnimationManager;
+
+    private final BooleanProperty animationsAllowed;
 
     private final Button fullscreenButton = new Button();
     private final MusicManager musicManager;
@@ -188,6 +199,15 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         this.selectedLocale = selectedLocale;
         this.musicManager = musicManager;
+
+        movementAnimationManager = new MovementAnimationManager();
+        deathAnimationManager = new DeathAnimationManager();
+        revivalAnimationManager = new RevivalAnimationManager();
+        attackAnimationManager = new AttackAnimationManager();
+
+        animationsAllowed = new SimpleBooleanProperty(true);
+
+
 
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::doLeaveGame)
@@ -247,6 +267,14 @@ public class BattleFieldController implements RootController, IngameViewControll
                 getClass().getResource("/assets/icons/operation/endRoundBlack.png"),
                 40
         );
+
+        JavaFXUtils.setButtonIcons(
+                animationButton,
+                getClass().getResource("/assets/icons/operation/animation_white.png"),
+                getClass().getResource("/assets/icons/operation/animation_black.png"),
+                40
+        );
+
 
         menuButton.setTooltip(new Tooltip("ESC/F10"));
 
@@ -409,6 +437,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                 for (Unit unit : c.getAddedSubList())
                 {
                     unit.positionProperty().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
+                    unit.hpProperty().addListener((observableValue, oldHp, newHp) -> unitHpChanged(observableValue,
+                                                                                               oldHp, newHp, unit));
                 }
             }
 
@@ -417,14 +447,50 @@ public class BattleFieldController implements RootController, IngameViewControll
                 for (Unit unit : c.getRemoved())
                 {
                     unit.positionProperty().removeListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
+                    unit.hpProperty().removeListener((observableValue, oldHp, newHp) -> unitHpChanged(observableValue,
+                                                                                                   oldHp, newHp, unit));
                 }
             }
+        }
+    }
+
+    private void unitHpChanged (ObservableValue<? extends Number> observableValue, Number oldHp, Number newHp, Unit unit)
+    {
+        if(unit == null) {
+            return;
+        }
+
+        if(unit.getPosition() == null) {
+            return;
+        }
+
+        tileDrawer.drawTile(getTileOf(unit.getPosition()));
+
+        if(animationsAllowed.get() && newHp.floatValue() > 0) {
+            attackAnimationManager.startAttackAnimation(canvas, unit);
         }
     }
 
     @SuppressWarnings("unused")
     private void unitChangedPosition (ObservableValue<? extends Cell> observableValue, Cell lastPosition, Cell newPosition, Unit unit)
     {
+        if(animationsAllowed.get()) {
+
+            if(lastPosition != null && newPosition != null)
+            {
+                movementAnimationManager.startMovementAnimation(canvas, unit, lastPosition, newPosition);
+            }
+            else if(lastPosition == null && newPosition != null)
+            {
+                revivalAnimationManager.startRevivalAnimation(canvas, unit);
+            }
+            else if(lastPosition != null && newPosition == null) {
+                deathAnimationManager.startDeathAnimation(canvas, lastPosition);
+            }
+        }
+
+
+
         if (lastPosition != null)
         {
             tileDrawer.drawTile(getTileOf(lastPosition));
@@ -433,6 +499,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             tileDrawer.drawTile(getTileOf(newPosition));
         }
+
         miniMapDrawer.drawMinimap(tileMap);
     }
 
@@ -446,8 +513,11 @@ public class BattleFieldController implements RootController, IngameViewControll
     private void initCanvas ()
     {
         canvas = new Canvas();
+
         canvas.setId("canvas");
+
         zoomableScrollPane = new ZoomableScrollPane(canvas);
+
         canvas.setHeight(CELL_SIZE * mapSize);
         canvas.setWidth(CELL_SIZE * mapSize);
         battlefieldStackPane.getChildren().add(0, zoomableScrollPane);
@@ -466,6 +536,11 @@ public class BattleFieldController implements RootController, IngameViewControll
                 setFullscreen(null);
             }
         });
+
+        movementAnimationManager.setMapRedraw(() -> tileDrawer.drawMap(tileMap));
+        deathAnimationManager.setMapRedraw(() -> tileDrawer.drawMap(tileMap));
+        attackAnimationManager.setMapRedraw(() -> tileDrawer.drawMap(tileMap));
+        revivalAnimationManager.setMapRedraw(() -> tileDrawer.drawMap(tileMap));
     }
 
     private void initPlayerBar ()
@@ -830,6 +905,14 @@ public class BattleFieldController implements RootController, IngameViewControll
     }
 
     public void endRound(){
+        alertBuilder
+                .confirmation(
+                        AlertBuilder.Text.END_ROUND,
+                        this::doEndRound,
+                        null);
+    }
+
+    public void doEndRound(){
         String phase = this.context.getGameState().getPhase();
         if (phase.equals(Game.Phase.movePhase.name())){
             doEndPhase();
@@ -887,7 +970,12 @@ public class BattleFieldController implements RootController, IngameViewControll
             for (Unit unit : units)
             {
                 //Adds listener for units which are already in the list
-                unit.positionProperty().addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
+                unit.positionProperty()
+                        .addListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
+                unit.hpProperty()
+                        .addListener((observableValue, oldHp, newHp) -> unitHpChanged(observableValue,
+                                                                                                 oldHp, newHp,
+                                                                                                     unit));
             }
 
             initCanvas();
@@ -951,6 +1039,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         Bounds bounds = zoomableScrollPane.localToScreen(zoomableScrollPane.getBoundsInLocal());
         center = new Point2D(bounds.getCenterX(), bounds.getCenterY());
     }
+
+
 
 
     @Autowired(required = false)
@@ -1267,6 +1357,9 @@ public class BattleFieldController implements RootController, IngameViewControll
         {
             unit.positionProperty()
                     .removeListener((observableValue, lastPosition, newPosition) -> unitChangedPosition(observableValue, lastPosition, newPosition, unit));
+            unit.hpProperty().removeListener((observableValue, oldHp, newHp) -> unitHpChanged(observableValue,
+                                                                                               oldHp, newHp,
+                                                                                              unit));
         }
 
         units.removeListener(unitListListener);
@@ -1377,6 +1470,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                     40
             );
             skynet.stopBot();
+            animationButton.setDisable(false);
+            animationsAllowed.set(true);
         }
         else
         {
@@ -1386,6 +1481,8 @@ public class BattleFieldController implements RootController, IngameViewControll
                     getClass().getResource("/assets/icons/operation/skynetActiveBlack.png"),
                     40
             );
+            animationButton.setDisable(true);
+            animationsAllowed.set(false);
             skynet.startBot();
         }
     }
@@ -1438,4 +1535,25 @@ public class BattleFieldController implements RootController, IngameViewControll
         menuBuilder.battlefieldMenu(entries);
     }
 
+    public void toggleAnimations (ActionEvent actionEvent)
+    {
+
+        animationsAllowed.set(!animationsAllowed.get());
+        if(animationsAllowed.get()) {
+            JavaFXUtils.setButtonIcons(
+                    animationButton,
+                    getClass().getResource("/assets/icons/operation/animation_white.png"),
+                    getClass().getResource("/assets/icons/operation/animation_black.png"),
+                    40
+            );
+        }
+        else {
+            JavaFXUtils.setButtonIcons(
+                    animationButton,
+                    getClass().getResource("/assets/icons/operation/noAnimation_white.png"),
+                    getClass().getResource("/assets/icons/operation/noAnimation_black.png"),
+                    40
+            );
+        }
+    }
 }

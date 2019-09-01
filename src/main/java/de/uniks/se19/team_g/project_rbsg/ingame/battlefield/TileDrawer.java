@@ -133,7 +133,7 @@ public class TileDrawer
         Unit unit = tile.getCell().unitProperty().get();
 
         //Layer 5 Unit
-        if (unit != null)
+        if (unit != null && unit.isDisplayed())
         {
             Image unitImage;
 
