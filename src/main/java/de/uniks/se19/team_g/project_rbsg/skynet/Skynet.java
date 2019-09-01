@@ -2,10 +2,10 @@ package de.uniks.se19.team_g.project_rbsg.skynet;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.FallbackBehaviour;
-import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.exception.FallbackBehaviourException;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.fallback.FallbackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.exception.SkynetExcpetion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +21,23 @@ public class Skynet
     private final Game game;
     private final Player player;
     private Thread botThread;
-    private Bot bot;
+    private AutoPlayer bot;
     private HashMap<String, Behaviour> behaviours;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public Skynet(@NonNull final ActionExecutor actionExecutor,
-                  @NonNull final Game game,
-                  @NonNull final Player player)
-    {
+    public Skynet(
+        @NonNull final ActionExecutor actionExecutor,
+        @NonNull final Game game,
+        @NonNull final Player player
+    ) {
         this.actionExecutor = actionExecutor;
         this.game = game;
         this.player = player;
 
         behaviours = new HashMap<>();
         behaviours.put("fallback", new FallbackBehaviour());
+
+        bot = new AutoPlayer(this);
     }
 
     public Thread getBotThread()
@@ -42,7 +45,7 @@ public class Skynet
         return botThread;
     }
 
-    public Bot getBot()
+    public AutoPlayer getBot()
     {
         return bot;
     }
@@ -60,8 +63,18 @@ public class Skynet
     public Skynet turn()
     {
         try {
-            if (!game.getCurrentPlayer().equals(player)) {
-                throw new SkynetExcpetion("Not my turn");
+
+
+            if (!player.equals(game.getCurrentPlayer())) {
+                return this;
+                // throw new SkynetExcpetion("Not my turn");
+            }
+
+            if(behaviours.containsKey("surrender") && evalutateSurrender()) {
+                if(isBotRunning()) {
+                    stopBot();
+                }
+                throw new SkynetExcpetion("Surrendered");
             }
 
             final Behaviour currentBehaviour = getCurrentBehaviour();
@@ -76,6 +89,18 @@ public class Skynet
         }
 
         return this;
+    }
+
+    private boolean evalutateSurrender ()
+    {
+        final Optional<? extends Action> surrenderAction = behaviours.get("surrender").apply(game, player);
+
+        if(surrenderAction.isPresent()) {
+            actionExecutor.execute(surrenderAction.get());
+            return true;
+        }
+
+        return false;
     }
 
     private Behaviour getCurrentBehaviour()
@@ -100,11 +125,6 @@ public class Skynet
 
     public void startBot()
     {
-        if (bot == null)
-        {
-            logger.debug("Creating bot");
-            bot = new Bot(this);
-        }
         botThread = bot.start();
     }
 

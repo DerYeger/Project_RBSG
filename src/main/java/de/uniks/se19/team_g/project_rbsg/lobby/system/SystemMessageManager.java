@@ -1,8 +1,10 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.system;
 
+import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import org.springframework.context.annotation.*;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -38,8 +40,10 @@ public class SystemMessageManager implements IWebSocketCallback
         this.webSocketClient = webSocketClient;
     }
 
-    public void startSocket() throws Exception {
-        if (WebSocketConfigurator.userKey.equals("") || webSocketClient == null) {
+    public void startSocket() throws WebSocketException {
+        User registeredUser = WebSocketConfigurator.userProvider.get();
+        if (
+                registeredUser == null || registeredUser.getUserKey().isEmpty() || webSocketClient == null) {
             return;
         }
         webSocketClient.start("/system", this);

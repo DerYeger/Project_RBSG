@@ -1,9 +1,11 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -19,22 +21,20 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
-import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameController;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
-import de.uniks.se19.team_g.project_rbsg.model.Game;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketException;
 import io.rincl.Rincl;
 import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.scene.Scene;
@@ -65,23 +65,23 @@ import java.util.Collection;
 @ContextConfiguration(classes = {
         FXMLLoaderFactory.class,
         ChatBuilder.class,
-        GameProvider.class,
-        UserProvider.class,
         SceneManager.class,
         GameListViewCell.class,
         CreateGameFormBuilder.class,
-        CreditsFormBuilder.class,
+        MenuBuilder.class,
+        LocaleConfig.class,
+        CreditsBuilder.class,
         LobbyViewController.class,
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
         AlertBuilder.class,
         LocaleConfig.class,
-        IngameContext.class,
         IngameGameProvider.class,
         IngameRootController.class,
         JoinGameManager.class,
-        SpectatorModusTest.ContextConfiguration.class
+        SpectatorModusTest.ContextConfiguration.class,
+        EmailManager.class
 })
 public class SpectatorModusTest extends ApplicationTest {
 
@@ -102,15 +102,30 @@ public class SpectatorModusTest extends ApplicationTest {
     public static class ContextConfiguration {
 
         @Bean
+        public GameProvider gameProvider() {
+            return new GameProvider();
+        }
+
+        @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
+
+        @Bean
+        public IngameContext ingameContext() {
+            return new IngameContext(new User(), new Game("tolles game", 4));
+        }
+
+        @Bean
         public CreateGameController createGameController()
         {
             return Mockito.mock(CreateGameController.class);
         }
 
         @Bean
-        public CreditsFormBuilder creditsFormBuilder()
+        public CreditsBuilder creditsFormBuilder()
         {
-            return Mockito.mock(CreditsFormBuilder.class);
+            return Mockito.mock(CreditsBuilder.class);
         }
 
         @Bean
@@ -176,7 +191,7 @@ public class SpectatorModusTest extends ApplicationTest {
         public GameEventManager gameEventManager() {
             return new GameEventManager(new WebSocketClient(){
                 @Override
-                public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws Exception {
+                public void start(final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws WebSocketException {
                     String uriEndpoint = "/game?gameId=1&spectator=true";
 
                     Assert.assertEquals(uriEndpoint, endpoint);

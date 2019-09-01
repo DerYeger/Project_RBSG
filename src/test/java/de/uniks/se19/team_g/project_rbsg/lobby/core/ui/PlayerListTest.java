@@ -1,9 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -14,8 +14,9 @@ import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
 import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
-import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
@@ -24,6 +25,7 @@ import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.Game;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
@@ -68,7 +70,6 @@ import static org.junit.Assert.assertNotNull;
         PlayerListTest.ContextConfiguration.class,
         ChatBuilder.class,
         GameProvider.class,
-        UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
         LobbyViewController.class,
@@ -76,7 +77,9 @@ import static org.junit.Assert.assertNotNull;
         ApplicationState.class,
         SceneManagerConfig.class,
         AlertBuilder.class,
-        LocaleConfig.class
+        MenuBuilder.class,
+        LocaleConfig.class,
+        EmailManager.class
 })
 public class PlayerListTest extends ApplicationTest
 {
@@ -108,15 +111,20 @@ public class PlayerListTest extends ApplicationTest
     static class ContextConfiguration {
 
         @Bean
+        public UserProvider userProvider() {
+            return new UserProvider();
+        }
+
+        @Bean
         public CreateGameFormBuilder createGameController()
         {
             return Mockito.mock(CreateGameFormBuilder.class);
         }
 
         @Bean
-        public CreditsFormBuilder creditsFormBuilder()
+        public CreditsBuilder creditsFormBuilder()
         {
-            return Mockito.mock(CreditsFormBuilder.class);
+            return Mockito.mock(CreditsBuilder.class);
         }
 
         @Bean

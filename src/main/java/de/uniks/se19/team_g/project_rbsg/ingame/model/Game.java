@@ -18,8 +18,7 @@ import java.util.Collection;
  */
 public class Game {
 
-    @NonNull
-    private final String id;
+    private String id;
 
     private StringProperty phase = new SimpleStringProperty();
 
@@ -27,11 +26,14 @@ public class Game {
 
     final private SimpleBooleanProperty gameStarted = new SimpleBooleanProperty(false);
 
-    private ObservableList<Player> players;
+    public static final String PLAYERS = "players";
+    private ObservableList<Player> players = FXCollections.observableArrayList();
 
-    private ObservableList<Unit> units;
+    public static final String UNITS = "units";
+    private ObservableList<Unit> units = FXCollections.observableArrayList();
 
-    private ObservableList<Cell> cells;
+    public static final String CELLS = "cells";
+    private ObservableList<Cell> cells = FXCollections.observableArrayList();
 
     final private ObjectProperty<Player> currentPlayer = new SimpleObjectProperty<>();
 
@@ -46,13 +48,17 @@ public class Game {
     public Game(@NonNull final String id) {
         this.id = id;
 
-        players = FXCollections.observableArrayList();
-        units = FXCollections.observableArrayList();
-        cells = FXCollections.observableArrayList();
+    }
+
+    public Game() {
     }
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 

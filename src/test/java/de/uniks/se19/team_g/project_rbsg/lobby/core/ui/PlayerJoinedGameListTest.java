@@ -1,18 +1,21 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
 import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.*;
 import de.uniks.se19.team_g.project_rbsg.chat.*;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.credits.CreditsFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
 import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.server.rest.*;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
 import io.rincl.*;
@@ -47,14 +50,16 @@ import static org.hamcrest.CoreMatchers.*;
         UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
+        MenuBuilder.class,
+        LocaleConfig.class,
         LobbyViewController.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
         ApplicationState.class,
         SceneManagerConfig.class,
-        LocaleConfig.class,
         GameListViewCell.class,
-        AlertBuilder.class
+        AlertBuilder.class,
+        EmailManager.class
     }
 )
 public class PlayerJoinedGameListTest extends ApplicationTest
@@ -78,8 +83,8 @@ public class PlayerJoinedGameListTest extends ApplicationTest
         }
 
         @Bean
-        public CreditsFormBuilder creditsFormBuilder() {
-            return Mockito.mock(CreditsFormBuilder.class);
+        public CreditsBuilder creditsFormBuilder() {
+            return Mockito.mock(CreditsBuilder.class);
         }
 
         @Bean

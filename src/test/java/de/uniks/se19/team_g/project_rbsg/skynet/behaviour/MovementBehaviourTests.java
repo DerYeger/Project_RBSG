@@ -5,8 +5,8 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
+import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.movement.MovementBehaviour;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -28,9 +28,8 @@ public class MovementBehaviourTests {
         final Optional<MovementAction> action = movementBehaviour.apply(game, player);
 
         assertTrue(action.isPresent());
-        assertTrue(action.get() instanceof MovementAction);
 
-        final MovementAction movementAction = (MovementAction) action.get();
+        final MovementAction movementAction = action.get();
 
         assertEquals(unit, movementAction.unit);
         assertEquals(5, movementAction.tour.getCost());

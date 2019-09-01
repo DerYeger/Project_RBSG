@@ -33,13 +33,11 @@ public class DefaultLogoutManagerTests {
                 .setName("TestUser")
                 .setUserKey("1234");
 
-        WebSocketConfigurator.userKey = user.getUserKey();
+        WebSocketConfigurator.userProvider = userProvider;
 
         logoutManager.logout(userProvider);
 
         Assert.assertNotEquals(user, userProvider.get());
-
-        Assert.assertNull(WebSocketConfigurator.userKey);
     }
 
     @Test
@@ -59,13 +57,13 @@ public class DefaultLogoutManagerTests {
                 .setName("TestUser")
                 .setUserKey("1234");
 
-        WebSocketConfigurator.userKey = user.getUserKey();
+        WebSocketConfigurator.userProvider = userProvider;
 
         logoutManager.logout(userProvider);
 
         Assert.assertEquals(user, userProvider.get());
 
-        Assert.assertEquals("1234", WebSocketConfigurator.userKey);
+        Assert.assertEquals("1234", WebSocketConfigurator.userProvider.get().getUserKey());
     }
 
     @Test
@@ -85,13 +83,13 @@ public class DefaultLogoutManagerTests {
                 .setName("TestUser")
                 .setUserKey("1234");
 
-        WebSocketConfigurator.userKey = user.getUserKey();
+        WebSocketConfigurator.userProvider = userProvider;
 
         logoutManager.logout(userProvider);
 
         Assert.assertEquals(user, userProvider.get());
 
-        Assert.assertEquals("1234", WebSocketConfigurator.userKey);
+        Assert.assertEquals("1234", WebSocketConfigurator.userProvider.get().getUserKey());
     }
 
     @Test
@@ -111,13 +109,13 @@ public class DefaultLogoutManagerTests {
                 .setName("TestUser")
                 .setUserKey("1234");
 
-        WebSocketConfigurator.userKey = user.getUserKey();
+        WebSocketConfigurator.userProvider = userProvider;
 
         logoutManager.logout(userProvider);
 
         Assert.assertEquals(user, userProvider.get());
 
-        Assert.assertEquals("1234", WebSocketConfigurator.userKey);
+        Assert.assertEquals("1234", WebSocketConfigurator.userProvider.get().getUserKey());
     }
 
     @Test
@@ -128,7 +126,7 @@ public class DefaultLogoutManagerTests {
 
         final User emptyUser = userProvider.get();
 
-        WebSocketConfigurator.userKey = null;
+        WebSocketConfigurator.userProvider = userProvider;
 
         logoutManager.logout(userProvider);
 
