@@ -155,8 +155,8 @@ public class PlayerCardBuilder {
 
         JavaFXUtils.setButtonIcons(
                 botButton,
-                getClass().getResource("/assets/icons/operation/botBlack.png"),
                 getClass().getResource("/assets/icons/operation/botWhite.png"),
+                getClass().getResource("/assets/icons/operation/botBlack.png"),
                 40
         );
 
@@ -249,8 +249,8 @@ public class PlayerCardBuilder {
         });
         JavaFXUtils.setButtonIcons(
                 botButton,
-                getClass().getResource("/assets/icons/operation/killBotBlack.png"),
                 getClass().getResource("/assets/icons/operation/killBotWhite.png"),
+                getClass().getResource("/assets/icons/operation/killBotBlack.png"),
                 40
         );
     }
