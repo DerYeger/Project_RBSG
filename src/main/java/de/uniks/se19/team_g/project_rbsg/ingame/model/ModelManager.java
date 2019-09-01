@@ -169,7 +169,7 @@ public class ModelManager implements GameEventHandler {
     }
 
     private void doAddAction(Action action) {
-        boolean isLatest = history.getTail() == history.getCurrent();
+        boolean isLatest = history.isLatest();
         history.push(action);
 
         if (isLatest) {

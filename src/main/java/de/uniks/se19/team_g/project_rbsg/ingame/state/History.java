@@ -108,4 +108,8 @@ public class History {
         return tail;
     }
 
+    public boolean isLatest() {
+        return tail == this.current.getValue();
+    }
+
 }

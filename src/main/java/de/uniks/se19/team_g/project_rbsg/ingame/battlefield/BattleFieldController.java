@@ -1491,12 +1491,12 @@ public class BattleFieldController implements RootController, IngameViewControll
         if (context != null && context.getModelManager() != null && context.getModelManager().getHistory() != null) {
             final History history =  context.getModelManager().getHistory();
             history.currentProperty().addListener(((observable, oldValue, newValue) -> {
-                if (history.getTail() != history.currentProperty().getValue()) {
+                if (!history.isLatest()) {
                     historyIsTailProperty.set(false);
                 } else {
                     historyIsTailProperty.set(true);
                 }
-                if (history.getTail() != history.currentProperty().getValue() && skynet.isBotRunning()) {
+                if (!history.isLatest() && skynet.isBotRunning()) {
                     skynetRunningProperty.set(false);
                     skynet.stopBot();
                 }
@@ -1506,7 +1506,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void jumpToHistoryTail() {
         final History history =  context.getModelManager().getHistory();
-        if (history.getTail() != history.currentProperty().getValue()) {
+        if (!history.isLatest()) {
             history.timeTravel(history.getTail());
         }
     }
