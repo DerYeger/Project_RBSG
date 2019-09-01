@@ -5,12 +5,14 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
 
 @Component
+@Scope("prototype")
 public class NextTurnListener implements GameEventDispatcher.Listener {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
