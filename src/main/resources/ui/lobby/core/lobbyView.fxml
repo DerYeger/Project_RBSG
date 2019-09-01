@@ -18,7 +18,7 @@
                      <children>
                         <ListView fx:id="lobbyPlayerListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="500.0">
                            <styleClass>
-                              <String fx:value="default" />
+
                               <String fx:value="transparent" />
                            </styleClass>
                         </ListView>

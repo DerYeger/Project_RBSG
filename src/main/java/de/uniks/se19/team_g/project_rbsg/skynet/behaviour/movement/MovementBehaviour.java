@@ -9,6 +9,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.MovementAction;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.BehaviourException;
+import de.uniks.se19.team_g.project_rbsg.util.AttackCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -90,7 +91,7 @@ public class MovementBehaviour implements Behaviour {
         return me
                 .getUnits()
                 .stream()
-                .mapToDouble(enemy::getAttackValue)
+                .mapToDouble((u) -> AttackCalculator.getAttackValue(enemy, u))
                 .average()
                 .orElse(0);
     }

@@ -103,6 +103,8 @@ public class ArmyDetailControllerTest extends ApplicationTest {
         clickOn("#moveRightButton");
         Assert.assertEquals(state.selectedArmy.get().units.get(2), unit1);
 
+        clickOn("#moveRightButton");
+        Assert.assertEquals(state.selectedArmy.get().units.get(2), unit1);
     }
 
     private void click(double x, double y) {

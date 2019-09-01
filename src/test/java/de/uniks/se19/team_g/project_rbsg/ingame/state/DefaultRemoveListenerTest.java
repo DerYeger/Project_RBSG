@@ -30,7 +30,7 @@ public class DefaultRemoveListenerTest {
         sut = new DefaultRemoveListener();
 
         game = new Game("game");
-        player = new Player("player");
+        player = new Player("columnPlayer");
         unit = new Unit("unit");
         cell = new Cell("cell");
 
@@ -96,7 +96,7 @@ public class DefaultRemoveListenerTest {
 
         GameRemoveObjectEvent unitFromPlayerRemoved = new GameRemoveObjectEvent(
                 "unit",
-                "player",
+                "columnPlayer",
                 Player.UNITS
         );
         accept(unitFromPlayerRemoved);
@@ -115,7 +115,7 @@ public class DefaultRemoveListenerTest {
     public void playerFromGameRemoved() {
 
         GameRemoveObjectEvent playerFromGameRemoved = new GameRemoveObjectEvent(
-                "player",
+                "columnPlayer",
                 "game",
                 Game.PLAYERS
         );

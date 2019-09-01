@@ -53,6 +53,7 @@ import static org.mockito.Mockito.*;
         GameEventManager.class,
         LocaleConfig.class,
         IngameApi.class,
+        BattleFieldLogicTest.ContextConfiguration.class
 })
 public class BattleFieldLogicTest extends ApplicationTest {
 

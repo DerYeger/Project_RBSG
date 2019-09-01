@@ -18,6 +18,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.UnitInfoBoxBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.Entry;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
@@ -63,11 +64,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.net.URL;
 import java.util.*;
 
 import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
@@ -96,6 +95,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final HashMap<String, Pane> playerPaneMap = new HashMap<>();
     private final ArrayList<Pane> playerCardList = new ArrayList<>();
     private final Property<Locale> selectedLocale;
+    private final GameProvider gameProvider;
     public Button menuButton;
     public Button hpBarButton;
     public Button zoomOutButton;
@@ -110,7 +110,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 //    public Button actionButton;
 //    public Button cancelButton;
     public Button skynetTurnButton;
-    public Button playerButton;
+    //public Button playerButton;
     public Button chatButton;
     public StackPane battlefieldStackPane;
     public AnchorPane overlayAnchorPane;
@@ -130,6 +130,8 @@ public class BattleFieldController implements RootController, IngameViewControll
     public VBox history;
     public Button skynetButton;
     public Label gameName;
+    public ColumnConstraints player;
+    public Button button;
     public Button animationButton;
     private ChatController chatController;
     private Game game;
@@ -167,11 +169,15 @@ public class BattleFieldController implements RootController, IngameViewControll
     private final BooleanProperty animationsAllowed;
 
     private final Button fullscreenButton = new Button();
+    private BooleanProperty isUsersTurn;
+    private SimpleBooleanProperty skynetRunningProperty;
+    private SimpleBooleanProperty historyIsTailProperty = new SimpleBooleanProperty(true);
     private final MusicManager musicManager;
 
     private Node phaseLabelView;
 
     private Point2D center = new Point2D(100, 100);
+    public ColumnConstraints columnPlayer;
 
     @Autowired
     public BattleFieldController (
@@ -181,9 +187,11 @@ public class BattleFieldController implements RootController, IngameViewControll
             @Nonnull final MovementManager movementManager,
             @Nonnull final ChatBuilder chatBuilder,
             @Nonnull final ChatController chatController,
+            @NonNull final GameProvider gameProvider,
             @Nonnull Property<Locale> selectedLocale,
             @NonNull MusicManager musicManager
     ) {
+        this.gameProvider = gameProvider;
         this.sceneManager = sceneManager;
         this.alertBuilder = alertBuilder;
         this.menuBuilder = menuBuilder;
@@ -217,11 +225,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     public void initialize ()
     {
+        gameName.textProperty().setValue(gameProvider.get().getName());
         JavaFXUtils.setButtonIcons(
                 menuButton,
                 getClass().getResource("/assets/icons/navigation/menuWhite.png"),
                 getClass().getResource("/assets/icons/navigation/menuBlack.png"),
-                40
+                50
         );
 
         JavaFXUtils.setButtonIcons(
@@ -235,12 +244,6 @@ public class BattleFieldController implements RootController, IngameViewControll
                 zoomOutButton,
                 getClass().getResource("/assets/icons/navigation/zoomOutWhite.png"),
                 getClass().getResource("/assets/icons/navigation/zoomOutBlack.png"),
-                40
-        );
-        JavaFXUtils.setButtonIcons(
-                playerButton,
-                getClass().getResource("/assets/icons/navigation/outlineAccountWhite.png"),
-                getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                 40
         );
         JavaFXUtils.setButtonIcons(
@@ -278,7 +281,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
 
         menuButton.setTooltip(new Tooltip("ESC/F10"));
-
         //TODO readd
 //        JavaFXUtils.setButtonIcons(
 //                cancelButton,
@@ -330,11 +332,14 @@ public class BattleFieldController implements RootController, IngameViewControll
             Number newVal
     )
     {
-        if ((double) newVal < 1040)
+        if ((double) newVal < 1250)
         {
             if (playerBar.visibleProperty().get())
             {
-                openPlayerBar(null);
+                //openPlayerBar(null);
+                setVisibilityPlayerBar();
+                columnPlayer.setMaxWidth(0);
+                button.setMinWidth(0);
                 openWhenResizedPlayer = true;
             }
             if (chatPane.visibleProperty().get())
@@ -342,14 +347,21 @@ public class BattleFieldController implements RootController, IngameViewControll
                 openChat();
                 openWhenResizedChat = true;
             }
-            playerButton.setDisable(true);
+            //playerButton.setDisable(true);
             chatButton.setDisable(true);
         }
         else
         {
             if (openWhenResizedPlayer)
             {
-                openPlayerBar(null);
+                //openPlayerBar(null);
+                setVisibilityPlayerBar();
+                columnPlayer.setMaxWidth(3000);
+                if (this.game.getPlayers().size() == 2) {
+                    button.setMinWidth(380);
+                } else {
+                    button.setMinWidth(750);
+                }
                 openWhenResizedPlayer = false;
             }
             if (openWhenResizedChat)
@@ -357,7 +369,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                 openChat();
                 openWhenResizedChat = false;
             }
-            playerButton.setDisable(false);
+            //playerButton.setDisable(false);
             chatButton.setDisable(false);
         }
     }
@@ -555,7 +567,7 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         playerListController = new PlayerListController(this.game);
         playerBar.setAlignment(Pos.TOP_CENTER);
-
+        button.setMinWidth(750);
         int counter = 0;
         if (this.game.getPlayers().size() == 2)
         {
@@ -563,6 +575,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             playerCardList.remove(player1);
             playerBar.getChildren().remove(player4);
             playerCardList.remove(player4);
+            button.setMinWidth(380);
         }
 
         for (Player player : this.game.getPlayers())
@@ -587,8 +600,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
 
         playerListController = new PlayerListController(game);
-        playerBar.setVisible(false);
-        playerBar.setPickOnBounds(false);
+        //playerBar.setVisible(false);
+        //playerBar.setPickOnBounds(false);
         battlefieldStackPane.setPickOnBounds(false);
         miniMapStackPane.setPickOnBounds(false);
 
@@ -600,7 +613,7 @@ public class BattleFieldController implements RootController, IngameViewControll
                                                       {
                                                           if (oldPlayer != null)
                                                           {
-                                                              playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -root-background-color");
+                                                              playerNodeMap.get(oldPlayer.getId()).setStyle("-fx-background-color: -surface-elevation-2-color");
                                                           }
                                                           if (newPlayer != null)
                                                           {
@@ -613,7 +626,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.game.phaseProperty().addListener(phaseChangedListener);
         roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "phaseLabel"));
-        ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
+        ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-2-color");
         //ingameInformationHBox.setSpacing(10);
         HBox.setMargin(ingameInformationHBox, new Insets(10, 10, 10, 10));
         //phaseLabel.textProperty().bind(this.game.phaseProperty());
@@ -1013,8 +1026,8 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureEndPhaseAndEndRound();
 
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), selectedLocale));
-        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), selectedLocale));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Selectable>().build(game.selectedProperty(), "unitSelected", selectedLocale));
+        unitInformationContainer.getChildren().add(new UnitInfoBoxBuilder<Hoverable>().build(game.hoveredProperty(), "unitHovered", selectedLocale));
 
         try
         {
@@ -1142,6 +1155,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             {
                 if (skynet.isBotRunning())
                 {
+                    skynetRunningProperty.set(false);
                     skynet.stopBot();
                 }
                 showWinnerLoserAlert(newValue);
@@ -1153,6 +1167,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             {
                 if (skynet.isBotRunning())
                 {
+                    skynetRunningProperty.set(false);
                     skynet.stopBot();
                 }
 
@@ -1300,9 +1315,16 @@ public class BattleFieldController implements RootController, IngameViewControll
                 currentPlayerProperty, this.context.getGameState().initiallyMovedProperty()
         ));
 
-        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
+        skynetRunningProperty = new SimpleBooleanProperty(false);
+        isUsersTurn = new SimpleBooleanProperty(false);
+        isUsersTurn.bind(Bindings.createBooleanBinding(
+                () -> context.isMyTurn(), currentPlayerProperty
+        ));
 
-        endPhaseButton.disableProperty().bind(playerCanEndPhase.not());
+        playerCanEndPhase.addListener(((observable, oldValue, newValue) -> {}));
+        isUsersTurn.addListener(((observable, oldValue, newValue) -> {}));
+
+        endPhaseButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty).or(historyIsTailProperty.not()));
 
         endPhaseButton.disableProperty().addListener(((observable, oldValue, newValue) -> {}));
 
@@ -1314,7 +1336,7 @@ public class BattleFieldController implements RootController, IngameViewControll
             }
         });
 
-        endRoundButton.disableProperty().bind(playerCanEndPhase.not());
+        endRoundButton.disableProperty().bind(playerCanEndPhase.not().or(skynetRunningProperty).or(historyIsTailProperty.not()));
 
         endRoundButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
     }
@@ -1371,11 +1393,12 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         if (skynet.isBotRunning())
         {
+            skynetRunningProperty.set(false);
             skynet.stopBot();
         }
     }
 
-    public void openPlayerBar (@SuppressWarnings("unused") ActionEvent event)
+    /*public void openPlayerBar (@SuppressWarnings("unused") ActionEvent event)
     {
         if (!playerBar.visibleProperty().get())
         {
@@ -1398,6 +1421,18 @@ public class BattleFieldController implements RootController, IngameViewControll
                     getClass().getResource("/assets/icons/navigation/outlineAccountBlack.png"),
                     40
             );
+        }
+    }*/
+
+    private void setVisibilityPlayerBar()
+    {
+        if (!playerBar.visibleProperty().get())
+        {
+            playerBar.visibleProperty().setValue(true);
+        }
+        else
+        {
+            playerBar.visibleProperty().setValue(false);
         }
     }
 
@@ -1432,28 +1467,46 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void initSkynetButtons ()
     {
-        final URL url = getClass().getResource("/assets/icons/operation/oneRoundPlane.png");
-        JavaFXUtils.setButtonIcons(skynetTurnButton, url, url, 40);
-        skynetTurnButton.setOnAction((event) -> skynet.turn());
-
+        JavaFXUtils.setButtonIcons(
+                skynetTurnButton,
+                getClass().getResource("/assets/icons/operation/oneRoundPlaneWhite.png"),
+                getClass().getResource("/assets/icons/operation/oneRoundPlaneBlack.png"),
+                40
+        );
+        skynetTurnButton.setOnAction((e) -> {
+            jumpToHistoryTail();
+            skynet.turn();
+        });
+        skynetTurnButton.disableProperty().bind(isUsersTurn.not().or(skynetRunningProperty).or(historyIsTailProperty.not()));
+        skynetTurnButton.disabledProperty().addListener((((observable, oldValue, newValue) -> {})));
         JavaFXUtils.setButtonIcons(
                 skynetButton,
                 getClass().getResource("/assets/icons/operation/skynetInactiveWhite.png"),
                 getClass().getResource("/assets/icons/operation/skynetInactiveBlack.png"),
                 40
         );
-
         skynetButton.setOnAction(this::startBot);
 
         if (context != null && context.getModelManager() != null && context.getModelManager().getHistory() != null) {
             final History history =  context.getModelManager().getHistory();
             history.currentProperty().addListener(((observable, oldValue, newValue) -> {
-                skynetTurnButton.setDisable(!history.isLatest());
-                skynetButton.setDisable(!history.isLatest());
+                if (!history.isLatest()) {
+                    historyIsTailProperty.set(false);
+                } else {
+                    historyIsTailProperty.set(true);
+                }
                 if (!history.isLatest() && skynet.isBotRunning()) {
+                    skynetRunningProperty.set(false);
                     skynet.stopBot();
                 }
             }));
+        }
+    }
+
+    private void jumpToHistoryTail() {
+        final History history =  context.getModelManager().getHistory();
+        if (!history.isLatest()) {
+            history.timeTravel(history.getTail());
         }
     }
 
@@ -1462,6 +1515,7 @@ public class BattleFieldController implements RootController, IngameViewControll
     {
         if (skynet.isBotRunning())
         {
+            skynetRunningProperty.set(false);
             JavaFXUtils.setButtonIcons(
                     skynetButton,
                     getClass().getResource("/assets/icons/operation/skynetInactiveWhite.png"),
@@ -1474,6 +1528,8 @@ public class BattleFieldController implements RootController, IngameViewControll
         }
         else
         {
+            jumpToHistoryTail();
+            skynetRunningProperty.set(true);
             JavaFXUtils.setButtonIcons(
                     skynetButton,
                     getClass().getResource("/assets/icons/operation/skynetActiveWhite.png"),

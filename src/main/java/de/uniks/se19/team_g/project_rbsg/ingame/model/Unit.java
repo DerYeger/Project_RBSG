@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
+import de.uniks.se19.team_g.project_rbsg.util.AttackCalculator;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
@@ -288,11 +289,4 @@ public class Unit implements Selectable, Hoverable {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int getAttackValue(Unit unit) {
-        return this.unitType.getCanAttack(unit.getUnitType().getNameKey());
-    }
-
-    public int getAttackValue(UnitTypeInfo unitTypeInfo) {
-        return this.unitType.getCanAttack(unitTypeInfo.getNameKey());
-    }
 }

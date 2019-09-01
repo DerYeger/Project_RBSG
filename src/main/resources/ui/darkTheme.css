@@ -142,11 +142,20 @@
     -fx-background-color: -primary-background-color;
 }
 
-.button.icon-button:hover {
+.button.icon-button:hover,
+.button.menu:hover,
+.button.icon-button-big:hover,
+.button.icon-button-giant:hover,
+.button.liveButton:hover {
     -fx-background-color: -primary-lighter-background-color;
 }
 
-.button.icon-button:disabled {
+.button.liveButton:hover {
+    -fx-text-fill: -on-hovered-fill;
+}
+
+.button.icon-button:disabled,
+.button.menu:disabled {
     -fx-background-color: -disabled-background-color;
 }
 
@@ -163,10 +172,6 @@
     -fx-background-color: -primary-background-color;
 }
 
-.button.icon-button-big:hover {
-    -fx-background-color: -primary-lighter-background-color;
-}
-
 .button.icon-button-giant {
     -fx-min-height: 200px;
     -fx-min-width: 200px;
@@ -178,10 +183,6 @@
     -fx-background-radius: 0;
     -fx-effect: -shadow;
     -fx-background-color: -primary-background-color;
-}
-
-.button.icon-button-giant:hover {
-    -fx-background-color: -primary-lighter-background-color;
 }
 
 .button.icon-button-giant:disabled {
@@ -239,15 +240,60 @@
     -fx-graphic-text-gap: 10px;
 }
 
+
+.button.menu {
+    -fx-min-height: 50px;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: -primary-background-color;
+}
+
 .button.liveButton{
     -fx-alignment: center;
     -fx-min-width: 100px;
-    -fx-border-width: 2;
-    -fx-border-color: -default-border-color;
-    -fx-background-color: -root-background-color;
+    -fx-background-color: -primary-background-color;
     -fx-font-size: 16pt;
     -fx-font-weight: bold;
+    -fx-padding: 5 0 5 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
     -fx-text-fill: -on-primary-fill;
+}
+
+.button.transparent{
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+
+.button.flavor {
+    -fx-min-height: 42px;
+    -fx-min-width: 42px;
+    -fx-max-width: 42px;
+    -fx-max-height: 42px;
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: -shadow;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.button.flavor:hover {
+    -fx-border-width: 2;
+    -fx-border-color: -default-border-color;
 }
 
 /*------------------Label------------------*/
@@ -297,6 +343,12 @@
     -fx-font-size: 80px;
     -fx-effect: -shadow;
     -fx-text-fill: -on-secondary-fill-2;
+}
+
+.label.mini {
+    -fx-font-size: 14pt;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Roboto-Regular;
 }
 
 /*------------------ProgressIndicator------------------*/

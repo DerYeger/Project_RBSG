@@ -169,7 +169,7 @@ public class UnitDetailController implements Initializable {
             int column = (i / 2);
 
             final ViewComponent<CanAttackTileController> component = canAttackTileFactory.get();
-            component.getController().setDefinition(unitDefinition);
+            component.getController().setDefinition(unitDefinition, state.selectedUnit);
             final Node node = component.getRoot();
             GridPane.setColumnIndex(node, column);
             GridPane.setRowIndex(node, row);

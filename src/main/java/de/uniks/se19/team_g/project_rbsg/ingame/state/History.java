@@ -104,12 +104,12 @@ public class History {
         return current;
     }
 
+    public HistoryEntry getTail() {
+        return tail;
+    }
+
     public boolean isLatest() {
         return tail == this.current.getValue();
     }
 
-
-    public HistoryEntry getTail() {
-        return tail;
-    }
 }

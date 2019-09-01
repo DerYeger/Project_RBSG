@@ -40,9 +40,7 @@ public class InfoBoxTest extends ApplicationTest
 
         SimpleObjectProperty<Unit> unitProperty = new SimpleObjectProperty<>(unit);
 
-        Property<Locale> selectedLocale = new SimpleObjectProperty<>();
-        selectedLocale.setValue(Locale.ENGLISH);
-        Node infoBox = builder.build(unitProperty, selectedLocale);
+        Node infoBox = builder.build(unitProperty, "unitSelected", new SimpleObjectProperty<>(Locale.ENGLISH));
         UnitInfoBoxController<Unit> controller = builder.getLastController();
 
         assertThat(infoBox, notNullValue());
@@ -71,9 +69,7 @@ public class InfoBoxTest extends ApplicationTest
 
         SimpleObjectProperty<Unit> unitProperty = new SimpleObjectProperty<>(null);
 
-        Property<Locale> selectedLocale = new SimpleObjectProperty<>();
-        selectedLocale.setValue(Locale.ENGLISH);
-        Node infoBox = builder.build(unitProperty, selectedLocale);
+        Node infoBox = builder.build(unitProperty, "unitSelected", new SimpleObjectProperty<>(Locale.ENGLISH));
         UnitInfoBoxController<Unit> controller = builder.getLastController();
 
         HBox root = new HBox();
