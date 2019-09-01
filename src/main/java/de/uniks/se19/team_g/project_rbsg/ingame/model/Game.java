@@ -44,7 +44,7 @@ public class Game {
 
     final private ObjectProperty<Hoverable> hovered = new SimpleObjectProperty<>();
 
-    final private SimpleIntegerProperty turnCounter = new SimpleIntegerProperty();
+    final private SimpleIntegerProperty turnCount = new SimpleIntegerProperty();
 
     public Game(@NonNull final String id) {
         this.id = id;
@@ -380,15 +380,15 @@ public class Game {
         this.gameStarted.set(gameStarted);
     }
 
-    public SimpleIntegerProperty getTurnCounter() {
-        return turnCounter;
+    public int getTurnCount() {
+        return turnCount.get();
     }
 
-    public SimpleIntegerProperty turnCounterProperty() {
-        return turnCounter;
+    public SimpleIntegerProperty turnCountProperty() {
+        return turnCount;
     }
 
-    public void setTurnCounter(int rouncCounter) {
-        this.turnCounter.set(rouncCounter);
+    public void setTurnCount(int turnCount) {
+        this.turnCount.set(turnCount);
     }
 }

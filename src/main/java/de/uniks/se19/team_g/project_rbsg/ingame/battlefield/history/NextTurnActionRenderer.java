@@ -1,12 +1,9 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.history;
 
-import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.NextTurnAction;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -35,7 +32,7 @@ public class NextTurnActionRenderer extends DefaultActionRenderer {
     @Override
     protected HistoryRenderData doRender(Action action) {
         NextTurnAction actionImpl = (NextTurnAction) action;
-        Player player = (Player) actionImpl.getCurrentPlayer();
+        Player player = (Player) actionImpl.getPlayer();
 
         Pair<DefaultHistoryCellController, HBox> data = loadCell();
 

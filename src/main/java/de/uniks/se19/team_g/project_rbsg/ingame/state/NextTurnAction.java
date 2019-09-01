@@ -1,32 +1,32 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.state;
 
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import javafx.beans.property.SimpleIntegerProperty;
 
 public class NextTurnAction implements Action {
 
-    SimpleIntegerProperty roundCounter;
-    private  Player currentPlayer;
+    private Game game;
+    private  Player player;
 
-    public NextTurnAction(SimpleIntegerProperty roundCounter, Player currentPlayer){
-        this.roundCounter=roundCounter;
-        this.currentPlayer=currentPlayer;
+    public NextTurnAction(Game game, Player player){
+        this.game =game;
+        this.player = player;
     }
     @Override
     public void undo() {
-        roundCounter.set(roundCounter.getValue()-1);
+        game.setTurnCount( game.getTurnCount() - 1);
     }
 
     @Override
     public void run() {
-        roundCounter.set(roundCounter.getValue()+1);
+        game.setTurnCount( game.getTurnCount() + 1);
     }
 
-    public SimpleIntegerProperty getRoundCounter() {
-        return roundCounter;
+    public Game getGame() {
+        return game;
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    public Player getPlayer() {
+        return player;
     }
 }
