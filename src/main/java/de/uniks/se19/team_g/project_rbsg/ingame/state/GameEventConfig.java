@@ -3,6 +3,7 @@ package de.uniks.se19.team_g.project_rbsg.ingame.state;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import java.util.Map;
 public class GameEventConfig {
 
     @Bean
+    @Scope("prototype")
     public GameEventDispatcher gameEventDispatcher(
             ApplicationContext context
     ) {

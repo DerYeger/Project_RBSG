@@ -2,7 +2,8 @@ package de.uniks.se19.team_g.project_rbsg.skynet;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
-import de.uniks.se19.team_g.project_rbsg.skynet.action.*;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.Action;
+import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.Behaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.fallback.FallbackBehaviour;
 import de.uniks.se19.team_g.project_rbsg.skynet.exception.SkynetExcpetion;
@@ -20,14 +21,15 @@ public class Skynet
     private final Game game;
     private final Player player;
     private Thread botThread;
-    private Bot bot;
+    private AutoPlayer bot;
     private HashMap<String, Behaviour> behaviours;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public Skynet(@NonNull final ActionExecutor actionExecutor,
-                  @NonNull final Game game,
-                  @NonNull final Player player)
-    {
+    public Skynet(
+        @NonNull final ActionExecutor actionExecutor,
+        @NonNull final Game game,
+        @NonNull final Player player
+    ) {
         this.actionExecutor = actionExecutor;
         this.game = game;
         this.player = player;
@@ -35,7 +37,7 @@ public class Skynet
         behaviours = new HashMap<>();
         behaviours.put("fallback", new FallbackBehaviour());
 
-        bot = new Bot(this);
+        bot = new AutoPlayer(this);
     }
 
     public Thread getBotThread()
@@ -43,7 +45,7 @@ public class Skynet
         return botThread;
     }
 
-    public Bot getBot()
+    public AutoPlayer getBot()
     {
         return bot;
     }
@@ -63,8 +65,9 @@ public class Skynet
         try {
 
 
-            if (!game.getCurrentPlayer().equals(player)) {
-                throw new SkynetExcpetion("Not my turn");
+            if (!player.equals(game.getCurrentPlayer())) {
+                return this;
+                // throw new SkynetExcpetion("Not my turn");
             }
 
             if(behaviours.containsKey("surrender") && evalutateSurrender()) {

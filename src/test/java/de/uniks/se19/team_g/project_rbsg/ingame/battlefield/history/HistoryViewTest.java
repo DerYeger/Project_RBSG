@@ -8,9 +8,6 @@ import de.uniks.se19.team_g.project_rbsg.ingame.state.Action;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.UnitDeathAction;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.UpdateAction;
 import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
-import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -73,11 +70,7 @@ public class HistoryViewTest extends ApplicationTest {
         Action action4 = new UnitDeathAction(chubbyCharles, bob);
         Action actionHidden = Mockito.mock(Action.class);
 
-        IngameContext context = new IngameContext(
-                new UserProvider(),
-                new GameProvider(),
-                new IngameGameProvider()
-        );
+        IngameContext context = new IngameContext(null, null);
 
         History history = new History();
         history.push(action0);

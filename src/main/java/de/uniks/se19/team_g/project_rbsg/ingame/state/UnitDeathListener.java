@@ -7,11 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class UnitDeathListener implements GameEventDispatcher.Listener {
 
-    private Map<Unit, Map<String, CompletableFuture<Void>>> expectations = new HashMap<>();
+    private Map<Unit, Map<String, CompletableFuture<Void>>> expectations = new ConcurrentHashMap<>();
 
     @Override
     public void accept(GameEvent gameEvent, GameEventDispatcher dispatcher) {

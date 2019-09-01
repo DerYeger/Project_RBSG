@@ -239,6 +239,17 @@
     -fx-graphic-text-gap: 10px;
 }
 
+.button.liveButton{
+    -fx-alignment: center;
+    -fx-min-width: 100px;
+    -fx-border-width: 2;
+    -fx-border-color: -default-border-color;
+    -fx-background-color: -root-background-color;
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: -on-primary-fill;
+}
+
 /*------------------Label------------------*/
 
 .label.default {

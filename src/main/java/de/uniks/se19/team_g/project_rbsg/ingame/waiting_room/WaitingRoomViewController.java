@@ -1,48 +1,64 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
-import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.*;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.egg.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.*;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
+import de.uniks.se19.team_g.project_rbsg.bots.Bot;
+import de.uniks.se19.team_g.project_rbsg.bots.BotManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameViewController;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.*;
-import de.uniks.se19.team_g.project_rbsg.login.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_army.ArmyPreviewBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.Army;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.scene.*;
-import de.uniks.se19.team_g.project_rbsg.util.*;
-import io.rincl.*;
-import javafx.application.*;
+import de.uniks.se19.team_g.project_rbsg.util.JavaFXUtils;
+import io.rincl.Rincled;
+import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.beans.binding.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
-import javafx.beans.value.*;
-import javafx.collections.*;
-import javafx.event.*;
-import javafx.fxml.FXML;
-import javafx.scene.*;
-import javafx.scene.control.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.NodeOrientation;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.stereotype.*;
+import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Controller;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.function.*;
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Function;
 
-import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOBBY;
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.LOGIN;
 
 
 /**
@@ -104,6 +120,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
 
     private ChangeListener<Army> HoveredArmyListener = this::hoveredArmyChanged;
     private Node lastArmyPreview = null;
+    private GridPane loadingScreenForm;
+    public LoadingScreenFormBuilder loadingScreenFormBuilder;
+
+
     /**
      * keep reference for WeakReferences further down the road
      */
@@ -115,6 +135,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
     @SuppressWarnings("FieldCanBeLocal")
     private BooleanBinding startGameBinding;
     private SimpleIntegerProperty readyCounter = new SimpleIntegerProperty(0);
+    private BotManager botManager;
 
     @Autowired
     public WaitingRoomViewController (
@@ -130,7 +151,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             @Nonnull final Function<VBox, ArmySelectorController> armySelectorComponent,
             @Nonnull final ModelManager modelManager,
             @Nonnull final Property<Locale> selectedLocale,
-            @NonNull final EasterEggController easterEggController
+            @NonNull final EasterEggController easterEggController,
+            @NonNull final LoadingScreenFormBuilder loadingScreenFormBuilder
     )
     {
         this.selectedLocale = selectedLocale;
@@ -147,14 +169,21 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         this.previewMapBuilder = previewMapBuilder;
         this.easterEggController = easterEggController;
         this.armyPreviewBuilder = new ArmyPreviewBuilder();
+        this.loadingScreenFormBuilder = loadingScreenFormBuilder;
 
         exceptionHandler = new WebSocketExceptionHandler(alertBuilder)
                 .onRetry(this::leaveWaitingRoom)
                 .onCancel(() -> sceneManager.setScene(SceneConfiguration.of(LOGIN)));
     }
 
+    @Autowired(required = false)
+    public void setBotManager(BotManager botManager) {
+        this.botManager = botManager;
+    }
+
     public void initialize ()
     {
+        showLoadingScreen();
         gameName.textProperty().setValue(gameProvider.get().getName());
         initPlayerCardBuilders();
         setPlayerCardNodes();
@@ -212,6 +241,10 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             playerCardBuilders.add(playerCard3);
             playerCardBuilders.add(playerCard4);
         }
+
+        if (botManager != null) {
+            playerCardBuilders.forEach(playerCardBuilder -> playerCardBuilder.setOnBotRequested(() -> botManager.requestBot(gameProvider.get())));
+        }
     }
 
     private void setPlayerCardNodes() {
@@ -221,8 +254,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         player2.setOnMouseClicked((event) -> onPlayerCardClicked(event, playerCard2.getPlayer()));
         player1Pane.getChildren().add(player1);
         player2Pane.getChildren().add(player2);
+        playerCard2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
 
-         playerCard2.switchColumns();
         if(gameProvider.get().getNeededPlayer() == 4) {
             // if visibility was disabled before for example when leaving game
             Node player3 = playerCard3.buildPlayerCard(selectedLocale);
@@ -235,7 +268,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             AnchorPane.setTopAnchor(player2Pane, 102.0);
             player3Pane.getChildren().add(player3);
             player4Pane.getChildren().add(player4);
-            playerCard4.switchColumns();
+            playerCard4.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
         else
         {
@@ -283,7 +316,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         {
             for (PlayerCardBuilder playerC : playerCardBuilders)
             {
-                if (playerC.isEmpty)
+                if (playerC.isEmpty())
                 {
                     playerC.setPlayer(p, Color.valueOf(p.getColor()));
                     break;
@@ -301,9 +334,13 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                     {
                         for (PlayerCardBuilder playerC : playerCardBuilders)
                         {
-                            if ((playerC.isEmpty) && (p.getColor() != null))
+                            if ((playerC.isEmpty()) && (p.getColor() != null))
                             {
                                 playerC.setPlayer(p, Color.valueOf(p.getColor()));
+                                Bot bot = botManager.getAssociatedBot(p);
+                                if(bot != null){
+                                    playerC.configureKillButton(bot);
+                                }
                                 break;
                             }
                         }
@@ -315,11 +352,11 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
                     {
                         for (PlayerCardBuilder playerC : playerCardBuilders)
                         {
-                            if (!playerC.isEmpty)
+                            if (!playerC.isEmpty())
                             {
                                 if (playerC.getPlayer().equals(p))
                                 {
-                                    Platform.runLater(playerC::playerLeft);
+                                    playerC.playerLeft();
                                     break;
                                 }
                             }
@@ -329,6 +366,8 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
             }
         });
     }
+
+
 
     protected void configureArmySelection ()
     {
@@ -413,6 +452,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
 
         configureArmySelection();
+
     }
 
     private void onInitialized ()
@@ -421,6 +461,7 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         configureAutoStartHook();
         setPlayerCards(context.getGameState());
         showMapPreview(context.getGameState().getCells());
+        closeLoadingScreen();
     }
 
     private void configureAutoStartHook ()
@@ -503,6 +544,28 @@ public class WaitingRoomViewController implements RootController, IngameViewCont
         }
         else {
             rootStackPane.getChildren().remove(lastArmyPreview);
+        }
+    }
+
+    private void showLoadingScreen(){
+        if(loadingScreenForm == null){
+            try{
+                this.loadingScreenForm = (GridPane) this.loadingScreenFormBuilder.getLoadingScreenForm();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        if((this.loadingScreenForm != null) && (!this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
+            this.rootStackPane.getChildren().add(this.loadingScreenForm);
+        }
+        if ((this.loadingScreenForm != null) && (this.rootStackPane.getChildren().contains(this.loadingScreenForm))){
+            loadingScreenForm.setVisible(true);
+        }
+    }
+
+    private void closeLoadingScreen(){
+        if (loadingScreenForm != null){
+            loadingScreenForm.setVisible(false);
         }
     }
 }
