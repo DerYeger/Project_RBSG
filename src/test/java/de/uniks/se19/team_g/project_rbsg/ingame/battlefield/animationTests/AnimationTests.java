@@ -1,38 +1,55 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield.animationTests;
 
-import de.uniks.se19.team_g.project_rbsg.*;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.command.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.event.*;
-import de.uniks.se19.team_g.project_rbsg.ingame.model.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.*;
-import de.uniks.se19.team_g.project_rbsg.overlay.menu.*;
-import de.uniks.se19.team_g.project_rbsg.scene.*;
-import javafx.application.*;
-import javafx.geometry.*;
-import javafx.scene.*;
-import javafx.stage.*;
-import org.junit.*;
-import org.junit.runner.*;
-import org.springframework.beans.factory.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.context.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.test.context.*;
-import org.springframework.test.context.junit4.*;
-import org.testfx.framework.junit.*;
-import org.testfx.util.*;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
+import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
+import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.BattleFieldController;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.MovementManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.TestGameBuilder;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Cell;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import javafx.application.Platform;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.lang.NonNull;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 // Ignore because of the long running time
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -61,6 +78,8 @@ public class AnimationTests extends ApplicationTest
     MovementManager movementManager;
     @MockBean
     MusicManager musicManager;
+    @MockBean
+    History history;
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
     private double battleFieldCenterX;
@@ -80,6 +99,8 @@ public class AnimationTests extends ApplicationTest
         de.uniks.se19.team_g.project_rbsg.ingame.model.Game game = definition.game;
         de.uniks.se19.team_g.project_rbsg.ingame.model.Unit playerUnit = definition.playerUnit;
         Cell[][] cells = definition.cells;
+        ModelManager modelManager = new ModelManager();
+        when(history.isLatest()).thenReturn(true);
 
         IngameApi ingameApi = new IngameApi();
         GameEventManager gameEventManager = mock(GameEventManager.class);
@@ -99,6 +120,7 @@ public class AnimationTests extends ApplicationTest
         playerUnit.setRemainingMovePoints(0);
 
         IngameContext context = new IngameContext(user,null);
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
