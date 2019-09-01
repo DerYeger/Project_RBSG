@@ -124,16 +124,16 @@ public class BattleFieldLogicTest extends ApplicationTest {
 
         battleFieldController.configure(context);
 
-        battleFieldController.endRound();
+        battleFieldController.doEndRound();
 
         verify(ingameApi, times(3)).endPhase();
 
         game.setPhase(Game.Phase.attackPhase.name());
-        battleFieldController.endRound();
+        battleFieldController.doEndRound();
         verify(ingameApi, times(5)).endPhase();
 
         game.setPhase(Game.Phase.lastMovePhase.name());
-        battleFieldController.endRound();
+        battleFieldController.doEndRound();
         verify(ingameApi, times(6)).endPhase();
     }
 }
