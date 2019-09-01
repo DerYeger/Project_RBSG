@@ -79,7 +79,7 @@ public class PersistantArmyTest {
         Army army = new Army();
         User user = new User("test123", "test123");
         user.setUserKey(
-                Objects.requireNonNull(loginManager.onLogin(user).get().getBody()).get("data").get("userKey").asText()
+                Objects.requireNonNull(loginManager.callLogin(user).get().getBody()).get("data").get("userKey").asText()
         );
         userProvider.set(user);
 
@@ -162,7 +162,7 @@ public class PersistantArmyTest {
         Army myArmy=new Army();
         User user = new User("test123", "test123");
         user.setUserKey(
-                Objects.requireNonNull(loginManager.onLogin(user).get().getBody()).get("data").get("userKey").asText()
+                Objects.requireNonNull(loginManager.callLogin(user).get().getBody()).get("data").get("userKey").asText()
         );
 
         userProvider.set(user);

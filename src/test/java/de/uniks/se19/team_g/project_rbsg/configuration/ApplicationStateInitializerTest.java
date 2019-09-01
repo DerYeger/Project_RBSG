@@ -1,6 +1,5 @@
 package de.uniks.se19.team_g.project_rbsg.configuration;
 
-import de.uniks.se19.team_g.project_rbsg.configuration.army.ArmyGeneratorStrategy;
 import de.uniks.se19.team_g.project_rbsg.model.Army;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.persistance.PersistentArmyManager;
@@ -32,18 +31,16 @@ public class ApplicationStateInitializerTest extends ApplicationTest {
         final List<Army> armies = new ArrayList<>();
         when(armyManager.getArmies()).thenReturn(armies);
 
-        final ArmyGeneratorStrategy armyGenerator = mock(ArmyGeneratorStrategy.class);
         final PersistentArmyManager persistentArmyManager = mock(PersistentArmyManager.class);
 
         ApplicationStateInitializer sut = new ApplicationStateInitializer(
                 appState,
                 armyManager,
                 typesService,
-                armyGenerator,
                 persistentArmyManager
         );
 
-        final InOrder inOrder = inOrder(typesService, armyManager, armyGenerator);
+        final InOrder inOrder = inOrder(typesService, armyManager);
 
         sut.initialize().get();
 

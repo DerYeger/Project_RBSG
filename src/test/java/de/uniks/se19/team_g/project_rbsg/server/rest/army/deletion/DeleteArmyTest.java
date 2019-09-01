@@ -77,7 +77,7 @@ public class DeleteArmyTest {
 
         User user = new User("test123", "test123");
         user.setUserKey(
-                loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
+                loginManager.callLogin(user).get().getBody().get("data").get("userKey").asText()
         );
 
 

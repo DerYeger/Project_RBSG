@@ -26,7 +26,7 @@ public class OnlineRESTManagerTest {
     public void loginOnlineTest() throws InterruptedException, ExecutionException {
         LoginManager loginManager = new LoginManager(new RestTemplate());
         User testUser = new User("TestUser123", "geheim");
-        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.onLogin(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.callLogin(testUser);
         AtomicReference<String> string = new AtomicReference<>();
         loginAnswer.thenAccept(response -> string.set(response.getBody().get("status").asText())).get();
         Assert.assertEquals("success", string.get());
@@ -40,7 +40,7 @@ public class OnlineRESTManagerTest {
         final User testUser = new User("TestUser123", "geheim");
         final Game testGame = new Game("make war, not love", 4);
 
-        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.onLogin(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> loginAnswer = loginManager.callLogin(testUser);
         AtomicReference<String> loginStatus = new AtomicReference<>();
         loginAnswer.thenAccept(response -> loginStatus.set(response.getBody().get("status").asText())).get();
         Assert.assertEquals("success", loginStatus.get());
@@ -65,7 +65,7 @@ public class OnlineRESTManagerTest {
 
         final User testUser = new User("TestUser123", "geheim");
         final Game testGame = new Game("make war, not love", 4);
-        CompletableFuture<ResponseEntity<ObjectNode>> loginRequest = loginManager.onLogin(testUser);
+        CompletableFuture<ResponseEntity<ObjectNode>> loginRequest = loginManager.callLogin(testUser);
         AtomicReference<String> loginStatus = new AtomicReference<>();
         loginRequest.thenAccept(response -> loginStatus.set(response.getBody().get("status").asText())).get();
         Assert.assertEquals("success", loginStatus.get());

@@ -1,10 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.waiting_room;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
-import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
-import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.army_builder.army_selection.ArmySelectorController;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
@@ -13,15 +9,23 @@ import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.AppStateConfig;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.egg.EasterEggController;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameConfig;
 import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
-import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
-import de.uniks.se19.team_g.project_rbsg.model.*;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.CommandBuilder;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
+import de.uniks.se19.team_g.project_rbsg.model.*;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
 import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -45,6 +49,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
@@ -70,7 +75,9 @@ import static org.mockito.Mockito.*;
         AlertBuilder.class,
         FXMLLoaderFactory.class,
         AppStateConfig.class,
-        EasterEggController.class
+        EasterEggController.class,
+        LoadingScreenFormBuilder.class,
+        LocaleConfig.class
 })
 public class WaitingRoomViewTests extends ApplicationTest {
 
@@ -87,8 +94,6 @@ public class WaitingRoomViewTests extends ApplicationTest {
     @Autowired GameProvider gameProvider;
 
     @Autowired UserProvider userProvider;
-
-    @MockBean Property<java.util.Locale> selectedLocale;
 
 
     @TestConfiguration
@@ -119,7 +124,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
         }
 
         @Bean
-        public SceneManager sceneManager() {
+        public SceneManager sceneManager(Property<Locale> localeProperty) {
             return new SceneManager() {
 
             };
@@ -140,11 +145,14 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testBuildWaitingRoomView() {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final Node waitingRoomView = waitingRoomScene.getObject().getRoot();
         Assert.assertNotNull(waitingRoomView);
     }
-    
+
+    @Test
     public void testBuildPlayerCard() throws ExecutionException, InterruptedException {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         WaitForAsyncUtils.asyncFx(
                 () -> {
                     final ViewComponent<WaitingRoomViewController> buffer = waitingRoomScene.getObject();
@@ -157,19 +165,27 @@ public class WaitingRoomViewTests extends ApplicationTest {
         ).get();
 
 
-        Label label = lookup("Waiting for\nplayer...").query();
-        Assert.assertNotNull(label);
+        Button button = lookup("#botButton").query();
+        Assert.assertNotNull(button);
         de.uniks.se19.team_g.project_rbsg.ingame.model.Game game = new de.uniks.se19.team_g.project_rbsg.ingame.model.Game("");
         Player p1 = new Player("123").setName("P1").setColor("GREEN");
         Player p2 = new Player("456").setName("P2").setColor("BLUE");
-        game.withPlayers(p1, p2);
-        viewComponent.getController().setPlayerCards(game);
         Player p3 = new Player("123").setName("P3").setColor("YELLOW");
-        game.withPlayer(p3);
-        game.withoutPlayer(p2);
+        WaitForAsyncUtils.asyncFx(
+                () -> {
+                    game.withPlayers(p1, p2);
+                    viewComponent.getController().setPlayerCards(game);
+                    game.withPlayer(p3);
+                    game.withoutPlayer(p2);
+                }
+        ).get();
         WaitForAsyncUtils.waitForFxEvents();
         Label label2 = lookup("P1").query();
         Assert.assertNotNull(label2);
+
+        Button button1 = lookup("#botButton").nth(1).query();
+        Assert.assertNotNull(button1);
+        clickOn(button1);
     }
 
     @Autowired
@@ -177,6 +193,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testButtons() throws Exception {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         WaitForAsyncUtils.asyncFx(
             () -> {
                 final ViewComponent<WaitingRoomViewController> buffer = waitingRoomScene.getObject();
@@ -201,6 +218,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
     @Test
     public void testArmySelector()
     {
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         AtomicReference<Property<Army>> selectedReference = new AtomicReference<>();
         doAnswer(invocation -> {
             selectedReference.set(invocation.getArgument(1));
@@ -209,7 +227,7 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
         final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
 
-        final IngameContext context = new IngameContext(userProvider, gameProvider, new IngameGameProvider());
+        final IngameContext context = new IngameContext(new User(), new Game("game", 4));
         context.setGameEventManager(gameEventManager);
         controller.configure(context);
 
@@ -228,15 +246,13 @@ public class WaitingRoomViewTests extends ApplicationTest {
 
     @Test
     public void testGameStart() {
-
+        Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
         final WaitingRoomViewController controller = this.waitingRoomScene.getObject().getController();
 
         final User currentUser = new User();
-        final UserProvider userProvider = new UserProvider().set(currentUser);
         final Game gameData = new Game("1", 2);
-        final GameProvider gameDataProvider = new GameProvider().set(gameData);
 
-        IngameContext context = new IngameContext(userProvider, gameDataProvider, new IngameGameProvider());
+        IngameContext context = new IngameContext(currentUser, gameData);
         context.setGameEventManager(gameEventManager);
         controller.configure(context);
         clearInvocations(gameEventManager);

@@ -6,14 +6,14 @@ import javafx.beans.property.SimpleDoubleProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Bot implements Runnable
+public class AutoPlayer implements Runnable
 {
     public DoubleProperty frequency = new SimpleDoubleProperty(2);
     private Skynet skynet;
     private Thread myThread;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public Bot(Skynet skynet)
+    public AutoPlayer(Skynet skynet)
     {
         this.skynet = skynet;
     }
