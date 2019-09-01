@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
-public class NextTurnChangeListener implements GameEventDispatcher.Listener {
+public class NextTurnListener implements GameEventDispatcher.Listener {
 
     private Player lastPlayer;
     private boolean newPlayerFlag;
@@ -15,7 +15,7 @@ public class NextTurnChangeListener implements GameEventDispatcher.Listener {
     private boolean isFirstPlayer;
     private ArrayList<Player> donePlayers;
 
-    NextTurnChangeListener(){
+    NextTurnListener(){
         lastPlayer=null;
         isFirstPlayer=false;
         donePlayers = new ArrayList<>();
