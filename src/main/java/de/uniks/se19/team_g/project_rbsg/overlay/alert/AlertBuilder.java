@@ -32,6 +32,7 @@ public class AlertBuilder implements ApplicationContextAware, Rincled {
         EGG_WON("eggWon"),
         EGG_LOST("eggLost"),
         END_PHASE("endPhase"),
+        END_ROUND("endRound"),
         EXIT("exit"),
         GAME_LOST("gameLost"),
         GAME_SOMEBODY_ELSE_WON("elseWon"),
