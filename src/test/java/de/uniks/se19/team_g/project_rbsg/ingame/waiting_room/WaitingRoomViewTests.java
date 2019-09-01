@@ -18,6 +18,7 @@ import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
 import de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.preview_map.PreviewMapBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenController;
 import de.uniks.se19.team_g.project_rbsg.lobby.loading_screen.LoadingScreenFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.login.SplashImageBuilder;
 import de.uniks.se19.team_g.project_rbsg.model.*;
@@ -73,7 +74,6 @@ import static org.mockito.Mockito.*;
         ChatBuilder.class,
         IngameConfig.class,
         AlertBuilder.class,
-        FXMLLoaderFactory.class,
         AppStateConfig.class,
         EasterEggController.class,
         LoadingScreenFormBuilder.class,
@@ -136,6 +136,11 @@ public class WaitingRoomViewTests extends ApplicationTest {
             final User defaultUser =  new User("P1", "");
             userProvider.set(defaultUser);
             return userProvider;
+        }
+
+        @Bean
+        public LoadingScreenController loadingScreenController(){
+            return new LoadingScreenController();
         }
     }
 
