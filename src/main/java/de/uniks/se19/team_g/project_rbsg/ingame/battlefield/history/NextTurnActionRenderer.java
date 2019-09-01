@@ -32,7 +32,7 @@ public class NextTurnActionRenderer extends DefaultActionRenderer {
     @Override
     protected HistoryRenderData doRender(Action action) {
         NextTurnAction actionImpl = (NextTurnAction) action;
-        Player player = (Player) actionImpl.getPlayer();
+        Player player = actionImpl.getPlayer();
 
         Pair<DefaultHistoryCellController, HBox> data = loadCell();
 
@@ -48,9 +48,6 @@ public class NextTurnActionRenderer extends DefaultActionRenderer {
 
     @Override
     public boolean supports(Action action) {
-        if ( !(action instanceof NextTurnAction)) {
-            return false;
-        }
         return action instanceof NextTurnAction;
     }
 }
