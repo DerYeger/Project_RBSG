@@ -611,7 +611,7 @@ public class BattleFieldController implements RootController, IngameViewControll
         this.game.getPlayers().addListener(playerListListener);
         phaseImage.imageProperty().setValue(new Image(getClass().getResource("/assets/icons/operation/footstepsWhite.png").toExternalForm()));
         this.game.phaseProperty().addListener(phaseChangedListener);
-        roundCountLabel.textProperty().bind(this.game.turnCountProperty().asString());
+        roundCountLabel.textProperty().bind(roundCount.asString());
         phaseLabel.textProperty().bind(JavaFXUtils.bindTranslation(selectedLocale, "phaseLabel"));
         ingameInformationHBox.setStyle("-fx-background-color: -surface-elevation-8-color");
         //ingameInformationHBox.setSpacing(10);
@@ -641,14 +641,6 @@ public class BattleFieldController implements RootController, IngameViewControll
 
     private void phaseChanged(@SuppressWarnings("unused") ObservableValue<? extends String> observableValue, String oldPhase, String newPhase)
     {
-        if (oldPhase != null && oldPhase.equals("lastMovePhase") && (playerCounter % this.game.getPlayers().size()) == 0)
-        {
-            Platform.runLater(() -> roundCount.set(roundCount.get() + 1));
-            playerCounter = 0;
-        } else if(newPhase != null && newPhase.equals("lastMovePhase")) {
-            playerCounter++;
-        }
-
         switch (newPhase)
         {
             case "movePhase":
@@ -937,13 +929,21 @@ public class BattleFieldController implements RootController, IngameViewControll
 
         configureHistory();
 
+        game = context.getGameState();
+        roundCount.bind(
+            Bindings.createIntegerBinding(
+                () -> ((game.getTurnCount()-1) / context.getGameData().getNeededPlayer()) + 1,
+                game.turnCountProperty()
+            )
+        );
+
+
         if (phaseLabelView == null) {
             phaseLabelView = new PhaseLabelController().buildPhaseLabel(selectedLocale, phaseImage.imageProperty(), context.getGameState().currentPlayerProperty(), roundCount);
             rootPane.getChildren().add(phaseLabelView);
             phaseLabelView.visibleProperty().set(false);
         }
 
-        game = context.getGameState();
         game.getUnits().addListener((ListChangeListener) change -> {
             while(change.next()) {
                 if (change.wasRemoved()) {

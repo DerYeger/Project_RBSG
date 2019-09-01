@@ -44,7 +44,7 @@ public class Game {
 
     final private ObjectProperty<Hoverable> hovered = new SimpleObjectProperty<>();
 
-    final private SimpleIntegerProperty turnCount = new SimpleIntegerProperty();
+    final private SimpleIntegerProperty turnCount = new SimpleIntegerProperty(0);
 
     public Game(@NonNull final String id) {
         this.id = id;
