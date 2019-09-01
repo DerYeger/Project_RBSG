@@ -31,8 +31,6 @@ public class Player {
 
     final private BooleanProperty isReady = new SimpleBooleanProperty(false);
 
-    final private SimpleBooleanProperty hasLost = new SimpleBooleanProperty(false);
-
     private boolean isPlayer = false;
 
     public Player(@NonNull final String id) {
@@ -164,18 +162,5 @@ public class Player {
     public void setIsPlayer(boolean isPlayer) {
 
         this.isPlayer = isPlayer;
-    }
-
-
-    public boolean isHasLost() {
-        return hasLost.get();
-    }
-
-    public SimpleBooleanProperty hasLostProperty() {
-        return hasLost;
-    }
-
-    public void setHasLost(boolean hasLost) {
-        this.hasLost.set(hasLost);
     }
 }
