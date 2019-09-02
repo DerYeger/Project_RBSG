@@ -14,7 +14,7 @@ public class TileTest {
     public void getHighlightingTwo() {
 
         Game game = new Game("1");
-        Player player = new Player("player");
+        Player player = new Player("columnPlayer");
         player.setIsPlayer(true);
         Player other = new Player("other");
         Cell cell = new Cell("1");

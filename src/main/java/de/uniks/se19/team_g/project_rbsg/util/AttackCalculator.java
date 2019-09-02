@@ -1,11 +1,17 @@
 package de.uniks.se19.team_g.project_rbsg.util;
 
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Biome;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
+import java.util.HashMap;
 
 /**
+ *
+ * @author Keanu Stückrad
+ *
  *  The following part shows the attributes that were given by the game server
  *  but they weren't send to the clients! It's hardcoded therefore it has to be changed
  *  if the server provider decides to change some attributes
@@ -22,10 +28,6 @@ import org.slf4j.LoggerFactory;
  *  Light Tank 	75          70          85      55              15              -
  *  Heavy Tank 	105	        95          105     85              55              75
  *  Chopper 	75          75          55      25              20              -
- *
- *  The attack is hardcoded in the de/uniks/se19/team_g/project_rbsg/configuration/flavor/UnitTypeInfo.java
- *  And can be accessed by writing attackingUnit.getAttackValue(defendingUnit)
- *  See the usage below in line 34
  */
 public class AttackCalculator {
 
@@ -35,8 +37,8 @@ public class AttackCalculator {
      *  damage = (attack - defense) % 10
      *  minimum damage is always 1
      */
-    public static int calculateDamage(Unit agressor, Unit defender, boolean log) {
-        int attack = agressor.getAttackValue(defender);
+    public static int calculateDamage(@NonNull final Unit agressor, @NonNull final Unit defender, boolean log) {
+        int attack = getAttackValue(agressor, defender);
         int defense = calculateDefense(defender);
         int damage = (attack - defense) % 10;
         int damageWithoutZero = damage <= 0 ? 1 : damage;
@@ -61,42 +63,85 @@ public class AttackCalculator {
     /**
      *  defense = hp / 10 * (fieldDefense * 10)
      */
-    private static int calculateDefense(Unit defender) {
+    private static int calculateDefense(@NonNull final Unit defender) {
         Biome biome = defender.getPosition().getBiome();
         int hp = defender.getHp();
         int fieldDefense = biome.equals(Biome.GRASS) ? 1 : biome.equals(Biome.FOREST) ? 3 : 4;
         return hp / 10 * (fieldDefense * 10);
     }
 
-    /**
-     *  hardcoded attack values from table above
-     */
-    public static int[] getAttackValues(String unit){
-        if(!unit.equals("")) logger.info("Hardcoding the attack values of " + unit + ". Please check if updates are available!");
-        int[] values;
-        switch (unit) {
-            case "Infantry":
-                values = new int[]{55, 45, 12, 5, 1, 0};
-                break;
-            case "Bazooka":
-                values = new int[]{0, 0, 85, 55, 15, 55};
-                break;
-            case "Jeep":
-                values = new int[]{70, 65, 35, 0, 0, 0};
-                break;
-            case "LightTank":
-                values = new int[]{75, 70, 85, 55, 15, 0};
-                break;
-            case "HeavyTank":
-                values = new int[]{105, 95, 105, 85, 55, 75};
-                break;
-            case "Chopper":
-                values = new int[]{75, 75, 55, 25, 20, 0};
-                break;
-            default:
-                values = new int[]{0, 0, 0, 0, 0, 0};
+    public static int getAttackValue(@NonNull final Unit agressor, @NonNull final Unit defender){
+        return CanAttack.mapCanAttackTo(agressor.getUnitType()).getAttack(defender.getUnitType());
+    }
+
+    public static int getAttackValue(@NonNull final de.uniks.se19.team_g.project_rbsg.model.Unit agressor, @NonNull final de.uniks.se19.team_g.project_rbsg.model.Unit defender){
+        return CanAttack.mapCanAttackTo(agressor.getTypeInfo()).getAttack(defender.getTypeInfo());
+    }
+
+    public static int getAttackValue(@NonNull final Unit agressor, @NonNull final UnitTypeInfo unitTypeInfoDefender){
+        return CanAttack.mapCanAttackTo(agressor.getUnitType()).getAttack(unitTypeInfoDefender);
+    }
+
+    private enum CanAttack {
+
+        /**
+         *  hardcoded attack values from table above
+         */
+        _INFANTRY(
+                55, 45, 12, 5, 1, 0
+        ),
+        _BAZOOKA_TROOPER(
+                0, 0, 85, 55, 15, 55
+        ),
+        _JEEP(
+                70, 65, 35, 0, 0, 0
+        ),
+        _LIGHT_TANK(
+                75, 70, 85, 55, 15, 0
+        ),
+        _HEAVY_TANK(
+                105, 95, 105, 85, 55, 75
+        ),
+        _CHOPPER(
+                75, 75, 55, 25, 20, 0
+        ),
+        ;
+
+        private final HashMap<UnitTypeInfo, Integer> attackValue = new HashMap<>();
+
+        CanAttack(int a0, int a1, int a2, int a3, int a4, int a5) {
+            attackValue.put(UnitTypeInfo._INFANTRY, a0);
+            attackValue.put(UnitTypeInfo._BAZOOKA_TROOPER, a1);
+            attackValue.put(UnitTypeInfo._JEEP, a2);
+            attackValue.put(UnitTypeInfo._LIGHT_TANK, a3);
+            attackValue.put(UnitTypeInfo._HEAVY_TANK, a4);
+            attackValue.put(UnitTypeInfo._CHOPPER, a5);
         }
-        return values;
+
+        // Map UnitTypeInfos to CanAttacks
+        private static CanAttack mapCanAttackTo(@NonNull final UnitTypeInfo unitTypeInfo){
+            switch (unitTypeInfo) {
+                case _INFANTRY:
+                    return CanAttack._INFANTRY;
+                case _BAZOOKA_TROOPER:
+                    return CanAttack._BAZOOKA_TROOPER;
+                case _JEEP:
+                    return CanAttack._JEEP;
+                case _LIGHT_TANK:
+                    return CanAttack._LIGHT_TANK;
+                case _HEAVY_TANK:
+                    return CanAttack._HEAVY_TANK;
+                case _CHOPPER:
+                    return CanAttack._CHOPPER;
+                default:
+                    return null;
+            }
+        }
+
+        private int getAttack(@NonNull final UnitTypeInfo unitTypeInfo) {
+            return attackValue.get(unitTypeInfo);
+        }
+
     }
 
 }

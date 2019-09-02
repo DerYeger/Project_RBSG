@@ -10,7 +10,7 @@ public class TestGameBuilder
 {
 
     /**
-     * Y -> player unit, 0 -> passable, X -> blocked, E -> enemy
+     * Y -> columnPlayer unit, 0 -> passable, X -> blocked, E -> enemy
      * OYOO
      * XXEO
      * -OOO
@@ -66,7 +66,7 @@ public class TestGameBuilder
     }
 
     /**
-     * Y -> player unit, 0 -> passable, X -> blocked, E -> enemy
+     * Y -> columnPlayer unit, 0 -> passable, X -> blocked, E -> enemy
      * Y E
      * X X
      */

@@ -65,6 +65,9 @@ public class IngameContext {
 
     private void onNextPlayer (Observable observable, Player lastPlayer, Player nextPlayer)
     {
+        if (!modelManager.getHistory().isLatest()){
+            return;
+        }
         gameState.setInitiallyMoved(false);
         nextPlayer.getUnits().forEach(Unit::ready);
         if (isMyTurn()) {

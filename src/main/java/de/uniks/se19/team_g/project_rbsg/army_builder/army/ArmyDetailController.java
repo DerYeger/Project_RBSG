@@ -230,6 +230,8 @@ public class ArmyDetailController implements Initializable {
         moveUnit(1);
     }
     public void moveUnit(int leftOrRight){
+        if(armySquadList.getSelectionModel().getSelectedIndex() == 0 && leftOrRight == -1 || armySquadList.getSelectionModel().getSelectedIndex() == 9 && leftOrRight == 1 || armySquadList.getSelectionModel().isEmpty()) return;
+        armySquadList.getSelectionModel().select(armySquadList.getSelectionModel().getSelectedIndex()+leftOrRight);
 
         HashMap<Unit, SquadViewModel> squadMap = armyMap.get(appState.selectedArmy.get());
         ObservableList squadList = armySquadList.getItems();

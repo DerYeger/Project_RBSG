@@ -20,7 +20,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'kotlin'
 
 group = 'de.uniks.se19.team_g'
-version = '3.0'
+version = '4.0'
 sourceCompatibility = 12
 targetCompatibility = 12
 mainClassName = 'de.uniks.se19.team_g.project_rbsg.ProjectRbsgFXApplication'

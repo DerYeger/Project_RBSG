@@ -1,8 +1,6 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.battlefield;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
-import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
@@ -14,13 +12,16 @@ import de.uniks.se19.team_g.project_rbsg.ingame.IngameContext;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.GameEventManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.event.IngameApi;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Game;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.ModelManager;
 import de.uniks.se19.team_g.project_rbsg.ingame.model.Player;
+import de.uniks.se19.team_g.project_rbsg.ingame.state.History;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
-import de.uniks.se19.team_g.project_rbsg.model.IngameGameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
 import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.skynet.action.ActionExecutor;
 import javafx.stage.Stage;
@@ -53,6 +54,7 @@ import static org.mockito.Mockito.*;
         GameEventManager.class,
         LocaleConfig.class,
         IngameApi.class,
+        BattleFieldLogicTest.ContextConfiguration.class
 })
 public class BattleFieldLogicTest extends ApplicationTest {
 
@@ -76,6 +78,9 @@ public class BattleFieldLogicTest extends ApplicationTest {
     @MockBean
     MusicManager musicManager;
 
+    @MockBean
+    History history;
+
     @Autowired
     ObjectFactory<ViewComponent<BattleFieldController>> battleFieldFactory;
 
@@ -88,6 +93,7 @@ public class BattleFieldLogicTest extends ApplicationTest {
             gameProvider.set(defaultGame);
             return gameProvider;
         }
+
     }
 
     @Override
@@ -101,6 +107,10 @@ public class BattleFieldLogicTest extends ApplicationTest {
         BattleFieldController battleFieldController = battleFieldComponent.getController();
 
         IngameApi ingameApi = Mockito.mock(IngameApi.class);
+
+        ModelManager modelManager = new ModelManager();
+
+        when(history.isLatest()).thenReturn(true);
 
         TestGameBuilder.Definition definition = TestGameBuilder.sampleGameAlpha();
         Game game = definition.game;
@@ -119,21 +129,22 @@ public class BattleFieldLogicTest extends ApplicationTest {
                 new WebSocketClient(),
                 ingameApi
         );
+        context.setModelManager(modelManager);
         context.gameInitialized(game);
         context.setGameEventManager(gameEventManager);
 
         battleFieldController.configure(context);
 
-        battleFieldController.endRound();
+        battleFieldController.doEndRound();
 
         verify(ingameApi, times(3)).endPhase();
 
         game.setPhase(Game.Phase.attackPhase.name());
-        battleFieldController.endRound();
+        battleFieldController.doEndRound();
         verify(ingameApi, times(5)).endPhase();
 
         game.setPhase(Game.Phase.lastMovePhase.name());
-        battleFieldController.endRound();
+        battleFieldController.doEndRound();
         verify(ingameApi, times(6)).endPhase();
     }
 }
