@@ -5,6 +5,7 @@ import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.attackableNeighbors
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.preferBigger
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.preferSmaller
 import de.uniks.se19.team_g.project_rbsg.skynet.behaviour.threateningNeighbors
+import de.uniks.se19.team_g.project_rbsg.util.AttackCalculator
 
 class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
 
@@ -23,8 +24,8 @@ class CompositeMovementOptionEvaluator : MovementOptionEvaluator {
             }
 
     private fun compareEnemies(first: MovementOption, second: MovementOption) : Int {
-        val firstAttackValue = first.unit.getAttackValue(first.enemy.unit)
-        val secondAttackValue = second.unit.getAttackValue(second.enemy.unit)
+        val firstAttackValue = AttackCalculator.getAttackValue(first.unit, first.enemy.unit)
+        val secondAttackValue = AttackCalculator.getAttackValue(second.unit, second.enemy.unit)
 
         val firstEnemyThreats = first.enemy.threats().size
         val secondEnemyThreats = second.enemy.threats().size
