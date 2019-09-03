@@ -74,11 +74,13 @@ javafx {
 test {
 	maxHeapSize = "8192m"
 }
+
 compileKotlin {
     kotlinOptions {
         jvmTarget = "12"
     }
 }
+
 compileTestKotlin {
     kotlinOptions {
         jvmTarget = "12"
