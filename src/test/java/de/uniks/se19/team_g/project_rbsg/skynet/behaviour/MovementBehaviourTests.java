@@ -48,8 +48,6 @@ public class MovementBehaviourTests {
 
         final MovementBehaviour movementBehaviour = new MovementBehaviour();
 
-        System.out.println();
-
         final Optional<MovementAction> action = movementBehaviour.apply(game, player);
 
         assertTrue(action.isPresent());
