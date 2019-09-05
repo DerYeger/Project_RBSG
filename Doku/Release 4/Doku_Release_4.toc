@@ -17,21 +17,20 @@
 \contentsline {subsubsection}{\numberline {6.3.2}Ausrei\IeC {\ss }er}{9}
 \contentsline {subsubsection}{\numberline {6.3.3}Abgeschlossene Vorg\"ange}{9}
 \contentsline {subsubsection}{\numberline {6.3.4}Nicht abgeschlossene Vorg\"ange}{10}
-\contentsline {paragraph}{\nonumberline Ein C0 Abdeckung von -\%}{11}
 \contentsline {subsubsection}{\numberline {6.3.5}Entfernte Vorg\"ange}{11}
 \contentsline {subsubsection}{\numberline {6.3.6}Fazit}{11}
 \contentsline {section}{\numberline {7}Sprint 8}{11}
 \contentsline {subsection}{\numberline {7.1}Sprintziel}{11}
 \contentsline {subsection}{\numberline {7.2}Zeit\"ubersicht}{11}
-\contentsline {subsection}{\numberline {7.3}Analyse des 8. Sprint}{12}
-\contentsline {subsubsection}{\numberline {7.3.1}Burndown-Diagramm}{12}
+\contentsline {subsection}{\numberline {7.3}Analyse des 8. Sprint}{13}
+\contentsline {subsubsection}{\numberline {7.3.1}Burndown-Diagramm}{13}
 \contentsline {subsubsection}{\numberline {7.3.2}Abgeschlossene Vorg\"ange}{13}
 \contentsline {subsubsection}{\numberline {7.3.3}Nicht abgeschlossene Vorg\"ange}{14}
 \contentsline {subsubsection}{\numberline {7.3.4}Fazit}{15}
 \contentsline {section}{\numberline {8}Abschluss des 4. Releases}{15}
 \contentsline {subsection}{\numberline {8.1}Login}{15}
 \contentsline {subsection}{\numberline {8.2}Lobby}{16}
-\contentsline {subsection}{\numberline {8.3}Armeemanger}{17}
-\contentsline {subsection}{\numberline {8.4}Warteraum}{19}
-\contentsline {subsection}{\numberline {8.5}Ingame}{20}
-\contentsline {section}{\numberline {9}Danksagung}{22}
+\contentsline {subsection}{\numberline {8.3}Armeemanger}{18}
+\contentsline {subsection}{\numberline {8.4}Warteraum}{20}
+\contentsline {subsection}{\numberline {8.5}Ingame}{22}
+\contentsline {section}{\numberline {9}Danksagung}{24}

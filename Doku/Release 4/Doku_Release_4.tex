@@ -295,16 +295,6 @@
 			\label{NichtAbgeschlossenSprint7}
 		\end{figure}
 		
-		
-		\paragraph{Ein C0 Abdeckung von -\%}
-		Zum Ende des siebten Sprints wurde eine Code Coverage von -\% erreicht. Siehe \Abb{CodeCoverageSprint3}.
-		\begin{figure}[H] 
-			\centering
-			\includegraphics[width=1\textwidth]{Coverage_Sprint_3.PNG}
-			\caption{Code Coverage nach dem 7. Sprint}
-			\label{CodeCoverageSprint3}
-		\end{figure}
-		
 		\subsubsection{Entfernte Vorgänge}
 		Aus dem siebten Sprint wurde eine Aufgabe (TG-477) entfernt und nicht weiter bearbeitet. Dabei handelte es sich um einen technischen Umbau des Spielfelds. Der Scrum Master entschied sich dafür diesen Voragn zu entfernen, da der Aufwand dafür in einem ungünstigen Verhältnis zum Nutzen stand.
 	
@@ -379,7 +369,7 @@
 					\caption{Zeitübersicht Sprint 8} \\
 				\end{longtable}
 			\end{center}
-			
+		\newpage
 		\subsection{Analyse des 8. Sprint}
 			Der achte Sprint wurde am 02.02.2019 geschlossen. Es wurden alle 124 Story Points erreicht. Alle Kernfunktionalitäten und viele optionale Features wurden umgesetzt.
 		
@@ -413,13 +403,13 @@
 			\end{figure}
 		
 			\subsubsection{Fazit}
-			Der achte Sprint war für unser Team sehr erfolgreich. Wir konnten alle uns gesetzten Ziele erreichen und hatten dabei noch genügend Kapazitäten um zusätzliche Features zu implementieren. Durch die Behebung einiger Bugs konnten wir unserem Client mehr Stabilität verleihen.  Auch das Ziel der Qualitätssicherung, d. h. der Testabdeckung wurde mit ? \% erreicht. 
+			Der achte Sprint war für unser Team sehr erfolgreich. Wir konnten alle uns gesetzten Ziele erreichen und hatten dabei noch genügend Kapazitäten um zusätzliche Features zu implementieren. Durch die Behebung einiger Bugs konnten wir unserem Client mehr Stabilität verleihen.  Auch das Ziel der Qualitätssicherung, d. h. der Testabdeckung wurde mit 78 \% erreicht (\Abb{CodeCoverageReleaseFour}). 
 			
 			\begin{figure}[H] 
 				\centering
-				\includegraphics[width=1\textwidth]{Coverage_Sprint_4.PNG}
+				\includegraphics[width=0.6\textwidth]{images/burndown/coverage.png}
 				\caption{Code Coverage nach dem 8. Sprint}
-				\label{CodeCoverageReleaseTwo}
+				\label{CodeCoverageReleaseFour}
 			\end{figure}
 			
 			\section{Abschluss des 4. Releases}
@@ -446,13 +436,13 @@
 				\label{lobbyMock}
 			\end{figure}
 			
-			Wie auf \Abb{Lobby} zu sehen, wurden das das Menü dem Mockup entsprechend umgesetzt.
+			Wie auf \Abb{LobbyMenu} zu sehen, wurden das das Menü dem Mockup entsprechend umgesetzt.
 			
 			\begin{figure}[H] 
 				\centering
-				\includegraphics[width=0.7\textwidth]{images/new/Lobby.png}
-				\caption{Spiellobby}
-				\label{Lobby}
+				\includegraphics[width=0.7\textwidth]{images/new/LobbyMenu.png}
+				\caption{Spiellobby mit Menü}
+				\label{LobbyMenu}
 			\end{figure}
 			
 			Bei den Credits (\Abb{credits}) werden die Künstler und die entsprechenden Lizenzen der verwendeten Icons, Bilder, Sounds, Musik und Frameworks bzw. Libraries
@@ -465,7 +455,15 @@
 				\label{credits}
 			\end{figure}
 		
-			Es wurde ein Bug-Button (rechts unten) hinzugefügt, über den sich der Default-Mail-Client des Nutzers öffnet um eine E-Mail mit einem vom Nutzer gefunden Bug an den Projektleiter Sebastian Copei senden zu können.
+			Es wurde ein Bug-Button (rechts unten) hinzugefügt, über den sich der Default-Mail-Client des Nutzers öffnet um eine E-Mail mit einem vom Nutzer gefunden Bug an den Projektleiter Sebastian Copei senden zu können.\\
+			Nachdem ein Spiel erstellt wurde, wird bis zum Wechsel der Szene zum Warteraum ein Ladebildschirm angezeigt (\Abb{LobbyLoad}).
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/LobbyLoading.png}
+				\caption{Lobby: Ladebildschirm}
+				\label{LobbyLoad}
+			\end{figure}
 		
 			\subsection{Armeemanger}
 			Der Armeemanger sollte optisch aufgeräumt werden. Wie auf \Abb{armyBuilderMock} zu sehen, sollten in der Detailsicht die zwei Einheitenwerte der aktuell ausgewählten Einheit, d. h. Bewegungs- und Lebenspunkte, angezeigt werden.
@@ -494,6 +492,15 @@
 				\caption{Armeemanger mit Warhammer 40k Einheiten}
 				\label{wh40k}
 			\end{figure}
+		
+			Die Anzeige der Informationen über die Einheitensymbole wurde angepasst, sodass jetzt die Symbole für Lebenspunkte, Bewegungspunkte und Angriffsstärke erklärt werden (\Abb{armyInfo}).
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/classicInfo.png}
+				\caption{Armeemanger mit Informationsoverlay}
+				\label{armyInfo}
+			\end{figure}
 			
 			\subsection{Warteraum}
 			Im Warteraum sollte über einen Button die Möglichkeit geben werden, dem Server explizit mitzuteilen, dass man für das Spiel bereit ist. Dies geschah in unserem Client bisher implizit über die Auswahl einer Armee. Hierzu wurde ein ein Ready-Button ergänzt. Dieser befand sich auf dem Mockup (\Abb{ReadyButtonMock}) auf der Spielerkarte.
@@ -514,7 +521,16 @@
 				\label{ReadyButton}
 			\end{figure}
 		
-			Zusätzlich wird über der Vorschaukarte der Name des aktuellen Spiels angezeigt.
+			Zusätzlich wird über der Vorschaukarte der Name des aktuellen Spiels angezeigt.\\
+			Wenn eine Spielerkarte nicht besetzt ist, kann über einen Bot-Button statt eines menschlichen Spielers ein Bot-Spieler erstellt werden, gegen den anschließend gespielt werden kann. Der erstellte Bot kann durch einen Klick auf den Kill-Bot-Button wieder entfernt werden. Dadurch wird wieder Platz für einen Spieler gemacht.\\
+			Wenn mit der Maus über eine Armee aus der Armeeauswahl gehovert wird, werden in einer Übersicht die Einheiten dieser Armee angezeigt (\Abb{ArmyBuilderShow}).
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/WaitingRoomShow.png}
+				\caption{Warteraum mit Armeeübersicht}
+				\label{ArmyBuilderShow}
+			\end{figure}
 		
 			\subsection{Ingame}
 			In den Anforderungen an dieses Release war gefordert, dass eine KI für den Spieler das Spiel übernehmen können soll. Zudem soll auch der Spieler auf Wunsch das Spiel wieder übernehmen können. Hierzu war vorgesehen, dass der Spieler über einen Buttons auswählen kann, dass die KI den nächsten Zug übernimmt. Mit Hilfe eines weiteren Button übernimmt die KI alle weiteren Züge bis das Spiel vorbei ist oder der Button erneut betätig wird. 
