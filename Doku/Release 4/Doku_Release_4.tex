@@ -61,7 +61,7 @@
 	{\large \today\par}
 	\end{titlepage}
 	\begin{abstract}
-		Diese Dokumentation beschreibt das vierte Release des Projektes RBSG von Team G. Es werden beide Sprints dieses Releases dokumentiert und analysiert. Zum Schluss wird das Resultat des Releases mit den Zielen verglichen. Zudem wird auf  Probleme oder nicht erfüllte Anforderungen eingegangen.
+		Diese Dokumentation beschreibt das vierte Release des Projektes RBSG von Team G. Es werden beide Sprints dieses Releases dokumentiert und analysiert. Zum Schluss wird das Resultat des Releases mit den Zielen verglichen.
 	\end{abstract}
 	\pagenumbering{Roman}
 	\tableofcontents
@@ -89,7 +89,7 @@
 		\item Chatfunktion
 		\item Ausloggen
 		\end{itemize}	
-		\item Army Manager
+		\item Armeemanager
 		\begin{itemize}
 			\item Konfigurieren eigener Armeen
 			\item Speichern und Laden von Armeen lokal und auf dem Server
@@ -112,7 +112,7 @@
 		\end{itemize}
 		Es wurde bereits eine C0 Testabdeckung von mindestens 77\% erreicht.
 		\subsection{Login}
-			Im Login konnte ein Nutzer sich registrieren und anmelden, wie auf Abb.\ref{Login_Release_Four} zu sehen. Die Spielmusik kann an- bzw. ausgeschaltet werden.
+			Im Login konnte ein Nutzer sich registrieren und anmelden, wie auf Abb.\ref{Login_Release_Three} zu sehen. Die Spielmusik kann an- bzw. ausgeschaltet werden.
 			\begin{figure}[H] 
 				\centering
 				\includegraphics[width=0.8\textwidth]{images/old/Login.png}
@@ -120,14 +120,14 @@
 				\label{Login_Release_Three}
 			\end{figure}
 		\subsection{Lobby}
-		In der Lobby werden die Spielerlisten und Spiellisten angezeigt, wie in Abb. \ref{Lobby_Release_Four} zu sehen. Diese aktualisieren sich, wenn der Server eine entsprechende Nachricht sendet. Über den Logout-Knopf kann ein Nutzer sich abmelden. Des Weiteren konnte die Sprache ge"andert oder die Musik an- bzw. und ausgeschaltet. Es gab einen Chat (privat und öffentlich). Es war möglich über den Spiel erstellen-Knopf ein Spiel zu erstellen. Zudem kann einem Spiel als Spieler oder als Beobachter (Spectator) über die entsprechenden Knöpfe beigetreten werden. Verfügte der Nutzer über keine vollst"andige Armee, konnte er keine Spiele erstellen oder Spielen beitreten.
+		In der Lobby werden die Spielerlisten und Spiellisten angezeigt, wie in Abb. \ref{Lobby_Release_Three} zu sehen. Diese aktualisieren sich, wenn der Server eine entsprechende Nachricht sendet. Über den Logout-Knopf kann ein Nutzer sich abmelden. Des Weiteren konnte die Sprache ge"andert oder die Musik an- bzw. und ausgeschaltet. Es gab einen Chat (privat und öffentlich). Es war möglich über den Spiel-erstellen-Button ein Spiel zu erstellen. Zudem kann einem Spiel als Spieler oder als Beobachter (Spectator) über die entsprechenden Knöpfe beigetreten werden. Verfügte der Nutzer über keine vollst"andige Armee, konnte er keine Spiele erstellen oder Spielen beitreten, da die entsprechenden Button in diesem deaktiviert waren.
 		\begin{figure}[H] 
 			\centering
 			\includegraphics[width=0.8\textwidth]{images/old/Lobby.png}
 			\caption{Lobby Release 3}
 			\label{Lobby_Release_Three}
 		\end{figure}
-		\subsection{Army Manager}
+		\subsection{Armeemanager}
 		Der Armeemanager wird wird in Abb. \ref{ArmyManager_Release_Three} dargestellt. Im Armeemanager konnte der Nutzer aus einer vom Server gesendeten Liste von Einheiten w"ahlen. Eine ausgewählte Einheit wurde in einer Detailansicht dargestellt mit Informationen darüber, welche anderen Einheiten von ihr angegriffen werden könnten, ihren Angriffs- und Bewegungspunkten sowie einem Beschreibungstext. \\
 		Die ausgewählt Einheit konnte er über einen (+)-Button zu einer ausgewählten Armee hinzuf"ugen oder über den (-)-Button wieder entfernen. Die Einheiten einer ausgewählten Armee wurden ebenfalls in einer scrollbaren Liste angezeigt.\\
 		\begin{figure}[H] 
@@ -150,7 +150,7 @@
 			\caption{Release 3: Armee bearbeiten}
 			\label{Edit_Army}
 		\end{figure}
-		Über den Speichern-Button konnte die aktuelle Konfiguration der Armeen lokal um auf dem Server gespeichert werden. Der Speicher-Button war deaktiviert, solange keine Änderungen an der aktuellen Armeeauswahl vorgenommen wurde.
+		Über den Speichern-Button konnte die aktuelle Konfiguration der Armeen lokal und auf dem Server gespeichert werden. Der Speicher-Button war deaktiviert, solange keine Änderungen an der aktuellen Armeeauswahl vorgenommen wurde. Über den Löschen-Button wurden alle Einheiten einer Armee entfernt. Ein Spieler verfügte zu jedem Zeitpunkt über zehn Armeen, die wenn nötig vom Client erstellt wurden. Es konnten keine neuen Armeen erzeugt werden.
 		\subsection{Warteraum}
 		Trat ein Spieler einem Spiel bei, wechselte die Szene zum Warteraum (Abb. \ref{WaitingRoom}). In diesem war ein Chat verfügbar und es wurde eine Vorschau der Spielkarte (Minimap) sowie eine Liste der auswählbaren Armeen angezeigt. Zudem wurden jeder aktive Spieler mit seinem Namen und seiner Farbe auf einer Spielerkarte angezeigt. Hatte ein Spieler eine Armee ausgewählt wurde er auf bereit gesetzt und seine Spielerkarte wurde lila eingefärbt. Beobachter (Spectator) wurden nicht angezeigt.
 		\begin{figure}[H]
@@ -160,7 +160,7 @@
 			\label{WaitingRoom}
 		\end{figure}
 		\subsection{Ingame}
-		Waren genügend Spieler dem Spiel beigetreten und durch die Wahl einer Armee auf bereit gesetzt, wechselte auf die Spiel-startet-Nachricht des Servers hin die Szene zum Spielfeld. Auf dem Spielfedl konnten Einheiten in der Bewegungsphase bewegt werden. In der Angriffsphase konnte feindliche Einheiten angegriffen werden. In der Bewegungsphase wurde der Bewegungsradius der ausgewählten Einheit angezeigt. Dieser ist Abb. \ref{Ingame} zu sehen. In der Angriffsphase wurden für eine ausgewählte Einheit alle feindlichen Einheiten hervorgehoben, die durch diese angegriffen werden können. Über einen Chat-Button war ein Ingamechat verfügbar. Die Anzeige der Lebensleiste jeder Einheit konnte über einen Knopf an- bzw. ausgeschaltet werden. Ebenso konnten alle Spieler in Form einer Spielerkarte mit Namen und Spielerfarbe durch einen Button angezeigt bzw. wieder ausgeblendet werden. In einer Seitenleiste wurden die aktuelle ausgewählte Einheit und eine weitere "gehoverte"\ Einheit mit weiteren Informationen (Lebens-, Bewegungs, und Angriffspunkte) angezeigt. Die Karte verfügte über einen mehrstufigen Zoom. Die aktuelle Phase konnte über einen Button beendet werden. Drei Phasenwechsel beendet die Runde und der nächste Spieler war am Zug. Zum Spielende wurden Gewinner und Verlierer über den Spielausgang durch ein Informationsfenster informiert.
+		Waren genügend Spieler einem Spiel beigetreten und durch die Wahl einer Armee auf bereit gesetzt, wechselte auf die Spiel-startet-Nachricht des Servers hin die Szene zum Spielfeld. Auf dem Spielfedl konnten Einheiten in der Bewegungsphase bewegt werden. In der Angriffsphase konnte feindliche Einheiten angegriffen werden. In der Bewegungsphase wurde der Bewegungsradius der ausgewählten Einheit angezeigt. Dieser ist Abb. \ref{Ingame} zu sehen. In der Angriffsphase wurden für eine ausgewählte Einheit alle feindlichen Einheiten hervorgehoben, die durch diese angegriffen werden können. Über einen Chat-Button war ein Ingamechat verfügbar. Die Anzeige der Lebensleiste jeder Einheit konnte über einen Knopf an- bzw. ausgeschaltet werden. Ebenso konnten alle Spieler in Form einer Spielerkarte mit Namen und Spielerfarbe durch einen Button angezeigt bzw. wieder ausgeblendet werden. In einer Seitenleiste wurden die aktuelle ausgewählte Einheit und eine weitere "gehoverte"\ Einheit mit Informationen über die aktuellen Lebenspunkte und die maximalen Bewegungspunkte angezeigt. Die Karte verfügte über einen mehrstufigen Zoom. Die aktuelle Phase konnte über einen Button beendet werden. Drei Phasenwechsel beendet die Runde und der nächste Spieler war am Zug. Die aktuelle Rundenzahl und die Spielphasen, Angriffs- oder Bewegungsphase, wurden in einer Karte in der rechten oberen Ecke dargestellt. Zum Spielende wurden Gewinner und Verlierer über den Spielausgang durch ein Informationsfenster informiert.
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\textwidth]{images/old/Ingame.png}
@@ -171,8 +171,8 @@
 		\section{Das Release 4}
 	Das vierte Release begann am 05.08.2019 und endete am 02.08.2019. Der Entwicklungsprozess ist in zwei Sprints eingeteilt:
 	\begin{itemize}
-		\item Sprint 7 05.08.2019 bis zum 18.08.2019
-		\item Sprint 8 19.08.2019 bis zum 02.09.2019
+		\item Sprint 7 vom 05.08 bis zum 18.08.2019
+		\item Sprint 8 vom 19.08 bis zum 02.09.2019
 	\end{itemize}
 	Im vierten Release waren die Rollen folgendermaßen verteilt:
 	\begin{itemize}
@@ -254,16 +254,16 @@
 				Battlefield \textbar\ Action log - Rundewechsel & 2 h & 1 h 4 min & & Omar Sood\\
 				Battlefield \textbar\ Action log - Angriffsphase & 3 h & 1 h 9 min & & Omar Sood\\
 				\bottomrule
-				Insgesamt & 101 h & 88 h 13 min & 2 h 30 min& \\
+				Insgesamt & 101 h & 93 h 16 min & 2 h 30 min& \\
 				\caption{Zeit"ubersicht Sprint 7}
 			\end{longtable}
 		\end{center}
 		
 		\subsection{Analyse des 7. Sprints}
-		Der siebte Sprint wurde am 19.08.2019 beendet. Im siebten Sprint konnten 27 von 32 User Stories abgeschlossen. Damit wurden insgesamt 101 von 119 Story Points abgeschlossen. Drei User Stories im Umfang von 18 Story Points waren zum Ende des Sprints noch offen. Der Ablauf des siebten Sprints wird anhand des Burndown-Diagramms erläutert.
+		Der siebte Sprint wurde am 19.08.2019 beendet. Im siebten Sprint konnten 27 von 32 User Stories abgeschlossen. Damit wurden insgesamt 101 von 119 Story Points abgeschlossen. Fünf User Stories im Umfang von 18 Story Points waren zum Ende des Sprints noch offen. Der Ablauf des siebten Sprints wird anhand des Burndown-Diagramms erläutert.
 		
 		\subsubsection{Burndown-Diagramm}
-		In der ersten Woche entspricht das Burndown-Diagramm annähernd der dargestellten Idealkurve. In der zweiten Woche gab es zu Beginn kaum Veränderungen des Burnddown-Diagramm. Dies liegt daran, dass umfangreiche User Stories bearbeitet wurden, die mehr Zeit benötigten. Zum Ende der zweiten Woche fällt das Diagramm noch einmal deutlich ab. In zwei Tagen (15.08. und 16.08.) wurden 10 User Stories abgeschlossen.
+		In der ersten Woche entspricht das Burndown-Diagramm annähernd der dargestellten Idealkurve. In der zweiten Woche gab es zu Beginn kaum Veränderungen des Burnddown-Diagramms. Dies liegt daran, dass umfangreiche User Stories bearbeitet wurden, die mehr Zeit benötigten. Zum Ende der zweiten Woche fällt das Diagramm noch einmal deutlich ab. In zwei Tagen (15.08. und 16.08.) wurden 10 User Stories abgeschlossen.
 		
 		\begin{figure}[H] 
 			\centering
@@ -273,7 +273,7 @@
 		\end{figure}
 		
 		\subsubsection{Ausreißer}
-		Insgesamt beinhaltet Burndown-Diagramm des siebten Sprints vier Ausreißer. In diesem Sprint wurden sieben User Stories nachträglich hinzugefügt.Eine User Story zum Verhalten der KI (TG-414), nachdem sie zu Beginn des Sprints vergessen wurde, wurde am 10.08. hinzugefügt.  
+		Insgesamt beinhaltet das Burndown-Diagramm des siebten Sprints vier Ausreißer. In diesem Sprint wurden sieben User Stories nachträglich hinzugefügt. Eine User Story zum Verhalten der KI (TG-414), nachdem sie zu Beginn des Sprints vergessen wurde, wurde am 10.08. hinzugefügt.  
 		Am 11. August wurde eine bereits abgeschlossene User Story (TG-409) erneut geöffnet. Dies war notwendig, da erst bei der Überprüfung des Pull Requests auffiel, dass dieses Feature nicht wie in der User Story vorgegeben implementiert war. Daher musst der Entwickler die User Story TG-409 erneut überarbeiten. Am 12.08. wurden insgesamt vier User Stories zum Sprint hinzugefügt im Gesamtumfang von 12 Story Points. Drei davon bezogen sich auf Verbesserungen des Armeemanagers und eine auf die KI. Zwei weitere User Stories im Umfang von fünf Story Points wurdem am 15.08. hinzugefügt. Sie bezogen sich auf die Spielhistorie (Action Log) und einen Runde-Beenden-Button. Ingesamt sind damit User Stories in einem Umfang von 20 Story Points nachträglich zum Sprint hinzugefügt worden. Damit stieg der Gesamtumfang des Sprints von 99 auf 119 Story Points.
 		
 		\subsubsection{Abgeschlossene Vorgänge}Im siebten Sprint konnten 27 Vorgänge abgeschlossen werden. In \Abb{AbgeschlossenSprint7} folgt eine Liste mit allen abgeschlossenen User Stories.
@@ -306,7 +306,7 @@
 		\end{figure}
 		
 		\subsubsection{Entfernte Vorgänge}
-		Aus dem siebten Sprint wurde eine Aufgabe (TG-477) entfernt und nicht weiter bearbeitet. Dabei handelte es sich um einen technischen Umbau des Spielfelds. Der Scrum Master entschied sich dafür diesen Voragn zu entfernen, da der Aufwand dafür in einem ungünstigen Verhältnis zum nutzen stand.
+		Aus dem siebten Sprint wurde eine Aufgabe (TG-477) entfernt und nicht weiter bearbeitet. Dabei handelte es sich um einen technischen Umbau des Spielfelds. Der Scrum Master entschied sich dafür diesen Voragn zu entfernen, da der Aufwand dafür in einem ungünstigen Verhältnis zum Nutzen stand.
 	
 		\subsubsection{Fazit}
 		Obwohl das gesetzte Ziel von 119 Story Points nicht erreicht wurde, waren wir als Team mit dem Ergebnis des siebten Sprints zufrieden. Alle schriftlichen Anforderungen waren zum Ende des Sprints bereits umgesetzt. Unser Client verfügte über eine KI, die sowohl einzelne Züge als auch das gesamte Spiel für den Spieler übernehmen konnte. Die C0-Abdeckung lag über dem geforderten Maß und alle Features aus den vorherigen Releases waren umgesetzt.
@@ -375,7 +375,7 @@
 					
 					Skynet \textbar\ Bedrohungspotential je Einheit berechnen &  & 2 h &  & Jan Müller\\
 					\bottomrule
-					Insgesamt & 101 h & 88 h 13 min & n& \\
+					Insgesamt & 80 h & 113 h 03 min &  & \\
 					\caption{Zeitübersicht Sprint 8} \\
 				\end{longtable}
 			\end{center}
@@ -403,7 +403,7 @@
 			\end{figure}
 			
 			\subsubsection{Nicht abgeschlossene Vorgänge}
-			Zwei Bug-Tasks wurden im achten Sprint nicht abgeschlossen. Ein Bug wurde bereits im Rahmen eines anderen Bugs behoben. Der andere konnte im Rahmen dieses Releases aus Zeitgründen nicht mehr behoben werden. Die nicht abgeschlossenen Bug-Taks werden in  \Abb{NichtAbgeschlossenSprint8} aufgelistet.
+			Zwei Bug-Tasks wurden im achten Sprint nicht abgeschlossen. Ein Bug wurde bereits im Rahmen eines anderen Bugs behoben. Der andere konnte im Rahmen dieses Releases aus Zeitgründen nicht mehr behoben werden. Die nicht abgeschlossenen Bug-Taks werden in \Abb{NichtAbgeschlossenSprint8} aufgelistet.
 				
 			\begin{figure}[H] 
 				\centering
@@ -437,7 +437,7 @@
 			\end{figure}
 			
 			\subsection{Lobby}
-			In der Lobby wurde ebenfalls der Hintergrund ersetzt. Zudem wurden die Sprachauswahl, das Ein-/Ausstellen der Musik in ein Menü umgezogen. Im Menü wurde ein Button für das Anzeigen von Credits ergänzt. Bei den Credits werden die Künstler und die entsprechenden Lizenzen der verwendeten Icons, Bilder, Sounds, Musik und Frameworks bzw. Libraries angezeigt. Es wurde ein Bug-Button (rechts unten) hinzugefügt, über den sich der Default-Mail-Client des Nutzers öffnet um eine E-Mail mit einem vom Nutzer gefunden Bug an den Projektleiter Sebastian Copei zu senden.
+			In der Lobby (\Abb{lobbyMock}) wurde ebenfalls der Hintergrund ersetzt. Zudem wurden die Sprachauswahl, das Ein-/Ausstellen der Musik in ein Menü umgezogen. Im Menü wurde ein Button für das Anzeigen von Credits ergänzt.
 			
 			\begin{figure}[H] 
 				\centering
@@ -445,7 +445,7 @@
 				\caption{Mockup: Lobby mit Menü}
 				\label{lobbyMock}
 			\end{figure}
-		
+			
 			Wie auf \Abb{Lobby} zu sehen, wurden das das Menü dem Mockup entsprechend umgesetzt.
 			
 			\begin{figure}[H] 
@@ -454,9 +454,21 @@
 				\caption{Spiellobby}
 				\label{Lobby}
 			\end{figure}
+			
+			Bei den Credits (\Abb{credits}) werden die Künstler und die entsprechenden Lizenzen der verwendeten Icons, Bilder, Sounds, Musik und Frameworks bzw. Libraries
+			angezeigt.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/credits.png}
+				\caption{Credits}
+				\label{credits}
+			\end{figure}
+		
+			Es wurde ein Bug-Button (rechts unten) hinzugefügt, über den sich der Default-Mail-Client des Nutzers öffnet um eine E-Mail mit einem vom Nutzer gefunden Bug an den Projektleiter Sebastian Copei senden zu können.
 		
 			\subsection{Armeemanger}
-			Der Armeemanger sollte optisch aufgeräumt werden. Wie auf \Abb{ararmyBuilderMock} zu sehen, sollten in der Detailsicht die zwei Einheitenwerte der aktuell ausgewählten Einheit, d. h. Bewegungs- und Lebenspunkte, angezeigt werden. Zudem sollte über eine Karte mit verschiedenen Einheitensymbolen dargestellt werden, welche Einheiten von der ausgewählten Einheit angegriffen werden können.
+			Der Armeemanger sollte optisch aufgeräumt werden. Wie auf \Abb{armyBuilderMock} zu sehen, sollten in der Detailsicht die zwei Einheitenwerte der aktuell ausgewählten Einheit, d. h. Bewegungs- und Lebenspunkte, angezeigt werden.
 			
 			\begin{figure}[H] 
 				\centering
@@ -474,7 +486,7 @@
 				\label{armyBuilderClassic}
 			\end{figure}
 			
-			Es wurde ein weitere Auswahl für das Aussehen der Einheiten implementiert. Dieses stellt die Einheiten als Space Marines aus dem Warhammer 40.000 Science-Fiction-Fantasy Universum dar (\Abb{wh40k}). Die Auswahl kann über den WH40K-Button auf der linken Seite getroffen werden. Zusätzlich die Funktionalität des Armee-löschen-Buttons verändert. In Absprache mit dem Kunden wird durch den Armee-löschen-Button die komplette Armee gelöscht, statt wie bisher nur die enthaltenen Einheiten. Es wurde ein Armee-erstellen-Button ergänzt. Der eine neue Armee erzeugt, die beim Speicher auch auf dem Server abgelegt wird.
+			Es wurde ein weitere Auswahl für das Aussehen der Einheiten implementiert. Dieses stellt die Einheiten als Space Marines aus dem Warhammer 40.000 Science-Fiction Universum dar (\Abb{wh40k}). Die Auswahl kann über den WH40K-Button auf der linken Seite getroffen werden. Zusätzlich wurde die Funktionalität des Armee-löschen-Buttons verändert. In Absprache mit dem Kunden wird durch den Armee-löschen-Button die komplette Armee gelöscht, statt wie bisher nur die enthaltenen Einheiten. Es wurde ein Armee-erstellen-Button ergänzt. Der eine neue Armee erzeugt, die beim Speichern auch auf dem Server abgelegt wird.
 			
 			\begin{figure}[H] 
 				\centering
@@ -484,7 +496,7 @@
 			\end{figure}
 			
 			\subsection{Warteraum}
-			Im Warteraum zum einen über einen Button die Möglichkeit geben dem Server eine explizit mitzuteilen, dass man für das Spiel bereit ist. Dies geschah in unserem Client bisher implizit über die Auswahl einer Armee. Hierzu wurde ein ein Read-Button ergänzt. Dieser befand sich auf dem Mockup (\Abb{ReadyButtonMock}) auf der Spielerkarte.
+			Im Warteraum sollte über einen Button die Möglichkeit geben werden, dem Server explizit mitzuteilen, dass man für das Spiel bereit ist. Dies geschah in unserem Client bisher implizit über die Auswahl einer Armee. Hierzu wurde ein ein Ready-Button ergänzt. Dieser befand sich auf dem Mockup (\Abb{ReadyButtonMock}) auf der Spielerkarte.
 			
 			\begin{figure}[H] 
 				\centering
@@ -505,7 +517,7 @@
 			Zusätzlich wird über der Vorschaukarte der Name des aktuellen Spiels angezeigt.
 		
 			\subsection{Ingame}
-			In den Anforderungen an dieses Release war gefordert, dass eine KI für den Spieler das Spiel übernehmen können soll. Zudem soll auch der Spieler auf Wunsch das Spiel wieder übernehmen können. Hierzu war vorgesehen, dass der Spieler einen Buttons auswählen kann, dass die KI den nächsten Zug übernimmt. Mit Hilfe eines weiteren Button übernimmt die KI alle weiteren Züge bis das Spiel vorbei ist oder der Button erneut betätig wird. 
+			In den Anforderungen an dieses Release war gefordert, dass eine KI für den Spieler das Spiel übernehmen können soll. Zudem soll auch der Spieler auf Wunsch das Spiel wieder übernehmen können. Hierzu war vorgesehen, dass der Spieler über einen Buttons auswählen kann, dass die KI den nächsten Zug übernimmt. Mit Hilfe eines weiteren Button übernimmt die KI alle weiteren Züge bis das Spiel vorbei ist oder der Button erneut betätig wird. 
 			Die Buttons sind in \Abb{ingameMenuMock} abgebildet. Des Weiteren wurde ebenfalls das Ein-/Ausstellen der Spielmusik sowie das Verlassen des Spiels in ein Menü verlegt. Die Button zum Ausklappenen des Chat, Ausklappen der Spielerkarten sowie zum Beenden der Phase wurde in das Seitenmenü versetzt.
 			
 			\begin{figure}[H] 
@@ -515,7 +527,7 @@
 				\label{ingameMenuMock}
 			\end{figure}
 		
-			Als weiteres Feature hatten wir uns als Ziel gesetzt ein Action Log (\Abb{actionLogMock})zu implementieren. Dies sollte zum einen Spielevents, wie die Bewegung einer Einheit, den Angriff oder den Tod einer Einheit und den Rundenwechsel dokumentieren. Durch die Auswahl einer Eventkarte auf Mausklick, sollte das Spiel in den Zustand direkt nach diesem Event zurückversetzt werden. Dadurch sollte eine erneute Betrachtung des Spielverlaufs möglich sein.
+			Als weiteres Feature hatten wir uns als Ziel gesetzt ein Action Log (\Abb{actionLogMock}) zu implementieren. Dies sollte zum einen Spielevents, wie die Bewegung einer Einheit, den Angriff oder den Tod einer Einheit und den Rundenwechsel dokumentieren. Durch die Auswahl einer Eventkarte auf Mausklick, sollte das Spiel in den Zustand direkt nach diesem Event zurückversetzt werden. Dadurch sollte eine erneute Betrachtung des Spielverlaufs möglich sein.
 			
 			\begin{figure}[H] 
 				\centering
@@ -533,10 +545,13 @@
 				\label{ingameMenu}
 			\end{figure}
 		
-			Die Geschwindigkeit mit der die KI ihren nächsten Zug macht kann im Menü über einen Schieberegler gesteuert werden. Es wurden Animation für die Bewegung einer Einheit über das Spiel sowie für den Tod und die Wiederbelebung einer Einheit hinzugefügt. Die Bewegungsanimationen können über einen Button im Seitenmenü aus- bzw. wieder eingeschaltet werden. Es wurde ein Button ergänzt, dessen Funktion darin besteht, die gesamt Runde zu beenden. Dadurch soll unnötiges Betätigen des Phase-beenden-Buttons vermieden werden. Der Spielclient startet im Ingame automatisch im Fullscreen-Modus. Dieser kann über Esc, F11 und einen Button im Menü wieder verlassen werden. Durch den Fullscreen-Button wechselt der Client erneut in den Fullscreen-Modus.\\
-			Im Action Log wurde ein Live-Button ergänzt, durch den man direkt in den aktuellen Spielstand versetzt wird. Zudem scrollt der Action bei neu eintreffenden Events automatisch auf den aktuellen Eintrag. Im Spiel wird in der oberen Leiste der Name des aktuellen Spiels angezeigt.\\
-			In der Seitenleiste wird für die aktuell ausgewählt Einheit und die aktuell gehoverte Einheit eine Detailsicht angezeigt. Diese zeigt die aktuellen Lebenspunkte und die maximalen Bewegungspunkte an. Es wurde zudem alle Einheiten, die von dieser Einheit angegriffen werden können zusammen mit dem prozentuellen Schaden, den die ausgewählte Einheit ihnen durch einen Angriff zufügen würde.
-		
+			Die Geschwindigkeit mit der die KI ihren nächsten Zug macht kann im Menü über einen Schieberegler gesteuert werden.\\ Als weiteres Feature wurden Animationen für die Bewegung einer Einheit über das Spiel sowie für den Tod und die Wiederbelebung einer Einheit hinzugefügt. Die Bewegungsanimationen können über einen Button im Seitenmenü aus- bzw. wieder eingeschaltet werden. Es wurde ein Button ergänzt, dessen Funktion darin besteht, die gesamt Runde zu beenden. Dadurch soll unnötiges Betätigen des Phase-beenden-Buttons vermieden werden.\\ Der Spielclient startet im Ingame automatisch im Fullscreen-Modus. Dieser kann über Esc, F11 und einen Button im Menü wieder verlassen werden. Durch den Fullscreen-Button wechselt der Client erneut in den Fullscreen-Modus.\\
+			Im Action Log wurde ein Live-Button ergänzt, durch den man direkt in den aktuellen Spielstand versetzt wird. Zudem scrollt der Action Log bei neu eintreffenden Events automatisch auf den aktuellen Eintrag. \\
+			Im Spiel wird in der oberen Leiste der Name des aktuellen Spiels angezeigt.\\
+			In der Seitenleiste wurde für die aktuell ausgewählt und die gehoverte Einheit ergänzt, dass alle Einheiten, die von dieser Einheit angegriffen werden können zusammen mit dem prozentuellen Schaden, den die ausgewählte Einheit ihnen durch einen Angriff zufügen würde, angezeigt werden.
+	
+	\section{Danksagung}
+	Im Namen aller Mitglieder von Team G möchte ich mich bei unseren Betreuern, Clemens Emme und Natascha Nolte, für ihre Unterstützung und Anmerkungen bedanken. Unser Dank gilt auch Sebastian Copei und Marcel Hahn für die Möglichkeit zu dieser Lehrveranstaltung.
 		
 	\newpage
 	\appendix
