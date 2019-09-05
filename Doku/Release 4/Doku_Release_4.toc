@@ -17,13 +17,14 @@
 \contentsline {subsubsection}{\numberline {6.3.2}Ausrei\IeC {\ss }er}{9}
 \contentsline {subsubsection}{\numberline {6.3.3}Abgeschlossene Vorg\"ange}{9}
 \contentsline {subsubsection}{\numberline {6.3.4}Nicht abgeschlossene Vorg\"ange}{10}
+\contentsline {paragraph}{\nonumberline Ein C0 Abdeckung von -\%}{11}
 \contentsline {subsubsection}{\numberline {6.3.5}Entfernte Vorg\"ange}{11}
 \contentsline {subsubsection}{\numberline {6.3.6}Fazit}{11}
 \contentsline {section}{\numberline {7}Sprint 8}{11}
 \contentsline {subsection}{\numberline {7.1}Sprintziel}{11}
 \contentsline {subsection}{\numberline {7.2}Zeit\"ubersicht}{11}
-\contentsline {subsection}{\numberline {7.3}Analyse des 8. Sprint}{13}
-\contentsline {subsubsection}{\numberline {7.3.1}Burndown-Diagramm}{13}
+\contentsline {subsection}{\numberline {7.3}Analyse des 8. Sprint}{12}
+\contentsline {subsubsection}{\numberline {7.3.1}Burndown-Diagramm}{12}
 \contentsline {subsubsection}{\numberline {7.3.2}Abgeschlossene Vorg\"ange}{13}
 \contentsline {subsubsection}{\numberline {7.3.3}Nicht abgeschlossene Vorg\"ange}{14}
 \contentsline {subsubsection}{\numberline {7.3.4}Fazit}{15}
