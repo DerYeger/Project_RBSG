@@ -7,11 +7,11 @@
 \contentsline {subsection}{\numberline {3.3}Army Manager}{3}
 \contentsline {subsection}{\numberline {3.4}Warteraum}{4}
 \contentsline {subsection}{\numberline {3.5}Ingame}{5}
-\contentsline {section}{\numberline {4}Das Release \textup {\uppercase {iv}}}{6}
+\contentsline {section}{\numberline {4}Das Release 4}{6}
 \contentsline {section}{\numberline {5}Anforderung im vierten Release}{7}
-\contentsline {section}{\numberline {6}Sprint \textup {\uppercase {vii}}}{7}
+\contentsline {section}{\numberline {6}Sprint 7}{7}
 \contentsline {subsection}{\numberline {6.1}Sprintziel}{7}
-\contentsline {subsection}{\numberline {6.2}Zeit \"Ubersicht}{7}
+\contentsline {subsection}{\numberline {6.2}Zeit\"ubersicht}{7}
 \contentsline {subsection}{\numberline {6.3}Analyse des 7. Sprints}{8}
 \contentsline {subsubsection}{\numberline {6.3.1}Burndown-Diagramm}{9}
 \contentsline {subsubsection}{\numberline {6.3.2}Ausrei\IeC {\ss }er}{9}
@@ -20,20 +20,17 @@
 \contentsline {paragraph}{\nonumberline Ein C0 Abdeckung von -\%}{11}
 \contentsline {subsubsection}{\numberline {6.3.5}Entfernte Vorg\"ange}{11}
 \contentsline {subsubsection}{\numberline {6.3.6}Fazit}{11}
-\contentsline {subsection}{\numberline {6.4}Zeit\"ubersicht}{11}
-\contentsline {subsection}{\numberline {6.5}Analyse des 4. Sprint}{12}
-\contentsline {subsubsection}{\numberline {6.5.1}Burndown-Diagramm}{12}
-\contentsline {subsubsection}{\numberline {6.5.2}Abgeschlossene Vorg\"ange}{13}
-\contentsline {subsubsection}{\numberline {6.5.3}Nicht abgeschlossene Vorg\"ange}{14}
-\contentsline {subsubsection}{\numberline {6.5.4}Fazit}{15}
-\contentsline {paragraph}{\nonumberline Code Coverage}{15}
-\contentsline {section}{\numberline {7}Abschluss des 2. Releases}{15}
-\contentsline {subsection}{\numberline {7.1}Der Armeemanager}{15}
-\contentsline {subsubsection}{\numberline {7.1.1}Implementaion}{16}
-\contentsline {subsubsection}{\numberline {7.1.2}Armee-Editor}{17}
-\contentsline {subsubsection}{\numberline {7.1.3}Info zu den Attributen}{18}
-\contentsline {subsection}{\numberline {7.2}Warteraum}{19}
-\contentsline {subsection}{\numberline {7.3}Ingame}{20}
-\contentsline {subsection}{\numberline {7.4}Lobby}{21}
-\contentsline {subsubsection}{\numberline {7.4.1}Spiel erstellen Formular}{21}
-\contentsline {subsection}{\numberline {7.5}Alerts}{22}
+\contentsline {section}{\numberline {7}Sprint 8}{11}
+\contentsline {subsection}{\numberline {7.1}Sprintziel}{11}
+\contentsline {subsection}{\numberline {7.2}Zeit\"ubersicht}{11}
+\contentsline {subsection}{\numberline {7.3}Analyse des 8. Sprint}{12}
+\contentsline {subsubsection}{\numberline {7.3.1}Burndown-Diagramm}{12}
+\contentsline {subsubsection}{\numberline {7.3.2}Abgeschlossene Vorg\"ange}{13}
+\contentsline {subsubsection}{\numberline {7.3.3}Nicht abgeschlossene Vorg\"ange}{14}
+\contentsline {subsubsection}{\numberline {7.3.4}Fazit}{15}
+\contentsline {section}{\numberline {8}Abschluss des 4. Releases}{15}
+\contentsline {subsection}{\numberline {8.1}Login}{15}
+\contentsline {subsection}{\numberline {8.2}Lobby}{16}
+\contentsline {subsection}{\numberline {8.3}Armeemanger}{17}
+\contentsline {subsection}{\numberline {8.4}Warteraum}{19}
+\contentsline {subsection}{\numberline {8.5}Ingame}{20}

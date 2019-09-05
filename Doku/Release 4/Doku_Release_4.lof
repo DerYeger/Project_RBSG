@@ -1,28 +1,27 @@
 \babel@toc {ngerman}{}
-\contentsline {figure}{\numberline {1}{\ignorespaces Login Release \textup {\uppercase {iv}}}}{2}
-\contentsline {figure}{\numberline {2}{\ignorespaces Lobby Release \textup {\uppercase {iv}}}}{3}
-\contentsline {figure}{\numberline {3}{\ignorespaces Armeemanager Release \textup {\uppercase {iv}}}}{3}
-\contentsline {figure}{\numberline {4}{\ignorespaces Release \textup {\uppercase {iv}}: Anzeige der Einheiteneigenschaften}}{4}
-\contentsline {figure}{\numberline {5}{\ignorespaces Release \textup {\uppercase {iv}}: Armee bearbeiten}}{4}
-\contentsline {figure}{\numberline {6}{\ignorespaces Release \textup {\uppercase {iv}}: Warteraum}}{5}
-\contentsline {figure}{\numberline {7}{\ignorespaces Release \textup {\uppercase {iv}}: Spielfeld}}{6}
+\contentsline {figure}{\numberline {1}{\ignorespaces Login Release 3}}{2}
+\contentsline {figure}{\numberline {2}{\ignorespaces Lobby Release 3}}{3}
+\contentsline {figure}{\numberline {3}{\ignorespaces Armeemanager Release 3}}{3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Release 4: Anzeige der Einheiteneigenschaften}}{4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Release 3: Armee bearbeiten}}{4}
+\contentsline {figure}{\numberline {6}{\ignorespaces Release 3: Warteraum}}{5}
+\contentsline {figure}{\numberline {7}{\ignorespaces Release 3: Spielfeld}}{6}
 \contentsline {figure}{\numberline {8}{\ignorespaces Burndown-Diagramm des Sprint 7}}{9}
 \contentsline {figure}{\numberline {9}{\ignorespaces Abgeschlossene Vorg\"ange im 7. Sprint}}{10}
 \contentsline {figure}{\numberline {10}{\ignorespaces Nicht Abgeschlossene Vorg\"ange im 7. Sprint}}{10}
-\contentsline {figure}{\numberline {11}{\ignorespaces Code Coverage vom 3. Sprint}}{11}
-\contentsline {figure}{\numberline {12}{\ignorespaces Burndown-Diagramm des Sprint 4}}{13}
-\contentsline {figure}{\numberline {13}{\ignorespaces Abgeschlossene Vorg\"ange in Sprint 4}}{14}
-\contentsline {figure}{\numberline {14}{\ignorespaces Nicht Abgeschlossene Vorg\"ange in Sprint 4}}{14}
-\contentsline {figure}{\numberline {15}{\ignorespaces Quellcodeabdeckung Release 2}}{15}
-\contentsline {figure}{\numberline {16}{\ignorespaces Mockup f\"ur den geplanten Armeemanager}}{16}
-\contentsline {figure}{\numberline {17}{\ignorespaces Realisierung des Armeemanagers am Ende von Release 2}}{17}
-\contentsline {figure}{\numberline {18}{\ignorespaces Mockup des Armee-Editor}}{17}
-\contentsline {figure}{\numberline {19}{\ignorespaces Implementierung des Armee-Editor}}{18}
-\contentsline {figure}{\numberline {20}{\ignorespaces \"Ubersicht f\"ur die Attribute der Einheiten}}{18}
-\contentsline {figure}{\numberline {21}{\ignorespaces Mockup \"Ubersicht \"Uber die Attribute}}{19}
-\contentsline {figure}{\numberline {22}{\ignorespaces Mockup des Warteraum}}{19}
-\contentsline {figure}{\numberline {23}{\ignorespaces Umsetzung des Warteraums im 2. Release}}{20}
-\contentsline {figure}{\numberline {24}{\ignorespaces Lobby mit Armeeauswahl am Ende des 2. Releases}}{21}
-\contentsline {figure}{\numberline {25}{\ignorespaces Optisch \"Uberarbeitetes \glqq Spiel erstellen\grqq \ Formular }}{22}
-\contentsline {figure}{\numberline {26}{\ignorespaces Alerts von JavaFX}}{22}
-\contentsline {figure}{\numberline {27}{\ignorespaces \"Uberarbeitet Alerts im Dark Theme}}{23}
+\contentsline {figure}{\numberline {11}{\ignorespaces Code Coverage nach dem 7. Sprint}}{11}
+\contentsline {figure}{\numberline {12}{\ignorespaces Burndown-Diagramm des 8. Sprints}}{13}
+\contentsline {figure}{\numberline {13}{\ignorespaces Abgeschlossene Vorg\"ange in Sprint 8}}{14}
+\contentsline {figure}{\numberline {14}{\ignorespaces Nicht Abgeschlossene Vorg\"ange in Sprint 8}}{15}
+\contentsline {figure}{\numberline {15}{\ignorespaces Code Coverage nach dem 8. Sprint}}{15}
+\contentsline {figure}{\numberline {16}{\ignorespaces Login-Bildschirm}}{16}
+\contentsline {figure}{\numberline {17}{\ignorespaces Mockup: Lobby mit Men\"u}}{16}
+\contentsline {figure}{\numberline {18}{\ignorespaces Spiellobby}}{17}
+\contentsline {figure}{\numberline {19}{\ignorespaces Mockup: Armeemanger}}{17}
+\contentsline {figure}{\numberline {20}{\ignorespaces Armeemanger mit Fantasy-Einheiten}}{18}
+\contentsline {figure}{\numberline {21}{\ignorespaces Armeemanger mit Warhammer 40k Einheiten}}{18}
+\contentsline {figure}{\numberline {22}{\ignorespaces Mockup: Ready-Button}}{19}
+\contentsline {figure}{\numberline {23}{\ignorespaces Warteraum mit Ready-Button}}{19}
+\contentsline {figure}{\numberline {24}{\ignorespaces Mockup: Ingame mit Men\"u}}{20}
+\contentsline {figure}{\numberline {25}{\ignorespaces Mockup: Action Log}}{21}
+\contentsline {figure}{\numberline {26}{\ignorespaces Ingame mit Men\"u}}{21}
