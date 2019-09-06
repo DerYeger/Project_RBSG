@@ -281,7 +281,8 @@ public class Unit implements Selectable, Hoverable {
     }
 
     public ArrayList<Unit> getNeighbors() {
-        return position.get()
+        return position
+                .get()
                 .getNeighbors()
                 .stream()
                 .filter(cell -> cell.getUnit() != null)

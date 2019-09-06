@@ -33,7 +33,7 @@ public class TileTest {
         cell.setSelectedIn(game);
         assertSame(HighlightingTwo.SELECTED, sut.getHighlightingTwo());
 
-        new Cell("2").setSelectedIn(game);;
+        new Cell("2").setSelectedIn(game);
 
         assertSame(HighlightingTwo.NONE, sut.getHighlightingTwo());
 

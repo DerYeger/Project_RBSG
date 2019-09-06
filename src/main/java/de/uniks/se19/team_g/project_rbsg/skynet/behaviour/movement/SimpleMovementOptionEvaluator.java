@@ -8,6 +8,6 @@ public class SimpleMovementOptionEvaluator implements MovementOptionEvaluator {
     public int compare(@NonNull final MovementOption first,
                        @NonNull final MovementOption second) {
         if (first == second) return 0;
-        return (int) (first.distanceToEnemy - second.distanceToEnemy);
+        return first.distanceToEnemy - second.distanceToEnemy;
     }
 }

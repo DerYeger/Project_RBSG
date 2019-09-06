@@ -28,7 +28,7 @@ public class AttackBehaviourTests {
         assertTrue(action.isPresent());
         assertTrue(action.get() instanceof AttackAction);
 
-        final AttackAction attackAction = (AttackAction) action.get();
+        final AttackAction attackAction = action.get();
 
         assertEquals(unit, attackAction.unit);
         assertEquals(definition.otherUnit, attackAction.target);

@@ -123,7 +123,7 @@ public class Tile
             return highlighting;
         }
 
-        if (cell.isIsReachable()) {
+        if (cell.isReachable()) {
             return HighlightingOne.MOVE;
         }
 

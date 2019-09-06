@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class UnitDetailController implements Initializable {
 
     private final static String HEALTH_ICON_URL = UnitDetailController.class.getResource("/assets/icons/units/hpIcon.png").toString();
-    private static final String MOVEMENT_ICON_URL = UnitDetailController.class.getResource("/assets/icons/units/mpIcon.png").toString();;
+    private static final String MOVEMENT_ICON_URL = UnitDetailController.class.getResource("/assets/icons/units/mpIcon.png").toString();
 
     public StackPane imageStackPane;
     public ImageView imageView;
