@@ -4,6 +4,14 @@
 /var/*
 !var/.gitkeep
 
+### Latex ###
+.aux
+.lof
+.log
+.lot
+.synctex.gz
+.toc
+
 ### STS ###
 .apt_generated
 .classpath

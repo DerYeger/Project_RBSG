@@ -1,0 +1,664 @@
+\documentclass[12pt, titlepage]{scrartcl}
+
+\usepackage[ngerman]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage{color}
+\usepackage[a4paper, lmargin={2.5cm}, rmargin={2cm}, tmargin={2.5cm}, bmargin={2.5cm}]{geometry}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+
+\newcommand{\RN}[1]{%
+	\textup{\uppercase\expandafter{\romannumeral#1}}%
+}
+
+\newcommand{\Abb}[1]{%
+	Abb.\ \ref{#1}%
+}
+
+\renewcommand{\arraystretch}{1.2}
+
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+
+\ofoot{\pagemark}
+\ifoot{RBSG - Enhanced Wars}
+\cfoot{Gruppe G}
+\ohead{\includegraphics[width=0.12\textwidth]{Logo.png}}
+\widowpenalty10000
+\clubpenalty10000
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		% \includegraphics[width=0.15\textwidth]{example-image-1x1}\par\vspace{1cm}
+		{\scshape\LARGE Universtität Kassel \par}
+		\vspace{1cm}
+		{\scshape\Large Projektdokumentation\par}
+		\vspace{1.5cm}
+		{\huge\bfseries RBSG - Release 4\par}
+		\vspace{2cm}
+		{\scshape\Large Software Engineering \RN{1} SS19\par}
+		\vspace{0.5cm}
+		{\scshape\Large Gruppe G\par}
+		\vspace{0.5cm}
+		{\Large\itshape Scrum Master: Omar Sood\par}
+		\vspace{0.5cm}
+		{\Large\itshape Product Owner: Juri	Lozowoj\par}
+		\vspace{2cm}
+		{\includegraphics[width=0.5\textwidth]{Logo.png}\par}
+		\vfill
+		% supervised by\par
+		% Dr.~Mark \textsc{Brown}
+	\vfill
+	
+	% Bottom of the page
+	{\large \today\par}
+	\end{titlepage}
+	\begin{abstract}
+		Diese Dokumentation beschreibt das vierte Release des Projektes RBSG von Team G. Es werden beide Sprints dieses Releases dokumentiert und analysiert. Zum Schluss wird das Resultat des Releases mit den Zielen verglichen.
+		\\\\\\\\
+		In dieser Arbeit wird nur die männliche Geschlechtsbezeichnung verwendet. Sofern nicht ausdrücklich darauf hingewiesen wird, sind dadurch beide Geschlechter gemeint.
+	\end{abstract}
+	\pagenumbering{Roman}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	\section{Ziel der Dokumentation}
+		Mit dieser Dokumentation wird der Entwicklungsprozesses des Spiels RBSG im vierten Release beschrieben und analysiert. Da im vierten und damit letzten Release alle Mitglieder von Team G als Entwickler am Projekt teilnehmen und der Scrum Master sowie der Product Owner dadurch eine Doppelrolle übernehmen, wird in Absprache mit dem Projekleiter Sebastian Copei der Umfang der Dokumentation auf folgende Punkte beschränkt. Das Burndown Diagramm wird beschrieben und Ausreißer darin werden erklärt. Die Umsetzung des Spielclients wird kurz beschrieben und den Mockups gegenüber gestellt.
+	\section{Das Projekt RBSG}
+			Das Projekt RBSG findet im Rahmen der Veranstaltung Software Engineering \RN{1} des Fachgebiets Software Engineering\ statt. Im Rahmen dieser Veranstaltung wird das Spiel RBSG implementiert. Die Entwicklung ist dabei in vier Releases unterteilt, die wiederum aus zwei Sprints bestehen. Die Teams arbeiten und organisieren sich im Rahmen der agilen Projektmanagementmethode Scrum. In jedem Team werden entsprechend die Rollen des Product Owners und des Scrum Masters besetzt. Die restlichen Teammitglieder sind Entwickler.
+		
+		\section{Stand zum Ende des dritten Releases}
+		Zum Ende des dritten Releases waren folgende Komponenten fertiggestellt:
+		\begin{itemize}
+		\item Registrierung und Login
+		\item Lobby
+		\begin{itemize}
+		\item Spiel erstellen und beitreten (auch als Spectator)
+		\item Anzeige der angemeldeten Spieler 
+		\item Anzeige der aktiven Spiele
+		\item Chatfunktion
+		\item Ausloggen
+		\end{itemize}	
+		\item Armeemanager
+		\begin{itemize}
+			\item Konfigurieren eigener Armeen
+			\item Speichern und Laden von Armeen lokal und auf dem Server
+		\end{itemize}
+		\item Warteraum
+		\begin{itemize}
+			\item Chatfunktion
+			\item Anzeige der beigetretenen Spieler 
+			\item Zur"uck zur Lobby
+		\end{itemize}
+          \item Ingame
+		\begin{itemize}
+			\item Einheiten bewegen
+			\item Einheiten angreifen/verteidigen
+			\item Minikarte anzeigen
+			\item Spielinterface (Chat, Anzeigen der Spieler und Runde /Phase, Spiel verlassen)
+			\item Gewinner anzeigen
+			\item Beobachtermodus
+		\end{itemize}
+		\end{itemize}
+		Es wurde bereits eine C0 Testabdeckung von mindestens 77\% erreicht.
+		\subsection{Login}
+			Im Login konnte ein Nutzer sich registrieren und anmelden, wie auf Abb.\ref{Login_Release_Three} zu sehen. Die Spielmusik kann an- bzw. ausgeschaltet werden.
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.8\textwidth]{images/old/Login.png}
+				\caption{Login Release 3}
+				\label{Login_Release_Three}
+			\end{figure}
+		\subsection{Lobby}
+		In der Lobby werden die Spielerlisten und Spiellisten angezeigt, wie in Abb. \ref{Lobby_Release_Three} zu sehen. Diese aktualisieren sich, wenn der Server eine entsprechende Nachricht sendet. Über den Logout-Knopf kann ein Nutzer sich abmelden. Des Weiteren konnte die Sprache ge"andert oder die Musik an- bzw. und ausgeschaltet. Es gab einen Chat (privat und öffentlich). Es war möglich über den Spiel-erstellen-Button ein Spiel zu erstellen. Zudem kann einem Spiel als Spieler oder als Beobachter (Spectator) über die entsprechenden Knöpfe beigetreten werden. Verfügte der Nutzer nicht über eine vollst"andige Armee, konnte er keine Spiele erstellen oder Spielen beitreten, da die entsprechenden Button in diesem Fall deaktiviert waren.
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.8\textwidth]{images/old/Lobby.png}
+			\caption{Lobby Release 3}
+			\label{Lobby_Release_Three}
+		\end{figure}
+		\subsection{Armeemanager}
+		Der Armeemanager wird wird in Abb. \ref{ArmyManager_Release_Three} dargestellt. Im Armeemanager konnte der Nutzer aus einer vom Server gesendeten Liste von Einheiten w"ahlen. Eine ausgewählte Einheit wurde in einer Detailansicht dargestellt mit Informationen darüber, welche anderen Einheiten von ihr angegriffen werden könnten, ihren Angriffs- und Bewegungspunkten sowie einem Beschreibungstext. \\
+		Die ausgewählt Einheit konnte er über einen (+)-Button zu einer ausgewählten Armee hinzuf"ugen oder über den (-)-Button wieder entfernen. Die Einheiten einer ausgewählten Armee wurden ebenfalls in einer scrollbaren Liste angezeigt.\\
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=0.6\textwidth]{images/old/ArmyManager.png}
+			\caption{Armeemanager Release 3}
+			\label{ArmyManager_Release_Three}
+		\end{figure}
+		Über einen Info-Button (Abb. \ref{Property_Info}) wurde bisher nur ein generische Informationen als Platzhalter für die tatsächlichen Eigenschaften der Einheiten eingeblendet. 
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth]{images/old/PropertyInfo.png}
+			\caption{Release 3: Anzeige der Einheiteneigenschaften}
+			\label{Property_Info}
+		\end{figure}
+		Über einen Bearbeiten-Button konnte der Name und das Icon einer ausgewählten Armee verändert werden (Abb. \ref{Edit_Army}).
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth]{images/old/EditArmy.png}
+			\caption{Release 3: Armee bearbeiten}
+			\label{Edit_Army}
+		\end{figure}
+		Über den Speichern-Button konnte die aktuelle Konfiguration der Armeen lokal und auf dem Server gespeichert werden. Der Speicher-Button war deaktiviert, solange keine Änderungen an der aktuellen Armeeauswahl vorgenommen wurde. Über den Löschen-Button wurden alle Einheiten einer Armee entfernt. Ein Spieler verfügte zu jedem Zeitpunkt über zehn Armeen, die wenn nötig vom Client erstellt wurden. Es konnten keine neuen Armeen erzeugt werden.
+		\subsection{Warteraum}
+		Trat ein Spieler einem Spiel bei, wechselte die Szene zum Warteraum (Abb. \ref{WaitingRoom}). In diesem war ein Chat verfügbar und es wurde eine Vorschau der Spielkarte (Minimap) sowie eine Liste der auswählbaren Armeen angezeigt. Zudem wurden jeder aktive Spieler mit seinem Namen und seiner Farbe auf einer Spielerkarte angezeigt. Hatte ein Spieler eine Armee ausgewählt wurde er auf bereit gesetzt und seine Spielerkarte wurde lila eingefärbt. Beobachter (Spectator) wurden nicht angezeigt.
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth]{images/old/WaitingRoom.png}
+			\caption{Release 3: Warteraum}
+			\label{WaitingRoom}
+		\end{figure}
+		\subsection{Ingame}
+		Waren genügend Spieler einem Spiel beigetreten und durch die Wahl einer Armee auf bereit gesetzt, wechselte auf die Spiel-startet-Nachricht des Servers hin die Szene zum Spielfeld. Auf dem Spielfedl konnten Einheiten in der Bewegungsphase bewegt werden. In der Angriffsphase konnte feindliche Einheiten angegriffen werden. In der Bewegungsphase wurde der Bewegungsradius der ausgewählten Einheit angezeigt. Dieser ist in Abb. \ref{Ingame} zu sehen. In der Angriffsphase wurden für eine ausgewählte Einheit alle feindlichen Einheiten hervorgehoben, die durch diese angegriffen werden können. Über einen Chat-Button war ein Ingamechat verfügbar. Die Anzeige der Lebensleiste jeder Einheit konnte über einen Knopf an- bzw. ausgeschaltet werden. Ebenso konnten alle Spieler in Form einer Spielerkarte mit Namen und Spielerfarbe durch einen Button angezeigt bzw. wieder ausgeblendet werden. In einer Seitenleiste wurden die aktuelle ausgewählte Einheit und eine weitere "gehoverte"\ Einheit mit Informationen über die aktuellen Lebenspunkte und die maximalen Bewegungspunkte angezeigt. Die Karte verfügte über einen mehrstufigen Zoom. Die aktuelle Phase konnte über einen Button beendet werden. Drei Phasenwechsel beendet die Runde und der nächste Spieler war am Zug. Die aktuelle Rundenzahl und die Spielphasen, Angriffs- oder Bewegungsphase, wurden in einer Karte in der rechten oberen Ecke dargestellt. Zum Spielende wurden Gewinner und Verlierer über den Spielausgang durch ein Informationsfenster informiert.
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth]{images/old/Ingame.png}
+			\caption{Release 3: Spielfeld}
+			\label{Ingame}
+		\end{figure}
+	
+		\section{Das Release 4}
+	Das vierte Release begann am 05.08.2019 und endete am 02.08.2019. Der Entwicklungsprozess ist in zwei Sprints eingeteilt:
+	\begin{itemize}
+		\item Sprint 7 vom 05.08 bis zum 18.08.2019
+		\item Sprint 8 vom 19.08 bis zum 02.09.2019
+	\end{itemize}
+	Im vierten Release waren die Rollen folgendermaßen verteilt:
+	\begin{itemize}
+		\item Product Owner:  \ \ \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
+		\item Scrum Master:  \ \ \ \ \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood
+		\item Entwickler:
+		\subitem \includegraphics[width=0.05\textwidth]{georg_avatar.png} \ Georg Siebert
+		\subitem \includegraphics[width=0.05\textwidth]{jan_avatar.png} \ Jan Müller
+		\subitem \includegraphics[width=0.05\textwidth]{juri_avatar.png} \ Juri Lozowoj
+		\subitem \includegraphics[width=0.05\textwidth]{keanu_avatar.png} \ Keanu Stückrad
+		\subitem \includegraphics[width=0.05\textwidth]{omar_avatar.png} \ Omar Sood 
+		\subitem \includegraphics[width=0.05\textwidth]{tobias_avatar.png} \ Tobias Klipp
+	\end{itemize}
+	
+	\section{Anforderung im vierten Release}
+	Im vierten Release wurden folgende Anforderungen vom Kunden gestellt:
+	\begin{enumerate}
+		\item Client
+		\begin{itemize}
+			\item Aktualisieren der Spieler/Spiele über Websockets
+			\item Künstliche Intelligenz
+			\begin{itemize}
+				\item Kann für Spieler übernehmen
+				\item Spieler kann von KI übernehmen
+				\item Bis zu 4 KI müssen zeitgleich ein Spiel spielen und gewinnen
+				\item KI muss alle „in game“ Aktionen ausführen können
+			\end{itemize}
+		\end{itemize}
+		\item Qualitätssicherung
+		\begin{itemize}
+			\item Erreichen einer 75\% C0 Abdeckung
+		\end{itemize}
+		\item Alle übrigen Features aus vorigen Releases
+	\end{enumerate}
+		
+		
+		
+	\section{Sprint 7}
+	Der siebte Sprint erstreckte sich über dem Zeitraum vom 05.08. bis zum 19.08.2019. Es
+	wurden 99 Story Points für die 25 zu Beginn enthaltetenen User Stories geschätzt.
+		\subsection{Sprintziel}
+		Im Jira wurde vom Scrum Master als Sprintziel "get shit done"\ eingetragen. Tatsächlich war das Hauptziel für diesen Sprint eine künstliche Intelligenz zu implementieren, die bereits den Anforderungen des Kunden entspricht. Ein weiteres Ziel war die Verbesserung der User Experience und der graphischen Oberfläche unseres Clients.
+			
+		\subsection{Zeitübersicht}
+		\begin{center}
+				\begin{longtable}[H]{p{6cm} c c c c }
+				\label{Time_1}
+				\textbf{User Story} & \textbf{Soll Zeit} & \textbf{Ist Zeit} & \textbf{Verbleibende Zeit} & \textbf{Entwickler} \\
+				\toprule
+				\endhead
+				Skynet \textbar\ Bewegen Phase & 5 h & 5 h & &Jan M"uller\\
+				Skynet \textbar\ Attackieren Phase & 3 h & 1 h 30 min &  & Jan M"uller\\
+				Skynet \textbar\ übernimmt Bewegung & 1 h & 3 h 30 min &  & Georg Siebert \\
+				Credits & 5 h & 8 h 57 min & & Juri Lozowoj \\
+				Flavor \textbar\ Neuer splash screen & 2 h & 1 h 31 min & & Juri Lozowoj\\
+				Speicherstände für verschiedene User & 3 h & 1 h 31 min & & Tobias Klipp\\
+				Battlefield \textbar\ Mausradzoom & 1 h & 2 h 30 min &  &  Keanu St"uckrad \\
+				Wechsel durch der Einheiten per Tastatur & 3 h & 3 h 44 min & & Juri Lozowoj\\
+				Loading Screen & 5 h & 3 h 16 min & & Juri Lozowoj\\
+				Lobby \textbar\ Escape Men"u & 5 h & 3 h 30 min & 2 h & Jan M"ueller\\
+				Lobby \textbar\ Flüsterchat per Klick & 0 h & 31 min & & Juri Lozowoj\\
+				Waiting Room \textbar\ Ready Button & 5 h & 3 h & & Keanu St"uckrad\\
+				Lobby \textbar\ Bug report & 8 h & 4 h & & Georg Siebert\\
+				Battlefield \textbar\ Action log - Bewegungsphase & 13 h & 11 h 28 min & & Omar Sood\\
+				Battlefield \textbar\ Action log - Redo & 8 h & 2 h & & Jan M"ueller\\
+				Skynet \textbar\ Bewegenphasen beenden & 2 h & 1 h 43 min & & Omar Sood\\
+				Waiting Room \textbar\ Ready Button - Ready aufheben & 2 h & 1 min & & Keanu St"uckrad\\
+				Waiting Room \textbar\ Ready Button - keine Armee ausgewählt & 2 h & 1 h 1 min & & Keanu St"uckrad\\
+				ArmyBuilder \textbar\ Einheiten nicht nach Typ zusammengefasst & 3 h & 2 h & 30 min & Tobias Klipp\\
+				ArmyBuilder \textbar\ Einheitenreihenfolge ändern & 5 h & 9h 15 min & & Tobias Klipp\\
+				ArmyBuilder \textbar\ ungespeicherte Armeen Hinweis Dialog & 3 h & 4 h 30 min & & Tobias Klipp\\
+				Screen resiziable mit default Fullzise & 5 h & 4 h 30 min & & Keanu St"uckrad\\
+				Skynet \textbar\ Spezielles Bewegungsverhalten & 3 h & 1 h 30 min & & Jan M"ueller\\
+				Skynet \textbar\ Skynet gibt auf & & 4 h & & Jan M"ueller\\
+				ArmyBuilder \textbar\ Einheitenattribute & & 3 h & & Keanu St"uckrad\\
+				ArmyBuilder \textbar\ Info Button & 1 h & 3 h 30 min & & Keanu St"uckrad\\
+				Optional - Waiting Room \textbar\ Spielname anzeigen & 3 h & 1 h & & Keanu St"uckrad\\
+				Skynet \textbar\ Skynet gibt auf & & 4 h & & Georg Siebert\\
+				Battlefield \textbar\ Action log - Rundewechsel & 2 h & 1 h 4 min & & Omar Sood\\
+				Battlefield \textbar\ Action log - Angriffsphase & 3 h & 1 h 9 min & & Omar Sood\\
+				\bottomrule
+				Insgesamt & 101 h & 93 h 16 min & 2 h 30 min& \\
+				\caption{Zeit"ubersicht Sprint 7}
+			\end{longtable}
+		\end{center}
+		
+		\subsection{Analyse des 7. Sprints}
+		Der siebte Sprint wurde am 19.08.2019 beendet. Im siebten Sprint konnten 27 von 32 User Stories abgeschlossen. Damit wurden insgesamt 101 von 119 Story Points abgeschlossen. Fünf User Stories im Umfang von 18 Story Points waren zum Ende des Sprints noch offen. Der Ablauf des siebten Sprints wird anhand des Burndown-Diagramms erläutert.
+		
+		\subsubsection{Burndown-Diagramm}
+		In der ersten Woche entspricht das Burndown-Diagramm annähernd der dargestellten Idealkurve. In der zweiten Woche gab es zu Beginn kaum Veränderungen des Burnddown-Diagramms. Dies liegt daran, dass umfangreiche User Stories bearbeitet wurden, die mehr Zeit benötigten. Zum Ende der zweiten Woche fällt das Diagramm noch einmal deutlich ab. In zwei Tagen (15.08. und 16.08.) wurden 10 User Stories abgeschlossen.
+		
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=1\textwidth]{images/burndown/burndown_sprint_7.png}
+			\caption{Burndown-Diagramm des Sprint 7}
+			\label{BurndownSprint7}
+		\end{figure}
+		
+		\subsubsection{Ausreißer}
+		Insgesamt beinhaltet das Burndown-Diagramm des siebten Sprints vier Ausreißer. In diesem Sprint wurden sieben User Stories nachträglich hinzugefügt. Eine User Story zum Verhalten der KI (TG-414), nachdem sie zu Beginn des Sprints vergessen wurde, wurde am 10.08. hinzugefügt.  
+		Am 11. August wurde eine bereits abgeschlossene User Story (TG-409) erneut geöffnet. Dies war notwendig, da erst bei der Überprüfung des Pull Requests auffiel, dass dieses Feature nicht wie in der User Story vorgegeben implementiert war. Daher musst der Entwickler die User Story TG-409 erneut überarbeiten. Am 12.08. wurden insgesamt vier User Stories zum Sprint hinzugefügt im Gesamtumfang von 12 Story Points. Drei davon bezogen sich auf Verbesserungen des Armeemanagers und eine auf die KI. Zwei weitere User Stories im Umfang von fünf Story Points wurdem am 15.08. hinzugefügt. Sie bezogen sich auf die Spielhistorie (Action Log) und einen Runde-Beenden-Button. Ingesamt sind damit User Stories in einem Umfang von 20 Story Points nachträglich zum Sprint hinzugefügt worden. Damit stieg der Gesamtumfang des Sprints von 99 auf 119 Story Points.
+		
+		\subsubsection{Abgeschlossene Vorgänge}Im siebten Sprint konnten 27 Vorgänge abgeschlossen werden. In \Abb{AbgeschlossenSprint7} folgt eine Liste mit allen abgeschlossenen User Stories.
+				
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=1\textwidth]{images/burndown/Abgeschlossen_Sprint_7.png}
+			\caption{Abgeschlossene Vorgänge im 7. Sprint}
+			\label{AbgeschlossenSprint7}
+		\end{figure}
+		
+		\subsubsection{Nicht abgeschlossene Vorgänge}
+		Fünf Vorgänge waren zum Ende des siebten Sprints aufgrund von Zeitmangel nicht abgeschlossen (siehe \Abb{NichtAbgeschlossenSprint7}). Diese Aufgaben war nicht optional und wurden in den nächsten Sprint mitgenommen und in dessen Rahmen abgeschlossen.
+		
+		\begin{figure}[H] 
+			\centering
+			\includegraphics[width=1\textwidth]{images/burndown/NichtAbgeschlossenSprint7.png}
+			\caption{Nicht Abgeschlossene Vorgänge im 7. Sprint}
+			\label{NichtAbgeschlossenSprint7}
+		\end{figure}
+		
+		\subsubsection{Entfernte Vorgänge}
+		Aus dem siebten Sprint wurde eine Aufgabe (TG-477) entfernt und nicht weiter bearbeitet. Dabei handelte es sich um einen technischen Umbau des Spielfelds. Der Scrum Master entschied sich dafür diesen Voragn zu entfernen, da der Aufwand dafür in einem ungünstigen Verhältnis zum Nutzen stand.
+	
+		\subsubsection{Fazit}
+		Obwohl das gesetzte Ziel von 119 Story Points nicht erreicht wurde, waren wir als Team mit dem Ergebnis des siebten Sprints zufrieden. Alle schriftlichen Anforderungen waren zum Ende des Sprints bereits umgesetzt. Unser Client verfügte über eine KI, die sowohl einzelne Züge als auch das gesamte Spiel für den Spieler übernehmen konnte und auf Knopfdruck wieder abgestellt werden konnte. Bereits zum Ende des zweiten Releases wurden die Listen der Spieler und Spiele über den Websocket aktualisiert, sodass diese Anforderungen ebenfalls bereits erfüllt war.
+		
+		\section{Sprint 8}
+		Der achte Spring begann am 19.08. und endete am 02.09.2019. Dabei wurden zu Beginn 95 Story Points für 26 User Stories geschätzt.
+		\subsection{Sprintziel}
+		Der Scrum Master hatte als Sprintziel "finish'em"\ im Jira eingetragen. Das wirklichen Ziele für diesen letzten Sprint waren einen funktionierenden Bot starten zu können sowie letzte Verbesserungen am Client.
+	
+			
+			
+			\subsection{Zeitübersicht}
+			\begin{center}
+				\begin{longtable}{p{6cm} c c c c }
+					
+					User Story	& Soll Zeit & Ist Zeit & Entwickler\\
+					\toprule
+					\endhead
+					Waiting Room \textbar\ Anzeigen der Einheiten einer Armee & 5 h & 3 h & Georg Siebert\\ 
+					
+					Bug: CSS Fehler &  & 2 h 35min &  Keanu Stückrad\\
+					
+					Battlefield \textbar\ Escape Menü & 3 h & 5 h 31 min &Tobias Klipp \\
+					
+					Lobby \textbar\ Escape Menü & 5 h & 5 h 40 min & Jan Müller \\
+					
+					ArmyBuilder \textbar\ Einheitenreihenfolge ändern & 5 h & 9 h 15 min & Tobias Klipp \\
+					
+					WaitingRoom \textbar\ Flüsterchat per Klick &  & 6 h 30 min & Tobias Klipp\\
+					
+					Skynet \textbar\ Skynet gibt auf &  & 4 h & Georg Siebert\\
+					
+					Erstellen eines Bot & 8 h & 17 h 10 min & Omar Sood\\
+					
+					Töten eines Bot & 5 h & 5 h 15 min & Juri Lozowoj\\
+					
+					Runde beenden & 2 h & 2 h 39 min & Juri Lozowoj\\
+					
+					Skynet \textbar\ Geschwindigkeit einstellen & 5 h & 2 h 30 min & Jan Müller\\
+					
+					Fullscreen & 2 h &  4 h & Keanu Stückrad\\
+					
+					Anzeigen Rundenwechsel & 3 h & 8 h 5 min & Keanu Stückrad\\
+					
+					Anzeigen Phasenwechsel & 2 h  & 1 min & Keanu Stückrad\\
+					
+					Bewegungsanimation & 8 h & 5 h & Georg Siebert\\
+					
+					Bewegungsanimation ausstellen & 2 h & 31 min & Georg Siebert\\
+					
+					Easter egg Minesweeper & 1 h & 3 h 10 min & Jan Müller\\
+					
+					Soundeffekte \textbar\ Einheit stribt &  & 2 h & Tobias Klipp\\
+					
+					Flavour \textbar\ WH40K & 8 h & 8 h 1 min& Georg Siebert\\
+					
+					Armeen löschen & 5 h & 4 h 36 min& Juri Lozowoj\\
+					
+					Armee erstellen & 5 h & 3 h 2 min& Juri Lozowoj\\
+					
+					Battlefield \textbar\ Action log - Tod einer Einheit & 5 h & 4 h 57 min & Omar Sood\\
+					
+					Skynet \textbar\ gezieltes Bewegungsverhalten & 1 h & 1 h & Jan Müller \\
+					
+					Skynet \textbar\ Mobverhalten & & 2 h 10 min & Jan Müller\\ 
+					
+					Skynet \textbar\ Bedrohungspotential je Einheit berechnen &  & 2 h & Jan Müller\\
+					
+					Actionlog \textbar\ Scrollen zu neuem Event & 2 h & 1 h & Juri Lozowoj\\
+					
+					Actionlog \textbar\ Live Button & 2 h & 2 h & Juri Lozowoj\\
+					
+					Fehlgeschlagene Anmeldung am Spielwebsocket & & 7 h 30 min & Jan Müller\\
+					
+					Loading screen im WaitingRoom & & 48 min & Juri Lozowoj\\
+					
+					Skynet \textbar\ Skynet pausiert bei Timetravel & 3 h & 1 h & Jan Müller\\
+					
+					Battlefield \textbar\ Rundenanzahl timetravel & 5 h & 13 h & Omar Sood \& Tobias Klipp\\
+					
+					Skynetkontrolle anzeigen & & 5 min & Keanu Stückrad\\
+					
+					Skynet \textbar\ Einzelzug disabled & 2 h & 30 min & Keanu Stückrad\\
+					
+					Battlefield \textbar\ Neuer Look &  & 8 h & Keanu Stückrad\\
+					
+					NPE im LobbyViewController:383 & & 1 h & Keanu Stückrad\\
+					
+					NPE im ArmyDetaiLController:95 & & 1 min & Keanu Stückrad\\
+					
+					Skynet \textbar\ Bedrohungspotential je Einheit berechnen & & 2 h & Jan Müller\\
+					
+					\bottomrule
+					Insgesamt & 94 h & 149 h 57 min & \\
+					\caption{Zeitübersicht Sprint 8} \\
+				\end{longtable}
+			\end{center}
+			
+		\subsection{Analyse des 8. Sprint}
+			Der achte Sprint wurde am 02.02.2019 geschlossen. Es wurden alle 124 Story Points erreicht. Alle Kernfunktionalitäten und viele optionale Features wurden umgesetzt.
+		
+			\subsubsection{Burndown-Diagramm}
+			Wie auf dem Burndown-Diagramm (\Abb{BurndownSprint8}) zu sehen, verlief die Entwicklung im achten Sprint beinahe optimal. Die Entwicklung verlief schneller als gedacht, sodass zur Mitte Sprints neue User Stories und Aufgaben in die Sprintplanung aufgenommen werden konnten. Auch diese konnten erfolgreich abgeschlossen werden. 
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=1\textwidth]{images/burndown/burndown_sprint_8.png}
+				\caption{Burndown-Diagramm des 8. Sprints}
+				\label{BurndownSprint8}
+			\end{figure}
+		
+			\subsubsection{Ausreißer}
+			Das Burndown-Diagramm des achten Sprints zeigt einen Ausreißer am 26.08.. An diesem Tag wurden 12 Vorgänge im Umfang von 29 Story Points nachträglich zum Sprint hinzugefügt. Der Scrum Master entschied sich in Absprache mit dem Team dafür diese Vorgänge aufzunehmen, da in der ersten Woche mehr Vorgänge als geplant abgeschlossen werden konnten und daher abzusehen war, dass alle Entwickler in der letzten Woche noch Kapazität für weitere Aufgaben haben würden. Der Gesamtumfang des Sprints stieg dadurch von 95 auf 124 Story Points. Alle nachträglich hinzugefügten Vorgänge konnte im Verlauf des Sprints abgeschlossen werden.
+
+			\subsubsection{Abgeschlossene Vorgänge}	
+			Alle User Stories und Taks aus dem vierten Release konnten im achten Sprint abgeschlossen werden. Alle abgeschlossenen Vorgänge werden in \Abb{AbgeschlossenSprint8} nochmal aufgelistet.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=1\textwidth]{images/burndown/abgeschlossenSprint8.png}
+				\caption{Abgeschlossene Vorgänge in Sprint 8}
+				\label{AbgeschlossenSprint8}
+			\end{figure}
+			
+			\subsubsection{Nicht abgeschlossene Vorgänge}
+			Zwei Bug-Tasks wurden im achten Sprint nicht abgeschlossen. Ein Bug wurde bereits im Rahmen eines anderen Bugs behoben. Der andere konnte im Rahmen dieses Releases aus Zeitgründen nicht mehr behoben werden. Die nicht abgeschlossenen Bug-Taks werden in \Abb{NichtAbgeschlossenSprint8} aufgelistet.
+				
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=1\textwidth]{images/burndown/nichtAbgeschlossenSprint8.png}
+				\caption{Nicht Abgeschlossene Vorgänge in Sprint 8}
+				\label{NichtAbgeschlossenSprint8}
+			\end{figure}
+		
+			\subsubsection{Fazit}
+			Der achte Sprint war für unser Team sehr erfolgreich. Wir konnten alle uns gesetzten Ziele erreichen und hatten dabei noch genügend Kapazitäten um zusätzliche Features zu implementieren. Durch die Behebung einiger Bugs konnten wir unserem Client mehr Stabilität verleihen.  Auch das Ziel der Qualitätssicherung, d. h. der Testabdeckung wurde mit 78 \% erreicht (\Abb{CodeCoverageReleaseFour}). 
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.6\textwidth]{images/burndown/coverage.png}
+				\caption{Code Coverage nach dem 8. Sprint}
+				\label{CodeCoverageReleaseFour}
+			\end{figure}
+			
+			\section{Abschluss des 4. Releases}
+			Das vierte Release wurde am 02.08.2019 abgeschlossen. Im nachfolgenden Teil wird das fertige Client vorgestellt. Dabei werden Änderungen zum vorherigen Release erläutert, wobei auf die umgesetzten Kundenanforderungen eingegangen wird. Falls Mockups zu den einzelnen Szenen für das vierte Release vorhanden waren, werden diese mit der Implementierung verglichen.
+			
+			\subsection{Login}
+			In der Login-Bildschirm wurde der bisherige Hintergund, der lediglich ein Platzhalter war, durch eine Aufnahme aus dem Spiel ersetzt (siehe \Abb{Login}). Dies soll dem Nutzer einen Vorgeschmack auf 
+			das Spiel vermitteln.
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/Login.png}
+				\caption{Login-Bildschirm}
+				\label{Login}
+			\end{figure}
+			
+			\subsection{Lobby}
+			In der Lobby (\Abb{lobbyMock}) wurde ebenfalls der Hintergrund ersetzt. Zudem wurden die Sprachauswahl, das Ein-/Ausstellen der Musik in ein Menü umgezogen. Im Menü wurde ein Button für das Anzeigen von Credits ergänzt.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/lobbyMock.png}
+				\caption{Mockup: Lobby mit Menü}
+				\label{lobbyMock}
+			\end{figure}
+			
+			Wie auf \Abb{LobbyMenu} zu sehen, wurden das Menü dem Mockup entsprechend umgesetzt. Die Sprachauswahl erfolgt in einem Dropdown-Menü. 
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/LobbyMenu.png}
+				\caption{Spiellobby mit Menü}
+				\label{LobbyMenu}
+			\end{figure}
+			
+			Bei den Credits (\Abb{credits}) werden die Künstler und die entsprechenden Lizenzen der verwendeten Icons, Bilder, Sounds, Musik und Frameworks bzw. Libraries
+			angezeigt.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/credits.png}
+				\caption{Credits}
+				\label{credits}
+			\end{figure}
+		
+			Es wurde ein Bug-Button (rechts unten) hinzugefügt, über den sich der Default-Mail-Client des Nutzers öffnet um eine E-Mail mit einem vom Nutzer gefunden Bug an den Projektleiter, Sebastian Copei, senden zu können.\\
+			\\
+			Nachdem ein Spiel erstellt wurde, wird bis zum Wechsel der Szene zum Warteraum ein Ladebildschirm angezeigt (\Abb{LobbyLoad}).
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/LobbyLoading.png}
+				\caption{Lobby: Ladebildschirm}
+				\label{LobbyLoad}
+			\end{figure}
+		
+			\subsection{Armeemanger}
+			Der Armeemanger sollte optisch aufgeräumt werden. Wie auf \Abb{armyBuilderMock} zu sehen, sollten in der Detailsicht die zwei Einheitenwerte der aktuell ausgewählten Einheit, d. h. Bewegungs- und Lebenspunkte, angezeigt werden.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/armyBuilderMock.png}
+				\caption{Mockup: Armeemanger}
+				\label{armyBuilderMock}
+			\end{figure}
+		
+			In \Abb{armyBuilderClassic} ist zu sehen, dass die Detailansicht entsprechend den Mockups angepasst wurde. Zusätzlich zu den Symbolen der Einheiten, die durch die ausgewählte Einheit angegriffen werden können, wird auch der berechnete Angriffschaden auf dem jeweiligen Symbol dargestellt. Es wurde zudem ergänzt, dass die Reihenfolge der Einheiten in der Armee durch die entsprechenden Pfeil-Buttons verändert werden kann. Dieses Feature wurde umgesetzt, da die Reihenfolge innerhalb der Armee die gleiche wie die auf dem Schlachtfeld ist. Damit ist es möglich Einheiten explizit an den Flanken oder im Zentrum zu positionieren
+			 
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/classic.png}
+				\caption{Armeemanger mit Fantasy-Einheiten}
+				\label{armyBuilderClassic}
+			\end{figure}
+			
+			Es wurde ein weitere Auswahl für das Aussehen der Einheiten implementiert. Dieses stellt die Einheiten als Space Marines aus dem Warhammer 40.000 Science-Fiction Universum dar (\Abb{wh40k}). Die Auswahl kann über den WH40K-Button auf der linken Seite getroffen werden. Zusätzlich wurde die Funktionalität des Armee-löschen-Buttons verändert. In Absprache mit dem Kunden wird durch den Armee-löschen-Button die komplette Armee gelöscht, statt wie bisher nur die enthaltenen Einheiten. Es wurde ein Armee-erstellen-Button ergänzt. Der eine neue Armee erzeugt, die beim Speichern auch auf dem Server abgelegt wird.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/wh.png}
+				\caption{Armeemanger mit Warhammer 40k Einheiten}
+				\label{wh40k}
+			\end{figure}
+		
+			Die Anzeige der Informationen über die Einheitensymbole wurde angepasst, sodass jetzt die Symbole für Lebenspunkte, Bewegungspunkte und Angriffsstärke erklärt werden (\Abb{armyInfo}).
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/classicInfo.png}
+				\caption{Armeemanger mit Informationsoverlay}
+				\label{armyInfo}
+			\end{figure}
+			
+			\subsection{Warteraum}
+			Im Warteraum sollte über einen Button die Möglichkeit geben werden, dem Server explizit mitzuteilen, dass man für das Spiel bereit ist. Dies geschah in unserem Client bisher implizit über die Auswahl einer Armee. Hierzu wurde ein ein Ready-Button ergänzt. Dieser befand sich auf dem Mockup (\Abb{ReadyButtonMock}) auf der Spielerkarte.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/waitingReadyMock.png}
+				\caption{Mockup: Ready-Button}
+				\label{ReadyButtonMock}
+			\end{figure}
+		
+					Ein Spieler sollte über einen Button die Möglichkeit haben, einen Bot zu erstellen gegen der er anschließend spielen kann (\Abb{botMock}).
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/botMock.png}
+				\caption{Mockup: Warteraum mit Bot-Button}
+				\label{botMock}
+			\end{figure}
+		
+			Wie in \Abb{ReadyButton} zu sehen wurde der Ready-Button auf ein eigenes Feld, das vorher für ein Minigame reserviert war versetzt. Auch das Erstellen eines Bot-Gegners wurde entsprechend den Mockups umgesetzt.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/WaitingRoom.png}
+				\caption{Warteraum mit Ready-Button}
+				\label{ReadyButton}
+			\end{figure}
+		
+			Wurde ein Bot erstellt, kann dieser über den Kill-Bot-Button wieder entfernt werden. Dies Spielerkarte wird daraufhin wieder freigegeben (\Abb{killBot}).
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/WaitingRoomKill.png}
+				\caption{Warteraum mit Kill-Bot-Button}
+				\label{killBot}
+			\end{figure}
+
+			Wenn mit der Maus über eine Armee aus der Armeeauswahl gehovert wird, werden in einer Übersicht die Einheiten dieser Armee angezeigt (\Abb{ArmyBuilderShow}).
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/WaitingRoomShow.png}
+				\caption{Warteraum mit Armeeübersicht}
+				\label{ArmyBuilderShow}
+			\end{figure}
+		
+			Im Warteraum sollte ein Minispiel als Easter Egg versteckt werden. Durch fünfmaliges Setzen auf bereit durch den Ready-Button sollte sich ein selbstimplementiertes Minesweeper öffnen (\Abb{eggMock}).
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/eggMock.png}
+				\caption{Mockup: Easter Egg - Minesweeper}
+				\label{eggMock}
+			\end{figure}
+		
+			Dieses Feature wurde entprechend dem Mockup umgesetzt (\Abb{easterEgg}).
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/easterEgg.png}
+				\caption{Warteraum mit Easter Egg}
+				\label{easterEgg}
+			\end{figure}
+			
+			Zusätzlich wird über der Vorschaukarte der Name des aktuellen Spiels angezeigt.
+		
+			\subsection{Ingame}
+			In den Anforderungen an dieses Release war gefordert, dass eine KI für den Spieler das Spiel übernehmen können soll. Zudem soll auch der Spieler auf Wunsch das Spiel wieder übernehmen können. Hierzu war vorgesehen, dass der Spieler über einen Buttons auswählen kann, dass die KI den nächsten Zug übernimmt. Mit Hilfe eines weiteren Button übernimmt die KI alle weiteren Züge bis das Spiel vorbei ist oder der Button erneut betätig wird. 
+			Die Buttons sind in \Abb{ingameMenuMock} abgebildet. Des Weiteren wurde ebenfalls das Ein-/Ausstellen der Spielmusik sowie das Verlassen des Spiels in ein Menü verlegt. Die Button zum Ausklappenen des Chat, Ausklappen der Spielerkarten sowie zum Beenden der Phase wurde in das Seitenmenü versetzt.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/ingameMenuMock.png}
+				\caption{Mockup: Ingame mit Menü}
+				\label{ingameMenuMock}
+			\end{figure}
+		
+			Für ein weiteres Feature hatten wir uns als Ziel gesetzt eine Spielhistorie (Action Log) (\Abb{actionLogMock}) zu implementieren. Dies sollte zum einen Spielevents, wie die Bewegung einer Einheit, den Angriff oder den Tod einer Einheit und den Rundenwechsel dokumentieren. Durch die Auswahl einer Eventkarte auf Mausklick, sollte das Spiel in den Zustand direkt nach diesem Event zurückversetzt werden. Dadurch sollte eine erneute Betrachtung des Spielverlaufs möglich sein.
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/changeLog.png}
+				\caption{Mockup: Action Log}
+				\label{actionLogMock}
+			\end{figure}
+		
+			Wie in \Abb{ingameMenu} zu erkennen, wurde die in den Mockups vorgestellten Features umgesetzt. Zusätzlich wurden zahlreiche weitere Features implementiert. 
+			
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/new/ingameMenu.png}
+				\caption{Ingame mit Menü}
+				\label{ingameMenu}
+			\end{figure}
+		
+			Die Geschwindigkeit mit der die KI ihren nächsten Zug macht kann im Menü über einen Schieberegler gesteuert werden.\\ Als weiteres Feature wurden Animationen für die Bewegung einer Einheit über das Spiel sowie für den Tod (\Abb{death}) und die Wiederbelebung (\Abb{revive}) einer Einheit hinzugefügt. 
+			
+			\begin{figure}[H]
+				\centering
+				\begin{minipage}{0.2\textwidth}
+					\centering
+					\includegraphics[width=0.8\textwidth]{images/new/deathAnimation.png}
+					\caption{Sterbeanimation}
+					\label{death}
+				\end{minipage}%
+				\hspace{10em}
+				\begin{minipage}{0.2\textwidth}
+					\centering
+					\includegraphics[width=0.8\textwidth]{images/new/reviveAnimation.png}
+					\caption{Wiederbelegungsanimation}
+					\label{revive}
+				\end{minipage}
+			\end{figure}
+			
+			
+			Die Bewegungsanimationen können über einen Button im Seitenmenü aus- bzw. wieder eingeschaltet werden. Zudem wurden ein Soundeffekt für das Sterben einer Einheit eingefügt. Stirbt eine Einheit wird ertönt ein Todesschrei.\\
+			Es wurde ein Button ergänzt, dessen Funktion darin besteht, die gesamt Runde zu beenden. Dadurch soll unnötiges Betätigen des Phase-beenden-Buttons vermieden werden.\\ Der Spielclient startet im Ingame automatisch im Fullscreen-Modus. Dieser kann über Esc, F11 und einen Button im Menü wieder verlassen werden. Durch den Fullscreen-Button wechselt der Client erneut in den Fullscreen-Modus.\\
+			Im Action Log wurde ein Live-Button ergänzt, durch den man direkt in den aktuellen Spielstand versetzt wird. Zudem scrollt der Action Log bei neu eintreffenden Events automatisch auf den aktuellen Eintrag. \\
+			Im Spiel wird in der oberen Leiste der Name des aktuellen Spiels angezeigt.\\
+			In der Seitenleiste wurde für die aktuell ausgewählt und die gehoverte Einheit ergänzt, dass alle Einheiten, die von dieser Einheit angegriffen werden können zusammen mit dem prozentuellen Schaden, den die ausgewählte Einheit ihnen durch einen Angriff zufügen würde, angezeigt werden.
+	
+	\section{Danksagung}
+	Im Namen aller Mitglieder von Team G möchte ich mich bei unseren Betreuern, Clemens Emme und Natascha Nolte, für ihre Unterstützung und Anmerkungen bedanken. Unser Dank gilt auch Sebastian Copei und Marcel Hahn für die Möglichkeit zu dieser Lehrveranstaltung.
+		
+	\newpage
+	\appendix
+	\pagenumbering{Roman} 
+	\listoffigures
+	\listoftables
+\end{document}
