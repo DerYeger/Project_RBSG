@@ -374,8 +374,33 @@
 					Skynet \textbar\ Mobverhalten & & 2 h 10 min & & Jan Müller\\ 
 					
 					Skynet \textbar\ Bedrohungspotential je Einheit berechnen &  & 2 h &  & Jan Müller\\
+					
+					Actionlog \textbar\ Scrollen zu neuem Event & 2 h & 1 h &  & Juri Lozowoj\\
+					
+					Actionlog \textbar\ Live Button & 2 h & 2 h & & Juri Lozowoj\\
+					
+					Fehlgeschlagene Anmeldung am Spielwebsocket & & 7 h 30 min & & Jan Müller\\
+					
+					Loading screen im WaitingRoom & & 48 min & & Juri Lozowoj\\
+					
+					Skynet \textbar\ Skynet pausiert bei Timetravel & 3 h & 1 h & & Jan Müller\\
+					
+					Battlefield \textbar\ Rundenanzahl timetravel & 5 h & 13 h & & Omar Sood \& Tobias Klipp\\
+					
+					Skynetkontrolle anzeigen & & 5 min & & Keanu Stückrad\\
+					
+					Skynet \textbar\ Einzelzug disabled & 2 h & 30 min & & Keanu Stückrad\\
+					
+					Battlefield \textbar\ Neuer Look &  & 8 h & & Keanu Stückrad\\
+					
+					NPE im LobbyViewController:383 & & 1 h & & Keanu Stückrad\\
+					
+					NPE im ArmyDetaiLController:95 & & 1 min & & Keanu Stückrad\\
+					
+					Skynet \textbar\ Bedrohungspotential je Einheit berechnen & & 2 h & & Jan Müller\\
+					
 					\bottomrule
-					Insgesamt & 80 h & 113 h 03 min &  & \\
+					Insgesamt & 94 h & 149 h 57 min &  & \\
 					\caption{Zeitübersicht Sprint 8} \\
 				\end{longtable}
 			\end{center}
@@ -391,6 +416,9 @@
 				\caption{Burndown-Diagramm des 8. Sprints}
 				\label{BurndownSprint8}
 			\end{figure}
+		
+			\subsubsection{Ausreißer}
+			Das Burndown-Diagramm des achten Sprints zeigt einen Ausreißer am 26.08.. An diesem Tag wurden 12 Vorgänge im Umfang von 29 Story Points nachträglich zum Sprint hinzugefügt. Der Scrum Master entschied sich in Absprache mit dem Team dafür diese Vorgänge aufzunehmen, da in der ersten Woche mehr Vorgänge als geplant abgeschlossen werden konnten und daher abzusehen war, dass alle Entwickler in der letzten Woche noch Kapazität für weitere Aufgaben haben würden. Alle nachträglich hinzugefügten Vorgänge konnte im Verlauf des Sprints abgeschlossen werden.
 
 			\subsubsection{Abgeschlossene Vorgänge}	
 			Alle User Stories und Taks aus dem vierten Release konnten im achten Sprint abgeschlossen werden. Alle abgeschlossenen Vorgänge werden in \Abb{AbgeschlossenSprint8} nochmal aufgelistet.
@@ -446,7 +474,7 @@
 				\label{lobbyMock}
 			\end{figure}
 			
-			Wie auf \Abb{LobbyMenu} zu sehen, wurden das das Menü dem Mockup entsprechend umgesetzt.
+			Wie auf \Abb{LobbyMenu} zu sehen, wurden das Menü dem Mockup entsprechend umgesetzt. Die Sprachauswahl erfolgt in einem Dropdown-Menü. 
 			
 			\begin{figure}[H] 
 				\centering
@@ -465,7 +493,8 @@
 				\label{credits}
 			\end{figure}
 		
-			Es wurde ein Bug-Button (rechts unten) hinzugefügt, über den sich der Default-Mail-Client des Nutzers öffnet um eine E-Mail mit einem vom Nutzer gefunden Bug an den Projektleiter Sebastian Copei senden zu können.\\
+			Es wurde ein Bug-Button (rechts unten) hinzugefügt, über den sich der Default-Mail-Client des Nutzers öffnet um eine E-Mail mit einem vom Nutzer gefunden Bug an den Projektleiter, Sebastian Copei, senden zu können.\\
+			\\
 			Nachdem ein Spiel erstellt wurde, wird bis zum Wechsel der Szene zum Warteraum ein Ladebildschirm angezeigt (\Abb{LobbyLoad}).
 			
 			\begin{figure}[H] 
@@ -522,7 +551,16 @@
 				\label{ReadyButtonMock}
 			\end{figure}
 		
-			Wie in \Abb{ReadyButton} zu sehen wurde der Button auf ein eigenes Feld, das vorher für ein Minigame reserviert war versetzt.
+					Ein Spieler sollte über einen Button die Möglichkeit haben, einen Bot zu erstellen gegen der er anschließend spielen kann (\Abb{botMock}).
+		
+			\begin{figure}[H] 
+				\centering
+				\includegraphics[width=0.7\textwidth]{images/mockups/botMock.png}
+				\caption{Mockup: Warteraum mit Bot-Button}
+				\label{botMock}
+			\end{figure}
+		
+			Wie in \Abb{ReadyButton} zu sehen wurde der Ready-Button auf ein eigenes Feld, das vorher für ein Minigame reserviert war versetzt. Auch das Erstellen eines Bot-Gegners wurde entsprechend den Mockups umgesetzt.
 			
 			\begin{figure}[H] 
 				\centering
@@ -530,9 +568,7 @@
 				\caption{Warteraum mit Ready-Button}
 				\label{ReadyButton}
 			\end{figure}
-		
-			Zusätzlich wird über der Vorschaukarte der Name des aktuellen Spiels angezeigt.\\
-			Wenn eine Spielerkarte nicht besetzt ist, kann über einen Bot-Button statt eines menschlichen Spielers ein Bot-Spieler erstellt werden, gegen den anschließend gespielt werden kann. Der erstellte Bot kann durch einen Klick auf den Kill-Bot-Button wieder entfernt werden. Dadurch wird wieder Platz für einen Spieler gemacht.\\
+
 			Wenn mit der Maus über eine Armee aus der Armeeauswahl gehovert wird, werden in einer Übersicht die Einheiten dieser Armee angezeigt (\Abb{ArmyBuilderShow}).
 			
 			\begin{figure}[H] 
@@ -541,6 +577,8 @@
 				\caption{Warteraum mit Armeeübersicht}
 				\label{ArmyBuilderShow}
 			\end{figure}
+		
+			Zusätzlich wird über der Vorschaukarte der Name des aktuellen Spiels angezeigt.
 		
 			\subsection{Ingame}
 			In den Anforderungen an dieses Release war gefordert, dass eine KI für den Spieler das Spiel übernehmen können soll. Zudem soll auch der Spieler auf Wunsch das Spiel wieder übernehmen können. Hierzu war vorgesehen, dass der Spieler über einen Buttons auswählen kann, dass die KI den nächsten Zug übernimmt. Mit Hilfe eines weiteren Button übernimmt die KI alle weiteren Züge bis das Spiel vorbei ist oder der Button erneut betätig wird. 
