@@ -1,46 +1,50 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army.units;
 
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
-import de.uniks.se19.team_g.project_rbsg.model.UnitTypeMetaData;
+import de.uniks.se19.team_g.project_rbsg.configuration.flavor.UnitTypeInfo;
 import org.springframework.stereotype.Component;
+
+import java.net.URL;
 
 @Component
 public class UnitTypeAdapter {
 
-    public Unit map(UnitType unitType) {
+    public Unit map(de.uniks.se19.team_g.project_rbsg.server.rest.army.units.UnitType unitType) {
         final Unit unit = new Unit();
 
-        UnitTypeMetaData metaData = getMetaDataForType(unitType.type);
+        UnitTypeInfo typeInfo = getTypeInfo(unitType);
 
-        unit.iconUrl.set(metaData.getIcon().toString());
-        unit.imageUrl.set(metaData.getImage().toString());
+        unit.id.set(unitType.id);
+        unit.type.set(unitType.type);
+
+        unit.setTypeInfo(typeInfo);
+
         unit.name.set(unitType.type);
-        unit.description.set(unitType.id);
+        unit.iconUrl.set(typeInfo.getIcon().toExternalForm());
+        final URL image = typeInfo.getImage();
+        final String newValue = image.toExternalForm();
+        unit.imageUrl.set(newValue);
+
+        unit.description.set(typeInfo.getDescriptionKey());
         unit.speed.set(unitType.mp);
         unit.health.set(unitType.hp);
-        unit.id.set(unitType.id);
+
+        unit.canAttack.setAll(unitType.canAttack);
 
         unit.description.set(mapDescription(unitType));
 
         return unit;
     }
 
-    private UnitTypeMetaData getMetaDataForType(final String type) {
-        String asCamelCaseType = type.replace(" ", "");
+    private UnitTypeInfo getTypeInfo(final de.uniks.se19.team_g.project_rbsg.server.rest.army.units.UnitType unitType) {
 
-        try {
-            return UnitTypeMetaData.valueOf(asCamelCaseType);
-        } catch (IllegalArgumentException e) {
-            return UnitTypeMetaData.UNKNOWN;
-        }
+        return UnitTypeInfo.resolveType(unitType.type);
     }
 
-    private String mapDescription(UnitType unitType) {
+    private String mapDescription(de.uniks.se19.team_g.project_rbsg.server.rest.army.units.UnitType unitType) {
         return String.format(
-            "id: %s\n"+
-            "Can attack %s",
-            unitType.id,
-            String.join(", ", unitType.canAttack)
+            "id: %s\n",
+            unitType.id
         );
     }
 }

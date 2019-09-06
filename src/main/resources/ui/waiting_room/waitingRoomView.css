@@ -2,20 +2,25 @@
  * @author Keanu Stückrad
  */
 
+.player-card.ready {
+    -fx-background-color: -selected-background-color;
+    -fx-text-fill: -on-hovered-fill;
+}
+
 .player-card {
     -fx-max-height: 100;
     -fx-max-width: 350;
     -fx-min-height: 100;
     -fx-min-width: 350;
-    -fx-background-color: -root-background-color;
     -fx-effect: -shadow;
+    -fx-background-color: -root-background-color;
+    -fx-text-fill: -on-primary-fill;
 }
 
-.chat-pane {
+.chat-container {
     -fx-min-height: 350;
     -fx-max-height: 350;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Chat-Einbund*/
 }
 
 .mini-game-stack-pane {
@@ -33,21 +38,29 @@
 }
 
 .map-preview-pane {
-    -fx-max-width: 290;
-    -fx-max-height: 290;
-    -fx-min-width: 290;
-    -fx-min-height: 290;
+    -fx-max-width: 256;
+    -fx-max-height: 256;
+    -fx-min-width: 256;
+    -fx-min-height: 256;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter muesste von @DerYeger geloescht werden nach Kartenvorschau-Einbund*/
 }
 
 .army-pane {
-    -fx-max-width: 80;
-    -fx-max-height: 700;
-    -fx-min-width: 80;
-    -fx-min-height: 700;
+    -fx-max-width: 90;
+    -fx-max-height: 540;
+    -fx-min-width: 90;
+    -fx-min-height: 500;
     -fx-effect: -shadow;
-    -fx-border-color: #000000; /*Platzhalter muesste spaeter geloescht werden nach einfuegen der aktiven Army*/
+}
+
+.name-pane {
+    -fx-effect: -shadow;
+    -fx-background-color: -root-background-color;
+    -fx-text-fill: -on-primary-fill;
+    -fx-font-family: Cinzel;
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
 }
 
 .label.player {
@@ -57,3 +70,4 @@
 .label.waiting {
     -fx-font-size: 16pt;
 }
+

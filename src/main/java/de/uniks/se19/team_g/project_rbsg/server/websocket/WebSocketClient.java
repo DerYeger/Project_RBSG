@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.util.TimerTask;
 
 /**
  * @author Georg Siebert
+ * @author Jan Müller
  */
 
 @Component
@@ -30,8 +32,11 @@ public class WebSocketClient
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private IWebSocketCallback wsCallback;
+    private WebSocketCloseHandler webSocketCloseHandler;
     private Session session;
     private Timer noopTimer;
+
+    private boolean isClosed = false;
 
     private TimerTask timerTask = new TimerTask()
     {
@@ -54,29 +59,27 @@ public class WebSocketClient
         }
     };
 
-    public void setWsCallback(IWebSocketCallback callback) {
-        this.wsCallback = callback;
+    public void setCloseHandler(@Nullable final WebSocketCloseHandler webSocketCloseHandler) {
+        this.webSocketCloseHandler = webSocketCloseHandler;
     }
 
-    public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback)
-    {
-        this.noopTimer = new Timer();
+    public void start( final @NotNull String endpoint, final @NotNull IWebSocketCallback wsCallback) throws WebSocketException {
+        try {
+            this.noopTimer = new Timer();
 
-        this.wsCallback = wsCallback;
-        try
-        {
+            this.wsCallback = wsCallback;
+
             URI uri = new URI(BASE_URL + endpoint);
             ContainerProvider.getWebSocketContainer().connectToServer(this, uri);
-        }
-        catch (DeploymentException | IOException | URISyntaxException e)
-        {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
+        } catch (final DeploymentException | IOException | URISyntaxException e) {
+            stop();
+            logger.error(e.getMessage());
+            throw new WebSocketException(e.getMessage());
         }
     }
 
     @OnOpen
-    public void onOpen(final Session session) throws IOException
+    public void onOpen(final Session session)
     {
         this.session = session;
         logger.debug("WS connected to " + session.getRequestURI());
@@ -102,7 +105,8 @@ public class WebSocketClient
         {
             try
             {
-                this.session.getBasicRemote().sendText(new ObjectMapper().writeValueAsString(message));
+                String messageString = new ObjectMapper().writeValueAsString(message);
+                this.session.getBasicRemote().sendText(messageString);
             }
             catch (IOException e)
             {
@@ -112,12 +116,14 @@ public class WebSocketClient
     }
 
     @OnClose
-    public void onClose(final Session session, final CloseReason reason) throws IOException
+    public void onClose(final Session session, final CloseReason reason)
     {
         this.session = null;
         logger.debug("WS" + session.getRequestURI() + " closed, " + reason.getReasonPhrase());
-
         this.noopTimer.cancel();
+        isClosed = true;
+        if (webSocketCloseHandler != null) webSocketCloseHandler.onSocketClosed(reason);
+
     }
 
     public void stop()
@@ -132,8 +138,12 @@ public class WebSocketClient
             {
                 e.printStackTrace();
             }
-
+            isClosed = true;
             noopTimer.cancel();
         }
+    }
+
+    public boolean isClosed() {
+        return isClosed;
     }
 }

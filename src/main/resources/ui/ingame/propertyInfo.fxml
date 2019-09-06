@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<GridPane fx:id="propertyContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="80.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.battlefield.unitInfo.PropertyInfoController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" />
+      <ColumnConstraints hgrow="ALWAYS" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <ImageView fx:id="propertyIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="propertyLabel" styleClass="mini" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER"/>
+   </children>
+   <stylesheets>
+      <URL value="@../darkTheme.css" />
+      <URL value="@propertyInfo.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="propertyBox" />
+      <String fx:value="elevation-8" />
+   </styleClass>
+</GridPane>

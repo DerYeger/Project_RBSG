@@ -1,0 +1,10 @@
+@import url("/ui/darkTheme.css");
+
+.player-card {
+    -fx-max-height: 50;
+    -fx-max-width: 150;
+    -fx-min-height: 50;
+    -fx-min-width: 75;
+    -fx-background-color: -surface-elevation-2-color;
+    -fx-effect: -shadow;
+}

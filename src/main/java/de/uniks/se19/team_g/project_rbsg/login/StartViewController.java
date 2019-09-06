@@ -1,11 +1,12 @@
 package de.uniks.se19.team_g.project_rbsg.login;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import javafx.beans.property.SimpleBooleanProperty;
+import de.uniks.se19.team_g.project_rbsg.scene.RootController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,8 +21,9 @@ import java.io.IOException;
  */
 @Controller
 @Scope("prototype")
-public class StartViewController {
+public class StartViewController implements RootController {
 
+    public StackPane mainPane;
     public AnchorPane root;
     public Button musicButton;
     public VBox loginAndTitleBox;
@@ -40,17 +42,16 @@ public class StartViewController {
         this.splashImageBuilder = splashImageBuilder;
         this.loginFormBuilder = loginFormBuilder;
         this.titleViewBuilder = titleViewBuilder;
-        this.musicManager = musicManager.init();
+        this.musicManager = musicManager;
     }
 
-    public void init() throws IOException {
+    public void initialize() throws IOException {
         root.setBackground(new Background(splashImageBuilder.getSplashImage()));
         loginAndTitleBox.getChildren().addAll(titleViewBuilder.getTitleForm(), loginFormBuilder.getLoginForm());
         musicManager.initButtonIcons(musicButton);
     }
 
     public void toggleSound(ActionEvent actionEvent) {
-        musicManager.updateMusicButtonIcons(musicButton);
+        musicManager.toggleMusicAndUpdateButtonIconSet(musicButton);
     }
-
 }

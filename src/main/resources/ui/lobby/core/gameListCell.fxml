@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="gridPane" alignment="CENTER_LEFT" hgap="10.0" maxHeight="50" prefHeight="50" styleClass="gameCell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="gridPane" alignment="CENTER_LEFT" hgap="10.0" maxHeight="50" prefHeight="50" styleClass="game-cell" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="40.0" />
         <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="40.0" />
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="50.0" />
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="40.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="40.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
@@ -24,10 +27,22 @@
          <GridPane.margin>
             <Insets />
          </GridPane.margin></ImageView>
-        <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <Label fx:id="nameLabel" styleClass="default" text="Label" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
         <ImageView fx:id="playersImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.vgrow="SOMETIMES" />
-        <Label fx:id="playersLabel" styleClass="gameListPlayerLabel" text="Label" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-        <ImageView fx:id="joinImageView" disable="true" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="4" GridPane.vgrow="SOMETIMES" />
-      <Button fx:id="joinButton" mnemonicParsing="false" styleClass="iconButton" text="Button" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <Label fx:id="playersLabel" styleClass="default" text="Label" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <ImageView fx:id="joinImageView" disable="true" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="5" GridPane.vgrow="SOMETIMES" />
+      <Button id="spectatorButton" fx:id="spectatorButton" mnemonicParsing="false" onAction="#joinSpectating" styleClass="icon-button" text="Button" GridPane.columnIndex="4" />
+      <Pane fx:id="joinButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <children>
+            <Button fx:id="joinButton" mnemonicParsing="false" styleClass="icon-button" text="Button" />
+         </children>
+      </Pane>
     </children>
+   <stylesheets>
+      <URL value="@../../darkTheme.css" />
+      <URL value="@lobbyView.css" />
+   </stylesheets>
+   <padding>
+      <Insets left="5.0" right="5.0" />
+   </padding>
 </GridPane>

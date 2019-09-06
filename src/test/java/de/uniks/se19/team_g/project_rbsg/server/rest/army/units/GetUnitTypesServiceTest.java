@@ -1,11 +1,13 @@
 package de.uniks.se19.team_g.project_rbsg.server.rest.army.units;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.ServerConfig;
 import de.uniks.se19.team_g.project_rbsg.server.rest.LoginManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.army.units.GetUnitTypesService.ResponseType;
+import de.uniks.se19.team_g.project_rbsg.server.rest.config.ApiClientErrorInterceptor;
 import de.uniks.se19.team_g.project_rbsg.server.rest.config.UserKeyInterceptor;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -19,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import static org.mockito.Mockito.*;
@@ -31,6 +34,8 @@ import static org.mockito.Mockito.*;
         UserProvider.class,
         GetUnitTypesService.class,
         UserKeyInterceptor.class,
+        ApiClientErrorInterceptor.class,
+        ObjectMapper.class
 })
 public class GetUnitTypesServiceTest {
 
@@ -48,7 +53,7 @@ public class GetUnitTypesServiceTest {
     public void queryUnitTypesOnline() throws ExecutionException, InterruptedException {
         User user = new User("ggEngineering", "ggEngineering");
         user.setUserKey(
-            loginManager.onLogin(user).get().getBody().get("data").get("userKey").asText()
+            Objects.requireNonNull(loginManager.callLogin(user).get().getBody()).get("data").get("userKey").asText()
         );
         userProvider.set(user);
 

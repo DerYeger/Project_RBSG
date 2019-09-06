@@ -2,14 +2,14 @@
 
 <?import java.lang.String?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<TilePane prefColumns="2" prefRows="1" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController">
+<TilePane alignment="CENTER_LEFT" maxHeight="75.0" maxWidth="180.0" minHeight="75.0" minWidth="180.0" prefColumns="2" prefRows="1" tileAlignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail.UnitPropertyController">
     <stylesheets>
         <URL value="@unitDetailView.css" />
         <URL value="@../darkTheme.css" />
@@ -18,12 +18,18 @@
         <String fx:value="root-background-color" />
         <String fx:value="unitPropertyContainer" />
     </styleClass>
-    <VBox styleClass="box">
-        <Label fx:id="propertyValue" text="20" />
+    <VBox alignment="CENTER" maxWidth="70.0" styleClass="box">
+        <Label fx:id="propertyValue" styleClass="property" text="20" />
     </VBox>
-    <VBox alignment="CENTER" styleClass="box">
-        <ImageView fx:id="propertyIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+    <VBox alignment="CENTER">
+        <ImageView fx:id="propertyIcon" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../../assets/icons/army/magicDefense.png" />
+         <VBox.margin>
+            <Insets left="5.0" />
+         </VBox.margin>
         </ImageView>
+      <TilePane.margin>
+         <Insets left="5.0" />
+      </TilePane.margin>
     </VBox>
 </TilePane>

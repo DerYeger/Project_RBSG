@@ -2,50 +2,61 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <!--
  @author Keanu Stückrad
  !-->
 
-<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.waiting_room.WaitingRoomViewController">
+<StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.ingame.waiting_room.WaitingRoomViewController">
     <children>
-    <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <children>
-        <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" />
-        <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-        <Button fx:id="showInfoButton" mnemonicParsing="false" onAction="#showInfo" styleClass="icon-button" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="10.0" />
-        <Pane fx:id="player1Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0" />
-        <Pane fx:id="player2Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="11.0" />
-        <Pane fx:id="player3Pane" styleClass="player-card" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="240.0" />
-        <Pane fx:id="player4Pane" styleClass="player-card" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0" />
-        <StackPane AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="400.0">
+        <AnchorPane fx:id="root">
             <children>
-                <Pane fx:id="chatPane" styleClass="chat-pane" StackPane.alignment="CENTER" />
+                <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0">
+                            <children>
+                                <Pane fx:id="mapPreviewPane" styleClass="map-preview-pane" StackPane.alignment="TOP_CENTER" />
+                            </children>
+                        </StackPane>
+                        <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleSound" styleClass="icon-button" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#leaveRoom" styleClass="icon-button" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <Pane fx:id="player1Pane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0" />
+                        <Pane fx:id="player2Pane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="11.0" />
+                        <Pane fx:id="player3Pane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="258.0" />
+                        <Pane fx:id="player4Pane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="258.0" />
+                        <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
+                            <children>
+                                <Pane styleClass="mini-game-pane" StackPane.alignment="CENTER" />
+                                <Pane fx:id="readyButtonContainer" maxHeight="-Infinity" maxWidth="-Infinity">
+                                    <children>
+                                        <Button fx:id="readyButton" mnemonicParsing="false" onAction="#setReady" styleClass="icon-button-giant" StackPane.alignment="CENTER" />
+                                    </children>
+                                </Pane>
+                            </children>
+                        </StackPane>
+                        <StackPane AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="10.0">
+                            <children>
+                                <Label fx:id="gameName" styleClass="name-pane" StackPane.alignment="TOP_CENTER" />
+                            </children>
+                        </StackPane>
+                        <StackPane fx:id="chatContainer" styleClass="chat-container" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="400.0" />
+                    </children>
+                </AnchorPane>
+                <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
+                    <children>
+                        <VBox fx:id="armySelector" styleClass="army-pane" StackPane.alignment="CENTER" />
+                    </children>
+                </StackPane>
             </children>
-        </StackPane>
-        <StackPane styleClass="mini-game-stack-pane" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
-            <children>
-                <Pane fx:id="miniGamePane" styleClass="mini-game-pane" StackPane.alignment="CENTER" />
-            </children>
-        </StackPane>
-        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
-            <children>
-                <Pane fx:id="mapPreviewPane" styleClass="map-preview-pane" StackPane.alignment="TOP_CENTER" />
-            </children>
-        </StackPane>
+            <stylesheets>
+                <URL value="@waitingRoomView.css" />
+                <URL value="@../darkTheme.css" />
+            </stylesheets>
+        </AnchorPane>
     </children>
-    </AnchorPane>
-        <StackPane AnchorPane.topAnchor="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.leftAnchor="0.0">
-            <children>
-                <Pane StackPane.alignment="CENTER_RIGHT" styleClass="army-pane" fx:id="armyBar"/>
-            </children>
-        </StackPane>
-    </children>
-   <stylesheets>
-      <URL value="@waitingRoomView.css" />
-      <URL value="@../darkTheme.css" />
-   </stylesheets>
-</AnchorPane>
+</StackPane>

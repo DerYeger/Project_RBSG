@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="chatChannelContainer" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.chat.ChatChannelController">
+<VBox alignment="BOTTOM_CENTER" styleClass="chatChannelContainer" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.uniks.se19.team_g.project_rbsg.chat.ui.ChatChannelController">
    <children>
-      <TextArea fx:id="messageArea" editable="false" focusTraversable="false" styleClass="messageArea" wrapText="true" />
+      <TextArea fx:id="messageArea" editable="false" focusTraversable="false" styleClass="messageArea" wrapText="true" VBox.vgrow="ALWAYS" />
       <TextField fx:id="inputField" styleClass="inputField" />
    </children>
+   <stylesheets>
+      <URL value="@../darkTheme.css" />
+      <URL value="@chat.css" />
+   </stylesheets>
 </VBox>

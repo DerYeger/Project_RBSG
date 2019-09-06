@@ -32,17 +32,20 @@ public class DefaultLogoutManager implements LogoutManager {
 
     public void logout(@NonNull final UserProvider userProvider) {
         if (userProvider.get().getUserKey() != null) {
-            final LinkedMultiValueMap<String, String> headers  = new LinkedMultiValueMap<>();
-            headers.add("userKey", userProvider.get().getUserKey());
+            try {
+                final LinkedMultiValueMap<String, String> headers  = new LinkedMultiValueMap<>();
+                headers.add("userKey", userProvider.get().getUserKey());
 
-            final String response = restClient.get(ENDPOINT, headers);
+                final String response = restClient.get(ENDPOINT, headers);
 
-            if (logoutSuccessful(response)) {
-                logger.debug("Logout successful");
-                userProvider.clear();
-                WebSocketConfigurator.userKey = null;
-            } else {
-                logger.debug("Logout unsuccessful");
+                if (logoutSuccessful(response)) {
+                    logger.debug("Logout successful");
+                    userProvider.clear();
+                } else {
+                    logger.debug("Logout unsuccessful");
+                }
+            } catch (final Exception e) {
+                logger.error(e.getMessage());
             }
         } else {
             logger.debug("No user logged in");

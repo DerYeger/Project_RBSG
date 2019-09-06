@@ -23,9 +23,9 @@ public class UnitTypeAdapterTest {
         Assert.assertEquals(externalModel.type, internalModel.name.get());
         Assert.assertEquals(externalModel.hp, internalModel.health.get());
         Assert.assertEquals(externalModel.mp, internalModel.speed.get());
+        Assert.assertEquals(externalModel.canAttack, internalModel.canAttack.get());
         Assert.assertEquals(
-                "id: 123\n"+
-                        "Can attack Apache, Keanu, Mark4",
+                "id: 123\n",
                 internalModel.description.get()
 
         );

@@ -1,28 +1,34 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core;
 
 import de.uniks.se19.team_g.project_rbsg.MusicManager;
-import de.uniks.se19.team_g.project_rbsg.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
 import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
-import de.uniks.se19.team_g.project_rbsg.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
 import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
-import de.uniks.se19.team_g.project_rbsg.configuration.ArmyManager;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
-import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewBuilder;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.GameListViewCell;
 import de.uniks.se19.team_g.project_rbsg.lobby.core.ui.LobbyViewController;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
 import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
 import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
 import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
 import de.uniks.se19.team_g.project_rbsg.model.User;
 import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
 import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
 import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import javafx.beans.property.Property;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -32,20 +38,20 @@ import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -62,8 +68,10 @@ import static org.junit.Assert.assertNotNull;
         GameProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        LobbyViewBuilder.class,
         ApplicationState.class,
+        SceneManagerConfig.class,
+        GameListViewCell.class,
+        LocaleConfig.class
 })
 public class LobbyBuilderTest extends ApplicationTest
 {
@@ -74,10 +82,12 @@ public class LobbyBuilderTest extends ApplicationTest
     private Node lobbyView;
 
     @Override
-    public void start(@NonNull final Stage stage)
+    public void start(@Nonnull final Stage stage)
     {
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
-        lobbyView = lobbyViewBuilder.buildLobbyScene();
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
+        lobbyView = components.getRoot();
+
 
         final Scene scene = new Scene((Parent) lobbyView,1280 ,720);
         stage.setScene(scene);
@@ -117,27 +127,29 @@ public class LobbyBuilderTest extends ApplicationTest
                 UserProvider userProvider,
                 SceneManager sceneManager,
                 JoinGameManager joinGameManager,
-                @Nullable ArmyManager armyManager
-        )
-        {
+                ObjectFactory<GameListViewCell> cellFactory,
+                Property<Locale> selectedLocale
+        ) {
             return new LobbyViewController(
-                    gameProvider,
                     userProvider,
                     sceneManager,
-                    joinGameManager,
                     new PlayerManager(new RESTClient(new RestTemplate()), userProvider()),
                     new GameManager(new RESTClient(new RestTemplate()), userProvider()),
                     new SystemMessageManager(new WebSocketClient()),
                     chatController(),
                     new LobbyChatClient(new WebSocketClient(), userProvider()),
                     new CreateGameFormBuilder(new FXMLLoader()),
-                    new MusicManager(),
                     new DefaultLogoutManager(new RESTClient(new RestTemplate())),
-                    null,
+                    new AlertBuilder(sceneManager),
+                    new MenuBuilder(sceneManager, null, new CreditsBuilder(sceneManager, null), new MusicManager()),
+                    cellFactory,
+                    selectedLocale,
+                    new EmailManager(appState),
+                    appState,
                     null
             ) {
                 @Override
-                public void init()
+                public void initialize()
                 {
 
                 }
@@ -161,7 +173,7 @@ public class LobbyBuilderTest extends ApplicationTest
         public ChatController chatController() {
             return  new ChatController(new UserProvider(), new ChatCommandManager(), new ChatTabManager()) {
                 @Override
-                public void init(@NonNull final TabPane chatPane, @NonNull final ChatClient chatClient)
+                public void init(@Nonnull final TabPane chatPane, @Nonnull final ChatClient chatClient)
                 {
                 }
             };

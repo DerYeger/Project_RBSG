@@ -1,0 +1,24 @@
+* {
+    -fx-alignment: center;
+    -fx-background-color: TRANSPARENT;
+}
+
+.root {
+    -fx-padding: 100;
+}
+
+.container {
+    -fx-background-color: -root-background-color;
+    -fx-border-color: -default-border-color;
+    -fx-border-width: 2;
+    -fx-padding: 50;
+}
+
+.label {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(255,255,0);
+}
+
+
+

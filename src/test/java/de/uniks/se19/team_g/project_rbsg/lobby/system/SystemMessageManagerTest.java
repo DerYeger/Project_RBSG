@@ -1,5 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.system;
 
+import de.uniks.se19.team_g.project_rbsg.model.User;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.IWebSocketCallback;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
 import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
@@ -64,9 +66,11 @@ public class SystemMessageManagerTest
         }
 
     @Test
-    public void messageArrived() throws IOException
+    public void messageArrived() throws Exception
     {
-        WebSocketConfigurator.userKey = "aUserKey";
+        User user = new User();
+        user.setUserKey("aUserKey");
+        WebSocketConfigurator.userProvider = new UserProvider().set(user);
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
         systemMessageManager.addMessageHandler(new TestMessageHandler());
         systemMessageManager.startSocket();
@@ -78,15 +82,17 @@ public class SystemMessageManagerTest
     }
 
     @Test
-    public void startWebSocket() {
-        WebSocketConfigurator.userKey = "";
+    public void startWebSocket() throws Exception {
+        User user = new User();
+        user.setUserKey("");
+        WebSocketConfigurator.userProvider = new UserProvider().set(user);
 
         SystemMessageManager systemMessageManager = context.getBean(SystemMessageManager.class);
         systemMessageManager.addMessageHandler(new TestMessageHandler());
         systemMessageManager.startSocket();
         assertEquals(0, messageList.size());
 
-        WebSocketConfigurator.userKey = "aUserKey";
+        user.setUserKey("aUserKey");
         systemMessageManager.startSocket();
         assertEquals(1 , messageList.size());
         assertEquals("Hallo du da im Radio!", messageList.get(0));

@@ -1,26 +1,33 @@
 package de.uniks.se19.team_g.project_rbsg;
 
+import de.uniks.se19.team_g.project_rbsg.bots.UserContext;
+import de.uniks.se19.team_g.project_rbsg.bots.UserContextHolder;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketConfigurator;
+import de.uniks.se19.team_g.project_rbsg.scene.DefaultExceptionHandler;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneConfiguration;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
 import de.uniks.se19.team_g.project_rbsg.termination.Terminator;
 import io.rincl.*;
 import io.rincl.resourcebundle.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.beans.property.Property;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
+
+import static de.uniks.se19.team_g.project_rbsg.scene.SceneManager.SceneIdentifier.*;
 
 /**
  * @author Jan Müller
@@ -42,6 +49,10 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
      */
     @Override
     public void init() {
+
+        // set a default context. this is inherited by all child threads, unless overwritten in it
+        UserContextHolder.setContext(new UserContext());
+
         ApplicationContextInitializer<AnnotationConfigApplicationContext> contextInitializer = applicationContext -> {
             applicationContext.registerBean(Parameters.class, this::getParameters);
             applicationContext.registerBean(HostServices.class, this::getHostServices);
@@ -55,25 +66,46 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
                 .initializers(contextInitializer)
                 .web(WebApplicationType.NONE)
                 .run(getParameters().getRaw().toArray(new String[0]));
+
+        WebSocketConfigurator.userProvider = context.getBean(UserProvider.class);
     }
 
 
     @Override
-    public void start(@NotNull final Stage primaryStage) throws IOException {
+    public void start(@NotNull final Stage primaryStage) {
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
+        primaryStage.setResizable(false);
 
-        Rincl.setLocale(Locale.ENGLISH);
+        @SuppressWarnings("unchecked") final Property<Locale> selectedLocale = (Property<Locale>) context.getBean("selectedLocale");
+        Objects.requireNonNull(selectedLocale).setValue(Locale.ENGLISH);
+
+        setupMusic();
+
+        final AlertBuilder alertBuilder = context.getBean(AlertBuilder.class);
+
+        primaryStage.setOnCloseRequest(event -> {
+            event.consume();
+            alertBuilder
+                    .confirmation(
+                            AlertBuilder.Text.EXIT,
+                            Platform::exit,
+                            null);
+        });
+
 
         context.getBean(SceneManager.class)
                 .init(primaryStage)
-                .setStartScene();
-
-        context.getBean(MusicManager.class).initMusic();
-
-        primaryStage.setOnCloseRequest(event -> showCloseDialog(event, primaryStage.getTitle()));
+                .withExceptionHandler(context.getBean(DefaultExceptionHandler.class))
+                .setScene(SceneConfiguration.of(LOGIN));
 
         primaryStage.show();
+    }
+
+    protected void setupMusic() {
+        MusicManager musicManager = context.getBean(MusicManager.class).init();
+        boolean musicOnStartUp = context.getEnvironment().getProperty("defaults.music_enabled", Boolean.class, true);
+        musicManager.setMusicRunning(musicOnStartUp);
     }
 
     @Override
@@ -81,20 +113,5 @@ public class ProjectRbsgFXApplication extends Application implements Rincled {
         context.getBean(Terminator.class)
                 .terminate();
         this.context.close();
-        Platform.exit();
-    }
-
-    //TODO add stylesheet
-    private void showCloseDialog(@NonNull final WindowEvent event, @NonNull final String alertTitle) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(alertTitle);
-        alert.setHeaderText(getResources().getString("closeDialoge"));
-        alert.showAndWait();
-
-        if (alert.getResult().equals(ButtonType.OK)) {
-            //let event propagate and close
-        } else {
-            event.consume();
-        }
     }
 }

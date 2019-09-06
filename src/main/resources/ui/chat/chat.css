@@ -1,15 +1,10 @@
 * {
-    -fx-focus-color: transparent; /*temporary until general css is ready*/
-    -fx-faint-focus-color: transparent; /*temporary until general css is ready*/
-
-    -fx-text-fill: #FFF;
+    -fx-text-fill: -on-primary-fill;
 }
 
 .tab-pane {
-    -fx-background-color: rgba(18,18,18,0.8);
-
+    -fx-background-color: -root-background-color;
     -fx-border-width: 0;
-
     -fx-padding: 0;
     -fx-tab-min-width: 100;
 }
@@ -19,6 +14,7 @@
     -fx-border-width: 0;
     -fx-padding: 0;
 }
+
 .tab-pane .tab-header-area {
     -fx-padding: 0;
 }
@@ -29,25 +25,23 @@
 
 .tab {
     -fx-background-color: transparent;
-
     -fx-background-radius: 0;
-
-    /*-fx-border-color: #03DAC5;*/
-    -fx-border-color: #666666;
-
+    -fx-border-color: -surface-elevation-8-color;
     -fx-border-width: 3 0 0 0;
-
     -fx-focus-traversable: false;
-
     -fx-padding: 4;
 }
 
 .tab:selected {
-    -fx-border-color: #BB86FC;
+    -fx-border-color: -primary-lighter-background-color;
 }
 
 .tab .tab-close-button {
-    -fx-background-color: red;
+    -fx-background-color: -error-background-color;
+}
+
+.tab .tab-close-button:hover {
+    -fx-background-color: -primary-lighter-background-color;
 }
 
 .tab-label {
@@ -57,26 +51,26 @@
 
 .messageArea,
 .messageArea * {
-    -fx-text-fill: #fff; /*temporary until general css is ready*/
-
     -fx-background-color: transparent;
     -fx-background-radius: 0;
     -fx-padding: 2;
 }
+.messageArea:background {
+    -fx-text-fill: -on-primary-fill;
+}
 
 .scroll-bar .thumb {
-    -fx-background-color: #424242;
+    -fx-background-color: -surface-elevation-8-color;
 }
 
 .inputField {
-    -fx-background-color: rgba(255, 255, 255, 0.09);
+    -fx-background-color: -surface-elevation-8-color;
     -fx-background-radius: 0;
-
     -fx-padding: 6;
 }
 
 .inputField:disabled {
-    -fx-background-color: rgba(255, 100, 100, 0.8);
+    -fx-background-color: -disabled-background-color;
 }
 
 .chatChannelContainer {

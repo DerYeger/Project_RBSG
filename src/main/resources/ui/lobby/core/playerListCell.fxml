@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="playerListCellGridPane" maxHeight="40" styleClass="playerCell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="playerListCellGridPane" maxHeight="40" styleClass="player-cell" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" prefWidth="40.0" />
         <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
@@ -16,7 +16,11 @@
         <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
     </rowConstraints>
    <children>
-       <Label fx:id="playerListCellLabel" text="Label" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+       <Label fx:id="playerListCellLabel" styleClass="default" text="Label" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
        <ImageView fx:id="playerListCellImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
    </children>
+   <stylesheets>
+      <URL value="@lobbyView.css" />
+      <URL value="@../../darkTheme.css" />
+   </stylesheets>
 </GridPane>

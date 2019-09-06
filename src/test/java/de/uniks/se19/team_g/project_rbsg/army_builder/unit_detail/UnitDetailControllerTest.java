@@ -2,7 +2,9 @@ package de.uniks.se19.team_g.project_rbsg.army_builder.unit_detail;
 
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderConfig;
 import de.uniks.se19.team_g.project_rbsg.army_builder.ArmyBuilderState;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
 import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
 import de.uniks.se19.team_g.project_rbsg.model.Unit;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +29,8 @@ import java.io.IOException;
         UnitDetailController.class,
         UnitPropertyController.class,
         ArmyBuilderConfig.class,
+        LocaleConfig.class,
+        ApplicationState.class
 })
 public class UnitDetailControllerTest extends ApplicationTest {
 
@@ -80,28 +84,11 @@ public class UnitDetailControllerTest extends ApplicationTest {
                 lookup(".unitPropertyContainer").nth(0).lookup(".label").<Label>query().getText()
         );
         Assert.assertEquals(
-                String.valueOf(unit1.physicalResistance.get()),
+                String.valueOf(unit1.speed.get()),
                 lookup(".unitPropertyContainer").nth(1).lookup(".label").<Label>query().getText()
         );
         Assert.assertEquals(
-                String.valueOf(unit1.magicResistance.get()),
-                lookup(".unitPropertyContainer").nth(2).lookup(".label").<Label>query().getText()
-        );
-        Assert.assertEquals(
-                String.valueOf(unit1.speed.get()),
-                lookup(".unitPropertyContainer").nth(3).lookup(".label").<Label>query().getText()
-        );
-        Assert.assertEquals(
-                String.valueOf(unit1.attack.get()),
-                lookup(".unitPropertyContainer").nth(4).lookup(".label").<Label>query().getText()
-        );
-        Assert.assertEquals(
-                String.valueOf(unit1.spellPower.get()),
-                lookup(".unitPropertyContainer").nth(5).lookup(".label").<Label>query().getText()
-        );
-        Assert.assertEquals(
-                unit1.description.get(),
-                lookup(".unitPropertyContainer.text-area").<TextArea>query().getText()
+                4, lookup(".unitPropertyContainer").queryAll().size()
         );
 
         Platform.runLater(() -> state.selectedUnit.set(unit2));
@@ -109,12 +96,8 @@ public class UnitDetailControllerTest extends ApplicationTest {
 
 
         Assert.assertEquals(
-                String.valueOf(unit2.physicalResistance.get()),
+                String.valueOf(unit2.speed.get()),
                 lookup(".unitPropertyContainer").nth(1).lookup(".label").<Label>query().getText()
-        );
-        Assert.assertEquals(
-                unit2.description.get(),
-                lookup(".unitPropertyContainer.text-area").<TextArea>query().getText()
         );
 
         final String noCake = "there is no cake";
@@ -126,12 +109,8 @@ public class UnitDetailControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(
-                String.valueOf(unit2.physicalResistance.get()),
+                String.valueOf(unit2.speed.get()),
                 lookup(".unitPropertyContainer").nth(1).lookup(".label").<Label>query().getText()
-        );
-        Assert.assertEquals(
-                noCake,
-                lookup(".unitPropertyContainer.text-area").<TextArea>query().getText()
         );
 
 
@@ -139,9 +118,8 @@ public class UnitDetailControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
         Assert.assertEquals(
-                1,
+                4,
                 lookup(".unitPropertyContainer").queryAll().size()
         );
-        Assert.assertNull(lookup(".unitPropertyContainer").<TextArea>query().getText());
     }
 }

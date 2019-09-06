@@ -1,0 +1,15 @@
+.unitInfoContainer {
+    -fx-padding: 5px;
+    -fx-pref-width: 200px;
+    -fx-spacing: 2px;
+}
+
+
+.propertyContainer {
+    -fx-spacing: 2px;
+    -fx-alignment: center;
+}
+
+.hpBox {
+    -fx-pref-height: 40px;
+}

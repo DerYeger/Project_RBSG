@@ -1,40 +1,61 @@
 package de.uniks.se19.team_g.project_rbsg.lobby.core.ui;
 
-import de.uniks.se19.team_g.project_rbsg.*;
+import de.uniks.se19.team_g.project_rbsg.MusicManager;
+import de.uniks.se19.team_g.project_rbsg.scene.SceneManager;
+import de.uniks.se19.team_g.project_rbsg.scene.ViewComponent;
+import de.uniks.se19.team_g.project_rbsg.overlay.alert.AlertBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatClient;
+import de.uniks.se19.team_g.project_rbsg.chat.ChatController;
 import de.uniks.se19.team_g.project_rbsg.chat.command.ChatCommandManager;
-import de.uniks.se19.team_g.project_rbsg.configuration.*;
-import de.uniks.se19.team_g.project_rbsg.chat.*;
-import de.uniks.se19.team_g.project_rbsg.chat.ui.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.core.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.game.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.model.*;
-import de.uniks.se19.team_g.project_rbsg.lobby.system.*;
-import de.uniks.se19.team_g.project_rbsg.model.*;
-import de.uniks.se19.team_g.project_rbsg.server.rest.*;
-import de.uniks.se19.team_g.project_rbsg.server.websocket.*;
-import io.rincl.*;
-import io.rincl.resourcebundle.*;
-import javafx.fxml.*;
-import javafx.scene.*;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatBuilder;
+import de.uniks.se19.team_g.project_rbsg.chat.ui.ChatTabManager;
+import de.uniks.se19.team_g.project_rbsg.configuration.ApplicationState;
+import de.uniks.se19.team_g.project_rbsg.configuration.FXMLLoaderFactory;
+import de.uniks.se19.team_g.project_rbsg.configuration.LocaleConfig;
+import de.uniks.se19.team_g.project_rbsg.configuration.SceneManagerConfig;
+import de.uniks.se19.team_g.project_rbsg.lobby.chat.LobbyChatClient;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.EmailManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.core.PlayerManager;
+import de.uniks.se19.team_g.project_rbsg.overlay.credits.CreditsBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.CreateGameFormBuilder;
+import de.uniks.se19.team_g.project_rbsg.lobby.game.GameManager;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Lobby;
+import de.uniks.se19.team_g.project_rbsg.lobby.model.Player;
+import de.uniks.se19.team_g.project_rbsg.lobby.system.SystemMessageManager;
+import de.uniks.se19.team_g.project_rbsg.model.Game;
+import de.uniks.se19.team_g.project_rbsg.model.GameProvider;
+import de.uniks.se19.team_g.project_rbsg.model.UserProvider;
+import de.uniks.se19.team_g.project_rbsg.overlay.menu.MenuBuilder;
+import de.uniks.se19.team_g.project_rbsg.server.rest.DefaultLogoutManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.JoinGameManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.LogoutManager;
+import de.uniks.se19.team_g.project_rbsg.server.rest.RESTClient;
+import de.uniks.se19.team_g.project_rbsg.server.websocket.WebSocketClient;
+import io.rincl.Rincl;
+import io.rincl.resourcebundle.ResourceBundleResourceI18nConcern;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.*;
-import org.junit.*;
-import org.junit.runner.*;
-import org.springframework.beans.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.context.*;
-import org.springframework.context.annotation.*;
-import org.springframework.lang.*;
-import org.springframework.test.context.*;
-import org.springframework.test.context.junit4.*;
-import org.springframework.web.client.*;
-import org.testfx.framework.junit.*;
+import javafx.stage.Stage;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.lang.NonNull;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
+import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,15 +66,18 @@ import static org.junit.Assert.*;
         UserProvider.class,
         SceneManager.class,
         JoinGameManager.class,
-        CreateGameFormBuilder.class,
-        CreateGameController.class,
-        LobbyViewBuilder.class,
         LobbyViewController.class,
         FXMLLoaderFactory.class,
         MusicManager.class,
         ApplicationState.class,
-        }
-)
+        SceneManagerConfig.class,
+        GameListViewCell.class,
+        AlertBuilder.class,
+        LocaleConfig.class,
+        GameListViewCell.class,
+        MenuBuilder.class,
+        EmailManager.class
+})
 public class PlayerLeftGameListTest extends ApplicationTest
 {
     @Autowired
@@ -62,15 +86,18 @@ public class PlayerLeftGameListTest extends ApplicationTest
     private Lobby lobby;
 
     @TestConfiguration
-    public static class ContextConfiguration implements ApplicationContextAware{
-        private ApplicationContext context;
+    public static class ContextConfiguration {
 
         @Bean
-        @Scope("prototype")
-        public FXMLLoader fxmlLoader() {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setControllerFactory(this.context::getBean);
-            return loader;
+        public CreateGameFormBuilder createGameController()
+        {
+            return Mockito.mock(CreateGameFormBuilder.class);
+        }
+
+        @Bean
+        public CreditsBuilder creditsFormBuilder()
+        {
+            return Mockito.mock(CreditsBuilder.class);
         }
 
         @Bean
@@ -87,7 +114,7 @@ public class PlayerLeftGameListTest extends ApplicationTest
                 public Collection<Game> getGames()
                 {
                     ArrayList<Game> games = new ArrayList<>();
-                    games.add(new Game("1", "game1", 4, 2));
+                    games.add(new Game("1", "game1", 4, 4));
                     return games;
                 }
             };
@@ -136,41 +163,42 @@ public class PlayerLeftGameListTest extends ApplicationTest
                 }
             };
         }
-
-        @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
-        {
-            this.context = applicationContext;
-        }
     }
 
     @Override
     public void start(Stage stage) {
         Rincl.setDefaultResourceI18nConcern(new ResourceBundleResourceI18nConcern());
-        LobbyViewBuilder lobbyViewBuilder = context.getBean(LobbyViewBuilder.class);
 
-        Parent parent = (Parent) lobbyViewBuilder.buildLobbyScene();
+        @SuppressWarnings("unchecked")
+        ViewComponent<LobbyViewController> components = (ViewComponent<LobbyViewController>) context.getBean("lobbyScene");
+
+        Parent parent = components.getRoot();
         Scene scene = new Scene(parent, 1200, 840);
         stage.setScene(scene);
         stage.show();
         stage.toFront();
 
-        lobby = lobbyViewBuilder.getLobbyViewController().getLobby();
+        lobby = components.getController().getLobby();
     }
 
     @Test
     public void TestGameList() throws IOException
     {
         Label playersLabel = lookup("#gameCellPlayersLabelgame1").query();
-        assertEquals("2/4", playersLabel.textProperty().get());
+        Button gameButton = lookup("#joinGameButtongame1").queryButton();
+
+        assertThat(gameButton, notNullValue());
+        assertThat(playersLabel.textProperty().get(), is("4/4"));
+        assertThat(gameButton.isDisable(), is(true));
 
         assertNotNull(lobby);
         Game gameOne = lobby.getGameOverId("1");
         assertNotNull(gameOne);
-        gameOne.setJoinedPlayer(1);
+        gameOne.setJoinedPlayer(3);
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertEquals("1/4", playersLabel.textProperty().get());
+        assertThat(playersLabel.textProperty().get(), is("3/4"));
+        assertThat(gameButton.isDisable(), is(false));
 
     }
 }
