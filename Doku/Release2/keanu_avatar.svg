@@ -1,0 +1,17 @@
+<svg id="bull" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <style>
+    .st3{fill:#fff}.st4{fill:#79e2f2}.st5{fill:#2b5184}
+  </style>
+  <g id="color_x5F_bg">
+    <path id="XMLID_10_" d="M60 120C27 120 0 93 0 60S27 0 60 0s60 27 60 60-27 60-60 60z" fill="#6554c0"/>
+  </g>
+  <path id="XMLID_9_" d="M79 94.5H41c-7 0-12.5-5.5-12.5-12.5V32c0-5.5 6-8 10-5l2.5 2h37.5l2.5-2c4-3 10 0 10 5v50c0 7-5.5 12.5-12 12.5z" fill="#00c7e5"/>
+  <path d="M70.5 74.5L62 83c-1.5 1.5-3.5 1.5-4.5 0L49 74.5l11-11 10.5 11z" fill="#ffab00"/>
+  <circle id="XMLID_7_" class="st3" cx="42.5" cy="61" r="20"/>
+  <circle id="XMLID_6_" class="st3" cx="77.5" cy="61" r="20"/>
+  <circle id="XMLID_5_" class="st4" cx="42.5" cy="61" r="12"/>
+  <circle id="XMLID_4_" class="st5" cx="42.5" cy="61" r="4"/>
+  <circle id="XMLID_3_" class="st4" cx="77.5" cy="61" r="12"/>
+  <circle id="XMLID_2_" class="st5" cx="77.5" cy="61" r="4"/>
+  <path id="XMLID_1_" d="M41 29c11 9 26.5 9 37.5 0H41z" fill="#00a3bf"/>
+</svg>

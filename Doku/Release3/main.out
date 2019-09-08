@@ -1,0 +1,115 @@
+\BOOKMARK [1][-]{section.1}{Vorwort}{}% 1
+\BOOKMARK [1][-]{section.2}{Release iii}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Releaseanforderungen}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Standpunkt des letzten Releases}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Login}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Lobby}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Army Manager}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.4}{Warteraum}{subsection.2.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.5}{Ingame}{subsection.2.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.2.6}{Weitere Features}{subsection.2.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Mockups}{section.2}% 11
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Lobby}{subsection.2.3}% 12
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Warteraum}{subsection.2.3}% 13
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Ingame}{subsection.2.3}% 14
+\BOOKMARK [4][-]{subsubsubsection.2.3.3.1}{Einheit ausw\344hlen}{subsubsection.2.3.3}% 15
+\BOOKMARK [4][-]{subsubsubsection.2.3.3.2}{Einheit bewegen}{subsubsection.2.3.3}% 16
+\BOOKMARK [4][-]{subsubsubsection.2.3.3.3}{Einheit angreifen}{subsubsection.2.3.3}% 17
+\BOOKMARK [4][-]{subsubsubsection.2.3.3.4}{Spielende}{subsubsection.2.3.3}% 18
+\BOOKMARK [4][-]{subsubsubsection.2.3.3.5}{Weitere Features}{subsubsection.2.3.3}% 19
+\BOOKMARK [2][-]{subsection.2.4}{Domain Stories}{section.2}% 20
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Spielstart}{subsection.2.4}% 21
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Bewegung}{subsection.2.4}% 22
+\BOOKMARK [1][-]{section.3}{Sprint v}{}% 23
+\BOOKMARK [2][-]{subsection.3.1}{Sprintziele}{section.3}% 24
+\BOOKMARK [2][-]{subsection.3.2}{User Stories}{section.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Warteraum - Spielbeitritt anpassen}{subsection.3.2}% 26
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Ingame - Spielfeld}{subsection.3.2}% 27
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Ingame - Phase beenden}{subsection.3.2}% 28
+\BOOKMARK [3][-]{subsubsection.3.2.4}{Ingame - Einheit ausw\344hlen}{subsection.3.2}% 29
+\BOOKMARK [3][-]{subsubsection.3.2.5}{Ingame - Einheit bewegen}{subsection.3.2}% 30
+\BOOKMARK [3][-]{subsubsection.3.2.6}{Ingame - Einheit angreifen}{subsection.3.2}% 31
+\BOOKMARK [3][-]{subsubsection.3.2.7}{Ingame - Spielstatus anzeigen}{subsection.3.2}% 32
+\BOOKMARK [3][-]{subsubsection.3.2.8}{Ingame - Minikarte anzeigen}{subsection.3.2}% 33
+\BOOKMARK [3][-]{subsubsection.3.2.9}{Ingame - Chatintegration}{subsection.3.2}% 34
+\BOOKMARK [3][-]{subsubsection.3.2.10}{Ingame - Game Over}{subsection.3.2}% 35
+\BOOKMARK [3][-]{subsubsection.3.2.11}{Ingame - Game Won}{subsection.3.2}% 36
+\BOOKMARK [3][-]{subsubsection.3.2.12}{Ingame - Spectator Over}{subsection.3.2}% 37
+\BOOKMARK [3][-]{subsubsection.3.2.13}{Lobby - Spectating}{subsection.3.2}% 38
+\BOOKMARK [3][-]{subsubsection.3.2.14}{Ingame - Spectating}{subsection.3.2}% 39
+\BOOKMARK [3][-]{subsubsection.3.2.15}{Ingame - Einheiteninformationen}{subsection.3.2}% 40
+\BOOKMARK [3][-]{subsubsection.3.2.16}{Ingame - Musiksteuerung}{subsection.3.2}% 41
+\BOOKMARK [2][-]{subsection.3.3}{Tasks}{section.3}% 42
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Servernachrichten}{subsection.3.3}% 43
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Einheiteninformationen im Datenmodell}{subsection.3.3}% 44
+\BOOKMARK [2][-]{subsection.3.4}{Zeit\374bersicht}{section.3}% 45
+\BOOKMARK [2][-]{subsection.3.5}{Analyse}{section.3}% 46
+\BOOKMARK [3][-]{subsubsection.3.5.1}{Burndown}{subsection.3.5}% 47
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Abgeschlossene Stories}{subsection.3.5}% 48
+\BOOKMARK [3][-]{subsubsection.3.5.3}{Angefangene Stories}{subsection.3.5}% 49
+\BOOKMARK [3][-]{subsubsection.3.5.4}{Nicht abgeschlossene Stories/Tasks}{subsection.3.5}% 50
+\BOOKMARK [3][-]{subsubsection.3.5.5}{Fazit}{subsection.3.5}% 51
+\BOOKMARK [1][-]{section.4}{Sprint vi}{}% 52
+\BOOKMARK [2][-]{subsection.4.1}{Sprintziele}{section.4}% 53
+\BOOKMARK [2][-]{subsection.4.2}{Ge\344nderte User Stories vom Sprint v}{section.4}% 54
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Ingame - Minikarte anzeigen}{subsection.4.2}% 55
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Ingame - Einheiteninformationen}{subsection.4.2}% 56
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Ingame - Game Over}{subsection.4.2}% 57
+\BOOKMARK [3][-]{subsubsection.4.2.4}{Ingame - Game Won}{subsection.4.2}% 58
+\BOOKMARK [3][-]{subsubsection.4.2.5}{Ingame - Spectator Over}{subsection.4.2}% 59
+\BOOKMARK [2][-]{subsection.4.3}{\334bernommene User Stories aus Sprint v}{section.4}% 60
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Ingame - Einheit ausw\344hlen}{subsection.4.3}% 61
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Ingame - Einheit bewegen}{subsection.4.3}% 62
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Ingame - Einheit angreifen}{subsection.4.3}% 63
+\BOOKMARK [3][-]{subsubsection.4.3.4}{Ingame - Spielstatus anzeigen}{subsection.4.3}% 64
+\BOOKMARK [3][-]{subsubsection.4.3.5}{Ingame - Chatintegration}{subsection.4.3}% 65
+\BOOKMARK [3][-]{subsubsection.4.3.6}{Lobby - Spectating}{subsection.4.3}% 66
+\BOOKMARK [3][-]{subsubsection.4.3.7}{Ingame - Spectating}{subsection.4.3}% 67
+\BOOKMARK [3][-]{subsubsection.4.3.8}{Ingame - Musiksteuerung}{subsection.4.3}% 68
+\BOOKMARK [2][-]{subsection.4.4}{User Stories}{section.4}% 69
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Ingame - Einheit bewegen nach Bewegung}{subsection.4.4}% 70
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Ingame - Einheit ausw\344hlen - Angriffsphase}{subsection.4.4}% 71
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Ingame - Einheit ausw\344hlen - Bewegungsphase}{subsection.4.4}% 72
+\BOOKMARK [2][-]{subsection.4.5}{Ge\344nderte Tasks vom Sprint v}{section.4}% 73
+\BOOKMARK [3][-]{subsubsection.4.5.1}{Einheiteninformationen im Datenmodell}{subsection.4.5}% 74
+\BOOKMARK [2][-]{subsection.4.6}{\334bernommene Tasks aus Sprint v}{section.4}% 75
+\BOOKMARK [3][-]{subsubsection.4.6.1}{Servernachrichten}{subsection.4.6}% 76
+\BOOKMARK [2][-]{subsection.4.7}{Tasks}{section.4}% 77
+\BOOKMARK [3][-]{subsubsection.4.7.1}{Warteraum - Armeeauswahlbox anpassen}{subsection.4.7}% 78
+\BOOKMARK [3][-]{subsubsection.4.7.2}{Ingame - Best\344tigungsbox in der Sidebar}{subsection.4.7}% 79
+\BOOKMARK [3][-]{subsubsection.4.7.3}{Spectating - REST Anfrage}{subsection.4.7}% 80
+\BOOKMARK [3][-]{subsubsection.4.7.4}{Default-Buttons setzen}{subsection.4.7}% 81
+\BOOKMARK [3][-]{subsubsection.4.7.5}{Ingame - Nicht ausw\344hlbar - Angriffsphase}{subsection.4.7}% 82
+\BOOKMARK [2][-]{subsection.4.8}{Bugs}{section.4}% 83
+\BOOKMARK [3][-]{subsubsection.4.8.1}{Terminierung sicherstellen}{subsection.4.8}% 84
+\BOOKMARK [3][-]{subsubsection.4.8.2}{Ingame - Einheit mehrmals ausw\344hlen}{subsection.4.8}% 85
+\BOOKMARK [3][-]{subsubsection.4.8.3}{Spectating - Automatischer Wechsel zum Spielfeld}{subsection.4.8}% 86
+\BOOKMARK [3][-]{subsubsection.4.8.4}{Lobby - Spielbeitritt blockieren}{subsection.4.8}% 87
+\BOOKMARK [3][-]{subsubsection.4.8.5}{RunLoop bei \304nderungen im Spiel}{subsection.4.8}% 88
+\BOOKMARK [3][-]{subsubsection.4.8.6}{CSS Fehler}{subsection.4.8}% 89
+\BOOKMARK [2][-]{subsection.4.9}{Zeit\374bersicht}{section.4}% 90
+\BOOKMARK [2][-]{subsection.4.10}{Analyse}{section.4}% 91
+\BOOKMARK [3][-]{subsubsection.4.10.1}{Burndown}{subsection.4.10}% 92
+\BOOKMARK [3][-]{subsubsection.4.10.2}{Abgeschlossene Stories}{subsection.4.10}% 93
+\BOOKMARK [3][-]{subsubsection.4.10.3}{Abgeschlossene Tasks}{subsection.4.10}% 94
+\BOOKMARK [3][-]{subsubsection.4.10.4}{Behobene Bugs}{subsection.4.10}% 95
+\BOOKMARK [3][-]{subsubsection.4.10.5}{Angefangene Bugtasks}{subsection.4.10}% 96
+\BOOKMARK [3][-]{subsubsection.4.10.6}{Fazit}{subsection.4.10}% 97
+\BOOKMARK [1][-]{section.5}{Abschluss Release iii}{}% 98
+\BOOKMARK [2][-]{subsection.5.1}{Lobby}{section.5}% 99
+\BOOKMARK [2][-]{subsection.5.2}{Warteraum}{section.5}% 100
+\BOOKMARK [2][-]{subsection.5.3}{Ingame}{section.5}% 101
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Einheit ausw\344hlen}{subsection.5.3}% 102
+\BOOKMARK [4][-]{subsubsubsection.5.3.1.1}{Phase 1 - Bewegungsphase}{subsubsection.5.3.1}% 103
+\BOOKMARK [4][-]{subsubsubsection.5.3.1.2}{Phase 2 - Angriffsphase}{subsubsection.5.3.1}% 104
+\BOOKMARK [4][-]{subsubsubsection.5.3.1.3}{Phase 3 - Bewegungsphase}{subsubsection.5.3.1}% 105
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Einheit bewegen und angreifen}{subsection.5.3}% 106
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Spielende}{subsection.5.3}% 107
+\BOOKMARK [4][-]{subsubsubsection.5.3.3.1}{Spiel gewonnen}{subsubsection.5.3.3}% 108
+\BOOKMARK [4][-]{subsubsubsection.5.3.3.2}{Spiel verloren}{subsubsection.5.3.3}% 109
+\BOOKMARK [4][-]{subsubsubsection.5.3.3.3}{Beobachtungsmodus Ende}{subsubsection.5.3.3}% 110
+\BOOKMARK [3][-]{subsubsection.5.3.4}{Weitere Features}{subsection.5.3}% 111
+\BOOKMARK [4][-]{subsubsubsection.5.3.4.1}{Phasenende}{subsubsection.5.3.4}% 112
+\BOOKMARK [4][-]{subsubsubsection.5.3.4.2}{Weitere neue Features}{subsubsection.5.3.4}% 113
+\BOOKMARK [2][-]{subsection.5.4}{Fazit}{section.5}% 114
+\BOOKMARK [1][-]{section.6}{Quellenangaben}{}% 115

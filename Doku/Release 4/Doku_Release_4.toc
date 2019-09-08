@@ -1,0 +1,37 @@
+\babel@toc {ngerman}{}
+\contentsline {section}{\numberline {1}Ziel der Dokumentation}{1}
+\contentsline {section}{\numberline {2}Das Projekt RBSG}{1}
+\contentsline {section}{\numberline {3}Stand zum Ende des dritten Releases}{1}
+\contentsline {subsection}{\numberline {3.1}Login}{2}
+\contentsline {subsection}{\numberline {3.2}Lobby}{2}
+\contentsline {subsection}{\numberline {3.3}Armeemanager}{3}
+\contentsline {subsection}{\numberline {3.4}Warteraum}{4}
+\contentsline {subsection}{\numberline {3.5}Ingame}{5}
+\contentsline {section}{\numberline {4}Das Release 4}{6}
+\contentsline {section}{\numberline {5}Anforderung im vierten Release}{7}
+\contentsline {section}{\numberline {6}Sprint 7}{7}
+\contentsline {subsection}{\numberline {6.1}Sprintziel}{7}
+\contentsline {subsection}{\numberline {6.2}Zeit\"ubersicht}{7}
+\contentsline {subsection}{\numberline {6.3}Analyse des 7. Sprints}{8}
+\contentsline {subsubsection}{\numberline {6.3.1}Burndown-Diagramm}{9}
+\contentsline {subsubsection}{\numberline {6.3.2}Ausrei\IeC {\ss }er}{9}
+\contentsline {subsubsection}{\numberline {6.3.3}Abgeschlossene Vorg\"ange}{9}
+\contentsline {subsubsection}{\numberline {6.3.4}Nicht abgeschlossene Vorg\"ange}{10}
+\contentsline {subsubsection}{\numberline {6.3.5}Entfernte Vorg\"ange}{11}
+\contentsline {subsubsection}{\numberline {6.3.6}Fazit}{11}
+\contentsline {section}{\numberline {7}Sprint 8}{11}
+\contentsline {subsection}{\numberline {7.1}Sprintziel}{11}
+\contentsline {subsection}{\numberline {7.2}Zeit\"ubersicht}{11}
+\contentsline {subsection}{\numberline {7.3}Analyse des 8. Sprint}{13}
+\contentsline {subsubsection}{\numberline {7.3.1}Burndown-Diagramm}{13}
+\contentsline {subsubsection}{\numberline {7.3.2}Ausrei\IeC {\ss }er}{13}
+\contentsline {subsubsection}{\numberline {7.3.3}Abgeschlossene Vorg\"ange}{13}
+\contentsline {subsubsection}{\numberline {7.3.4}Nicht abgeschlossene Vorg\"ange}{14}
+\contentsline {subsubsection}{\numberline {7.3.5}Fazit}{15}
+\contentsline {section}{\numberline {8}Abschluss des 4. Releases}{15}
+\contentsline {subsection}{\numberline {8.1}Login}{15}
+\contentsline {subsection}{\numberline {8.2}Lobby}{16}
+\contentsline {subsection}{\numberline {8.3}Armeemanger}{18}
+\contentsline {subsection}{\numberline {8.4}Warteraum}{20}
+\contentsline {subsection}{\numberline {8.5}Ingame}{23}
+\contentsline {section}{\numberline {9}Danksagung}{26}

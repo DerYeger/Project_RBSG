@@ -1,6 +1,7 @@
 package de.uniks.se19.team_g.project_rbsg.ingame.model;
 
 import de.uniks.se19.team_g.project_rbsg.ingame.battlefield.uiModel.Tile;
+import de.uniks.se19.team_g.project_rbsg.ingame.model.util.DijkstraKt;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableBooleanValue;
@@ -9,6 +10,7 @@ import org.springframework.lang.NonNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -235,8 +237,7 @@ public class Cell implements Hoverable, Selectable {
         setUnit(null);
     }
 
-
-    public boolean isIsReachable() {
+    public boolean isReachable() {
         return isReachable.get();
     }
 
@@ -333,17 +334,28 @@ public class Cell implements Hoverable, Selectable {
         ;
     }
 
+    private ArrayList<Cell> neighbors;
+
     public ArrayList<Cell> getNeighbors() {
-        return Stream
-                .of(getRight(), getBottom(), getLeft(), getTop())
-                .filter(Objects::nonNull)
-                .collect(Collectors.toCollection(ArrayList::new));
+        if (neighbors == null) {
+            neighbors = Stream
+                    .of(getRight(), getBottom(), getLeft(), getTop())
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+        return neighbors;
     }
 
-    //TODO replace with actual remaining path distance
-    public double getDistance(@NonNull final Cell other) {
-        return Math.sqrt(
-                Math.pow(this.getX() - other.getX(), 2)
-                        + Math.pow(this.getY() - other.getY(), 2));
+    private final HashMap<Cell, Integer> distanceMap = new HashMap<>();
+
+    public int getDistance(@NonNull final Cell other) {
+        if (distanceMap.containsKey(other))
+            return distanceMap.get(other);
+
+        final int distance = DijkstraKt.distance(this, other);
+        this.distanceMap.put(other, distance);
+        other.distanceMap.put(this, distance);
+
+        return distance;
     }
 }
